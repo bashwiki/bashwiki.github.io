@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: http://gc-na.github.io/sitemap.xml
