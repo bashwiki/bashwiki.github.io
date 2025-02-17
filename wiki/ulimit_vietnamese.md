@@ -1,43 +1,49 @@
-# [리눅스] Bash ulimit 사용법
+# [Linux] Bash ulimit: Quản lý giới hạn tài nguyên hệ thống
 
-## Tổng quan
-Lệnh `ulimit` trong Bash được sử dụng để giới hạn tài nguyên mà một tiến trình có thể sử dụng. Mục đích chính của lệnh này là để bảo vệ hệ thống khỏi việc sử dụng quá mức tài nguyên, như bộ nhớ hoặc số lượng tệp mở, từ các tiến trình không kiểm soát. `ulimit` cho phép người dùng thiết lập các giới hạn cho các tài nguyên khác nhau, giúp duy trì hiệu suất và ổn định cho hệ thống.
+## Overview
+Lệnh `ulimit` trong Bash được sử dụng để quản lý các giới hạn tài nguyên mà một người dùng hoặc một tiến trình có thể sử dụng trong hệ thống. Điều này giúp bảo vệ hệ thống khỏi việc sử dụng quá mức tài nguyên, như bộ nhớ hoặc số lượng tiến trình.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `ulimit` như sau:
 
 ```bash
-ulimit [options] [limit]
+ulimit [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
+## Common Options
 - `-a`: Hiển thị tất cả các giới hạn hiện tại.
-- `-c`: Giới hạn kích thước tệp core dump (kích thước tối đa của tệp core dump).
-- `-d`: Giới hạn kích thước vùng dữ liệu (data segment).
-- `-f`: Giới hạn kích thước tệp tối đa có thể tạo.
-- `-l`: Giới hạn kích thước bộ nhớ có thể được khóa.
-- `-m`: Giới hạn kích thước bộ nhớ vật lý tối đa.
-- `-n`: Giới hạn số lượng tệp mở tối đa.
-- `-s`: Giới hạn kích thước ngăn xếp (stack size).
-- `-t`: Giới hạn thời gian CPU tối đa (tính bằng giây).
-- `-v`: Giới hạn kích thước vùng ảo tối đa.
+- `-c`: Đặt hoặc hiển thị kích thước tối đa của file core dump.
+- `-d`: Đặt hoặc hiển thị kích thước tối đa của bộ nhớ dữ liệu.
+- `-f`: Đặt hoặc hiển thị kích thước tối đa của file.
+- `-l`: Đặt hoặc hiển thị kích thước tối đa của bộ nhớ có thể được khóa.
+- `-m`: Đặt hoặc hiển thị kích thước tối đa của bộ nhớ vật lý.
+- `-n`: Đặt hoặc hiển thị số lượng file tối đa mà một tiến trình có thể mở.
+- `-s`: Đặt hoặc hiển thị kích thước tối đa của stack.
+- `-t`: Đặt hoặc hiển thị thời gian tối đa cho một tiến trình.
+- `-u`: Đặt hoặc hiển thị số lượng tiến trình tối đa mà một người dùng có thể tạo ra.
 
-## Ví dụ
-### Ví dụ 1: Hiển thị tất cả các giới hạn hiện tại
-Để xem tất cả các giới hạn tài nguyên hiện tại, bạn có thể sử dụng lệnh sau:
+## Common Examples
+- Hiển thị tất cả các giới hạn hiện tại:
+    ```bash
+    ulimit -a
+    ```
 
-```bash
-ulimit -a
-```
+- Đặt kích thước tối đa của file core dump là 100MB:
+    ```bash
+    ulimit -c 100000
+    ```
 
-### Ví dụ 2: Thiết lập giới hạn số lượng tệp mở tối đa
-Nếu bạn muốn thay đổi giới hạn số lượng tệp mở tối đa thành 1024, bạn có thể sử dụng lệnh sau:
+- Đặt số lượng file tối đa mà một tiến trình có thể mở là 1024:
+    ```bash
+    ulimit -n 1024
+    ```
 
-```bash
-ulimit -n 1024
-```
+- Đặt kích thước tối đa của stack là 8MB:
+    ```bash
+    ulimit -s 8192
+    ```
 
-## Mẹo
-- **Kiểm tra giới hạn**: Trước khi chạy các ứng dụng yêu cầu tài nguyên cao, hãy kiểm tra các giới hạn hiện tại bằng `ulimit -a` để đảm bảo rằng chúng đủ cho nhu cầu của ứng dụng.
-- **Thiết lập trong tệp cấu hình**: Nếu bạn muốn thiết lập các giới hạn này cho tất cả các phiên làm việc, hãy cân nhắc thêm các lệnh `ulimit` vào tệp cấu hình shell như `.bashrc` hoặc `.bash_profile`.
-- **Cẩn thận với giới hạn**: Việc thiết lập giới hạn quá thấp có thể gây ra lỗi cho các ứng dụng, vì vậy hãy đảm bảo rằng các giới hạn bạn thiết lập là hợp lý cho các ứng dụng mà bạn đang chạy.
+## Tips
+- Nên kiểm tra các giới hạn hiện tại trước khi thay đổi để tránh gây ra sự cố cho hệ thống.
+- Sử dụng lệnh `ulimit` trong các script để đảm bảo rằng các tiến trình chạy trong môi trường đã được cấu hình đúng.
+- Một số giới hạn có thể yêu cầu quyền root để thay đổi, vì vậy hãy đảm bảo bạn có quyền thích hợp khi thực hiện các thay đổi.

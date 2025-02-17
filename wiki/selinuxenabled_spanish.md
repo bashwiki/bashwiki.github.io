@@ -1,52 +1,38 @@
-# [리눅스] Bash selinuxenabled 사용법
+# [Linux] Bash selinuxenabled uso: Comprobar el estado de SELinux
 
 ## Overview
-El comando `selinuxenabled` se utiliza en sistemas operativos Linux para verificar si el soporte de SELinux (Security-Enhanced Linux) está habilitado. SELinux es una característica de seguridad que proporciona un mecanismo de control de acceso obligatorio, lo que significa que puede restringir el acceso a recursos del sistema basándose en políticas de seguridad definidas. Este comando es útil para los administradores de sistemas y desarrolladores que necesitan asegurarse de que SELinux esté activo en su entorno.
+El comando `selinuxenabled` se utiliza para verificar si el soporte de SELinux (Security-Enhanced Linux) está habilitado en el sistema. Este comando devuelve un código de salida que indica si SELinux está activo o no.
 
 ## Usage
 La sintaxis básica del comando es la siguiente:
 
 ```bash
-selinuxenabled
+selinuxenabled [opciones]
 ```
 
-Este comando no acepta opciones adicionales. Su salida es simplemente un código de estado que indica si SELinux está habilitado o no:
+## Common Options
+El comando `selinuxenabled` no tiene opciones comunes, ya que su función principal es simplemente comprobar el estado de SELinux. Sin embargo, puede ser útil en scripts para tomar decisiones basadas en su salida.
 
-- Si SELinux está habilitado, el comando devuelve un código de salida `0`.
-- Si SELinux no está habilitado, devuelve un código de salida `1`.
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `selinuxenabled`:
 
-## Examples
-Aquí hay un par de ejemplos prácticos de cómo usar el comando `selinuxenabled`.
+1. **Comprobar si SELinux está habilitado:**
+   ```bash
+   selinuxenabled
+   ```
+   - Este comando no devuelve salida, pero el código de salida será `0` si SELinux está habilitado y `1` si no lo está.
 
-### Ejemplo 1: Verificar si SELinux está habilitado
-Puedes ejecutar el siguiente comando en la terminal para comprobar el estado de SELinux:
-
-```bash
-selinuxenabled
-```
-
-Si deseas verificar el código de salida inmediatamente después de ejecutar el comando, puedes usar:
-
-```bash
-selinuxenabled && echo "SELinux está habilitado" || echo "SELinux no está habilitado"
-```
-
-### Ejemplo 2: Usar en un script
-Si estás escribiendo un script de Bash y necesitas tomar decisiones basadas en el estado de SELinux, puedes usar `selinuxenabled` de la siguiente manera:
-
-```bash
-#!/bin/bash
-
-if selinuxenabled; then
-    echo "SELinux está habilitado. Procediendo con la operación."
-    # Aquí puedes agregar más comandos que dependen de SELinux habilitado
-else
-    echo "SELinux no está habilitado. Abortando la operación."
-    exit 1
-fi
-```
+2. **Usar en un script para tomar decisiones:**
+   ```bash
+   if selinuxenabled; then
+       echo "SELinux está habilitado."
+   else
+       echo "SELinux no está habilitado."
+   fi
+   ```
+   - Este script imprime un mensaje dependiendo del estado de SELinux.
 
 ## Tips
-- Es recomendable verificar el estado de SELinux antes de realizar cambios en la configuración del sistema que puedan verse afectados por las políticas de seguridad de SELinux.
-- Puedes combinar `selinuxenabled` con otros comandos en scripts para automatizar tareas que dependen del estado de SELinux.
-- Familiarízate con las políticas de SELinux y su configuración para entender mejor cómo puede afectar a tus aplicaciones y servicios.
+- Utiliza `selinuxenabled` en scripts de shell para asegurarte de que ciertas configuraciones o acciones solo se ejecuten si SELinux está habilitado.
+- Recuerda que el código de salida es clave: `0` significa que SELinux está habilitado, mientras que `1` indica que no lo está.
+- Puedes combinar `selinuxenabled` con otros comandos para crear condiciones más complejas en tus scripts.

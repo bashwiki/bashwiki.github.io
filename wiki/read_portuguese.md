@@ -1,7 +1,7 @@
-# [리눅스] Bash read 사용법
+# [Linux] Bash read uso: Lê a entrada do usuário
 
 ## Overview
-O comando `read` no Bash é utilizado para ler a entrada do usuário a partir do terminal. Ele permite que você armazene a entrada em variáveis, facilitando a interação com scripts e a coleta de dados. O `read` é especialmente útil em scripts interativos, onde é necessário obter informações do usuário antes de prosseguir com a execução do script.
+O comando `read` no Bash é utilizado para ler a entrada do usuário a partir do terminal. Ele permite que você capture dados inseridos pelo usuário e os armazene em variáveis, facilitando a interação em scripts.
 
 ## Usage
 A sintaxe básica do comando `read` é a seguinte:
@@ -10,32 +10,51 @@ A sintaxe básica do comando `read` é a seguinte:
 read [opções] [variáveis]
 ```
 
-### Opções Comuns:
-- `-p "mensagem"`: Exibe uma mensagem antes de ler a entrada do usuário.
-- `-s`: Silencia a entrada do usuário, útil para senhas.
-- `-a nome_array`: Lê a entrada em um array.
-- `-d delimitador`: Define um delimitador para a entrada, em vez de usar a nova linha padrão.
+## Common Options
+- `-p`: Exibe uma mensagem de prompt antes de ler a entrada.
+- `-s`: Lê a entrada de forma silenciosa, não exibindo os caracteres digitados (útil para senhas).
+- `-a`: Lê a entrada e a armazena em um array.
+- `-t`: Define um tempo limite para a leitura da entrada.
 
-## Examples
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `read`:
 
-### Exemplo 1: Leitura Simples
+### Exemplo 1: Leitura simples
 ```bash
-#!/bin/bash
-echo "Por favor, insira seu nome:"
+echo "Digite seu nome:"
 read nome
 echo "Olá, $nome!"
 ```
-Neste exemplo, o script solicita que o usuário insira seu nome e, em seguida, exibe uma saudação personalizada.
 
-### Exemplo 2: Usando a Opção -p
+### Exemplo 2: Leitura com prompt
 ```bash
-#!/bin/bash
 read -p "Digite sua idade: " idade
 echo "Você tem $idade anos."
 ```
-Aqui, o script utiliza a opção `-p` para exibir uma mensagem antes de solicitar a idade do usuário.
+
+### Exemplo 3: Leitura silenciosa
+```bash
+read -s -p "Digite sua senha: " senha
+echo -e "\nSenha recebida."
+```
+
+### Exemplo 4: Leitura em um array
+```bash
+read -a frutas -p "Digite algumas frutas separadas por espaço: "
+echo "Você digitou: ${frutas[@]}"
+```
+
+### Exemplo 5: Leitura com tempo limite
+```bash
+if read -t 5 -p "Você tem 5 segundos para responder (s/n): " resposta; then
+    echo "Você respondeu: $resposta"
+else
+    echo "Tempo esgotado!"
+fi
+```
 
 ## Tips
-- Sempre valide a entrada do usuário após usar o `read` para garantir que os dados sejam do tipo e formato esperado.
-- Considere usar a opção `-s` ao solicitar senhas para evitar que a entrada seja exibida no terminal.
-- Utilize arrays para coletar múltiplas entradas em uma única linha, facilitando a manipulação de dados no seu script.
+- Sempre valide a entrada do usuário para evitar erros em seu script.
+- Utilize a opção `-s` ao solicitar senhas para garantir que a entrada não seja exibida.
+- Considere usar arrays quando precisar capturar múltiplos valores de entrada.
+- Use mensagens de prompt claras para guiar o usuário na entrada de dados.

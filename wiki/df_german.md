@@ -1,44 +1,50 @@
-# [리눅스] Bash df 사용법
+# [Linux] Bash df Verwendung: Zeigt den verfügbaren Speicherplatz auf Dateisystemen an
 
 ## Übersicht
-Der Befehl `df` (disk free) wird in der Bash verwendet, um Informationen über den verfügbaren und verwendeten Speicherplatz auf Dateisystemen anzuzeigen. Er bietet eine schnelle Möglichkeit, den Status des Speicherplatzes auf verschiedenen Laufwerken und Partitionen zu überprüfen, was besonders nützlich für Systemadministratoren und Entwickler ist, die die Speicherkapazität ihrer Systeme überwachen müssen.
+Der Befehl `df` (disk free) wird verwendet, um Informationen über den verfügbaren und verwendeten Speicherplatz auf Dateisystemen anzuzeigen. Er gibt eine Übersicht über die Speicherkapazität und die Nutzung der verschiedenen Dateisysteme auf einem Linux- oder Unix-basierten System.
 
 ## Verwendung
-Die grundlegende Syntax des `df`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-df [OPTIONEN] [DATEISYSTEM]
+df [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-h`: Gibt die Ausgabe in einem menschenlesbaren Format aus (z.B. in KB, MB oder GB).
+## Häufige Optionen
+- `-h`: Gibt die Größen in menschenlesbarem Format aus (z. B. KB, MB, GB).
 - `-T`: Zeigt den Typ des Dateisystems an.
-- `-a`: Zeigt auch die Dateisysteme an, die keinen Speicherplatz mehr zur Verfügung haben.
-- `-i`: Zeigt Informationen über die Inodes an, anstatt über den Speicherplatz.
+- `-a`: Zeigt auch die Dateisysteme an, die 0 Blöcke haben.
+- `-i`: Zeigt die Anzahl der inodes anstelle der Blocknutzung an.
 
-## Beispiele
-### Beispiel 1: Grundlegende Verwendung
-Um eine Übersicht über den Speicherplatz aller gemounteten Dateisysteme zu erhalten, können Sie einfach den Befehl `df` ohne Optionen verwenden:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung des `df`-Befehls:
 
-```bash
-df
-```
+1. **Einfacher Befehl ohne Optionen:**
+   ```bash
+   df
+   ```
 
-### Beispiel 2: Menschenlesbare Ausgabe
-Um die Ausgabe in einem verständlicheren Format zu erhalten, verwenden Sie die `-h`-Option:
+2. **Menschenlesbare Ausgabe:**
+   ```bash
+   df -h
+   ```
 
-```bash
-df -h
-```
+3. **Anzeige des Dateisystemtyps:**
+   ```bash
+   df -T
+   ```
 
-Diese Ausgabe zeigt die Größe, den verwendeten Speicherplatz, den verfügbaren Speicherplatz und die Einhängepunkte in einem leicht lesbaren Format.
+4. **Anzeige aller Dateisysteme, einschließlich leerer:**
+   ```bash
+   df -a
+   ```
+
+5. **Anzeige der inodes:**
+   ```bash
+   df -i
+   ```
 
 ## Tipps
-- Verwenden Sie die `-T`-Option, um den Typ des Dateisystems zu überprüfen, insbesondere wenn Sie mit verschiedenen Dateisystemen arbeiten.
-- Kombinieren Sie `df` mit anderen Befehlen wie `grep`, um spezifische Informationen zu filtern. Zum Beispiel:
-
-```bash
-df -h | grep '/dev/sda1'
-```
-
-- Führen Sie `df` regelmäßig aus, um sicherzustellen, dass Ihr Speicherplatz nicht knapp wird, insbesondere auf Servern oder in produktiven Umgebungen.
+- Verwenden Sie die `-h`-Option, um die Ausgabe leichter lesbar zu machen, insbesondere wenn Sie mit großen Speichermengen arbeiten.
+- Kombinieren Sie Optionen, um spezifischere Informationen zu erhalten, z. B. `df -hT`, um sowohl die Größe als auch den Typ des Dateisystems anzuzeigen.
+- Überprüfen Sie regelmäßig den Speicherplatz, um sicherzustellen, dass Ihr System nicht überlastet wird, was zu Leistungseinbußen führen kann.

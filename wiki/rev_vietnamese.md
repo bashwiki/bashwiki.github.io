@@ -1,48 +1,44 @@
-# [리눅스] Bash rev 사용법
+# [Linux] Bash rev: Đảo ngược chuỗi ký tự
 
-## Tổng quan
-Lệnh `rev` trong Bash được sử dụng để đảo ngược các ký tự trong mỗi dòng của đầu vào. Điều này có nghĩa là nếu bạn có một chuỗi văn bản, lệnh `rev` sẽ thay đổi thứ tự các ký tự trong từng dòng, giúp bạn dễ dàng thực hiện các tác vụ liên quan đến việc xử lý chuỗi.
+## Overview
+Lệnh `rev` trong Bash được sử dụng để đảo ngược thứ tự các ký tự trong mỗi dòng của đầu vào. Điều này có nghĩa là nếu bạn có một chuỗi văn bản, lệnh này sẽ biến nó thành chuỗi ngược lại.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `rev` như sau:
-
-```bash
-rev [tùy chọn] [tệp]
+```
+rev [options] [arguments]
 ```
 
-### Tùy chọn phổ biến
-- `-` : Đọc từ đầu vào chuẩn (stdin) thay vì từ một tệp.
-- `tệp` : Tên tệp mà bạn muốn đảo ngược nội dung.
+## Common Options
+- `-h`, `--help`: Hiển thị thông tin trợ giúp về lệnh `rev`.
+- `-V`, `--version`: Hiển thị phiên bản của lệnh `rev`.
 
-## Ví dụ
-### Ví dụ 1: Đảo ngược một chuỗi văn bản từ đầu vào
-Bạn có thể sử dụng lệnh `rev` để đảo ngược một chuỗi văn bản nhập từ bàn phím như sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `rev`:
 
-```bash
-echo "Hello World" | rev
-```
-Kết quả sẽ là:
-```
-dlroW olleH
-```
+1. **Đảo ngược một chuỗi văn bản từ đầu vào tiêu chuẩn**:
+   ```bash
+   echo "Hello World" | rev
+   ```
+   Kết quả sẽ là: `dlroW olleH`
 
-### Ví dụ 2: Đảo ngược nội dung trong một tệp
-Giả sử bạn có một tệp tên là `example.txt` với nội dung như sau:
-```
-Hello
-World
-```
-Bạn có thể đảo ngược nội dung của tệp này bằng lệnh:
+2. **Đảo ngược nội dung của một tệp**:
+   ```bash
+   rev filename.txt
+   ```
+   Lệnh này sẽ đảo ngược từng dòng trong tệp `filename.txt`.
 
-```bash
-rev example.txt
-```
-Kết quả sẽ là:
-```
-olleH
-dlroW
-```
+3. **Đảo ngược nhiều dòng văn bản**:
+   ```bash
+   echo -e "Line 1\nLine 2\nLine 3" | rev
+   ```
+   Kết quả sẽ là:
+   ```
+   enil 1
+   enil 2
+   enil 3
+   ```
 
-## Mẹo
-- Sử dụng `rev` kết hợp với các lệnh khác trong Bash để thực hiện các tác vụ phức tạp hơn. Ví dụ, bạn có thể sử dụng `cat` để đọc nhiều tệp và sau đó áp dụng `rev` để đảo ngược nội dung của chúng.
-- Hãy cẩn thận khi sử dụng lệnh `rev` trên các tệp lớn, vì việc đảo ngược nội dung có thể tốn thời gian và tài nguyên hệ thống.
+## Tips
+- Bạn có thể kết hợp lệnh `rev` với các lệnh khác trong Bash để xử lý văn bản phức tạp hơn.
+- Hãy chắc chắn rằng bạn đã kiểm tra đầu vào của mình, vì lệnh `rev` sẽ chỉ đảo ngược ký tự mà không thay đổi nội dung khác.

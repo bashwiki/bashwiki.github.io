@@ -1,46 +1,51 @@
-# [리눅스] Bash enable 사용법
+# [Linux] Bash enable uso: Habilitar ou desabilitar funções do shell
 
 ## Overview
-O comando `enable` no Bash é utilizado para ativar ou desativar funções shell. As funções são comandos personalizados que podem ser definidos pelo usuário e que podem substituir comandos internos ou externos. O principal propósito do comando `enable` é permitir que os usuários gerenciem quais funções estão disponíveis no shell atual, possibilitando a personalização do ambiente de trabalho.
+O comando `enable` no Bash é utilizado para habilitar ou desabilitar funções definidas no shell. Isso permite ao usuário controlar quais funções estão disponíveis para uso, podendo desativar funções que não são mais necessárias ou que podem causar conflitos.
 
 ## Usage
 A sintaxe básica do comando `enable` é a seguinte:
 
-```bash
-enable [opções] [função...]
+```
+enable [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-n` : Desativa a função especificada.
-- `-a` : Ativa todas as funções definidas.
-- `-p` : Exibe as funções que estão atualmente habilitadas.
-- `função` : O nome da função que você deseja ativar ou desativar.
+## Common Options
+- `-n`: Desabilita a função especificada.
+- `-a`: Habilita todas as funções disponíveis.
+- `-p`: Exibe as funções habilitadas no shell atual.
 
-## Examples
-### Exemplo 1: Ativar uma função
-Suponha que você tenha uma função chamada `minha_funcao` definida anteriormente. Para ativá-la, você pode usar o seguinte comando:
+## Common Examples
+
+### Habilitar uma função
+Para habilitar uma função chamada `minha_funcao`, você pode usar o seguinte comando:
 
 ```bash
 enable minha_funcao
 ```
 
-### Exemplo 2: Desativar uma função
-Se você quiser desativar a função `minha_funcao`, você pode usar:
+### Desabilitar uma função
+Para desabilitar a mesma função, você pode usar:
 
 ```bash
 enable -n minha_funcao
 ```
 
-### Exemplo 3: Listar funções habilitadas
-Para listar todas as funções que estão atualmente habilitadas, você pode usar:
+### Habilitar todas as funções
+Se você quiser habilitar todas as funções disponíveis, utilize:
+
+```bash
+enable -a
+```
+
+### Listar funções habilitadas
+Para ver todas as funções que estão atualmente habilitadas, execute:
 
 ```bash
 enable -p
 ```
 
 ## Tips
-- Sempre verifique se uma função já está habilitada antes de tentar ativá-la, para evitar conflitos.
-- Utilize a opção `-p` frequentemente para monitorar quais funções estão ativas no seu ambiente de shell.
-- Considere documentar suas funções personalizadas para facilitar o uso e a manutenção no futuro.
-
-Com essas informações, você pode começar a utilizar o comando `enable` para gerenciar suas funções no Bash de maneira eficaz!
+- Sempre verifique quais funções estão habilitadas antes de desabilitar uma, para evitar a remoção acidental de funções importantes.
+- Use `enable -p` frequentemente para manter um controle sobre as funções disponíveis no seu ambiente de shell.
+- Lembre-se de que as alterações feitas com `enable` são temporárias e se aplicam apenas à sessão atual do shell.

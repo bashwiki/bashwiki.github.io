@@ -1,42 +1,45 @@
-# [리눅스] Bash nslookup 사용법
+# [Linux] Bash nslookup Kullanımı: Alan adı sorgulama aracı
 
-## Genel Bakış
-`nslookup`, bir alan adının IP adresini veya bir IP adresinin alan adını çözümlemek için kullanılan bir komut satırı aracıdır. DNS (Domain Name System) sorguları yaparak, alan adları ile IP adresleri arasındaki ilişkiyi belirlemeye yardımcı olur. Genellikle ağ yöneticileri ve geliştiriciler tarafından, DNS yapılandırmalarını kontrol etmek ve sorun gidermek amacıyla kullanılır.
+## Overview
+`nslookup`, alan adı sistemini (DNS) sorgulamak için kullanılan bir komuttur. Bu komut, bir alan adının IP adresini veya bir IP adresinin alan adını bulmak için kullanılır. Ağ yöneticileri ve kullanıcılar, DNS ile ilgili sorunları teşhis etmek için bu aracı sıklıkla kullanır.
 
-## Kullanım
-Temel sözdizimi şu şekildedir:
+## Usage
+Temel kullanım sözdizimi aşağıdaki gibidir:
 
-```bash
-nslookup [seçenekler] [alan_adı]
+```
+nslookup [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-type=TYPE`: Sorgulamak istediğiniz DNS kaynağının türünü belirtir. Örneğin, `A`, `MX`, `CNAME` gibi.
-- `-debug`: Sorgu sürecinin ayrıntılı çıktısını gösterir. Sorun giderme amacıyla kullanışlıdır.
-- `-timeout=SECONDS`: DNS sorgusu için bekleme süresini ayarlar. Varsayılan süre genellikle 5 saniyedir.
+## Common Options
+- `-type=TYPE`: Sorgulamak istediğiniz DNS kaynağının türünü belirtir (örneğin, A, MX, CNAME).
+- `-timeout=TIME`: Sorgu zaman aşımını ayarlamak için kullanılır.
+- `-retry=COUNT`: Yeniden deneme sayısını ayarlamak için kullanılır.
+- `server`: Belirli bir DNS sunucusunu sorgulamak için kullanılır.
 
-## Örnekler
-### Örnek 1: Bir Alan Adının IP Adresini Bulma
-Aşağıdaki komut, `example.com` alan adının IP adresini bulmak için kullanılır:
+## Common Examples
+Aşağıda `nslookup` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
+### 1. Bir alan adının IP adresini bulma
+```
 nslookup example.com
 ```
 
-Çıktı, alan adının çözümlediği IP adresini gösterecektir.
-
-### Örnek 2: Belirli Bir DNS Sunucusunu Kullanma
-Aşağıdaki komut, `example.com` için `8.8.8.8` DNS sunucusunu kullanarak sorgu yapar:
-
-```bash
+### 2. Belirli bir DNS sunucusunu kullanarak sorgulama
+```
 nslookup example.com 8.8.8.8
 ```
 
-Bu, Google'ın DNS sunucusunu kullanarak sorgu yapar ve sonuçları gösterir.
+### 3. MX kayıtlarını sorgulama
+```
+nslookup -type=MX example.com
+```
 
-## İpuçları
-- DNS sorunlarını gidermek için `-debug` seçeneğini kullanarak daha fazla bilgi edinebilirsiniz.
-- Sık kullanılan alan adlarını ve IP adreslerini not almak, sorun giderme sürecini hızlandırabilir.
-- `nslookup` komutunu kullanırken, sorgulamak istediğiniz DNS kaynağının türünü belirtmek, daha spesifik sonuçlar almanıza yardımcı olabilir.
+### 4. CNAME kayıtlarını sorgulama
+```
+nslookup -type=CNAME www.example.com
+```
 
-`nslookup`, ağ yönetimi ve DNS sorun giderme süreçlerinde oldukça faydalı bir araçtır. Doğru kullanıldığında, alan adları ve IP adresleri arasındaki ilişkileri hızlı bir şekilde anlamanızı sağlar.
+## Tips
+- `nslookup` komutunu kullanırken, doğru DNS sunucusunu seçmek sorunları daha hızlı çözmenize yardımcı olabilir.
+- Sorgu sonuçlarını daha iyi anlamak için, farklı kayıt türlerini denemekten çekinmeyin.
+- Eğer bir alan adıyla ilgili sorun yaşıyorsanız, `nslookup` ile sorgulama yaparak DNS yapılandırmanızı kontrol edin.

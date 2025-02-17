@@ -1,40 +1,52 @@
-# [리눅스] Bash pidof 사용법
+# [Linux] Bash pidof Uso: Get process IDs of running programs
 
 ## Overview
-`pidof`는 리눅스에서 실행 중인 프로세스의 프로세스 ID(PID)를 찾는 데 사용되는 명령어입니다. 이 명령은 주어진 프로세스 이름에 해당하는 모든 PID를 반환하며, 주로 스크립트나 시스템 관리 작업에서 특정 프로세스의 상태를 확인하거나 제어하기 위해 사용됩니다.
+The `pidof` command in Bash is used to find the process IDs (PIDs) of running programs. It is particularly useful for identifying the PIDs associated with a specific executable, allowing users to manage processes effectively.
 
 ## Usage
-기본 구문은 다음과 같습니다:
+The basic syntax of the `pidof` command is as follows:
 
 ```bash
-pidof [옵션] <프로세스 이름>
+pidof [options] [arguments]
 ```
 
-### Common Options
-- `-s`: 단일 PID만 반환합니다. 프로세스가 여러 개 실행 중일 경우 첫 번째 PID만 출력합니다.
-- `-x`: 실행 중인 스크립트와 같은 실행 파일의 PID도 포함하여 반환합니다.
-- `-h`: 도움말 메시지를 출력합니다.
+## Common Options
+- `-o, --exclude`: Exclude specified PIDs from the output.
+- `-s, --single`: Return only a single PID for the specified program.
+- `-q, --quiet`: Suppress output; return exit status only.
 
-## Examples
-### 예제 1: 특정 프로세스의 PID 찾기
-다음 명령은 `bash` 프로세스의 PID를 찾습니다.
+## Common Examples
+Here are some practical examples of using the `pidof` command:
 
-```bash
-pidof bash
-```
+1. **Get the PID of a specific program**:
+   ```bash
+   pidof firefox
+   ```
 
-이 명령은 현재 실행 중인 모든 `bash` 프로세스의 PID를 출력합니다.
+2. **Get PIDs of multiple programs**:
+   ```bash
+   pidof firefox chrome
+   ```
 
-### 예제 2: 단일 PID 반환
-`-s` 옵션을 사용하여 `nginx` 프로세스의 첫 번째 PID만 반환합니다.
+3. **Exclude a specific PID from the output**:
+   ```bash
+   pidof -o 1234 firefox
+   ```
 
-```bash
-pidof -s nginx
-```
+4. **Get only a single PID of a program**:
+   ```bash
+   pidof -s apache2
+   ```
 
-이 명령은 실행 중인 `nginx` 프로세스가 여러 개일 경우 첫 번째 PID만 출력합니다.
+5. **Check if a program is running (quiet mode)**:
+   ```bash
+   pidof -q ssh
+   ```
 
 ## Tips
-- `pidof`는 프로세스 이름을 정확히 입력해야 하므로, 대소문자 구분에 유의해야 합니다.
-- 스크립트에서 `pidof`를 사용하여 특정 프로세스가 실행 중인지 확인하고, 그 PID를 사용하여 다른 명령어와 함께 활용할 수 있습니다.
-- `pidof`는 시스템의 프로세스 목록을 직접 검색하므로, 프로세스가 실행 중이지 않으면 아무런 출력도 하지 않습니다. 이를 통해 프로세스의 상태를 간단히 확인할 수 있습니다.
+- Use `pidof` in scripts to dynamically manage processes based on their PIDs.
+- Combine `pidof` with other commands like `kill` to terminate processes easily. For example:
+  ```bash
+  kill $(pidof firefox)
+  ```
+- Remember that `pidof` returns nothing if the specified program is not running, which can be useful for conditional checks in scripts.

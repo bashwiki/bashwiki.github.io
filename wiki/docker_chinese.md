@@ -1,39 +1,53 @@
-# [리눅스] Bash docker 사용법
+# [Linux] Bash docker 使用: 管理容器和镜像
 
 ## 概述
-`docker` 是一个开源的容器化平台，用于自动化应用程序的部署、扩展和管理。它允许开发人员将应用程序及其所有依赖项打包到一个标准化的单元中，称为容器。通过使用 Docker，开发人员可以确保在不同环境中应用程序的一致性，从而简化开发和运维流程。
+Docker 是一个开源平台，用于自动化应用程序的部署、扩展和管理。它通过容器技术将应用程序及其依赖打包在一起，确保在任何环境中都能一致运行。
 
 ## 用法
-基本的 `docker` 命令语法如下：
-```
-docker [OPTIONS] COMMAND [ARG...]
-```
-### 常见选项
-- `-h`, `--help`：显示帮助信息。
-- `-v`, `--version`：显示 Docker 的版本信息。
-- `--config`：指定 Docker 配置文件的路径。
-
-## 示例
-### 示例 1：查看 Docker 版本
-要查看当前安装的 Docker 版本，可以使用以下命令：
+基本语法如下：
 ```bash
-docker --version
-```
-该命令将输出 Docker 的版本信息，例如：
-```
-Docker version 20.10.7, build f0df350
+docker [options] [arguments]
 ```
 
-### 示例 2：列出运行中的容器
-要查看当前正在运行的 Docker 容器，可以使用以下命令：
-```bash
-docker ps
-```
-该命令将列出所有正在运行的容器及其相关信息，如容器 ID、名称、状态等。
+## 常用选项
+- `run`: 创建并启动一个新的容器。
+- `ps`: 列出当前运行的容器。
+- `images`: 列出本地可用的镜像。
+- `pull`: 从 Docker Hub 或其他注册中心下载镜像。
+- `build`: 从 Dockerfile 构建镜像。
+
+## 常见示例
+1. **运行一个新的容器**
+   ```bash
+   docker run hello-world
+   ```
+   这个命令会下载并运行一个简单的 hello-world 镜像，验证 Docker 是否安装正确。
+
+2. **列出当前运行的容器**
+   ```bash
+   docker ps
+   ```
+   该命令显示所有正在运行的容器及其状态。
+
+3. **列出所有镜像**
+   ```bash
+   docker images
+   ```
+   这个命令列出本地存储的所有 Docker 镜像。
+
+4. **从 Docker Hub 下载镜像**
+   ```bash
+   docker pull nginx
+   ```
+   该命令从 Docker Hub 下载 Nginx 镜像。
+
+5. **构建镜像**
+   ```bash
+   docker build -t my-image:latest .
+   ```
+   这个命令根据当前目录下的 Dockerfile 构建一个名为 my-image 的镜像。
 
 ## 提示
-- 在使用 Docker 时，建议定期更新 Docker 版本，以确保获得最新的功能和安全修复。
-- 使用 Docker Compose 来管理多容器应用程序，可以简化容器的配置和部署。
-- 在生产环境中，使用 Docker 容器时要注意资源限制，以避免容器消耗过多的系统资源。
-
-通过掌握 `docker` 命令，开发人员可以更高效地管理和部署应用程序，提升开发和运维的效率。
+- 使用 `docker-compose` 来管理多容器应用程序，可以简化配置和启动过程。
+- 定期清理未使用的镜像和容器，使用 `docker system prune` 命令。
+- 在生产环境中，确保容器的安全性，定期更新镜像和依赖。

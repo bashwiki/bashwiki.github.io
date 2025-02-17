@@ -1,41 +1,41 @@
-# [리눅스] Bash readonly 사용법
+# [Linux] Bash readonly: Thiết lập biến không thể thay đổi
 
-## Tổng quan
-Lệnh `readonly` trong Bash được sử dụng để đánh dấu một biến là không thể thay đổi. Khi một biến được đánh dấu là `readonly`, giá trị của nó sẽ không thể bị thay đổi trong suốt phiên làm việc hiện tại. Điều này hữu ích trong việc bảo vệ các biến quan trọng khỏi việc bị thay đổi ngẫu nhiên, giúp tránh các lỗi không mong muốn trong kịch bản hoặc chương trình.
+## Overview
+Lệnh `readonly` trong Bash được sử dụng để đánh dấu một biến là không thể thay đổi. Khi một biến được thiết lập là readonly, bạn không thể gán giá trị mới cho nó trong phiên làm việc hiện tại. Điều này rất hữu ích khi bạn muốn bảo vệ các giá trị quan trọng khỏi việc bị thay đổi.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `readonly` như sau:
-
 ```bash
-readonly [tùy chọn] [tên_biến[=giá_trị]]
+readonly [options] [arguments]
 ```
 
-### Tùy chọn phổ biến
-- `-p`: Hiển thị danh sách tất cả các biến hiện tại đang được đánh dấu là `readonly`.
+## Common Options
+- `-p`: Hiển thị tất cả các biến readonly hiện có cùng với giá trị của chúng.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `readonly`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `readonly`:
 
-### Ví dụ 1: Đánh dấu một biến là readonly
-```bash
-my_var="Giá trị ban đầu"
-readonly my_var
-```
-Sau khi thực hiện lệnh trên, bạn không thể thay đổi giá trị của `my_var`. Nếu bạn cố gắng thực hiện lệnh sau:
-```bash
-my_var="Giá trị mới"
-```
-Bash sẽ thông báo lỗi: `bash: my_var: readonly variable`.
+1. **Thiết lập một biến readonly:**
+   ```bash
+   readonly MY_VAR="Giá trị không thay đổi"
+   ```
 
-### Ví dụ 2: Hiển thị các biến readonly
-```bash
-readonly -p
-```
-Lệnh này sẽ hiển thị tất cả các biến hiện tại đang được đánh dấu là `readonly`, cùng với giá trị của chúng.
+2. **Cố gắng thay đổi giá trị của biến readonly (sẽ báo lỗi):**
+   ```bash
+   MY_VAR="Giá trị mới"  # Lỗi: không thể thay đổi giá trị của MY_VAR
+   ```
 
-## Mẹo
-- Sử dụng `readonly` cho các biến cấu hình hoặc các giá trị quan trọng mà bạn không muốn thay đổi trong suốt quá trình thực thi kịch bản.
-- Hãy cẩn thận khi đánh dấu biến là `readonly`, vì bạn sẽ không thể thay đổi giá trị của nó sau đó. Nếu bạn cần thay đổi, bạn sẽ phải xóa biến đó và tạo lại nó.
-- Bạn có thể sử dụng `declare -r` thay cho `readonly`, vì chúng có chức năng tương tự.
+3. **Hiển thị các biến readonly hiện có:**
+   ```bash
+   readonly -p
+   ```
 
-Hy vọng bài viết này giúp bạn hiểu rõ hơn về lệnh `readonly` trong Bash và cách sử dụng nó hiệu quả trong các kịch bản của bạn!
+4. **Thiết lập nhiều biến readonly cùng lúc:**
+   ```bash
+   readonly VAR1="Giá trị 1" VAR2="Giá trị 2"
+   ```
+
+## Tips
+- Sử dụng `readonly` cho các biến quan trọng mà bạn không muốn bị thay đổi trong quá trình thực thi script.
+- Kiểm tra các biến readonly bằng cách sử dụng `readonly -p` để đảm bảo rằng các giá trị quan trọng vẫn được bảo vệ.
+- Hãy nhớ rằng việc thiết lập một biến là readonly chỉ có hiệu lực trong phiên làm việc hiện tại và không ảnh hưởng đến các phiên khác.

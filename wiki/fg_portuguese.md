@@ -1,50 +1,43 @@
-# [리눅스] Bash fg 사용법
+# [Linux] Bash fg Uso equivalente: Retorna um processo em segundo plano para o primeiro plano
 
 ## Overview
-O comando `fg` no Bash é utilizado para trazer um processo em segundo plano para o primeiro plano. Isso é especialmente útil quando você tem um processo em execução que foi enviado para o fundo (usando `&` ou `Ctrl + Z` seguido de `bg`) e deseja interagir com ele novamente. O `fg` permite que você retome a execução do processo, permitindo que ele receba a entrada do terminal.
+O comando `fg` é utilizado no Bash para trazer um processo que está em segundo plano de volta para o primeiro plano. Isso é útil quando você deseja interagir com um processo que foi enviado para o fundo, permitindo que você continue a usá-lo como se estivesse rodando normalmente no terminal.
 
 ## Usage
 A sintaxe básica do comando `fg` é a seguinte:
 
 ```bash
-fg [job_spec]
+fg [opções] [número do trabalho]
 ```
 
-- `job_spec`: Este parâmetro é opcional e pode ser usado para especificar qual trabalho você deseja trazer para o primeiro plano. Se não for especificado, o `fg` trará o último trabalho em segundo plano.
+## Common Options
+- `-l`: Lista todos os trabalhos em segundo plano.
+- `%n`: Especifica o trabalho a ser trazido para o primeiro plano, onde `n` é o número do trabalho.
 
-### Opções Comuns
-- `%n`: Refere-se ao trabalho com o número `n`, que pode ser encontrado usando o comando `jobs`.
-- `%-`: Refere-se ao último trabalho que foi colocado em segundo plano.
+## Common Examples
 
-## Examples
-### Exemplo 1: Retomar o último trabalho em segundo plano
-Se você tiver um trabalho em segundo plano, como um editor de texto, você pode trazê-lo de volta ao primeiro plano com:
+1. **Trazer o último trabalho para o primeiro plano:**
+   ```bash
+   fg
+   ```
 
-```bash
-fg
-```
+2. **Trazer um trabalho específico para o primeiro plano:**
+   Se você tem um trabalho em segundo plano com o número 1:
+   ```bash
+   fg %1
+   ```
 
-### Exemplo 2: Retomar um trabalho específico
-Se você tiver vários trabalhos em segundo plano e quiser retomar um específico, primeiro você pode listar os trabalhos em segundo plano:
+3. **Listar todos os trabalhos em segundo plano:**
+   ```bash
+   jobs
+   ```
 
-```bash
-jobs
-```
-
-Suponha que você veja uma saída como esta:
-
-```
-[1]+  12345 Stopped                 nano
-[2]-  12346 Running                 sleep 100 &
-```
-
-Para trazer o trabalho `nano` (que é o trabalho 1) de volta ao primeiro plano, você usaria:
-
-```bash
-fg %1
-```
+4. **Trazer o trabalho mais recente para o primeiro plano:**
+   ```bash
+   fg %+
+   ```
 
 ## Tips
-- Sempre verifique os trabalhos em segundo plano com o comando `jobs` antes de usar `fg`, para garantir que você está trazendo o trabalho correto para o primeiro plano.
-- Se você frequentemente alterna entre vários processos, considere usar `bg` para continuar a execução de um trabalho em segundo plano enquanto você trabalha em outro.
-- Lembre-se de que, ao trazer um trabalho para o primeiro plano, ele pode interromper a execução de outros processos que você estava utilizando no terminal.
+- Use o comando `jobs` para verificar quais trabalhos estão em segundo plano antes de usar `fg`.
+- Se você não especificar um número de trabalho, o `fg` trará o último trabalho em segundo plano para o primeiro plano.
+- Lembre-se de que se o processo em primeiro plano for interrompido (por exemplo, pressionando `Ctrl + Z`), você pode usar `fg` para retomar a execução.

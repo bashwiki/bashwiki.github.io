@@ -1,47 +1,72 @@
-# [리눅스] Bash break 사용법
+# [Linux] Bash break cách sử dụng: Dừng vòng lặp
 
-## Tổng quan
-Lệnh `break` trong Bash được sử dụng để thoát khỏi một vòng lặp. Khi lệnh này được thực thi, nó sẽ dừng vòng lặp hiện tại và tiếp tục với câu lệnh tiếp theo sau vòng lặp đó. Lệnh `break` rất hữu ích khi bạn cần dừng vòng lặp sớm dựa trên một điều kiện nhất định.
+## Overview
+Lệnh `break` trong Bash được sử dụng để thoát khỏi vòng lặp hiện tại. Khi lệnh này được thực thi, nó sẽ dừng vòng lặp và tiếp tục với câu lệnh tiếp theo sau vòng lặp đó.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `break` như sau:
-
 ```bash
 break [n]
 ```
+Trong đó `n` là số lượng vòng lặp cần thoát. Nếu không chỉ định `n`, lệnh sẽ thoát khỏi vòng lặp gần nhất.
 
-Trong đó:
-- `n` (tùy chọn): Là số nguyên cho biết số vòng lặp cần thoát. Nếu không chỉ định, `break` sẽ thoát khỏi vòng lặp gần nhất.
+## Common Options
+- `n`: Số lượng vòng lặp cần thoát. Nếu `n` được chỉ định, `break` sẽ thoát khỏi vòng lặp thứ `n` tính từ vòng lặp hiện tại.
 
-## Ví dụ
-Dưới đây là một vài ví dụ thực tế về cách sử dụng lệnh `break`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `break`:
 
 ### Ví dụ 1: Thoát khỏi vòng lặp `for`
 ```bash
-for i in {1..10}; do
-    if [ $i -eq 5 ]; then
-        break
-    fi
-    echo $i
+for i in {1..5}; do
+  if [ $i -eq 3 ]; then
+    break
+  fi
+  echo "Số: $i"
 done
 ```
-**Giải thích**: Trong ví dụ này, vòng lặp `for` sẽ in ra các số từ 1 đến 4. Khi `i` bằng 5, lệnh `break` sẽ được thực thi và vòng lặp sẽ dừng lại.
+Kết quả sẽ là:
+```
+Số: 1
+Số: 2
+```
 
 ### Ví dụ 2: Thoát khỏi vòng lặp `while`
 ```bash
 count=1
 while true; do
-    echo $count
-    if [ $count -ge 3 ]; then
-        break
-    fi
-    ((count++))
+  if [ $count -gt 5 ]; then
+    break
+  fi
+  echo "Đếm: $count"
+  ((count++))
 done
 ```
-**Giải thích**: Ở đây, vòng lặp `while` sẽ in ra các số 1 đến 3. Khi `count` đạt giá trị 3, lệnh `break` sẽ được thực hiện, và vòng lặp sẽ dừng lại.
+Kết quả sẽ là:
+```
+Đếm: 1
+Đếm: 2
+Đếm: 3
+Đếm: 4
+Đếm: 5
+```
 
-## Mẹo
-- Sử dụng lệnh `break` một cách hợp lý để tránh việc thoát ra khỏi vòng lặp một cách không mong muốn. Đảm bảo rằng điều kiện để thực hiện lệnh `break` là rõ ràng và dễ hiểu.
-- Khi làm việc với nhiều vòng lặp lồng nhau, bạn có thể sử dụng tham số `n` để chỉ định vòng lặp nào bạn muốn thoát. Ví dụ, `break 2` sẽ thoát khỏi hai vòng lặp bên ngoài.
+### Ví dụ 3: Sử dụng `break` với `n`
+```bash
+for i in {1..10}; do
+  if [ $i -eq 4 ]; then
+    break 2
+  fi
+  echo "Số: $i"
+done
+```
+Kết quả sẽ là:
+```
+Số: 1
+Số: 2
+```
 
-Lệnh `break` là một công cụ mạnh mẽ trong Bash, giúp bạn kiểm soát luồng thực thi của các vòng lặp một cách hiệu quả.
+## Tips
+- Sử dụng `break` khi bạn cần dừng vòng lặp sớm hơn điều kiện tự nhiên của nó.
+- Hãy cẩn thận khi sử dụng `break n`, vì nó có thể thoát khỏi nhiều vòng lặp, điều này có thể gây khó khăn trong việc theo dõi luồng chương trình.
+- Kết hợp `break` với `if` để kiểm soát tốt hơn khi nào bạn muốn thoát khỏi vòng lặp.

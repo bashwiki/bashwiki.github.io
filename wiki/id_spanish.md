@@ -1,50 +1,56 @@
-# [리눅스] Bash id 사용법
+# [Linux] Bash id uso: Muestra información del usuario
 
 ## Overview
-El comando `id` en Bash se utiliza para mostrar información sobre el usuario actual o un usuario específico en el sistema. Proporciona detalles como el UID (Identificador de Usuario), GID (Identificador de Grupo) y los grupos a los que pertenece el usuario. Este comando es útil para verificar permisos y configuraciones de usuario en sistemas Unix y Linux.
+El comando `id` en Bash se utiliza para mostrar la información del usuario actual o de un usuario específico. Proporciona detalles como el UID (identificador de usuario), GID (identificador de grupo) y los grupos a los que pertenece el usuario.
 
 ## Usage
 La sintaxis básica del comando `id` es la siguiente:
 
-```
-id [opciones] [usuario]
+```bash
+id [opciones] [argumentos]
 ```
 
-### Opciones comunes:
+## Common Options
 - `-u`: Muestra solo el UID del usuario.
 - `-g`: Muestra solo el GID del grupo principal del usuario.
 - `-G`: Muestra todos los GIDs de los grupos a los que pertenece el usuario.
 - `-n`: Muestra el nombre del usuario o grupo en lugar de su ID numérico.
-- `-r`: Muestra el UID o GID en formato "real" (es decir, el ID del usuario o grupo real, no el efectivo).
+- `-r`: Muestra el GID real en lugar del efectivo.
 
-## Examples
-### Ejemplo 1: Información del usuario actual
-Para mostrar la información del usuario actual, simplemente ejecuta:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `id`:
 
-```bash
-id
-```
+1. Mostrar información del usuario actual:
+   ```bash
+   id
+   ```
 
-Este comando devolverá una salida similar a:
+2. Mostrar solo el UID del usuario actual:
+   ```bash
+   id -u
+   ```
 
-```
-uid=1000(usuarioprincipal) gid=1000(usuarioprincipal) grupos=1000(usuarioprincipal),27(sudo),...
-```
+3. Mostrar solo el GID del grupo principal del usuario actual:
+   ```bash
+   id -g
+   ```
 
-### Ejemplo 2: Información de un usuario específico
-Para obtener información sobre un usuario específico, como "usuarioejemplo", utiliza:
+4. Mostrar todos los grupos a los que pertenece el usuario actual:
+   ```bash
+   id -G
+   ```
 
-```bash
-id usuarioejemplo
-```
+5. Mostrar información de un usuario específico (por ejemplo, "usuario1"):
+   ```bash
+   id usuario1
+   ```
 
-La salida mostrará el UID, GID y los grupos del usuario "usuarioejemplo":
-
-```
-uid=1001(usuarioejemplo) gid=1001(usuarioejemplo) grupos=1001(usuarioejemplo),...
-```
+6. Mostrar el nombre del usuario en lugar del UID:
+   ```bash
+   id -n -u
+   ```
 
 ## Tips
-- Utiliza `id -u` para obtener rápidamente el UID del usuario actual, lo cual es útil en scripts donde necesitas verificar permisos.
-- Combina `id` con otros comandos como `grep` para filtrar información específica. Por ejemplo, `id | grep grupos` te permitirá ver solo la información de grupos.
-- Recuerda que si no especificas un usuario, `id` mostrará la información del usuario que está ejecutando el comando. Esto es útil para verificar tus propios permisos y configuraciones rápidamente.
+- Utiliza `id` sin opciones para obtener una visión general rápida de tu usuario y grupos.
+- Combina opciones para obtener información más específica, como `id -u -n` para ver el nombre del usuario junto con su UID.
+- Si trabajas en un entorno multiusuario, usar `id nombre_usuario` puede ayudarte a verificar los permisos y grupos de otros usuarios.

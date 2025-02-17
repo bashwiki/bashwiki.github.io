@@ -1,43 +1,50 @@
-# [리눅스] Bash man 사용법
+# [Linux] Bash man lệnh: Truy cập tài liệu hướng dẫn
 
 ## Tổng quan
-Lệnh `man` trong Bash được sử dụng để hiển thị tài liệu hướng dẫn cho các lệnh và chương trình trong hệ thống Unix/Linux. Từ "man" là viết tắt của "manual", và lệnh này cho phép người dùng truy cập vào thông tin chi tiết về cách sử dụng các lệnh, bao gồm cú pháp, tùy chọn và ví dụ. Mục đích chính của lệnh `man` là giúp người dùng hiểu rõ hơn về các công cụ và lệnh mà họ có thể sử dụng trong môi trường dòng lệnh.
+Lệnh `man` trong Bash được sử dụng để truy cập tài liệu hướng dẫn cho các lệnh và chương trình trong hệ thống. Nó cung cấp thông tin chi tiết về cách sử dụng, các tùy chọn và các ví dụ cho từng lệnh.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `man` như sau:
 
+```bash
+man [tùy chọn] [lệnh]
 ```
-man [tùy chọn] [tên_lệnh]
-```
 
-Trong đó:
-- `tùy chọn`: Các tùy chọn bổ sung có thể được sử dụng để điều chỉnh cách hiển thị tài liệu.
-- `tên_lệnh`: Tên của lệnh hoặc chương trình mà bạn muốn xem tài liệu hướng dẫn.
+## Các tùy chọn phổ biến
+- `-k`: Tìm kiếm các mục trong cơ sở dữ liệu man dựa trên từ khóa.
+- `-f`: Hiển thị một mô tả ngắn gọn về lệnh.
+- `-a`: Xem tất cả các mục man liên quan đến lệnh, không chỉ mục đầu tiên.
+- `-w`: Hiển thị đường dẫn đến tệp man mà không mở nó.
 
-Một số tùy chọn phổ biến của lệnh `man` bao gồm:
-- `-k`: Tìm kiếm trong các tiêu đề và mô tả của các trang man.
-- `-f`: Hiển thị thông tin ngắn gọn về một lệnh.
-- `-a`: Hiển thị tất cả các trang man liên quan đến lệnh, nếu có nhiều hơn một.
+## Ví dụ thường gặp
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `man`:
 
-## Ví dụ
-Dưới đây là một số ví dụ về cách sử dụng lệnh `man`:
-
-1. Để xem tài liệu hướng dẫn cho lệnh `ls`, bạn có thể sử dụng:
+1. Xem tài liệu hướng dẫn cho lệnh `ls`:
    ```bash
    man ls
    ```
 
-2. Nếu bạn muốn tìm kiếm các lệnh liên quan đến "copy", bạn có thể sử dụng:
+2. Tìm kiếm các mục man liên quan đến từ khóa "copy":
    ```bash
    man -k copy
    ```
 
-## Mẹo
-- Khi sử dụng lệnh `man`, bạn có thể điều hướng trong tài liệu bằng các phím mũi tên hoặc phím `Page Up` và `Page Down`. Để thoát khỏi tài liệu, chỉ cần nhấn `q`.
-- Nếu bạn không chắc chắn về cú pháp của một lệnh, hãy sử dụng `man` để tham khảo tài liệu trước khi thực hiện lệnh đó.
-- Để tìm hiểu thêm về các tùy chọn và cách sử dụng lệnh `man`, hãy xem tài liệu hướng dẫn của chính `man` bằng cách sử dụng:
-  ```bash
-  man man
-  ``` 
+3. Hiển thị mô tả ngắn gọn về lệnh `cp`:
+   ```bash
+   man -f cp
+   ```
 
-Lệnh `man` là một công cụ mạnh mẽ giúp bạn nắm bắt và sử dụng hiệu quả các lệnh trong Bash. Hãy tận dụng nó để cải thiện kỹ năng dòng lệnh của bạn!
+4. Xem tất cả các mục man cho lệnh `mkdir`:
+   ```bash
+   man -a mkdir
+   ```
+
+5. Hiển thị đường dẫn đến tệp man cho lệnh `grep`:
+   ```bash
+   man -w grep
+   ```
+
+## Mẹo
+- Sử dụng phím `q` để thoát khỏi tài liệu man khi bạn đã xem xong.
+- Bạn có thể tìm kiếm trong tài liệu man bằng cách nhấn `/` và nhập từ khóa cần tìm.
+- Để xem các mục man trong các phần khác nhau (như phần 1 cho lệnh, phần 5 cho định dạng tệp), bạn có thể chỉ định số phần, ví dụ: `man 5 passwd`.

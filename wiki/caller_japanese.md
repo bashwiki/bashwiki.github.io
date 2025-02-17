@@ -1,54 +1,77 @@
-# [리눅스] Bash caller 사용법
+# [Linux] Bash caller 使用法: コマンドを呼び出す
 
-## 概要
-`caller` コマンドは、現在のシェルスクリプトや関数の呼び出し元の情報を表示するために使用されます。主にデバッグやトラブルシューティングの際に、エラーが発生した場所を特定するために役立ちます。このコマンドは、呼び出し元の行番号や関数名を知ることができるため、スクリプトの実行フローを理解するのに非常に便利です。
+## Overview
+`caller` コマンドは、シェルスクリプト内で関数が呼び出された位置を表示するために使用されます。これにより、デバッグやトレースが容易になります。
 
-## 使用法
-`caller` コマンドの基本的な構文は以下の通りです。
+## Usage
+基本的な構文は次のとおりです。
 
 ```bash
 caller [n]
 ```
 
-- `n`: オプションで、呼び出し元のスタックフレームの深さを指定します。デフォルトは `1` で、1つ上の呼び出し元の情報を表示します。`2` を指定すると、さらに上の呼び出し元の情報が表示されます。
+ここで、`n` は呼び出し元のスタックフレームの深さを指定します。指定しない場合は、最も近い呼び出し元が表示されます。
 
-## 例
-以下に `caller` コマンドの実際の使用例を示します。
+## Common Options
+- `n`: 呼び出し元のスタックフレームの深さを指定します。例えば、`caller 1` は1つ上の呼び出し元を表示します。
+
+## Common Examples
 
 ### 例1: 基本的な使用法
+関数内で `caller` を使用して呼び出し元を表示します。
+
 ```bash
-function test_function {
+function example_function {
     caller
 }
 
-function main {
-    test_function
-}
-
-main
+example_function
 ```
-このスクリプトを実行すると、`test_function` を呼び出した `main` 関数の情報（ファイル名と行番号）が表示されます。
+
+出力例:
+```
+1  example_script.sh:10
+```
 
 ### 例2: スタックフレームの深さを指定
+特定のスタックフレームを指定して呼び出し元を表示します。
+
 ```bash
-function another_function {
-    caller 2
+function first_function {
+    second_function
 }
 
-function intermediate_function {
-    another_function
+function second_function {
+    caller 1
 }
 
-function top_function {
-    intermediate_function
-}
-
-top_function
+first_function
 ```
-この例では、`another_function` の呼び出し元の2つ上の関数（`top_function`）の情報が表示されます。
 
-## ヒント
-- `caller` コマンドは、エラーハンドリングと組み合わせて使用すると非常に効果的です。エラーが発生した際に、どの関数から呼び出されたのかを把握することで、問題の特定が容易になります。
-- スクリプト内で複数の関数を使用する場合、`caller` を使って関数の呼び出し元を追跡することで、デバッグ作業が効率化されます。
+出力例:
+```
+1  example_script.sh:5
+```
 
-このように、`caller` コマンドはシェルスクリプトのデバッグにおいて非常に有用なツールです。適切に活用することで、スクリプトの品質を向上させることができます。
+### 例3: デバッグ用の使用
+デバッグ情報を表示するために `caller` を使用します。
+
+```bash
+function debug_function {
+    echo "Debug info:"
+    caller
+}
+
+debug_function
+```
+
+出力例:
+```
+Debug info:
+1  example_script.sh:15
+```
+
+## Tips
+- `caller` は主にデバッグ目的で使用されるため、開発中のスクリプトで役立ちます。
+- スタックトレースを追跡するために、複数の関数をネストして使用することができます。
+- エラーメッセージと組み合わせて使用すると、問題の特定が容易になります。

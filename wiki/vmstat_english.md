@@ -1,43 +1,53 @@
-# [리눅스] Bash vmstat 사용법
+# [Linux] Bash vmstat Uso equivalente: Monitor system performance
 
 ## Overview
-The `vmstat` command, short for "virtual memory statistics," is a utility in Linux that provides a snapshot of system performance, particularly focusing on memory, processes, paging, block I/O, traps, and CPU activity. Its primary purpose is to help system administrators and developers monitor system performance and diagnose issues related to memory and CPU usage.
+The `vmstat` command in Linux provides a snapshot of system performance, including information about processes, memory, paging, block I/O, traps, and CPU activity. It helps system administrators and users understand how the system is performing and diagnose potential issues.
 
 ## Usage
 The basic syntax of the `vmstat` command is as follows:
 
 ```bash
-vmstat [options] [delay [count]]
+vmstat [options] [delay] [count]
 ```
 
-### Common Options:
-- `delay`: The interval in seconds between updates. If specified, `vmstat` will continuously report statistics at this interval.
-- `count`: The number of updates to display. If not specified, `vmstat` will run indefinitely until interrupted.
-- `-s`: Display memory statistics in a more detailed format.
-- `-m`: Show memory statistics related to slabinfo.
-- `-d`: Display disk statistics.
+- `delay`: The number of seconds between updates.
+- `count`: The number of updates to display.
 
-## Examples
-### Example 1: Basic Usage
-To display system performance statistics once, you can simply run:
+## Common Options
+- `-a`: Show active and inactive memory.
+- `-m`: Display memory statistics.
+- `-s`: Print a table of various event counters and memory statistics.
+- `-d`: Show disk statistics.
+- `-h`: Display help information.
 
-```bash
-vmstat
-```
+## Common Examples
 
-This will output a single line of statistics, including information about processes, memory, paging, block I/O, traps, and CPU usage.
+1. **Basic Usage**: Display system performance statistics every 2 seconds.
+   ```bash
+   vmstat 2
+   ```
 
-### Example 2: Continuous Monitoring
-To monitor the system performance every 2 seconds for a total of 5 updates, use:
+2. **Show Active and Inactive Memory**: Use the `-a` option to include memory details.
+   ```bash
+   vmstat -a 2
+   ```
 
-```bash
-vmstat 2 5
-```
+3. **Display Disk Statistics**: Use the `-d` option to view disk I/O statistics.
+   ```bash
+   vmstat -d 2
+   ```
 
-This command will provide a continuous output of system statistics every 2 seconds, stopping after 5 iterations.
+4. **Memory Statistics**: Use the `-m` option to get detailed memory statistics.
+   ```bash
+   vmstat -m
+   ```
+
+5. **Event Counters**: Print a summary of various event counters.
+   ```bash
+   vmstat -s
+   ```
 
 ## Tips
-- Use `vmstat` in conjunction with other monitoring tools like `top` or `htop` for a comprehensive view of system performance.
-- Pay attention to the CPU idle percentage; low values may indicate that your system is under heavy load.
-- The `-s` option can be particularly useful for a quick overview of memory usage, especially when troubleshooting memory-related issues.
-- Consider redirecting the output to a file for later analysis, for example: `vmstat 2 5 > vmstat_output.txt`.
+- Use `vmstat` in combination with other monitoring tools like `top` or `htop` for a more comprehensive view of system performance.
+- Monitor the system during peak usage times to identify bottlenecks.
+- Regularly check the output to understand normal performance baselines, which can help in troubleshooting when issues arise.

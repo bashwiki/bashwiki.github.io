@@ -1,40 +1,51 @@
-# [리눅스] Bash resize2fs 사용법
+# [Linux] Bash resize2fs Utilisation : Redimensionner un système de fichiers ext2/ext3/ext4
 
 ## Overview
-La commande `resize2fs` est un outil utilisé pour redimensionner un système de fichiers ext2, ext3 ou ext4 sous Linux. Son but principal est d'ajuster la taille d'un système de fichiers existant pour qu'il corresponde à la taille de la partition sur laquelle il est monté. Cela peut être nécessaire après avoir agrandi ou réduit une partition avec des outils comme `fdisk` ou `parted`.
+La commande `resize2fs` est utilisée pour redimensionner un système de fichiers ext2, ext3 ou ext4. Elle permet d'augmenter ou de diminuer la taille d'un système de fichiers sans perdre de données, tant que l'espace disque est disponible.
 
 ## Usage
-La syntaxe de base de la commande `resize2fs` est la suivante :
+La syntaxe de base de la commande est la suivante :
 
 ```bash
-resize2fs [options] <device>
+resize2fs [options] [arguments]
 ```
 
-### Options courantes :
-- `<device>` : Spécifie le périphérique ou le point de montage du système de fichiers que vous souhaitez redimensionner.
+## Common Options
+Voici quelques options courantes pour `resize2fs` :
+
 - `-f` : Force le redimensionnement même si le système de fichiers est monté.
-- `-p` : Affiche une barre de progression pendant le redimensionnement.
-- `-s` : Redimensionne le système de fichiers pour qu'il corresponde à la taille de la partition.
+- `-p` : Affiche le pourcentage de progression lors du redimensionnement.
+- `-s` : Redimensionne le système de fichiers pour correspondre à la taille de la partition.
+- `-M` : Réduit le système de fichiers à sa taille minimale.
 
-## Examples
-### Exemple 1 : Agrandir un système de fichiers
-Supposons que vous ayez agrandi une partition `/dev/sda1` et que vous souhaitiez redimensionner le système de fichiers pour utiliser l'espace supplémentaire :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `resize2fs` :
 
-```bash
-resize2fs /dev/sda1
-```
+1. **Augmenter la taille d'un système de fichiers** :
+   ```bash
+   resize2fs /dev/sda1 20G
+   ```
+   Cela redimensionne le système de fichiers sur `/dev/sda1` à 20 Go.
 
-### Exemple 2 : Réduire un système de fichiers
-Avant de réduire un système de fichiers, assurez-vous qu'il est démonté. Vous pouvez utiliser la commande suivante pour réduire le système de fichiers à une taille spécifique, par exemple 10 Go :
+2. **Réduire la taille d'un système de fichiers** :
+   ```bash
+   resize2fs /dev/sda1 10G
+   ```
+   Cela réduit la taille du système de fichiers sur `/dev/sda1` à 10 Go.
 
-```bash
-resize2fs /dev/sda1 10G
-```
+3. **Redimensionner pour correspondre à la taille de la partition** :
+   ```bash
+   resize2fs -s /dev/sda1
+   ```
+   Cela ajuste le système de fichiers pour qu'il corresponde à la taille actuelle de la partition.
+
+4. **Afficher la progression du redimensionnement** :
+   ```bash
+   resize2fs -p /dev/sda1 15G
+   ```
+   Cela redimensionne le système de fichiers à 15 Go tout en affichant le pourcentage de progression.
 
 ## Tips
-- **Sauvegarde** : Avant de redimensionner un système de fichiers, il est toujours recommandé de faire une sauvegarde de vos données pour éviter toute perte.
-- **Démonter le système de fichiers** : Pour réduire un système de fichiers, assurez-vous qu'il est démonté. Utilisez la commande `umount` pour le démonter.
-- **Vérification préalable** : Avant de redimensionner, utilisez `e2fsck` pour vérifier l'intégrité du système de fichiers. Cela peut prévenir des erreurs lors du redimensionnement.
-- **Utilisation de l'option -p** : Lorsque vous redimensionnez un système de fichiers volumineux, utilisez l'option `-p` pour afficher une barre de progression, ce qui vous permettra de suivre l'avancement du processus.
-
-En suivant ces conseils et en utilisant la commande `resize2fs`, vous pourrez gérer efficacement la taille de vos systèmes de fichiers sous Linux.
+- **Sauvegarde** : Toujours faire une sauvegarde de vos données avant de redimensionner un système de fichiers.
+- **Système de fichiers démonté** : Il est recommandé de démonter le système de fichiers avant d'utiliser `resize2fs` pour éviter toute corruption.
+- **Vérification préalable** : Utilisez `e2fsck` pour vérifier l'intégrité du système de fichiers avant de le redimensionner.

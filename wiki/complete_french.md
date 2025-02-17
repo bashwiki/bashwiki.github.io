@@ -1,46 +1,47 @@
-# [리눅스] Bash complete 사용법
+# [Linux] Bash complet : [compléter les commandes]
 
 ## Overview
-La commande `complete` dans Bash est utilisée pour définir ou afficher les complétions de commandes personnalisées pour les commandes shell. Son objectif principal est d'améliorer l'expérience utilisateur en permettant aux développeurs et aux ingénieurs de spécifier comment les arguments de leurs commandes peuvent être complétés automatiquement par le shell, rendant ainsi l'interaction avec le terminal plus efficace.
+La commande `complete` dans Bash est utilisée pour définir ou afficher les règles de complétion automatique pour les commandes. Cela permet aux utilisateurs de personnaliser la manière dont les arguments des commandes sont complétés dans le terminal, rendant ainsi l'utilisation de la ligne de commande plus efficace.
 
 ## Usage
-La syntaxe de base de la commande `complete` est la suivante :
+La syntaxe de base de la commande est la suivante :
 
 ```bash
-complete [options] [command]
+complete [options] [arguments]
 ```
 
-### Options courantes :
-- `-o`: Définit des options de complétion. Par exemple, `-o nospace` empêche l'ajout d'un espace après la complétion.
-- `-F`: Spécifie une fonction de complétion personnalisée à utiliser pour la complétion de la commande.
-- `-A`: Définit le type d'arguments à compléter, comme `command`, `file`, etc.
-- `-r`: Supprime les complétions existantes pour la commande spécifiée.
+## Common Options
+Voici quelques options courantes pour la commande `complete` :
 
-## Examples
-### Exemple 1 : Complétion simple
-Supposons que vous ayez une commande personnalisée appelée `mycmd`. Vous pouvez ajouter une complétion pour cette commande qui complète les options `--help` et `--version` :
+- `-A` : Définit le type d'argument à compléter (par exemple, `-A command` pour les commandes).
+- `-o` : Spécifie des options de complétion, comme `-o nospace` pour ne pas ajouter d'espace après la complétion.
+- `-F` : Indique une fonction de complétion personnalisée à utiliser.
 
-```bash
-complete -o nospace -W "--help --version" mycmd
-```
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `complete` :
 
-Dans cet exemple, lorsque vous tapez `mycmd` suivi d'un espace et que vous appuyez sur `Tab`, le shell proposera `--help` et `--version` comme options.
+1. **Complétion pour une commande personnalisée :**
+   ```bash
+   complete -W "start stop restart" myservice
+   ```
+   Cela permet de compléter les arguments `start`, `stop`, ou `restart` lorsque vous tapez `myservice`.
 
-### Exemple 2 : Utilisation d'une fonction de complétion
-Vous pouvez également créer une fonction de complétion plus complexe. Par exemple, si vous avez une commande qui prend des noms de fichiers comme arguments, vous pouvez faire :
+2. **Utiliser une fonction de complétion personnalisée :**
+   ```bash
+   _my_function() {
+       COMPREPLY=( $(compgen -W "apple banana cherry" -- "$1") )
+   }
+   complete -F _my_function fruits
+   ```
+   Ici, la fonction `_my_function` fournit des suggestions de fruits lorsque vous tapez `fruits`.
 
-```bash
-_mycmd_completions() {
-    COMPREPLY=( $(compgen -f -- "$1") )
-}
-complete -F _mycmd_completions mycmd
-```
-
-Ici, la fonction `_mycmd_completions` génère une liste de fichiers dans le répertoire actuel lorsque vous commencez à taper `mycmd`.
+3. **Complétion sans espace :**
+   ```bash
+   complete -o nospace -W "yes no" confirm
+   ```
+   Cela permet de compléter `yes` ou `no` sans ajouter d'espace après la complétion.
 
 ## Tips
-- **Testez vos complétions** : Après avoir configuré des complétions, testez-les dans un terminal pour vous assurer qu'elles fonctionnent comme prévu.
-- **Utilisez des fonctions** : Pour des complétions plus complexes, utilisez des fonctions de complétion. Cela vous permet de gérer des logiques conditionnelles et d'autres comportements dynamiques.
-- **Consultez la documentation** : Pour plus de détails sur les options et les fonctionnalités, consultez la page de manuel de Bash en utilisant `man bash` et recherchez la section sur la complétion.
-
-En suivant ces conseils, vous pourrez tirer le meilleur parti de la commande `complete` pour améliorer votre productivité dans le terminal.
+- Utilisez des fonctions de complétion personnalisées pour des scénarios plus complexes où les options dépendent d'autres arguments.
+- Testez vos règles de complétion dans un terminal pour vous assurer qu'elles fonctionnent comme prévu avant de les ajouter à votre fichier de configuration Bash.
+- Pensez à documenter vos personnalisations pour vous rappeler des modifications apportées à la complétion automatique.

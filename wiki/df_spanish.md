@@ -1,40 +1,51 @@
-# [리눅스] Bash df 사용법
+# [Linux] Bash df Uso: Muestra el uso del espacio en disco
 
 ## Overview
-El comando `df` (disk free) se utiliza en sistemas Unix y Linux para mostrar información sobre el espacio en disco disponible en los sistemas de archivos montados. Su propósito principal es ayudar a los usuarios a monitorizar el uso del espacio en disco, permitiendo identificar cuánto espacio está ocupado y cuánto está disponible en cada sistema de archivos.
+El comando `df` en Bash se utiliza para mostrar información sobre el uso del espacio en disco de los sistemas de archivos montados. Proporciona detalles como el tamaño total, el espacio utilizado y el espacio disponible en cada sistema de archivos.
 
 ## Usage
-La sintaxis básica del comando `df` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
-```
-df [opciones] [archivo]
+```bash
+df [opciones] [argumentos]
 ```
 
-### Opciones Comunes:
-- `-h`: Muestra el tamaño en un formato legible para humanos (por ejemplo, en KB, MB o GB).
+## Common Options
+- `-h`: Muestra los tamaños en un formato legible para humanos (por ejemplo, en KB, MB, GB).
 - `-T`: Muestra el tipo de sistema de archivos.
 - `-a`: Incluye sistemas de archivos que tienen un tamaño de 0.
-- `-i`: Muestra información sobre inodos en lugar de espacio en disco.
+- `-i`: Muestra información sobre inodos en lugar de bloques de disco.
 
-## Examples
-Aquí hay un par de ejemplos prácticos de cómo usar el comando `df`.
+## Common Examples
+- Para mostrar el uso del espacio en disco en un formato legible para humanos:
 
-1. **Mostrar el espacio en disco en un formato legible para humanos**:
-   ```bash
-   df -h
-   ```
-   Este comando mostrará el espacio en disco disponible y utilizado en todos los sistemas de archivos montados, utilizando unidades que son fáciles de entender.
+```bash
+df -h
+```
 
-2. **Mostrar información sobre inodos**:
-   ```bash
-   df -i
-   ```
-   Este comando proporciona un resumen del uso de inodos en los sistemas de archivos montados, lo cual es útil para entender la cantidad de archivos que se pueden crear en un sistema.
+- Para mostrar el tipo de sistema de archivos junto con el uso del espacio:
+
+```bash
+df -hT
+```
+
+- Para incluir todos los sistemas de archivos, incluso aquellos con tamaño 0:
+
+```bash
+df -a
+```
+
+- Para ver la información de inodos:
+
+```bash
+df -i
+```
 
 ## Tips
-- Utiliza la opción `-h` para facilitar la lectura de los resultados, especialmente en sistemas con grandes volúmenes de datos.
-- Combinando `df` con `grep`, puedes filtrar la salida para buscar un sistema de archivos específico. Por ejemplo:
-  ```bash
-  df -h | grep /dev/sda1
-  ```
-- Es recomendable ejecutar `df` regularmente como parte de las tareas de mantenimiento del sistema para evitar problemas de espacio en disco que puedan afectar el rendimiento o la funcionalidad del sistema.
+- Utiliza la opción `-h` para facilitar la lectura de los datos, especialmente en sistemas con grandes volúmenes de datos.
+- Revisa regularmente el uso del espacio en disco para evitar problemas de almacenamiento.
+- Combina `df` con otros comandos como `grep` para filtrar resultados específicos, por ejemplo, para ver solo el uso de un sistema de archivos particular:
+
+```bash
+df -h | grep /dev/sda1
+```

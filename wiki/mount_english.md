@@ -1,40 +1,57 @@
-# [리눅스] Bash mount 사용법
+# [Linux] Bash mount uso: Mount file systems
 
 ## Overview
-The `mount` command in Bash is used to attach filesystems to the directory tree of the operating system. Its primary purpose is to make files and directories on a device accessible at a specified mount point in the filesystem hierarchy. This command is essential for managing storage devices, such as hard drives, USB drives, and network shares, allowing users to read from and write to these devices.
+The `mount` command in Bash is used to attach file systems to a specified directory in the Linux file system hierarchy. This allows users to access files and directories stored on different devices or partitions as if they were part of the main file system.
 
 ## Usage
 The basic syntax of the `mount` command is as follows:
 
 ```bash
-mount [options] <device> <mount_point>
+mount [options] [device] [mount_point]
 ```
 
-### Common Options
-- `-t <type>`: Specify the filesystem type (e.g., `ext4`, `ntfs`, `vfat`). If omitted, the system attempts to auto-detect the filesystem type.
-- `-o <options>`: Pass additional options to the mount command, such as `ro` (read-only), `rw` (read-write), `noexec` (do not allow execution of binaries), and `user` (allow a non-root user to mount).
-- `-a`: Mount all filesystems mentioned in `/etc/fstab`.
-- `-r`: Mount the filesystem as read-only.
+- `[device]`: The device or file system to be mounted (e.g., `/dev/sda1`).
+- `[mount_point]`: The directory where the file system will be attached.
 
-## Examples
+## Common Options
+- `-t fstype`: Specify the type of file system (e.g., `ext4`, `ntfs`).
+- `-o options`: Specify mount options (e.g., `ro` for read-only).
+- `-a`: Mount all file systems mentioned in `/etc/fstab`.
+- `-r`: Mount the file system as read-only.
+- `-v`: Verbose output, showing more details during the mount process.
 
-### Example 1: Mounting a USB Drive
-To mount a USB drive located at `/dev/sdb1` to the directory `/mnt/usb`, you would use the following command:
+## Common Examples
+
+### Mounting a USB Drive
+To mount a USB drive located at `/dev/sdb1` to the directory `/mnt/usb`, use the following command:
 
 ```bash
 sudo mount /dev/sdb1 /mnt/usb
 ```
 
-### Example 2: Mounting with Specific Filesystem Type
-If you know the filesystem type of the device, you can specify it. For example, to mount an NTFS filesystem:
+### Mounting with Specific File System Type
+If you know the file system type is `ntfs`, you can specify it like this:
 
 ```bash
-sudo mount -t ntfs /dev/sdc1 /mnt/ntfs_drive
+sudo mount -t ntfs /dev/sdb1 /mnt/usb
+```
+
+### Mounting with Options
+To mount a file system as read-only, you can use the `-o` option:
+
+```bash
+sudo mount -o ro /dev/sda1 /mnt/data
+```
+
+### Mounting All File Systems
+To mount all file systems defined in `/etc/fstab`, simply use:
+
+```bash
+sudo mount -a
 ```
 
 ## Tips
-- Always ensure that the mount point directory exists before attempting to mount a device. You can create it using `mkdir <mount_point>`.
-- Use the `df -h` command to check mounted filesystems and their usage.
-- To unmount a filesystem, use the `umount` command followed by the mount point or device name.
-- Be cautious when mounting filesystems as root, as it can lead to unintended changes or data loss if not handled properly.
-- Consider adding entries to `/etc/fstab` for persistent mounts across reboots, which can simplify the mounting process.
+- Always ensure the mount point directory exists before attempting to mount a file system.
+- Use `df -h` to check mounted file systems and their usage.
+- To unmount a file system, use the `umount` command followed by the mount point or device.
+- Be cautious when mounting file systems as read-write, especially if they contain important data.

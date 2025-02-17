@@ -1,47 +1,61 @@
-# [리눅스] Bash journalctl 사용법
+# [Linux] Bash journalctl Uso: Visualizar logs do sistema
 
-## Visão Geral
-O comando `journalctl` é uma ferramenta utilizada para visualizar logs do sistema que são gerenciados pelo systemd. Ele permite que os usuários acessem e analisem mensagens de log de diferentes serviços e do próprio sistema, facilitando a depuração e monitoramento do estado do sistema. O `journalctl` é especialmente útil em ambientes onde o systemd é utilizado como sistema de inicialização, pois centraliza os logs em um único local.
+## Overview
+O comando `journalctl` é uma ferramenta utilizada para acessar e visualizar os logs do sistema gerenciados pelo systemd. Ele permite que os usuários consultem mensagens de log de forma organizada, facilitando a identificação de problemas e a análise do comportamento do sistema.
 
-## Uso
+## Usage
 A sintaxe básica do comando `journalctl` é a seguinte:
 
 ```bash
-journalctl [OPÇÕES]
+journalctl [opções] [argumentos]
 ```
 
-Algumas opções comuns incluem:
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com o `journalctl`:
 
-- `-b`: Mostra os logs da sessão atual do sistema (boot).
-- `-f`: Segue os logs em tempo real, semelhante ao comando `tail -f`.
-- `--since "data"`: Filtra os logs a partir de uma data específica.
-- `--until "data"`: Filtra os logs até uma data específica.
-- `-u nome_do_serviço`: Mostra apenas os logs de um serviço específico.
+- `-b` ou `--boot`: Mostra logs do sistema desde o último boot.
+- `-f` ou `--follow`: Segue a saída de logs em tempo real, semelhante ao comando `tail -f`.
+- `-p` ou `--priority`: Filtra as mensagens de log por prioridade (ex: emerg, alert, crit, err, warning, notice, info, debug).
+- `-u` ou `--unit`: Mostra logs de uma unidade específica do systemd.
+- `--since` e `--until`: Filtra logs entre duas datas ou horários específicos.
 
-## Exemplos
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `journalctl`:
 
-1. **Visualizar logs da sessão atual:**
-   Para visualizar todos os logs da sessão atual do sistema, você pode usar o seguinte comando:
+1. **Visualizar todos os logs do sistema:**
+   ```bash
+   journalctl
+   ```
 
+2. **Ver os logs desde o último boot:**
    ```bash
    journalctl -b
    ```
 
-2. **Seguir logs em tempo real:**
-   Para acompanhar os logs em tempo real, use a opção `-f`:
-
+3. **Seguir os logs em tempo real:**
    ```bash
    journalctl -f
    ```
 
-3. **Filtrar logs de um serviço específico:**
-   Para visualizar os logs de um serviço específico, como o `nginx`, você pode usar:
-
+4. **Filtrar logs por prioridade (ex: erros):**
    ```bash
-   journalctl -u nginx.service
+   journalctl -p err
    ```
 
-## Dicas
-- Utilize a opção `--since` e `--until` para restringir a visualização de logs a um intervalo de tempo específico, o que pode ser útil para encontrar eventos relacionados a problemas em um período determinado.
-- Combine opções para refinar ainda mais sua busca, por exemplo, `journalctl -u nginx.service --since "2023-10-01" --until "2023-10-02"` para ver logs do serviço `nginx` entre essas datas.
-- Considere usar `less` para facilitar a navegação nos logs, como em `journalctl | less`, permitindo rolar para cima e para baixo nos resultados.
+5. **Visualizar logs de uma unidade específica (ex: apache2.service):**
+   ```bash
+   journalctl -u apache2.service
+   ```
+
+6. **Filtrar logs entre datas específicas:**
+   ```bash
+   journalctl --since "2023-10-01" --until "2023-10-10"
+   ```
+
+## Tips
+- Utilize a opção `-f` para monitorar logs em tempo real durante a resolução de problemas.
+- Combine filtros de data com a opção `-u` para obter logs mais específicos de serviços.
+- Salve a saída de logs em um arquivo para análise posterior usando a redireção:
+  ```bash
+  journalctl > logs.txt
+  ```

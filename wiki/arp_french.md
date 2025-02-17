@@ -1,41 +1,47 @@
-# [리눅스] Bash arp 사용법
+# [Linux] Bash arp Utilisation : Gérer les tables ARP
 
 ## Overview
-La commande `arp` est utilisée pour manipuler la table ARP (Address Resolution Protocol) sur un système. Son objectif principal est de permettre aux utilisateurs de visualiser et de gérer les adresses IP et leurs correspondances avec les adresses MAC sur un réseau local. Cela est particulièrement utile pour le dépannage des problèmes de connectivité réseau et pour la gestion des appareils sur un réseau.
+La commande `arp` est utilisée pour afficher et manipuler la table ARP (Address Resolution Protocol) d'un système. Elle permet de résoudre les adresses IP en adresses MAC et vice versa, ce qui est essentiel pour la communication sur un réseau local.
 
 ## Usage
 La syntaxe de base de la commande `arp` est la suivante :
 
-```
-arp [options] [hostname]
+```bash
+arp [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
+Voici quelques options courantes pour la commande `arp` :
+
 - `-a` : Affiche toutes les entrées de la table ARP.
-- `-d hostname` : Supprime l'entrée ARP pour l'hôte spécifié.
-- `-s hostname hw_addr` : Ajoute une entrée ARP statique pour l'hôte spécifié avec l'adresse matérielle donnée.
+- `-d <adresse>` : Supprime une entrée spécifique de la table ARP.
+- `-s <adresse> <adresse_mac>` : Ajoute une entrée statique à la table ARP.
 - `-n` : Affiche les adresses IP sous forme numérique, sans tenter de résoudre les noms d'hôtes.
 
-## Examples
-### Exemple 1 : Afficher la table ARP
-Pour afficher toutes les entrées de la table ARP, vous pouvez utiliser la commande suivante :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `arp` :
 
-```bash
-arp -a
-```
+1. **Afficher toutes les entrées de la table ARP :**
+   ```bash
+   arp -a
+   ```
 
-Cette commande listera toutes les adresses IP et leurs correspondances MAC sur le réseau local.
+2. **Supprimer une entrée de la table ARP :**
+   ```bash
+   arp -d 192.168.1.10
+   ```
 
-### Exemple 2 : Ajouter une entrée ARP statique
-Pour ajouter une entrée ARP statique, utilisez la commande suivante :
+3. **Ajouter une entrée statique à la table ARP :**
+   ```bash
+   arp -s 192.168.1.20 00:11:22:33:44:55
+   ```
 
-```bash
-arp -s 192.168.1.10 00:1A:2B:3C:4D:5E
-```
-
-Dans cet exemple, nous ajoutons une entrée ARP pour l'adresse IP `192.168.1.10` avec l'adresse MAC `00:1A:2B:3C:4D:5E`.
+4. **Afficher les adresses IP sans résoudre les noms d'hôtes :**
+   ```bash
+   arp -n
+   ```
 
 ## Tips
-- Utilisez l'option `-n` si vous souhaitez éviter la résolution de noms d'hôtes, ce qui peut accélérer l'affichage des résultats.
-- Soyez prudent lorsque vous utilisez l'option `-d` pour supprimer des entrées, car cela peut affecter la connectivité réseau des appareils concernés.
-- Les entrées ARP statiques peuvent être utiles pour éviter les conflits d'adresses IP et assurer une communication fiable avec des appareils spécifiques sur le réseau.
+- Utilisez `arp -a` régulièrement pour surveiller les appareils connectés à votre réseau.
+- Soyez prudent lorsque vous ajoutez des entrées statiques, car cela peut entraîner des conflits d'adresses si l'adresse IP est déjà utilisée par un autre appareil.
+- Pour des diagnostics réseau, combiner `arp` avec d'autres outils comme `ping` ou `traceroute` peut être très utile.

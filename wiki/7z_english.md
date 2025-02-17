@@ -1,42 +1,61 @@
-# [리눅스] Bash 7z 사용법
+# [English] Bash 7z Usage: File compression and extraction tool
 
 ## Overview
-The `7z` command is a powerful file archiving tool that is part of the 7-Zip software suite. It is widely used for compressing and decompressing files and directories, supporting a variety of archive formats. The primary purpose of `7z` is to create compressed archives to save disk space and facilitate file transfer, while also allowing users to extract files from existing archives.
+The `7z` command is a powerful file archiving tool that allows users to compress and extract files in various formats. It is part of the 7-Zip software suite and is known for its high compression ratios and support for a wide range of archive formats.
 
 ## Usage
 The basic syntax of the `7z` command is as follows:
 
-```
-7z [command] [options] [archive] [files...]
+```bash
+7z [options] [arguments]
 ```
 
-### Common Options
+## Common Options
 - `a`: Add files to an archive.
 - `x`: Extract files from an archive.
 - `t`: Test the integrity of an archive.
 - `l`: List the contents of an archive.
 - `d`: Delete files from an archive.
-- `-p`: Set a password for the archive.
-- `-m`: Specify the compression method (e.g., `-mx=9` for maximum compression).
+- `u`: Update files in an archive.
 
-## Examples
+## Common Examples
 
-### Example 1: Creating a Compressed Archive
-To create a compressed archive named `example.7z` containing all `.txt` files in the current directory, you would use the following command:
+### Compressing Files
+To create a new archive named `archive.7z` containing all files in the current directory:
 
 ```bash
-7z a example.7z *.txt
+7z a archive.7z *
 ```
 
-### Example 2: Extracting Files from an Archive
-To extract the contents of an archive named `example.7z` into the current directory, the command would be:
+### Extracting Files
+To extract the contents of `archive.7z` into the current directory:
 
 ```bash
-7z x example.7z
+7z x archive.7z
+```
+
+### Listing Archive Contents
+To list the files contained in `archive.7z` without extracting them:
+
+```bash
+7z l archive.7z
+```
+
+### Testing an Archive
+To check the integrity of `archive.7z`:
+
+```bash
+7z t archive.7z
+```
+
+### Deleting Files from an Archive
+To remove a specific file named `file.txt` from `archive.7z`:
+
+```bash
+7z d archive.7z file.txt
 ```
 
 ## Tips
-- When creating archives, consider using the `-mx` option to specify the level of compression according to your needs. Higher compression levels reduce file size but may increase processing time.
-- Use the `-p` option to secure your archives with a password, especially when dealing with sensitive data.
-- Regularly test your archives using the `t` command to ensure their integrity and prevent data loss.
-- Familiarize yourself with the various compression formats supported by `7z`, such as `.zip`, `.tar`, and `.gzip`, to choose the best one for your use case.
+- Always check the integrity of your archives with the `t` option after creating them to ensure they are not corrupted.
+- Use the `-p` option followed by a password to create encrypted archives for sensitive data.
+- For large files, consider using the `-mx` option to set the compression level, where `-mx=9` provides the highest compression ratio.

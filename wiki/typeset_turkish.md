@@ -1,44 +1,59 @@
-# [리눅스] Bash typeset 사용법
+# [Linux] Bash typeset Kullanımı: Değişkenlerin özelliklerini ayarlama
 
 ## Genel Bakış
-`typeset` komutu, Bash kabuğunda değişkenlerin özelliklerini tanımlamak ve yönetmek için kullanılır. Bu komut, değişkenlerin türünü belirlemeye, değişkenleri yerel hale getirmeye ve değişkenlerin değerlerini kontrol etmeye olanak tanır. Özellikle fonksiyonlar içinde değişkenlerin kapsamını sınırlamak için faydalıdır.
+`typeset` komutu, Bash kabuğunda değişkenlerin özelliklerini ayarlamak için kullanılır. Bu komut, değişkenlerin türünü, kapsamını ve diğer özelliklerini belirleyerek, programlama sırasında daha iyi kontrol sağlar.
 
 ## Kullanım
-Temel sözdizimi şu şekildedir:
-
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-typeset [seçenekler] [değişken_adı]=[değer]
+typeset [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-i`: Değişkeni tam sayı olarak tanımlar. Bu, değişkenin aritmetik işlemlerde kullanılmasını sağlar.
-- `-r`: Değişkenin okunabilirliğini artırır ve değişkenin değerinin değiştirilmesini engeller.
-- `-x`: Değişkeni ortam değişkeni olarak işaretler, böylece alt süreçlerde de erişilebilir hale gelir.
-- `-l`: Değişkenin değerini küçük harflerle saklar.
-- `-u`: Değişkenin değerini büyük harflerle saklar.
+## Yaygın Seçenekler
+- `-i`: Değişkeni tamsayı olarak tanımlar.
+- `-r`: Değişkeni salt okunur yapar.
+- `-x`: Değişkeni ortam değişkeni olarak ayarlar.
+- `-a`: Değişkeni dizi olarak tanımlar.
+- `-A`: Değişkeni ilişkilendirilmiş dizi (associative array) olarak tanımlar.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `typeset` komutunun bazı pratik örnekleri bulunmaktadır:
 
-### Örnek 1: Tam Sayı Değişkeni Tanımlama
-Aşağıdaki komut, `num` adında bir tam sayı değişkeni tanımlar ve ona 10 değerini atar:
-
+### Tamsayı Değişken Tanımlama
 ```bash
-typeset -i num=10
-echo $num
+typeset -i sayi=10
+echo $sayi  # Çıktı: 10
 ```
 
-Bu komutun çıktısı `10` olacaktır. `num` değişkeni artık aritmetik işlemlerde kullanılabilir.
-
-### Örnek 2: Okunamaz Değişken Tanımlama
-Aşağıdaki örnekte, `readonly_var` adında bir değişken tanımlanır ve bu değişkenin değeri değiştirilemez:
-
+### Salt Okunur Değişken
 ```bash
-typeset -r readonly_var="Değiştirilemez"
-echo $readonly_var
-# readonly_var="Yeni Değer"  # Bu satır hata verecektir.
+typeset -r sabit=100
+echo $sabit  # Çıktı: 100
+sabit=200    # Hata: sabit değişken salt okunur
+```
+
+### Ortam Değişkeni Tanımlama
+```bash
+typeset -x ortam_degiskeni="değer"
+echo $ortam_degiskeni  # Çıktı: değer
+```
+
+### Dizi Değişkeni Tanımlama
+```bash
+typeset -a dizi
+dizi[0]="bir"
+dizi[1]="iki"
+echo ${dizi[@]}  # Çıktı: bir iki
+```
+
+### İlişkilendirilmiş Dizi Tanımlama
+```bash
+typeset -A sozluk
+sozluk["anahtar"]="değer"
+echo ${sozluk["anahtar"]}  # Çıktı: değer
 ```
 
 ## İpuçları
-- `typeset` komutunu kullanırken, değişkenlerin kapsamını iyi yönetmek için fonksiyonlar içinde yerel değişkenler tanımlamak önemlidir.
-- Değişkenlerinizi tanımlarken, hangi türde olduklarını belirtmek, kodun okunabilirliğini artırır ve hata yapma olasılığını azaltır.
-- `typeset` komutunu kullanarak değişkenlerinizi daha güvenli hale getirebilir ve beklenmedik değişikliklerden koruyabilirsiniz.
+- `typeset` komutunu kullanırken, değişkenlerin kapsamını iyi belirlemek önemlidir. Özellikle büyük projelerde, değişkenlerin yanlışlıkla değiştirilmesini önlemek için `-r` seçeneğini kullanmayı düşünebilirsiniz.
+- Dizi ve ilişkilendirilmiş dizilerle çalışırken, değişkenlerin içeriğini kontrol etmek için `declare -p` komutunu kullanabilirsiniz.
+- Ortam değişkenleri tanımlarken, `-x` seçeneği ile değişkenlerin diğer süreçler tarafından erişilebilir olmasını sağlayabilirsiniz.

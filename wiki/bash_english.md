@@ -1,43 +1,54 @@
-# [리눅스] Bash bash 사용법
+# [Linux] Bash bash usage: Command-line shell for executing scripts and commands
 
 ## Overview
-The `bash` command is the command-line interpreter for the Bourne Again SHell (Bash), which is a widely used shell in Linux and Unix-like operating systems. It serves as both a command processor and a scripting language interpreter. Its primary purpose is to allow users to execute commands, run scripts, and manage system tasks through a command-line interface. Bash provides features such as command history, job control, and shell functions, making it a powerful tool for engineers and developers.
+Bash, short for "Bourne Again SHell," is a command-line shell used in many Unix-like operating systems. It allows users to execute commands, run scripts, and manage system tasks efficiently. Bash is widely used for both interactive command-line sessions and scripting.
 
 ## Usage
-The basic syntax for the `bash` command is as follows:
+The basic syntax for using bash is as follows:
 
 ```bash
-bash [options] [file]
+bash [options] [arguments]
 ```
 
-### Common Options:
-- `-c`: This option allows you to pass a command as a string to be executed by the shell.
-- `-i`: This option starts an interactive shell session.
-- `-l`: This option starts a login shell, which reads the user's profile scripts.
-- `-s`: This option reads commands from standard input.
+## Common Options
+- `-c`: Read commands from the string provided as an argument.
+- `-i`: Run an interactive shell session.
+- `-l`: Start a login shell.
+- `-s`: Read commands from standard input.
+- `-v`: Print shell input lines as they are read.
 
-## Examples
+## Common Examples
 
-### Example 1: Starting an Interactive Shell
-To start a new interactive Bash shell session, simply type:
+### Running a Bash Script
+To execute a script named `script.sh`, use the following command:
 
 ```bash
-bash
+bash script.sh
 ```
 
-This will open a new shell prompt where you can enter commands as you would in your default shell.
-
-### Example 2: Executing a Command from a String
-You can execute a command directly from the command line by using the `-c` option. For example, to list the contents of the current directory, you can run:
+### Running Commands from a String
+You can execute commands directly from the command line using the `-c` option:
 
 ```bash
-bash -c "ls -l"
+bash -c 'echo "Hello, World!"'
 ```
 
-This command will execute `ls -l` and display the output in the terminal.
+### Starting an Interactive Shell
+To start an interactive bash session, simply type:
+
+```bash
+bash -i
+```
+
+### Reading Commands from Standard Input
+You can also run bash and read commands from standard input:
+
+```bash
+bash -s
+```
+Then type your commands and press `Ctrl+D` to execute them.
 
 ## Tips
-- When running scripts, ensure that the script file has execute permissions. You can set this using `chmod +x script.sh`.
-- Use `bash -i` for debugging scripts interactively, as it allows you to test commands in a live environment.
-- To exit a Bash session, simply type `exit` or press `Ctrl+D`.
-- Familiarize yourself with Bash scripting to automate repetitive tasks and improve efficiency in your development workflow.
+- Always check the permissions of your script files to ensure they are executable (`chmod +x script.sh`).
+- Use `bash -v` to debug your scripts by printing each command before execution.
+- Familiarize yourself with bash scripting basics to automate repetitive tasks effectively.

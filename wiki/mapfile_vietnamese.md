@@ -1,42 +1,48 @@
-# [리눅스] Bash mapfile 사용법
+# [Linux] Bash mapfile: Đọc nội dung tệp vào mảng
 
-## Tổng quan
-Lệnh `mapfile` trong Bash được sử dụng để đọc các dòng từ một tệp tin và lưu chúng vào một mảng. Lệnh này rất hữu ích khi bạn cần xử lý dữ liệu từ tệp mà không cần phải lặp qua từng dòng bằng cách sử dụng các vòng lặp truyền thống. `mapfile` giúp bạn dễ dàng quản lý và thao tác với dữ liệu.
+## Overview
+Lệnh `mapfile` trong Bash được sử dụng để đọc nội dung của một tệp và lưu từng dòng vào một mảng. Điều này rất hữu ích khi bạn muốn xử lý dữ liệu từ tệp mà không cần phải đọc từng dòng một cách thủ công.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `mapfile` như sau:
 
 ```bash
-mapfile [options] array_name < input_file
+mapfile [options] [arguments]
 ```
 
-Trong đó:
-- `array_name`: Tên của mảng mà bạn muốn lưu trữ các dòng từ tệp.
-- `input_file`: Tệp tin chứa dữ liệu mà bạn muốn đọc vào mảng.
+## Common Options
+- `-n N`: Chỉ đọc N dòng từ tệp.
+- `-s N`: Bỏ qua N dòng đầu tiên trong tệp.
+- `-t`: Bỏ qua ký tự xuống dòng ở cuối mỗi dòng.
 
-### Các tùy chọn phổ biến
-- `-t`: Xóa ký tự xuống dòng ở cuối mỗi dòng khi lưu vào mảng.
-- `-n count`: Đọc tối đa `count` dòng từ tệp.
-- `-O index`: Bắt đầu lưu vào mảng từ chỉ số `index`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `mapfile`.
 
-## Ví dụ
 ### Ví dụ 1: Đọc toàn bộ tệp vào mảng
 ```bash
-mapfile lines < myfile.txt
-echo "${lines[@]}"
+mapfile my_array < filename.txt
 ```
-Trong ví dụ này, tất cả các dòng trong `myfile.txt` sẽ được lưu vào mảng `lines` và sau đó được in ra.
+Lệnh này sẽ đọc tất cả các dòng từ `filename.txt` và lưu vào mảng `my_array`.
 
 ### Ví dụ 2: Đọc một số dòng nhất định
 ```bash
-mapfile -t -n 5 lines < myfile.txt
-echo "${lines[@]}"
+mapfile -n 5 my_array < filename.txt
 ```
-Ở đây, chỉ 5 dòng đầu tiên từ `myfile.txt` sẽ được đọc và lưu vào mảng `lines`, và sau đó in ra.
+Lệnh này sẽ chỉ đọc 5 dòng đầu tiên từ `filename.txt` vào mảng `my_array`.
 
-## Mẹo
-- Sử dụng tùy chọn `-t` để loại bỏ ký tự xuống dòng, giúp bạn dễ dàng xử lý dữ liệu mà không cần phải xử lý các ký tự không cần thiết.
-- Khi làm việc với các tệp lớn, hãy cân nhắc sử dụng tùy chọn `-n` để giới hạn số dòng đọc vào mảng, giúp tiết kiệm bộ nhớ.
-- Kiểm tra kích thước của mảng sau khi sử dụng `mapfile` bằng cách sử dụng `${#array_name[@]}` để đảm bảo rằng bạn đã đọc đúng số dòng mong muốn.
+### Ví dụ 3: Bỏ qua một số dòng đầu
+```bash
+mapfile -s 2 my_array < filename.txt
+```
+Lệnh này sẽ bỏ qua 2 dòng đầu tiên trong `filename.txt` và đọc các dòng còn lại vào mảng `my_array`.
 
-Hy vọng bài viết này sẽ giúp bạn hiểu rõ hơn về cách sử dụng lệnh `mapfile` trong Bash!
+### Ví dụ 4: Bỏ qua ký tự xuống dòng
+```bash
+mapfile -t my_array < filename.txt
+```
+Lệnh này sẽ đọc nội dung từ `filename.txt` vào mảng `my_array` mà không có ký tự xuống dòng ở cuối mỗi dòng.
+
+## Tips
+- Khi sử dụng `mapfile`, hãy chắc chắn rằng tệp bạn đang đọc có định dạng phù hợp để tránh lỗi.
+- Sử dụng tùy chọn `-t` nếu bạn muốn loại bỏ ký tự xuống dòng, giúp bạn dễ dàng xử lý dữ liệu hơn.
+- Kiểm tra kích thước của mảng sau khi sử dụng `mapfile` để đảm bảo rằng bạn đã đọc đúng số dòng mong muốn.

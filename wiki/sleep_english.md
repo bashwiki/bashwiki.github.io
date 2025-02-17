@@ -1,58 +1,52 @@
-# [리눅스] Bash sleep 사용법
+# [Linux] Bash sleep Usage: Pause for a specified duration
 
 ## Overview
-The `sleep` command in Bash is used to pause the execution of a script or command for a specified duration. Its primary purpose is to introduce a delay, which can be useful in various scenarios such as waiting for a process to complete, pacing the execution of commands, or creating timed loops.
+The `sleep` command in Bash is used to pause the execution of a script or command for a specified amount of time. This can be useful in various scenarios, such as waiting for a process to complete or introducing delays in automated scripts.
 
 ## Usage
 The basic syntax of the `sleep` command is as follows:
 
 ```bash
-sleep [NUMBER][SUFFIX]
+sleep [options] [duration]
 ```
 
-- **NUMBER**: This is a positive integer that specifies the duration of the sleep.
-- **SUFFIX**: This optional suffix indicates the time unit. The following units are supported:
-  - `s` for seconds (default)
-  - `m` for minutes
-  - `h` for hours
-  - `d` for days
+Where `[duration]` can be specified in seconds, or with a suffix to indicate minutes (`m`), hours (`h`), or days (`d`).
 
-If no suffix is provided, `sleep` assumes the duration is in seconds.
+## Common Options
+- `-h`, `--help`: Display help information about the command.
+- `-V`, `--version`: Show the version of the `sleep` command.
 
-## Examples
-Here are a couple of practical examples demonstrating how to use the `sleep` command:
+## Common Examples
 
-1. **Basic Sleep for 5 Seconds**:
-   To pause the execution for 5 seconds, you can use the following command:
+1. **Pause for 5 seconds:**
    ```bash
    sleep 5
    ```
 
-2. **Sleep for 2 Minutes**:
-   If you want to pause for 2 minutes, you can specify the duration with the `m` suffix:
+2. **Pause for 2 minutes:**
    ```bash
    sleep 2m
    ```
 
+3. **Pause for 1 hour:**
+   ```bash
+   sleep 1h
+   ```
+
+4. **Pause for 3 days:**
+   ```bash
+   sleep 3d
+   ```
+
+5. **Using sleep in a loop:**
+   ```bash
+   for i in {1..5}; do
+       echo "Iteration $i"
+       sleep 1
+   done
+   ```
+
 ## Tips
-- **Chaining Commands**: You can use `sleep` in combination with other commands to create delays between them. For example:
-  ```bash
-  echo "Starting process..."
-  sleep 3
-  echo "Process started."
-  ```
-
-- **Using in Loops**: When creating loops, incorporating `sleep` can prevent overwhelming the system or external services. For instance:
-  ```bash
-  while true; do
-      echo "Checking status..."
-      sleep 10
-  done
-  ```
-
-- **Precision**: If you need to sleep for a fraction of a second, you can use decimal values. For example, to sleep for 0.5 seconds:
-  ```bash
-  sleep 0.5
-  ```
-
-By utilizing the `sleep` command effectively, you can control the timing of your scripts and manage the flow of execution in a more organized manner.
+- Use `sleep` to create delays between commands in scripts, especially when waiting for resources to become available.
+- Combine `sleep` with other commands in a script to manage timing effectively, such as in automated testing or deployment scripts.
+- Be mindful of the duration specified; using excessively long sleep times can lead to unresponsive scripts.

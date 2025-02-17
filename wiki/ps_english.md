@@ -1,39 +1,54 @@
-# [리눅스] Bash ps 사용법
+# [Linux] Bash ps Usage: Displaying Process Information
 
 ## Overview
-The `ps` command in Bash is a powerful utility that provides information about the currently running processes on a Unix-like operating system. Its primary purpose is to display a snapshot of the current processes, including details such as process IDs (PIDs), user ownership, CPU and memory usage, and the command that started each process. This information is crucial for system monitoring, debugging, and performance tuning.
+The `ps` command is a powerful utility in Unix-like operating systems that displays information about the currently running processes. It provides a snapshot of the current processes, allowing users to monitor system activity and manage processes effectively.
 
 ## Usage
-The basic syntax for the `ps` command is:
+The basic syntax of the `ps` command is as follows:
 
 ```bash
-ps [options]
+ps [options] [arguments]
 ```
 
-Common options include:
+## Common Options
+Here are some commonly used options with the `ps` command:
 
-- `-e` or `-A`: Show all processes running on the system.
-- `-f`: Display full-format listing, which includes additional details such as the parent process ID (PPID) and the command line that started the process.
+- `-e` or `-A`: Show all processes.
+- `-f`: Display full-format listing, including additional details like user and command line.
 - `-u [user]`: Show processes for a specific user.
-- `-aux`: A commonly used combination that displays all processes with detailed information, including those not associated with a terminal.
+- `-p [pid]`: Display information about a specific process ID (PID).
+- `-l`: Show a long listing format with more details.
+- `aux`: A combination of options that shows all processes with detailed information.
 
-## Examples
-Here are a couple of practical examples demonstrating how to use the `ps` command:
+## Common Examples
+Here are some practical examples of how to use the `ps` command:
 
-1. **Display all processes with detailed information**:
+1. **Display all processes:**
    ```bash
-   ps aux
+   ps -e
    ```
-   This command will list all running processes along with detailed information such as the user, PID, CPU and memory usage, and the command that initiated the process.
 
-2. **Show processes for a specific user**:
+2. **Show processes for a specific user:**
    ```bash
    ps -u username
    ```
-   Replace `username` with the actual username. This command will display all processes that are owned by the specified user.
+
+3. **Display a full-format listing of processes:**
+   ```bash
+   ps -f
+   ```
+
+4. **Show detailed information about a specific process by PID:**
+   ```bash
+   ps -p 1234
+   ```
+
+5. **List all processes with detailed information:**
+   ```bash
+   ps aux
+   ```
 
 ## Tips
-- Use `ps -ef` for a full-format listing that includes the parent process ID, which can be useful for understanding process hierarchies.
-- Combine `ps` with other commands like `grep` to filter results. For example, `ps aux | grep httpd` will show all processes related to the Apache HTTP server.
-- Remember that `ps` provides a snapshot of processes at the time the command is run. For real-time monitoring, consider using commands like `top` or `htop`.
-- Familiarize yourself with the various options available by consulting the manual page using `man ps` for a comprehensive understanding of its capabilities.
+- Use `ps aux | grep [process_name]` to filter and find specific processes quickly.
+- Combine `ps` with other commands like `sort` or `grep` to analyze process information more effectively.
+- Regularly check running processes to identify any resource-heavy applications that may need attention.

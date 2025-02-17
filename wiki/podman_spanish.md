@@ -1,44 +1,51 @@
-# [리눅스] Bash podman 사용법
+# [Linux] Bash podman uso: Gestión de contenedores sin daemon
 
 ## Overview
-`podman` es una herramienta de línea de comandos que permite a los usuarios gestionar contenedores y pods de forma similar a Docker, pero sin necesidad de un demonio en segundo plano. Su principal propósito es facilitar la creación, ejecución y gestión de contenedores de aplicaciones, ofreciendo una alternativa ligera y segura para el desarrollo y despliegue de aplicaciones en entornos de contenedores.
+Podman es una herramienta de línea de comandos que permite a los usuarios gestionar contenedores y pods de manera eficiente. A diferencia de Docker, Podman no requiere un daemon en ejecución, lo que permite ejecutar contenedores como procesos de usuario.
 
 ## Usage
-La sintaxis básica del comando `podman` es la siguiente:
+La sintaxis básica del comando podman es la siguiente:
 
+```bash
+podman [opciones] [argumentos]
 ```
-podman [opciones] comando [argumentos]
-```
 
-Algunas de las opciones más comunes incluyen:
-
-- `run`: Crea y ejecuta un contenedor.
+## Common Options
+- `run`: Ejecuta un nuevo contenedor.
 - `ps`: Muestra los contenedores en ejecución.
-- `pull`: Descarga una imagen de contenedor desde un registro.
-- `build`: Construye una imagen a partir de un Dockerfile.
+- `images`: Lista las imágenes disponibles en el sistema.
 - `rm`: Elimina uno o más contenedores.
+- `rmi`: Elimina una o más imágenes.
 
-## Examples
-### Ejemplo 1: Ejecutar un contenedor
-Para ejecutar un contenedor de Nginx, puedes usar el siguiente comando:
+## Common Examples
+Aquí hay algunos ejemplos prácticos de cómo usar podman:
 
-```bash
-podman run -d -p 8080:80 nginx
-```
-Este comando ejecuta un contenedor de Nginx en segundo plano (`-d`) y mapea el puerto 80 del contenedor al puerto 8080 de la máquina host.
+1. **Ejecutar un contenedor simple**:
+   ```bash
+   podman run hello-world
+   ```
 
-### Ejemplo 2: Listar contenedores en ejecución
-Para ver todos los contenedores que están actualmente en ejecución, utiliza:
+2. **Listar contenedores en ejecución**:
+   ```bash
+   podman ps
+   ```
 
-```bash
-podman ps
-```
-Este comando mostrará una lista de los contenedores activos, incluyendo su ID, nombre y estado.
+3. **Listar todas las imágenes disponibles**:
+   ```bash
+   podman images
+   ```
+
+4. **Eliminar un contenedor**:
+   ```bash
+   podman rm nombre_del_contenedor
+   ```
+
+5. **Eliminar una imagen**:
+   ```bash
+   podman rmi nombre_de_la_imagen
+   ```
 
 ## Tips
-- **Usa `podman-compose`**: Si trabajas con múltiples contenedores, considera usar `podman-compose`, que permite gestionar aplicaciones multi-contenedor de manera similar a `docker-compose`.
-- **Verifica imágenes locales**: Antes de descargar una nueva imagen, verifica las imágenes que ya tienes en tu sistema con `podman images`.
-- **Limpieza de contenedores**: Utiliza `podman rm` para eliminar contenedores detenidos y `podman rmi` para eliminar imágenes no utilizadas, ayudando a mantener tu entorno limpio y ordenado.
-- **Seguridad**: `podman` ejecuta contenedores sin necesidad de privilegios de root, lo que mejora la seguridad al reducir el riesgo de vulnerabilidades.
-
-Con estos conceptos y ejemplos, podrás comenzar a utilizar `podman` de manera efectiva en tus proyectos de desarrollo y despliegue de aplicaciones en contenedores.
+- Utiliza `podman --help` para obtener información sobre las opciones disponibles y su uso.
+- Considera usar `podman-compose` para gestionar aplicaciones que requieren múltiples contenedores.
+- Recuerda que Podman permite ejecutar contenedores sin privilegios, lo que mejora la seguridad en comparación con otras herramientas.

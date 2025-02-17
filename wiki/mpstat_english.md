@@ -1,7 +1,7 @@
-# [리눅스] Bash mpstat 사용법
+# [Linux] Bash mpstat Uso: Monitor CPU usage statistics
 
 ## Overview
-`mpstat` is a command-line utility in Linux that provides detailed statistics about CPU usage on a multi-core system. It is part of the `sysstat` package and is primarily used to monitor CPU performance, allowing engineers and developers to analyze how effectively the CPU resources are being utilized. By displaying CPU usage for each available processor, `mpstat` helps identify performance bottlenecks and optimize system performance.
+The `mpstat` command is a part of the `sysstat` package in Linux that provides detailed CPU usage statistics. It displays the average CPU usage for each available CPU core, which helps in monitoring system performance and diagnosing potential bottlenecks.
 
 ## Usage
 The basic syntax of the `mpstat` command is as follows:
@@ -10,40 +10,40 @@ The basic syntax of the `mpstat` command is as follows:
 mpstat [options] [interval] [count]
 ```
 
-### Common Options:
-- `-P [processor]`: Specify which processor(s) to report. Use `ALL` to display statistics for all processors.
-- `-u`: Display CPU usage (this is the default behavior).
+## Common Options
+- `-P ALL`: Display statistics for all CPUs.
+- `-u`: Show CPU usage in percentage.
 - `-h`: Display output in a human-readable format.
-- `-V`: Display version information.
+- `-V`: Show version information of `mpstat`.
 
-### Parameters:
-- `interval`: The time in seconds between each report. If not specified, `mpstat` will only provide a single report.
-- `count`: The number of reports to generate. If not specified, it will continue until interrupted.
+## Common Examples
 
-## Examples
+1. **Display CPU usage for all CPUs:**
+   ```bash
+   mpstat -P ALL
+   ```
 
-### Example 1: Basic CPU Usage Report
-To display CPU usage statistics for all processors every 2 seconds, run the following command:
+2. **Monitor CPU usage every 2 seconds for 5 times:**
+   ```bash
+   mpstat 2 5
+   ```
 
-```bash
-mpstat 2
-```
+3. **Show CPU usage in a human-readable format:**
+   ```bash
+   mpstat -h
+   ```
 
-This command will output CPU usage statistics every 2 seconds until you stop it (usually with `Ctrl+C`).
+4. **Display only the user CPU time:**
+   ```bash
+   mpstat -u
+   ```
 
-### Example 2: CPU Usage for a Specific Processor
-To view the CPU usage for a specific processor (e.g., CPU 0) every 5 seconds, use:
-
-```bash
-mpstat -P 0 5
-```
-
-This will provide a report for CPU 0 every 5 seconds.
+5. **Check the version of mpstat:**
+   ```bash
+   mpstat -V
+   ```
 
 ## Tips
-- Use the `-h` option to make the output more readable, especially when dealing with large numbers.
-- Combine `mpstat` with other performance monitoring tools like `top` or `htop` for a more comprehensive view of system performance.
-- Regularly monitor CPU usage during peak and off-peak hours to identify trends and potential issues.
-- Consider scripting `mpstat` commands to log CPU usage over time for analysis and reporting.
-
-By utilizing `mpstat`, engineers and developers can gain valuable insights into CPU performance, helping to ensure systems run efficiently and effectively.
+- Use `mpstat` in combination with other monitoring tools like `top` or `htop` for a comprehensive view of system performance.
+- Regularly monitor CPU statistics during peak usage times to identify potential performance issues.
+- Consider logging the output of `mpstat` to a file for further analysis and historical tracking of CPU performance.

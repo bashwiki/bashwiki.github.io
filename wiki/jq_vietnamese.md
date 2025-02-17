@@ -1,62 +1,55 @@
-# [리눅스] Bash jq 사용법
+# [Linux] Bash jq Cách sử dụng: Trình phân tích và xử lý JSON
 
 ## Tổng quan
-`jq` là một công cụ dòng lệnh mạnh mẽ dùng để xử lý và phân tích dữ liệu JSON. Nó cho phép người dùng truy vấn, lọc, và chuyển đổi dữ liệu JSON một cách dễ dàng và hiệu quả. Với cú pháp đơn giản và khả năng mở rộng, `jq` trở thành một công cụ không thể thiếu cho các kỹ sư và nhà phát triển làm việc với dữ liệu JSON trong các ứng dụng và dịch vụ web.
+`jq` là một công cụ mạnh mẽ dùng để phân tích và xử lý dữ liệu JSON trong dòng lệnh. Nó cho phép người dùng truy vấn, lọc và biến đổi dữ liệu JSON một cách dễ dàng và hiệu quả.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `jq` như sau:
 
 ```bash
-jq [options] 'filter' file.json
+jq [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-c`: Xuất kết quả dưới dạng một dòng (compact output).
-- `-r`: Xuất kết quả dưới dạng chuỗi thô (raw output), không bao gồm dấu nháy kép.
-- `-f file.jq`: Sử dụng một tệp chứa các biểu thức jq.
-- `--arg name value`: Đặt một biến có tên `name` với giá trị `value` để sử dụng trong biểu thức jq.
+## Các tùy chọn phổ biến
+- `-c`: Xuất kết quả dưới dạng một dòng duy nhất.
+- `-r`: Trả về kết quả dưới dạng chuỗi thô, không có dấu nháy.
+- `-f <file>`: Đọc các biểu thức jq từ một tệp tin.
+- `--arg <name> <value>`: Đặt một biến jq với tên và giá trị cụ thể.
 
-## Ví dụ
-### Ví dụ 1: Truy vấn một trường cụ thể
-Giả sử bạn có một tệp JSON có tên `data.json` như sau:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng `jq`:
 
-```json
-{
-  "employees": [
-    {"name": "Alice", "age": 30},
-    {"name": "Bob", "age": 25}
-  ]
-}
-```
+1. **Lọc một trường cụ thể từ JSON**:
+   ```bash
+   echo '{"name": "Alice", "age": 30}' | jq '.name'
+   ```
+   Kết quả: `"Alice"`
 
-Bạn có thể sử dụng `jq` để lấy tên của tất cả nhân viên:
+2. **Lọc nhiều trường từ JSON**:
+   ```bash
+   echo '{"name": "Alice", "age": 30}' | jq '{name, age}'
+   ```
+   Kết quả: `{"name": "Alice", "age": 30}`
 
-```bash
-jq '.employees[].name' data.json
-```
+3. **Sử dụng tùy chọn -r để xuất chuỗi thô**:
+   ```bash
+   echo '{"name": "Alice", "age": 30}' | jq -r '.name'
+   ```
+   Kết quả: `Alice`
 
-Kết quả sẽ là:
-```
-"Alice"
-"Bob"
-```
+4. **Đọc từ tệp JSON**:
+   ```bash
+   jq '.[] | .name' data.json
+   ```
+   Lệnh này sẽ in ra tên của từng đối tượng trong mảng JSON trong tệp `data.json`.
 
-### Ví dụ 2: Lọc dữ liệu theo điều kiện
-Nếu bạn muốn lấy thông tin của những nhân viên trên 28 tuổi, bạn có thể sử dụng:
-
-```bash
-jq '.employees[] | select(.age > 28)' data.json
-```
-
-Kết quả sẽ là:
-```json
-{
-  "name": "Alice",
-  "age": 30
-}
-```
+5. **Sử dụng biến**:
+   ```bash
+   echo '{"name": "Alice", "age": 30}' | jq --arg name "Bob" '.name = $name'
+   ```
+   Kết quả: `{"name": "Bob", "age": 30}`
 
 ## Mẹo
-- Sử dụng `jq` kết hợp với các lệnh khác trong Bash để xử lý dữ liệu một cách linh hoạt. Ví dụ, bạn có thể sử dụng `curl` để lấy dữ liệu JSON từ một API và sau đó truyền nó vào `jq` để phân tích.
-- Đọc tài liệu chính thức của `jq` để tìm hiểu thêm về các biểu thức và cú pháp nâng cao, giúp bạn tối ưu hóa quy trình làm việc với dữ liệu JSON.
-- Khi làm việc với các tệp JSON lớn, hãy sử dụng tùy chọn `-c` để giảm thiểu kích thước đầu ra và tăng tốc độ xử lý.
+- Hãy sử dụng tùy chọn `-c` khi bạn cần xuất dữ liệu JSON gọn gàng hơn.
+- Kiểm tra cú pháp của biểu thức jq bằng cách sử dụng `jq .` để đảm bảo rằng dữ liệu JSON của bạn được định dạng chính xác.
+- Tham khảo tài liệu chính thức của jq để tìm hiểu thêm về các biểu thức phức tạp và tính năng nâng cao.

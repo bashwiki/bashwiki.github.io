@@ -1,42 +1,55 @@
-# [리눅스] Bash cal 사용법
+# [Linux] Bash cal <Sử dụng tương đương>: Hiển thị lịch
 
-## Tổng quan
-Lệnh `cal` trong Bash được sử dụng để hiển thị lịch tháng hoặc năm. Đây là một công cụ hữu ích cho các kỹ sư và nhà phát triển khi cần tra cứu ngày tháng hoặc lên kế hoạch cho các sự kiện. Lệnh này có thể hiển thị lịch theo nhiều định dạng khác nhau, giúp người dùng dễ dàng theo dõi các ngày trong tháng hoặc năm.
+## Overview
+Lệnh `cal` trong Bash được sử dụng để hiển thị lịch tháng hoặc năm. Nó cho phép người dùng xem lịch một cách nhanh chóng và dễ dàng từ dòng lệnh.
 
-## Cách sử dụng
-Cú pháp cơ bản của lệnh `cal` như sau:
+## Usage
+Cú pháp cơ bản của lệnh `cal` là:
 
 ```bash
-cal [tháng] [năm]
+cal [options] [arguments]
 ```
 
-- Nếu không chỉ định tháng và năm, `cal` sẽ hiển thị lịch của tháng hiện tại.
-- Bạn có thể chỉ định tháng bằng số (1-12) và năm bằng số (ví dụ: 2023).
-  
-### Các tùy chọn phổ biến
-- `-y`: Hiển thị lịch của cả năm hiện tại.
-- `-3`: Hiển thị lịch của tháng trước, tháng hiện tại và tháng tiếp theo.
-- `-m`: Hiển thị lịch với thứ Hai là ngày đầu tuần (mặc định là Chủ Nhật).
+## Common Options
+- `-m`: Hiển thị tháng hiện tại.
+- `-y`: Hiển thị toàn bộ lịch năm hiện tại.
+- `-3`: Hiển thị lịch của tháng trước, tháng hiện tại và tháng sau.
+- `-j`: Hiển thị số ngày trong năm (ngày Julian).
+- `-A [n]`: Hiển thị n tháng sau tháng hiện tại.
+- `-B [n]`: Hiển thị n tháng trước tháng hiện tại.
 
-## Ví dụ
-1. Hiển thị lịch của tháng hiện tại:
-   ```bash
-   cal
-   ```
+## Common Examples
+- Hiển thị lịch tháng hiện tại:
 
-2. Hiển thị lịch của tháng 5 năm 2023:
-   ```bash
-   cal 5 2023
-   ```
+```bash
+cal
+```
 
-3. Hiển thị lịch của cả năm 2023:
-   ```bash
-   cal -y 2023
-   ```
+- Hiển thị lịch của tháng 12 năm 2023:
 
-## Mẹo
-- Sử dụng tùy chọn `-3` để có cái nhìn tổng quan về ba tháng liên tiếp, giúp bạn dễ dàng lập kế hoạch cho các sự kiện.
-- Kết hợp lệnh `cal` với lệnh `grep` để tìm kiếm các ngày cụ thể trong lịch.
-- Bạn có thể sử dụng lệnh `cal` trong các script để tự động tạo lịch cho các dự án hoặc sự kiện.
+```bash
+cal 12 2023
+```
 
-Lệnh `cal` là một công cụ đơn giản nhưng mạnh mẽ để quản lý thời gian và lên kế hoạch, rất hữu ích cho các kỹ sư và nhà phát triển trong công việc hàng ngày.
+- Hiển thị lịch của năm 2023:
+
+```bash
+cal -y 2023
+```
+
+- Hiển thị lịch của tháng trước, tháng hiện tại và tháng sau:
+
+```bash
+cal -3
+```
+
+- Hiển thị lịch tháng hiện tại với số ngày trong năm:
+
+```bash
+cal -j
+```
+
+## Tips
+- Sử dụng `cal -A 1` để xem lịch tháng sau tháng hiện tại, rất hữu ích để lập kế hoạch.
+- Kết hợp với lệnh `grep` để tìm kiếm ngày cụ thể trong lịch.
+- Bạn có thể tạo một alias trong file cấu hình của Bash để dễ dàng sử dụng lệnh `cal` với các tùy chọn yêu thích.

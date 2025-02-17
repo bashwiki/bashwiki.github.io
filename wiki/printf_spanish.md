@@ -1,38 +1,49 @@
-# [리눅스] Bash printf 사용법
+# [Linux] Bash printf Uso: Formatear y mostrar texto
 
 ## Overview
-El comando `printf` en Bash se utiliza para formatear y mostrar texto en la salida estándar. Su propósito principal es ofrecer un control más preciso sobre la presentación de los datos en comparación con el comando `echo`. `printf` permite especificar el formato de salida, lo que es especialmente útil para la creación de informes, la depuración y la visualización de datos de manera estructurada.
+El comando `printf` en Bash se utiliza para formatear y mostrar texto en la salida estándar. Es similar a la función `printf` en lenguajes de programación como C, permitiendo un control preciso sobre la presentación de los datos.
 
 ## Usage
-La sintaxis básica del comando `printf` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-printf "formato" [argumentos...]
+printf [opciones] [argumentos]
 ```
 
-### Opciones comunes:
-- **%s**: Formato para cadenas de texto.
-- **%d**: Formato para enteros.
-- **%f**: Formato para números de punto flotante.
-- **%x**: Formato para números en hexadecimal.
-- **\n**: Nueva línea.
-- **\t**: Tabulación.
+## Common Options
+- `-v nombre`: Asigna el resultado a una variable en lugar de imprimirlo.
+- `--help`: Muestra la ayuda sobre el uso del comando.
+- `--version`: Muestra la versión del comando `printf`.
 
-## Examples
-### Ejemplo 1: Formatear una cadena
-```bash
-printf "Hola, %s!\n" "Mundo"
-```
-Este comando imprimirá: `Hola, Mundo!`
+## Common Examples
 
-### Ejemplo 2: Formatear múltiples valores
-```bash
-printf "Nombre: %s, Edad: %d, Altura: %.2f m\n" "Juan" 30 1.75
-```
-Este comando imprimirá: `Nombre: Juan, Edad: 30, Altura: 1.75 m`
+1. **Imprimir texto simple:**
+   ```bash
+   printf "Hola, mundo!\n"
+   ```
+
+2. **Formatear números:**
+   ```bash
+   printf "Número: %.2f\n" 3.14159
+   ```
+
+3. **Imprimir múltiples líneas:**
+   ```bash
+   printf "Línea 1\nLínea 2\nLínea 3\n"
+   ```
+
+4. **Alinear texto:**
+   ```bash
+   printf "|%-10s|%10s|\n" "Izquierda" "Derecha"
+   ```
+
+5. **Asignar a una variable:**
+   ```bash
+   printf -v mensaje "El resultado es: %d" 42
+   echo "$mensaje"
+   ```
 
 ## Tips
-- Utiliza `printf` en lugar de `echo` cuando necesites un formato específico o cuando estés trabajando con caracteres especiales que pueden ser interpretados de manera diferente por `echo`.
-- Recuerda que `printf` no agrega automáticamente una nueva línea al final de la salida, a menos que lo especifiques con `\n`.
-- Puedes utilizar el modificador de ancho y precisión para controlar la longitud de la salida. Por ejemplo, `%.2f` limitará un número de punto flotante a dos decimales.
-- Al usar `printf` en scripts, asegúrate de que el formato y los argumentos coincidan para evitar errores de salida inesperados.
+- Utiliza `\n` para insertar saltos de línea en el texto.
+- Aprovecha el formateo de números para controlar la cantidad de decimales.
+- Recuerda que `printf` no añade automáticamente un salto de línea al final, a diferencia de `echo`.

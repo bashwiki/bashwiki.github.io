@@ -1,53 +1,63 @@
-# [리눅스] Bash podman 사용법
+# [Linux] Bash podman uso: Manage containers without a daemon
 
 ## Overview
-`podman` is a command-line tool designed for managing containers and container images. It allows developers and engineers to create, run, and manage containers without requiring a daemon, making it a lightweight alternative to Docker. Podman is compatible with the Docker CLI, which means that many Docker commands can be used interchangeably with Podman. Its primary purpose is to facilitate container management in a secure and efficient manner, with a focus on rootless container execution.
+Podman is a container management tool that allows users to create, manage, and run containers and images. It is designed to be a drop-in replacement for Docker, but unlike Docker, Podman does not require a daemon to run, making it more lightweight and secure.
 
 ## Usage
-The basic syntax for the `podman` command is as follows:
-
-```
-podman [OPTIONS] COMMAND [ARG...]
-```
-
-### Common Options
-- `--help`: Display help information about the command.
-- `--version`: Show the version of Podman installed.
-- `-v`, `--verbose`: Enable verbose output for more detailed information during execution.
-- `-q`, `--quiet`: Suppress output, showing only container IDs.
-
-### Commands
-Some of the most commonly used commands with `podman` include:
-- `podman run`: Create and start a container.
-- `podman ps`: List running containers.
-- `podman images`: List available container images.
-- `podman rm`: Remove one or more containers.
-- `podman rmi`: Remove one or more images.
-
-## Examples
-
-### Example 1: Running a Simple Container
-To run a simple container using the `nginx` image, you can use the following command:
+The basic syntax for using the podman command is as follows:
 
 ```bash
-podman run -d -p 8080:80 nginx
+podman [options] [arguments]
 ```
-This command does the following:
-- `-d`: Runs the container in detached mode (in the background).
-- `-p 8080:80`: Maps port 8080 on the host to port 80 on the container.
 
-### Example 2: Listing Running Containers
-To list all currently running containers, use:
+## Common Options
+- `run`: Create and start a container.
+- `ps`: List running containers.
+- `images`: List available images.
+- `pull`: Download an image from a container registry.
+- `rm`: Remove one or more containers.
+- `rmi`: Remove one or more images.
+- `exec`: Run a command in a running container.
+
+## Common Examples
+
+### Running a Container
+To run a simple container using the `alpine` image, you can use:
+
+```bash
+podman run -it alpine /bin/sh
+```
+
+### Listing Running Containers
+To see all currently running containers, use:
 
 ```bash
 podman ps
 ```
-This command will display a table of running containers, including their IDs, names, and status.
+
+### Pulling an Image
+To download an image from a registry, such as `nginx`, you can execute:
+
+```bash
+podman pull nginx
+```
+
+### Removing a Container
+To remove a stopped container, use the following command, replacing `container_id` with the actual ID:
+
+```bash
+podman rm container_id
+```
+
+### Listing Available Images
+To view all images available on your system, run:
+
+```bash
+podman images
+```
 
 ## Tips
-- **Rootless Containers**: Podman allows you to run containers without root privileges, enhancing security. Use the `--user` option to specify a user when running containers.
-- **Pod Management**: Podman supports the concept of pods, which are groups of one or more containers sharing the same network namespace. Use `podman pod` commands to manage pods effectively.
-- **Image Management**: Regularly clean up unused images and containers to save disk space. Use `podman rmi` and `podman rm` to remove images and containers, respectively.
-- **Compatibility with Docker**: If you are transitioning from Docker to Podman, you can often use the same commands with minimal changes, making the switch easier.
-
-By leveraging `podman`, developers can efficiently manage containerized applications while maintaining a focus on security and simplicity.
+- Always check the status of your containers with `podman ps` to ensure they are running as expected.
+- Use `podman logs container_id` to view the logs of a specific container for troubleshooting.
+- Consider using `podman-compose` for managing multi-container applications easily.
+- Regularly clean up unused containers and images with `podman rm` and `podman rmi` to free up space.

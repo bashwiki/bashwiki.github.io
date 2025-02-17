@@ -1,68 +1,55 @@
-# [리눅스] Bash uniq 사용법
+# [Linux] Bash uniq Uso: Eliminar líneas duplicadas de un archivo
 
 ## Overview
-El comando `uniq` en Bash se utiliza para filtrar líneas duplicadas en un archivo o en la entrada estándar. Su propósito principal es identificar y eliminar las líneas repetidas, mostrando solo una instancia de cada línea única. Este comando es especialmente útil cuando se trabaja con archivos de texto que contienen datos repetidos y se desea simplificar la información.
+El comando `uniq` se utiliza en Bash para eliminar líneas duplicadas de un archivo o de la entrada estándar. Es especialmente útil cuando se trabaja con archivos de texto donde se desea obtener una lista de elementos únicos.
 
 ## Usage
-La sintaxis básica del comando `uniq` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
 uniq [opciones] [archivo]
 ```
 
-### Opciones comunes:
-- `-c`: Cuenta y muestra el número de ocurrencias de cada línea.
-- `-d`: Muestra solo las líneas que están duplicadas.
-- `-u`: Muestra solo las líneas que son únicas (no duplicadas).
-- `-i`: Ignora las diferencias entre mayúsculas y minúsculas al comparar líneas.
+## Common Options
+- `-c`: Cuenta el número de ocurrencias de cada línea.
+- `-d`: Muestra solo las líneas duplicadas.
+- `-u`: Muestra solo las líneas únicas.
+- `-i`: Ignora la distinción entre mayúsculas y minúsculas.
+- `-w N`: Compara solo los primeros N caracteres de cada línea.
 
-## Examples
-### Ejemplo 1: Filtrar líneas duplicadas
-Supongamos que tenemos un archivo llamado `datos.txt` que contiene las siguientes líneas:
+## Common Examples
 
-```
-manzana
-naranja
-manzana
-plátano
-naranja
-```
+1. **Eliminar líneas duplicadas de un archivo:**
+   ```bash
+   uniq archivo.txt
+   ```
 
-Para filtrar las líneas duplicadas y mostrar solo las únicas, se puede usar el siguiente comando:
+2. **Contar las ocurrencias de cada línea:**
+   ```bash
+   uniq -c archivo.txt
+   ```
 
-```bash
-uniq datos.txt
-```
+3. **Mostrar solo líneas duplicadas:**
+   ```bash
+   uniq -d archivo.txt
+   ```
 
-La salida será:
+4. **Mostrar solo líneas únicas:**
+   ```bash
+   uniq -u archivo.txt
+   ```
 
-```
-manzana
-naranja
-plátano
-```
+5. **Ignorar mayúsculas y minúsculas:**
+   ```bash
+   uniq -i archivo.txt
+   ```
 
-### Ejemplo 2: Contar líneas duplicadas
-Si queremos contar cuántas veces aparece cada línea en el archivo, podemos usar la opción `-c`:
-
-```bash
-uniq -c datos.txt
-```
-
-La salida será:
-
-```
-      2 manzana
-      2 naranja
-      1 plátano
-```
+6. **Comparar solo los primeros N caracteres:**
+   ```bash
+   uniq -w 5 archivo.txt
+   ```
 
 ## Tips
-- Asegúrate de que el archivo de entrada esté ordenado antes de usar `uniq`, ya que este comando solo elimina duplicados que están adyacentes. Puedes usar el comando `sort` para ordenar el archivo primero.
-- Combina `uniq` con otros comandos de Bash utilizando tuberías (`|`) para procesar datos de manera más eficiente. Por ejemplo, puedes usar `cat` y `sort` junto con `uniq` para obtener un conteo de líneas únicas en un archivo:
-
-```bash
-cat datos.txt | sort | uniq -c
-```
-
-Siguiendo estos consejos y ejemplos, podrás utilizar el comando `uniq` de manera efectiva en tus proyectos y tareas de desarrollo.
+- Asegúrate de que el archivo esté ordenado antes de usar `uniq`, ya que solo elimina duplicados adyacentes.
+- Puedes combinar `uniq` con otros comandos como `sort` para obtener resultados más precisos.
+- Utiliza la opción `-c` para obtener un resumen de cuántas veces aparece cada línea, lo que puede ser útil para análisis de datos.

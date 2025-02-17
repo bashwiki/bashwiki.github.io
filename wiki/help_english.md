@@ -1,42 +1,58 @@
-# [리눅스] Bash help 사용법
+# [Linux] Bash help Uso: Display built-in command information
 
 ## Overview
-The `help` command in Bash is a built-in utility that provides information about Bash built-in commands. Its primary purpose is to assist users in understanding the usage and options of various built-in commands without needing to refer to external documentation. This command is particularly useful for quick reference while working in the terminal.
+The `help` command in Bash is used to display information about built-in shell commands. It provides users with a quick reference to understand how to use these commands, including their options and syntax.
 
 ## Usage
 The basic syntax of the `help` command is as follows:
 
 ```bash
-help [COMMAND]
+help [options] [arguments]
 ```
 
-- `COMMAND`: This is an optional argument where you can specify the name of the built-in command you want help with. If no command is provided, `help` will display a list of all available built-in commands.
+You can use it to get information on a specific built-in command by providing the command name as an argument.
 
-### Common Options
-- `-s`, `--silent`: Suppresses the output of the command and only returns the exit status.
-- `-m`, `--man`: Displays the help information in a format similar to the `man` command.
+## Common Options
+- `-s`, `--silent`: Suppress output of the command.
+- `-m`, `--man`: Display the manual page for the command.
+- `-d`, `--description`: Show a brief description of the command.
 
-## Examples
+## Common Examples
+Here are some practical examples of using the `help` command:
 
-1. **Get Help on a Specific Built-in Command**
-   To get help on the `cd` command, you can run:
+1. **Get help for a specific built-in command:**
 
    ```bash
    help cd
    ```
 
-   This will display information about how to use the `cd` command, including its options and usage examples.
+   This command will display information about the `cd` command, including its usage and options.
 
-2. **List All Available Built-in Commands**
-   If you want to see a list of all built-in commands available in your Bash session, simply run:
+2. **List all available built-in commands:**
 
    ```bash
    help
    ```
 
-   This will output a list of all built-in commands along with a brief description of each.
+   Running `help` without arguments will show a list of all built-in commands available in your shell.
+
+3. **Get a brief description of a command:**
+
+   ```bash
+   help -d echo
+   ```
+
+   This will provide a short description of the `echo` command.
+
+4. **Display help in a silent mode:**
+
+   ```bash
+   help -s pwd
+   ```
+
+   This command will show no output unless there is an error, useful for scripting.
 
 ## Tips
-- Use `help` as a quick reference tool when you are unsure about the syntax or options of a built-in command.
-- Remember that `help` only provides information on built-in commands. For external commands, you should use the `man` command or `--help` option with the specific command.
-- Familiarize yourself with the most commonly used built-in commands to enhance your efficiency in the terminal.
+- Use `help` to quickly learn about built-in commands without needing to search online or consult external documentation.
+- Combine `help` with other commands in scripts to provide users with context about what each command does.
+- Remember that `help` only works for built-in commands; for external commands, consider using `man` or `--help` options.

@@ -1,47 +1,53 @@
-# [리눅스] Bash firewalld 사용법
+# [Linux] Bash firewalld : Gestion des règles de pare-feu
 
 ## Overview
-Le commandement `firewalld` est un gestionnaire de pare-feu dynamique qui fournit une interface pour gérer les règles de pare-feu sur les systèmes Linux. Il permet de configurer les règles de filtrage de paquets de manière plus simple et plus flexible qu'avec les outils traditionnels comme `iptables`. `firewalld` utilise des zones pour définir le niveau de confiance des connexions réseau et permet de gérer les services autorisés ou bloqués sur le système.
+Le commandement `firewalld` est un outil de gestion dynamique des règles de pare-feu sous Linux. Il permet de configurer et de gérer les règles de sécurité réseau, offrant une interface facile à utiliser pour contrôler le trafic entrant et sortant.
 
 ## Usage
-La syntaxe de base pour utiliser `firewalld` est la suivante :
+La syntaxe de base de la commande `firewalld` est la suivante :
 
 ```bash
-firewalld [OPTIONS]
+firewalld [options] [arguments]
 ```
 
-### Options courantes :
-- `--zone=<zone>` : Spécifie la zone à utiliser pour la configuration.
+## Common Options
+Voici quelques options courantes pour `firewalld` :
+
+- `--zone=<zone>` : Spécifie la zone à utiliser pour la règle.
 - `--add-service=<service>` : Ajoute un service à la zone spécifiée.
 - `--remove-service=<service>` : Supprime un service de la zone spécifiée.
-- `--list-all` : Affiche toutes les règles et services pour la zone active.
-- `--set-target=<target>` : Définit la cible de la zone (par exemple, `DROP`, `ACCEPT`).
+- `--add-port=<port>/<protocol>` : Ouvre un port spécifique pour un protocole donné (TCP ou UDP).
+- `--remove-port=<port>/<protocol>` : Ferme un port spécifique pour un protocole donné.
 
-## Examples
-### Exemple 1 : Ajouter un service à une zone
-Pour ajouter le service HTTP à la zone publique, vous pouvez utiliser la commande suivante :
+## Common Examples
+Voici quelques exemples pratiques d'utilisation de `firewalld` :
 
-```bash
-sudo firewall-cmd --zone=public --add-service=http --permanent
-```
+1. **Ajouter un service HTTP à la zone publique :**
+   ```bash
+   firewall-cmd --zone=public --add-service=http --permanent
+   ```
 
-Cette commande ajoute le service HTTP à la zone publique de manière permanente. N'oubliez pas de recharger les règles pour que les modifications prennent effet :
+2. **Supprimer un service FTP de la zone publique :**
+   ```bash
+   firewall-cmd --zone=public --remove-service=ftp --permanent
+   ```
 
-```bash
-sudo firewall-cmd --reload
-```
+3. **Ouvrir le port 8080 pour le protocole TCP :**
+   ```bash
+   firewall-cmd --zone=public --add-port=8080/tcp --permanent
+   ```
 
-### Exemple 2 : Lister les règles de la zone active
-Pour afficher toutes les règles et services de la zone active, utilisez :
+4. **Vérifier les règles de la zone publique :**
+   ```bash
+   firewall-cmd --zone=public --list-all
+   ```
 
-```bash
-sudo firewall-cmd --list-all
-```
-
-Cela vous donnera un aperçu complet des services et des ports ouverts dans la zone active.
+5. **Recharger les règles après modification :**
+   ```bash
+   firewall-cmd --reload
+   ```
 
 ## Tips
-- **Utilisez les zones** : Profitez des zones pour gérer facilement les différents niveaux de sécurité pour vos interfaces réseau.
-- **Testez les changements** : Avant de rendre les changements permanents, testez-les sans l'option `--permanent` pour éviter de bloquer accidentellement l'accès à votre système.
-- **Consultez la documentation** : Pour des configurations avancées, consultez la documentation officielle de `firewalld` pour comprendre toutes les options disponibles.
-- **Sauvegardez votre configuration** : Avant d'apporter des modifications majeures, assurez-vous de sauvegarder votre configuration actuelle pour pouvoir revenir en arrière si nécessaire.
+- Toujours utiliser l'option `--permanent` pour que les modifications persistent après un redémarrage.
+- Vérifiez régulièrement les règles de votre pare-feu avec `firewall-cmd --list-all` pour vous assurer qu'elles sont à jour.
+- Utilisez des zones différentes pour séparer les différents niveaux de sécurité selon les interfaces réseau.

@@ -1,40 +1,48 @@
-# [리눅스] Bash umask 사용법
+# [Linux] Bash umask Verwendung: Steuerung der Standardberechtigungen für neue Dateien und Verzeichnisse
 
 ## Übersicht
-Der Befehl `umask` in Bash ist ein wichtiges Werkzeug zur Steuerung der Standardberechtigungen für neu erstellte Dateien und Verzeichnisse. Die Hauptfunktion von `umask` besteht darin, die Berechtigungen zu definieren, die von den Standardwerten abgezogen werden, wenn eine Datei oder ein Verzeichnis erstellt wird. Dies ermöglicht es Benutzern, die Sicherheit ihrer Dateien zu erhöhen, indem sie den Zugriff auf diese Dateien einschränken.
+Der `umask`-Befehl in Bash wird verwendet, um die Standardberechtigungen für neu erstellte Dateien und Verzeichnisse festzulegen. Er bestimmt, welche Berechtigungen beim Erstellen von Dateien und Verzeichnissen standardmäßig eingeschränkt werden.
 
 ## Verwendung
 Die grundlegende Syntax des `umask`-Befehls lautet:
 
 ```bash
-umask [OPTIONEN] [WERT]
+umask [Optionen] [Argumente]
 ```
 
-### Optionen
-- **WERT**: Ein oktaler Wert, der die Berechtigungen angibt, die von den Standardberechtigungen abgezogen werden sollen. Zum Beispiel:
-  - `022`: Entfernt die Schreibberechtigung für die Gruppe und andere.
-  - `077`: Entfernt alle Berechtigungen für die Gruppe und andere.
-- Wenn kein Wert angegeben wird, zeigt `umask` den aktuellen Wert an.
+## Häufige Optionen
+- `-S`: Zeigt die aktuelle Umask in symbolischer Form an.
+- `-p`: Zeigt die aktuelle Umask für den aktuellen Benutzer an.
 
-## Beispiele
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung des `umask`-Befehls:
 
-### Beispiel 1: Aktuellen umask-Wert anzeigen
-Um den aktuellen `umask`-Wert zu überprüfen, verwenden Sie einfach:
+1. **Aktuelle Umask anzeigen:**
+   ```bash
+   umask
+   ```
 
-```bash
-umask
-```
+2. **Umask in symbolischer Form anzeigen:**
+   ```bash
+   umask -S
+   ```
 
-### Beispiel 2: umask-Wert setzen
-Um den `umask`-Wert auf `027` zu setzen, was bedeutet, dass die Gruppe keine Berechtigungen hat und andere Benutzer nur Leseberechtigungen haben, führen Sie den folgenden Befehl aus:
+3. **Umask auf 027 setzen (lesen und ausführen für Gruppe, keine Berechtigungen für andere):**
+   ```bash
+   umask 027
+   ```
 
-```bash
-umask 027
-```
+4. **Umask auf 002 setzen (lesen und schreiben für Gruppe, keine Berechtigungen für andere):**
+   ```bash
+   umask 002
+   ```
 
-Nach dem Setzen dieses Wertes werden neu erstellte Dateien standardmäßig die Berechtigungen `640` (rw-r-----) und neue Verzeichnisse `750` (rwxr-x---) haben.
+5. **Umask zurücksetzen auf Standardwert (typischerweise 022):**
+   ```bash
+   umask 022
+   ```
 
 ## Tipps
-- Überprüfen Sie regelmäßig Ihren `umask`-Wert, um sicherzustellen, dass er den Sicherheitsanforderungen Ihres Projekts entspricht.
-- Setzen Sie `umask` in Ihren Shell-Startdateien (z. B. `.bashrc` oder `.bash_profile`), um sicherzustellen, dass der Wert bei jeder neuen Sitzung angewendet wird.
-- Seien Sie vorsichtig beim Setzen von `umask` auf sehr restriktive Werte, da dies die Funktionalität von Anwendungen beeinträchtigen kann, die auf bestimmte Berechtigungen angewiesen sind.
+- Überprüfen Sie regelmäßig Ihre Umask-Einstellungen, um sicherzustellen, dass neue Dateien und Verzeichnisse die gewünschten Berechtigungen haben.
+- Setzen Sie die Umask in Ihrer Shell-Konfigurationsdatei (z.B. `.bashrc`), um sicherzustellen, dass sie bei jeder Sitzung angewendet wird.
+- Seien Sie vorsichtig beim Setzen von Umask-Werten, da zu restriktive Berechtigungen den Zugriff auf Dateien und Verzeichnisse für andere Benutzer einschränken können.

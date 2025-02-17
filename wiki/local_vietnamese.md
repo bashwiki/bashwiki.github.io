@@ -1,49 +1,53 @@
-# [리눅스] Bash local 사용법
+# [Linux] Bash local lệnh: Tạo biến cục bộ trong hàm
 
-## Tổng quan
-Lệnh `local` trong Bash được sử dụng để khai báo biến cục bộ trong một hàm. Biến cục bộ chỉ có thể được truy cập và sử dụng trong phạm vi của hàm mà nó được định nghĩa, giúp tránh xung đột với các biến toàn cục hoặc các biến trong các hàm khác. Điều này rất hữu ích khi bạn muốn giữ cho các biến của mình không bị ảnh hưởng bởi các phần khác của script.
+## Overview
+Lệnh `local` trong Bash được sử dụng để khai báo các biến cục bộ trong một hàm. Các biến này chỉ tồn tại trong phạm vi của hàm đó và không ảnh hưởng đến các biến bên ngoài.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `local` như sau:
-
 ```bash
-local [tùy chọn] tên_biến=[giá_trị]
+local [options] [variable_name=value]
 ```
 
-### Tùy chọn thông thường
-- `tên_biến`: Tên của biến mà bạn muốn khai báo là cục bộ.
-- `giá_trị`: Giá trị mà bạn muốn gán cho biến cục bộ.
+## Common Options
+- Không có tùy chọn đặc biệt nào cho lệnh `local`, nhưng bạn có thể sử dụng nó với nhiều biến cùng một lúc.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `local`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `local`:
 
-### Ví dụ 1: Khai báo biến cục bộ trong hàm
+### Ví dụ 1: Khai báo biến cục bộ
 ```bash
 my_function() {
     local my_var="Hello, World!"
     echo $my_var
 }
 
-my_function
-echo $my_var  # Không có giá trị, vì my_var là biến cục bộ
+my_function  # Kết quả: Hello, World!
+echo $my_var  # Không có kết quả, vì my_var là biến cục bộ
 ```
-Trong ví dụ này, biến `my_var` được khai báo là cục bộ trong hàm `my_function`. Khi gọi hàm, nó in ra giá trị của `my_var`, nhưng khi cố gắng in ra bên ngoài hàm, nó không có giá trị.
 
-### Ví dụ 2: Sử dụng biến cục bộ để tránh xung đột
+### Ví dụ 2: Sử dụng nhiều biến cục bộ
 ```bash
-global_var="I'm global"
-
 my_function() {
-    local global_var="I'm local"
-    echo $global_var
+    local var1="Value 1"
+    local var2="Value 2"
+    echo "$var1 and $var2"
 }
 
-my_function  # In ra: I'm local
-echo $global_var  # In ra: I'm global
+my_function  # Kết quả: Value 1 and Value 2
 ```
-Trong ví dụ này, biến `global_var` được khai báo cả ở cấp toàn cục và cục bộ. Hàm `my_function` sẽ in ra giá trị của biến cục bộ, trong khi biến toàn cục vẫn giữ nguyên giá trị của nó.
 
-## Mẹo
-- Sử dụng `local` để giảm thiểu khả năng xung đột giữa các biến trong các hàm khác nhau.
-- Luôn khai báo biến cục bộ trong hàm ngay sau khi bắt đầu hàm để đảm bảo rằng biến chỉ tồn tại trong phạm vi đó.
-- Sử dụng biến cục bộ để làm cho mã của bạn dễ đọc và bảo trì hơn, vì nó giúp xác định rõ ràng phạm vi của các biến.
+### Ví dụ 3: Biến cục bộ với tham số
+```bash
+my_function() {
+    local name=$1
+    echo "Hello, $name!"
+}
+
+my_function "Alice"  # Kết quả: Hello, Alice!
+```
+
+## Tips
+- Sử dụng `local` để tránh xung đột tên biến giữa các hàm.
+- Luôn khai báo biến cục bộ trong hàm ngay khi bắt đầu để dễ quản lý.
+- Kiểm tra phạm vi của biến bằng cách thử truy cập chúng bên ngoài hàm để đảm bảo chúng không tồn tại.

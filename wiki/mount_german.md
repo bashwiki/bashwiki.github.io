@@ -1,38 +1,45 @@
-# [리눅스] Bash mount 사용법
+# [Linux] Bash mount Verwendung: Einbinden von Dateisystemen
 
 ## Übersicht
-Der Befehl `mount` wird in Unix-ähnlichen Betriebssystemen verwendet, um Dateisysteme in das Verzeichnisbaum des Systems einzuhängen. Sein Hauptzweck besteht darin, physische oder virtuelle Speichergeräte (wie Festplatten, USB-Sticks oder Netzlaufwerke) für den Zugriff durch das Betriebssystem und die Benutzer verfügbar zu machen. Durch das Einhängen eines Dateisystems wird es möglich, auf die darin enthaltenen Dateien und Verzeichnisse zuzugreifen.
+Der Befehl `mount` wird verwendet, um Dateisysteme in das Verzeichnisbaum des Linux-Systems einzubinden. Dies ermöglicht den Zugriff auf Dateien und Verzeichnisse, die sich auf anderen Speichermedien befinden, wie z.B. Festplatten, USB-Sticks oder Netzwerkfreigaben.
 
 ## Verwendung
-Die grundlegende Syntax des `mount`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-mount [Optionen] <Gerät> <Zielverzeichnis>
+mount [Optionen] [Gerät] [Zielverzeichnis]
 ```
 
-### Häufige Optionen:
-- `-t <Typ>`: Gibt den Typ des Dateisystems an (z.B. `ext4`, `ntfs`, `vfat`).
-- `-o <Optionen>`: Ermöglicht die Angabe zusätzlicher Optionen, wie z.B. `ro` (read-only) oder `rw` (read-write).
-- `-a`: Mountet alle in der Datei `/etc/fstab` aufgeführten Dateisysteme.
-- `-r`: Mountet das Dateisystem im Nur-Lese-Modus.
+## Häufige Optionen
+- `-t`: Gibt den Typ des Dateisystems an (z.B. ext4, ntfs).
+- `-o`: Ermöglicht das Festlegen von Optionen wie `ro` (nur lesen) oder `rw` (lesen und schreiben).
+- `-a`: Bindet alle in der Datei `/etc/fstab` aufgeführten Dateisysteme ein.
+- `-r`: Bindet das Dateisystem nur im Lesemodus ein.
 
-## Beispiele
-### Beispiel 1: Einhängen eines USB-Sticks
-Angenommen, Ihr USB-Stick ist als `/dev/sdb1` erkannt worden und Sie möchten ihn im Verzeichnis `/mnt/usb` einhängen:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung des `mount`-Befehls:
 
-```bash
-sudo mount -t vfat /dev/sdb1 /mnt/usb
-```
+1. **Einbinden eines USB-Sticks**:
+   ```bash
+   mount /dev/sdb1 /mnt/usb
+   ```
 
-### Beispiel 2: Einhängen eines Netzlaufwerks
-Um ein Netzlaufwerk mit dem Typ `cifs` einzuhängen, können Sie den folgenden Befehl verwenden:
+2. **Einbinden eines ext4-Dateisystems mit spezifischen Optionen**:
+   ```bash
+   mount -t ext4 -o rw /dev/sda1 /mnt/data
+   ```
 
-```bash
-sudo mount -t cifs //192.168.1.100/freigabe /mnt/netzlaufwerk -o username=benutzername,password=passwort
-```
+3. **Einbinden aller in fstab definierten Dateisysteme**:
+   ```bash
+   mount -a
+   ```
+
+4. **Einbinden eines Netzwerkfreigabe (NFS)**:
+   ```bash
+   mount -t nfs 192.168.1.100:/freigabe /mnt/nfs
+   ```
 
 ## Tipps
-- Stellen Sie sicher, dass das Zielverzeichnis existiert, bevor Sie den `mount`-Befehl ausführen. Sie können es mit `mkdir` erstellen, falls es nicht vorhanden ist.
-- Überprüfen Sie nach dem Einhängen mit dem Befehl `df -h`, ob das Dateisystem erfolgreich eingehängt wurde.
-- Verwenden Sie den `-o ro`-Schalter, wenn Sie ein Dateisystem nur im Lese-Modus einhängen möchten, um versehentliche Änderungen zu vermeiden.
-- Denken Sie daran, das eingehängte Dateisystem mit dem Befehl `umount <Zielverzeichnis>` wieder auszuhängen, wenn Sie damit fertig sind.
+- Stellen Sie sicher, dass das Zielverzeichnis existiert, bevor Sie das Dateisystem einbinden.
+- Verwenden Sie `umount`, um ein eingebundenes Dateisystem sicher zu trennen.
+- Überprüfen Sie mit `df -h`, welche Dateisysteme derzeit eingebunden sind und deren Nutzung.

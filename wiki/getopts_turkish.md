@@ -1,73 +1,67 @@
-# [리눅스] Bash getopts 사용법
+# [Linux] Bash getopts Kullanımı: Komut satırı seçeneklerini işleme
 
-## Genel Bakış
-`getopts`, Bash betiklerinde komut satırı argümanlarını işlemek için kullanılan bir yerleşik komuttur. Kullanıcıdan gelen argümanları analiz ederek, belirli seçenekleri ve bunların değerlerini almak için kullanılır. Bu, kullanıcıların betiklerinize daha esnek ve kullanıcı dostu bir şekilde girdi sağlamasına olanak tanır.
+## Overview
+`getopts`, Bash betiklerinde komut satırı seçeneklerini işlemek için kullanılan bir yerleşik komuttur. Kullanıcıdan gelen seçenekleri ve argümanları kolayca analiz etmeye yardımcı olur, böylece betiklerinizde esneklik ve kontrol sağlar.
 
-## Kullanım
-`getopts` komutunun temel sözdizimi aşağıdaki gibidir:
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-getopts "seçenekler:" değişken
+getopts [seçenekler] [argümanlar]
 ```
 
-- `seçenekler`: İşlemek istediğiniz seçenekleri belirtir. Her bir seçenek bir harf ile temsil edilir. Eğer bir seçeneğin bir değeri varsa, bu durumda iki nokta üst üste (`:`) eklenir.
-- `değişken`: `getopts` tarafından ayarlanan ve işlenen seçeneklerin saklanacağı değişken.
+## Common Options
+- `-a`: Seçeneklerin birden fazla kez kullanılmasına izin verir.
+- `-l`: Uzun seçenek adlarını destekler.
+- `-n`: Hata mesajlarında betik adını belirtir.
+- `-o`: Seçeneklerin sırasını belirler.
 
-### Yaygın Seçenekler
-- `:`: Eğer bir seçenek bir değer gerektiriyorsa, iki nokta üst üste (`:`) kullanılır.
-- `?`: Geçersiz bir seçenek verildiğinde hata mesajı vermek için kullanılır.
+## Common Examples
 
-## Örnekler
-
-### Örnek 1: Basit Seçenek İşleme
-Aşağıdaki örnek, `-a` ve `-b` seçeneklerini işleyen basit bir betik göstermektedir:
+### Basit Kullanım
+Aşağıdaki örnekte, `-f` seçeneği ile bir dosya adı alınıyor:
 
 ```bash
 #!/bin/bash
-
-while getopts "ab" opt; do
+while getopts "f:" opt; do
   case $opt in
-    a)
-      echo "Seçenek A seçildi."
-      ;;
-    b)
-      echo "Seçenek B seçildi."
-      ;;
-    *)
-      echo "Geçersiz seçenek."
-      ;;
+    f) echo "Dosya adı: $OPTARG" ;;
+    *) echo "Geçersiz seçenek" ;;
   esac
 done
 ```
 
-Bu betiği çalıştırdığınızda, örneğin `./script.sh -a` komutunu kullanarak "Seçenek A seçildi." mesajını alırsınız.
-
-### Örnek 2: Değer Gerektiren Seçenekler
-Aşağıdaki örnek, bir seçenek için değer gerektiren bir durumu göstermektedir:
+### Birden Fazla Seçenek
+Birden fazla seçeneği işlemek için aşağıdaki gibi bir yapı kullanabilirsiniz:
 
 ```bash
 #!/bin/bash
-
-while getopts "u:p:" opt; do
+while getopts "a:b:c:" opt; do
   case $opt in
-    u)
-      echo "Kullanıcı: $OPTARG"
-      ;;
-    p)
-      echo "Parola: $OPTARG"
-      ;;
-    *)
-      echo "Geçersiz seçenek."
-      ;;
+    a) echo "A seçeneği: $OPTARG" ;;
+    b) echo "B seçeneği: $OPTARG" ;;
+    c) echo "C seçeneği: $OPTARG" ;;
+    *) echo "Geçersiz seçenek" ;;
   esac
 done
 ```
 
-Bu betiği `./script.sh -u kullanıcı_adı -p parola` şeklinde çalıştırdığınızda, "Kullanıcı: kullanıcı_adı" ve "Parola: parola" mesajlarını alırsınız.
+### Varsayılan Değerler
+Varsayılan değerler belirlemek için aşağıdaki örneği inceleyebilirsiniz:
 
-## İpuçları
-- `getopts` kullanırken, seçeneklerinizi ve değerlerinizi açık bir şekilde tanımlamak için yorum satırları eklemeyi unutmayın. Bu, kodunuzu daha okunabilir hale getirir.
-- `getopts` ile birlikte `shift` komutunu kullanarak işlenmeyen argümanları yönetebilirsiniz. Bu, daha karmaşık betiklerde faydalı olabilir.
-- Hatalı girişleri yönetmek için `?` seçeneğini kullanarak kullanıcıya anlamlı hata mesajları vermek iyi bir uygulamadır.
+```bash
+#!/bin/bash
+value="varsayılan"
+while getopts "v:" opt; do
+  case $opt in
+    v) value="$OPTARG" ;;
+    *) echo "Geçersiz seçenek" ;;
+  esac
+done
+echo "Değer: $value"
+```
 
-Bu bilgilerle, `getopts` komutunu etkili bir şekilde kullanarak Bash betiklerinizde komut satırı argümanlarını işleyebilirsiniz.
+## Tips
+- Seçeneklerinizi tanımlarken, her bir seçeneğin ardından iki nokta (:) koyarak argüman gerektirdiğini belirtin.
+- Hatalı seçenekler için kullanıcı dostu hata mesajları sağlamaya özen gösterin.
+- Betiğinizin sonunda, işlenen seçenekleri ve argümanları özetleyen bir çıktı vermek, kullanıcı deneyimini artırabilir.

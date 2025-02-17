@@ -1,73 +1,41 @@
-# [리눅스] Bash column 사용법
+# [Linux] Bash column Verwendung: Daten in Spalten formatieren
 
 ## Übersicht
-Der Befehl `column` in Bash wird verwendet, um Daten in einer tabellarischen Form anzuzeigen. Er formatiert Text, der durch Leerzeichen oder andere Trennzeichen getrennt ist, in Spalten, was die Lesbarkeit und Analyse von Daten erleichtert. Der Hauptzweck von `column` besteht darin, unformatierte Daten in ein strukturiertes und leicht lesbares Format zu bringen.
+Der Befehl `column` wird verwendet, um Textdaten in Spalten zu formatieren. Dies ist besonders nützlich, um Daten aus Dateien oder von anderen Befehlen übersichtlich darzustellen.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls `column` lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-column [OPTIONEN] [DATEI]
+column [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-t`: Teilt die Eingabe in Spalten auf und formatiert sie in einer Tabelle.
-- `-s`: Gibt das Trennzeichen an, das zur Trennung der Spalten verwendet wird (Standard ist ein Leerzeichen).
-- `-n`: Verhindert das Umformatieren von Zeilen, die bereits in Spalten formatiert sind.
-- `-x`: Ordnet die Spalten in einer mehrzeiligen Anordnung an, anstatt sie in einer einzigen Zeile anzuzeigen.
+## Häufige Optionen
+- `-t`: Teilt die Eingabe in Spalten und formatiert sie in einer Tabelle.
+- `-s`: Gibt das Trennzeichen an, das verwendet werden soll (Standard ist ein Leerzeichen).
+- `-n`: Verhindert, dass die Eingabe in eine Tabelle umgewandelt wird, sondern zeigt sie einfach an.
 
-## Beispiele
-### Beispiel 1: Einfache Spaltenformatierung
-Angenommen, Sie haben eine Datei namens `daten.txt` mit folgendem Inhalt:
+## Häufige Beispiele
 
-```
-Name Alter Beruf
-Alice 30 Ingenieur
-Bob 25 Designer
-Charlie 35 Manager
-```
+1. **Einfaches Spaltenformat:**
+   ```bash
+   cat datei.txt | column -t
+   ```
+   Dies formatiert den Inhalt von `datei.txt` in Spalten.
 
-Um diese Daten in einer tabellarischen Form anzuzeigen, können Sie den folgenden Befehl verwenden:
+2. **Benutzerdefiniertes Trennzeichen:**
+   ```bash
+   cat datei.csv | column -t -s ","
+   ```
+   Hier wird eine CSV-Datei mit Kommas als Trennzeichen formatiert.
 
-```bash
-column -t daten.txt
-```
-
-Die Ausgabe wird wie folgt aussehen:
-
-```
-Name     Alter  Beruf
-Alice    30     Ingenieur
-Bob      25     Designer
-Charlie  35     Manager
-```
-
-### Beispiel 2: Verwendung eines benutzerdefinierten Trennzeichens
-Wenn Ihre Daten durch Kommas getrennt sind, können Sie das Trennzeichen mit der `-s` Option angeben. Angenommen, Sie haben eine Datei `daten.csv`:
-
-```
-Name,Alter,Beruf
-Alice,30,Ingenieur
-Bob,25,Designer
-Charlie,35,Manager
-```
-
-Um diese Daten korrekt anzuzeigen, verwenden Sie den folgenden Befehl:
-
-```bash
-column -t -s, daten.csv
-```
-
-Die Ausgabe wird wie folgt aussehen:
-
-```
-Name     Alter  Beruf
-Alice    30     Ingenieur
-Bob      25     Designer
-Charlie  35     Manager
-```
+3. **Daten ohne Tabellenformat:**
+   ```bash
+   echo -e "Name\tAlter\nMax\t25\nAnna\t30" | column -n
+   ```
+   Dies zeigt die Daten ohne Umwandlung in eine Tabelle an.
 
 ## Tipps
-- Verwenden Sie die `-t` Option, um sicherzustellen, dass Ihre Daten immer in einer gut lesbaren Tabellenform angezeigt werden.
-- Wenn Sie mit großen Datenmengen arbeiten, kann die Verwendung von `column` in Kombination mit anderen Befehlen wie `cat` oder `grep` hilfreich sein, um die Daten vor der Formatierung zu filtern.
-- Achten Sie darauf, dass die Eingabedaten einheitlich formatiert sind, um unerwartete Ergebnisse zu vermeiden.
+- Verwenden Sie die Option `-t`, um die Lesbarkeit von Daten zu verbessern, insbesondere bei großen Datenmengen.
+- Experimentieren Sie mit verschiedenen Trennzeichen, um die Ausgabe Ihren Bedürfnissen anzupassen.
+- Kombinieren Sie `column` mit anderen Befehlen wie `grep` oder `sort`, um die Daten vor der Formatierung zu filtern oder zu sortieren.

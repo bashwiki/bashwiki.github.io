@@ -1,56 +1,48 @@
-# [리눅스] Bash awk 사용법
+# [Linux] Bash awk uso: Procesamiento de texto y datos
 
 ## Overview
-`awk` es una poderosa herramienta de procesamiento de texto y análisis de datos en la línea de comandos de Bash. Su principal propósito es buscar y manipular patrones en archivos de texto o en la entrada estándar. `awk` permite a los usuarios realizar operaciones como la búsqueda, el filtrado, la transformación y la generación de informes a partir de datos estructurados, como archivos CSV o registros de logs.
+El comando `awk` es una herramienta poderosa en Bash utilizada para el procesamiento de texto y datos. Permite manipular y analizar archivos de texto, extrayendo información y realizando operaciones en columnas específicas de datos.
 
 ## Usage
 La sintaxis básica del comando `awk` es la siguiente:
 
 ```bash
-awk 'pattern { action }' archivo
+awk [opciones] [argumentos]
 ```
 
-- **pattern**: Especifica la condición que debe cumplirse para que se ejecute la acción. Puede ser una expresión regular o una condición lógica.
-- **action**: Especifica lo que se debe hacer cuando se cumple el patrón. Puede incluir comandos como imprimir, modificar o calcular.
-- **archivo**: Es el archivo de texto que se va a procesar. Si no se especifica un archivo, `awk` leerá de la entrada estándar.
+## Common Options
+- `-F`: Especifica el delimitador de campo. Por defecto, `awk` utiliza espacios en blanco.
+- `-v`: Permite definir variables de entorno que pueden ser utilizadas dentro del script `awk`.
+- `-f`: Indica que el siguiente argumento es un archivo que contiene un script `awk`.
 
-### Opciones comunes
-- `-F`: Define el delimitador de campo. Por defecto, `awk` utiliza espacios en blanco como delimitador.
-- `-v`: Permite definir variables de entorno que se pueden utilizar dentro del script `awk`.
+## Common Examples
 
-## Examples
+1. **Imprimir la primera columna de un archivo:**
+   ```bash
+   awk '{print $1}' archivo.txt
+   ```
 
-### Ejemplo 1: Imprimir la segunda columna de un archivo
-Supongamos que tenemos un archivo llamado `datos.txt` con el siguiente contenido:
+2. **Usar un delimitador diferente (por ejemplo, coma):**
+   ```bash
+   awk -F, '{print $2}' archivo.csv
+   ```
 
-```
-nombre edad ciudad
-Juan 25 Madrid
-Ana 30 Barcelona
-Luis 22 Valencia
-```
+3. **Filtrar líneas que contienen una palabra específica:**
+   ```bash
+   awk '/palabra/' archivo.txt
+   ```
 
-Para imprimir la segunda columna (edad), usaríamos el siguiente comando:
+4. **Contar el número de líneas en un archivo:**
+   ```bash
+   awk 'END {print NR}' archivo.txt
+   ```
 
-```bash
-awk '{ print $2 }' datos.txt
-```
-
-### Ejemplo 2: Filtrar líneas basadas en una condición
-Si queremos filtrar y mostrar solo las líneas donde la edad es mayor a 25, podemos usar:
-
-```bash
-awk '$2 > 25 { print $1, $2 }' datos.txt
-```
-
-Este comando imprimirá:
-
-```
-Ana 30
-```
+5. **Sumar valores en la segunda columna:**
+   ```bash
+   awk '{sum += $2} END {print sum}' archivo.txt
+   ```
 
 ## Tips
-- Utiliza `-F` para cambiar el delimitador si trabajas con archivos que no utilizan espacios en blanco. Por ejemplo, para un archivo CSV, puedes usar `-F,`.
-- Es recomendable usar comillas simples alrededor del script `awk` para evitar que el intérprete de Bash intente interpretar las variables dentro del script.
-- Puedes combinar `awk` con otros comandos de Unix mediante pipes para crear potentes cadenas de procesamiento de datos.
-- Familiarízate con las funciones integradas de `awk`, como `length()`, `substr()`, y `split()`, para realizar manipulaciones más complejas en tus datos.
+- Utiliza `-F` para definir delimitadores personalizados cuando trabajes con archivos que no usan espacios en blanco.
+- Aprovecha las variables de entorno con `-v` para hacer tus scripts más dinámicos.
+- Recuerda que `awk` procesa línea por línea, lo que lo hace eficiente para archivos grandes.

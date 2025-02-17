@@ -1,45 +1,58 @@
-# [리눅스] Bash svn 사용법
+# [Linux] Bash svn Verwendung: Versionskontrolle für Dateien und Verzeichnisse
 
 ## Übersicht
-Der Befehl `svn` steht für Subversion und ist ein Versionskontrollsystem, das es Entwicklern ermöglicht, Änderungen an Dateien und Verzeichnissen über die Zeit zu verfolgen. Es wird häufig in Softwareprojekten verwendet, um den Quellcode zu verwalten, Änderungen zu protokollieren und die Zusammenarbeit zwischen mehreren Entwicklern zu erleichtern. Mit `svn` können Benutzer Änderungen an einem Projekt vornehmen, diese Änderungen speichern und bei Bedarf zu früheren Versionen zurückkehren.
+Der `svn`-Befehl ist ein Kommandozeilenwerkzeug für die Versionskontrolle, das es Benutzern ermöglicht, Änderungen an Dateien und Verzeichnissen zu verfolgen. Es ist Teil des Subversion-Systems, das häufig in Softwareentwicklungsprojekten verwendet wird, um die Historie von Änderungen zu verwalten und die Zusammenarbeit zwischen mehreren Entwicklern zu erleichtern.
 
 ## Verwendung
 Die grundlegende Syntax des `svn`-Befehls lautet:
 
-```
-svn [Befehl] [Optionen] [Ziel]
-```
-
-Hier sind einige häufig verwendete Optionen:
-
-- `checkout`: Klont ein Repository auf den lokalen Computer.
-- `commit`: Speichert Änderungen im lokalen Arbeitsverzeichnis im Repository.
-- `update`: Aktualisiert das lokale Arbeitsverzeichnis mit den neuesten Änderungen aus dem Repository.
-- `add`: Fügt neue Dateien oder Verzeichnisse zum Versionskontrollsystem hinzu.
-- `delete`: Entfernt Dateien oder Verzeichnisse aus dem Versionskontrollsystem.
-
-## Beispiele
-
-### Beispiel 1: Repository auschecken
-Um ein Repository auf Ihren lokalen Computer zu klonen, verwenden Sie den `checkout`-Befehl:
-
 ```bash
-svn checkout https://example.com/svn/repo/trunk
+svn [Optionen] [Argumente]
 ```
 
-Dieser Befehl lädt den Inhalt des `trunk`-Verzeichnisses des angegebenen Repositories in ein neues Verzeichnis auf Ihrem lokalen System.
+## Häufige Optionen
+- `checkout`: Klonen eines Repositories auf die lokale Maschine.
+- `commit`: Übertragen von Änderungen an das Repository.
+- `update`: Aktualisieren der lokalen Kopie mit den neuesten Änderungen aus dem Repository.
+- `status`: Anzeigen des Status der lokalen Dateien im Vergleich zum Repository.
+- `add`: Hinzufügen neuer Dateien oder Verzeichnisse zum Repository.
+- `delete`: Löschen von Dateien oder Verzeichnissen aus dem Repository.
 
-### Beispiel 2: Änderungen speichern
-Nachdem Sie Änderungen an Ihren Dateien vorgenommen haben, können Sie diese mit dem `commit`-Befehl speichern:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung des `svn`-Befehls:
 
+### 1. Repository auschecken
 ```bash
-svn commit -m "Meine Änderungen an der Datei"
+svn checkout https://example.com/svn/myproject
 ```
 
-Hierbei wird die Nachricht "Meine Änderungen an der Datei" als Beschreibung für die vorgenommenen Änderungen im Repository gespeichert.
+### 2. Änderungen an das Repository übermitteln
+```bash
+svn commit -m "Meine Änderungen"
+```
+
+### 3. Lokale Kopie aktualisieren
+```bash
+svn update
+```
+
+### 4. Status der Dateien anzeigen
+```bash
+svn status
+```
+
+### 5. Neue Datei zum Repository hinzufügen
+```bash
+svn add neue_datei.txt
+```
+
+### 6. Datei aus dem Repository löschen
+```bash
+svn delete alte_datei.txt
+```
 
 ## Tipps
-- Verwenden Sie `svn status`, um den aktuellen Status Ihrer Arbeitskopie zu überprüfen. Dies zeigt Ihnen, welche Dateien geändert, hinzugefügt oder gelöscht wurden.
-- Führen Sie regelmäßig `svn update` aus, um sicherzustellen, dass Ihre lokale Kopie des Repositories mit den neuesten Änderungen synchronisiert ist.
-- Achten Sie darauf, aussagekräftige Commit-Nachrichten zu schreiben, um die Nachverfolgbarkeit von Änderungen zu erleichtern.
-- Nutzen Sie Branches, um an neuen Funktionen oder Bugfixes zu arbeiten, ohne die Hauptentwicklungslinie zu stören.
+- Verwenden Sie aussagekräftige Commit-Nachrichten, um die Nachverfolgbarkeit zu verbessern.
+- Führen Sie regelmäßig `svn update` durch, um sicherzustellen, dass Ihre lokale Kopie aktuell ist.
+- Überprüfen Sie den Status Ihrer Dateien mit `svn status`, bevor Sie Änderungen vornehmen oder übermitteln.
+- Nutzen Sie Branches, um parallele Entwicklungen zu ermöglichen, ohne die Hauptentwicklungslinie zu stören.

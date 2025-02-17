@@ -1,64 +1,55 @@
-# [리눅스] Bash trap 사용법
+# [Linux] Bash trap uso: Manage signals and cleanup tasks
 
 ## Overview
-The `trap` command in Bash is used to specify commands that will be executed when the shell receives certain signals or when specific events occur. This is particularly useful for handling cleanup tasks, such as removing temporary files or restoring terminal settings, before a script exits or is interrupted. By using `trap`, developers can ensure that their scripts behave predictably in the face of interruptions.
+The `trap` command in Bash is used to specify commands that will be executed when the shell receives certain signals or when specific events occur. This is particularly useful for handling cleanup tasks or managing the behavior of scripts when they are interrupted.
 
 ## Usage
 The basic syntax of the `trap` command is as follows:
 
 ```bash
-trap COMMANDS SIGNALS
+trap [commands] [signals]
 ```
 
-- **COMMANDS**: The commands to be executed when the specified signals are received. This can be a single command or a list of commands separated by semicolons.
-- **SIGNALS**: The signals that will trigger the execution of the specified commands. Common signals include:
-  - `SIGINT` (interrupt signal, usually triggered by Ctrl+C)
-  - `SIGTERM` (termination signal)
-  - `EXIT` (executes when the script exits, regardless of how it exits)
+- `commands`: The commands to execute when the specified signals are received.
+- `signals`: The signals that will trigger the execution of the commands.
 
-### Common Options
-- `-p`: Print the current trap settings for the specified signals.
-- `-l`: List all signal names.
+## Common Options
+- `SIGINT`: Triggered by pressing Ctrl+C.
+- `SIGTERM`: The default signal sent by the `kill` command.
+- `EXIT`: Executes commands when the script exits, regardless of the reason.
+- `ERR`: Executes commands when a command fails (returns a non-zero status).
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Usage with SIGINT
-This example demonstrates how to use `trap` to handle an interrupt signal (Ctrl+C) gracefully.
+### Example 1: Cleanup on Exit
+To remove a temporary file when the script exits:
 
 ```bash
-#!/bin/bash
-
-trap 'echo "Script interrupted! Cleaning up..."; exit' SIGINT
-
-echo "Running script. Press Ctrl+C to interrupt."
-while true; do
-    sleep 1
-done
+trap 'rm -f /tmp/mytempfile' EXIT
 ```
 
-In this script, if the user presses Ctrl+C, the message "Script interrupted! Cleaning up..." will be displayed, and the script will exit cleanly.
-
-### Example 2: Cleanup on Exit
-In this example, `trap` is used to perform cleanup actions when the script exits.
+### Example 2: Handle Interrupt Signal
+To display a message and exit gracefully when the script is interrupted:
 
 ```bash
-#!/bin/bash
-
-trap 'echo "Cleaning up temporary files..."; rm -f /tmp/mytempfile' EXIT
-
-echo "Creating a temporary file..."
-touch /tmp/mytempfile
-
-# Simulate some work
-sleep 5
-
-echo "Script completed."
+trap 'echo "Script interrupted!"; exit' SIGINT
 ```
 
-Here, when the script exits (whether normally or due to an error), it will remove the temporary file `/tmp/mytempfile`.
+### Example 3: Multiple Signals
+To handle both SIGINT and SIGTERM with the same command:
+
+```bash
+trap 'echo "Terminating..."; exit' SIGINT SIGTERM
+```
+
+### Example 4: Error Handling
+To print a message when a command fails:
+
+```bash
+trap 'echo "An error occurred!"' ERR
+```
 
 ## Tips
-- Always include cleanup commands in your `trap` to ensure resources are released properly.
-- Use `trap` with `EXIT` to handle cleanup tasks that should occur regardless of how the script terminates.
-- Be cautious when using `trap` with signals that can be sent by other processes, as this can lead to unexpected behavior if not managed correctly.
-- Test your scripts thoroughly to ensure that the `trap` commands behave as expected under various conditions.
+- Always ensure that the commands specified in `trap` are simple and quick to execute, as they will run in response to signals.
+- Use `trap` to manage resources effectively, especially in scripts that create temporary files or open network connections.
+- Remember to test your scripts to ensure that the `trap` commands behave as expected under different scenarios.

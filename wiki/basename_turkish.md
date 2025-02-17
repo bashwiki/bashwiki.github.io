@@ -1,46 +1,57 @@
-# [리눅스] Bash basename 사용법
+# [Linux] Bash basename Kullanımı: Dosya adlarını almak için
 
-## Genel Bakış
-`basename` komutu, bir dosya yolunun son kısmını (dosya adını) almak için kullanılır. Bu komut, genellikle bir dosya yolunun tam adresinden yalnızca dosya adını çıkarmak için kullanılır. Özellikle script yazarken veya dosya işlemleri gerçekleştirirken, dosya adını izole etmek için oldukça yararlıdır.
+## Overview
+`basename` komutu, bir dosya yolunun yalnızca dosya adını almak için kullanılır. Yani, bir dosya yolunu verdiğinizde, bu komut size yalnızca dosyanın adını döndürür.
 
-## Kullanım
-`basename` komutunun temel sözdizimi şu şekildedir:
+## Usage
+Temel sözdizimi şu şekildedir:
 
 ```bash
-basename [YOL] [UZANTI]
+basename [options] [arguments]
 ```
 
-- **YOL**: İşlem yapmak istediğiniz dosya veya dizin yolunu belirtir.
-- **UZANTI**: (isteğe bağlı) Dosya adından kaldırılacak uzantıyı belirtir. Eğer bu argüman verilirse, belirtilen uzantı dosya adından çıkarılır.
+## Common Options
+- `-a`, `--multiple`: Birden fazla dosya adı döndürür.
+- `-s`, `--suffix`: Belirtilen bir son eki kaldırarak dosya adını döndürür.
 
-### Yaygın Seçenekler
-`basename` komutunun kendine özgü seçenekleri yoktur, ancak yukarıda belirtilen argümanlar ile birlikte kullanılabilir.
+## Common Examples
+Aşağıda `basename` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-## Örnekler
-
-### Örnek 1: Basit Kullanım
+### Örnek 1: Basit kullanım
 Bir dosya yolundan yalnızca dosya adını almak için:
 
 ```bash
 basename /home/kullanici/dosya.txt
 ```
-Bu komutun çıktısı:
+Çıktı:
 ```
 dosya.txt
 ```
 
-### Örnek 2: Uzantı Kaldırma
-Bir dosya adından belirli bir uzantıyı kaldırmak için:
+### Örnek 2: Son eki kaldırma
+Bir dosya adından belirli bir son eki kaldırarak yalnızca temel adı almak için:
 
 ```bash
 basename /home/kullanici/dosya.txt .txt
 ```
-Bu komutun çıktısı:
+Çıktı:
 ```
 dosya
 ```
 
-## İpuçları
-- `basename` komutunu, dosya adlarını işlerken ve dosya yollarını yönetirken kullanmak, kodunuzu daha okunabilir hale getirebilir.
-- Uzantıyı kaldırmak için doğru uzantıyı belirttiğinizden emin olun; aksi takdirde beklenmedik sonuçlar alabilirsiniz.
-- `basename` komutunu bir script içinde kullanarak, dinamik dosya adları oluşturabilir veya dosya işlemlerini otomatikleştirebilirsiniz.
+### Örnek 3: Birden fazla dosya adı döndürme
+Birden fazla dosya adını almak için:
+
+```bash
+basename -a /home/kullanici/dosya1.txt /home/kullanici/dosya2.txt
+```
+Çıktı:
+```
+dosya1.txt
+dosya2.txt
+```
+
+## Tips
+- `basename` komutunu, dosya adlarını işlemek istediğiniz betiklerde kullanarak daha okunabilir çıktılar elde edebilirsiniz.
+- Dosya adlarını işlerken, son ekleri kaldırmak için `-s` seçeneğini kullanmak, dosya adlarını daha temiz hale getirebilir.
+- Birden fazla dosya adı ile çalışıyorsanız, `-a` seçeneğini kullanarak hepsini aynı anda alabilirsiniz.

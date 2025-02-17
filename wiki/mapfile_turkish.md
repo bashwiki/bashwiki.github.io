@@ -1,45 +1,59 @@
-# [리눅스] Bash mapfile 사용법
+# [Linux] Bash mapfile Kullanımı: Diziye dosya içeriğini okuma
 
 ## Overview
-`mapfile`, Bash kabuğunda bir komut olup, bir dosyadaki satırları bir diziye okuma işlemi için kullanılır. Bu komut, özellikle dosya içeriğini dizi elemanları olarak depolamak isteyen mühendisler ve geliştiriciler için oldukça kullanışlıdır. `mapfile`, her bir satırı dizinin bir elemanı olarak kaydeder ve bu sayede dosya içeriği üzerinde kolaylıkla işlem yapma imkanı sunar.
+`mapfile` komutu, bir dosyanın içeriğini bir diziye okumanıza olanak tanır. Bu komut, dosya satırlarını bir dizi elemanı olarak depolamak için kullanılır ve genellikle dosya içeriği üzerinde işlem yaparken oldukça faydalıdır.
 
 ## Usage
-`mapfile` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi şu şekildedir:
 
 ```bash
-mapfile [options] [array_name]
+mapfile [options] [arguments]
 ```
 
-### Yaygın Seçenekler:
-- `-t`: Satır sonu karakterlerini kaldırarak dizinin elemanlarını oluşturur. Bu, genellikle istenen bir davranıştır çünkü satır sonu karakterleri çoğu durumda gereksizdir.
-- `-n count`: Okunacak satır sayısını belirtir. Bu seçenek ile sadece belirtilen sayıda satır okunur.
-- `-s count`: Okunacak satırların başlangıç noktasını belirtir. Bu, dosyanın başından itibaren belirli bir sayıda satırı atlayarak okumaya başlamak için kullanılır.
+## Common Options
+- `-t`: Satır sonu karakterlerini kaldırır.
+- `-n <number>`: Okunacak satır sayısını belirtir.
+- `-O <number>`: Diziye eklemeye başlayacağınız indeksi belirtir.
+- `-s <number>`: Atlanacak satır sayısını belirtir.
 
-## Examples
+## Common Examples
 
 ### Örnek 1: Basit Kullanım
-Aşağıdaki örnekte, bir dosyadaki tüm satırlar `my_array` adlı bir diziye okunmaktadır.
+Bir dosyanın içeriğini bir diziye okumak için:
 
 ```bash
 mapfile my_array < my_file.txt
-echo "${my_array[@]}"
 ```
 
-Bu komut, `my_file.txt` dosyasındaki her satırı `my_array` dizisinin bir elemanı olarak depolar ve ardından dizinin içeriğini ekrana yazdırır.
-
 ### Örnek 2: Satır Sonu Karakterlerini Kaldırma
-Aşağıdaki örnekte, satır sonu karakterleri kaldırılarak bir dosyadaki satırlar okunmaktadır.
+Satır sonu karakterlerini kaldırarak bir diziye okuma:
 
 ```bash
 mapfile -t my_array < my_file.txt
-for line in "${my_array[@]}"; do
-    echo "$line"
-done
 ```
 
-Burada `-t` seçeneği kullanılarak, dizinin elemanları oluşturulurken satır sonu karakterleri kaldırılmıştır.
+### Örnek 3: Belirli Sayıda Satır Okuma
+Sadece ilk 5 satırı okumak için:
+
+```bash
+mapfile -n 5 my_array < my_file.txt
+```
+
+### Örnek 4: Dizi İndeksini Belirleme
+Dizinin 10. indeksinden başlamasını sağlamak:
+
+```bash
+mapfile -O 10 my_array < my_file.txt
+```
+
+### Örnek 5: Satır Atlama
+İlk 3 satırı atlayarak okumak:
+
+```bash
+mapfile -s 3 my_array < my_file.txt
+```
 
 ## Tips
-- `mapfile` komutunu kullanırken, dosyanın büyük boyutlarda olması durumunda bellek kullanımını göz önünde bulundurmalısınız. Büyük dosyalar okunduğunda, sistem kaynakları üzerinde olumsuz etkiler yaratabilir.
-- Dizi elemanlarını döngü ile işlemek, dosya içeriği üzerinde işlem yapmanın etkili bir yoludur. Bu nedenle, `mapfile` ile okunan diziyi döngülerle kullanmak iyi bir uygulamadır.
-- `mapfile` komutunu kullanmadan önce, dosyanın var olduğundan ve okunabilir olduğundan emin olun. Aksi takdirde, hata mesajları ile karşılaşabilirsiniz.
+- `mapfile` komutunu kullanmadan önce dosyanın var olduğundan emin olun.
+- Dizi elemanlarına erişmek için dizinin indeks numarasını kullanabilirsiniz, örneğin: `${my_array[0]}`.
+- Büyük dosyalarla çalışırken, bellek kullanımını göz önünde bulundurun; çok büyük dosyalar belleği doldurabilir.

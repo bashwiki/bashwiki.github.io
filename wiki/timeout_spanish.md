@@ -1,42 +1,56 @@
-# [리눅스] Bash timeout 사용법
+# [Linux] Bash timeout uso: Establecer un límite de tiempo para comandos
 
 ## Overview
-El comando `timeout` en Bash se utiliza para ejecutar un comando y limitar el tiempo que este puede estar en ejecución. Si el comando no finaliza dentro del tiempo especificado, `timeout` lo termina automáticamente. Esta herramienta es especialmente útil para evitar que procesos se queden colgados o consuman recursos indefinidamente.
+El comando `timeout` en Bash se utiliza para ejecutar un comando y finalizarlo si no ha terminado dentro de un tiempo especificado. Esto es útil para evitar que procesos se queden colgados indefinidamente.
 
 ## Usage
 La sintaxis básica del comando `timeout` es la siguiente:
 
 ```bash
-timeout [DURACIÓN] [COMANDO] [ARGUMENTOS...]
+timeout [opciones] duración comando [argumentos]
 ```
 
-### Opciones Comunes:
-- `DURACIÓN`: Especifica el tiempo máximo que el comando puede ejecutarse. Puede ser un número seguido de una unidad de tiempo, como `s` (segundos), `m` (minutos), `h` (horas) o `d` (días). Por ejemplo, `5s` para cinco segundos o `2m` para dos minutos.
-- `COMANDO`: El comando que deseas ejecutar.
-- `ARGUMENTOS`: Cualquier argumento adicional que necesite el comando.
+## Common Options
+- `-k, --kill-after=DURACION`: Especifica un tiempo adicional después del cual se enviará una señal de terminación al proceso si aún está en ejecución.
+- `--preserve-status`: Mantiene el código de salida del comando original en lugar de devolver el código de salida de `timeout`.
+- `-s, --signal=SEÑAL`: Especifica la señal que se enviará al proceso al finalizar. Por defecto, se envía la señal `TERM`.
 
-### Ejemplo de uso:
-```bash
-timeout 10s sleep 20
-```
-En este ejemplo, el comando `sleep 20` se ejecuta, pero `timeout` lo detendrá después de 10 segundos.
+## Common Examples
 
-## Examples
-### Ejemplo 1: Ejecutar un comando con límite de tiempo
-```bash
-timeout 30s ping google.com
-```
-Este comando intentará hacer ping a google.com durante un máximo de 30 segundos. Si el comando no termina antes de ese tiempo, se interrumpirá.
+1. **Ejecutar un comando con un límite de tiempo de 5 segundos:**
 
-### Ejemplo 2: Usar con un script
-```bash
-timeout 1m ./mi_script.sh
-```
-Aquí, `mi_script.sh` se ejecutará durante un máximo de 1 minuto. Si no finaliza en ese tiempo, `timeout` lo terminará.
+   ```bash
+   timeout 5s sleep 10
+   ```
+
+   En este ejemplo, el comando `sleep 10` se finalizará después de 5 segundos.
+
+2. **Usar `timeout` con una señal específica:**
+
+   ```bash
+   timeout -s SIGKILL 5s sleep 10
+   ```
+
+   Aquí, el comando `sleep 10` se finalizará con la señal `SIGKILL` después de 5 segundos.
+
+3. **Preservar el estado de salida del comando:**
+
+   ```bash
+   timeout --preserve-status 5s false
+   echo $?
+   ```
+
+   En este caso, el comando `false` se ejecuta y se finaliza después de 5 segundos, pero el código de salida de `false` se preserva.
+
+4. **Finalizar un proceso después de un tiempo y enviar una señal de terminación adicional:**
+
+   ```bash
+   timeout -k 3s 5s sleep 10
+   ```
+
+   Este comando finalizará `sleep 10` después de 5 segundos y, si el proceso sigue en ejecución, enviará una señal de terminación 3 segundos después.
 
 ## Tips
-- **Manejo de señales**: Por defecto, `timeout` envía la señal `SIGTERM` al proceso que termina. Si deseas enviar una señal diferente, puedes usar la opción `-s`. Por ejemplo, `timeout -s KILL 5s comando` enviará `SIGKILL` después de 5 segundos.
-- **Comprobación de salida**: Puedes verificar el código de salida del comando después de que `timeout` lo haya terminado. Si el comando fue terminado por `timeout`, el código de salida será 124.
-- **Usar en scripts**: `timeout` es muy útil en scripts para asegurarte de que los procesos no se queden colgados, especialmente en entornos de producción.
-
-Con estos conocimientos, podrás utilizar el comando `timeout` de manera efectiva para gestionar la ejecución de tus procesos en Bash.
+- Siempre verifica el tiempo que necesitas para cada comando, ya que un tiempo demasiado corto puede interrumpir procesos importantes.
+- Utiliza la opción `--preserve-status` si necesitas el código de salida del comando original para el manejo de errores.
+- Considera el uso de señales personalizadas si necesitas un control más fino sobre cómo se finalizan los procesos.

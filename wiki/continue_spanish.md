@@ -1,57 +1,84 @@
-# [리눅스] Bash continue 사용법
+# [Linux] Bash continue uso equivalente: Continuar con el siguiente ciclo en un bucle
 
 ## Overview
-El comando `continue` en Bash se utiliza dentro de bucles (como `for`, `while` y `until`) para omitir la iteración actual y continuar con la siguiente. Su propósito principal es permitir que el flujo de ejecución del bucle continúe sin ejecutar el resto del código en la iteración actual, lo que puede ser útil para evitar la ejecución de ciertas instrucciones bajo condiciones específicas.
+El comando `continue` en Bash se utiliza dentro de estructuras de control de bucle, como `for`, `while` o `until`. Su función principal es omitir el resto del código en la iteración actual del bucle y continuar con la siguiente iteración.
 
 ## Usage
-La sintaxis básica del comando `continue` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-continue [N]
+continue [n]
 ```
 
-- `N` es un número opcional que especifica el nivel del bucle al que se aplica el comando. Si se omite, `continue` afecta al bucle más interno. Si se proporciona un número, `continue N` afecta al bucle que está `N` niveles hacia arriba en la jerarquía de bucles.
+Donde `n` es un número opcional que indica cuántos niveles de bucle se deben omitir. Si no se especifica, `continue` omite el bucle más interno.
 
-## Examples
-### Ejemplo 1: Uso básico de `continue`
+## Common Options
+- `n`: Un número que especifica cuántos niveles de bucle se deben omitir. Por defecto, se omite solo el bucle más interno.
+
+## Common Examples
+
+### Ejemplo 1: Usar continue en un bucle for
+Este ejemplo muestra cómo usar `continue` para omitir los números pares en un bucle `for`.
+
 ```bash
-for i in {1..5}; do
-    if [ $i -eq 3 ]; then
+for i in {1..10}; do
+    if (( i % 2 == 0 )); then
         continue
     fi
-    echo "Número: $i"
+    echo $i
 done
 ```
-**Salida:**
+*Salida:*
 ```
-Número: 1
-Número: 2
-Número: 4
-Número: 5
+1
+3
+5
+7
+9
 ```
-En este ejemplo, cuando `i` es igual a 3, el comando `continue` omite la impresión de ese número y continúa con la siguiente iteración.
 
-### Ejemplo 2: Usando `continue` con un bucle `while`
+### Ejemplo 2: Usar continue en un bucle while
+En este ejemplo, se utiliza `continue` para saltar los valores negativos en un bucle `while`.
+
 ```bash
 count=0
-while [ $count -lt 5 ]; do
-    count=$((count + 1))
-    if [ $count -eq 2 ]; then
+while [ $count -lt 10 ]; do
+    count=$((count - 1))
+    if [ $count -lt 0 ]; then
         continue
     fi
-    echo "Contador: $count"
+    echo $count
 done
 ```
-**Salida:**
+*Salida:*
 ```
-Contador: 1
-Contador: 3
-Contador: 4
-Contador: 5
+0
 ```
-En este caso, el bucle `while` omite la impresión del contador cuando es igual a 2.
+
+### Ejemplo 3: Usar continue con un número
+Este ejemplo muestra cómo omitir un nivel de bucle específico usando un número.
+
+```bash
+for i in {1..3}; do
+    for j in {1..3}; do
+        if [ $j -eq 2 ]; then
+            continue 1
+        fi
+        echo "i: $i, j: $j"
+    done
+done
+```
+*Salida:*
+```
+i: 1, j: 1
+i: 1, j: 3
+i: 2, j: 1
+i: 2, j: 3
+i: 3, j: 1
+i: 3, j: 3
+```
 
 ## Tips
-- Utiliza `continue` para simplificar la lógica de tus bucles, evitando la necesidad de anidar condicionales.
-- Asegúrate de que el uso de `continue` no cause un bucle infinito; verifica las condiciones que llevan a la ejecución del comando.
-- Puedes usar `continue` en combinación con otros comandos de control de flujo, como `if`, para crear scripts más legibles y eficientes.
+- Utiliza `continue` para mejorar la legibilidad de tu código al evitar anidamientos innecesarios.
+- Asegúrate de que el uso de `continue` no cause un bucle infinito; revisa las condiciones de salida de tus bucles.
+- Es útil para filtrar datos en bucles, permitiendo que tu script se enfoque solo en los elementos que necesitas procesar.

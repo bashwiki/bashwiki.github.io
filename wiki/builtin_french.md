@@ -1,45 +1,38 @@
-# [리눅스] Bash builtin 사용법
+# [Linux] Bash builtin : Exécute une commande shell interne
 
 ## Overview
-La commande `builtin` dans Bash est utilisée pour exécuter des commandes intégrées (builtins) qui sont disponibles dans le shell, plutôt que d'exécuter des commandes externes. Cela permet d'accéder à des fonctionnalités spécifiques du shell qui ne sont pas disponibles en tant que programmes séparés. Par exemple, des commandes comme `echo`, `cd`, et `exit` sont des builtins. L'utilisation de `builtin` peut également aider à éviter les conflits avec des commandes externes ayant le même nom.
+La commande `builtin` en Bash permet d'exécuter des commandes internes du shell, c'est-à-dire des commandes qui sont intégrées dans le shell lui-même, plutôt que d'appeler des exécutables externes. Cela peut être utile pour éviter de masquer des commandes internes par des exécutables externes du même nom.
 
 ## Usage
 La syntaxe de base de la commande `builtin` est la suivante :
 
 ```bash
-builtin [commande] [options]
+builtin [options] [arguments]
 ```
 
-### Options courantes
-- `-p` : Affiche le chemin complet de la commande builtin.
-- `-f` : Force l'exécution de la commande builtin, même si une fonction du même nom existe.
+## Common Options
+- `-h`, `--help` : Affiche l'aide pour la commande builtin.
+- `-m`, `--man` : Affiche la page de manuel pour la commande builtin.
 
-## Examples
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `builtin` :
 
-### Exemple 1 : Utilisation de `builtin` pour exécuter `echo`
-Dans cet exemple, nous allons utiliser `builtin` pour s'assurer que nous exécutons la commande `echo` intégrée et non une fonction ou un script externe qui pourrait avoir le même nom.
-
+### Exemple 1 : Utiliser `builtin` avec `echo`
 ```bash
-# Définir une fonction echo
-echo() {
-    echo "Ceci est une fonction personnalisée."
-}
-
-# Utiliser builtin pour exécuter la commande echo intégrée
-builtin echo "Ceci est la commande intégrée echo."
+builtin echo "Ceci est un message interne."
 ```
 
-### Exemple 2 : Utilisation de `builtin` avec `cd`
-Dans cet exemple, nous allons utiliser `builtin` pour changer de répertoire, en nous assurant que nous utilisons la commande intégrée `cd`.
-
+### Exemple 2 : Vérifier la version de `cd`
 ```bash
-# Changer de répertoire en utilisant la commande builtin
-builtin cd /home/user
-# Vérifier le répertoire courant
-pwd
+builtin cd /tmp
+```
+
+### Exemple 3 : Utiliser `builtin` pour forcer l'exécution d'une commande interne
+```bash
+builtin type -a echo
 ```
 
 ## Tips
-- Utilisez `builtin` lorsque vous avez besoin de vous assurer que vous exécutez la version intégrée d'une commande, surtout si vous avez défini des fonctions avec le même nom.
-- Soyez conscient que toutes les commandes ne sont pas des builtins. Pour vérifier si une commande est un builtin, vous pouvez utiliser la commande `type` suivie du nom de la commande.
-- Gardez à l'esprit que l'utilisation de `builtin` peut améliorer les performances dans certains cas, car les builtins sont généralement plus rapides que les commandes externes.
+- Utilisez `builtin` lorsque vous souhaitez vous assurer que vous exécutez la version interne d'une commande, surtout si une version externe est présente dans votre `$PATH`.
+- Vérifiez toujours la documentation de la commande pour connaître les options spécifiques disponibles.
+- Soyez prudent lors de l'utilisation de `builtin` dans des scripts, car cela peut affecter le comportement attendu si des commandes externes sont également utilisées.

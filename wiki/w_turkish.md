@@ -1,40 +1,42 @@
-# [리눅스] Bash w 사용법
+# [Linux] Bash w Kullanımı: Kullanıcı oturum bilgilerini görüntüleme
 
 ## Overview
-`w` komutu, sistemdeki kullanıcıların ve onların aktivitelerinin durumunu gösteren bir komuttur. Bu komut, hangi kullanıcıların oturum açtığını, hangi terminalde çalıştıklarını, ne kadar süredir oturumda olduklarını ve sistemdeki genel yük durumunu sağlar. Geliştiriciler ve sistem yöneticileri için, kullanıcı etkinliğini izlemek ve sistem kaynaklarının kullanımını değerlendirmek açısından oldukça yararlıdır.
+`w` komutu, sistemdeki kullanıcıların oturum bilgilerini ve sistemin genel durumunu gösterir. Hangi kullanıcıların oturum açtığını, ne kadar süredir oturumda olduklarını ve hangi işlemleri gerçekleştirdiklerini öğrenmek için kullanılır.
 
 ## Usage
-Temel `w` komutunun sözdizimi şu şekildedir:
-
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-w [seçenekler]
+w [options] [arguments]
 ```
 
-### Yaygın Seçenekler
+## Common Options
 - `-h`: Başlık satırını gizler.
-- `-s`: Daha kısa bir çıktı sağlar, yani daha az bilgi gösterir.
-- `-f`: Tam olarak hangi terminalin kullanıldığını gösterir.
+- `-s`: Kısa biçimde çıktı verir.
+- `-f`: Tam adıyla kullanıcıların oturum bilgilerini gösterir.
+- `-u`: Kullanıcıların son aktivitelerini gösterir.
 
-## Examples
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, sistemdeki tüm kullanıcıların durumunu gösterir:
+## Common Examples
+1. Tüm kullanıcıların oturum bilgilerini görüntülemek için:
+   ```bash
+   w
+   ```
 
-```bash
-w
-```
+2. Başlık satırını gizleyerek kullanıcı bilgilerini görüntülemek için:
+   ```bash
+   w -h
+   ```
 
-Bu komut çalıştırıldığında, kullanıcı adı, terminal, oturum süresi, yük ortalaması gibi bilgileri içeren bir çıktı alırsınız.
+3. Kısa biçimde kullanıcı bilgilerini görüntülemek için:
+   ```bash
+   w -s
+   ```
 
-### Örnek 2: Kısa Çıktı
-Aşağıdaki komut, daha az bilgi içeren bir çıktı sağlar:
-
-```bash
-w -s
-```
-
-Bu komut, kullanıcıların temel bilgilerini ve sistem yükünü daha sade bir formatta gösterir.
+4. Kullanıcıların son aktivitelerini görmek için:
+   ```bash
+   w -u
+   ```
 
 ## Tips
-- `w` komutunu düzenli olarak kullanarak, sistemdeki kullanıcı aktivitelerini izleyebilir ve potansiyel sorunları önceden tespit edebilirsiniz.
-- Eğer belirli bir kullanıcı hakkında daha fazla bilgi almak istiyorsanız, `who` komutunu da kullanarak daha detaylı bilgi edinebilirsiniz.
-- `w` komutunu, sistem performansını değerlendirmek için diğer sistem izleme araçlarıyla birlikte kullanmak faydalı olabilir.
+- `w` komutunu sık sık kullanarak sistemdeki aktif kullanıcıları takip edebilirsiniz.
+- Uzun süreli oturum açan kullanıcıları belirlemek için `w` çıktısını düzenli olarak kontrol edin.
+- Sistem kaynaklarını izlemek için `top` veya `htop` komutlarıyla birlikte kullanabilirsiniz.

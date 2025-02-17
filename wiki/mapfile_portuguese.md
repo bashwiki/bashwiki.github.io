@@ -1,62 +1,47 @@
-# [리눅스] Bash mapfile 사용법
+# [Linux] Bash mapfile Uso: Lê linhas de um arquivo em um array
 
 ## Overview
-O comando `mapfile`, também conhecido como `readarray`, é uma ferramenta do Bash que permite ler linhas de um arquivo ou da entrada padrão e armazená-las em um array. O principal propósito do `mapfile` é facilitar a manipulação de dados em formato de linha, permitindo que os desenvolvedores e engenheiros processem rapidamente informações sem a necessidade de loops complexos.
+O comando `mapfile` é utilizado no Bash para ler linhas de um arquivo e armazená-las em um array. Isso é útil quando você precisa manipular ou processar dados linha por linha de forma eficiente.
 
 ## Usage
 A sintaxe básica do comando `mapfile` é a seguinte:
 
 ```bash
-mapfile [opções] [nome_do_array]
+mapfile [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-t`: Remove a nova linha no final de cada linha lida, armazenando apenas o conteúdo.
-- `-n N`: Lê até N linhas, onde N é um número inteiro.
-- `-O N`: Define o índice inicial do array para N.
-- `-s N`: Ignora as primeiras N linhas do arquivo ou da entrada.
+## Common Options
+- `-t`: Remove a nova linha do final de cada linha lida.
+- `-n <n>`: Lê no máximo `<n>` linhas do arquivo.
+- `-O <n>`: Define o índice inicial do array onde as linhas serão armazenadas.
 
-## Examples
+## Common Examples
 
 ### Exemplo 1: Ler um arquivo em um array
-Suponha que você tenha um arquivo chamado `dados.txt` com o seguinte conteúdo:
-
-```
-linha 1
-linha 2
-linha 3
-```
-
-Você pode usar o `mapfile` para ler essas linhas em um array chamado `linhas`:
-
 ```bash
-mapfile linhas < dados.txt
-echo "${linhas[@]}"
+mapfile linhas < arquivo.txt
 ```
+Neste exemplo, todas as linhas do `arquivo.txt` são lidas e armazenadas no array `linhas`.
 
-Isso irá imprimir:
-
-```
-linha 1 linha 2 linha 3
-```
-
-### Exemplo 2: Usar opções para manipulação
-Se você quiser ler apenas as duas primeiras linhas do arquivo e remover as quebras de linha, você pode fazer o seguinte:
-
+### Exemplo 2: Remover novas linhas
 ```bash
-mapfile -t -n 2 linhas < dados.txt
-echo "${linhas[@]}"
+mapfile -t linhas < arquivo.txt
 ```
+Aqui, as linhas do `arquivo.txt` são lidas e armazenadas no array `linhas`, mas sem as novas linhas no final.
 
-A saída será:
+### Exemplo 3: Ler um número específico de linhas
+```bash
+mapfile -n 5 linhas < arquivo.txt
+```
+Este comando lê apenas as primeiras 5 linhas do `arquivo.txt` e as armazena no array `linhas`.
 
+### Exemplo 4: Definir o índice inicial do array
+```bash
+mapfile -O 1 linhas < arquivo.txt
 ```
-linha 1 linha 2
-```
+Neste caso, as linhas do `arquivo.txt` são armazenadas no array `linhas`, começando a partir do índice 1.
 
 ## Tips
-- Utilize a opção `-t` para evitar que quebras de linha indesejadas sejam incluídas nos elementos do array.
-- Combine `mapfile` com outros comandos do Bash, como `grep` ou `awk`, para filtrar ou processar dados antes de armazená-los no array.
-- Lembre-se de que o `mapfile` pode ler da entrada padrão, permitindo que você redirecione a saída de outros comandos diretamente para ele.
-
-Com essas informações, você deve estar apto a utilizar o comando `mapfile` de forma eficaz em seus scripts Bash.
+- Sempre use a opção `-t` se você não precisar das novas linhas, pois isso pode evitar problemas ao processar os dados.
+- Verifique o tamanho do array após a leitura usando `${#linhas[@]}` para garantir que você leu o número esperado de linhas.
+- Combine `mapfile` com outros comandos como `grep` ou `awk` para filtrar ou processar dados antes de armazená-los no array.

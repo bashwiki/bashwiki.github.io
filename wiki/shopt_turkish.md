@@ -1,36 +1,51 @@
-# [리눅스] Bash shopt 사용법
+# [Linux] Bash shopt Kullanımı: Bash ortamını yapılandırma
 
-## Overview
-`shopt`, Bash kabuğunda kullanılan bir komuttur ve "shell options" (kabuk seçenekleri) anlamına gelir. Bu komut, Bash kabuğunun davranışını değiştirmek için kullanılabilen çeşitli seçenekleri etkinleştirmek veya devre dışı bırakmak amacıyla kullanılır. `shopt`, kullanıcıların kabuk ortamlarını özelleştirmelerine ve belirli özellikleri açıp kapatmalarına olanak tanır.
+## Genel Bakış
+`shopt` komutu, Bash kabuğunun davranışını ve özelliklerini yapılandırmak için kullanılır. Bu komut, belirli özellikleri etkinleştirmek veya devre dışı bırakmak için seçenekler sunar. Kullanıcıların Bash ortamlarını özelleştirmelerine olanak tanır.
 
-## Usage
+## Kullanım
 `shopt` komutunun temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-shopt [options] [option_name]
+shopt [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-s` veya `--set`: Belirtilen seçeneği etkinleştirir.
-- `-u` veya `--unset`: Belirtilen seçeneği devre dışı bırakır.
-- `-p` veya `--print`: Tüm mevcut seçenekleri ve durumlarını listelemek için kullanılır.
+## Yaygın Seçenekler
+- `-s`: Belirtilen özelliği etkinleştirir.
+- `-u`: Belirtilen özelliği devre dışı bırakır.
+- `-p`: Mevcut tüm özelliklerin durumunu listelemek için kullanılır.
 
-## Examples
-### Örnek 1: Seçenekleri Listeleme
-Aşağıdaki komut, mevcut tüm `shopt` seçeneklerini ve durumlarını listeleyecektir:
+## Yaygın Örnekler
+
+### 1. Özellikleri Listeleme
+Tüm mevcut özelliklerin durumunu görmek için:
 
 ```bash
-shopt
+shopt -p
 ```
 
-### Örnek 2: Bir Seçeneği Etkinleştirme
-Aşağıdaki komut, `cdspell` seçeneğini etkinleştirir. Bu seçenek, yanlış yazılmış `cd` komutlarını düzeltmek için kullanılır:
+### 2. Genişletilmiş Dosya Adı Tamamlama
+Genişletilmiş dosya adı tamamlama özelliğini etkinleştirmek için:
 
 ```bash
-shopt -s cdspell
+shopt -s extglob
 ```
 
-## Tips
-- `shopt` komutunu kullanmadan önce mevcut seçeneklerinizi kontrol etmek, hangi seçeneklerin etkin olduğunu anlamanıza yardımcı olur.
-- Özellikle sık kullandığınız seçenekleri `.bashrc` dosyanıza ekleyerek her oturumda otomatik olarak etkinleştirebilirsiniz.
-- `shopt` ile etkinleştirilen seçeneklerin bazıları, kabuğun davranışını önemli ölçüde değiştirebilir, bu nedenle dikkatli kullanmak önemlidir.
+### 3. Geri Dönüşüm Özelliğini Devre Dışı Bırakma
+Geri dönüşüm özelliğini devre dışı bırakmak için:
+
+```bash
+shopt -u histappend
+```
+
+### 4. Küçük/Büyük Harf Duyarsız Arama
+Küçük/büyük harf duyarsız arama özelliğini etkinleştirmek için:
+
+```bash
+shopt -s nocaseglob
+```
+
+## İpuçları
+- `shopt -p` komutunu kullanarak mevcut ayarları kontrol etmek, hangi özelliklerin etkin olduğunu anlamanıza yardımcı olabilir.
+- Özellikleri etkinleştirirken veya devre dışı bırakırken dikkatli olun; bazı özellikler, komutlarınızın davranışını önemli ölçüde etkileyebilir.
+- Özelleştirilmiş ayarlarınızı kalıcı hale getirmek için `.bashrc` dosyanıza `shopt` komutlarını ekleyebilirsiniz.

@@ -1,43 +1,55 @@
-# [리눅스] Bash unxz 사용법
+# [Linux] Bash unxz Usage: Decompress .xz files
 
 ## Overview
-The `unxz` command is a utility in Unix-like operating systems used to decompress files that have been compressed using the XZ compression algorithm. The primary purpose of `unxz` is to restore the original file from its compressed state, making it accessible for further use. It is particularly useful for handling large files efficiently, as XZ compression is known for its high compression ratio.
+The `unxz` command is a utility used in Unix-like operating systems to decompress files that have been compressed using the XZ compression algorithm. This command is particularly useful for handling files with the `.xz` extension, allowing users to easily extract the original data from compressed archives.
 
 ## Usage
 The basic syntax of the `unxz` command is as follows:
 
 ```bash
-unxz [OPTION]... [FILE]...
+unxz [options] [arguments]
 ```
 
-### Common Options
-- `-k`, `--keep`: Keep the input files (do not delete them after decompression).
-- `-f`, `--force`: Force overwrite of output files without prompting.
+## Common Options
+- `-k`, `--keep`: Keep the original `.xz` file after decompression.
+- `-f`, `--force`: Force overwrite of existing files without prompting.
 - `-v`, `--verbose`: Provide detailed output during the decompression process.
-- `-t`, `--test`: Test the integrity of the compressed file without decompressing it.
-- `--help`: Display help information about the command and its options.
-- `--version`: Show the version information of the `unxz` command.
+- `-h`, `--help`: Display help information about the command and its options.
 
-## Examples
-### Example 1: Basic Decompression
-To decompress a file named `example.xz`, you can use the following command:
+## Common Examples
+Here are some practical examples of using the `unxz` command:
 
-```bash
-unxz example.xz
-```
+1. **Decompress a single file**:
+   ```bash
+   unxz file.xz
+   ```
+   This command decompresses `file.xz`, resulting in `file`.
 
-This command will decompress `example.xz` and remove the original compressed file, resulting in a file named `example`.
+2. **Decompress multiple files**:
+   ```bash
+   unxz file1.xz file2.xz
+   ```
+   This command decompresses both `file1.xz` and `file2.xz`.
 
-### Example 2: Keeping the Original File
-If you want to keep the original compressed file after decompression, you can use the `-k` option:
+3. **Keep the original file**:
+   ```bash
+   unxz -k file.xz
+   ```
+   This command decompresses `file.xz` while keeping the original compressed file intact.
 
-```bash
-unxz -k example.xz
-```
+4. **Force decompression**:
+   ```bash
+   unxz -f file.xz
+   ```
+   This command decompresses `file.xz`, overwriting any existing file with the same name without prompting.
 
-In this case, both `example.xz` and the decompressed file `example` will remain in the directory.
+5. **Verbose output**:
+   ```bash
+   unxz -v file.xz
+   ```
+   This command provides detailed information about the decompression process.
 
 ## Tips
-- Always check the integrity of the compressed file before decompression using the `-t` option. This can help prevent data loss if the file is corrupted.
-- Use the `-v` option for verbose output if you are working with multiple files or large datasets. This can provide useful feedback on the progress of the decompression.
-- For batch processing, consider using wildcards (e.g., `*.xz`) to decompress multiple files at once, but be cautious about the `-f` option to avoid unintentional overwrites.
+- Always check the contents of a `.xz` file before decompression to avoid overwriting important files.
+- Use the `-k` option if you want to retain the original compressed file for backup purposes.
+- For batch processing, consider using wildcards (e.g., `*.xz`) to decompress multiple files at once.

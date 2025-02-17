@@ -1,46 +1,52 @@
-# [리눅스] Bash make 사용법
+# [Linux] Bash make uso: Build automation tool
 
 ## Overview
-The `make` command is a build automation tool primarily used to compile and manage dependencies in software projects. It reads a file called `Makefile`, which contains rules and instructions on how to build the project, including which files to compile and how to link them together. The primary purpose of `make` is to simplify the process of building and maintaining complex software projects by automating the compilation process and ensuring that only the necessary parts of the project are rebuilt when changes are made.
+The `make` command is a build automation tool that automatically builds executable programs and libraries from source code by reading files called Makefiles. It simplifies the process of managing dependencies and compiling code, making it essential for software development.
 
 ## Usage
 The basic syntax of the `make` command is as follows:
 
 ```bash
-make [options] [target]
+make [options] [arguments]
 ```
 
-### Common Options:
-- `-f FILE`, `--file=FILE`: Specify an alternative Makefile instead of the default `Makefile`.
-- `-j N`, `--jobs=N`: Allow `make` to run multiple jobs simultaneously, where `N` is the number of jobs to run in parallel.
-- `-k`, `--keep-going`: Continue building as much as possible after an error occurs.
-- `-n`, `--just-print`: Print the commands that would be executed without actually executing them.
-- `-s`, `--silent`: Suppress the output of the commands being executed.
+## Common Options
+- `-f FILE`: Specify a Makefile to use instead of the default `Makefile`.
+- `-j N`: Allow `make` to run up to N jobs simultaneously, speeding up the build process.
+- `-k`: Continue building as much as possible after an error occurs.
+- `-n`: Print the commands that would be executed without actually executing them (dry run).
+- `-s`: Silent mode; do not print the commands being executed.
 
-If no target is specified, `make` will build the first target defined in the Makefile.
+## Common Examples
+Here are some practical examples of using the `make` command:
 
-## Examples
+1. **Basic Build**: To build a project using the default Makefile in the current directory:
+   ```bash
+   make
+   ```
 
-### Example 1: Basic Usage
-To compile a project using the default `Makefile`, simply navigate to the project directory and run:
+2. **Specify a Makefile**: To use a specific Makefile named `MyMakefile`:
+   ```bash
+   make -f MyMakefile
+   ```
 
-```bash
-make
-```
+3. **Run Jobs in Parallel**: To build using 4 parallel jobs:
+   ```bash
+   make -j 4
+   ```
 
-This command will execute the first target defined in the `Makefile`, which typically compiles the source code into an executable.
+4. **Dry Run**: To see what commands would be executed without actually running them:
+   ```bash
+   make -n
+   ```
 
-### Example 2: Specifying a Target
-If you want to build a specific target defined in the `Makefile`, you can specify it directly:
-
-```bash
-make clean
-```
-
-In this example, the `clean` target is executed, which usually removes compiled files and cleans up the project directory.
+5. **Continue After Errors**: To continue building even if some parts fail:
+   ```bash
+   make -k
+   ```
 
 ## Tips
-- Always ensure your `Makefile` is well-structured and documented. This makes it easier for others (and yourself) to understand the build process.
-- Use the `-j` option to speed up the build process, especially for large projects with many independent files.
-- Regularly run `make clean` to remove unnecessary files and keep your project directory tidy.
-- Utilize comments in your `Makefile` to explain complex rules or dependencies, which can help in maintaining the build process over time.
+- Always ensure your Makefile is properly configured with the correct dependencies to avoid build issues.
+- Use the `-j` option wisely; while it speeds up the build process, it can lead to resource contention on systems with limited CPU or memory.
+- Regularly clean your build environment using `make clean` to remove old object files and binaries, ensuring a fresh build.
+- Familiarize yourself with the syntax and rules of Makefiles to take full advantage of `make` capabilities.

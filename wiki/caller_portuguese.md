@@ -1,7 +1,7 @@
-# [리눅스] Bash caller 사용법
+# [Linux] Bash caller Uso equivalente: [executar comandos em um novo ambiente]
 
 ## Overview
-O comando `caller` no Bash é utilizado para exibir informações sobre a chamada de uma função ou script. Ele fornece detalhes sobre a posição da chamada, incluindo o número da linha e o nome do arquivo onde a função foi chamada. Este comando é especialmente útil para depuração, permitindo que desenvolvedores e engenheiros entendam melhor a origem de erros ou comportamentos inesperados em scripts.
+O comando `caller` no Bash é utilizado para exibir informações sobre a função que chamou a função atual. Ele é útil para depuração e para entender a pilha de chamadas em scripts de shell.
 
 ## Usage
 A sintaxe básica do comando `caller` é a seguinte:
@@ -10,44 +10,74 @@ A sintaxe básica do comando `caller` é a seguinte:
 caller [n]
 ```
 
-- `n`: Um número opcional que especifica quantos níveis de chamada para cima você deseja examinar. Se não for fornecido, o `caller` retornará informações sobre a chamada mais recente.
+Onde `n` é um número opcional que indica quantos níveis acima na pilha de chamadas você deseja verificar.
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `caller`.
+## Common Options
+- `n`: Um número que especifica o nível da pilha de chamadas que você deseja consultar. Por exemplo, `caller 1` mostrará a função que chamou a função atual, enquanto `caller 2` mostrará a função que chamou a função que chamou a função atual.
 
-### Exemplo 1: Uso básico
+## Common Examples
+
+### Exemplo 1: Usando caller sem argumentos
 ```bash
-function my_function {
+function funcao1 {
+    funcao2
+}
+
+function funcao2 {
     caller
 }
 
-function another_function {
-    my_function
-}
-
-another_function
+funcao1
 ```
-Neste exemplo, ao executar `another_function`, o `caller` dentro de `my_function` exibirá a linha e o arquivo onde `another_function` foi chamada.
+Saída:
+```
+1  funcao1
+```
+Neste exemplo, `caller` exibe que `funcao1` chamou `funcao2`.
 
-### Exemplo 2: Verificando múltiplos níveis de chamada
+### Exemplo 2: Usando caller com um argumento
 ```bash
-function level_one {
-    level_two
+function funcao1 {
+    funcao2
 }
 
-function level_two {
-    level_three
+function funcao2 {
+    funcao3
 }
 
-function level_three {
+function funcao3 {
     caller 1
 }
 
-level_one
+funcao1
 ```
-Aqui, ao chamar `level_one`, o `caller 1` dentro de `level_three` mostrará a linha e o arquivo de `level_two`, que é um nível acima na pilha de chamadas.
+Saída:
+```
+2  funcao2
+```
+Aqui, `caller 1` mostra que `funcao2` chamou `funcao3`.
+
+### Exemplo 3: Usando caller em um script
+```bash
+#!/bin/bash
+
+function main {
+    sub_function
+}
+
+function sub_function {
+    echo "Chamado por: $(caller)"
+}
+
+main
+```
+Saída:
+```
+Chamado por: 1  main
+```
+Neste script, `caller` é usado para imprimir qual função chamou `sub_function`.
 
 ## Tips
-- Utilize o `caller` em conjunto com mensagens de erro personalizadas para facilitar a depuração de scripts complexos.
-- Lembre-se de que `caller` só funciona dentro de funções; se você tentar usá-lo no nível superior de um script, não retornará informações úteis.
-- Para scripts mais complexos, considere usar `caller` em diferentes níveis para obter uma visão mais clara da pilha de chamadas e identificar rapidamente a origem de problemas.
+- Utilize `caller` em funções de depuração para entender melhor a sequência de chamadas.
+- Lembre-se de que `caller` só funciona dentro de funções; fora delas, não retornará informações úteis.
+- Combine `caller` com outras ferramentas de depuração, como `set -x`, para obter uma visão mais clara do fluxo do seu script.

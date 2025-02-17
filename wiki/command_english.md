@@ -1,46 +1,49 @@
-# [리눅스] Bash command 사용법
+# [Linux] Bash command cp: Copy files and directories
 
 ## Overview
-The `command` command in Bash is a built-in utility that is primarily used to invoke commands while bypassing any shell functions or built-in commands that may have the same name. It is useful for ensuring that the user is executing the actual command from the system rather than a potentially overridden version.
+The `cp` command in Bash is used to copy files and directories from one location to another. It allows users to duplicate files, preserving their contents and attributes, and can also be used to create backups.
 
 ## Usage
-The basic syntax for the `command` command is as follows:
+The basic syntax of the `cp` command is as follows:
 
 ```bash
-command [options] command_name [arguments]
+cp [options] [source] [destination]
 ```
 
-### Common Options
-- `-v`: This option displays the command name and its location in the filesystem.
-- `-p`: This option uses the default path for searching commands, ignoring any user-defined paths.
+## Common Options
+- `-r` or `--recursive`: Copy directories recursively.
+- `-i` or `--interactive`: Prompt before overwriting files.
+- `-u` or `--update`: Copy only when the source file is newer than the destination file or when the destination file is missing.
+- `-v` or `--verbose`: Show the files being copied.
+- `-a` or `--archive`: Preserve the original file attributes (like timestamps and permissions) while copying.
 
-## Examples
+## Common Examples
+1. **Copy a single file:**
+   ```bash
+   cp file.txt /path/to/destination/
+   ```
 
-### Example 1: Using `command` to bypass a shell function
-Suppose you have a shell function named `ls` that modifies the output of the standard `ls` command. You can use `command` to call the original `ls` command:
+2. **Copy a directory recursively:**
+   ```bash
+   cp -r /path/to/source_directory /path/to/destination_directory/
+   ```
 
-```bash
-function ls() {
-    echo "This is a custom ls function."
-}
+3. **Copy a file with confirmation before overwriting:**
+   ```bash
+   cp -i file.txt /path/to/destination/
+   ```
 
-# Call the custom function
-ls
+4. **Copy only newer files:**
+   ```bash
+   cp -u file.txt /path/to/destination/
+   ```
 
-# Call the original ls command
-command ls
-```
-
-### Example 2: Displaying the location of a command
-You can use the `-v` option to find out where a command is located:
-
-```bash
-command -v ls
-```
-
-This will output the path to the `ls` command, such as `/bin/ls`, ensuring you know exactly which version is being executed.
+5. **Copy a file and show the progress:**
+   ```bash
+   cp -v file.txt /path/to/destination/
+   ```
 
 ## Tips
-- Use `command` when you need to ensure that you are executing the actual command and not a shell function or alias that may have been defined in your environment.
-- Combine `command` with options like `-v` and `-p` to gain more control and information about command execution.
-- Be cautious when using `command` in scripts, as it may lead to unexpected behavior if the intention is to use a shell function or alias instead of the original command.
+- Always use the `-i` option if you're unsure whether the destination file exists to avoid accidental overwrites.
+- When copying large directories, consider using the `-v` option to monitor the progress of the operation.
+- Use the `-a` option when you want to maintain the original file attributes, especially when backing up files.

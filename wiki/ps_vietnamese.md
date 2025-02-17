@@ -1,54 +1,48 @@
-# [리눅스] Bash ps 사용법
+# [Linux] Bash ps Cách sử dụng: Hiển thị thông tin tiến trình
 
 ## Tổng quan
-Lệnh `ps` (process status) trong Bash được sử dụng để hiển thị thông tin về các tiến trình đang chạy trên hệ thống. Lệnh này cung cấp cái nhìn tổng quan về các tiến trình, bao gồm ID tiến trình (PID), trạng thái, thời gian CPU sử dụng và nhiều thông tin khác. Đây là một công cụ hữu ích cho các kỹ sư và nhà phát triển để theo dõi và quản lý các tiến trình trong môi trường Unix/Linux.
+Lệnh `ps` trong Bash được sử dụng để hiển thị thông tin về các tiến trình đang chạy trên hệ thống. Nó cho phép người dùng xem các tiến trình, trạng thái của chúng và các thông tin khác liên quan.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `ps` như sau:
-
-```bash
-ps [options]
+```
+ps [options] [arguments]
 ```
 
-Một số tùy chọn phổ biến của lệnh `ps` bao gồm:
+## Các tùy chọn phổ biến
+- `-e` hoặc `-A`: Hiển thị tất cả các tiến trình.
+- `-f`: Hiển thị thông tin chi tiết về tiến trình.
+- `-u [user]`: Hiển thị tiến trình của một người dùng cụ thể.
+- `-aux`: Hiển thị tất cả các tiến trình với thông tin chi tiết.
+- `--sort`: Sắp xếp danh sách tiến trình theo một tiêu chí nhất định.
 
-- `-e` hoặc `-A`: Hiển thị tất cả các tiến trình đang chạy trên hệ thống.
-- `-f`: Hiển thị thông tin chi tiết về các tiến trình, bao gồm cả thông tin về cha mẹ (PPID).
-- `-u [username]`: Hiển thị các tiến trình của một người dùng cụ thể.
-- `-aux`: Hiển thị tất cả các tiến trình, bao gồm cả những tiến trình không thuộc về người dùng hiện tại, với thông tin chi tiết.
+## Ví dụ phổ biến
+- Hiển thị tất cả các tiến trình đang chạy:
+  ```bash
+  ps -e
+  ```
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `ps`:
+- Hiển thị thông tin chi tiết về các tiến trình:
+  ```bash
+  ps -f
+  ```
 
-1. Hiển thị tất cả các tiến trình đang chạy trên hệ thống:
+- Hiển thị tiến trình của người dùng cụ thể:
+  ```bash
+  ps -u username
+  ```
 
-```bash
-ps -e
-```
+- Hiển thị tất cả các tiến trình với thông tin chi tiết:
+  ```bash
+  ps aux
+  ```
 
-2. Hiển thị thông tin chi tiết về các tiến trình của người dùng hiện tại:
-
-```bash
-ps aux
-```
-
-3. Hiển thị các tiến trình của một người dùng cụ thể, ví dụ như `john`:
-
-```bash
-ps -u john
-```
+- Sắp xếp danh sách tiến trình theo mức sử dụng CPU:
+  ```bash
+  ps aux --sort=-%cpu
+  ```
 
 ## Mẹo
-- Sử dụng lệnh `ps` kết hợp với các lệnh khác như `grep` để tìm kiếm các tiến trình cụ thể. Ví dụ:
-
-```bash
-ps aux | grep firefox
-```
-
-- Kết hợp `ps` với `watch` để theo dõi sự thay đổi của các tiến trình theo thời gian:
-
-```bash
-watch -n 2 'ps aux'
-```
-
-- Để có cái nhìn tổng quan hơn về các tiến trình và tài nguyên hệ thống, bạn có thể sử dụng lệnh `top` hoặc `htop` thay vì `ps`, nhưng `ps` vẫn là một công cụ cơ bản và hữu ích để kiểm tra trạng thái tiến trình.
+- Sử dụng `ps aux | grep [tên tiến trình]` để tìm kiếm một tiến trình cụ thể.
+- Kết hợp `ps` với các lệnh khác như `grep` để lọc thông tin cần thiết.
+- Thường xuyên kiểm tra tiến trình để phát hiện các vấn đề về hiệu suất hệ thống.

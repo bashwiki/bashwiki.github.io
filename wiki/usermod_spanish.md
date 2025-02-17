@@ -1,38 +1,55 @@
-# [리눅스] Bash usermod 사용법
+# [Linux] Bash usermod uso: Modificar cuentas de usuario en el sistema
 
 ## Overview
-El comando `usermod` en Bash se utiliza para modificar cuentas de usuario en sistemas Linux. Su propósito principal es permitir a los administradores del sistema realizar cambios en las configuraciones de los usuarios, como agregar o eliminar grupos, cambiar el nombre de usuario, modificar el directorio de inicio, entre otros.
+El comando `usermod` se utiliza para modificar las propiedades de una cuenta de usuario existente en un sistema Linux. Permite cambiar atributos como el nombre de usuario, el grupo principal, el directorio personal y más.
 
 ## Usage
 La sintaxis básica del comando `usermod` es la siguiente:
 
 ```bash
-usermod [opciones] nombre_usuario
+usermod [opciones] [argumentos]
 ```
 
-### Opciones Comunes
-- `-aG grupo`: Agrega el usuario a un grupo adicional sin eliminarlo de otros grupos.
-- `-d directorio`: Cambia el directorio de inicio del usuario.
-- `-l nuevo_nombre`: Cambia el nombre de usuario a uno nuevo.
-- `-s shell`: Cambia la shell predeterminada del usuario.
-- `-e fecha`: Establece la fecha de expiración de la cuenta del usuario.
+## Common Options
+- `-l`: Cambia el nombre de usuario.
+- `-d`: Cambia el directorio personal del usuario.
+- `-m`: Mueve el contenido del directorio personal a la nueva ubicación.
+- `-g`: Cambia el grupo principal del usuario.
+- `-aG`: Añade el usuario a uno o más grupos secundarios.
+- `-s`: Cambia el intérprete de comandos predeterminado del usuario.
 
-## Examples
-### Ejemplo 1: Agregar un usuario a un grupo
-Para agregar un usuario llamado `juan` al grupo `desarrolladores`, puedes usar el siguiente comando:
+## Common Examples
+1. **Cambiar el nombre de usuario:**
+   ```bash
+   usermod -l nuevo_nombre viejo_nombre
+   ```
 
-```bash
-usermod -aG desarrolladores juan
-```
+2. **Cambiar el directorio personal:**
+   ```bash
+   usermod -d /nuevo/directorio viejo_nombre
+   ```
 
-### Ejemplo 2: Cambiar el nombre de usuario
-Si deseas cambiar el nombre de usuario de `maria` a `maria_nueva`, puedes hacerlo con el siguiente comando:
+3. **Mover el contenido del directorio personal:**
+   ```bash
+   usermod -d /nuevo/directorio -m viejo_nombre
+   ```
 
-```bash
-usermod -l maria_nueva maria
-```
+4. **Cambiar el grupo principal:**
+   ```bash
+   usermod -g nuevo_grupo nombre_usuario
+   ```
+
+5. **Añadir un usuario a un grupo secundario:**
+   ```bash
+   usermod -aG grupo_secundario nombre_usuario
+   ```
+
+6. **Cambiar el intérprete de comandos:**
+   ```bash
+   usermod -s /bin/bash nombre_usuario
+   ```
 
 ## Tips
-- Siempre realiza una copia de seguridad de los archivos de configuración antes de modificar cuentas de usuario.
-- Asegúrate de que el usuario no esté conectado cuando realices cambios en su cuenta.
-- Utiliza el comando `id nombre_usuario` para verificar los grupos y permisos del usuario después de realizar cambios.
+- Siempre verifica que el nuevo nombre de usuario o directorio personal no esté en uso antes de realizar cambios.
+- Utiliza `usermod` con precaución, ya que algunos cambios pueden afectar el acceso del usuario al sistema.
+- Es recomendable realizar una copia de seguridad de los datos del usuario antes de modificar su cuenta.

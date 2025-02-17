@@ -1,48 +1,46 @@
-# [리눅스] Bash pidof 사용법
+# [Linux] Bash pidof : [trouver les identifiants de processus]
 
-## Aperçu
+## Overview
+La commande `pidof` est utilisée pour trouver les identifiants de processus (PID) d'un programme en cours d'exécution. Elle renvoie le ou les PID associés à un nom de programme spécifié, ce qui est utile pour gérer les processus sur un système Linux.
 
-La commande `pidof` est utilisée dans les systèmes d'exploitation basés sur Linux pour trouver l'identifiant de processus (PID) d'un ou plusieurs programmes en cours d'exécution. Son objectif principal est de permettre aux utilisateurs et aux administrateurs système de localiser rapidement les processus actifs associés à un nom de programme spécifique, facilitant ainsi la gestion des processus.
-
-## Utilisation
-
+## Usage
 La syntaxe de base de la commande `pidof` est la suivante :
 
 ```bash
-pidof [options] nom_du_programme
+pidof [options] [arguments]
 ```
 
-### Options courantes
+## Common Options
+Voici quelques options courantes pour `pidof` :
 
-- `-s` : Affiche uniquement le PID sans retour à la ligne.
-- `-c` : Affiche le PID des processus qui correspondent à la commande spécifiée, même si le processus est un sous-processus.
 - `-o` : Exclut les PID spécifiés de la sortie.
-- `-h` : Affiche l'aide et les options disponibles.
+- `-s` : Affiche uniquement le premier PID trouvé.
+- `-c` : Affiche le nombre de processus trouvés.
 
-## Exemples
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `pidof` :
 
-### Exemple 1 : Trouver le PID d'un programme
+1. **Trouver le PID d'un programme spécifique :**
+   ```bash
+   pidof firefox
+   ```
 
-Pour trouver le PID d'un programme, par exemple `bash`, vous pouvez exécuter la commande suivante :
+2. **Exclure un PID de la sortie :**
+   ```bash
+   pidof -o 1234 firefox
+   ```
 
-```bash
-pidof bash
-```
+3. **Afficher uniquement le premier PID trouvé :**
+   ```bash
+   pidof -s firefox
+   ```
 
-Cette commande retournera l'identifiant de processus de toutes les instances de `bash` en cours d'exécution.
+4. **Compter le nombre de processus d'un programme :**
+   ```bash
+   pidof -c firefox
+   ```
 
-### Exemple 2 : Utilisation de l'option -s
-
-Si vous souhaitez obtenir uniquement le PID sans retour à la ligne, utilisez l'option `-s` :
-
-```bash
-pidof -s bash
-```
-
-Cela affichera seulement le PID de la première instance de `bash` trouvée.
-
-## Conseils
-
-- Utilisez `pidof` en combinaison avec d'autres commandes comme `kill` pour terminer des processus spécifiques. Par exemple, pour tuer un processus `bash`, vous pouvez exécuter `kill $(pidof bash)`.
-- Soyez prudent lorsque vous utilisez `pidof` avec des noms de programmes courants, car plusieurs instances peuvent être en cours d'exécution. Assurez-vous de vérifier les PIDs retournés pour éviter de terminer le mauvais processus.
-- Pour des scripts automatisés, envisagez d'utiliser l'option `-s` pour éviter les sorties indésirables et faciliter le traitement des résultats.
+## Tips
+- Utilisez `pidof` avec des scripts pour automatiser la gestion des processus.
+- Combinez `pidof` avec d'autres commandes comme `kill` pour terminer des processus spécifiques.
+- Vérifiez toujours que le programme est en cours d'exécution avant d'utiliser `pidof`, sinon vous ne recevrez aucun résultat.

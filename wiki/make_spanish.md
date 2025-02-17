@@ -1,43 +1,61 @@
-# [리눅스] Bash make 사용법
+# [Linux] Bash make uso: Compilar y gestionar proyectos
 
 ## Overview
-El comando `make` es una herramienta de automatización de compilación que se utiliza principalmente para gestionar la construcción de proyectos de software. Su propósito principal es leer un archivo llamado `Makefile`, que contiene reglas y dependencias, y ejecutar las instrucciones necesarias para compilar y enlazar los archivos de un proyecto. Esto permite a los desarrolladores simplificar el proceso de construcción y asegurarse de que solo se recompilan los archivos que han cambiado.
+El comando `make` es una herramienta de automatización que se utiliza para compilar y gestionar proyectos de software. Facilita la construcción de programas a partir de archivos fuente, utilizando un archivo llamado `Makefile` que define cómo se deben compilar y enlazar los diferentes componentes del proyecto.
 
 ## Usage
 La sintaxis básica del comando `make` es la siguiente:
 
 ```bash
-make [opciones] [objetivo]
+make [opciones] [objetivos]
 ```
 
-### Opciones comunes:
-- `-f <archivo>`: Especifica un archivo `Makefile` diferente al predeterminado (que es `Makefile` o `makefile`).
-- `-j <n>`: Permite la ejecución paralela de tareas, donde `<n>` es el número de procesos que se ejecutarán simultáneamente.
-- `-B`: Fuerza la recompilación de todos los objetivos, independientemente de si han cambiado o no.
-- `-n`: Muestra las acciones que se llevarían a cabo sin ejecutarlas realmente (modo de prueba).
-- `-s`: Suprime la salida de comandos, mostrando solo los errores.
+## Common Options
+- `-f <archivo>`: Especifica un archivo `Makefile` diferente al predeterminado.
+- `-j <n>`: Permite la ejecución de múltiples tareas en paralelo, donde `n` es el número de trabajos a ejecutar simultáneamente.
+- `-k`: Continúa la construcción incluso si se producen errores en algunos objetivos.
+- `-n`: Muestra los comandos que se ejecutarían sin ejecutarlos realmente.
+- `-s`: Suprime la salida de los comandos que se están ejecutando.
 
-## Examples
-### Ejemplo 1: Compilación básica
-Supongamos que tienes un proyecto con un archivo `Makefile` que define cómo compilar un programa llamado `mi_programa`. Para compilar el programa, simplemente ejecutas:
+## Common Examples
+
+### Compilar un proyecto simple
+Supongamos que tienes un archivo `Makefile` en tu directorio actual. Para compilar el proyecto, simplemente ejecuta:
 
 ```bash
 make
 ```
 
-Esto ejecutará las instrucciones definidas en el `Makefile` para compilar `mi_programa`.
-
-### Ejemplo 2: Compilación paralela
-Si deseas acelerar el proceso de compilación utilizando múltiples núcleos de CPU, puedes usar la opción `-j`. Por ejemplo, para usar 4 núcleos, puedes ejecutar:
+### Especificar un archivo Makefile
+Si tu archivo `Makefile` se llama `MiMakefile`, puedes especificarlo así:
 
 ```bash
-make -j4
+make -f MiMakefile
 ```
 
-Esto permitirá que `make` ejecute varias tareas de compilación al mismo tiempo.
+### Ejecutar múltiples tareas en paralelo
+Para compilar un proyecto utilizando 4 núcleos de CPU, usa:
+
+```bash
+make -j 4
+```
+
+### Mostrar los comandos sin ejecutarlos
+Si quieres ver qué comandos se ejecutarían sin llevar a cabo la compilación, utiliza:
+
+```bash
+make -n
+```
+
+### Continuar a pesar de los errores
+Para seguir construyendo otros objetivos incluso si uno falla, puedes usar:
+
+```bash
+make -k
+```
 
 ## Tips
-- Asegúrate de que tu `Makefile` esté bien estructurado y documentado para facilitar la comprensión y el mantenimiento.
-- Utiliza la opción `-n` para verificar qué comandos se ejecutarían sin realizar cambios, lo que es útil para la depuración.
-- Si trabajas en un entorno de desarrollo colaborativo, considera incluir un `Makefile` en tu repositorio para que otros desarrolladores puedan compilar el proyecto fácilmente.
-- Mantén tus dependencias actualizadas en el `Makefile` para evitar recompilaciones innecesarias y mejorar la eficiencia del proceso de construcción.
+- Asegúrate de que tu `Makefile` esté bien estructurado y documentado para facilitar su mantenimiento.
+- Utiliza comentarios en el `Makefile` para explicar secciones complejas o poco claras.
+- Aprovecha la opción `-j` para acelerar el proceso de compilación, especialmente en proyectos grandes.
+- Realiza pruebas frecuentes de tu proyecto para detectar errores temprano en el proceso de desarrollo.

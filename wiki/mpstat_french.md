@@ -1,46 +1,47 @@
-# [리눅스] Bash mpstat 사용법
+# [Linux] Bash mpstat Utilisation : Surveillance des statistiques de CPU
 
-## Aperçu
-La commande `mpstat` est un outil de surveillance des performances du système qui fait partie du paquet `sysstat`. Elle permet d'afficher des statistiques sur l'utilisation du processeur, en fournissant des informations détaillées sur l'activité de chaque cœur de processeur. Son objectif principal est d'aider les ingénieurs et les développeurs à analyser la charge du système et à identifier les goulets d'étranglement potentiels dans les performances.
+## Overview
+La commande `mpstat` est utilisée pour afficher les statistiques d'utilisation du processeur sur un système. Elle permet de surveiller la charge CPU par cœur, offrant ainsi une vue d'ensemble des performances du système.
 
-## Utilisation
+## Usage
 La syntaxe de base de la commande `mpstat` est la suivante :
 
 ```bash
-mpstat [options] [intervalle] [nombre]
+mpstat [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
+Voici quelques options courantes pour `mpstat` :
+
 - `-P ALL` : Affiche les statistiques pour tous les processeurs.
-- `-u` : Affiche l'utilisation du processeur (c'est l'option par défaut).
-- `-h` : Affiche un aide-mémoire avec les options disponibles.
-- `intervalle` : Spécifie la durée (en secondes) entre chaque affichage des statistiques.
-- `nombre` : Indique combien de fois les statistiques doivent être affichées.
+- `-u` : Affiche l'utilisation du CPU en pourcentage.
+- `-r` : Affiche les statistiques de mémoire.
+- `-h` : Affiche l'aide et les options disponibles.
 
-## Exemples
-### Exemple 1 : Afficher l'utilisation du processeur toutes les 2 secondes
-Pour afficher l'utilisation du processeur toutes les 2 secondes pendant 5 itérations, vous pouvez utiliser la commande suivante :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `mpstat` :
 
-```bash
-mpstat 2 5
-```
+1. Afficher les statistiques d'utilisation CPU pour tous les processeurs :
+   ```bash
+   mpstat -P ALL
+   ```
 
-### Exemple 2 : Afficher les statistiques de tous les processeurs
-Pour voir les statistiques de tous les cœurs de processeur en temps réel, utilisez l'option `-P ALL` :
+2. Afficher l'utilisation CPU en pourcentage :
+   ```bash
+   mpstat -u
+   ```
 
-```bash
-mpstat -P ALL 1
-```
+3. Afficher les statistiques de mémoire :
+   ```bash
+   mpstat -r
+   ```
 
-Cette commande affichera les statistiques de chaque processeur toutes les secondes.
+4. Afficher les statistiques toutes les 5 secondes :
+   ```bash
+   mpstat 5
+   ```
 
-## Conseils
-- Utilisez `mpstat` en combinaison avec d'autres outils comme `iostat` et `vmstat` pour obtenir une vue d'ensemble complète des performances du système.
-- Surveillez régulièrement l'utilisation du processeur pour identifier les tendances et les pics d'activité, ce qui peut vous aider à optimiser les performances de vos applications.
-- Pensez à rediriger la sortie de `mpstat` vers un fichier pour une analyse ultérieure, par exemple :
-
-```bash
-mpstat 2 5 > statistiques_processeur.txt
-```
-
-Cela vous permettra de conserver un historique des performances du processeur pour une analyse approfondie.
+## Tips
+- Utilisez `mpstat -P ALL` pour obtenir une vue détaillée de chaque cœur de processeur, ce qui est utile pour le diagnostic de performances.
+- Combinez `mpstat` avec d'autres outils comme `grep` pour filtrer les résultats selon vos besoins.
+- Pensez à exécuter `mpstat` avec des privilèges d'administrateur pour obtenir des informations complètes sur le système.

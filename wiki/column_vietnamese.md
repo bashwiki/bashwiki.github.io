@@ -1,71 +1,43 @@
-# [리눅스] Bash column 사용법
+# [Linux] Bash column sử dụng: Định dạng dữ liệu theo cột
 
-## Tổng quan
-Lệnh `column` trong Bash được sử dụng để định dạng dữ liệu đầu vào thành các cột có căn chỉnh. Lệnh này rất hữu ích khi bạn muốn trình bày dữ liệu theo cách dễ đọc hơn, đặc biệt là khi làm việc với các tệp văn bản hoặc đầu ra từ các lệnh khác. Nó giúp cải thiện khả năng đọc và tổ chức thông tin, làm cho việc phân tích dữ liệu trở nên dễ dàng hơn.
+## Overview
+Lệnh `column` trong Bash được sử dụng để định dạng dữ liệu đầu vào thành các cột, giúp cho việc đọc và phân tích dữ liệu trở nên dễ dàng hơn. Nó thường được sử dụng để trình bày thông tin từ các tệp văn bản hoặc đầu ra của các lệnh khác theo cách có tổ chức.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `column` như sau:
-
 ```bash
-column [OPTIONS] [FILE...]
+column [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-t`: Tạo bảng với các cột được căn chỉnh. Đây là tùy chọn phổ biến nhất và thường được sử dụng.
-- `-s CHAR`: Xác định ký tự phân tách cột. Mặc định là khoảng trắng.
-- `-n`: Không căn chỉnh các cột, giữ nguyên định dạng ban đầu của dữ liệu.
-- `-x`: Sắp xếp dữ liệu theo hàng thay vì cột.
+## Common Options
+- `-t`: Tạo bảng với các cột được căn chỉnh tự động.
+- `-s`: Chỉ định ký tự phân cách giữa các cột (mặc định là khoảng trắng).
+- `-n`: Không căn chỉnh cột, giữ nguyên định dạng ban đầu.
 
-## Ví dụ
-### Ví dụ 1: Căn chỉnh dữ liệu theo cột
-Giả sử bạn có một tệp văn bản `data.txt` với nội dung sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `column`:
 
-```
-Alice 24
-Bob 30
-Charlie 22
-```
+1. **Căn chỉnh dữ liệu theo khoảng trắng**:
+   ```bash
+   cat data.txt | column
+   ```
 
-Bạn có thể sử dụng lệnh `column` để căn chỉnh dữ liệu như sau:
+2. **Sử dụng ký tự phân cách là dấu phẩy**:
+   ```bash
+   cat data.csv | column -s, -t
+   ```
 
-```bash
-column -t data.txt
-```
+3. **Hiển thị dữ liệu mà không căn chỉnh cột**:
+   ```bash
+   cat data.txt | column -n
+   ```
 
-Kết quả sẽ là:
+4. **Định dạng đầu ra của lệnh `ps`**:
+   ```bash
+   ps aux | column -t
+   ```
 
-```
-Alice    24
-Bob      30
-Charlie  22
-```
-
-### Ví dụ 2: Sử dụng ký tự phân tách tùy chỉnh
-Nếu bạn có một tệp `data.csv` với nội dung phân tách bằng dấu phẩy:
-
-```
-Alice,24
-Bob,30
-Charlie,22
-```
-
-Bạn có thể sử dụng lệnh `column` với tùy chọn `-s` để chỉ định dấu phẩy là ký tự phân tách:
-
-```bash
-column -t -s, data.csv
-```
-
-Kết quả sẽ là:
-
-```
-Alice    24
-Bob      30
-Charlie  22
-```
-
-## Mẹo
-- Khi làm việc với dữ liệu lớn, hãy sử dụng tùy chọn `-t` để dễ dàng đọc và phân tích thông tin.
-- Nếu dữ liệu của bạn có nhiều loại ký tự phân tách, hãy chắc chắn sử dụng tùy chọn `-s` để chỉ định đúng ký tự phân tách.
-- Kết hợp lệnh `column` với các lệnh khác như `grep`, `awk`, hoặc `sort` để xử lý và trình bày dữ liệu một cách hiệu quả hơn.
-
-Lệnh `column` là một công cụ mạnh mẽ giúp bạn tổ chức và trình bày dữ liệu một cách rõ ràng và dễ hiểu.
+## Tips
+- Khi làm việc với tệp CSV, hãy luôn sử dụng tùy chọn `-s` để chỉ định ký tự phân cách chính xác.
+- Sử dụng tùy chọn `-t` để tự động căn chỉnh cột, giúp cho dữ liệu dễ đọc hơn.
+- Kiểm tra đầu ra của lệnh trước khi sử dụng `column` để đảm bảo rằng dữ liệu được định dạng đúng cách.

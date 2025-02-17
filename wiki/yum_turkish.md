@@ -1,39 +1,50 @@
-# [리눅스] Bash yum 사용법
+# [Linux] Bash yum Kullanımı: Paket yönetimi aracı
 
 ## Genel Bakış
-`yum`, Red Hat tabanlı Linux dağıtımlarında (örneğin, CentOS, Fedora ve RHEL) kullanılan bir paket yönetim aracıdır. `yum`, kullanıcıların yazılım paketlerini yüklemelerine, güncellemelerine ve kaldırmalarına olanak tanır. Ayrıca, bağımlılıkları otomatik olarak yöneterek kullanıcıların sistemlerini güncel ve güvenli tutmalarına yardımcı olur.
+`yum`, Red Hat tabanlı Linux dağıtımlarında kullanılan bir paket yönetim aracıdır. Yazılımları yüklemek, güncellemek ve kaldırmak için kullanılır. Ayrıca, sistemdeki mevcut paketlerin bağımlılıklarını yönetir ve güncellemeleri kontrol eder.
 
 ## Kullanım
-`yum` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-yum [seçenekler] [komut] [paket_adı]
+yum [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
+## Yaygın Seçenekler
 - `install`: Belirtilen paketi yükler.
 - `remove`: Belirtilen paketi kaldırır.
-- `update`: Yüklü paketleri günceller.
-- `search`: Belirtilen anahtar kelimeye göre paket arar.
+- `update`: Yüklenmiş paketleri günceller.
+- `search`: Belirtilen terimi içeren paketleri arar.
 - `info`: Belirtilen paket hakkında bilgi verir.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `yum` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-### Paket Yükleme
-Aşağıdaki komut, `httpd` adlı web sunucusu paketini yükler:
-
+### Bir Paketi Yüklemek
 ```bash
-yum install httpd
+yum install paket_adi
 ```
 
-### Paket Güncelleme
-Tüm yüklü paketleri güncellemek için aşağıdaki komutu kullanabilirsiniz:
+### Bir Paketi Kaldırmak
+```bash
+yum remove paket_adi
+```
 
+### Yüklenmiş Paketleri Güncellemek
 ```bash
 yum update
 ```
 
+### Belirli Bir Paketi Aramak
+```bash
+yum search arama_terimi
+```
+
+### Paket Hakkında Bilgi Almak
+```bash
+yum info paket_adi
+```
+
 ## İpuçları
-- `yum` komutunu çalıştırmadan önce, sisteminizin güncel olduğundan emin olun. Bunun için `yum check-update` komutunu kullanabilirsiniz.
-- Paketlerinizi güncellerken, güncellemeleri onaylamadan önce hangi paketlerin güncelleneceğini görmek için `yum update` komutunu `-y` seçeneği olmadan çalıştırın.
-- `yum` ile sıkça kullandığınız paketleri yüklemek için bir script oluşturabilir ve bu scripti düzenli olarak çalıştırarak sisteminizi güncel tutabilirsiniz.
+- `yum` komutunu kullanmadan önce, sisteminizin güncel olduğundan emin olun.
+- Paketlerin bağımlılıklarını otomatik olarak yönetmek için `yum` kullanmak, sistem kararlılığını artırır.
+- `yum clean all` komutunu kullanarak önbelleği temizleyebilir ve disk alanı kazanabilirsiniz.

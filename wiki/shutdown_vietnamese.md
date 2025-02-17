@@ -1,40 +1,50 @@
-# [리눅스] Bash shutdown 사용법
+# [Linux] Bash shutdown cách sử dụng: Tắt máy tính hoặc khởi động lại hệ thống
 
 ## Tổng quan
-Lệnh `shutdown` trong Bash được sử dụng để tắt hoặc khởi động lại hệ thống một cách an toàn. Lệnh này cho phép người dùng thông báo cho tất cả người dùng khác trên hệ thống rằng máy chủ sẽ tắt hoặc khởi động lại, đồng thời cung cấp thời gian để họ lưu lại công việc của mình. Đây là một công cụ quan trọng cho quản trị viên hệ thống để đảm bảo rằng quá trình tắt máy diễn ra một cách trơn tru và không gây mất dữ liệu.
+Lệnh `shutdown` trong Bash được sử dụng để tắt máy tính hoặc khởi động lại hệ thống một cách an toàn. Nó cho phép người dùng lên lịch tắt máy hoặc khởi động lại, đồng thời thông báo cho người dùng khác về việc này.
 
 ## Cách sử dụng
-Cú pháp cơ bản của lệnh `shutdown` như sau:
+Cú pháp cơ bản của lệnh là:
 
 ```bash
-shutdown [OPTION] [TIME] [MESSAGE]
+shutdown [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-h`: Tắt máy.
-- `-r`: Khởi động lại máy.
-- `-c`: Hủy lệnh tắt máy đã lên lịch.
-- `TIME`: Thời gian để tắt máy, có thể là một khoảng thời gian cụ thể (ví dụ: `+5` để tắt sau 5 phút) hoặc một thời điểm cụ thể (ví dụ: `12:00` để tắt lúc 12 giờ trưa).
-- `MESSAGE`: Thông điệp sẽ được gửi đến tất cả người dùng đang đăng nhập.
+## Các tùy chọn phổ biến
+- `-h` hoặc `--halt`: Tắt máy tính.
+- `-r` hoặc `--reboot`: Khởi động lại máy tính.
+- `-P` hoặc `--poweroff`: Tắt máy và ngắt nguồn.
+- `now`: Thực hiện lệnh ngay lập tức.
+- `+m`: Tắt máy sau `m` phút (ví dụ: `+5` để tắt sau 5 phút).
+- `hh:mm`: Thời gian cụ thể để tắt máy (theo định dạng 24 giờ).
 
-## Ví dụ
-### Ví dụ 1: Tắt máy ngay lập tức
-Để tắt máy ngay lập tức, bạn có thể sử dụng lệnh sau:
+## Ví dụ thường gặp
+1. **Tắt máy ngay lập tức:**
+   ```bash
+   shutdown now
+   ```
 
-```bash
-shutdown -h now
-```
+2. **Khởi động lại máy tính:**
+   ```bash
+   shutdown -r now
+   ```
 
-### Ví dụ 2: Khởi động lại máy sau 10 phút
-Nếu bạn muốn khởi động lại máy sau 10 phút, bạn có thể sử dụng lệnh sau:
+3. **Tắt máy sau 10 phút:**
+   ```bash
+   shutdown +10
+   ```
 
-```bash
-shutdown -r +10 "Máy sẽ khởi động lại sau 10 phút. Vui lòng lưu công việc của bạn."
-```
+4. **Tắt máy vào lúc 22:30:**
+   ```bash
+   shutdown 22:30
+   ```
+
+5. **Tắt máy và ngắt nguồn:**
+   ```bash
+   shutdown -P now
+   ```
 
 ## Mẹo
-- **Thông báo cho người dùng**: Luôn sử dụng tùy chọn `MESSAGE` để thông báo cho người dùng khác về thời gian tắt máy. Điều này giúp họ có thời gian để lưu lại công việc và tránh mất dữ liệu.
-- **Kiểm tra lệnh**: Trước khi thực hiện lệnh `shutdown`, bạn có thể sử dụng tùy chọn `-c` để hủy lệnh tắt máy nếu cần thiết.
-- **Quyền truy cập**: Đảm bảo rằng bạn có quyền truy cập thích hợp (thường là quyền root) để thực hiện lệnh `shutdown`.
-
-Lệnh `shutdown` là một công cụ mạnh mẽ và cần thiết cho việc quản lý hệ thống, giúp đảm bảo rằng quá trình tắt máy hoặc khởi động lại diễn ra một cách an toàn và hiệu quả.
+- Luôn thông báo cho người dùng khác trước khi tắt máy để tránh mất dữ liệu.
+- Sử dụng tùy chọn `-h` hoặc `-r` để đảm bảo rằng hệ thống sẽ tắt hoặc khởi động lại một cách an toàn.
+- Kiểm tra các tiến trình đang chạy trước khi tắt máy để đảm bảo không có công việc quan trọng bị gián đoạn.

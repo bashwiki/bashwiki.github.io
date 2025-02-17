@@ -1,50 +1,57 @@
-# [리눅스] Bash at 사용법
+# [Linux] Bash at: Schedule commands for later execution
 
 ## Overview
-The `at` command in Bash is a utility that allows users to schedule commands to be executed at a specified time in the future. It is particularly useful for automating tasks that need to run once at a certain time, rather than on a recurring basis. This command is part of the `at` daemon, which listens for scheduled jobs and executes them at the designated time.
+The `at` command in Bash is used to schedule commands to be executed at a specified time in the future. This allows users to automate tasks without needing to keep a terminal open or run scripts manually.
 
 ## Usage
 The basic syntax of the `at` command is as follows:
 
 ```bash
-at [OPTION] TIME
+at [options] [time]
 ```
 
-### Common Options:
-- `-f FILE`: Read the commands to be executed from the specified file instead of standard input.
-- `-m`: Send mail to the user after the job has completed, regardless of whether it produced any output.
-- `-q QUEUE`: Specify the queue to which the job should be added. Different queues can be used to prioritize jobs.
-- `-v`: Print the job's ID and the time it is scheduled to run.
+Here, `time` specifies when the command should be executed.
 
-### Time Formats:
-The `TIME` argument can be specified in several formats, such as:
-- `now + 1 hour`
-- `2:00 PM`
-- `tomorrow`
-- `next Friday`
+## Common Options
+- `-f FILE`: Read commands from the specified file instead of standard input.
+- `-l`: List all scheduled jobs.
+- `-d JOB_ID`: Delete the specified job.
+- `-q QUEUE`: Specify the queue to use for the job.
 
-## Examples
+## Common Examples
+Here are some practical examples of how to use the `at` command:
 
-### Example 1: Scheduling a Simple Command
-To schedule a command to display "Hello, World!" at 3:00 PM today, you can use the following command:
+1. **Schedule a command to run at a specific time:**
+   ```bash
+   echo "echo 'Hello, World!'" | at 14:00
+   ```
+   This schedules the command to print "Hello, World!" at 2 PM.
 
-```bash
-echo "echo 'Hello, World!'" | at 3:00 PM
-```
+2. **Schedule a command for a specific date and time:**
+   ```bash
+   echo "backup.sh" | at 2023-10-30 10:00
+   ```
+   This schedules the `backup.sh` script to run on October 30, 2023, at 10 AM.
 
-This command pipes the echo command into `at`, which schedules it to run at the specified time.
+3. **List all scheduled jobs:**
+   ```bash
+   at -l
+   ```
+   This command lists all jobs that have been scheduled with `at`.
 
-### Example 2: Using a File to Schedule Commands
-If you have a script saved in a file called `backup.sh` that you want to run at midnight, you can do this:
+4. **Delete a scheduled job:**
+   ```bash
+   at -d 2
+   ```
+   This deletes the job with ID 2 from the scheduled jobs list.
 
-```bash
-at midnight -f backup.sh
-```
-
-This command tells `at` to execute the commands in `backup.sh` at midnight.
+5. **Schedule a command to run 5 minutes from now:**
+   ```bash
+   echo "echo 'This runs in 5 minutes!'" | at now + 5 minutes
+   ```
+   This schedules a command to run 5 minutes from the current time.
 
 ## Tips
-- Always check your scheduled jobs with the `atq` command, which lists all pending jobs for the user.
-- Use the `atrm` command to remove a scheduled job if you no longer need it. You can specify the job ID obtained from `atq`.
-- Be mindful of the time zone settings on your system, as they can affect when your scheduled jobs execute.
-- Consider using the `-m` option if you want to receive notifications about the completion of your scheduled tasks, especially for long-running jobs.
+- Always check your scheduled jobs with `at -l` to ensure you know what is set to run.
+- Use the `-f` option to read commands from a file for more complex tasks.
+- Remember that the `at` command uses the system's timezone, so be mindful of that when scheduling tasks.

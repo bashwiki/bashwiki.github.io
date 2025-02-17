@@ -1,46 +1,54 @@
-# [리눅스] Bash iostat 사용법
+# [Linux] Bash iostat Kullanımı: Sistem Giriş/Çıkış İstatistiklerini Görüntüleme
 
 ## Genel Bakış
-`iostat`, sistemin giriş/çıkış (I/O) istatistiklerini izlemek için kullanılan bir komuttur. Bu komut, CPU kullanımını ve disk I/O istatistiklerini göstererek, sistem performansını analiz etmeye yardımcı olur. Özellikle, sistem yöneticileri ve geliştiriciler için, uygulamaların ve disklerin performansını değerlendirmek amacıyla kritik bir araçtır.
+`iostat` komutu, sistemin giriş/çıkış (I/O) istatistiklerini görüntülemek için kullanılır. Bu komut, disklerin ve diğer I/O aygıtlarının performansını izlemek ve analiz etmek için faydalıdır. Ayrıca, CPU kullanımını da raporlayarak sistemin genel durumunu değerlendirmeye yardımcı olur.
 
 ## Kullanım
-`iostat` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-iostat [seçenekler] [interval] [count]
+Temel sözdizimi şu şekildedir:
+```
+iostat [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
+## Yaygın Seçenekler
 - `-c`: Sadece CPU istatistiklerini gösterir.
 - `-d`: Sadece disk istatistiklerini gösterir.
 - `-x`: Genişletilmiş disk istatistiklerini gösterir.
-- `-m`: Çıktıyı megabayt cinsinden gösterir.
-- `interval`: İstatistiklerin ne sıklıkla güncelleneceğini belirten süre (saniye cinsinden).
-- `count`: İstatistiklerin kaç kez gösterileceğini belirtir.
+- `-h`: İnsan tarafından okunabilir formatta çıktı verir.
+- `interval`: İstatistiklerin güncellenme süresini belirler (saniye cinsinden).
+- `count`: Belirtilen sayıda güncelleme yapar.
 
-## Örnekler
+## Yaygın Örnekler
+1. **Temel İstatistikleri Görüntüleme**
+   ```bash
+   iostat
+   ```
 
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, her 2 saniyede bir CPU ve disk istatistiklerini gösterir:
+2. **CPU İstatistiklerini Gösterme**
+   ```bash
+   iostat -c
+   ```
 
-```bash
-iostat 2
-```
+3. **Disk İstatistiklerini Görüntüleme**
+   ```bash
+   iostat -d
+   ```
 
-### Örnek 2: Genişletilmiş Disk İstatistikleri
-Aşağıdaki komut, her 5 saniyede bir genişletilmiş disk istatistiklerini gösterir:
+4. **Genişletilmiş Disk İstatistikleri ile Birlikte Görüntüleme**
+   ```bash
+   iostat -x
+   ```
 
-```bash
-iostat -x 5
-```
+5. **Her 5 Saniyede Bir Güncellenen İstatistikler**
+   ```bash
+   iostat 5
+   ```
+
+6. **10 Saniyede Bir 3 Kez Güncellenen Disk İstatistikleri**
+   ```bash
+   iostat -d 10 3
+   ```
 
 ## İpuçları
-- `iostat` çıktısını analiz ederken, yüksek `iowait` değerlerinin sistem performansında dar boğazlara işaret edebileceğini unutmayın.
-- Disklerin performansını izlemek için `-x` seçeneğini kullanarak daha ayrıntılı bilgi alabilirsiniz.
-- Uzun süreli izleme için, `iostat` çıktısını bir dosyaya yönlendirebilir ve daha sonra analiz edebilirsiniz:
-
-```bash
-iostat -x 5 > iostat_output.txt
-```
-
-Bu komut, her 5 saniyede bir genişletilmiş disk istatistiklerini `iostat_output.txt` dosyasına kaydeder.
+- `iostat` çıktısını analiz ederken, yüksek `await` ve `svctm` değerlerinin disk performans sorunlarına işaret edebileceğini unutmayın.
+- Uzun süreli izleme için `iostat` komutunu bir betik içinde kullanarak belirli aralıklarla verileri kaydedebilirsiniz.
+- Çıktıyı daha iyi anlamak için `-h` seçeneğini kullanarak insan tarafından okunabilir formatta görüntüleyin.

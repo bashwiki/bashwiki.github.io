@@ -1,41 +1,53 @@
-# [리눅스] Bash cp 사용법
+# [Linux] Bash cp Cách sử dụng: Sao chép tệp và thư mục
 
 ## Tổng quan
-Lệnh `cp` trong Bash được sử dụng để sao chép các tệp và thư mục từ vị trí này sang vị trí khác. Đây là một trong những lệnh cơ bản và thường xuyên được sử dụng trong quản lý tệp trên hệ điều hành Unix và Linux. Mục đích chính của lệnh này là giúp người dùng dễ dàng tạo bản sao của các tệp mà không làm thay đổi tệp gốc.
+Lệnh `cp` trong Bash được sử dụng để sao chép tệp và thư mục từ vị trí này sang vị trí khác. Đây là một trong những lệnh cơ bản và quan trọng trong quản lý tệp trên hệ thống Unix và Linux.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `cp` như sau:
 
 ```bash
-cp [tùy chọn] nguồn đích
+cp [tùy chọn] [đối số]
 ```
 
-Trong đó:
-- `nguồn`: Đường dẫn đến tệp hoặc thư mục mà bạn muốn sao chép.
-- `đích`: Đường dẫn đến nơi bạn muốn lưu bản sao.
-
-Một số tùy chọn phổ biến của lệnh `cp` bao gồm:
-- `-r`: Sao chép thư mục và nội dung của nó một cách đệ quy.
-- `-i`: Yêu cầu xác nhận trước khi ghi đè lên tệp đích nếu nó đã tồn tại.
+## Tùy chọn phổ biến
+- `-r`: Sao chép thư mục và tất cả các tệp con bên trong.
+- `-i`: Yêu cầu xác nhận trước khi ghi đè lên tệp đã tồn tại.
 - `-u`: Chỉ sao chép tệp nếu tệp nguồn mới hơn tệp đích hoặc nếu tệp đích không tồn tại.
 - `-v`: Hiển thị thông tin chi tiết về quá trình sao chép.
 
-## Ví dụ
-### Ví dụ 1: Sao chép tệp
-Để sao chép một tệp có tên `file.txt` vào thư mục `backup`, bạn có thể sử dụng lệnh sau:
+## Ví dụ phổ biến
+- Sao chép một tệp đơn giản:
 
 ```bash
-cp file.txt backup/
+cp file1.txt file2.txt
 ```
 
-### Ví dụ 2: Sao chép thư mục
-Để sao chép một thư mục có tên `myfolder` cùng với tất cả nội dung bên trong, bạn sử dụng tùy chọn `-r`:
+- Sao chép một thư mục và tất cả các tệp bên trong:
 
 ```bash
-cp -r myfolder/ backup/
+cp -r folder1 folder2
+```
+
+- Sao chép tệp và yêu cầu xác nhận nếu tệp đích đã tồn tại:
+
+```bash
+cp -i file1.txt file2.txt
+```
+
+- Sao chép tệp chỉ khi tệp nguồn mới hơn tệp đích:
+
+```bash
+cp -u file1.txt file2.txt
+```
+
+- Sao chép tệp và hiển thị thông tin chi tiết:
+
+```bash
+cp -v file1.txt file2.txt
 ```
 
 ## Mẹo
-- Luôn sử dụng tùy chọn `-i` khi bạn không chắc chắn về việc ghi đè lên tệp đích để tránh mất dữ liệu.
-- Kiểm tra kỹ đường dẫn của tệp nguồn và tệp đích để đảm bảo bạn đang sao chép vào đúng vị trí.
-- Sử dụng tùy chọn `-v` để theo dõi quá trình sao chép, đặc biệt khi sao chép nhiều tệp hoặc thư mục lớn.
+- Luôn kiểm tra tệp đích trước khi sao chép để tránh ghi đè lên dữ liệu quan trọng.
+- Sử dụng tùy chọn `-i` để bảo vệ dữ liệu của bạn khỏi việc ghi đè không mong muốn.
+- Khi sao chép thư mục, hãy luôn sử dụng tùy chọn `-r` để đảm bảo tất cả các tệp con được sao chép.

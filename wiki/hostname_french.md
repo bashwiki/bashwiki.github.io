@@ -1,47 +1,51 @@
-# [리눅스] Bash hostname 사용법
+# [Linux] Bash hostname utilisation : afficher ou définir le nom d'hôte
 
 ## Overview
-La commande `hostname` est utilisée dans les systèmes d'exploitation basés sur Unix pour afficher ou définir le nom d'hôte du système. Le nom d'hôte est un identifiant unique qui permet de reconnaître un appareil sur un réseau. Il est essentiel pour la communication entre les machines et peut être utilisé pour des configurations réseau, des scripts et des applications.
+La commande `hostname` permet d'afficher ou de définir le nom d'hôte d'un système. Le nom d'hôte est un identifiant unique qui permet de distinguer un ordinateur sur un réseau.
 
 ## Usage
-La syntaxe de base de la commande `hostname` est la suivante :
+La syntaxe de base de la commande est la suivante :
 
 ```bash
-hostname [OPTION] [NOM_D'HÔTE]
+hostname [options] [arguments]
 ```
 
-### Options courantes :
-- `-f`, `--fqdn` : Affiche le nom d'hôte complet (Fully Qualified Domain Name).
-- `-i`, `--ip-address` : Affiche l'adresse IP associée au nom d'hôte.
-- `-s`, `--short` : Affiche le nom d'hôte court, sans le domaine.
-- `-V`, `--version` : Affiche la version de la commande `hostname`.
+## Common Options
+- `-a` : Affiche le nom d'hôte alias.
+- `-d` : Affiche le nom de domaine.
+- `-f` : Affiche le nom d'hôte complet (FQDN).
+- `-i` : Affiche l'adresse IP du nom d'hôte.
+- `-s` : Affiche le nom d'hôte court.
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `hostname`.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `hostname` :
 
-1. **Afficher le nom d'hôte actuel :**
+1. Afficher le nom d'hôte actuel :
+   ```bash
+   hostname
+   ```
 
-```bash
-hostname
-```
-Cette commande affichera le nom d'hôte actuel de la machine.
+2. Afficher le nom d'hôte complet :
+   ```bash
+   hostname -f
+   ```
 
-2. **Afficher le nom d'hôte complet :**
+3. Afficher l'adresse IP associée au nom d'hôte :
+   ```bash
+   hostname -i
+   ```
 
-```bash
-hostname -f
-```
-Cette commande retournera le nom d'hôte complet, y compris le domaine.
+4. Définir un nouveau nom d'hôte (nécessite des privilèges administratifs) :
+   ```bash
+   sudo hostname nouveau-nom
+   ```
 
-3. **Définir un nouveau nom d'hôte :**
-
-```bash
-sudo hostname nouveau_nom
-```
-Cette commande change le nom d'hôte de la machine en `nouveau_nom`. Notez que les modifications peuvent nécessiter un redémarrage pour être pleinement appliquées.
+5. Afficher le nom de domaine :
+   ```bash
+   hostname -d
+   ```
 
 ## Tips
-- Lorsque vous changez le nom d'hôte, assurez-vous que le nouveau nom est unique sur le réseau pour éviter les conflits.
-- Pour rendre le changement de nom d'hôte permanent, vous devrez également mettre à jour le fichier `/etc/hostname` et éventuellement `/etc/hosts`.
-- Utilisez `hostname -i` pour vérifier l'adresse IP associée à votre nom d'hôte, ce qui peut être utile pour le dépannage réseau.
-- Pensez à redémarrer les services qui pourraient dépendre du nom d'hôte après un changement pour éviter des comportements inattendus.
+- Utilisez `sudo` pour changer le nom d'hôte, car cela nécessite des droits d'administrateur.
+- Pour que le changement de nom d'hôte soit permanent, modifiez le fichier `/etc/hostname` et redémarrez le système.
+- Vérifiez toujours le nom d'hôte après un changement pour vous assurer qu'il a été appliqué correctement.

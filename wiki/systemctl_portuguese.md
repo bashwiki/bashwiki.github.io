@@ -1,47 +1,65 @@
-# [리눅스] Bash systemctl 사용법
+# [Linux] Bash systemctl uso: Gerenciar serviços e unidades do sistema
 
 ## Overview
-O `systemctl` é uma ferramenta de linha de comando utilizada para interagir com o sistema de gerenciamento de serviços `systemd`, que é o sistema de inicialização padrão em muitas distribuições Linux modernas. O principal objetivo do `systemctl` é permitir que os usuários iniciem, parem, reiniciem e gerenciem serviços e unidades do sistema, além de fornecer informações sobre o estado atual dos serviços.
+O comando `systemctl` é uma ferramenta poderosa usada para gerenciar o sistema e os serviços no Linux, especialmente em sistemas que utilizam o systemd como sistema de inicialização. Com ele, é possível iniciar, parar, reiniciar e verificar o status de serviços, além de gerenciar unidades do sistema.
 
 ## Usage
 A sintaxe básica do comando `systemctl` é a seguinte:
 
 ```bash
-systemctl [opções] [comando] [nome_da_unidade]
+systemctl [opções] [argumentos]
 ```
 
-### Comandos Comuns
-- `start`: Inicia uma unidade (serviço).
-- `stop`: Para uma unidade.
-- `restart`: Reinicia uma unidade.
-- `status`: Mostra o status de uma unidade.
-- `enable`: Habilita uma unidade para iniciar automaticamente na inicialização.
-- `disable`: Desabilita uma unidade para não iniciar automaticamente na inicialização.
-- `list-units`: Lista todas as unidades carregadas.
+## Common Options
+Aqui estão algumas opções comuns que você pode usar com o `systemctl`:
 
-### Opções Comuns
-- `--quiet`: Suprime mensagens de saída.
-- `--now`: Aplica o comando tanto à unidade quanto a suas dependências.
+- `start`: Inicia uma unidade ou serviço.
+- `stop`: Para uma unidade ou serviço em execução.
+- `restart`: Reinicia uma unidade ou serviço.
+- `status`: Exibe o status de uma unidade ou serviço.
+- `enable`: Habilita uma unidade para iniciar automaticamente na inicialização do sistema.
+- `disable`: Desabilita uma unidade para que não inicie automaticamente.
+- `list-units`: Lista todas as unidades ativas.
 
-## Examples
-### Exemplo 1: Iniciar um Serviço
-Para iniciar um serviço chamado `nginx`, você pode usar o seguinte comando:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `systemctl`:
 
-```bash
-sudo systemctl start nginx
-```
+1. **Iniciar um serviço**:
+   ```bash
+   sudo systemctl start nome_do_serviço
+   ```
 
-### Exemplo 2: Verificar o Status de um Serviço
-Para verificar o status do serviço `nginx`, utilize:
+2. **Parar um serviço**:
+   ```bash
+   sudo systemctl stop nome_do_serviço
+   ```
 
-```bash
-systemctl status nginx
-```
+3. **Reiniciar um serviço**:
+   ```bash
+   sudo systemctl restart nome_do_serviço
+   ```
 
-Isso fornecerá informações detalhadas sobre o estado do serviço, incluindo se ele está ativo, inativo ou falhou.
+4. **Verificar o status de um serviço**:
+   ```bash
+   systemctl status nome_do_serviço
+   ```
+
+5. **Habilitar um serviço para iniciar automaticamente**:
+   ```bash
+   sudo systemctl enable nome_do_serviço
+   ```
+
+6. **Desabilitar um serviço para não iniciar automaticamente**:
+   ```bash
+   sudo systemctl disable nome_do_serviço
+   ```
+
+7. **Listar todas as unidades ativas**:
+   ```bash
+   systemctl list-units --type=service
+   ```
 
 ## Tips
-- Sempre utilize `sudo` ao executar comandos que alteram o estado dos serviços, pois muitas operações requerem permissões de superusuário.
-- Use `systemctl list-units --type=service` para obter uma visão geral de todos os serviços em execução e seus estados.
-- Para garantir que um serviço inicie automaticamente na inicialização do sistema, não se esqueça de usar o comando `enable` após iniciar o serviço.
-- Utilize `systemctl daemon-reload` após modificar arquivos de configuração de unidades para que as alterações sejam reconhecidas pelo `systemd`.
+- Sempre use `sudo` ao executar comandos que alteram o estado de serviços, pois muitas operações requerem privilégios de administrador.
+- Verifique o status de um serviço após iniciar ou parar para garantir que a operação foi bem-sucedida.
+- Use `systemctl list-units --failed` para identificar unidades que falharam ao iniciar ou que estão com problemas.

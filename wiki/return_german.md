@@ -1,45 +1,34 @@
-# [리눅스] Bash return 사용법
+# [Linux] Bash return Verwendung: Gibt den Rückgabewert eines Skripts oder Befehls zurück
 
 ## Übersicht
-Der Befehl `return` in Bash wird verwendet, um den Rückgabewert einer Funktion zu setzen und die Ausführung der Funktion zu beenden. Der Rückgabewert ist eine Ganzzahl, die in der Regel verwendet wird, um den Erfolg oder Misserfolg einer Funktion anzuzeigen. Ein Rückgabewert von `0` bedeutet in der Regel Erfolg, während jeder andere Wert einen Fehler oder eine spezielle Bedingung anzeigen kann.
+Der `return`-Befehl in Bash wird verwendet, um einen Rückgabewert aus einer Funktion zurückzugeben. Dies ist besonders nützlich, um den Status einer Funktion zu überprüfen oder um Fehlercodes zu kommunizieren.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls `return` ist wie folgt:
+Die grundlegende Syntax des `return`-Befehls lautet:
 
 ```bash
-return [N]
+return [options] [status]
 ```
 
-Hierbei ist `N` eine optionale Ganzzahl, die den Rückgabewert angibt. Wenn kein Wert angegeben wird, wird der Rückgabewert der letzten ausgeführten Befehlszeile innerhalb der Funktion verwendet.
+## Häufige Optionen
+- `status`: Eine Ganzzahl, die den Rückgabewert angibt. Standardmäßig ist dies 0, was Erfolg bedeutet.
 
-### Optionen
-- `N`: Ein ganzzahliger Wert, der als Rückgabewert der Funktion verwendet wird. Er kann zwischen `0` und `255` liegen.
+## Häufige Beispiele
 
-## Beispiele
-
-### Beispiel 1: Einfache Funktion mit Rückgabewert
+### Beispiel 1: Rückgabewert einer Funktion
 ```bash
 my_function() {
-    if [ "$1" -gt 10 ]; then
-        return 0  # Erfolg
-    else
-        return 1  # Fehler
-    fi
+    return 5
 }
 
-my_function 15
-echo $?  # Gibt 0 aus
-
-my_function 5
-echo $?  # Gibt 1 aus
+my_function
+echo $?  # Gibt 5 aus
 ```
 
-In diesem Beispiel überprüft die Funktion `my_function`, ob der übergebene Parameter größer als 10 ist. Je nach Ergebnis wird ein entsprechender Rückgabewert gesetzt.
-
-### Beispiel 2: Verwendung des Rückgabewerts
+### Beispiel 2: Rückgabewert basierend auf einer Bedingung
 ```bash
 check_file() {
-    if [ -f "$1" ]; then
+    if [[ -f "$1" ]]; then
         return 0  # Datei existiert
     else
         return 1  # Datei existiert nicht
@@ -47,16 +36,19 @@ check_file() {
 }
 
 check_file "test.txt"
-if [ $? -eq 0 ]; then
-    echo "Die Datei existiert."
-else
-    echo "Die Datei existiert nicht."
-fi
+echo $?  # Gibt 0 oder 1 aus, je nach Ergebnis
 ```
 
-Hier wird eine Funktion `check_file` definiert, die überprüft, ob eine Datei existiert. Der Rückgabewert wird verwendet, um eine entsprechende Nachricht auszugeben.
+### Beispiel 3: Verwendung in einer Schleife
+```bash
+for i in {1..5}; do
+    if [[ $i -eq 3 ]]; then
+        return 0  # Beende die Funktion, wenn i 3 ist
+    fi
+done
+```
 
 ## Tipps
-- Verwenden Sie `return` immer in Funktionen, um die Lesbarkeit und Wartbarkeit Ihres Codes zu verbessern.
-- Achten Sie darauf, Rückgabewerte konsistent zu verwenden, um den Status Ihrer Funktionen klar zu kommunizieren.
-- Nutzen Sie die Rückgabewerte in Kombination mit der `$?` Variablen, um den Erfolg oder Misserfolg von Funktionsaufrufen zu überprüfen.
+- Verwenden Sie `return` in Funktionen, um den Status oder Fehlercodes klar zu kommunizieren.
+- Nutzen Sie `$?`, um den Rückgabewert des letzten ausgeführten Befehls oder der Funktion zu überprüfen.
+- Halten Sie Rückgabewerte im Bereich von 0 bis 255, da dies die Standardgrenze für Rückgabewerte in Bash ist.

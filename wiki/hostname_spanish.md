@@ -1,47 +1,51 @@
-# [리눅스] Bash hostname 사용법
+# [Linux] Bash hostname uso: [muestra el nombre del host]
 
 ## Overview
-El comando `hostname` en Bash se utiliza para mostrar o establecer el nombre del host del sistema. El nombre del host es una etiqueta que identifica de manera única un dispositivo en una red. Este comando es fundamental para la administración de sistemas, ya que permite a los administradores y desarrolladores conocer y configurar la identidad de su máquina en un entorno de red.
+El comando `hostname` se utiliza para mostrar o establecer el nombre del host del sistema. Este nombre es esencial para identificar la máquina en una red y puede ser utilizado por varias aplicaciones y servicios.
 
 ## Usage
-La sintaxis básica del comando `hostname` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-hostname [opciones] [nuevo_nombre]
+hostname [opciones] [argumentos]
 ```
 
-### Opciones comunes:
+## Common Options
 - `-a`, `--alias`: Muestra el alias del host.
-- `-d`, `--domain`: Muestra el nombre del dominio del host.
+- `-d`, `--domain`: Muestra el dominio del host.
 - `-f`, `--fqdn`: Muestra el nombre de dominio completamente calificado (FQDN).
 - `-i`, `--ip-address`: Muestra la dirección IP del host.
 - `-s`, `--short`: Muestra solo el nombre corto del host.
-- `nuevo_nombre`: Si se proporciona un nuevo nombre, el comando cambiará el nombre del host a este valor (requiere privilegios de superusuario).
 
-## Examples
-### Ejemplo 1: Mostrar el nombre del host actual
-Para ver el nombre del host actual, simplemente ejecuta:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `hostname`:
 
-```bash
-hostname
-```
+1. **Mostrar el nombre del host actual:**
+   ```bash
+   hostname
+   ```
 
-Este comando devolverá el nombre del host configurado en el sistema.
+2. **Mostrar el nombre de dominio completamente calificado:**
+   ```bash
+   hostname -f
+   ```
 
-### Ejemplo 2: Cambiar el nombre del host
-Para cambiar el nombre del host a "mi-nueva-maquina", puedes usar el siguiente comando (requiere permisos de superusuario):
+3. **Mostrar la dirección IP del host:**
+   ```bash
+   hostname -i
+   ```
 
-```bash
-sudo hostname mi-nueva-maquina
-```
+4. **Establecer un nuevo nombre de host:**
+   ```bash
+   sudo hostname nuevo-nombre
+   ```
 
-Después de ejecutar este comando, el nombre del host se actualizará y podrás verificarlo nuevamente con:
-
-```bash
-hostname
-```
+5. **Mostrar solo el nombre corto del host:**
+   ```bash
+   hostname -s
+   ```
 
 ## Tips
-- Es recomendable cambiar el nombre del host en un entorno de prueba antes de hacerlo en producción, para evitar conflictos de red.
-- Después de cambiar el nombre del host, es posible que necesites reiniciar el sistema o reiniciar ciertos servicios para que los cambios surtan efecto completamente.
-- Utiliza el comando `hostname -f` para verificar que el nombre de dominio completamente calificado esté configurado correctamente, especialmente en entornos de red complejos.
+- Asegúrate de tener privilegios de superusuario al cambiar el nombre del host, ya que se requiere para realizar esta acción.
+- Después de cambiar el nombre del host, considera reiniciar el sistema o el servicio de red para que los cambios surtan efecto.
+- Utiliza `hostname -d` para verificar el dominio de tu máquina, lo que puede ser útil en configuraciones de red.

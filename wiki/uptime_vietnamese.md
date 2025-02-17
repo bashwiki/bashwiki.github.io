@@ -1,36 +1,41 @@
-# [리눅스] Bash uptime 사용법
+# [Linux] Bash uptime Cách sử dụng: Xem thời gian hoạt động của hệ thống
 
-## Tổng quan
-Lệnh `uptime` trong Bash được sử dụng để hiển thị thời gian hoạt động của hệ thống, số lượng người dùng đang đăng nhập, và tải trung bình của hệ thống trong 1, 5 và 15 phút qua. Lệnh này rất hữu ích cho các kỹ sư và nhà phát triển để theo dõi tình trạng và hiệu suất của máy chủ hoặc máy tính.
+## Overview
+Lệnh `uptime` trong Bash được sử dụng để hiển thị thời gian hoạt động của hệ thống, số lượng người dùng đang đăng nhập và tải trung bình của hệ thống trong 1, 5 và 15 phút qua. Đây là một công cụ hữu ích để theo dõi tình trạng hoạt động của máy chủ hoặc máy tính.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `uptime` như sau:
 
 ```bash
-uptime [OPTION]
+uptime [options]
 ```
 
-### Tùy chọn phổ biến
-- `-p`, `--pretty`: Hiển thị thời gian hoạt động theo cách dễ hiểu hơn.
-- `-h`, `--help`: Hiển thị thông tin trợ giúp về lệnh `uptime`.
-- `-V`, `--version`: Hiển thị phiên bản của lệnh `uptime`.
+## Common Options
+- `-p`: Hiển thị thời gian hoạt động theo định dạng dễ đọc.
+- `-s`: Hiển thị thời gian khởi động của hệ thống.
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `uptime`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế khi sử dụng lệnh `uptime`:
 
-### Ví dụ 1: Hiển thị thời gian hoạt động cơ bản
-```bash
-uptime
-```
-Kết quả sẽ hiển thị thời gian hoạt động của hệ thống, số lượng người dùng đang đăng nhập và tải trung bình trong 1, 5 và 15 phút.
+1. **Hiển thị thông tin cơ bản về thời gian hoạt động:**
 
-### Ví dụ 2: Hiển thị thời gian hoạt động theo cách dễ hiểu
-```bash
-uptime -p
-```
-Kết quả sẽ hiển thị thời gian hoạt động của hệ thống theo định dạng dễ hiểu, ví dụ: "up 5 hours, 30 minutes".
+   ```bash
+   uptime
+   ```
 
-## Mẹo
-- Sử dụng lệnh `uptime` thường xuyên để theo dõi hiệu suất của hệ thống, đặc biệt là trong môi trường máy chủ.
-- Kết hợp lệnh `uptime` với các lệnh khác như `top` hoặc `htop` để có cái nhìn tổng quan hơn về tình trạng hệ thống.
-- Nếu bạn quản lý nhiều máy chủ, hãy xem xét việc tự động hóa việc kiểm tra uptime bằng cách sử dụng các script hoặc công cụ giám sát.
+2. **Hiển thị thời gian hoạt động theo định dạng dễ đọc:**
+
+   ```bash
+   uptime -p
+   ```
+
+3. **Hiển thị thời gian khởi động của hệ thống:**
+
+   ```bash
+   uptime -s
+   ```
+
+## Tips
+- Sử dụng lệnh `uptime` thường xuyên để theo dõi tình trạng của hệ thống, đặc biệt là trên các máy chủ.
+- Kết hợp lệnh `uptime` với các công cụ giám sát khác để có cái nhìn tổng quan hơn về hiệu suất hệ thống.
+- Nếu bạn muốn theo dõi thời gian hoạt động liên tục, hãy xem xét việc sử dụng lệnh `watch` với `uptime` để tự động làm mới thông tin.

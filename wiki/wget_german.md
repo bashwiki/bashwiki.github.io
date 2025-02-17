@@ -1,39 +1,51 @@
-# [리눅스] Bash wget 사용법
+# [Linux] Bash wget Verwendung: Dateien herunterladen
 
 ## Übersicht
-Der Befehl `wget` ist ein leistungsstarkes Kommandozeilen-Tool, das zum Herunterladen von Dateien aus dem Internet verwendet wird. Es unterstützt verschiedene Protokolle wie HTTP, HTTPS und FTP. `wget` ist besonders nützlich für das Herunterladen von Inhalten von Webseiten, das Abrufen von Dateien in Skripten und das Erstellen von Backups von Webinhalten.
+Der Befehl `wget` ist ein leistungsstarkes Tool zum Herunterladen von Dateien aus dem Internet. Es unterstützt verschiedene Protokolle wie HTTP, HTTPS und FTP und ermöglicht das Herunterladen von einzelnen Dateien oder ganzen Webseiten.
 
 ## Verwendung
-Die grundlegende Syntax des `wget`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-wget [Optionen] [URL]
+wget [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
+## Häufige Optionen
 - `-O [Dateiname]`: Speichert die heruntergeladene Datei unter dem angegebenen Namen.
 - `-c`: Setzt einen abgebrochenen Download fort.
-- `-r`: Aktiviert den rekursiven Download, um alle verlinkten Seiten und Dateien herunterzuladen.
-- `-p`: Lädt alle notwendigen Dateien (z.B. Bilder, CSS) herunter, um eine Webseite lokal anzuzeigen.
-- `--limit-rate=[Rate]`: Begrenzung der Downloadgeschwindigkeit, um Bandbreite zu sparen.
+- `-r`: Aktiviert den rekursiven Download, um ganze Webseiten herunterzuladen.
+- `-p`: Lädt alle notwendigen Dateien herunter, um eine Webseite korrekt anzuzeigen (z. B. Bilder, CSS).
+- `--limit-rate=[Rate]`: Begrenzt die Downloadgeschwindigkeit auf die angegebene Rate.
 
-## Beispiele
-### Beispiel 1: Einfaches Herunterladen einer Datei
-Um eine Datei von einer URL herunterzuladen, verwenden Sie den folgenden Befehl:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele zur Verwendung von `wget`:
 
-```bash
-wget https://example.com/datei.zip
-```
+1. **Einzelne Datei herunterladen:**
+   ```bash
+   wget https://example.com/datei.zip
+   ```
 
-### Beispiel 2: Fortsetzen eines abgebrochenen Downloads
-Wenn ein Download unterbrochen wurde, können Sie ihn mit der `-c`-Option fortsetzen:
+2. **Datei unter einem bestimmten Namen speichern:**
+   ```bash
+   wget -O mein_download.zip https://example.com/datei.zip
+   ```
 
-```bash
-wget -c https://example.com/datei.zip
-```
+3. **Abgebrochenen Download fortsetzen:**
+   ```bash
+   wget -c https://example.com/datei.zip
+   ```
+
+4. **Rekursiven Download einer Webseite:**
+   ```bash
+   wget -r https://example.com
+   ```
+
+5. **Download mit begrenzter Geschwindigkeit:**
+   ```bash
+   wget --limit-rate=200k https://example.com/datei.zip
+   ```
 
 ## Tipps
-- Verwenden Sie die `-q`-Option für einen stillen Modus, um die Ausgabe zu minimieren, wenn Sie Skripte automatisieren.
-- Nutzen Sie die `-r`-Option mit Bedacht, da rekursive Downloads große Datenmengen erzeugen können.
-- Überprüfen Sie die `--limit-rate`-Option, um sicherzustellen, dass Ihre Downloads die Netzwerkbandbreite nicht überlasten.
-- Stellen Sie sicher, dass Sie die Erlaubnis haben, Inhalte von Webseiten herunterzuladen, um rechtliche Probleme zu vermeiden.
+- Verwenden Sie die Option `-q`, um den Download im "stillen" Modus durchzuführen, ohne Ausgaben im Terminal anzuzeigen.
+- Kombinieren Sie `-r` mit `-np` (no parent), um nur die Dateien der aktuellen Webseite herunterzuladen und nicht die übergeordneten Verzeichnisse.
+- Überprüfen Sie die heruntergeladenen Dateien regelmäßig, um sicherzustellen, dass sie vollständig und nicht beschädigt sind.

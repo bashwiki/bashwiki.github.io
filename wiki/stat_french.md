@@ -1,39 +1,52 @@
-# [리눅스] Bash stat 사용법
+# [Linux] Bash stat Utilisation : Afficher les informations sur les fichiers
 
 ## Overview
-La commande `stat` est utilisée pour afficher des informations détaillées sur un fichier ou un système de fichiers. Elle fournit des données telles que la taille du fichier, les permissions, le propriétaire, les timestamps (dates de création, de modification et d'accès), et d'autres attributs importants. Cela permet aux développeurs et aux ingénieurs de mieux comprendre les caractéristiques d'un fichier et son état dans le système.
+La commande `stat` est utilisée pour afficher des informations détaillées sur un fichier ou un système de fichiers. Elle fournit des données telles que la taille, les permissions, les dates de création et de modification, ainsi que d'autres attributs importants.
 
 ## Usage
 La syntaxe de base de la commande `stat` est la suivante :
 
 ```bash
-stat [options] fichier
+stat [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
+Voici quelques options courantes que vous pouvez utiliser avec la commande `stat` :
+
 - `-c` : Permet de spécifier un format de sortie personnalisé.
-- `-f` : Affiche des informations sur le système de fichiers contenant le fichier spécifié.
-- `--format` : Semblable à `-c`, permet de définir un format de sortie.
-- `-t` : Affiche les informations sous forme de tableau.
+- `--format` : Identique à `-c`, permet de définir le format de sortie.
+- `-f` : Affiche les informations sur le système de fichiers au lieu des fichiers individuels.
+- `-L` : Suivre les liens symboliques pour afficher les informations du fichier cible.
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `stat`.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `stat` :
 
-### Exemple 1 : Informations de base sur un fichier
-Pour afficher les informations détaillées d'un fichier nommé `exemple.txt`, vous pouvez utiliser la commande suivante :
+1. Afficher des informations par défaut sur un fichier :
+   ```bash
+   stat mon_fichier.txt
+   ```
 
-```bash
-stat exemple.txt
-```
+2. Afficher des informations sur un répertoire :
+   ```bash
+   stat mon_dossier/
+   ```
 
-### Exemple 2 : Formatage personnalisé
-Pour afficher uniquement la taille et la date de dernière modification d'un fichier, utilisez l'option `--format` :
+3. Utiliser un format de sortie personnalisé pour afficher uniquement la taille et les permissions :
+   ```bash
+   stat -c "Taille: %s, Permissions: %A" mon_fichier.txt
+   ```
 
-```bash
-stat --format="Taille : %s octets, Modifié le : %y" exemple.txt
-```
+4. Afficher les informations sur le système de fichiers :
+   ```bash
+   stat -f /
+   ```
+
+5. Suivre un lien symbolique pour afficher les informations du fichier cible :
+   ```bash
+   stat -L mon_lien_symbolique
+   ```
 
 ## Tips
-- Utilisez l'option `-f` pour obtenir des informations sur le système de fichiers, ce qui peut être utile pour diagnostiquer des problèmes liés à l'espace disque.
-- Pour des scripts automatisés, envisagez d'utiliser l'option `-c` pour formater la sortie de manière à ce qu'elle soit facilement analysable.
-- Familiarisez-vous avec les différents formats de sortie disponibles pour tirer le meilleur parti de la commande `stat` dans vos tâches quotidiennes.
+- Utilisez l'option `-c` pour personnaliser la sortie selon vos besoins, ce qui peut rendre les informations plus lisibles.
+- N'oubliez pas que `stat` peut également être utilisé sur des répertoires, ce qui est utile pour vérifier les permissions et les dates de modification.
+- Combinez `stat` avec d'autres commandes comme `grep` pour filtrer les résultats si vous travaillez avec de nombreux fichiers.

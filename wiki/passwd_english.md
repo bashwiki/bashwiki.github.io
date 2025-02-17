@@ -1,44 +1,62 @@
-# [리눅스] Bash passwd 사용법
+# [Linux] Bash passwd uso: Change user passwords
 
 ## Overview
-The `passwd` command in Bash is used to change user passwords on Unix-like operating systems. Its primary purpose is to enhance security by allowing users to update their passwords, ensuring that unauthorized access is minimized. The command can be used by both regular users to change their own passwords and by superusers (root) to modify passwords for other users.
+The `passwd` command in Linux is used to change user passwords. It allows users to update their own passwords or, if executed by a superuser, to change passwords for other users. This command is essential for maintaining security by ensuring that user accounts have strong, unique passwords.
 
 ## Usage
 The basic syntax of the `passwd` command is as follows:
 
 ```bash
-passwd [OPTION] [USERNAME]
+passwd [options] [username]
 ```
 
-### Common Options:
-- `USERNAME`: Specify the username whose password you want to change. If omitted, the command will change the password for the current user.
-- `-d`: Delete the password for the specified user, allowing them to log in without a password.
+If no username is specified, the command will change the password for the currently logged-in user.
+
+## Common Options
+- `-d`: Delete the password for the specified user, allowing login without a password.
 - `-e`: Expire the password immediately, forcing the user to change it upon next login.
-- `-l`: Lock the specified user account, preventing login.
+- `-l`: Lock the specified user's password, preventing them from logging in.
 - `-u`: Unlock a previously locked user account.
+- `-S`: Display the password status of the specified user.
 
-## Examples
+## Common Examples
 
-### Example 1: Changing Your Own Password
-To change your own password, simply run the command without any options:
+1. **Change your own password:**
+   ```bash
+   passwd
+   ```
 
-```bash
-passwd
-```
+2. **Change another user's password (requires superuser privileges):**
+   ```bash
+   sudo passwd username
+   ```
 
-You will be prompted to enter your current password, followed by your new password twice for confirmation.
+3. **Delete a user's password:**
+   ```bash
+   sudo passwd -d username
+   ```
 
-### Example 2: Changing Another User's Password
-If you are a superuser and want to change the password for another user, specify the username:
+4. **Expire a user's password immediately:**
+   ```bash
+   sudo passwd -e username
+   ```
 
-```bash
-sudo passwd username
-```
+5. **Lock a user's account:**
+   ```bash
+   sudo passwd -l username
+   ```
 
-Replace `username` with the actual username of the account whose password you wish to change. You will be prompted to enter a new password for that user.
+6. **Unlock a user's account:**
+   ```bash
+   sudo passwd -u username
+   ```
+
+7. **Check the password status of a user:**
+   ```bash
+   passwd -S username
+   ```
 
 ## Tips
-- Always choose a strong password that includes a mix of uppercase and lowercase letters, numbers, and special characters to enhance security.
-- Regularly update your password to reduce the risk of unauthorized access.
-- If you are changing another user's password, ensure you have the necessary permissions and inform the user of the change.
-- Use the `-e` option to enforce a password change at the next login, which can be useful for security purposes after an account is created or reset.
+- Always use strong passwords that combine letters, numbers, and special characters to enhance security.
+- Regularly update passwords to minimize the risk of unauthorized access.
+- If you are changing another user's password, ensure you have the necessary permissions to avoid errors.

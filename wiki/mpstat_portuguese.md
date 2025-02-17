@@ -1,46 +1,45 @@
-# [리눅스] Bash mpstat 사용법
+# [Linux] Bash mpstat Uso: Monitoramento de estatísticas de CPU
 
-## Visão Geral
-O comando `mpstat` é uma ferramenta do pacote `sysstat` que fornece estatísticas de uso da CPU em sistemas Linux. Ele é especialmente útil para monitorar o desempenho do sistema, permitindo que engenheiros e desenvolvedores analisem a carga de trabalho em múltiplos processadores. O `mpstat` pode exibir informações sobre a utilização da CPU de forma detalhada, ajudando na identificação de gargalos e na otimização do desempenho do sistema.
+## Overview
+O comando `mpstat` é utilizado para exibir estatísticas de uso da CPU em sistemas Linux. Ele fornece informações detalhadas sobre a utilização do processador, permitindo que os usuários monitorem o desempenho do sistema em tempo real.
 
-## Uso
+## Usage
 A sintaxe básica do comando `mpstat` é a seguinte:
 
 ```bash
 mpstat [opções] [intervalo] [contagem]
 ```
 
-### Opções Comuns:
-- `-P ALL`: Mostra as estatísticas de todas as CPUs.
-- `-u`: Exibe a utilização da CPU (esta é a opção padrão).
-- `-h`: Exibe as estatísticas em um formato mais legível.
+## Common Options
+- `-P ALL`: Exibe estatísticas para todas as CPUs disponíveis.
+- `-u`: Mostra a utilização da CPU em porcentagem.
+- `-h`: Exibe a saída em um formato mais legível (com unidades apropriadas).
 - `-V`: Mostra a versão do `mpstat`.
 
-## Exemplos
-### Exemplo 1: Estatísticas de CPU em Intervalos
-Para monitorar a utilização da CPU a cada 2 segundos, você pode usar o seguinte comando:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `mpstat`:
 
-```bash
-mpstat 2
-```
+1. **Exibir estatísticas de CPU para todas as CPUs a cada 5 segundos:**
+   ```bash
+   mpstat -P ALL 5
+   ```
 
-Este comando exibirá as estatísticas de utilização da CPU a cada 2 segundos até que você interrompa o processo.
+2. **Mostrar a utilização da CPU em porcentagem:**
+   ```bash
+   mpstat -u 5 3
+   ```
 
-### Exemplo 2: Estatísticas de Todas as CPUs
-Para visualizar as estatísticas de todas as CPUs em um formato legível, utilize:
+3. **Exibir a versão do mpstat:**
+   ```bash
+   mpstat -V
+   ```
 
-```bash
-mpstat -P ALL -h 2 5
-```
+4. **Mostrar estatísticas de CPU com formato legível:**
+   ```bash
+   mpstat -h 5
+   ```
 
-Neste exemplo, o `mpstat` mostrará as estatísticas de todas as CPUs a cada 2 segundos, totalizando 5 iterações.
-
-## Dicas
-- Utilize o `mpstat` em conjunto com outras ferramentas de monitoramento, como `top` ou `htop`, para obter uma visão mais abrangente do desempenho do sistema.
-- Salve a saída do `mpstat` em um arquivo para análise posterior, redirecionando a saída com `>`:
-
-```bash
-mpstat -P ALL 2 5 > estatisticas_cpu.txt
-```
-
-- Familiarize-se com as diferentes métricas exibidas pelo `mpstat`, como `%idle`, `%iowait`, e `%system`, para entender melhor o comportamento do seu sistema sob carga.
+## Tips
+- Utilize o `mpstat` em conjunto com outros comandos, como `grep`, para filtrar informações específicas.
+- Monitore o desempenho do sistema durante períodos de pico para identificar gargalos.
+- Considere usar scripts para automatizar a coleta de dados de desempenho com `mpstat` em intervalos regulares.

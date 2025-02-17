@@ -1,43 +1,53 @@
-# [리눅스] Bash basename 사용법
+# [Linux] Bash basename Verwendung: Extrahiert den Dateinamen aus einem Pfad
 
 ## Übersicht
-Der Befehl `basename` wird in Bash verwendet, um den Basisnamen einer Datei oder eines Verzeichnisses zu extrahieren. Dies bedeutet, dass der Befehl den Pfad einer Datei oder eines Verzeichnisses entfernt und nur den letzten Teil des Pfades zurückgibt, der den Dateinamen oder das Verzeichnis darstellt. Der Hauptzweck von `basename` ist es, den Dateinamen aus einem vollständigen Pfad zu isolieren, was in Skripten und Automatisierungsaufgaben nützlich sein kann.
+Der `basename` Befehl in Bash wird verwendet, um den Dateinamen aus einem vollständigen Dateipfad zu extrahieren. Dies ist besonders nützlich, wenn Sie nur den Namen der Datei benötigen, ohne den Pfad.
 
 ## Verwendung
-Die grundlegende Syntax des `basename`-Befehls lautet:
+Die grundlegende Syntax des `basename` Befehls ist:
 
 ```bash
-basename [OPTIONEN] NAME [SUFFIX]
+basename [Optionen] [Argumente]
 ```
 
-### Optionen
-- `NAME`: Der vollständige Pfad oder der Dateiname, von dem der Basisname extrahiert werden soll.
-- `SUFFIX`: (Optional) Ein Suffix, das vom Basisnamen entfernt werden soll. Dies ist nützlich, um Dateiendungen zu entfernen.
+## Häufige Optionen
+- `-a`: Verarbeitet mehrere Argumente und gibt die Basen für jedes Argument zurück.
+- `-s`: Entfernt eine angegebene Suffix von dem Dateinamen.
 
-## Beispiele
-Hier sind einige praktische Beispiele zur Verwendung des `basename`-Befehls:
+## Häufige Beispiele
 
-### Beispiel 1: Basisnamen extrahieren
-```bash
-basename /usr/local/bin/script.sh
-```
-**Ausgabe:**
-```
-script.sh
-```
-In diesem Beispiel wird der vollständige Pfad `/usr/local/bin/script.sh` übergeben, und `basename` gibt nur `script.sh` zurück.
+1. **Einfacher Gebrauch**
+   Um den Dateinamen aus einem Pfad zu extrahieren:
+   ```bash
+   basename /home/user/dokumente/datei.txt
+   ```
+   Ausgabe:
+   ```
+   datei.txt
+   ```
 
-### Beispiel 2: Suffix entfernen
-```bash
-basename /usr/local/bin/script.sh .sh
-```
-**Ausgabe:**
-```
-script
-```
-Hier wird das Suffix `.sh` entfernt, sodass nur der Basisname `script` zurückgegeben wird.
+2. **Entfernen eines Suffix**
+   Um ein Suffix von einem Dateinamen zu entfernen:
+   ```bash
+   basename /home/user/dokumente/datei.txt .txt
+   ```
+   Ausgabe:
+   ```
+   datei
+   ```
+
+3. **Verarbeitung mehrerer Argumente**
+   Um mehrere Dateipfade gleichzeitig zu verarbeiten:
+   ```bash
+   basename -a /home/user/dokumente/datei1.txt /home/user/dokumente/datei2.txt
+   ```
+   Ausgabe:
+   ```
+   datei1.txt
+   datei2.txt
+   ```
 
 ## Tipps
-- Verwenden Sie `basename` in Skripten, um die Lesbarkeit zu verbessern, indem Sie nur den Dateinamen anzeigen, anstatt den gesamten Pfad.
-- Kombinieren Sie `basename` mit anderen Befehlen wie `find` oder `ls`, um dynamisch Basisnamen von mehreren Dateien zu extrahieren.
-- Achten Sie darauf, dass das Suffix genau mit dem Ende des Basisnamens übereinstimmt, da `basename` nur dann das Suffix entfernt, wenn es exakt übereinstimmt.
+- Nutzen Sie `basename` in Skripten, um Dateinamen dynamisch zu extrahieren, was die Lesbarkeit und Wartbarkeit verbessert.
+- Kombinieren Sie `basename` mit anderen Befehlen wie `find`, um gezielt Dateinamen in einer Liste zu verarbeiten.
+- Achten Sie darauf, das richtige Suffix anzugeben, um unerwünschte Teile des Dateinamens zu entfernen.

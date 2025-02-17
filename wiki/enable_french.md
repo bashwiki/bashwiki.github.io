@@ -1,43 +1,51 @@
-# [리눅스] Bash enable 사용법
+# [Linux] Bash activer : Activer ou désactiver des fonctions shell
 
 ## Overview
-La commande `enable` dans Bash est utilisée pour activer ou désactiver des fonctions shell. Les fonctions shell sont des morceaux de code que vous pouvez définir pour automatiser des tâches ou simplifier des commandes répétitives. L'activation d'une fonction permet de l'utiliser dans votre session Bash, tandis que la désactivation empêche son utilisation.
+La commande `enable` dans Bash permet d'activer ou de désactiver des fonctions shell. Cela est particulièrement utile pour gérer les fonctions définies par l'utilisateur ou celles fournies par le système, en vous permettant de contrôler leur disponibilité dans votre session shell.
 
 ## Usage
 La syntaxe de base de la commande `enable` est la suivante :
 
 ```bash
-enable [options] [nom_fonction]
+enable [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
 - `-n` : Désactive la fonction spécifiée.
-- `-a` : Active toutes les fonctions définies dans l'environnement.
-- `-p` : Affiche l'état actuel de toutes les fonctions sans les activer ou les désactiver.
+- `-a` : Active toutes les fonctions définies.
+- `-p` : Affiche l'état des fonctions sans les modifier.
 
-## Examples
-### Exemple 1 : Activer une fonction
-Supposons que vous ayez défini une fonction appelée `ma_fonction`. Pour l'activer, vous pouvez utiliser :
+## Common Examples
 
-```bash
-enable ma_fonction
-```
-
-### Exemple 2 : Désactiver une fonction
-Si vous souhaitez désactiver `ma_fonction`, utilisez :
+### Activer une fonction
+Pour activer une fonction nommée `maFonction`, utilisez la commande suivante :
 
 ```bash
-enable -n ma_fonction
+enable maFonction
 ```
 
-### Exemple 3 : Afficher l'état des fonctions
-Pour voir l'état de toutes les fonctions, exécutez :
+### Désactiver une fonction
+Pour désactiver une fonction nommée `maFonction`, utilisez :
+
+```bash
+enable -n maFonction
+```
+
+### Afficher l'état des fonctions
+Pour afficher l'état de toutes les fonctions, exécutez :
 
 ```bash
 enable -p
 ```
 
+### Activer toutes les fonctions
+Pour activer toutes les fonctions définies dans votre session, utilisez :
+
+```bash
+enable -a
+```
+
 ## Tips
-- Assurez-vous que la fonction que vous essayez d'activer ou de désactiver existe déjà dans votre environnement. Vous pouvez vérifier cela en utilisant la commande `declare -f`.
-- Utilisez `enable -a` avec prudence, car cela activera toutes les fonctions, ce qui peut entraîner des conflits si des fonctions portent le même nom.
-- Pensez à documenter vos fonctions pour faciliter leur utilisation future, surtout si vous travaillez en équipe.
+- Vérifiez toujours l'état des fonctions avant de les activer ou désactiver pour éviter des conflits.
+- Utilisez `type` pour voir si une fonction est déjà définie avant d'essayer de l'activer.
+- Soyez prudent lorsque vous activez des fonctions, car cela peut modifier le comportement de votre shell.

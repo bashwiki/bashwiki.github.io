@@ -1,60 +1,88 @@
-# [리눅스] Bash continue 사용법
+# [Linux] Bash continue Verwendung: Fortsetzen einer Schleife
 
 ## Übersicht
-Der Befehl `continue` in Bash wird innerhalb von Schleifen verwendet, um die aktuelle Iteration der Schleife zu beenden und mit der nächsten Iteration fortzufahren. Dies ist besonders nützlich, wenn bestimmte Bedingungen erfüllt sind und der Rest des Schleifenblocks übersprungen werden soll.
+Der Befehl `continue` wird in Bash verwendet, um den aktuellen Durchlauf einer Schleife zu beenden und mit dem nächsten Durchlauf fortzufahren. Dies ist nützlich, wenn bestimmte Bedingungen erfüllt sind und der Rest des Schleifeninhalts übersprungen werden soll.
 
 ## Verwendung
-Die grundlegende Syntax des `continue`-Befehls ist einfach:
+Die grundlegende Syntax des Befehls ist:
 
 ```bash
-continue [N]
+continue [option]
 ```
 
-- `N`: Optional. Gibt an, wie viele Schleifenebenen übersprungen werden sollen. Wenn `N` nicht angegeben ist, wird die nächste Iteration der innersten Schleife fortgesetzt.
+## Häufige Optionen
+- `n`: Gibt an, in welcher Schleife das `continue` ausgeführt werden soll. Wenn `n` nicht angegeben wird, wird die nächste Iteration der innersten Schleife fortgesetzt.
 
-## Beispiele
+## Häufige Beispiele
 
-### Beispiel 1: Einfache Schleife
-In diesem Beispiel wird eine `for`-Schleife verwendet, um die Zahlen von 1 bis 5 zu durchlaufen. Wenn die Zahl 3 erreicht wird, wird die Iteration übersprungen.
+### Beispiel 1: Einfache Schleife mit continue
+In diesem Beispiel wird die Schleife von 1 bis 5 durchlaufen, aber die Zahl 3 wird übersprungen.
 
 ```bash
 for i in {1..5}; do
   if [ $i -eq 3 ]; then
     continue
   fi
-  echo "Zahl: $i"
+  echo $i
 done
 ```
+
 **Ausgabe:**
 ```
-Zahl: 1
-Zahl: 2
-Zahl: 4
-Zahl: 5
+1
+2
+4
+5
 ```
 
-### Beispiel 2: Mit `while`-Schleife
-In diesem Beispiel wird eine `while`-Schleife verwendet, um die Zahlen von 1 bis 5 zu durchlaufen. Wenn die Zahl gerade ist, wird die Iteration übersprungen.
+### Beispiel 2: while-Schleife mit continue
+Hier wird eine `while`-Schleife verwendet, um nur gerade Zahlen von 1 bis 10 auszugeben.
 
 ```bash
 i=1
-while [ $i -le 5 ]; do
-  if [ $((i % 2)) -eq 0 ]; then
-    ((i++))
+while [ $i -le 10 ]; do
+  i=$((i + 1))
+  if [ $((i % 2)) -ne 0 ]; then
     continue
   fi
-  echo "Ungerade Zahl: $i"
-  ((i++))
+  echo $i
 done
 ```
+
 **Ausgabe:**
 ```
-Ungerade Zahl: 1
-Ungerade Zahl: 3
-Ungerade Zahl: 5
+2
+4
+6
+8
+10
+```
+
+### Beispiel 3: continue mit einer verschachtelten Schleife
+In diesem Beispiel wird eine verschachtelte Schleife verwendet, um die Kombinationen von zwei Zahlen zu durchlaufen, wobei bestimmte Kombinationen übersprungen werden.
+
+```bash
+for i in {1..3}; do
+  for j in {1..3}; do
+    if [ $i -eq $j ]; then
+      continue
+    fi
+    echo "i: $i, j: $j"
+  done
+done
+```
+
+**Ausgabe:**
+```
+i: 1, j: 2
+i: 1, j: 3
+i: 2, j: 1
+i: 2, j: 3
+i: 3, j: 1
+i: 3, j: 2
 ```
 
 ## Tipps
-- Verwenden Sie `continue`, um den Code lesbarer zu gestalten, indem Sie unnötige Verschachtelungen vermeiden.
-- Achten Sie darauf, dass `continue` nur innerhalb von Schleifen verwendet werden kann. Andernfalls führt es zu einem Fehler.
-- Nutzen Sie die optionale Zahl `N`, um gezielt mehrere Schleifenebenen zu überspringen, wenn Sie in verschachtelten Schleifen arbeiten.
+- Verwenden Sie `continue`, um die Lesbarkeit Ihres Codes zu verbessern, indem Sie unnötige Verschachtelungen vermeiden.
+- Achten Sie darauf, dass `continue` nur innerhalb von Schleifen verwendet werden kann; andernfalls führt es zu einem Fehler.
+- Nutzen Sie die Option `n`, um gezielt in verschachtelten Schleifen zu steuern, welche Schleife fortgesetzt werden soll.

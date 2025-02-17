@@ -1,40 +1,44 @@
-# [리눅스] Bash history 사용법
+# [Linux] Bash history Kullanımı: Komut geçmişini görüntüleme
 
 ## Overview
-`history` komutu, Bash kabuğunda daha önce çalıştırılan komutların bir listesini görüntülemek için kullanılır. Bu komut, kullanıcıların geçmişteki komutlarını hızlı bir şekilde gözden geçirmesine ve gerektiğinde tekrar kullanmasına olanak tanır. `history`, özellikle sık kullanılan komutları hatırlamak veya tekrar çalıştırmak isteyen mühendisler ve geliştiriciler için oldukça faydalıdır.
+`history` komutu, Bash kabuğunda daha önce çalıştırılan komutların listesini görüntülemek için kullanılır. Bu komut, kullanıcıların geçmişteki komutları kolayca bulmasına ve tekrar çalıştırmasına olanak tanır.
 
 ## Usage
-Temel `history` komutunun sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-history [n]
+history [options] [arguments]
 ```
 
-Burada `n`, görüntülemek istediğiniz komut sayısını belirtir. Eğer `n` verilmezse, tüm geçmiş komutları gösterir. Ayrıca, bazı yaygın seçenekler şunlardır:
-
+## Common Options
 - `-c`: Geçmişi temizler.
 - `-d offset`: Belirtilen offset'teki komutu geçmişten siler.
+- `n`: Son `n` komutu görüntüler.
 
-## Examples
-### Örnek 1: Tüm Geçmişi Görüntüleme
-Tüm geçmiş komutlarını görüntülemek için `history` komutunu şu şekilde kullanabilirsiniz:
+## Common Examples
+Aşağıda `history` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-history
-```
+1. Tüm geçmişi görüntüleme:
+   ```bash
+   history
+   ```
 
-Bu komut, geçmişte çalıştırdığınız tüm komutları numaralandırarak listeleyecektir.
+2. Son 10 komutu görüntüleme:
+   ```bash
+   history 10
+   ```
 
-### Örnek 2: Son 5 Komutu Görüntüleme
-Son 5 komutu görüntülemek için `n` parametresini kullanabilirsiniz:
+3. Geçmişten belirli bir komutu silme (örneğin, 5. komutu silmek):
+   ```bash
+   history -d 5
+   ```
 
-```bash
-history 5
-```
-
-Bu komut, yalnızca en son çalıştırdığınız 5 komutu gösterecektir.
+4. Geçmişi temizleme:
+   ```bash
+   history -c
+   ```
 
 ## Tips
-- Geçmişteki komutları hızlı bir şekilde tekrar çalıştırmak için, komut numarasını kullanarak `!n` şeklinde bir komut yazabilirsiniz. Örneğin, `!100` yazarsanız, geçmişteki 100 numaralı komut tekrar çalıştırılır.
-- Geçmişi temizlemek için `history -c` komutunu kullanarak tüm geçmişinizi silebilirsiniz. Ancak, bu işlemi yapmadan önce dikkatli olun, çünkü bu işlem geri alınamaz.
-- Geçmiş komutlarınızı daha iyi yönetmek için, `.bash_history` dosyasını inceleyebilir veya düzenleyebilirsiniz. Bu dosya, geçmiş komutlarınızı saklar ve gerektiğinde erişim sağlar.
+- Geçmişteki komutları tekrar çalıştırmak için `!n` kullanabilirsiniz; burada `n`, çalıştırmak istediğiniz komutun numarasıdır.
+- `Ctrl + R` tuş kombinasyonu ile geçmişte arama yapabilirsiniz, bu da belirli bir komutu hızlıca bulmanıza yardımcı olur.
+- Geçmişi düzenli olarak temizlemek, gereksiz komutların birikmesini önler ve terminalinizin daha düzenli kalmasını sağlar.

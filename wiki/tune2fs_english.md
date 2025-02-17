@@ -1,41 +1,53 @@
-# [리눅스] Bash tune2fs 사용법
+# [Linux] Bash tune2fs Usage: Adjust ext2/ext3/ext4 filesystem parameters
 
 ## Overview
-`tune2fs` is a command-line utility in Linux that allows users to adjust tunable filesystem parameters on ext2, ext3, and ext4 filesystems. Its primary purpose is to modify filesystem settings that can affect performance, reliability, and behavior without the need to unmount the filesystem. This tool is particularly useful for system administrators and developers who need to optimize filesystem performance or recover from issues.
+The `tune2fs` command is a utility for adjusting tunable filesystem parameters on ext2, ext3, and ext4 filesystems. It allows users to modify various settings that can affect performance and behavior without needing to unmount the filesystem.
 
 ## Usage
 The basic syntax of the `tune2fs` command is as follows:
 
 ```bash
-tune2fs [options] <device>
+tune2fs [options] [arguments]
 ```
 
-### Common Options
-- `-c <mount-count>`: Set the maximum number of mounts before a filesystem check is forced.
+## Common Options
+- `-c <max_mount_count>`: Set the maximum mount count before a filesystem check is forced.
 - `-i <interval>`: Set the maximum time interval between filesystem checks.
-- `-m <reserved-blocks>`: Set the percentage of the filesystem blocks reserved for the super-user.
-- `-O <feature>`: Enable or disable specific filesystem features.
-- `-L <label>`: Change the label of the filesystem.
-- `-e <error-action>`: Set the action to take when an error is detected.
+- `-O <feature>`: Enable specific filesystem features.
+- `-o <options>`: Set filesystem options.
+- `-l`: Display the current superblock information.
+- `-j`: Add a journal to an ext2 filesystem, converting it to ext3.
 
-## Examples
+## Common Examples
+Here are some practical examples of using `tune2fs`:
 
-### Example 1: Set Maximum Mount Count
-To set the maximum number of mounts before a filesystem check is forced to 20, you can use the following command:
-
+### 1. Check current filesystem parameters
 ```bash
-sudo tune2fs -c 20 /dev/sda1
+tune2fs -l /dev/sda1
 ```
 
-### Example 2: Change Filesystem Label
-To change the label of the filesystem on `/dev/sda1` to "MyData", you can execute:
-
+### 2. Set the maximum mount count to 20
 ```bash
-sudo tune2fs -L MyData /dev/sda1
+tune2fs -c 20 /dev/sda1
+```
+
+### 3. Set the maximum time interval between checks to 30 days
+```bash
+tune2fs -i 30d /dev/sda1
+```
+
+### 4. Enable the "dir_index" feature
+```bash
+tune2fs -O dir_index /dev/sda1
+```
+
+### 5. Add a journal to an ext2 filesystem
+```bash
+tune2fs -j /dev/sda1
 ```
 
 ## Tips
-- Always ensure that you have proper backups before making changes to filesystem parameters, as incorrect settings can lead to data loss or corruption.
-- Use the `-l` option to list current filesystem parameters before making changes. This can help you understand the current configuration and decide what adjustments are necessary.
-- Be cautious when modifying reserved blocks (`-m` option) as reducing this percentage too much can lead to performance issues for system processes that require reserved space.
-- Consider scheduling regular filesystem checks using the `-i` option to maintain filesystem integrity over time.
+- Always ensure you have backups before modifying filesystem parameters.
+- Use the `-l` option to review current settings before making changes.
+- Be cautious when enabling or disabling features, as they can affect filesystem compatibility and performance.
+- Regularly check the filesystem health using `fsck` in conjunction with `tune2fs` settings for optimal performance.

@@ -1,51 +1,47 @@
-# [리눅스] Bash export 사용법
+# [Linux] Bash export Kullanımı: Ortam değişkenlerini ayarlamak
 
-## Overview
-`export` komutu, bir shell değişkenini ortam değişkeni olarak ayarlamak için kullanılır. Ortam değişkenleri, alt süreçler tarafından erişilebilen ve kullanılan değişkenlerdir. Bu komut, bir değişkenin değerini dışa aktararak, o değişkenin alt süreçlerde de kullanılabilmesini sağlar. Genellikle, uygulama yapılandırmaları veya kullanıcı ayarları gibi bilgileri paylaşmak için kullanılır.
+## Genel Bakış
+`export` komutu, bir ortam değişkenini tanımlamak ve bu değişkenin alt süreçlerde kullanılabilmesini sağlamak için kullanılır. Bu, özellikle bir shell oturumu boyunca değişkenlerin değerlerini korumak ve paylaşmak için önemlidir.
 
-## Usage
-Temel `export` komutunun sözdizimi aşağıdaki gibidir:
-
-```bash
-export VARIABLE_NAME=value
-```
-
-Burada `VARIABLE_NAME`, oluşturmak istediğiniz değişkenin adıdır ve `value`, bu değişkene atamak istediğiniz değerdir. Eğer sadece bir değişkeni dışa aktarmak istiyorsanız, aşağıdaki gibi de kullanabilirsiniz:
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
-export VARIABLE_NAME
+export [seçenekler] [argümanlar]
 ```
 
-Bu durumda, `VARIABLE_NAME` değişkeninin mevcut değeri dışa aktarılacaktır.
+## Yaygın Seçenekler
+- `-n`: Belirtilen değişkeni export listesinden kaldırır.
+- `-p`: Mevcut export edilmiş değişkenlerin listesini gösterir.
 
-## Examples
-### Örnek 1: Değişken Oluşturma ve Dışa Aktarma
-Aşağıdaki komut, `MY_VAR` adında bir değişken oluşturur ve ona "Hello, World!" değerini atar. Ardından bu değişkeni dışa aktarır.
+## Yaygın Örnekler
 
-```bash
-MY_VAR="Hello, World!"
-export MY_VAR
-```
+1. **Basit bir ortam değişkeni oluşturma:**
+   ```bash
+   export MY_VAR="Merhaba Dünya"
+   ```
 
-Bu işlemden sonra, `MY_VAR` değişkenine alt süreçlerden erişilebilir.
+2. **Bir ortam değişkenini görüntüleme:**
+   ```bash
+   echo $MY_VAR
+   ```
 
-### Örnek 2: Dışa Aktarılan Değişkeni Kullanma
-Aşağıdaki örnekte, `MY_VAR` değişkeni dışa aktarıldıktan sonra, bir alt süreçte (örneğin, bir `bash` oturumu) bu değişkenin nasıl kullanılabileceği gösterilmektedir.
+3. **Birden fazla değişkeni aynı anda export etme:**
+   ```bash
+   export VAR1="Değer1" VAR2="Değer2"
+   ```
 
-```bash
-export MY_VAR="Hello, World!"
-bash -c 'echo $MY_VAR'
-```
+4. **Export edilmiş değişkenleri listeleme:**
+   ```bash
+   export -p
+   ```
 
-Bu komut, "Hello, World!" çıktısını verecektir.
+5. **Export edilmiş bir değişkeni kaldırma:**
+   ```bash
+   export -n MY_VAR
+   ```
 
-## Tips
-- Değişken adları büyük harfle başlamalıdır ve genellikle büyük harflerle yazılır. Bu, ortam değişkenlerini ve yerel değişkenleri ayırt etmeye yardımcı olur.
-- `export` komutunu kullanmadan önce değişkenin değerini kontrol etmek için `echo $VARIABLE_NAME` komutunu kullanabilirsiniz.
-- Birden fazla değişkeni aynı anda dışa aktarmak için, her birini ayrı bir `export` komutuyla veya tek bir komut içinde virgülle ayırarak belirtebilirsiniz:
-
-```bash
-export VAR1=value1 VAR2=value2
-```
-
-Bu ipuçları, `export` komutunu etkili bir şekilde kullanmanıza yardımcı olacaktır.
+## İpuçları
+- Ortam değişkenlerini ayarlarken, değişken adlarının büyük harfle başlamasına dikkat edin; bu, genellikle standart uygulama olarak kabul edilir.
+- Değişkenlerinizi export ettikten sonra, alt süreçlerde kullanılabilir olduklarından emin olun.
+- Değişkenlerinizi kontrol etmek için `env` veya `printenv` komutlarını kullanabilirsiniz.

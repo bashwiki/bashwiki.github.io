@@ -1,64 +1,48 @@
-# [리눅스] Bash xmlstarlet 사용법
+# [Linux] Bash xmlstarlet cách sử dụng: Xử lý và truy vấn XML
 
 ## Tổng quan
-`xmlstarlet` là một công cụ dòng lệnh mạnh mẽ dùng để xử lý và thao tác với các tài liệu XML. Nó cho phép người dùng thực hiện nhiều thao tác khác nhau như truy vấn, chuyển đổi, và sửa đổi nội dung XML một cách dễ dàng. `xmlstarlet` rất hữu ích cho các kỹ sư và nhà phát triển khi làm việc với dữ liệu XML trong các ứng dụng hoặc khi cần xử lý dữ liệu từ các API.
+`xmlstarlet` là một công cụ dòng lệnh mạnh mẽ dùng để xử lý và truy vấn tài liệu XML. Nó cho phép người dùng thực hiện các thao tác như truy vấn, chuyển đổi, và định dạng XML một cách dễ dàng và hiệu quả.
 
 ## Cách sử dụng
-Cú pháp cơ bản của `xmlstarlet` như sau:
-
+Cú pháp cơ bản của lệnh `xmlstarlet` như sau:
 ```
-xmlstarlet [lựa chọn] [tệp XML]
-```
-
-Một số tùy chọn phổ biến của `xmlstarlet` bao gồm:
-
-- `xmlstarlet sel`: Chọn và truy vấn các nút trong tài liệu XML.
-- `xmlstarlet ed`: Chỉnh sửa tài liệu XML, cho phép thêm, sửa hoặc xóa các nút.
-- `xmlstarlet tr`: Chuyển đổi tài liệu XML sang định dạng khác bằng cách sử dụng XSLT.
-- `xmlstarlet val`: Xác thực tài liệu XML với một lược đồ (schema) nhất định.
-
-## Ví dụ
-### Ví dụ 1: Truy vấn dữ liệu XML
-Giả sử bạn có một tệp XML tên là `data.xml` với nội dung sau:
-
-```xml
-<root>
-    <item>
-        <name>Item 1</name>
-        <value>10</value>
-    </item>
-    <item>
-        <name>Item 2</name>
-        <value>20</value>
-    </item>
-</root>
+xmlstarlet [options] [arguments]
 ```
 
-Bạn có thể sử dụng `xmlstarlet` để truy vấn tất cả các tên của các mục như sau:
+## Các tùy chọn phổ biến
+- `sel`: Chọn các nút từ tài liệu XML.
+- `val`: Kiểm tra tính hợp lệ của tài liệu XML.
+- `ed`: Chỉnh sửa tài liệu XML.
+- `tr`: Chuyển đổi tài liệu XML sang định dạng khác.
+- `fo`: Định dạng tài liệu XML để dễ đọc hơn.
 
-```bash
-xmlstarlet sel -t -m "//item" -v "name" -n data.xml
-```
+## Ví dụ phổ biến
+1. **Chọn nút từ tài liệu XML**:
+   ```bash
+   xmlstarlet sel -t -m "/root/element" -v "text()" file.xml
+   ```
 
-Kết quả sẽ là:
+2. **Kiểm tra tính hợp lệ của tài liệu XML**:
+   ```bash
+   xmlstarlet val -e file.xml
+   ```
 
-```
-Item 1
-Item 2
-```
+3. **Chỉnh sửa tài liệu XML**:
+   ```bash
+   xmlstarlet ed -u "/root/element" -v "new_value" file.xml
+   ```
 
-### Ví dụ 2: Chỉnh sửa tệp XML
-Nếu bạn muốn thêm một mục mới vào tệp XML trên, bạn có thể sử dụng lệnh sau:
+4. **Chuyển đổi XML sang định dạng JSON**:
+   ```bash
+   xmlstarlet tr xml-to-json.xsl file.xml
+   ```
 
-```bash
-xmlstarlet ed -s /root -t -n "item" -v "" \
-    -s /root/item[last()] -t -n "name" -v "Item 3" \
-    -s /root/item[last()] -t -n "value" -v "30" data.xml
-```
-
-Lệnh này sẽ thêm một mục mới với tên "Item 3" và giá trị "30".
+5. **Định dạng tài liệu XML**:
+   ```bash
+   xmlstarlet fo file.xml
+   ```
 
 ## Mẹo
-- Khi làm việc với `xmlstarlet`, hãy đảm bảo rằng tệp XML của bạn được định dạng chính xác để tránh lỗi trong quá trình xử lý.
-- Sử dụng tùy chọn `-o` để xuất kết quả ra tệp mới nếu bạn không muốn ghi đè lên tệp XML gốc.
-- Tham khảo tài liệu chính thức của `xmlstarlet` để tìm hiểu thêm về các tùy chọn và chức năng nâng cao.
+- Sử dụng `xmlstarlet` kết hợp với các lệnh khác trong Bash để tự động hóa quy trình xử lý XML.
+- Thử nghiệm với các tùy chọn khác nhau để tìm ra cách sử dụng phù hợp nhất cho nhu cầu của bạn.
+- Đọc tài liệu hướng dẫn của `xmlstarlet` để hiểu rõ hơn về các tính năng nâng cao mà nó cung cấp.

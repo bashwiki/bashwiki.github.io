@@ -1,42 +1,42 @@
-# [리눅스] Bash updatedb 사용법
+# [Linux] Bash updatedb Cách sử dụng: Cập nhật cơ sở dữ liệu tìm kiếm
 
 ## Tổng quan
-Lệnh `updatedb` là một công cụ trong hệ thống Unix/Linux dùng để cập nhật cơ sở dữ liệu của các tệp tin mà lệnh `locate` sử dụng để tìm kiếm. Mục đích chính của lệnh này là tạo ra một danh sách các tệp tin và thư mục trên hệ thống, giúp việc tìm kiếm trở nên nhanh chóng và hiệu quả hơn. Cơ sở dữ liệu này thường được cập nhật định kỳ, nhưng người dùng cũng có thể chạy lệnh `updatedb` thủ công khi cần thiết.
+Lệnh `updatedb` được sử dụng để cập nhật cơ sở dữ liệu của hệ thống tìm kiếm tệp tin, thường là cơ sở dữ liệu của `locate`. Lệnh này giúp người dùng nhanh chóng tìm kiếm tệp tin trên hệ thống mà không cần quét toàn bộ hệ thống mỗi lần.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `updatedb` như sau:
-
-```bash
-updatedb [OPTIONS]
+```
+updatedb [options] [arguments]
 ```
 
-Một số tùy chọn phổ biến mà bạn có thể sử dụng với `updatedb` bao gồm:
-
+## Các tùy chọn phổ biến
 - `--localpaths`: Chỉ định các đường dẫn cục bộ để cập nhật.
-- `--prunepaths`: Chỉ định các đường dẫn không nên được đưa vào cơ sở dữ liệu.
-- `--output`: Chỉ định tệp tin đầu ra cho cơ sở dữ liệu.
+- `--netpaths`: Chỉ định các đường dẫn mạng để cập nhật.
+- `--prunepaths`: Đường dẫn sẽ bị loại trừ khỏi việc cập nhật.
+- `--prunefs`: Hệ thống tệp sẽ bị loại trừ khỏi việc cập nhật.
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `updatedb`:
-
-1. Cập nhật cơ sở dữ liệu mặc định:
+## Ví dụ thường gặp
+1. Cập nhật cơ sở dữ liệu tìm kiếm với các đường dẫn mặc định:
    ```bash
    updatedb
    ```
 
-2. Cập nhật cơ sở dữ liệu chỉ với một số đường dẫn cụ thể:
+2. Cập nhật cơ sở dữ liệu chỉ với các đường dẫn cục bộ:
    ```bash
-   updatedb --localpaths /home/user /var/www
+   updatedb --localpaths '/home /usr'
    ```
 
-3. Bỏ qua một số đường dẫn khi cập nhật:
+3. Loại trừ một số đường dẫn khỏi việc cập nhật:
    ```bash
-   updatedb --prunepaths /tmp /var/log
+   updatedb --prunepaths '/tmp /var/tmp'
+   ```
+
+4. Cập nhật cơ sở dữ liệu và loại trừ một số hệ thống tệp:
+   ```bash
+   updatedb --prunefs 'nfs tmpfs'
    ```
 
 ## Mẹo
-- Để đảm bảo cơ sở dữ liệu luôn được cập nhật, bạn có thể thiết lập một cron job để tự động chạy lệnh `updatedb` vào một thời điểm cụ thể trong ngày.
-- Hãy chú ý đến các đường dẫn mà bạn muốn bỏ qua để tránh làm đầy cơ sở dữ liệu với các tệp tin không cần thiết.
-- Sử dụng lệnh `locate` sau khi chạy `updatedb` để kiểm tra xem các tệp tin đã được cập nhật thành công hay chưa.
-
-Hy vọng bài viết này sẽ giúp bạn hiểu rõ hơn về cách sử dụng lệnh `updatedb` trong Bash!
+- Nên chạy `updatedb` với quyền quản trị để đảm bảo tất cả các tệp tin đều được cập nhật.
+- Thiết lập một cron job để tự động cập nhật cơ sở dữ liệu vào thời gian định kỳ, giúp bạn luôn có thông tin mới nhất.
+- Kiểm tra thường xuyên các tùy chọn để tối ưu hóa quá trình cập nhật, đặc biệt là khi làm việc với các hệ thống lớn.

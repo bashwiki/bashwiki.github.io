@@ -1,39 +1,51 @@
-# [리눅스] Bash hash 사용법
+# [Linux] Bash hash Verwendung: Zeigt den Speicherort von Befehlen an
 
 ## Übersicht
-Der `hash` Befehl in Bash wird verwendet, um den Speicherort von ausführbaren Dateien zu verwalten, die in der aktuellen Shell-Sitzung verwendet werden. Der Hauptzweck des `hash` Befehls besteht darin, die Suche nach Befehlen zu optimieren, indem die Pfade zu den zuletzt verwendeten Befehlen gespeichert werden. Dies beschleunigt die Ausführung von Befehlen, da Bash nicht jedes Mal im `$PATH` nach dem Speicherort der ausführbaren Dateien suchen muss.
+Der `hash` Befehl in Bash wird verwendet, um den Speicherort von Befehlen zu verwalten und anzuzeigen, die in der aktuellen Shell-Umgebung verwendet werden. Er speichert die Pfade zu den ausführbaren Dateien, um die Ausführung von Befehlen zu beschleunigen.
 
 ## Verwendung
-Die grundlegende Syntax des `hash` Befehls ist:
+Die grundlegende Syntax des `hash` Befehls lautet:
 
 ```bash
-hash [OPTIONEN] [BEBEFEHL]
+hash [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-r`: Diese Option leert den Hash-Cache und zwingt Bash, beim nächsten Ausführen eines Befehls erneut im `$PATH` zu suchen.
-- `-p`: Mit dieser Option kann ein spezifischer Pfad für einen Befehl angegeben werden, um ihn im Hash-Cache zu speichern.
+## Häufige Optionen
+- `-r`: Löscht den Hash-Cache und zwingt die Shell, die Pfade der Befehle neu zu suchen.
+- `-p`: Gibt einen spezifischen Pfad für den Befehl an, den Sie hinzufügen möchten.
+- `-l`: Listet alle im Hash-Cache gespeicherten Befehle auf.
 
-## Beispiele
-### Beispiel 1: Überprüfen des Hash-Caches
-Um den aktuellen Hash-Cache anzuzeigen, können Sie einfach den `hash` Befehl ohne Optionen verwenden:
+## Häufige Beispiele
+
+### 1. Anzeigen des Hash-Caches
+Um alle im Hash-Cache gespeicherten Befehle anzuzeigen, verwenden Sie einfach:
 
 ```bash
 hash
 ```
 
-Dies gibt eine Liste der Befehle und ihrer zugehörigen Pfade zurück, die in der aktuellen Sitzung gespeichert sind.
-
-### Beispiel 2: Hinzufügen eines neuen Befehls zum Hash
-Wenn Sie einen Befehl mit einem spezifischen Pfad zum Hash-Cache hinzufügen möchten, verwenden Sie die `-p` Option:
+### 2. Löschen des Hash-Caches
+Wenn Sie den Hash-Cache zurücksetzen möchten, um sicherzustellen, dass die Shell die neuesten Pfade verwendet, führen Sie aus:
 
 ```bash
-hash -p mein_befehl /usr/local/bin/mein_befehl
+hash -r
 ```
 
-Hierbei wird der Befehl `mein_befehl` mit dem angegebenen Pfad im Hash-Cache gespeichert.
+### 3. Hinzufügen eines spezifischen Befehls zum Hash
+Um einen bestimmten Befehl mit einem spezifischen Pfad hinzuzufügen, verwenden Sie:
+
+```bash
+hash -p /usr/local/bin/mein_befehl mein_befehl
+```
+
+### 4. Auflisten aller gespeicherten Befehle
+Um eine Liste aller gespeicherten Befehle im Hash-Cache zu erhalten, verwenden Sie:
+
+```bash
+hash -l
+```
 
 ## Tipps
-- Verwenden Sie den `-r` Schalter, wenn Sie Änderungen an den ausführbaren Dateien vorgenommen haben oder wenn Sie sicherstellen möchten, dass Bash die neuesten Versionen der Befehle verwendet.
-- Überprüfen Sie regelmäßig den Hash-Cache, insbesondere wenn Sie häufig neue Programme installieren oder deinstallieren, um sicherzustellen, dass Ihre Befehle korrekt aufgelöst werden.
-- Der `hash` Befehl ist besonders nützlich in Skripten oder bei der Arbeit in Umgebungen, in denen viele benutzerdefinierte Befehle verwendet werden.
+- Nutzen Sie `hash -r`, wenn Sie neue Software installieren oder wenn sich die Pfade von Befehlen ändern, um sicherzustellen, dass die Shell die aktuellen Pfade verwendet.
+- Überprüfen Sie regelmäßig den Hash-Cache, um sicherzustellen, dass keine veralteten Pfade gespeichert sind, die zu Fehlern führen könnten.
+- Verwenden Sie den `-p` Schalter, um spezifische Befehle zu priorisieren, wenn Sie mehrere Versionen eines Befehls haben.

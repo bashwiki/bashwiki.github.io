@@ -1,58 +1,61 @@
-# [리눅스] Bash continue 사용법
+# [Linux] Bash continue kullanımı: Döngüdeki bir sonraki yinelemeye geçer
 
-## Overview
-`continue` komutu, bir döngü içinde kullanıldığında, döngünün mevcut yinelemesini atlayarak bir sonraki yinelemeye geçilmesini sağlar. Bu komut, özellikle belirli bir koşul sağlandığında döngüdeki bazı işlemleri atlamak istediğinizde yararlıdır. `continue`, genellikle `for`, `while` ve `until` döngüleri ile birlikte kullanılır.
+## Genel Bakış
+`continue` komutu, bir döngü içinde kullanıldığında, döngünün mevcut yinelemesini atlayarak bir sonraki yinelemeye geçilmesini sağlar. Bu, belirli bir koşul sağlandığında döngünün geri kalanını atlamak için yararlıdır.
 
-## Usage
-`continue` komutunun temel sözdizimi oldukça basittir:
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
-continue [n]
+continue [options]
 ```
 
-Burada `n`, döngünün kaçıncı yinelemesine geçileceğini belirtir. Eğer `n` belirtilmezse, varsayılan olarak 1 alınır ve döngü bir sonraki yinelemeye geçer.
+## Yaygın Seçenekler
+`continue` komutunun kendisi için özel bir seçenek yoktur, ancak döngü içinde belirli bir koşula bağlı olarak kullanılabilir.
 
-### Örnekler
-Aşağıda `continue` komutunun nasıl kullanılacağını gösteren iki örnek bulunmaktadır:
+## Yaygın Örnekler
 
-**Örnek 1: Basit bir for döngüsü**
+### Örnek 1: Basit bir döngüde continue kullanımı
+Aşağıdaki örnekte, 1'den 10'a kadar olan sayılardan yalnızca çift olanları yazdırıyoruz. Tek sayılar için `continue` komutunu kullanarak döngünün o kısmını atlıyoruz.
+
 ```bash
-for i in {1..5}; do
-    if [ $i -eq 3 ]; then
+for i in {1..10}; do
+    if (( i % 2 != 0 )); then
         continue
     fi
-    echo "Sayı: $i"
+    echo $i
 done
 ```
-Bu örnekte, `i` değişkeni 3 olduğunda `continue` komutu çalışır ve 3 sayısı atlanır. Çıktı şöyle olacaktır:
-```
-Sayı: 1
-Sayı: 2
-Sayı: 4
-Sayı: 5
+
+### Örnek 2: Belirli bir koşula göre continue kullanımı
+Bu örnekte, bir dizideki sayılardan yalnızca 5'ten büyük olanları yazdırıyoruz.
+
+```bash
+numbers=(1 2 3 4 5 6 7 8 9 10)
+for num in "${numbers[@]}"; do
+    if (( num <= 5 )); then
+        continue
+    fi
+    echo $num
+done
 ```
 
-**Örnek 2: While döngüsü ile kullanım**
+### Örnek 3: while döngüsünde continue kullanımı
+Aşağıdaki örnekte, 1'den 10'a kadar olan sayılardan yalnızca 3'e bölünebilenleri yazdırıyoruz.
+
 ```bash
 count=1
-while [ $count -le 5 ]; do
-    if [ $count -eq 2 ]; then
-        count=$((count + 1))
+while [ $count -le 10 ]; do
+    if (( count % 3 != 0 )); then
+        ((count++))
         continue
     fi
-    echo "Sayım: $count"
-    count=$((count + 1))
+    echo $count
+    ((count++))
 done
 ```
-Bu örnekte, `count` değişkeni 2 olduğunda `continue` komutu çalışır ve 2 sayısı atlanır. Çıktı şöyle olacaktır:
-```
-Sayım: 1
-Sayım: 3
-Sayım: 4
-Sayım: 5
-```
 
-## Tips
-- `continue` komutunu kullanırken, döngüde atlanacak koşulları dikkatlice belirlemek önemlidir. Yanlış koşullar, beklenmeyen sonuçlara yol açabilir.
-- `continue` komutunu kullanmadan önce, döngü değişkeninin güncellenmesini sağlamak için uygun bir mekanizma oluşturduğunuzdan emin olun. Aksi takdirde, sonsuz döngülerle karşılaşabilirsiniz.
-- `continue` komutunu kullanarak kodunuzu daha okunabilir hale getirebilir ve belirli durumları daha kolay yönetebilirsiniz.
+## İpuçları
+- `continue` komutunu kullanırken, döngü koşullarınızı dikkatlice belirleyin. Yanlış koşullar, beklenmeyen sonuçlara yol açabilir.
+- `continue` komutunu, karmaşık döngülerde kodunuzu daha okunabilir hale getirmek için kullanabilirsiniz.
+- Gelişmiş senaryolar için `continue` komutunu `if` koşullarıyla birleştirerek kullanmak, kodunuzu daha esnek hale getirebilir.

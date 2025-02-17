@@ -1,48 +1,51 @@
-# [리눅스] Bash hash 사용법
+# [Linux] Bash hash utilisation : Gérer le cache des commandes
 
-## Aperçu
+## Overview
+La commande `hash` en Bash est utilisée pour gérer le cache des commandes exécutées. Elle permet de mémoriser les chemins des commandes pour accélérer leur exécution lors des appels futurs. Cela évite de rechercher à chaque fois le chemin complet des exécutables.
 
-La commande `hash` dans Bash est utilisée pour gérer le cache des chemins des commandes exécutées. Lorsqu'une commande est exécutée, Bash enregistre son chemin dans une table de hachage pour accélérer les recherches ultérieures. Cela permet d'éviter de rechercher le chemin de la commande à chaque fois qu'elle est appelée, ce qui améliore l'efficacité des scripts et des sessions interactives.
-
-## Utilisation
-
+## Usage
 La syntaxe de base de la commande `hash` est la suivante :
 
 ```bash
-hash [-r] [nom_commande]
+hash [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
+- `-r` : Réinitialise le cache des commandes, supprimant toutes les entrées mémorisées.
+- `-p` : Spécifie un chemin pour une commande donnée, permettant de forcer l'utilisation de ce chemin.
+- `-l` : Affiche la liste des commandes mémorisées dans le cache.
 
-- `-r` : Réinitialise la table de hachage, supprimant tous les chemins mémorisés.
-- `nom_commande` : Spécifie le nom de la commande dont vous souhaitez afficher ou supprimer le chemin de la table de hachage.
+## Common Examples
 
-## Exemples
-
-### Exemple 1 : Afficher le cache des commandes
-
-Pour afficher le cache des chemins des commandes actuellement mémorisées, vous pouvez simplement exécuter :
+### Afficher le cache des commandes
+Pour voir les commandes actuellement mémorisées dans le cache, utilisez :
 
 ```bash
 hash
 ```
 
-Cela affichera une liste des commandes et leurs chemins respectifs.
-
-### Exemple 2 : Réinitialiser le cache
-
-Si vous avez modifié des commandes ou installé de nouveaux programmes et que vous souhaitez réinitialiser le cache, utilisez l'option `-r` :
+### Réinitialiser le cache
+Pour vider le cache des commandes, exécutez :
 
 ```bash
 hash -r
 ```
 
-Cela effacera tous les chemins mémorisés, forçant Bash à rechercher à nouveau les chemins des commandes lors de leur prochaine exécution.
+### Spécifier un chemin pour une commande
+Pour ajouter une commande avec un chemin spécifique, utilisez :
 
-## Conseils
+```bash
+hash -p /usr/local/bin/ma_commande ma_commande
+```
 
-- Utilisez `hash` pour diagnostiquer des problèmes lorsque Bash ne trouve pas une commande que vous êtes sûr d'avoir installée. Il se peut que le chemin soit obsolète dans le cache.
-- Pensez à réinitialiser le cache après avoir installé ou désinstallé des programmes pour éviter des conflits ou des erreurs de chemin.
-- Vous pouvez vérifier le chemin d'une commande spécifique en utilisant `hash nom_commande`, ce qui affichera le chemin mémorisé pour cette commande.
+### Lister les commandes mémorisées
+Pour afficher toutes les commandes mémorisées, utilisez :
 
-En utilisant la commande `hash`, vous pouvez optimiser vos sessions Bash et assurer un accès rapide aux commandes fréquemment utilisées.
+```bash
+hash -l
+```
+
+## Tips
+- Utilisez `hash` après avoir installé de nouveaux programmes pour vous assurer que Bash utilise le bon chemin.
+- Vérifiez régulièrement le cache avec `hash -l` pour éviter d'utiliser des chemins obsolètes.
+- Si vous rencontrez des problèmes avec des commandes non trouvées, essayez de réinitialiser le cache avec `hash -r`.

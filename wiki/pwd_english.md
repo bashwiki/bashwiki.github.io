@@ -1,52 +1,44 @@
-# [리눅스] Bash pwd 사용법
+# [Linux] Bash pwd用法: 显示当前工作目录
 
 ## Overview
-The `pwd` command, which stands for "print working directory," is a fundamental command in Unix-like operating systems, including Linux. Its primary purpose is to display the current working directory of the shell session. This is particularly useful for users who need to confirm their location in the filesystem hierarchy before executing further commands.
+The `pwd` command stands for "print working directory." It is used in Bash and other Unix-like operating systems to display the current directory you are in within the terminal. This command is particularly useful for confirming your location in the filesystem.
 
 ## Usage
 The basic syntax of the `pwd` command is as follows:
 
-```bash
-pwd [OPTION]
+```
+pwd [options] [arguments]
 ```
 
-### Common Options
-- `-L`: This option displays the logical current working directory. It shows the path as it is defined in the shell, which may include symbolic links.
-- `-P`: This option displays the physical current working directory. It resolves all symbolic links and shows the actual path on the filesystem.
+## Common Options
+- `-L`: Use the logical current working directory. This option shows the path as it is set by the shell, which may include symbolic links.
+- `-P`: Use the physical current working directory. This option resolves all symbolic links and shows the actual path.
 
-By default, `pwd` operates in the logical mode if no options are specified.
+## Common Examples
+Here are some practical examples of using the `pwd` command:
 
-## Examples
+1. **Basic Usage**: Simply type `pwd` to display the current directory.
+   ```bash
+   pwd
+   ```
 
-### Example 1: Basic Usage
-To simply display the current working directory, you can run:
+2. **Using the Logical Option**: Display the logical path of the current directory.
+   ```bash
+   pwd -L
+   ```
 
-```bash
-pwd
-```
+3. **Using the Physical Option**: Display the physical path of the current directory.
+   ```bash
+   pwd -P
+   ```
 
-**Output:**
-```
-/home/user/projects
-```
-
-This output indicates that the user is currently in the `projects` directory within their home directory.
-
-### Example 2: Using the -P Option
-To see the physical path of the current working directory, use the `-P` option:
-
-```bash
-pwd -P
-```
-
-**Output:**
-```
-/home/user/projects
-```
-
-If the current directory is a symbolic link, this command will resolve it and show the actual path.
+4. **In a Script**: You can use `pwd` in a script to store the current directory in a variable.
+   ```bash
+   current_dir=$(pwd)
+   echo "You are currently in: $current_dir"
+   ```
 
 ## Tips
 - Use `pwd` frequently to keep track of your current location in the filesystem, especially when navigating through multiple directories.
-- Combine `pwd` with other commands in scripts to dynamically reference the current directory. For example, you can use it to create backup scripts that save files in the current directory.
-- Remember that using the `-L` option can be helpful when working with symbolic links, as it allows you to see the path as it appears in the shell, which may differ from the physical path.
+- Combine `pwd` with other commands in scripts to create dynamic paths based on the current working directory.
+- Remember that the output of `pwd` can be affected by the options you choose, so select `-L` or `-P` based on your needs.

@@ -1,39 +1,44 @@
-# [리눅스] Bash nice 사용법
+# [Linux] Bash nice Verwendung: Prozesse priorisieren
 
 ## Übersicht
-Der Befehl `nice` in Bash wird verwendet, um die Priorität eines Prozesses zu steuern, der im Hintergrund ausgeführt wird. Die Hauptfunktion von `nice` besteht darin, die CPU-Zeit, die einem Prozess zugewiesen wird, zu beeinflussen, indem die "Nettigkeit" (nice value) des Prozesses geändert wird. Ein höherer Wert bedeutet eine niedrigere Priorität, während ein niedrigerer Wert eine höhere Priorität bedeutet. Dies ist besonders nützlich, um sicherzustellen, dass wichtige Prozesse genügend Ressourcen erhalten, während weniger wichtige Prozesse im Hintergrund laufen.
+Der `nice` Befehl in Bash wird verwendet, um die Priorität eines Prozesses beim Ausführen zu steuern. Mit `nice` können Sie die CPU-Zeit, die ein Prozess erhält, beeinflussen, indem Sie ihm eine höhere oder niedrigere Priorität zuweisen. Dies ist besonders nützlich, um sicherzustellen, dass wichtige Prozesse genügend Ressourcen erhalten, während weniger wichtige Prozesse weniger CPU-Zeit beanspruchen.
 
 ## Verwendung
-Die grundlegende Syntax des `nice`-Befehls lautet:
+Die grundlegende Syntax des `nice` Befehls lautet:
 
 ```bash
-nice [OPTIONEN] [Befehl [Argumente...]]
+nice [Optionen] [Befehl] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-n, --adjustment=N`: Legt den Nettigkeitswert fest. Der Standardwert ist 10. Ein negativer Wert (z.B. -5) erhöht die Priorität, während ein positiver Wert (z.B. 15) die Priorität verringert.
-- `--help`: Zeigt eine Hilfe-Seite mit Informationen zur Verwendung des Befehls an.
-- `--version`: Gibt die Versionsnummer des `nice`-Befehls aus.
+## Häufige Optionen
+- `-n`, `--adjustment`: Legt die Priorität des Prozesses fest. Der Wert kann zwischen -20 (höchste Priorität) und 19 (niedrigste Priorität) liegen.
+- `-h`, `--help`: Zeigt eine Hilfemeldung an.
+- `-v`, `--version`: Gibt die Versionsnummer des `nice` Befehls aus.
 
-## Beispiele
-### Beispiel 1: Standard-Nettigkeitswert verwenden
-Um ein Programm mit dem Standard-Nettigkeitswert von 10 auszuführen, verwenden Sie den folgenden Befehl:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung des `nice` Befehls:
 
-```bash
-nice my_program
-```
+1. **Einen Prozess mit Standardpriorität starten:**
+   ```bash
+   nice python mein_script.py
+   ```
 
-### Beispiel 2: Nettigkeitswert anpassen
-Um ein Programm mit einer erhöhten Priorität (Nettigkeitswert von -5) auszuführen, verwenden Sie:
+2. **Einen Prozess mit niedrigerer Priorität starten (z. B. 10):**
+   ```bash
+   nice -n 10 python mein_script.py
+   ```
 
-```bash
-nice -n -5 my_program
-```
+3. **Einen Prozess mit höherer Priorität starten (z. B. -5):**
+   ```bash
+   nice -n -5 python mein_script.py
+   ```
 
-In diesem Beispiel wird `my_program` mit einer höheren Priorität gestartet, was bedeutet, dass es mehr CPU-Ressourcen erhält als Prozesse mit einem höheren Nettigkeitswert.
+4. **Die aktuelle Priorität eines Prozesses anzeigen:**
+   ```bash
+   ps -o pid,ni,cmd
+   ```
 
 ## Tipps
-- Verwenden Sie `nice`, um ressourcenintensive Prozesse zu starten, ohne die Leistung anderer wichtiger Anwendungen zu beeinträchtigen.
-- Überprüfen Sie den aktuellen Nettigkeitswert eines laufenden Prozesses mit dem Befehl `ps -o pid,ni,cmd`.
-- Seien Sie vorsichtig beim Festlegen negativer Nettigkeitswerte, da dies die Systemleistung beeinträchtigen kann, wenn zu viele Prozesse mit hoher Priorität gleichzeitig ausgeführt werden.
-- Nutzen Sie `renice`, um die Nettigkeit eines bereits laufenden Prozesses zu ändern, falls erforderlich.
+- Verwenden Sie `nice`, um sicherzustellen, dass ressourcenintensive Prozesse die Systemleistung nicht beeinträchtigen.
+- Überprüfen Sie die Priorität laufender Prozesse mit dem `ps` Befehl, um zu sehen, ob Anpassungen notwendig sind.
+- Seien Sie vorsichtig beim Setzen einer hohen Priorität für Prozesse, da dies andere wichtige Prozesse negativ beeinflussen kann.

@@ -1,40 +1,45 @@
-# [리눅스] Bash w 사용법
+# [Linux] Bash w: visualizza gli utenti connessi e le loro attività
 
 ## Overview
-Il comando `w` in Bash è utilizzato per visualizzare informazioni sugli utenti attualmente connessi al sistema e sulle loro attività. Fornisce un riepilogo delle sessioni degli utenti, mostrando dettagli come l'ora di accesso, il tempo di inattività, l'ID del terminale e il comando attualmente in esecuzione. Questo comando è particolarmente utile per gli amministratori di sistema e gli sviluppatori che desiderano monitorare l'attività degli utenti nel sistema.
+Il comando `w` in Bash è utilizzato per visualizzare informazioni sugli utenti attualmente connessi al sistema e sulle loro attività. Mostra dettagli come l'ora di accesso, il tempo di inattività e il comando attualmente in esecuzione.
 
 ## Usage
-La sintassi di base del comando `w` è la seguente:
+La sintassi di base del comando è la seguente:
 
 ```bash
-w [opzioni] [utente]
+w [opzioni] [argomenti]
 ```
 
-### Opzioni comuni:
+## Common Options
 - `-h`: Non mostra l'intestazione della tabella.
-- `-s`: Mostra un output più compatto, omettendo alcune informazioni.
-- `-u`: Mostra il tempo di inattività degli utenti.
-- `-f`: Mostra informazioni sul terminale di origine.
+- `-s`: Mostra un output più compatto, riducendo le colonne visualizzate.
+- `-u`: Mostra solo gli utenti attivi.
+- `-f`: Mostra informazioni dettagliate sul terminale.
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `w`.
+## Common Examples
+Ecco alcuni esempi pratici dell'uso del comando `w`:
 
-### Esempio 1: Visualizzare informazioni sugli utenti connessi
-```bash
-w
-```
-Questo comando mostrerà un elenco di tutti gli utenti attualmente connessi, insieme alle informazioni relative alle loro sessioni.
+1. **Visualizzare tutti gli utenti connessi:**
+   ```bash
+   w
+   ```
 
-### Esempio 2: Visualizzare informazioni in modo compatto
-```bash
-w -s
-```
-Utilizzando l'opzione `-s`, il comando mostrerà un output più compatto, utile per una rapida visualizzazione delle informazioni.
+2. **Visualizzare gli utenti con un output compatto:**
+   ```bash
+   w -s
+   ```
+
+3. **Visualizzare solo gli utenti attivi:**
+   ```bash
+   w -u
+   ```
+
+4. **Visualizzare informazioni dettagliate sul terminale:**
+   ```bash
+   w -f
+   ```
 
 ## Tips
-- Utilizza `w` regolarmente per monitorare l'attività degli utenti nel tuo sistema, specialmente in ambienti multi-utente.
-- Puoi combinare `w` con altri comandi come `grep` per filtrare le informazioni su un utente specifico, ad esempio:
-  ```bash
-  w | grep nome_utente
-  ```
-- Ricorda che l'output di `w` può variare a seconda dei permessi dell'utente che esegue il comando; gli utenti normali potrebbero vedere meno dettagli rispetto agli amministratori di sistema.
+- Utilizza `w` regolarmente per monitorare le attività degli utenti sul tuo sistema.
+- Combina `w` con altri comandi come `grep` per filtrare informazioni specifiche.
+- Ricorda che l'output di `w` può variare a seconda dei permessi dell'utente che esegue il comando.

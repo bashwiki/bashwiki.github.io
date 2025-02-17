@@ -1,44 +1,57 @@
-# [리눅스] Bash ufw 사용법
+# [Linux] Bash ufw Kullanımı: Güvenlik Duvarı Yönetimi
 
-## Overview
-`ufw` (Uncomplicated Firewall), Linux sistemlerinde güvenlik duvarı yapılandırmasını basit ve kullanıcı dostu bir şekilde yönetmek için kullanılan bir komut satırı aracıdır. `ufw`, özellikle yeni başlayanlar ve sistem yöneticileri için, karmaşık iptables komutlarına alternatif olarak tasarlanmıştır. Temel amacı, ağ trafiğini kontrol etmek ve sistemin güvenliğini artırmaktır.
+## Genel Bakış
+`ufw` (Uncomplicated Firewall), Linux sistemlerinde güvenlik duvarı yapılandırmasını kolaylaştırmak için kullanılan bir komut satırı aracıdır. Kullanıcı dostu bir arayüze sahip olan `ufw`, ağ trafiğini kontrol etmek ve güvenlik politikalarını uygulamak için basit bir yol sunar.
 
-## Usage
-`ufw` komutunun temel sözdizimi aşağıdaki gibidir:
-
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-ufw [OPTIONS] [COMMAND]
+ufw [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler:
+## Yaygın Seçenekler
 - `enable`: Güvenlik duvarını etkinleştirir.
 - `disable`: Güvenlik duvarını devre dışı bırakır.
+- `allow [port]`: Belirtilen port üzerinden gelen trafiğe izin verir.
+- `deny [port]`: Belirtilen port üzerinden gelen trafiği reddeder.
 - `status`: Güvenlik duvarının mevcut durumunu gösterir.
-- `allow`: Belirtilen port veya hizmet için trafiğe izin verir.
-- `deny`: Belirtilen port veya hizmet için trafiği engeller.
-- `delete`: Daha önce eklenmiş bir kuralı siler.
+- `reset`: Tüm kuralları sıfırlar.
 
-## Examples
-### Örnek 1: Güvenlik Duvarını Etkinleştirme
-Güvenlik duvarını etkinleştirmek için aşağıdaki komutu kullanabilirsiniz:
+## Yaygın Örnekler
+Aşağıda `ufw` komutunun bazı pratik örnekleri bulunmaktadır:
 
-```bash
-sudo ufw enable
-```
+1. **Güvenlik duvarını etkinleştirme:**
+   ```bash
+   sudo ufw enable
+   ```
 
-Bu komut, `ufw`'yi etkinleştirir ve varsayılan kuralları uygular.
+2. **Güvenlik duvarını devre dışı bırakma:**
+   ```bash
+   sudo ufw disable
+   ```
 
-### Örnek 2: Belirli Bir Portu Açma
-Örneğin, 80 numaralı portu (HTTP) açmak için şu komutu kullanabilirsiniz:
+3. **Belirli bir portu açma (örneğin, 22 numaralı port için SSH):**
+   ```bash
+   sudo ufw allow 22
+   ```
 
-```bash
-sudo ufw allow 80
-```
+4. **Belirli bir portu kapatma (örneğin, 80 numaralı port için HTTP):**
+   ```bash
+   sudo ufw deny 80
+   ```
 
-Bu komut, HTTP trafiğine izin verir ve web sunucunuzun dışarıdan erişilebilir olmasını sağlar.
+5. **Güvenlik duvarı durumunu kontrol etme:**
+   ```bash
+   sudo ufw status
+   ```
 
-## Tips
-- `ufw` kullanmadan önce, mevcut güvenlik duvarı kurallarınızı kontrol etmek için `ufw status verbose` komutunu kullanın.
-- Değişikliklerinizi uygulamadan önce `ufw`'nin durumunu kontrol edin ve gerektiğinde yedekleme yapın.
-- Güvenlik duvarı kurallarınızı düzenli olarak gözden geçirin ve gereksiz kuralları kaldırarak güvenliğinizi artırın.
-- `ufw` ile birlikte `iptables`'ı kullanıyorsanız, `ufw`'nin iptables kurallarını etkileyebileceğini unutmayın.
+6. **Tüm kuralları sıfırlama:**
+   ```bash
+   sudo ufw reset
+   ```
+
+## İpuçları
+- `ufw` kullanmadan önce, mevcut ağ yapılandırmanızı ve hangi hizmetlerin çalıştığını kontrol edin.
+- Belirli bir IP adresine izin vermek için `allow from [IP]` komutunu kullanabilirsiniz.
+- Güvenlik duvarı kurallarını düzenli olarak gözden geçirerek gereksiz kuralları kaldırın.
+- `ufw` ile çalışırken dikkatli olun; yanlış yapılandırmalar ağ bağlantınızı etkileyebilir.

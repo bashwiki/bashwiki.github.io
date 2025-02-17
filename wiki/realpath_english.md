@@ -1,38 +1,48 @@
-# [리눅스] Bash realpath 사용법
+# [Linux] Bash realpath Usage: Resolve absolute file paths
 
 ## Overview
-The `realpath` command in Bash is used to resolve and print the absolute path of a given file or directory. Its primary purpose is to convert relative paths into absolute paths, eliminating any symbolic links, `..`, or `.` components in the path. This is particularly useful for ensuring that scripts and applications reference files and directories in a consistent manner, regardless of the current working directory.
+The `realpath` command in Bash is used to resolve and print the absolute path of a given file or directory. It eliminates any symbolic links, relative path components (like `..` or `.`), and provides a canonicalized path.
 
 ## Usage
 The basic syntax of the `realpath` command is as follows:
 
 ```bash
-realpath [OPTION]... FILE...
+realpath [options] [arguments]
 ```
 
-### Common Options:
-- `-m`, `--canonicalize-missing`: This option allows `realpath` to return the canonicalized absolute pathname even if the file does not exist.
+## Common Options
+- `-m`, `--canonicalize-missing`: This option allows `realpath` to return a canonicalized path even if the file does not exist.
 - `-q`, `--quiet`: Suppresses error messages about nonexistent files.
-- `-s`, `--strip`: This option strips the trailing slashes from the output.
+- `-s`, `--strip`: Strips the trailing slashes from the output.
 
-## Examples
-### Example 1: Basic Usage
-To convert a relative path to an absolute path, you can use the following command:
+## Common Examples
 
-```bash
-realpath ./myfolder/myfile.txt
-```
-This command will output the absolute path of `myfile.txt` located in `myfolder`, resolving any relative components.
+1. **Resolve the absolute path of a file:**
+   ```bash
+   realpath myfile.txt
+   ```
 
-### Example 2: Handling Nonexistent Files
-If you want to get the absolute path of a file that may not exist, you can use the `-m` option:
+2. **Resolve the absolute path of a directory:**
+   ```bash
+   realpath /path/to/directory/
+   ```
 
-```bash
-realpath -m ./nonexistentfile.txt
-```
-This will return the absolute path for `nonexistentfile.txt` even though it does not exist, allowing you to handle paths dynamically in your scripts.
+3. **Handle symbolic links:**
+   ```bash
+   realpath /path/to/symlink
+   ```
+
+4. **Canonicalize a missing file path:**
+   ```bash
+   realpath -m /path/to/nonexistentfile.txt
+   ```
+
+5. **Suppress error messages:**
+   ```bash
+   realpath -q /path/to/nonexistentfile.txt
+   ```
 
 ## Tips
-- Always use `realpath` when dealing with file paths in scripts to avoid issues with relative paths, especially when the script may be executed from different directories.
-- Combine `realpath` with other commands like `cd` or `ln` to ensure that you are always working with the correct file paths.
-- Use the `-q` option if you want to suppress error messages in scripts that may encounter missing files, helping to keep your script output clean.
+- Use `realpath` in scripts to ensure that file paths are always absolute, which can help avoid issues with relative paths.
+- Combine `realpath` with other commands like `cd` to navigate to a directory using its absolute path.
+- When working with symbolic links, `realpath` can help clarify the actual file location, making it easier to manage files and directories.

@@ -1,45 +1,52 @@
-# [리눅스] Bash dig 사용법
+# [Linux] Bash dig Uso equivalente: consulta DNS
+
+El comando `dig` se utiliza para realizar consultas DNS (Domain Name System) y obtener información sobre registros de dominio.
 
 ## Overview
-El comando `dig` (Domain Information Groper) es una herramienta de línea de comandos utilizada para consultar el sistema de nombres de dominio (DNS). Su propósito principal es obtener información sobre registros DNS de un dominio específico, lo que permite a los ingenieros y desarrolladores diagnosticar problemas de red, verificar configuraciones de DNS y obtener detalles sobre la resolución de nombres.
+El comando `dig` permite a los usuarios consultar servidores DNS para obtener información sobre nombres de dominio. Es una herramienta muy útil para administradores de sistemas y desarrolladores que necesitan verificar la configuración DNS de un dominio.
 
 ## Usage
 La sintaxis básica del comando `dig` es la siguiente:
 
 ```
-dig [opciones] [nombre_del_dominio] [tipo_de_registro]
+dig [opciones] [argumentos]
 ```
 
-- **nombre_del_dominio**: El nombre del dominio que se desea consultar (por ejemplo, `example.com`).
-- **tipo_de_registro**: El tipo de registro DNS que se desea obtener (por ejemplo, `A`, `MX`, `CNAME`, etc.). Si no se especifica, `dig` por defecto consulta el registro `A`.
-
-### Opciones Comunes
-- `@servidor`: Especifica un servidor DNS alternativo para realizar la consulta.
+## Common Options
+- `@servidor`: Especifica el servidor DNS al que se enviará la consulta.
+- `-t tipo`: Define el tipo de registro que se desea consultar (por ejemplo, A, AAAA, MX, etc.).
 - `+short`: Muestra una salida más concisa, útil para obtener solo la información esencial.
-- `+trace`: Realiza un seguimiento completo de la resolución de DNS, mostrando cada paso en el proceso.
+- `+trace`: Realiza una consulta recursiva desde el servidor raíz hasta el servidor autoritativo.
 
-## Examples
-### Ejemplo 1: Consulta de un registro A
-Para obtener la dirección IP asociada con el dominio `example.com`, se puede utilizar el siguiente comando:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `dig`:
 
-```bash
-dig example.com A
-```
+1. **Consulta el registro A de un dominio:**
+   ```bash
+   dig example.com
+   ```
 
-### Ejemplo 2: Consulta de registros MX
-Para consultar los registros de intercambio de correo (MX) para el dominio `example.com`, se puede usar:
+2. **Consulta el registro MX de un dominio:**
+   ```bash
+   dig -t MX example.com
+   ```
 
-```bash
-dig example.com MX
-```
+3. **Consulta a un servidor DNS específico:**
+   ```bash
+   dig @8.8.8.8 example.com
+   ```
 
-Si se desea una salida más concisa, se puede agregar la opción `+short`:
+4. **Salida concisa de la consulta:**
+   ```bash
+   dig +short example.com
+   ```
 
-```bash
-dig example.com MX +short
-```
+5. **Rastrea la consulta desde el servidor raíz:**
+   ```bash
+   dig +trace example.com
+   ```
 
 ## Tips
-- Utiliza la opción `+trace` si necesitas diagnosticar problemas de resolución de DNS y deseas ver el proceso completo de cómo se resuelve un nombre de dominio.
-- Si trabajas en un entorno donde se utilizan varios servidores DNS, considera especificar el servidor DNS que deseas consultar utilizando la opción `@servidor`.
-- Familiarízate con los diferentes tipos de registros DNS (A, AAAA, CNAME, MX, TXT, etc.) para aprovechar al máximo las capacidades de `dig`.
+- Utiliza `+short` para obtener resultados más limpios y fáciles de leer, especialmente cuando solo necesitas la dirección IP.
+- Si estás depurando problemas de DNS, el uso de `+trace` puede ayudarte a identificar dónde puede estar fallando la resolución.
+- Recuerda que algunos servidores DNS pueden tener configuraciones específicas que afectan las respuestas; prueba con diferentes servidores si no obtienes los resultados esperados.

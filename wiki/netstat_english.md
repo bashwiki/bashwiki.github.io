@@ -1,46 +1,59 @@
-# [리눅스] Bash netstat 사용법
+# [Linux] Bash netstat Uso: Monitor network connections and statistics
 
 ## Overview
-The `netstat` command is a powerful networking utility in Linux that provides information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships. Its primary purpose is to help users monitor and troubleshoot network issues by displaying active connections and listening ports, which can be crucial for diagnosing network problems or understanding network traffic.
+The `netstat` command is a powerful tool used in Linux and other Unix-like operating systems to display network connections, routing tables, interface statistics, masquerade connections, and multicast memberships. It helps users understand the current state of the network and troubleshoot connectivity issues.
 
 ## Usage
 The basic syntax of the `netstat` command is as follows:
 
-```
-netstat [options]
-```
-
-### Common Options
-- `-a`: Displays all active connections and listening ports.
-- `-t`: Shows TCP connections only.
-- `-u`: Shows UDP connections only.
-- `-n`: Displays addresses and port numbers in numerical form instead of resolving hostnames.
-- `-l`: Displays only listening sockets.
-- `-p`: Shows the process ID and name of the program to which each socket belongs.
-- `-r`: Displays the kernel routing table.
-- `-i`: Shows a list of network interfaces and their statistics.
-
-## Examples
-### Example 1: Displaying All Active Connections
-To view all active network connections along with the listening ports, you can use the following command:
-
 ```bash
-netstat -a
+netstat [options] [arguments]
 ```
 
-This command will list all connections, including both established connections and ports that are currently listening for incoming connections.
+## Common Options
+Here are some commonly used options with the `netstat` command:
 
-### Example 2: Displaying TCP Connections with Process Information
-To see only TCP connections and include the associated process information, you can run:
+- `-a`: Show all connections and listening ports.
+- `-t`: Display TCP connections.
+- `-u`: Display UDP connections.
+- `-n`: Show numerical addresses instead of resolving hostnames.
+- `-l`: Show only listening sockets.
+- `-p`: Show the process ID and name of the program to which each socket belongs.
+- `-r`: Display the routing table.
 
-```bash
-netstat -t -p
-```
+## Common Examples
 
-This command will provide a list of all TCP connections along with the process ID and name of the application that is using each connection.
+1. **Display all active connections:**
+   ```bash
+   netstat -a
+   ```
+
+2. **Show only TCP connections:**
+   ```bash
+   netstat -t
+   ```
+
+3. **Show only listening ports:**
+   ```bash
+   netstat -l
+   ```
+
+4. **Display connections with numerical addresses:**
+   ```bash
+   netstat -n
+   ```
+
+5. **Show the process using each connection:**
+   ```bash
+   netstat -p
+   ```
+
+6. **Display the routing table:**
+   ```bash
+   netstat -r
+   ```
 
 ## Tips
-- Use the `-n` option to speed up the output by avoiding DNS lookups, especially on systems with many connections.
-- Combine options for more specific queries, such as `netstat -tunlp`, which shows TCP and UDP connections with process information.
-- Regularly monitor your network connections with `netstat` to identify any unauthorized or suspicious activity.
-- Consider using `ss` as a modern alternative to `netstat`, as it provides more detailed information and is faster in many cases.
+- Combine options for more detailed output. For example, `netstat -tuln` will show all listening TCP and UDP ports with numerical addresses.
+- Use `grep` to filter results. For example, `netstat -a | grep LISTEN` will show only listening connections.
+- Regularly monitor your network connections to identify any unauthorized access or unusual activity.

@@ -1,46 +1,49 @@
-# [리눅스] Bash svn 사용법
+# [Linux] Bash svn Kullanımı: Versiyon kontrolü için bir araç
 
 ## Genel Bakış
-`svn` (Subversion), sürüm kontrol sistemi olarak kullanılan bir komuttur. Yazılım geliştirme projelerinde dosyaların ve dizinlerin sürümlerini yönetmek için kullanılır. `svn`, kullanıcıların dosyaları takip etmesine, değişiklikleri kaydetmesine ve projelerin farklı sürümleri arasında geçiş yapmasına olanak tanır. Bu sayede ekipler, projeler üzerinde işbirliği yaparken daha düzenli ve verimli bir şekilde çalışabilirler.
+`svn` (Subversion), dosya ve dizinlerin versiyon kontrolünü sağlamak için kullanılan bir komut satırı aracıdır. Geliştiricilerin ve ekiplerin projelerini yönetmelerine, değişiklikleri takip etmelerine ve işbirliği yapmalarına olanak tanır.
 
 ## Kullanım
-`svn` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi şu şekildedir:
 
-```
-svn [komut] [seçenekler] [hedef]
+```bash
+svn [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `checkout`: Bir depo içeriğini yerel bir dizine kopyalar.
-- `commit`: Yerel değişiklikleri depoya kaydeder.
-- `update`: Yerel kopyayı depodaki en son sürümle günceller.
-- `add`: Yeni dosyaları veya dizinleri depoya ekler.
-- `delete`: Depodan dosyaları veya dizinleri siler.
+## Yaygın Seçenekler
+- `checkout`: Bir depo kopyasını yerel makineye indirmek için kullanılır.
+- `commit`: Yerel değişiklikleri depoya göndermek için kullanılır.
+- `update`: Yerel kopyayı depodaki en son değişikliklerle güncellemek için kullanılır.
 - `status`: Yerel çalışma kopyasındaki değişikliklerin durumunu gösterir.
+- `log`: Depodaki geçmiş değişiklikleri görüntülemek için kullanılır.
 
-## Örnekler
+## Yaygın Örnekler
+1. **Depo Kopyalama**
+   ```bash
+   svn checkout https://example.com/svn/myproject
+   ```
 
-### Örnek 1: Depodan Çekme
-Bir Subversion deposundan dosyaları yerel bir dizine çekmek için `checkout` komutunu kullanabilirsiniz:
+2. **Değişiklikleri Gönderme**
+   ```bash
+   svn commit -m "Yenilikler eklendi"
+   ```
 
-```bash
-svn checkout https://example.com/svn/repo/trunk my_project
-```
+3. **Güncelleme Yapma**
+   ```bash
+   svn update
+   ```
 
-Bu komut, belirtilen depo URL'sinden `my_project` adlı bir dizine dosyaları kopyalar.
+4. **Değişiklik Durumunu Görüntüleme**
+   ```bash
+   svn status
+   ```
 
-### Örnek 2: Değişiklikleri Kaydetme
-Yerel değişikliklerinizi depoya kaydetmek için `commit` komutunu kullanabilirsiniz:
-
-```bash
-svn commit -m "Bu değişiklikler projeye eklendi."
-```
-
-Bu komut, yerel kopyanızdaki değişiklikleri depoya kaydeder ve "Bu değişiklikler projeye eklendi." mesajını ekler.
+5. **Geçmiş Değişiklikleri Görüntüleme**
+   ```bash
+   svn log
+   ```
 
 ## İpuçları
-- Değişikliklerinizi sık sık kaydedin ve açıklayıcı mesajlar ekleyin. Bu, ileride değişikliklerinizi anlamanızı kolaylaştırır.
-- `svn status` komutunu kullanarak yerel kopyanızdaki değişikliklerin durumunu kontrol edin. Bu, hangi dosyaların değiştiğini veya eklenip silindiğini görmenizi sağlar.
-- Projelerinizde birden fazla dal (branch) kullanıyorsanız, her dalda çalışırken dikkatli olun ve hangi dalda olduğunuzu kontrol edin.
-
-Bu bilgilerle `svn` komutunu etkili bir şekilde kullanarak projelerinizin sürüm kontrolünü yönetebilirsiniz.
+- Değişikliklerinizi sık sık `commit` edin, böylece kaybolma riski azalır.
+- `svn status` komutunu kullanarak, hangi dosyaların değiştiğini kontrol edin.
+- Her `commit` işlemine açıklayıcı bir mesaj ekleyin, böylece geçmişteki değişiklikleri anlamak daha kolay olur.

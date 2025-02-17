@@ -1,43 +1,43 @@
-# [리눅스] Bash cmake 사용법
+# [Linux] Bash cmake Uso: Herramienta para la construcción de proyectos
 
 ## Overview
-El comando `cmake` es una herramienta de construcción de software que utiliza archivos de configuración para generar archivos de construcción en diferentes plataformas. Su propósito principal es simplificar el proceso de compilación de proyectos de software, permitiendo a los desarrolladores definir cómo se debe construir su proyecto de manera portátil y eficiente. `cmake` es especialmente útil para proyectos que necesitan ser compilados en múltiples sistemas operativos y entornos.
+El comando `cmake` es una herramienta de automatización de construcción que utiliza archivos de configuración para generar archivos de construcción específicos de la plataforma. Permite a los desarrolladores compilar y gestionar proyectos de software de manera eficiente, facilitando la configuración de entornos de desarrollo.
 
 ## Usage
 La sintaxis básica del comando `cmake` es la siguiente:
 
 ```bash
-cmake [opciones] [ruta]
+cmake [opciones] [argumentos]
 ```
 
-### Opciones Comunes:
-- `-S <ruta>`: Especifica la ruta del directorio fuente donde se encuentran los archivos de configuración de CMake.
-- `-B <ruta>`: Especifica la ruta del directorio de construcción donde se generarán los archivos de construcción.
-- `-G <generador>`: Especifica el generador de construcción a utilizar (por ejemplo, "Unix Makefiles", "Ninja", etc.).
-- `-D <variable>=<valor>`: Define una variable de configuración que se puede usar en el archivo CMakeLists.txt.
+## Common Options
+- `-S <directorio>`: Especifica el directorio fuente donde se encuentra el código fuente del proyecto.
+- `-B <directorio>`: Especifica el directorio de construcción donde se generarán los archivos de construcción.
+- `-G <generador>`: Especifica el generador de construcción a utilizar (por ejemplo, "Unix Makefiles" o "Ninja").
+- `-D <variable>=<valor>`: Define una variable de configuración que puede ser utilizada en el archivo CMakeLists.txt.
 
-## Examples
-### Ejemplo 1: Construcción básica
-Para crear un directorio de construcción y generar los archivos de construcción utilizando el generador de Makefiles, puedes usar el siguiente comando:
+## Common Examples
+1. **Crear un directorio de construcción y generar archivos de construcción**:
+   ```bash
+   cmake -S . -B build
+   ```
 
-```bash
-mkdir build
-cd build
-cmake -S .. -B . -G "Unix Makefiles"
-```
+2. **Especificar un generador de construcción**:
+   ```bash
+   cmake -S . -B build -G "Unix Makefiles"
+   ```
 
-En este ejemplo, `cmake` toma los archivos de configuración del directorio padre (`..`) y genera los archivos de construcción en el directorio actual (`.`).
+3. **Definir una variable de configuración**:
+   ```bash
+   cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
+   ```
 
-### Ejemplo 2: Definir variables
-Si deseas definir una variable durante la configuración, puedes hacerlo de la siguiente manera:
-
-```bash
-cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
-```
-
-Aquí, se está configurando el proyecto para que se compile en modo "Release".
+4. **Construir el proyecto después de la configuración**:
+   ```bash
+   cmake --build build
+   ```
 
 ## Tips
-- **Organización de directorios**: Es una buena práctica mantener un directorio de construcción separado del directorio fuente para evitar la mezcla de archivos y facilitar la limpieza.
-- **Variables de configuración**: Aprovecha las variables de configuración para personalizar la construcción de tu proyecto sin modificar el archivo CMakeLists.txt.
-- **Documentación**: Consulta la documentación oficial de CMake para obtener información detallada sobre las opciones y características avanzadas que pueden ser útiles para tu proyecto.
+- Siempre es recomendable crear un directorio de construcción separado para mantener el código fuente limpio y organizado.
+- Utiliza la opción `-D` para personalizar la configuración de tu proyecto según tus necesidades específicas.
+- Revisa el archivo `CMakeLists.txt` de tu proyecto para entender qué variables y opciones puedes configurar.

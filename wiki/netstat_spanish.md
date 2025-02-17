@@ -1,45 +1,59 @@
-# [리눅스] Bash netstat 사용법
+# [Linux] Bash netstat Uso: Muestra conexiones de red y estadísticas
 
 ## Overview
-El comando `netstat` (abreviatura de "network statistics") es una herramienta de línea de comandos que se utiliza para mostrar información sobre las conexiones de red, las tablas de enrutamiento y las estadísticas de interfaz de red en sistemas operativos Unix y Linux. Su propósito principal es ayudar a los ingenieros y desarrolladores a diagnosticar problemas de red y a obtener información sobre el estado de las conexiones de red activas.
+El comando `netstat` es una herramienta de línea de comandos que se utiliza para mostrar conexiones de red, tablas de enrutamiento, estadísticas de interfaz y otras informaciones relacionadas con la red en sistemas operativos basados en Unix. Es útil para diagnosticar problemas de red y monitorear el estado de las conexiones.
 
 ## Usage
-La sintaxis básica del comando `netstat` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
-```
-netstat [opciones]
+```bash
+netstat [opciones] [argumentos]
 ```
 
-Algunas de las opciones más comunes que se pueden utilizar con `netstat` incluyen:
+## Common Options
+A continuación se presentan algunas opciones comunes que se pueden utilizar con el comando `netstat`:
 
 - `-a`: Muestra todas las conexiones y puertos de escucha.
 - `-t`: Muestra solo las conexiones TCP.
 - `-u`: Muestra solo las conexiones UDP.
-- `-n`: Muestra las direcciones y números de puerto en formato numérico, evitando la resolución de nombres.
+- `-n`: Muestra las direcciones y números de puerto en formato numérico.
 - `-l`: Muestra solo los puertos que están en estado de escucha.
-- `-p`: Muestra el identificador del proceso (PID) y el nombre del programa que está utilizando cada conexión.
+- `-p`: Muestra el identificador del proceso (PID) y el nombre del programa que está utilizando la conexión.
 
-## Examples
-Aquí hay un par de ejemplos prácticos de cómo utilizar el comando `netstat`:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `netstat`:
 
-1. Para ver todas las conexiones activas y los puertos de escucha, puedes usar el siguiente comando:
-
+1. **Mostrar todas las conexiones y puertos de escucha:**
    ```bash
    netstat -a
    ```
 
-   Este comando mostrará una lista completa de todas las conexiones y puertos en uso, junto con su estado.
-
-2. Si deseas ver solo las conexiones TCP activas en formato numérico, puedes ejecutar:
-
+2. **Mostrar solo las conexiones TCP:**
    ```bash
-   netstat -tn
+   netstat -t
    ```
 
-   Este comando filtrará la salida para mostrar solo las conexiones TCP y evitará la resolución de nombres, mostrando direcciones IP y números de puerto.
+3. **Mostrar solo las conexiones UDP:**
+   ```bash
+   netstat -u
+   ```
+
+4. **Mostrar conexiones con direcciones y puertos en formato numérico:**
+   ```bash
+   netstat -n
+   ```
+
+5. **Mostrar puertos en estado de escucha:**
+   ```bash
+   netstat -l
+   ```
+
+6. **Mostrar conexiones junto con el PID y el nombre del programa:**
+   ```bash
+   netstat -p
+   ```
 
 ## Tips
-- Utiliza la opción `-p` para identificar qué procesos están utilizando conexiones específicas. Esto puede ser útil para la depuración de problemas de red.
-- Combina opciones para obtener información más específica. Por ejemplo, `netstat -tunlp` mostrará todas las conexiones TCP y UDP en formato numérico, junto con los procesos asociados.
-- Ten en cuenta que en algunas distribuciones de Linux, `netstat` puede no estar instalado por defecto y puede ser necesario instalar el paquete `net-tools`.
-- Para obtener información más detallada sobre las interfaces de red, considera usar el comando `ifconfig` o `ip a` junto con `netstat`.
+- Utiliza `netstat -tuln` para obtener una visión rápida de los puertos TCP y UDP que están en escucha.
+- Combina opciones, como `netstat -tunlp`, para obtener información más detallada sobre las conexiones activas y los procesos asociados.
+- Recuerda que en algunos sistemas, es posible que necesites permisos de superusuario para ver información completa sobre los procesos.

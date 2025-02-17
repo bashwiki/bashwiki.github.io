@@ -1,47 +1,52 @@
-# [리눅스] Bash cal 사용법
+# [Linux] Bash cal Uso: Exibir calendários
 
 ## Overview
-O comando `cal` é uma ferramenta de linha de comando no Bash que exibe um calendário no terminal. Ele é utilizado principalmente para visualizar rapidamente o calendário de um mês ou de um ano específico. O `cal` é uma maneira prática para engenheiros e desenvolvedores acessarem informações de datas sem precisar sair do terminal.
+O comando `cal` é utilizado para exibir calendários no terminal. Ele pode mostrar o calendário do mês atual, de um mês específico ou até mesmo de um ano inteiro. É uma ferramenta útil para visualizar datas rapidamente.
 
 ## Usage
 A sintaxe básica do comando `cal` é a seguinte:
 
+```bash
+cal [opções] [argumentos]
 ```
-cal [opções] [mês] [ano]
-```
 
-### Opções Comuns:
-- `-y`: Exibe o calendário do ano atual.
-- `-m`: Exibe o mês atual.
-- `-3`: Exibe o mês atual, o mês anterior e o próximo mês.
-- `-1`: Exibe o calendário de um único mês (padrão).
-- `-A [n]`: Exibe o calendário do mês atual e dos próximos `n` meses.
-- `-B [n]`: Exibe o calendário do mês atual e dos `n` meses anteriores.
+## Common Options
+- `-m`: Exibe o calendário começando pela segunda-feira.
+- `-y`: Mostra o calendário do ano atual.
+- `-3`: Exibe o calendário do mês anterior, do mês atual e do próximo mês.
+- `-j`: Mostra o calendário com os dias do ano (número do dia).
+- `-A <n>`: Exibe n meses após o mês atual.
+- `-B <n>`: Exibe n meses antes do mês atual.
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `cal`:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `cal`:
 
-1. Para exibir o calendário do mês atual:
+1. **Exibir o calendário do mês atual:**
    ```bash
    cal
    ```
 
-2. Para exibir o calendário de um mês específico, por exemplo, março de 2024:
+2. **Exibir o calendário de um mês específico (por exemplo, março de 2023):**
    ```bash
-   cal 3 2024
+   cal 03 2023
    ```
 
-3. Para exibir o calendário do ano atual:
+3. **Exibir o calendário do ano atual:**
    ```bash
    cal -y
    ```
 
-4. Para exibir o calendário do mês atual e dos próximos dois meses:
+4. **Exibir o calendário de três meses (mês anterior, atual e próximo):**
    ```bash
-   cal -A 2
+   cal -3
+   ```
+
+5. **Exibir o calendário com os dias do ano:**
+   ```bash
+   cal -j
    ```
 
 ## Tips
-- Utilize o comando `cal` em combinação com outros comandos do Bash, como `grep` ou `less`, para filtrar ou paginar a saída, caso você esteja visualizando um calendário de um ano inteiro.
-- Experimente usar o comando `cal` em scripts para automatizar tarefas que dependem de datas, como lembretes ou planejamento de projetos.
-- Lembre-se de que o `cal` pode ser afetado pela configuração de localidade do seu sistema, então verifique se a configuração de idioma está correta para exibir os nomes dos meses e dias na sua língua preferida.
+- Utilize a opção `-m` se preferir que a semana comece na segunda-feira, que é o padrão em muitos países.
+- Combine as opções `-A` e `-B` para visualizar calendários de meses específicos em relação ao mês atual.
+- Para uma visualização mais clara, considere redirecionar a saída do comando para um arquivo de texto, se precisar consultar mais tarde.

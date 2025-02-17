@@ -1,45 +1,50 @@
-# [리눅스] Bash iostat 사용법
+# [Linux] Bash iostat Uso: Monitoreo del rendimiento de entrada/salida
 
 ## Overview
-El comando `iostat` es una herramienta de monitoreo del sistema que se utiliza para reportar estadísticas de entrada/salida (I/O) de dispositivos y particiones. Su propósito principal es ayudar a los administradores de sistemas y desarrolladores a evaluar el rendimiento de los dispositivos de almacenamiento y a identificar posibles cuellos de botella en el sistema. `iostat` proporciona información sobre el uso de CPU y las estadísticas de I/O, lo que permite un análisis más profundo del rendimiento del sistema.
+El comando `iostat` se utiliza para monitorear el rendimiento de entrada/salida de los dispositivos de almacenamiento y del sistema en general. Proporciona estadísticas sobre la utilización de la CPU y la actividad de los dispositivos de bloque, lo que ayuda a identificar cuellos de botella en el rendimiento.
 
 ## Usage
 La sintaxis básica del comando `iostat` es la siguiente:
 
 ```bash
-iostat [opciones] [intervalo] [número de repeticiones]
+iostat [opciones] [intervalo] [número de informes]
 ```
 
-### Opciones Comunes:
-- `-c`: Muestra estadísticas de CPU.
-- `-d`: Muestra estadísticas de dispositivos.
-- `-x`: Muestra estadísticas extendidas de dispositivos.
-- `-h`: Muestra las estadísticas en un formato legible (human-readable).
-- `-p`: Muestra estadísticas de particiones (por ejemplo, `-p ALL` para todas las particiones).
+## Common Options
+- `-c`: Muestra estadísticas de la CPU.
+- `-d`: Muestra estadísticas de los dispositivos de bloque.
+- `-x`: Muestra estadísticas extendidas de los dispositivos.
+- `-h`: Muestra los resultados en un formato legible (con unidades).
+- `-p`: Muestra estadísticas para particiones específicas.
 
-## Examples
-### Ejemplo 1: Monitorear estadísticas de CPU y dispositivos
-Para obtener un informe de estadísticas de CPU y dispositivos cada 5 segundos, puedes usar el siguiente comando:
+## Common Examples
 
-```bash
-iostat -c -d 5
-```
+1. **Mostrar estadísticas de CPU y dispositivos:**
+   ```bash
+   iostat
+   ```
 
-Este comando mostrará las estadísticas de CPU y de dispositivos de almacenamiento cada 5 segundos.
+2. **Mostrar estadísticas de CPU cada 5 segundos:**
+   ```bash
+   iostat -c 5
+   ```
 
-### Ejemplo 2: Estadísticas extendidas de dispositivos
-Si deseas ver estadísticas extendidas de I/O para todos los dispositivos, puedes ejecutar:
+3. **Mostrar estadísticas de dispositivos de bloque:**
+   ```bash
+   iostat -d
+   ```
 
-```bash
-iostat -x -h 2 3
-```
+4. **Mostrar estadísticas extendidas de dispositivos:**
+   ```bash
+   iostat -x 2 3
+   ```
 
-Este comando mostrará estadísticas extendidas en un formato legible cada 2 segundos, repitiéndose 3 veces.
+5. **Mostrar estadísticas con formato legible:**
+   ```bash
+   iostat -h
+   ```
 
 ## Tips
-- Utiliza la opción `-h` para facilitar la lectura de las estadísticas, especialmente en sistemas con grandes volúmenes de datos.
-- Combina `iostat` con otras herramientas como `vmstat` y `mpstat` para obtener una visión más completa del rendimiento del sistema.
-- Si estás analizando un problema de rendimiento, toma nota de las estadísticas en momentos de alta carga para identificar patrones o anomalías.
-- Considera redirigir la salida a un archivo para un análisis posterior, utilizando la sintaxis `iostat -x -h 2 3 > salida.txt`. 
-
-Con estas herramientas y ejemplos, podrás utilizar `iostat` de manera efectiva para monitorear y optimizar el rendimiento de tu sistema.
+- Utiliza `iostat` junto con otros comandos como `vmstat` y `mpstat` para obtener una visión más completa del rendimiento del sistema.
+- Monitorea el rendimiento durante períodos de alta carga para identificar problemas potenciales.
+- Considera redirigir la salida a un archivo para análisis posterior, usando `iostat > salida.txt`.

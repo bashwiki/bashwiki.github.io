@@ -1,43 +1,49 @@
-# [리눅스] Bash export 사용법
+# [리눅스] Bash export 사용법: 환경 변수 설정
 
 ## Overview
-`export` 명령어는 Bash 셸에서 환경 변수를 설정하고 이를 하위 프로세스에 전달하는 데 사용됩니다. 이 명령어를 통해 변수를 환경 변수로 변환하여, 현재 셸 세션뿐만 아니라 그 하위에서 실행되는 모든 프로세스에서 접근할 수 있도록 합니다. 이는 스크립트나 프로그램이 특정 설정이나 값을 필요로 할 때 유용합니다.
+`export` 명령어는 셸에서 환경 변수를 설정하고 이를 자식 프로세스에 전달하는 데 사용됩니다. 이를 통해 특정 변수의 값을 다른 프로그램이나 스크립트에서 사용할 수 있도록 할 수 있습니다.
 
 ## Usage
 기본 구문은 다음과 같습니다:
-
 ```bash
-export VARIABLE_NAME=value
+export [options] [arguments]
 ```
 
-여기서 `VARIABLE_NAME`은 설정할 환경 변수의 이름이고, `value`는 그 변수에 할당할 값입니다. 
+## Common Options
+- `-p`: 현재 환경 변수 목록을 출력합니다.
+- `-n`: 지정한 변수를 export 목록에서 제거합니다.
+- `-f`: 함수도 export할 수 있도록 합니다.
 
-### Common Options
-- `-p`: 현재 셸에서 설정된 모든 환경 변수를 출력합니다.
-- `-n`: 지정한 변수의 export 속성을 제거합니다.
-- `-f`: 함수에 대해 export를 수행합니다.
+## Common Examples
+1. **환경 변수 설정하기**
+   ```bash
+   export MY_VARIABLE="Hello, World!"
+   ```
 
-## Examples
-### 예제 1: 환경 변수 설정
-```bash
-export MY_VAR="Hello, World!"
-```
-위 명령어는 `MY_VAR`라는 환경 변수를 설정하고 "Hello, World!"라는 값을 할당합니다. 이후 하위 프로세스에서 `MY_VAR`를 사용할 수 있습니다.
+2. **환경 변수 확인하기**
+   ```bash
+   echo $MY_VARIABLE
+   ```
 
-### 예제 2: 환경 변수 확인
-```bash
-export -p
-```
-이 명령어는 현재 셸에서 설정된 모든 환경 변수를 출력합니다. 이를 통해 어떤 변수가 설정되어 있는지 확인할 수 있습니다.
+3. **변수 목록 출력하기**
+   ```bash
+   export -p
+   ```
+
+4. **변수 제거하기**
+   ```bash
+   export -n MY_VARIABLE
+   ```
+
+5. **함수 export하기**
+   ```bash
+   my_function() {
+       echo "This is a function"
+   }
+   export -f my_function
+   ```
 
 ## Tips
-- 환경 변수를 설정할 때, 변수 이름은 대문자로 작성하는 것이 관례입니다.
-- 스크립트에서 환경 변수를 사용하려면, 해당 변수를 `export`로 설정한 후 스크립트를 실행해야 하며, 그렇지 않으면 변수가 하위 프로세스에서 인식되지 않습니다.
-- 여러 변수를 한 번에 설정하려면, 각 변수를 세미콜론으로 구분하여 사용할 수 있습니다:
-  ```bash
-  export VAR1="value1"; export VAR2="value2"
-  ```
-- `unset` 명령어를 사용하여 더 이상 필요하지 않은 환경 변수를 제거할 수 있습니다:
-  ```bash
-  unset MY_VAR
-  ```
+- 환경 변수를 설정한 후에는 해당 변수를 사용하는 프로그램을 실행하기 전에 export 명령어를 사용해야 합니다.
+- 스크립트 내에서 변수를 설정할 때는 스크립트의 시작 부분에 export를 사용하는 것이 좋습니다.
+- 변수를 영구적으로 설정하려면 `~/.bashrc` 또는 `~/.bash_profile` 파일에 export 명령어를 추가하세요.

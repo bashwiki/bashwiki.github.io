@@ -1,42 +1,50 @@
-# [리눅스] Bash hostname 사용법
+# [Linux] Bash hostname cách sử dụng: [hiển thị hoặc thiết lập tên máy chủ]
 
 ## Tổng quan
-Lệnh `hostname` trong Bash được sử dụng để hiển thị hoặc thiết lập tên máy chủ của hệ thống. Tên máy chủ là một phần quan trọng trong việc xác định một thiết bị trong mạng, giúp người dùng và các ứng dụng nhận diện và giao tiếp với nhau. Lệnh này rất hữu ích cho các kỹ sư và nhà phát triển khi cần kiểm tra hoặc thay đổi tên máy chủ của hệ thống.
+Lệnh `hostname` được sử dụng để hiển thị hoặc thiết lập tên máy chủ của hệ thống. Tên máy chủ là một phần quan trọng trong việc xác định và quản lý các thiết bị trong mạng.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `hostname` như sau:
-
-```bash
-hostname [OPTION] [NAME]
+```
+hostname [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-f`, `--fqdn`: Hiển thị tên miền đầy đủ (Fully Qualified Domain Name) của máy chủ.
+## Tùy chọn phổ biến
+- `-a`, `--alias`: Hiển thị tên bí danh của máy chủ.
+- `-d`, `--domain`: Hiển thị tên miền của máy chủ.
+- `-f`, `--fqdn`: Hiển thị tên miền đầy đủ (FQDN) của máy chủ.
 - `-i`, `--ip-address`: Hiển thị địa chỉ IP của máy chủ.
 - `-s`, `--short`: Hiển thị tên ngắn của máy chủ.
-- `--help`: Hiển thị thông tin trợ giúp về lệnh.
-- `--version`: Hiển thị phiên bản của lệnh.
 
-## Ví dụ
-### Ví dụ 1: Hiển thị tên máy chủ hiện tại
-Để hiển thị tên máy chủ hiện tại, bạn có thể sử dụng lệnh đơn giản sau:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `hostname`:
 
-```bash
-hostname
-```
+1. Hiển thị tên máy chủ hiện tại:
+   ```bash
+   hostname
+   ```
 
-Kết quả sẽ là tên máy chủ của hệ thống bạn đang sử dụng.
+2. Hiển thị tên miền đầy đủ của máy chủ:
+   ```bash
+   hostname -f
+   ```
 
-### Ví dụ 2: Thiết lập tên máy chủ mới
-Để thay đổi tên máy chủ, bạn có thể sử dụng lệnh sau (cần quyền quản trị):
+3. Thiết lập tên máy chủ mới:
+   ```bash
+   sudo hostname new-hostname
+   ```
 
-```bash
-sudo hostname new-hostname
-```
+4. Hiển thị địa chỉ IP của máy chủ:
+   ```bash
+   hostname -i
+   ```
 
-Thay thế `new-hostname` bằng tên máy chủ mà bạn muốn thiết lập.
+5. Hiển thị tên ngắn của máy chủ:
+   ```bash
+   hostname -s
+   ```
 
 ## Mẹo
-- Khi thay đổi tên máy chủ, hãy chắc chắn rằng tên mới không trùng với bất kỳ tên nào khác trong mạng để tránh xung đột.
-- Sau khi thay đổi tên máy chủ, bạn nên khởi động lại dịch vụ mạng hoặc khởi động lại hệ thống để đảm bảo rằng các thay đổi có hiệu lực.
-- Sử dụng tùy chọn `-f` để kiểm tra tên miền đầy đủ của máy chủ, điều này rất hữu ích khi bạn làm việc trong môi trường mạng phức tạp.
+- Để thay đổi tên máy chủ một cách vĩnh viễn, bạn cần chỉnh sửa tệp cấu hình `/etc/hostname` và khởi động lại dịch vụ mạng.
+- Sử dụng lệnh `hostnamectl` trên các hệ thống sử dụng systemd để quản lý tên máy chủ một cách dễ dàng hơn.
+- Kiểm tra tên máy chủ thường xuyên để đảm bảo rằng nó đúng với cấu hình mạng của bạn, đặc biệt trong môi trường đa máy chủ.

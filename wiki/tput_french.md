@@ -1,44 +1,60 @@
-# [리눅스] Bash tput 사용법
+# [Linux] Bash tput : Contrôler l'affichage du terminal
 
 ## Overview
-La commande `tput` est un utilitaire de terminal qui permet de contrôler les capacités d'affichage d'un terminal. Elle est principalement utilisée pour manipuler les attributs de l'affichage, tels que la couleur du texte, la position du curseur, et d'autres fonctionnalités de mise en forme. `tput` interagit avec la base de données des terminaux pour fournir des commandes qui peuvent rendre vos scripts Bash plus interactifs et visuellement attrayants.
+La commande `tput` est utilisée pour contrôler les fonctionnalités d'affichage du terminal. Elle permet de manipuler les caractéristiques visuelles, comme les couleurs, les styles de texte et la position du curseur, en fonction des capacités du terminal.
 
 ## Usage
 La syntaxe de base de la commande `tput` est la suivante :
 
 ```bash
-tput [option] [argument]
+tput [options] [arguments]
 ```
 
-### Options courantes :
-- `setaf <num>` : Définit la couleur du texte (foreground) en utilisant un code de couleur numérique.
-- `setab <num>` : Définit la couleur de fond (background) en utilisant un code de couleur numérique.
-- `clear` : Efface l'écran du terminal.
-- `cup <x> <y>` : Déplace le curseur à la position (x, y) dans le terminal.
+## Common Options
+Voici quelques options courantes pour `tput` :
+
+- `setaf [n]` : Définit la couleur de premier plan (texte) à la couleur spécifiée par le numéro `n`.
+- `setab [n]` : Définit la couleur d'arrière-plan à la couleur spécifiée par le numéro `n`.
 - `bold` : Active le texte en gras.
+- `clear` : Efface l'écran du terminal.
+- `cup [x] [y]` : Déplace le curseur à la position spécifiée par les coordonnées `x` (ligne) et `y` (colonne).
 
-## Examples
-Voici quelques exemples pratiques montrant comment utiliser la commande `tput`.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `tput` :
 
-### Exemple 1 : Changer la couleur du texte
-Pour afficher un texte en rouge, vous pouvez utiliser la commande suivante :
+1. **Changer la couleur du texte :**
+   ```bash
+   tput setaf 1  # Change le texte en rouge
+   echo "Texte en rouge"
+   tput sgr0     # Réinitialise les attributs du terminal
+   ```
 
-```bash
-tput setaf 1
-echo "Ceci est un texte en rouge."
-tput sgr0  # Réinitialise les attributs du terminal
-```
+2. **Effacer l'écran :**
+   ```bash
+   tput clear
+   ```
 
-### Exemple 2 : Effacer l'écran et déplacer le curseur
-Pour effacer l'écran et déplacer le curseur à la position (5, 10), utilisez :
+3. **Déplacer le curseur :**
+   ```bash
+   tput cup 10 20  # Déplace le curseur à la ligne 10, colonne 20
+   echo "Texte à une position spécifique"
+   ```
 
-```bash
-tput clear
-tput cup 5 10
-echo "Le curseur est maintenant à la ligne 5, colonne 10."
-```
+4. **Activer le texte en gras :**
+   ```bash
+   tput bold
+   echo "Texte en gras"
+   tput sgr0  # Réinitialise les attributs du terminal
+   ```
+
+5. **Changer la couleur d'arrière-plan :**
+   ```bash
+   tput setab 4  # Change l'arrière-plan en bleu
+   echo "Texte avec arrière-plan bleu"
+   tput sgr0     # Réinitialise les attributs du terminal
+   ```
 
 ## Tips
-- Utilisez `tput sgr0` à la fin de vos scripts pour réinitialiser les attributs du terminal à leur état par défaut, afin d'éviter que les modifications d'affichage n'affectent les commandes suivantes.
-- Consultez la base de données des terminaux (comme `terminfo`) pour connaître les codes de couleur spécifiques à votre terminal, car ils peuvent varier d'un environnement à l'autre.
-- Combinez plusieurs commandes `tput` pour créer des interfaces utilisateur textuelles plus complexes et attrayantes dans vos scripts.
+- Utilisez `tput sgr0` après avoir appliqué des styles pour réinitialiser les attributs du terminal, afin d'éviter d'affecter les commandes suivantes.
+- Testez les différentes couleurs et styles disponibles en utilisant `tput setaf` et `tput setab` avec des numéros de couleur allant de 0 à 7 (ou plus, selon le terminal).
+- Intégrez `tput` dans vos scripts pour améliorer l'interaction utilisateur avec des sorties colorées et bien formatées.

@@ -1,7 +1,7 @@
-# [리눅스] Bash pwd 사용법
+# [Linux] Bash pwd utilisation : Afficher le répertoire de travail actuel
 
 ## Overview
-La commande `pwd` (print working directory) est utilisée dans les systèmes Unix et Linux pour afficher le chemin absolu du répertoire de travail actuel. Son principal objectif est d'informer l'utilisateur de l'emplacement exact dans le système de fichiers où il se trouve à un moment donné. Cela est particulièrement utile lors de la navigation dans des répertoires ou lors de l'exécution de scripts.
+La commande `pwd` (print working directory) est utilisée dans les systèmes Unix et Linux pour afficher le chemin absolu du répertoire de travail actuel dans lequel l'utilisateur se trouve. C'est un outil essentiel pour naviguer dans le système de fichiers.
 
 ## Usage
 La syntaxe de base de la commande `pwd` est la suivante :
@@ -10,29 +10,31 @@ La syntaxe de base de la commande `pwd` est la suivante :
 pwd [options]
 ```
 
-### Options courantes
-- `-L` : Affiche le chemin logique du répertoire de travail actuel. C'est l'option par défaut.
-- `-P` : Affiche le chemin physique, en résolvant tous les liens symboliques. Cela peut être utile pour obtenir le chemin réel sur le système de fichiers.
+## Common Options
+Voici quelques options courantes pour la commande `pwd` :
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `pwd`.
+- `-L` : Affiche le chemin logique du répertoire de travail actuel.
+- `-P` : Affiche le chemin physique, en résolvant les liens symboliques.
 
-### Exemple 1 : Afficher le répertoire de travail actuel
-```bash
-$ pwd
-/home/utilisateur/projet
-```
-Dans cet exemple, la commande `pwd` affiche le chemin absolu du répertoire de travail actuel, qui est `/home/utilisateur/projet`.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `pwd` :
 
-### Exemple 2 : Afficher le chemin physique
-```bash
-$ cd /home/utilisateur/projet/symlink
-$ pwd -P
-/home/utilisateur/projet/réel
-```
-Dans cet exemple, après avoir changé de répertoire vers un lien symbolique, l'utilisation de `pwd -P` affiche le chemin réel, résolvant ainsi le lien symbolique.
+1. Afficher le répertoire de travail actuel :
+   ```bash
+   pwd
+   ```
+
+2. Afficher le chemin logique du répertoire de travail :
+   ```bash
+   pwd -L
+   ```
+
+3. Afficher le chemin physique du répertoire de travail :
+   ```bash
+   pwd -P
+   ```
 
 ## Tips
-- Utilisez `pwd` régulièrement pour vous assurer que vous êtes dans le bon répertoire avant d'exécuter des commandes qui pourraient affecter des fichiers ou des répertoires.
+- Utilisez `pwd` régulièrement pour vous assurer que vous êtes dans le bon répertoire avant d'exécuter d'autres commandes.
 - Combinez `pwd` avec d'autres commandes comme `cd` pour naviguer efficacement dans le système de fichiers.
-- Si vous travaillez avec des scripts, envisagez d'utiliser `pwd` pour capturer le chemin actuel et l'utiliser dans des opérations de fichiers.
+- N'oubliez pas que `pwd` est sensible aux permissions ; si vous n'avez pas accès à un répertoire, vous ne pourrez pas voir son chemin.

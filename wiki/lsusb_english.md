@@ -1,47 +1,51 @@
-# [리눅스] Bash lsusb 사용법
+# [Linux] Bash lsusb Usage: List USB devices
 
 ## Overview
-The `lsusb` command is a utility in Linux that displays information about USB (Universal Serial Bus) devices connected to the system. It provides a list of all USB devices, including their vendor and product IDs, class codes, and other relevant details. This command is particularly useful for engineers and developers who need to troubleshoot USB device issues or gather information about connected hardware.
+The `lsusb` command is used in Linux to display information about USB (Universal Serial Bus) devices connected to the system. It provides details such as the device ID, vendor ID, and device class, making it a useful tool for troubleshooting and managing USB hardware.
 
 ## Usage
 The basic syntax of the `lsusb` command is as follows:
 
 ```bash
-lsusb [options]
+lsusb [options] [arguments]
 ```
 
-### Common Options
-- `-v`: Verbose output. This option provides detailed information about each USB device.
-- `-t`: Displays the USB device hierarchy in a tree format, which can help visualize the connections between devices.
-- `-s <bus>:<device>`: Show information for a specific USB device identified by its bus and device number.
-- `-d <vendor>:<product>`: Show information for a specific USB device identified by its vendor and product ID.
+## Common Options
+- `-v`: Verbose output. Displays detailed information about each USB device.
+- `-t`: Displays the USB device hierarchy in a tree format.
+- `-s <bus>:<device>`: Show only the specified device on the given bus.
+- `-d <vendor>:<product>`: Show only devices with the specified vendor and product ID.
+- `-h`: Display help information about the command and its options.
 
-## Examples
+## Common Examples
+Here are some practical examples of using the `lsusb` command:
 
-### Example 1: Basic Usage
-To list all USB devices connected to your system, simply run:
+1. **List all USB devices:**
+   ```bash
+   lsusb
+   ```
 
-```bash
-lsusb
-```
+2. **Get detailed information about all USB devices:**
+   ```bash
+   lsusb -v
+   ```
 
-This command will output a list of USB devices along with their respective IDs and descriptions.
+3. **Display USB device hierarchy:**
+   ```bash
+   lsusb -t
+   ```
 
-### Example 2: Verbose Output
-To get detailed information about all connected USB devices, use the verbose option:
+4. **Show information for a specific device (e.g., bus 001, device 002):**
+   ```bash
+   lsusb -s 001:002
+   ```
 
-```bash
-lsusb -v
-```
-
-This command will provide extensive details about each device, including configurations, interfaces, and endpoint descriptors.
+5. **Filter devices by vendor and product ID (e.g., vendor ID 1234 and product ID 5678):**
+   ```bash
+   lsusb -d 1234:5678
+   ```
 
 ## Tips
-- Use the `-t` option to visualize the USB device hierarchy, which can be particularly helpful when troubleshooting complex setups with multiple connected devices.
-- Combine `lsusb` with other commands like `grep` to filter results. For example, if you are looking for a specific device, you can run:
-
-  ```bash
-  lsusb | grep "DeviceName"
-  ```
-
-- Regularly check for updates to the `lsusb` command, as newer versions may include additional features or improvements in device detection.
+- Use `lsusb -v` for a comprehensive view of device capabilities, especially useful for debugging.
+- Combine `lsusb` with other commands like `grep` to filter results based on specific criteria.
+- Regularly check connected devices with `lsusb` when troubleshooting USB-related issues to ensure proper recognition by the system.

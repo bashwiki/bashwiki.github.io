@@ -1,54 +1,51 @@
-# [리눅스] Bash times 사용법
+# [Linux] Bash times: Display process timing information
 
 ## Overview
-The `times` command in Bash is used to display the accumulated user and system times for the current shell and its child processes. This command provides insight into how much CPU time has been consumed by the shell and its subprocesses, which can be particularly useful for performance monitoring and optimization.
+The `times` command in Bash is used to display the accumulated user and system time for the current shell and its child processes. This command is particularly useful for monitoring the performance of scripts and commands, allowing users to understand how much CPU time has been consumed.
 
 ## Usage
-The basic syntax of the `times` command is simply:
+The basic syntax of the `times` command is as follows:
 
 ```bash
-times
+times [options] [arguments]
 ```
 
-This command does not take any options or arguments. When executed, it will output the total user and system time in seconds for the current shell session.
+However, `times` does not take any arguments or options in most cases; it simply returns the timing information when executed.
 
-## Examples
+## Common Options
+The `times` command does not have any specific options or arguments. It is a straightforward command that outputs the timing data without additional configuration.
+
+## Common Examples
 
 ### Example 1: Basic Usage
-To see the accumulated time for the current shell session, simply run:
+To display the accumulated time for the current shell and its child processes, simply run:
 
 ```bash
 times
 ```
 
-The output will look something like this:
-
-```
-0.00 0.00
-```
-
-Here, the first number represents the user time, and the second number represents the system time.
-
-### Example 2: After Running Commands
-You can run a few commands and then check the accumulated time. For instance:
+### Example 2: After Running a Command
+You can run a command and then check the timing information. For example:
 
 ```bash
 sleep 2
-ls
+times
+```
+This will show the time spent in user and system mode after the `sleep` command has completed.
+
+### Example 3: In a Script
+You can include `times` in a script to monitor the execution time of various commands:
+
+```bash
+#!/bin/bash
+echo "Starting script..."
+sleep 3
+echo "Running some commands..."
+ls -l
 times
 ```
 
-After executing the `times` command, you might see an output like:
-
-```
-0.02 0.01
-```
-
-This indicates that the user time was 0.02 seconds and the system time was 0.01 seconds for the commands executed in the current shell session.
-
 ## Tips
-- Use the `times` command after running a series of commands to gauge their performance impact in terms of CPU time.
-- Since `times` only displays the time for the current shell session, consider using it in scripts or interactive sessions where you want to monitor resource usage.
-- Remember that the output is cumulative; if you run `times` multiple times, it will show the total time since the last shell session started.
-
-By utilizing the `times` command, developers and engineers can better understand the resource utilization of their scripts and commands, aiding in performance tuning and optimization efforts.
+- Use `times` at the end of your scripts to get a summary of how much CPU time was used.
+- Combine `times` with other commands in a script to analyze performance across multiple operations.
+- Remember that `times` only shows the time for the current shell and its child processes, so it won't provide information about other running processes.

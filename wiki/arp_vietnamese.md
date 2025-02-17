@@ -1,40 +1,44 @@
-# [리눅스] Bash arp 사용법
+# [Linux] Bash arp Cách sử dụng: Quản lý bảng ARP
 
 ## Tổng quan
-Lệnh `arp` trong Bash được sử dụng để quản lý bảng ARP (Address Resolution Protocol) trên hệ thống. Bảng ARP lưu trữ các địa chỉ IP và địa chỉ MAC tương ứng, cho phép các thiết bị trong mạng nội bộ giao tiếp với nhau. Lệnh này chủ yếu được sử dụng để xem, thêm, hoặc xóa các mục trong bảng ARP, giúp quản lý kết nối mạng hiệu quả hơn.
+Lệnh `arp` được sử dụng để quản lý bảng ARP (Address Resolution Protocol) trên hệ thống. Bảng ARP lưu trữ các địa chỉ IP và địa chỉ MAC tương ứng, giúp thiết bị trong mạng có thể giao tiếp với nhau.
 
 ## Cách sử dụng
-Cú pháp cơ bản của lệnh `arp` như sau:
-
-```bash
-arp [options] [hostname]
+Cú pháp cơ bản của lệnh arp như sau:
+```
+arp [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
+## Các tùy chọn phổ biến
 - `-a`: Hiển thị tất cả các mục trong bảng ARP.
-- `-d hostname`: Xóa mục ARP cho hostname cụ thể.
-- `-s hostname hw_addr`: Thêm một mục ARP mới với hostname và địa chỉ MAC cụ thể.
+- `-d`: Xóa một mục khỏi bảng ARP.
+- `-s`: Thêm một mục mới vào bảng ARP.
+- `-n`: Hiển thị địa chỉ IP mà không cần phân giải tên miền.
 
-## Ví dụ
-### Ví dụ 1: Hiển thị bảng ARP
-Để xem tất cả các mục trong bảng ARP, bạn có thể sử dụng lệnh sau:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh arp:
 
-```bash
-arp -a
-```
+1. **Hiển thị tất cả các mục trong bảng ARP:**
+   ```bash
+   arp -a
+   ```
 
-Lệnh này sẽ hiển thị danh sách các địa chỉ IP và địa chỉ MAC tương ứng mà hệ thống đã lưu trữ.
+2. **Xóa một mục khỏi bảng ARP:**
+   ```bash
+   arp -d 192.168.1.10
+   ```
 
-### Ví dụ 2: Thêm một mục ARP
-Nếu bạn muốn thêm một mục ARP mới, bạn có thể sử dụng lệnh sau:
+3. **Thêm một mục mới vào bảng ARP:**
+   ```bash
+   arp -s 192.168.1.20 00:1A:2B:3C:4D:5E
+   ```
 
-```bash
-arp -s 192.168.1.10 00:1A:2B:3C:4D:5E
-```
-
-Lệnh này sẽ thêm một mục vào bảng ARP, liên kết địa chỉ IP `192.168.1.10` với địa chỉ MAC `00:1A:2B:3C:4D:5E`.
+4. **Hiển thị địa chỉ IP mà không phân giải tên miền:**
+   ```bash
+   arp -n
+   ```
 
 ## Mẹo
-- Hãy chắc chắn rằng bạn có quyền truy cập đủ để thực hiện các thay đổi trong bảng ARP, vì một số lệnh yêu cầu quyền quản trị.
-- Kiểm tra định kỳ bảng ARP của bạn để đảm bảo rằng không có mục nào lỗi thời hoặc không chính xác, điều này có thể gây ra sự cố kết nối mạng.
-- Sử dụng lệnh `arp -d` để xóa các mục không cần thiết, giúp giữ cho bảng ARP của bạn gọn gàng và hiệu quả hơn.
+- Hãy chắc chắn rằng bạn có quyền quản trị khi sử dụng các tùy chọn xóa hoặc thêm mục vào bảng ARP.
+- Sử dụng lệnh `arp -a` thường xuyên để kiểm tra các mục trong bảng ARP, giúp phát hiện các vấn đề mạng kịp thời.
+- Nếu bạn gặp phải vấn đề kết nối mạng, hãy thử xóa các mục cũ trong bảng ARP và để hệ thống tự động cập nhật lại.

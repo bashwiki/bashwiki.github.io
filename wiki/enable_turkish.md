@@ -1,36 +1,48 @@
-# [리눅스] Bash enable 사용법
+# [Linux] Bash enable kullanımı: Komutları etkinleştirir veya devre dışı bırakır
 
-## Overview
-`enable` komutu, Bash kabuğunda yerleşik (built-in) komutları etkinleştirmek veya devre dışı bırakmak için kullanılır. Bu komut, kullanıcıların belirli bir komutun kullanılabilirliğini kontrol etmelerine ve gerektiğinde bu komutları yönetmelerine olanak tanır. Özellikle, kullanıcıların kendi kabuk ortamlarını özelleştirmelerine yardımcı olur.
+## Genel Bakış
+`enable` komutu, Bash kabuğunda yerleşik komutları etkinleştirmek veya devre dışı bırakmak için kullanılır. Bu komut, kullanıcıların belirli komutları geçici olarak devre dışı bırakmalarına veya etkinleştirmelerine olanak tanır.
 
-## Usage
-Temel sözdizimi şu şekildedir:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-enable [komut]
+enable [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler:
+## Yaygın Seçenekler
 - `-n, --disable`: Belirtilen komutu devre dışı bırakır.
-- `-a, --all`: Tüm yerleşik komutları listeler.
-- `-p, --prompt`: Komutun mevcut durumunu gösterir.
+- `-s, --enable`: Belirtilen komutu etkinleştirir.
+- `-a, --all`: Tüm yerleşik komutları etkinleştirir veya devre dışı bırakır.
 
-## Examples
-### Örnek 1: Bir Komutu Etkinleştirme
-Aşağıdaki komut, `echo` komutunu etkinleştirir (varsayılan olarak etkin olmalıdır):
+## Yaygın Örnekler
+Aşağıda `enable` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-```bash
-enable echo
-```
-
-### Örnek 2: Bir Komutu Devre Dışı Bırakma
-Aşağıdaki komut, `echo` komutunu devre dışı bırakır:
-
+### 1. Bir komutu devre dışı bırakma
 ```bash
 enable -n echo
 ```
+Bu komut, `echo` komutunu devre dışı bırakır.
 
-## Tips
-- `enable` komutunu kullanmadan önce, hangi komutların yerleşik olduğunu ve hangilerinin devre dışı bırakılabileceğini kontrol etmek için `enable -a` komutunu çalıştırabilirsiniz.
-- Komutları devre dışı bırakmak, kabuk ortamınızda karışıklığı önlemek için yararlı olabilir, ancak dikkatli kullanılmalıdır. Yanlışlıkla önemli bir komutu devre dışı bırakmak, iş akışınızı olumsuz etkileyebilir.
-- `enable` komutunu kullanarak, kabuk oturumunuzun başlangıcında belirli komutları otomatik olarak etkinleştirmek veya devre dışı bırakmak için bir başlangıç dosyası (örneğin, `.bashrc`) oluşturabilirsiniz.
+### 2. Bir komutu etkinleştirme
+```bash
+enable -s echo
+```
+Bu komut, `echo` komutunu etkinleştirir.
+
+### 3. Tüm komutları devre dışı bırakma
+```bash
+enable -n
+```
+Bu komut, tüm yerleşik komutları devre dışı bırakır.
+
+### 4. Tüm komutları etkinleştirme
+```bash
+enable -a
+```
+Bu komut, tüm yerleşik komutları etkinleştirir.
+
+## İpuçları
+- `enable` komutunu kullanmadan önce, hangi komutların etkin veya devre dışı olduğunu kontrol etmek için sadece `enable` yazabilirsiniz.
+- `enable` komutunu kullanırken dikkatli olun; bazı komutları devre dışı bırakmak, shell oturumunuzda beklenmedik davranışlara yol açabilir.
+- Geçici değişiklikler yapmak istiyorsanız, `enable` komutunu bir oturumda kullanın; bu değişiklikler yeni bir oturumda geçerli olmayacaktır.

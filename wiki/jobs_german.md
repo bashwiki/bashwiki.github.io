@@ -1,52 +1,46 @@
-# [리눅스] Bash jobs 사용법
+# [Linux] Bash jobs Verwendung: Zeigt aktive Jobs an
 
 ## Übersicht
-Der Befehl `jobs` in Bash wird verwendet, um eine Liste der aktuellen Hintergrund- und gestoppten Prozesse anzuzeigen, die von der aktuellen Shell-Instanz verwaltet werden. Dies ist besonders nützlich, um den Status von Prozessen zu überwachen, die im Hintergrund laufen, oder um festzustellen, ob ein Prozess angehalten wurde.
+Der Befehl `jobs` wird in der Bash verwendet, um eine Liste der aktuell laufenden und gestoppten Jobs im aktuellen Terminal anzuzeigen. Dies ist besonders nützlich, um den Status von Hintergrundprozessen zu überwachen.
 
 ## Verwendung
 Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-jobs [OPTIONEN]
+jobs [Optionen]
 ```
 
-### Häufige Optionen
-- `-l`: Zeigt die Prozess-IDs (PIDs) der Jobs an.
-- `-n`: Listet nur die Jobs auf, die seit der letzten Anzeige geändert wurden.
-- `-p`: Gibt nur die PIDs der Jobs aus.
+## Häufige Optionen
+- `-l`: Zeigt die Prozess-ID (PID) der Jobs an.
+- `-n`: Zeigt nur die Jobs an, die seit dem letzten Aufruf von `jobs` geändert wurden.
+- `-p`: Gibt nur die Prozess-IDs der Jobs aus.
 
-Wenn keine Optionen angegeben werden, zeigt `jobs` eine einfache Liste der aktuellen Jobs mit ihrem Status (gestoppt oder laufend) an.
+## Häufige Beispiele
+1. **Einfaches Anzeigen von Jobs:**
+   ```bash
+   jobs
+   ```
+   Dies zeigt eine Liste aller aktiven und gestoppten Jobs an.
 
-## Beispiele
-### Beispiel 1: Grundlegende Verwendung
-Um alle aktuellen Jobs anzuzeigen, geben Sie einfach den Befehl `jobs` ein:
+2. **Jobs mit Prozess-IDs anzeigen:**
+   ```bash
+   jobs -l
+   ```
+   Diese Variante zeigt die Jobs zusammen mit ihren Prozess-IDs.
 
-```bash
-jobs
-```
+3. **Nur neue oder geänderte Jobs anzeigen:**
+   ```bash
+   jobs -n
+   ```
+   Hiermit werden nur die Jobs angezeigt, die seit dem letzten Befehl geändert wurden.
 
-Die Ausgabe könnte wie folgt aussehen:
-
-```
-[1]+  1234 Stopped                 nano
-[2]-  5678 Running                 sleep 100 &
-```
-
-### Beispiel 2: Jobs mit Prozess-IDs anzeigen
-Um die Prozess-IDs der Jobs anzuzeigen, verwenden Sie die `-l` Option:
-
-```bash
-jobs -l
-```
-
-Die Ausgabe könnte so aussehen:
-
-```
-[1]+  1234 Stopped                 nano
-[2]-  5678 Running                 sleep 100 &
-```
+4. **Prozess-IDs der Jobs anzeigen:**
+   ```bash
+   jobs -p
+   ```
+   Dies gibt nur die Prozess-IDs der aktiven Jobs aus.
 
 ## Tipps
-- Verwenden Sie `jobs -l`, um schnell die Prozess-IDs zu erhalten, die Sie möglicherweise für andere Befehle wie `kill` benötigen.
-- Wenn Sie mehrere Jobs haben, können Sie den Status jedes Jobs leicht überwachen, um sicherzustellen, dass sie wie erwartet laufen.
-- Denken Sie daran, dass `jobs` nur die Jobs anzeigt, die von der aktuellen Shell gestartet wurden. Wenn Sie eine neue Shell oder ein neues Terminalfenster öffnen, sind diese Jobs nicht sichtbar.
+- Verwenden Sie `bg` und `fg`, um gestoppte Jobs im Hintergrund oder Vordergrund fortzusetzen.
+- Überprüfen Sie regelmäßig Ihre Jobs, um sicherzustellen, dass keine wichtigen Prozesse im Hintergrund hängen bleiben.
+- Kombinieren Sie `jobs` mit anderen Befehlen wie `kill`, um nicht mehr benötigte Prozesse zu beenden.

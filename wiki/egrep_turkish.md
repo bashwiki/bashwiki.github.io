@@ -1,38 +1,61 @@
-# [리눅스] Bash egrep 사용법
+# [Linux] Bash egrep Kullanımı: Metin içinde düzenli ifadelerle arama yapma
 
 ## Overview
-`egrep`, "extended grep" anlamına gelir ve düzenli ifadelerle arama yapmak için kullanılan bir komuttur. `grep` komutunun bir uzantısıdır ve daha karmaşık desenleri tanımlamak için ek özellikler sunar. `egrep`, metin dosyalarında veya standart girişte belirli bir deseni aramak için kullanılır ve genellikle metin işleme ve analizinde faydalıdır.
+`egrep`, metin dosyalarında düzenli ifadeler kullanarak arama yapmayı sağlayan bir komut satırı aracıdır. `egrep`, `grep -E` ile eşdeğerdir ve genişletilmiş düzenli ifadeleri destekler. Bu, daha karmaşık arama desenleri oluşturmanıza olanak tanır.
 
 ## Usage
-Temel sözdizimi şu şekildedir:
+Temel kullanım şekli aşağıdaki gibidir:
 
 ```bash
-egrep [seçenekler] 'desen' [dosya_adı]
+egrep [options] [arguments]
 ```
 
-### Yaygın Seçenekler
+## Common Options
 - `-i`: Büyük/küçük harf duyarsız arama yapar.
-- `-v`: Deseni içermeyen satırları gösterir.
+- `-v`: Eşleşmeyen satırları gösterir.
 - `-c`: Eşleşen satırların sayısını gösterir.
-- `-n`: Eşleşen satırların satır numaralarını gösterir.
-- `-r` veya `-R`: Alt dizinler dahil olmak üzere dizinlerde arama yapar.
+- `-n`: Eşleşen satırların numaralarını gösterir.
+- `-r`: Alt dizinlerde de arama yapar.
 
-## Examples
-### Örnek 1: Basit Desen Arama
-Aşağıdaki komut, `metin.txt` dosyasında "örnek" kelimesini arar:
+## Common Examples
+Aşağıda `egrep` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
+
+### Örnek 1: Basit bir arama
+Belirli bir kelimeyi içeren satırları bulmak için:
 
 ```bash
-egrep 'örnek' metin.txt
+egrep "kelime" dosya.txt
 ```
 
-### Örnek 2: Büyük/Küçük Harf Duyarsız Arama
-Aşağıdaki komut, "örnek" kelimesinin büyük/küçük harf farkı gözetmeksizin aramasını yapar:
+### Örnek 2: Büyük/küçük harf duyarsız arama
+Büyük/küçük harf farkı gözetmeden arama yapmak için:
 
 ```bash
-egrep -i 'örnek' metin.txt
+egrep -i "kelime" dosya.txt
+```
+
+### Örnek 3: Eşleşmeyen satırları gösterme
+Belirli bir kelimeyi içermeyen satırları bulmak için:
+
+```bash
+egrep -v "kelime" dosya.txt
+```
+
+### Örnek 4: Eşleşen satır sayısını gösterme
+Eşleşen satırların sayısını öğrenmek için:
+
+```bash
+egrep -c "kelime" dosya.txt
+```
+
+### Örnek 5: Alt dizinlerde arama
+Belirli bir kelimeyi alt dizinlerde de aramak için:
+
+```bash
+egrep -r "kelime" dizin/
 ```
 
 ## Tips
-- `egrep` kullanırken, karmaşık desenler oluşturmak için parantezler ve `|` (veya) operatörlerini kullanabilirsiniz. Örneğin, `egrep 'örnek|test' metin.txt` komutu, hem "örnek" hem de "test" kelimelerini arar.
-- Performans açısından, büyük dosyalar üzerinde arama yaparken `-c` seçeneği ile sadece eşleşen satırların sayısını almak, gereksiz çıktıdan kaçınmanıza yardımcı olabilir.
-- `egrep` komutunu diğer komutlarla birleştirerek daha karmaşık işlemler gerçekleştirebilirsiniz. Örneğin, `cat dosya.txt | egrep 'desen'` ile dosyayı okumadan direkt olarak arama yapabilirsiniz.
+- Düzenli ifadeleri kullanarak daha karmaşık arama desenleri oluşturabilirsiniz. Örneğin, `egrep "kelime1|kelime2"` ile birden fazla kelimeyi arayabilirsiniz.
+- Arama sonuçlarını daha iyi analiz etmek için `-n` seçeneğini kullanarak satır numaralarını görebilirsiniz.
+- Uzun dosya adları veya karmaşık dizin yapılarıyla çalışırken, `--color` seçeneğini ekleyerek eşleşen kelimeleri renklendirebilirsiniz.

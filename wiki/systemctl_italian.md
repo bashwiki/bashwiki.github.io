@@ -1,49 +1,66 @@
-# [리눅스] Bash systemctl 사용법
+# [Linux] Bash systemctl utilizzo: Gestire i servizi di sistema
 
 ## Overview
-Il comando `systemctl` è uno strumento fondamentale per la gestione dei servizi e delle unità nel sistema di init systemd. È utilizzato per avviare, fermare, riavviare e monitorare i servizi di sistema, oltre a gestire le configurazioni delle unità e il loro stato. `systemctl` fornisce un'interfaccia unificata per controllare il sistema e i servizi in modo semplice ed efficace.
+Il comando `systemctl` è uno strumento fondamentale per gestire il sistema e i servizi su sistemi operativi Linux che utilizzano systemd come sistema di init. Permette di avviare, fermare, riavviare e controllare lo stato dei servizi, oltre a gestire i target e le unità di sistema.
 
 ## Usage
 La sintassi di base del comando `systemctl` è la seguente:
 
 ```bash
-systemctl [opzioni] [comando] [unità]
+systemctl [opzioni] [argomenti]
 ```
 
-### Opzioni comuni:
+## Common Options
+Ecco alcune opzioni comuni per `systemctl`:
+
 - `start`: Avvia un'unità (servizio).
 - `stop`: Ferma un'unità.
 - `restart`: Riavvia un'unità.
 - `status`: Mostra lo stato di un'unità.
 - `enable`: Abilita un'unità per l'avvio automatico al boot.
 - `disable`: Disabilita un'unità dall'avvio automatico al boot.
-- `list-units`: Elenca le unità attive.
-- `is-active`: Controlla se un'unità è attiva.
+- `list-units`: Elenca tutte le unità attive.
 
-## Examples
-### Esempio 1: Avviare un servizio
-Per avviare un servizio chiamato `httpd`, puoi utilizzare il seguente comando:
+## Common Examples
+Ecco alcuni esempi pratici dell'uso di `systemctl`:
 
-```bash
-sudo systemctl start httpd
-```
+- Avviare un servizio:
+    ```bash
+    sudo systemctl start nome_servizio
+    ```
 
-### Esempio 2: Controllare lo stato di un servizio
-Per controllare lo stato del servizio `httpd`, utilizza:
+- Fermare un servizio:
+    ```bash
+    sudo systemctl stop nome_servizio
+    ```
 
-```bash
-systemctl status httpd
-```
+- Riavviare un servizio:
+    ```bash
+    sudo systemctl restart nome_servizio
+    ```
 
-Questo comando mostrerà informazioni dettagliate sul servizio, incluso se è attivo, i log recenti e altre informazioni utili.
+- Controllare lo stato di un servizio:
+    ```bash
+    systemctl status nome_servizio
+    ```
+
+- Abilitare un servizio all'avvio:
+    ```bash
+    sudo systemctl enable nome_servizio
+    ```
+
+- Disabilitare un servizio dall'avvio:
+    ```bash
+    sudo systemctl disable nome_servizio
+    ```
+
+- Elencare tutte le unità attive:
+    ```bash
+    systemctl list-units --type=service
+    ```
 
 ## Tips
-- Assicurati di utilizzare `sudo` per eseguire comandi che richiedono privilegi di amministratore.
-- Utilizza `systemctl list-units` per avere una panoramica di tutti i servizi attivi e delle loro unità.
-- Puoi combinare `systemctl` con `grep` per filtrare i risultati, ad esempio:
-
-```bash
-systemctl list-units | grep httpd
-```
-
-Questi suggerimenti ti aiuteranno a gestire i servizi in modo più efficace e a mantenere il tuo sistema in buone condizioni.
+- Utilizza `sudo` per eseguire comandi che richiedono privilegi di amministratore.
+- Controlla sempre lo stato di un servizio dopo averlo avviato o fermato per assicurarti che funzioni correttamente.
+- Usa `systemctl list-units` per avere una panoramica dei servizi attivi e del loro stato.
+- Ricorda che le modifiche alle unità richiedono spesso un riavvio del servizio per avere effetto.

@@ -1,43 +1,62 @@
-# [리눅스] Bash tput 사용법
+# [Linux] Bash tput Uso: Controle de terminal e formatação de texto
 
 ## Overview
-O comando `tput` é uma ferramenta utilizada em sistemas Unix e Linux para controlar a interface de terminal. Ele permite que os usuários configurem a aparência e o comportamento do terminal, como a manipulação de cores, o posicionamento do cursor e a formatação do texto. O principal propósito do `tput` é fornecer uma interface de alto nível para as capacidades do terminal, facilitando a criação de scripts que interagem de forma mais rica com o ambiente do terminal.
+O comando `tput` é utilizado para controlar a aparência do terminal e formatar texto em ambientes de linha de comando. Ele permite que os usuários alterem as propriedades do terminal, como cores, estilos de texto e movimentação do cursor, proporcionando uma experiência mais rica e interativa.
 
 ## Usage
 A sintaxe básica do comando `tput` é a seguinte:
 
 ```bash
-tput [opção] [argumento]
+tput [opções] [argumentos]
 ```
 
-### Opções Comuns
-- `setaf N`: Define a cor do texto para o número da cor `N` (0-7 para cores padrão).
-- `setab N`: Define a cor do fundo para o número da cor `N`.
-- `cup X Y`: Move o cursor para a posição na linha `X` e coluna `Y`.
-- `clear`: Limpa a tela do terminal.
-- `bold`: Ativa o texto em negrito.
+## Common Options
+Aqui estão algumas opções comuns do `tput`:
+
+- `setaf [n]`: Define a cor do texto (foreground) para o número especificado `n`.
+- `setab [n]`: Define a cor do fundo (background) para o número especificado `n`.
+- `bold`: Ativa o estilo de texto em negrito.
 - `smso`: Ativa o modo de destaque (standout mode).
 - `rmso`: Desativa o modo de destaque.
+- `cup [x] [y]`: Move o cursor para a posição especificada nas coordenadas `x` e `y`.
 
-## Examples
-### Exemplo 1: Mudando a Cor do Texto
-Para mudar a cor do texto para verde, você pode usar o seguinte comando:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `tput`:
 
-```bash
-tput setaf 2
-echo "Este texto está em verde!"
-tput sgr0  # Reseta as configurações de formatação
-```
+1. **Alterar a cor do texto para vermelho:**
+   ```bash
+   tput setaf 1
+   echo "Este texto é vermelho!"
+   ```
 
-### Exemplo 2: Movendo o Cursor
-Para mover o cursor para a linha 5 e coluna 10 e imprimir um texto, você pode usar:
+2. **Alterar a cor do fundo para azul e o texto para branco:**
+   ```bash
+   tput setab 4
+   tput setaf 7
+   echo "Texto branco em fundo azul!"
+   ```
 
-```bash
-tput cup 5 10
-echo "Texto na linha 5, coluna 10"
-```
+3. **Ativar o estilo de texto em negrito:**
+   ```bash
+   tput bold
+   echo "Este texto está em negrito!"
+   tput sgr0  # Reseta as configurações de estilo
+   ```
+
+4. **Mover o cursor para a linha 5, coluna 10:**
+   ```bash
+   tput cup 5 10
+   echo "Texto na linha 5, coluna 10."
+   ```
+
+5. **Ativar e desativar o modo de destaque:**
+   ```bash
+   tput smso
+   echo "Texto em destaque!"
+   tput rmso
+   ```
 
 ## Tips
-- Sempre use `tput sgr0` após aplicar formatações para garantir que o terminal retorne ao estado padrão.
-- Teste as cores disponíveis no seu terminal, pois a representação de cores pode variar entre diferentes emuladores de terminal.
-- Combine `tput` com outros comandos de shell para criar scripts interativos e visualmente atraentes.
+- Sempre use `tput sgr0` após aplicar estilos para resetar as configurações e evitar que o estilo se aplique a textos subsequentes.
+- Experimente diferentes números para `setaf` e `setab` para ver as várias cores disponíveis no seu terminal.
+- Combine `tput` com outros comandos para criar scripts interativos e visualmente atraentes.

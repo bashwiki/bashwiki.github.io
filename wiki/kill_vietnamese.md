@@ -1,42 +1,47 @@
-# [리눅스] Bash kill 사용법
+# [Linux] Bash kill Cách sử dụng: Giết tiến trình
 
-## Tổng quan
-Lệnh `kill` trong Bash được sử dụng để gửi tín hiệu đến một hoặc nhiều tiến trình (process) đang chạy trên hệ thống. Mục đích chính của lệnh này là để quản lý tiến trình, cho phép người dùng dừng, khôi phục hoặc kết thúc các tiến trình không cần thiết hoặc không phản hồi.
+## Overview
+Lệnh `kill` trong Bash được sử dụng để gửi tín hiệu đến một hoặc nhiều tiến trình. Tín hiệu này thường được sử dụng để yêu cầu tiến trình dừng lại hoặc thoát.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `kill` như sau:
 
 ```bash
-kill [options] <pid>
+kill [options] [arguments]
 ```
 
-Trong đó:
-- `<pid>` là ID của tiến trình mà bạn muốn gửi tín hiệu.
-- `options` là các tùy chọn để xác định loại tín hiệu mà bạn muốn gửi.
-
-### Tùy chọn phổ biến:
+## Common Options
 - `-l`: Liệt kê tất cả các tín hiệu có sẵn.
-- `-s <signal>`: Chỉ định tín hiệu cụ thể để gửi (ví dụ: `SIGKILL`, `SIGTERM`).
-- `-9`: Gửi tín hiệu `SIGKILL`, buộc tiến trình phải dừng ngay lập tức.
+- `-s SIGNAL`: Gửi tín hiệu cụ thể đến tiến trình.
+- `-n NUMBER`: Gửi tín hiệu theo số thứ tự của tín hiệu.
 
-## Ví dụ
-### Ví dụ 1: Kết thúc một tiến trình bằng PID
-Giả sử bạn muốn kết thúc một tiến trình có PID là 1234, bạn có thể sử dụng lệnh sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `kill`:
 
-```bash
-kill 1234
-```
+1. **Giết một tiến trình bằng PID**:
+   ```bash
+   kill 1234
+   ```
+   (Trong đó `1234` là ID của tiến trình bạn muốn dừng.)
 
-### Ví dụ 2: Gửi tín hiệu SIGKILL
-Nếu tiến trình không phản hồi và bạn muốn buộc nó dừng lại, bạn có thể sử dụng tín hiệu `SIGKILL` như sau:
+2. **Gửi tín hiệu SIGKILL đến một tiến trình**:
+   ```bash
+   kill -9 1234
+   ```
+   (Sử dụng `-9` để buộc tiến trình dừng lại ngay lập tức.)
 
-```bash
-kill -9 1234
-```
+3. **Liệt kê tất cả các tín hiệu có sẵn**:
+   ```bash
+   kill -l
+   ```
 
-## Mẹo
-- Trước khi sử dụng `kill -9`, hãy thử sử dụng lệnh `kill` thông thường để cho tiến trình có cơ hội dừng lại một cách an toàn.
-- Bạn có thể sử dụng lệnh `ps` để tìm PID của các tiến trình đang chạy. Ví dụ: `ps aux | grep <tên_tiến_trình>`.
-- Để gửi tín hiệu đến nhiều tiến trình cùng lúc, bạn có thể chỉ định nhiều PID, ví dụ: `kill 1234 5678`.
+4. **Gửi tín hiệu SIGTERM đến một tiến trình**:
+   ```bash
+   kill -15 1234
+   ```
+   (Sử dụng `-15` để yêu cầu tiến trình dừng lại một cách lịch sự.)
 
-Lệnh `kill` là một công cụ mạnh mẽ trong việc quản lý tiến trình, vì vậy hãy sử dụng nó một cách cẩn thận để tránh làm mất dữ liệu hoặc gây ra sự cố hệ thống.
+## Tips
+- Hãy cẩn thận khi sử dụng `kill -9`, vì nó không cho phép tiến trình thực hiện các thao tác dọn dẹp trước khi dừng.
+- Sử dụng `ps` để tìm PID của tiến trình trước khi sử dụng lệnh `kill`.
+- Thay vì giết từng tiến trình một, bạn có thể sử dụng `killall` để giết tất cả các tiến trình cùng tên.

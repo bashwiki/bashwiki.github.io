@@ -1,58 +1,52 @@
-# [리눅스] Bash jq 사용법
+# [Linux] Bash jq Kullanımı: JSON verilerini işleme aracı
 
 ## Genel Bakış
-`jq`, JSON (JavaScript Object Notation) verilerini işlemek için kullanılan bir komut satırı aracıdır. JSON formatındaki verileri okumak, yazmak ve dönüştürmek için güçlü bir dil sunar. Geliştiriciler ve mühendisler için, API'lerden gelen JSON yanıtlarını analiz etmek ve düzenlemek için yaygın olarak kullanılır.
+`jq`, JSON verilerini işlemek ve analiz etmek için kullanılan güçlü bir komut satırı aracıdır. JSON formatındaki verileri kolayca filtreleme, dönüştürme ve biçimlendirme işlemleri yapmanıza olanak tanır.
 
 ## Kullanım
-`jq` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-jq [seçenekler] 'filtre' dosya.json
+jq [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-r`: JSON çıktısını ham (raw) formatta döndürür. Bu, metin çıktısı almak için faydalıdır.
-- `-c`: Çıktıyı tek satırda döndürür, bu da daha okunabilir hale getirir.
-- `-f`: Dışarıdan bir filtre dosyası belirtmek için kullanılır.
+## Yaygın Seçenekler
+- `-c`: Çıktıyı sıkıştırılmış bir formatta gösterir.
+- `-r`: Çıktıyı ham (raw) formatta verir, yani tırnak işaretleri olmadan.
+- `-f`: Belirtilen bir dosyadaki jq ifadelerini kullanarak işlemi gerçekleştirir.
+- `--arg`: Bir değişken tanımlamak için kullanılır.
 
-## Örnekler
-### Örnek 1: Basit JSON Verisini Okuma
-Aşağıdaki JSON dosyası `data.json` içeriğine sahip olsun:
+## Yaygın Örnekler
+Aşağıda `jq` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-```json
-{
-  "isim": "Ahmet",
-  "yaş": 30,
-  "şehir": "İstanbul"
-}
-```
+1. JSON dosyasındaki tüm verileri görüntüleme:
+   ```bash
+   jq . dosya.json
+   ```
 
-Bu dosyadaki "isim" alanını okumak için şu komutu kullanabilirsiniz:
+2. Belirli bir anahtara sahip verileri filtreleme:
+   ```bash
+   jq '.anahtar' dosya.json
+   ```
 
-```bash
-jq '.isim' data.json
-```
+3. Birden fazla anahtarı seçme:
+   ```bash
+   jq '{anahtar1, anahtar2}' dosya.json
+   ```
 
-Çıktı:
-```
-"Ahmet"
-```
+4. JSON verisini sıkıştırılmış formatta yazdırma:
+   ```bash
+   jq -c . dosya.json
+   ```
 
-### Örnek 2: JSON Verisini Filtreleme
-Aynı JSON dosyasını kullanarak, "yaş" alanını ham formatta almak için:
-
-```bash
-jq -r '.yaş' data.json
-```
-
-Çıktı:
-```
-30
-```
+5. JSON verisinden belirli bir değeri ham formatta alma:
+   ```bash
+   jq -r '.anahtar.deger' dosya.json
+   ```
 
 ## İpuçları
-- JSON verilerini işlerken, `jq`'nun filtreleme yeteneklerini kullanarak karmaşık sorgular oluşturabilirsiniz. Örneğin, bir dizi içindeki belirli nesneleri seçmek için `select()` fonksiyonunu kullanabilirsiniz.
-- `jq` ile çalışırken, JSON verinizin yapısını anlamak için `jq '.' dosya.json` komutunu kullanarak tüm veriyi görüntüleyebilirsiniz.
-- Filtrelerinizi daha okunabilir hale getirmek için `|` (pipe) operatörünü kullanarak birden fazla filtreyi birleştirebilirsiniz.
-
-`jq`, JSON verileriyle çalışırken güçlü ve esnek bir araçtır. Bu temel bilgilerle, `jq`'yu etkili bir şekilde kullanmaya başlayabilirsiniz.
+- JSON verilerinizi daha iyi anlamak için `jq` ile birlikte `less` veya `more` gibi sayfa kaydırma araçlarını kullanabilirsiniz.
+- Karmaşık sorgular oluşturmak için `jq` ifadelerini bir dosyada saklayabilir ve `-f` seçeneği ile bu dosyayı kullanabilirsiniz.
+- `jq` ile birlikte `curl` komutunu kullanarak API'den alınan JSON verilerini doğrudan işleyebilirsiniz. Örneğin:
+  ```bash
+  curl -s https://api.example.com/veri | jq '.'
+  ```

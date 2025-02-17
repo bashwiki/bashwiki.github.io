@@ -1,40 +1,48 @@
-# [리눅스] Bash su 사용법
+# [Linux] Bash su Kullanımı: Kullanıcı Değiştirme Komutu
 
 ## Genel Bakış
-`su` (substitute user) komutu, bir kullanıcıdan diğerine geçiş yapmayı sağlayan bir Bash komutudur. Genellikle, bir kullanıcının başka bir kullanıcı olarak oturum açmasını sağlamak için kullanılır. En yaygın kullanım durumu, sistem yöneticilerinin veya geliştiricilerin root (yönetici) kullanıcı olarak oturum açmalarıdır. Bu komut, kullanıcıların yetkilerini artırarak sistem üzerinde daha fazla kontrol sahibi olmalarına olanak tanır.
+`su` komutu, Linux ve Unix benzeri işletim sistemlerinde kullanıcı değiştirmek için kullanılır. Bu komut, mevcut oturumdan farklı bir kullanıcı olarak oturum açmanıza olanak tanır. Genellikle, yönetici (root) yetkilerine sahip olmak için kullanılır.
 
 ## Kullanım
-Temel `su` komutunun sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
 su [seçenekler] [kullanıcı]
 ```
 
-### Yaygın Seçenekler
-- `-`: Kullanıcı geçişi sırasında yeni bir oturum başlatır ve kullanıcının ortam değişkenlerini yükler.
-- `-c`: Belirtilen komutu belirtilen kullanıcı olarak çalıştırır.
-- `-l` veya `--login`: Kullanıcı oturumunu başlatır ve kullanıcının ortam değişkenlerini yükler.
+## Yaygın Seçenekler
+- `-l` veya `--login`: Hedef kullanıcının oturumunu başlatır ve kullanıcının ortam değişkenlerini yükler.
+- `-c` : Belirtilen komutu hedef kullanıcı olarak çalıştırır.
+- `-s` : Hedef kullanıcı için belirli bir kabuk belirtir.
 
-## Örnekler
-### Örnek 1: Root Kullanıcısına Geçiş
-Aşağıdaki komut, root kullanıcısına geçiş yapar:
+## Yaygın Örnekler
+Aşağıda `su` komutunun bazı yaygın kullanım örnekleri verilmiştir:
 
-```bash
-su -
-```
+1. **Root Kullanıcısına Geçiş:**
+   ```bash
+   su
+   ```
+   Bu komut, root kullanıcısına geçiş yapmanızı sağlar. Şifre girmeniz istenecektir.
 
-Bu komut, root kullanıcısının şifresini girmenizi isteyecektir. Başarılı bir şekilde giriş yaptıktan sonra, root yetkilerine sahip olursunuz.
+2. **Belirli Bir Kullanıcıya Geçiş:**
+   ```bash
+   su kullanıcı_adı
+   ```
+   Bu komut, belirtilen kullanıcıya geçiş yapmanızı sağlar.
 
-### Örnek 2: Belirli Bir Komutu Farklı Bir Kullanıcı Olarak Çalıştırma
-Aşağıdaki komut, `kullanici_adi` adlı kullanıcı olarak `ls` komutunu çalıştırır:
+3. **Belirli Bir Komutu Başka Bir Kullanıcı Olarak Çalıştırma:**
+   ```bash
+   su -c "komut" kullanıcı_adı
+   ```
+   Bu komut, belirtilen komutu hedef kullanıcı olarak çalıştırır.
 
-```bash
-su -c "ls" kullanici_adi
-```
-
-Bu komut, `kullanici_adi` kullanıcısının şifresini girmenizi isteyecektir ve ardından belirtilen komutu çalıştıracaktır.
+4. **Login Shell ile Geçiş:**
+   ```bash
+   su -l kullanıcı_adı
+   ```
+   Bu komut, belirtilen kullanıcı için tam bir oturum başlatır.
 
 ## İpuçları
-- `su` komutunu kullanırken, güvenlik açısından dikkatli olun. Özellikle root kullanıcısına geçiş yaparken, sistemdeki kritik dosyaları değiştirmemeye özen gösterin.
-- `su` komutunu sık kullanıyorsanız, `sudo` komutunu da göz önünde bulundurabilirsiniz. `sudo`, belirli komutları belirli kullanıcılar olarak çalıştırmanıza olanak tanır ve daha güvenli bir alternatif olabilir.
-- Kullanıcı geçişleri sırasında, ortam değişkenlerini yüklemek için `su -` veya `su --login` seçeneklerini kullanmayı unutmayın. Bu, kullanıcıya ait ayarların doğru bir şekilde yüklenmesini sağlar.
+- `su` komutunu kullanırken, hedef kullanıcının şifresini bilmeniz gerektiğini unutmayın.
+- Root kullanıcısı olarak çalışırken dikkatli olun; yanlış bir komut sisteminize zarar verebilir.
+- `sudo` komutunu kullanmayı düşünün; bu, belirli komutları çalıştırmak için root yetkisi almanın daha güvenli bir yoludur.

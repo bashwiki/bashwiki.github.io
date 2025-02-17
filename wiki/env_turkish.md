@@ -1,36 +1,43 @@
-# [리눅스] Bash env 사용법
+# [Linux] Bash env Kullanımı: Ortam Değişkenlerini Yönetme
 
-## Overview
-`env` komutu, mevcut ortam değişkenlerini görüntülemek veya yeni bir ortam değişkeni ile bir komut çalıştırmak için kullanılan bir Bash komutudur. Genellikle, bir programın hangi ortamda çalıştığını anlamak veya belirli bir ortam değişkeni ayarlayarak bir komutu çalıştırmak için kullanılır.
+## Genel Bakış
+`env` komutu, ortam değişkenlerini görüntülemek veya yeni bir ortam değişkeni ile bir komut çalıştırmak için kullanılır. Bu komut, belirli bir ortamda çalıştırılacak komutları tanımlamak için oldukça yararlıdır.
 
-## Usage
-Temel `env` komutunun sözdizimi aşağıdaki gibidir:
-
-```bash
-env [SEÇENEKLER] [ORTAM_DEĞİŞKENİ=DEĞER] [KOMUT]
-```
-
-### Yaygın Seçenekler
-- `-i` veya `--ignore-environment`: Mevcut ortam değişkenlerini yoksayarak temiz bir ortamda komut çalıştırır.
-- `-0` veya `--null`: Çıktıyı null karakter ile ayırır. Bu, özellikle dosya isimleri içeren çıktılar için kullanışlıdır.
-
-## Examples
-### Örnek 1: Mevcut Ortam Değişkenlerini Görüntüleme
-Aşağıdaki komut, mevcut ortam değişkenlerini listeleyecektir:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-env
+env [seçenekler] [argümanlar]
 ```
 
-### Örnek 2: Yeni Bir Ortam Değişkeni ile Komut Çalıştırma
-Aşağıdaki komut, `MY_VAR` adında bir ortam değişkeni oluşturarak `printenv` komutunu çalıştırır:
+## Yaygın Seçenekler
+- `-i`: Yeni bir ortam oluşturur ve mevcut ortam değişkenlerini kullanmaz.
+- `-u`: Belirtilen ortam değişkenini kaldırır.
+- `VAR=değer`: Yeni bir ortam değişkeni tanımlar ve belirtilen komutu bu değişkenle çalıştırır.
 
-```bash
-env MY_VAR=HelloWorld printenv MY_VAR
-```
+## Yaygın Örnekler
 
-Bu komutun çıktısı `HelloWorld` olacaktır.
+1. Tüm ortam değişkenlerini görüntüleme:
+   ```bash
+   env
+   ```
 
-## Tips
-- `env` komutunu, bir komutun hangi ortamda çalıştığını test etmek için kullanabilirsiniz. Bu, özellikle farklı ortam değişkenleri ile uygulamaları denemek için faydalıdır.
-- Ortam değişkenlerini ayarlarken, komutun yalnızca o komut için geçerli olacağını unutmayın. Komut tamamlandığında, ayarladığınız ortam değişkeni kaybolur.
+2. Belirli bir ortam değişkenini kaldırma:
+   ```bash
+   env -u PATH command
+   ```
+
+3. Yeni bir ortam değişkeni ile bir komut çalıştırma:
+   ```bash
+   env MY_VAR=hello bash -c 'echo $MY_VAR'
+   ```
+
+4. Yeni bir ortam oluşturarak bir komut çalıştırma:
+   ```bash
+   env -i bash -c 'echo $HOME'
+   ```
+
+## İpuçları
+- `env` komutunu, bir komutun hangi ortam değişkenleri ile çalıştığını test etmek için kullanabilirsiniz.
+- Ortam değişkenlerini temiz bir şekilde yönetmek için `-i` seçeneğini kullanarak yeni bir ortam oluşturmayı düşünebilirsiniz.
+- `env` komutunu, betiklerinizde belirli bir ortamda çalıştırmak istediğiniz komutlar için kullanarak daha kontrollü bir çalışma ortamı sağlayabilirsiniz.

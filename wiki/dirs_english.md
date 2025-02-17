@@ -1,43 +1,51 @@
-# [리눅스] Bash dirs 사용법
+# [Linux] Bash dirs Uso equivalente: Manage directory stack
 
 ## Overview
-The `dirs` command in Bash is used to display the list of currently remembered directories in the directory stack. The directory stack is a feature that allows users to navigate through multiple directories easily. The primary purpose of the `dirs` command is to show the current state of this stack, which can be particularly useful when working with multiple directories in a terminal session.
+The `dirs` command in Bash is used to display the list of currently stored directories in the directory stack. It helps users keep track of their navigation history within the terminal, allowing for easy access to previously visited directories.
 
 ## Usage
 The basic syntax of the `dirs` command is as follows:
 
 ```bash
-dirs [options]
+dirs [options] [arguments]
 ```
 
-### Common Options
-- `-l`: Displays the directory stack in a long format, showing the full path of each directory.
-- `-p`: Prints the directory stack without any formatting, which can be useful for scripting purposes.
+## Common Options
+- `-l`: Displays the directory stack in a long format, showing the full path for each directory.
+- `-p`: Prints the directory stack without modifying it.
+- `-c`: Clears the directory stack.
 
-## Examples
-### Example 1: Displaying the Directory Stack
-To simply display the current directory stack, you can use the command without any options:
+## Common Examples
 
-```bash
-dirs
-```
-Output might look like this:
-```
-~/projects ~/documents ~/downloads
-```
+1. **Display the current directory stack:**
+   ```bash
+   dirs
+   ```
 
-### Example 2: Long Format Display
-To view the directory stack in a long format, use the `-l` option:
+2. **Display the directory stack in long format:**
+   ```bash
+   dirs -l
+   ```
 
-```bash
-dirs -l
-```
-Output might look like this:
-```
-/home/user/projects /home/user/documents /home/user/downloads
-```
+3. **Clear the directory stack:**
+   ```bash
+   dirs -c
+   ```
+
+4. **Display the directory stack without modifying it:**
+   ```bash
+   dirs -p
+   ```
+
+5. **Using `pushd` and `popd` with `dirs`:**
+   After using `pushd` to navigate to a new directory, you can check the stack:
+   ```bash
+   pushd /path/to/directory
+   dirs
+   popd
+   ```
 
 ## Tips
-- Use the `pushd` and `popd` commands to manipulate the directory stack. `pushd` adds a directory to the stack, while `popd` removes the top directory from the stack.
-- Combine `dirs` with `pushd` and `popd` to keep track of your navigation history effectively, especially when working on complex projects that require switching between multiple directories frequently.
-- If you find yourself needing to check the directory stack often, consider creating an alias in your `.bashrc` file for quicker access, such as `alias ds='dirs -l'`.
+- Use `pushd` and `popd` in conjunction with `dirs` to effectively manage your directory stack.
+- Regularly check your directory stack with `dirs` to avoid confusion about your current location in the file system.
+- Remember that the directory stack is a feature of the shell, so it will reset if you start a new terminal session.

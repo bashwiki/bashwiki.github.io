@@ -1,43 +1,47 @@
-# [리눅스] Bash chattr 사용법
+# [Linux] Bash chattr Kullanımı: Dosya özelliklerini değiştirme
 
 ## Overview
-`chattr` (change attribute) komutu, Linux dosya sistemlerinde dosya ve dizinlerin özelliklerini değiştirmek için kullanılır. Bu komut, dosyaların veya dizinlerin belirli özelliklerini ayarlayarak, sistem yöneticilerinin güvenlik ve veri bütünlüğünü artırmalarına yardımcı olur. Özellikle, dosyaların yanlışlıkla silinmesini veya değiştirilmesini önlemek için kullanılır.
+`chattr` komutu, Linux dosya sistemlerinde dosya ve dizinlerin özelliklerini değiştirmek için kullanılır. Bu komut, dosyaların belirli özelliklerini ayarlayarak, onları koruma veya erişim kontrolü sağlama imkanı tanır.
 
 ## Usage
-`chattr` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-chattr [seçenekler] [dosya/dizin]
+chattr [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `+a`: Dosyaya yalnızca ekleme (append) izni verir.
-- `+i`: Dosyayı değiştirilemez hale getirir. Bu özellik etkinleştirildiğinde, dosya silinemez, yeniden adlandırılamaz veya içeriği değiştirilemez.
-- `-i`: Daha önce `+i` ile ayarlanmış olan değiştirilemez özelliğini kaldırır.
-- `+e`: Dosya üzerinde hata düzeltme (extent) bilgilerini etkinleştirir.
-- `-e`: Hata düzeltme bilgilerini devre dışı bırakır.
+## Common Options
+- `+`: Belirtilen özelliği ekler.
+- `-`: Belirtilen özelliği kaldırır.
+- `=`: Belirtilen özelliği ayarlar ve diğer tüm özellikleri kaldırır.
+- `i`: Dosyayı değiştirilmez hale getirir (immutable).
+- `a`: Dosyaya sadece ekleme yapılmasını sağlar (append only).
+- `e`: Dosyanın verilerini sıkıştırır (extent format).
 
-## Examples
-### Örnek 1: Dosyayı Değiştirilemez Hale Getirme
-Aşağıdaki komut, `örnek.txt` dosyasını değiştirilemez hale getirir:
+## Common Examples
+Aşağıda `chattr` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
+### 1. Bir dosyayı değiştirilemez hale getirme
 ```bash
-chattr +i örnek.txt
+chattr +i dosya.txt
 ```
 
-Bu komuttan sonra, `örnek.txt` dosyası silinemez veya içeriği değiştirilemez.
-
-### Örnek 2: Değiştirilemez Özelliğini Kaldırma
-Aşağıdaki komut, daha önce değiştirilemez hale getirilen `örnek.txt` dosyasının bu özelliğini kaldırır:
-
+### 2. Bir dosyaya sadece ekleme izni verme
 ```bash
-chattr -i örnek.txt
+chattr +a dosya.txt
 ```
 
-Bu komuttan sonra, dosya üzerinde normal işlemler yapılabilir.
+### 3. Bir dosyanın özelliklerini görüntüleme
+```bash
+lsattr dosya.txt
+```
+
+### 4. Değiştirilemez özelliği kaldırma
+```bash
+chattr -i dosya.txt
+```
 
 ## Tips
-- `chattr` komutunu kullanmadan önce, dosya veya dizin üzerinde hangi özelliklerin ayarlanması gerektiğini dikkatlice değerlendirin.
-- Özellikle `+i` seçeneğini kullanırken dikkatli olun, çünkü bu özellik dosyanın yönetimini zorlaştırabilir.
-- `chattr` komutunu kullanabilmek için genellikle root (yönetici) yetkilerine sahip olmanız gerekir.
-- Dosya sisteminin desteklediği özellikleri kontrol etmek için `man chattr` komutunu kullanarak daha fazla bilgi edinebilirsiniz.
+- `chattr` komutunu kullanmadan önce, dosya sisteminin bu komutu desteklediğinden emin olun.
+- Özellikleri değiştirmeden önce dosyanın yedeğini almak iyi bir uygulamadır.
+- Özelliklerin etkilerini anlamak için `lsattr` komutunu kullanarak dosya özelliklerini kontrol edin.

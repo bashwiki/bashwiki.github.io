@@ -1,40 +1,48 @@
-# [리눅스] Bash brew 사용법
+# [macOS] Bash brew cách sử dụng: Quản lý gói phần mềm
 
 ## Tổng quan
-`brew` là một trình quản lý gói cho macOS và Linux, cho phép người dùng cài đặt, quản lý và gỡ bỏ các phần mềm và thư viện một cách dễ dàng. Nó giúp đơn giản hóa quá trình cài đặt phần mềm bằng cách tự động tải xuống, biên dịch và cài đặt các gói phần mềm từ kho lưu trữ trực tuyến.
+Lệnh `brew` là một công cụ quản lý gói phần mềm cho macOS, cho phép người dùng cài đặt, cập nhật và quản lý các ứng dụng và thư viện một cách dễ dàng thông qua dòng lệnh.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `brew` như sau:
-
-```bash
-brew [tùy chọn] [lệnh] [gói]
+```
+brew [tùy chọn] [tham số]
 ```
 
-### Các tùy chọn phổ biến:
+## Các tùy chọn phổ biến
 - `install`: Cài đặt một gói phần mềm.
-- `uninstall`: Gỡ bỏ một gói phần mềm.
 - `update`: Cập nhật danh sách gói phần mềm.
-- `upgrade`: Nâng cấp các gói phần mềm đã cài đặt lên phiên bản mới nhất.
-- `list`: Liệt kê các gói phần mềm đã cài đặt.
+- `upgrade`: Nâng cấp các gói phần mềm đã cài đặt.
+- `remove` hoặc `uninstall`: Gỡ bỏ một gói phần mềm.
+- `list`: Hiển thị danh sách các gói phần mềm đã cài đặt.
 
-## Ví dụ
-### Ví dụ 1: Cài đặt một gói phần mềm
-Để cài đặt gói phần mềm `wget`, bạn có thể sử dụng lệnh sau:
+## Ví dụ phổ biến
+- Cài đặt một gói phần mềm:
+  ```bash
+  brew install wget
+  ```
+  
+- Cập nhật danh sách gói phần mềm:
+  ```bash
+  brew update
+  ```
 
-```bash
-brew install wget
-```
+- Nâng cấp tất cả các gói phần mềm đã cài đặt:
+  ```bash
+  brew upgrade
+  ```
 
-### Ví dụ 2: Gỡ bỏ một gói phần mềm
-Để gỡ bỏ gói phần mềm `wget`, bạn có thể sử dụng lệnh sau:
+- Gỡ bỏ một gói phần mềm:
+  ```bash
+  brew uninstall wget
+  ```
 
-```bash
-brew uninstall wget
-```
+- Hiển thị danh sách các gói phần mềm đã cài đặt:
+  ```bash
+  brew list
+  ```
 
 ## Mẹo
-- Luôn sử dụng lệnh `brew update` trước khi cài đặt hoặc nâng cấp gói để đảm bảo bạn có danh sách gói mới nhất.
-- Kiểm tra các gói đã cài đặt bằng lệnh `brew list` để quản lý không gian lưu trữ của bạn hiệu quả hơn.
-- Sử dụng `brew search [tên_gói]` để tìm kiếm các gói phần mềm có sẵn trong kho lưu trữ.
-
-Hy vọng bài viết này giúp bạn hiểu rõ hơn về lệnh `brew` và cách sử dụng nó một cách hiệu quả!
+- Luôn chạy `brew update` trước khi cài đặt hoặc nâng cấp để đảm bảo bạn có danh sách gói mới nhất.
+- Sử dụng `brew doctor` để kiểm tra xem có vấn đề gì với cài đặt Homebrew của bạn hay không.
+- Tham khảo tài liệu chính thức của Homebrew để tìm hiểu thêm về các gói phần mềm và tùy chọn nâng cao.

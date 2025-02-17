@@ -1,46 +1,46 @@
-# [리눅스] Bash complete 사용법
+# [Linux] Bash complete 使用法: コマンドの補完機能を提供する
 
-## 概要
-`complete` コマンドは、Bash シェルにおけるコマンドの補完機能を定義するために使用されます。このコマンドを利用することで、ユーザーは特定のコマンドに対して補完の動作をカスタマイズし、より効率的にコマンドライン作業を行うことができます。主に、ユーザーが独自に作成したコマンドやスクリプトに対して、補完候補を提供するために使用されます。
+## Overview
+`complete` コマンドは、Bash シェルにおいてコマンドの補完機能を設定するために使用されます。これにより、ユーザーがコマンドを入力する際に、特定の引数やオプションを自動的に補完することができます。
 
-## 使用法
-`complete` コマンドの基本的な構文は以下の通りです。
+## Usage
+基本的な構文は以下の通りです。
 
 ```bash
-complete [オプション] [コマンド名]
+complete [options] [arguments]
 ```
 
-### 主なオプション
-- `-o` : 補完オプションを指定します。例えば、`-o nospace` は、補完後にスペースを追加しないようにします。
-- `-F` : 指定した関数を補完のために使用します。この関数は、補完候補を生成するためのロジックを含む必要があります。
-- `-A` : 補完する対象のタイプを指定します。例えば、`-A command` は、コマンド名の補完を行います。
+## Common Options
+- `-A`: 指定したタイプの引数を補完します（例: `-A command`）。
+- `-o`: 特定のオプションを指定して補完の動作を変更します（例: `-o nospace`）。
+- `-F`: 補完関数を指定します（例: `-F function_name`）。
 
-## 例
-### 例 1: 基本的な補完の設定
-以下のコマンドは、`mycommand` というカスタムコマンドに対して、補完を設定します。
+## Common Examples
+以下にいくつかの実用的な例を示します。
 
+### 1. コマンドの補完を設定する
 ```bash
-complete -o nospace -F _mycommand_complete mycommand
+complete -W "start stop restart" myservice
 ```
+このコマンドは、`myservice` コマンドに対して `start`, `stop`, `restart` の補完を設定します。
 
-ここで、`_mycommand_complete` は補完候補を生成するための関数です。
-
-### 例 2: コマンドの引数に対する補完
-次の例では、特定の引数に対して補完を設定します。
-
+### 2. 補完関数を使用する
 ```bash
-_complete_mycommand() {
+_mycommand_completion() {
     local commands="start stop restart"
-    COMPREPLY=($(compgen -W "$commands" -- "${COMP_WORDS[1]}"))
+    COMPREPLY=( $(compgen -W "$commands" -- "${COMP_WORDS[COMP_CWORD]}") )
 }
-complete -F _complete_mycommand mycommand
+complete -F _mycommand_completion mycommand
 ```
+この例では、`mycommand` に対してカスタム補完関数を定義しています。
 
-この例では、`mycommand` の後に `start`、`stop`、`restart` のいずれかを補完できるようになります。
+### 3. 特定のファイル拡張子を補完する
+```bash
+complete -o nospace -F _file_complete myfile
+```
+ここでは、`myfile` コマンドに対してファイル名の補完を設定し、スペースを追加しないようにしています。
 
-## ヒント
-- 補完関数を作成する際は、`COMPREPLY` 配列を使用して補完候補を設定します。
-- 複雑な補完ロジックが必要な場合は、補完関数内で他のコマンドを呼び出して候補を生成することも可能です。
-- 補完の設定を行った後は、シェルを再起動するか、設定を再読み込みすることを忘れないでください。
-
-このように、`complete` コマンドを活用することで、Bash シェルでの作業をよりスムーズに行うことができます。
+## Tips
+- 補完を設定する際は、他のコマンドやスクリプトと競合しないように注意しましょう。
+- 補完機能をカスタマイズすることで、作業効率を大幅に向上させることができます。
+- 補完の設定を `.bashrc` ファイルに追加すると、シェル起動時に自動的に適用されます。

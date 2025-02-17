@@ -1,47 +1,63 @@
-# [리눅스] Bash xmlstarlet 사용법
+# [Linux] Bash xmlstarlet : Manipuler et interroger des fichiers XML
 
 ## Overview
-`xmlstarlet` est un outil en ligne de commande puissant pour manipuler des fichiers XML. Il permet aux utilisateurs de valider, transformer, interroger et modifier des documents XML de manière efficace. Grâce à sa flexibilité, `xmlstarlet` est largement utilisé par les développeurs et les ingénieurs pour automatiser des tâches liées à XML dans des scripts Bash.
+Le commandement `xmlstarlet` est un outil puissant en ligne de commande utilisé pour manipuler, interroger et transformer des fichiers XML. Il permet d'effectuer des opérations telles que la validation, la transformation XSLT, et l'extraction de données XML.
 
 ## Usage
 La syntaxe de base de la commande `xmlstarlet` est la suivante :
 
 ```bash
-xmlstarlet [options] <command> [arguments]
+xmlstarlet [options] [arguments]
 ```
 
-### Options courantes :
-- `-h`, `--help` : Affiche l'aide et les options disponibles.
-- `-V`, `--version` : Affiche la version de `xmlstarlet`.
-- `-e`, `--encode` : Encode un document XML.
-- `-r`, `--remove` : Supprime des éléments ou des attributs spécifiés.
-- `-u`, `--update` : Met à jour des éléments ou des attributs dans le document XML.
+## Common Options
+Voici quelques options courantes pour `xmlstarlet` :
 
-Les commandes les plus courantes incluent :
-- `xmlstarlet val` : Valide un document XML.
-- `xmlstarlet sel` : Sélectionne des nœuds spécifiques dans un document XML.
+- `xmlstarlet sel` : Sélectionne des nœuds dans un document XML.
 - `xmlstarlet ed` : Édite un document XML.
+- `xmlstarlet val` : Valide un document XML contre un schéma.
+- `xmlstarlet tr` : Transforme un document XML en utilisant XSLT.
+- `xmlstarlet fo` : Formate un document XML pour une meilleure lisibilité.
 
-## Examples
-### Exemple 1 : Validation d'un fichier XML
-Pour valider un fichier XML nommé `exemple.xml`, vous pouvez utiliser la commande suivante :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `xmlstarlet` :
 
-```bash
-xmlstarlet val exemple.xml
-```
-
-Si le fichier est valide, aucune sortie ne sera produite. En cas d'erreur, des messages d'erreur détaillés seront affichés.
-
-### Exemple 2 : Sélection de nœuds spécifiques
-Pour sélectionner tous les nœuds `<titre>` d'un fichier XML, utilisez la commande suivante :
+### Sélectionner des nœuds
+Pour sélectionner tous les éléments `<title>` d'un fichier XML :
 
 ```bash
-xmlstarlet sel -t -m "//titre" -v "." -n exemple.xml
+xmlstarlet sel -t -m "//title" -v "." -n fichier.xml
 ```
 
-Cette commande parcourt le document XML, extrait le contenu de chaque nœud `<titre>` et l'affiche.
+### Éditer un document XML
+Pour ajouter un nouvel élément `<author>` dans chaque `<book>` :
+
+```bash
+xmlstarlet ed -s "//book" -t -n "author" -v "Nom de l'Auteur" fichier.xml
+```
+
+### Valider un document XML
+Pour valider un fichier XML contre un schéma XSD :
+
+```bash
+xmlstarlet val -e -s schema.xsd fichier.xml
+```
+
+### Transformer un document XML
+Pour transformer un fichier XML en utilisant une feuille de style XSLT :
+
+```bash
+xmlstarlet tr style.xsl -o sortie.xml fichier.xml
+```
+
+### Formater un document XML
+Pour formater un fichier XML pour une meilleure lisibilité :
+
+```bash
+xmlstarlet fo fichier.xml > fichier_formate.xml
+```
 
 ## Tips
-- Utilisez `xmlstarlet` dans des scripts pour automatiser le traitement de fichiers XML, ce qui peut améliorer l'efficacité de vos flux de travail.
-- Familiarisez-vous avec XPath, car `xmlstarlet` utilise cette syntaxe pour sélectionner des nœuds. Cela vous permettra d'effectuer des requêtes plus complexes sur vos documents XML.
-- N'hésitez pas à combiner plusieurs commandes `xmlstarlet` dans un pipeline pour effectuer des transformations avancées sur vos fichiers XML.
+- Utilisez `xmlstarlet --help` pour afficher toutes les options disponibles et leur description.
+- Pour des fichiers XML volumineux, envisagez d'utiliser des options de filtrage pour améliorer les performances.
+- Testez vos transformations XSLT avec des fichiers XML de petite taille avant de les appliquer à des fichiers plus grands.

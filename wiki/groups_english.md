@@ -1,41 +1,43 @@
-# [리눅스] Bash groups 사용법
+# [Linux] Bash groups equivalente de uso: Listar grupos de usuarios
 
 ## Overview
-The `groups` command in Bash is used to display the groups that a user is a member of. This command is particularly useful for system administrators and developers who need to manage user permissions and understand user roles within a Linux environment. By knowing which groups a user belongs to, one can effectively manage access to files and resources.
+The `groups` command in Bash is used to display the groups that a specified user belongs to. If no user is specified, it shows the groups for the current user. This command is particularly useful for managing user permissions and understanding user roles within a system.
 
 ## Usage
 The basic syntax of the `groups` command is as follows:
 
-```
-groups [OPTION]... [USERNAME]
-```
-
-### Common Options:
-- `USERNAME`: Specify the username for which you want to display the group memberships. If no username is provided, `groups` will display the groups for the current user.
-- `--help`: Displays a help message with information about the command's usage.
-- `--version`: Shows the version information of the `groups` command.
-
-## Examples
-
-### Example 1: Display Groups for Current User
-To display the groups that the current user belongs to, simply run:
-
 ```bash
-groups
+groups [options] [username]
 ```
 
-This will output a list of groups associated with the user currently logged into the terminal.
+## Common Options
+- `-h`, `--help`: Display help information about the command.
+- `-v`, `--version`: Show the version of the `groups` command.
 
-### Example 2: Display Groups for a Specific User
-To check the groups for a specific user, you can specify the username as follows:
+## Common Examples
+Here are some practical examples of using the `groups` command:
 
-```bash
-groups username
-```
+1. **Display groups for the current user:**
+   ```bash
+   groups
+   ```
 
-Replace `username` with the actual username you want to query. This will return a list of groups that the specified user is a member of.
+2. **Display groups for a specific user:**
+   ```bash
+   groups username
+   ```
+
+3. **Display groups for multiple users:**
+   ```bash
+   groups user1 user2
+   ```
+
+4. **Display help information:**
+   ```bash
+   groups --help
+   ```
 
 ## Tips
-- Use the `groups` command in conjunction with other user management commands like `id` to get more detailed information about user permissions and roles.
-- If you are managing multiple users, consider scripting the `groups` command to automate the process of checking group memberships for all users in a system.
-- Remember that group memberships can affect file permissions, so it's essential to regularly check and manage group memberships, especially in collaborative environments.
+- Use the `groups` command to quickly verify user permissions before performing administrative tasks.
+- Combine the `groups` command with other commands like `id` to get more detailed information about users and their group memberships.
+- Remember that group memberships can affect access to files and directories, so it's important to check them regularly, especially in multi-user environments.

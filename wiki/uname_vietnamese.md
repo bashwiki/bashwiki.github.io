@@ -1,48 +1,55 @@
-# [리눅스] Bash uname 사용법
+# [Linux] Bash uname cách sử dụng: Hiển thị thông tin hệ thống
 
 ## Tổng quan
-Lệnh `uname` trong Bash được sử dụng để hiển thị thông tin về hệ thống đang chạy. Lệnh này cung cấp các thông tin cơ bản như tên hệ điều hành, tên máy chủ, phiên bản kernel và nhiều thông tin khác. Mục đích chính của `uname` là giúp người dùng và các nhà phát triển hiểu rõ hơn về môi trường hệ thống mà họ đang làm việc.
+Lệnh `uname` trong Bash được sử dụng để hiển thị thông tin về hệ thống đang chạy, bao gồm tên kernel, tên máy, phiên bản kernel, và nhiều thông tin khác. Đây là một công cụ hữu ích để kiểm tra cấu hình hệ thống và xác định môi trường hoạt động.
 
-## Cú pháp
-Cú pháp cơ bản của lệnh `uname` là:
+## Cách sử dụng
+Cú pháp cơ bản của lệnh `uname` như sau:
 
-```bash
-uname [tùy chọn]
+```
+uname [tùy chọn] [tham số]
 ```
 
-Một số tùy chọn phổ biến của lệnh `uname` bao gồm:
+## Tùy chọn phổ biến
+Dưới đây là một số tùy chọn thường gặp của lệnh `uname` cùng với giải thích ngắn gọn:
 
 - `-a`: Hiển thị tất cả thông tin hệ thống.
-- `-s`: Hiển thị tên hệ điều hành.
-- `-n`: Hiển thị tên máy chủ.
+- `-s`: Hiển thị tên kernel.
+- `-n`: Hiển thị tên máy.
 - `-r`: Hiển thị phiên bản kernel.
 - `-v`: Hiển thị thông tin phiên bản kernel.
-- `-m`: Hiển thị kiến trúc máy tính.
+- `-m`: Hiển thị kiến trúc máy (ví dụ: x86_64).
+- `-o`: Hiển thị tên hệ điều hành.
 
-## Ví dụ
+## Ví dụ phổ biến
 Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `uname`:
 
 1. Hiển thị tất cả thông tin hệ thống:
+   ```bash
+   uname -a
+   ```
 
-```bash
-uname -a
-```
-Kết quả có thể trông như sau:
-```
-Linux myhostname 5.4.0-42-generic #46-Ubuntu SMP Fri Aug 14 11:00:00 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
-```
+2. Hiển thị tên kernel:
+   ```bash
+   uname -s
+   ```
 
-2. Hiển thị chỉ tên hệ điều hành:
+3. Hiển thị phiên bản kernel:
+   ```bash
+   uname -r
+   ```
 
-```bash
-uname -s
-```
-Kết quả sẽ là:
-```
-Linux
-```
+4. Hiển thị kiến trúc máy:
+   ```bash
+   uname -m
+   ```
+
+5. Hiển thị tên hệ điều hành:
+   ```bash
+   uname -o
+   ```
 
 ## Mẹo
-- Sử dụng tùy chọn `-a` để có cái nhìn tổng quát về hệ thống của bạn, điều này rất hữu ích khi bạn cần thông tin chi tiết nhanh chóng.
-- Kết hợp lệnh `uname` với các lệnh khác trong Bash để tự động hóa các tác vụ liên quan đến hệ thống, chẳng hạn như ghi lại thông tin hệ thống vào một tệp log.
-- Lưu ý rằng một số tùy chọn có thể không khả dụng trên tất cả các hệ thống, vì vậy hãy kiểm tra tài liệu của hệ điều hành cụ thể của bạn nếu bạn gặp vấn đề.
+- Sử dụng tùy chọn `-a` để có cái nhìn tổng quát nhất về hệ thống của bạn.
+- Kết hợp lệnh `uname` với các lệnh khác như `grep` để lọc thông tin cụ thể mà bạn cần.
+- Thường xuyên kiểm tra thông tin hệ thống giúp bạn nắm bắt được tình trạng và cấu hình của máy chủ hoặc máy tính cá nhân.

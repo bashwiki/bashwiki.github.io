@@ -1,38 +1,48 @@
-# [리눅스] Bash sysctl 사용법
+# [Linux] Bash sysctl uso: Gerenciar parâmetros do kernel
 
 ## Overview
-O comando `sysctl` é uma ferramenta utilizada no Linux para modificar e exibir parâmetros do núcleo (kernel) em tempo real. Ele permite que os administradores do sistema ajustem configurações do núcleo sem a necessidade de reiniciar o sistema, o que é útil para otimizar o desempenho e a segurança do sistema operacional.
+O comando `sysctl` é utilizado para modificar e exibir parâmetros do kernel do Linux em tempo real. Ele permite que os administradores do sistema ajustem configurações do kernel sem a necessidade de reiniciar o sistema.
 
 ## Usage
 A sintaxe básica do comando `sysctl` é a seguinte:
 
 ```bash
-sysctl [opções] [nome_do_parâmetro]
+sysctl [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-a` ou `--all`: Exibe todos os parâmetros do núcleo e seus valores atuais.
-- `-n` ou `--quiet`: Exibe apenas o valor do parâmetro solicitado, sem o nome do parâmetro.
-- `-w` ou `--write`: Permite alterar o valor de um parâmetro do núcleo. É necessário fornecer o nome do parâmetro seguido do novo valor.
+## Common Options
+- `-a`: Exibe todos os parâmetros do kernel e seus valores.
+- `-w`: Permite modificar um parâmetro do kernel.
+- `-p`: Carrega configurações de um arquivo especificado.
 
-## Examples
-### Exemplo 1: Exibir todos os parâmetros do núcleo
-Para listar todos os parâmetros do núcleo e seus valores, você pode usar:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `sysctl`:
 
-```bash
-sysctl -a
-```
+1. **Exibir todos os parâmetros do kernel:**
 
-### Exemplo 2: Alterar um parâmetro do núcleo
-Se você quiser aumentar o número máximo de arquivos abertos que um processo pode ter, pode usar o seguinte comando:
+   ```bash
+   sysctl -a
+   ```
 
-```bash
-sysctl -w fs.file-max=100000
-```
+2. **Modificar um parâmetro do kernel:**
 
-Esse comando altera o parâmetro `fs.file-max` para 100000.
+   ```bash
+   sysctl -w net.ipv4.ip_forward=1
+   ```
+
+3. **Carregar configurações de um arquivo:**
+
+   ```bash
+   sysctl -p /etc/sysctl.conf
+   ```
+
+4. **Verificar o valor de um parâmetro específico:**
+
+   ```bash
+   sysctl net.ipv4.tcp_max_syn_backlog
+   ```
 
 ## Tips
-- Sempre faça um backup da configuração atual antes de alterar qualquer parâmetro do núcleo, especialmente em ambientes de produção.
-- Para tornar as alterações permanentes, adicione as configurações desejadas no arquivo `/etc/sysctl.conf` e execute `sysctl -p` para aplicar as mudanças.
-- Use `sysctl -n` para verificar rapidamente o valor atual de um parâmetro sem a necessidade de informações adicionais.
+- Sempre faça um backup do arquivo de configuração `/etc/sysctl.conf` antes de fazer alterações.
+- Use o comando `sysctl -a` para explorar quais parâmetros estão disponíveis e suas configurações atuais.
+- Após modificar parâmetros, é uma boa prática verificar se as alterações foram aplicadas corretamente.

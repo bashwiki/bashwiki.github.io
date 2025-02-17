@@ -1,38 +1,43 @@
-# [리눅스] Bash userdel 사용법
+# [Linux] Bash userdel Usage: Remove user accounts
 
 ## Overview
-The `userdel` command in Bash is used to delete a user account from the system. Its primary purpose is to remove user information from the system's user database, effectively revoking access to the system for that user. When a user account is deleted, the associated home directory and mail spool can also be removed, depending on the options specified.
+The `userdel` command is used in Linux to delete a user account from the system. When a user is deleted, their home directory and mail spool can also be removed, depending on the options used.
 
 ## Usage
 The basic syntax of the `userdel` command is as follows:
 
 ```bash
-userdel [options] username
+userdel [options] [username]
 ```
 
-### Common Options
-- `-r` : This option removes the user's home directory and mail spool along with the user account.
-- `-f` : Forces the removal of the user account, even if the user is currently logged in.
-- `-Z` : This option will remove the SELinux user mapping for the user being deleted.
+## Common Options
+- `-r`: Remove the user's home directory and mail spool along with the user account.
+- `-f`: Force the removal of the user account, even if the user is currently logged in.
+- `-Z`: Remove any SELinux user mapping for the user account.
 
-## Examples
+## Common Examples
 
-### Example 1: Deleting a User Without Removing Home Directory
-To delete a user named `exampleuser` without removing their home directory, you would use:
+1. **Delete a user without removing their home directory:**
+   ```bash
+   userdel john
+   ```
 
-```bash
-sudo userdel exampleuser
-```
+2. **Delete a user and remove their home directory:**
+   ```bash
+   userdel -r john
+   ```
 
-### Example 2: Deleting a User and Their Home Directory
-To delete the same user and also remove their home directory and mail spool, you would use:
+3. **Forcefully delete a user who is currently logged in:**
+   ```bash
+   userdel -f john
+   ```
 
-```bash
-sudo userdel -r exampleuser
-```
+4. **Delete a user and remove SELinux user mapping:**
+   ```bash
+   userdel -Z john
+   ```
 
 ## Tips
-- Always ensure that you have backed up any important data associated with the user account before deletion, especially if using the `-r` option.
-- Check if the user is currently logged in before deleting the account to avoid potential issues. You can use the `who` or `w` command to see currently logged-in users.
-- Consider using the `-f` option with caution, as it can lead to data loss if the user is actively using the system.
-- Regularly review user accounts on your system to maintain security and manage user access effectively.
+- Always ensure that you have backed up any important data before deleting a user account.
+- Use the `-r` option with caution, as it will permanently delete the user's home directory and all its contents.
+- Check if the user is logged in before deletion to avoid disrupting active sessions, unless you are using the `-f` option intentionally.

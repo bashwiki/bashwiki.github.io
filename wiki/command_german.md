@@ -1,39 +1,49 @@
-# [리눅스] Bash command 사용법
+# [Linux] Bash-Befehl cp: Dateien und Verzeichnisse kopieren
 
 ## Übersicht
-Der Befehl `command` in Bash wird verwendet, um eine bestimmte Aufgabe auszuführen, ohne dass die Shell die Aliase oder Funktionen berücksichtigt, die möglicherweise für den angegebenen Befehl definiert sind. Dies ist besonders nützlich, wenn Sie sicherstellen möchten, dass Sie die ursprüngliche Version eines Befehls verwenden, anstatt eine modifizierte Version, die durch Aliase oder Funktionen in Ihrer Shell-Umgebung beeinflusst werden könnte.
+Der Befehl `cp` wird verwendet, um Dateien und Verzeichnisse in Linux zu kopieren. Er ermöglicht es Benutzern, eine oder mehrere Quelldateien an einen Zielort zu kopieren, wobei verschiedene Optionen zur Verfügung stehen, um das Verhalten des Kopiervorgangs anzupassen.
 
 ## Verwendung
-Die grundlegende Syntax des `command`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-command [OPTION]... COMMAND [ARGUMENTE]...
+cp [Optionen] [Quell-Datei(en)] [Ziel]
 ```
 
-### Häufige Optionen
-- `-v` oder `--verbose`: Gibt den Befehl aus, der ausgeführt wird, bevor er tatsächlich ausgeführt wird.
-- `-p` oder `--preserve`: Sucht den Befehl in den Standardverzeichnissen, anstatt in den Aliassen oder Funktionen.
+## Häufige Optionen
+- `-r`: Kopiert Verzeichnisse rekursiv.
+- `-i`: Fragt vor dem Überschreiben von Dateien nach.
+- `-u`: Kopiert nur, wenn die Quell-Datei neuer ist als die Ziel-Datei oder wenn die Ziel-Datei nicht existiert.
+- `-v`: Gibt detaillierte Informationen über den Kopiervorgang aus (verbose).
+- `-a`: Archivmodus; kopiert Dateien und Verzeichnisse rekursiv und bewahrt alle Attribute.
 
-## Beispiele
-Hier sind einige praktische Beispiele, wie der `command`-Befehl verwendet werden kann:
-
-1. **Verwendung von `command`, um einen Alias zu umgehen**:
-   Angenommen, Sie haben einen Alias für `ls` definiert, der zusätzliche Optionen hinzufügt. Sie können den ursprünglichen `ls`-Befehl wie folgt aufrufen:
-
+## Häufige Beispiele
+1. **Eine Datei kopieren:**
    ```bash
-   command ls
+   cp datei.txt kopie_datei.txt
    ```
 
-2. **Verwendung von `command` mit der `-v` Option**:
-   Um zu sehen, welcher Befehl tatsächlich ausgeführt wird, können Sie die `-v` Option verwenden:
-
+2. **Ein Verzeichnis rekursiv kopieren:**
    ```bash
-   command -v ls
+   cp -r mein_verzeichnis/ kopie_verzeichnis/
    ```
 
-   Dies gibt den vollständigen Pfad zum `ls`-Befehl aus, ohne dass Aliase oder Funktionen berücksichtigt werden.
+3. **Datei mit Bestätigung vor dem Überschreiben kopieren:**
+   ```bash
+   cp -i datei.txt kopie_datei.txt
+   ```
+
+4. **Nur neuere Dateien kopieren:**
+   ```bash
+   cp -u datei.txt ziel_verzeichnis/
+   ```
+
+5. **Detaillierte Ausgabe beim Kopieren aktivieren:**
+   ```bash
+   cp -v datei.txt kopie_datei.txt
+   ```
 
 ## Tipps
-- Verwenden Sie `command`, wenn Sie sicherstellen möchten, dass Sie die Standardversion eines Befehls verwenden, insbesondere in Skripten, in denen Aliase oder Funktionen möglicherweise die erwartete Funktionalität ändern.
-- Überprüfen Sie regelmäßig Ihre Aliase und Funktionen, um sicherzustellen, dass sie nicht unbeabsichtigt die Verwendung von Standardbefehlen beeinträchtigen.
-- Nutzen Sie die `-p` Option, um sicherzustellen, dass der Befehl aus den Standardverzeichnissen geladen wird, was hilfreich sein kann, wenn Sie sicherstellen möchten, dass Sie die richtige Version eines Befehls verwenden.
+- Verwenden Sie die Option `-i`, um versehentliches Überschreiben wichtiger Dateien zu vermeiden.
+- Nutzen Sie den Archivmodus `-a`, wenn Sie komplette Verzeichnisse mit ihren Attributen und Berechtigungen kopieren möchten.
+- Überprüfen Sie die Zielverzeichnisse vor dem Kopieren, um sicherzustellen, dass Sie die Dateien am richtigen Ort ablegen.

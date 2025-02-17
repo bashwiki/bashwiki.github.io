@@ -1,54 +1,51 @@
-# [리눅스] Bash readarray 사용법
+# [Linux] Bash readarray Verwendung: Liest Zeilen in ein Array ein
 
 ## Übersicht
-Der Befehl `readarray` (auch bekannt als `mapfile`) wird in Bash verwendet, um eine Datei oder die Standardausgabe in ein Array zu lesen. Die Hauptfunktion von `readarray` besteht darin, jede Zeile der Eingabe in ein Element des Arrays zu speichern. Dies ist besonders nützlich, wenn Sie mit Zeilen von Daten arbeiten und diese in einem Skript weiterverarbeiten möchten.
+Der Befehl `readarray` (auch bekannt als `mapfile`) in Bash wird verwendet, um Zeilen aus einer Eingabe (z. B. einer Datei oder einer Standardausgabe) in ein Array zu lesen. Jede Zeile wird zu einem Element des Arrays, was die Verarbeitung von Daten erleichtert.
 
 ## Verwendung
 Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-readarray [Optionen] ARRAY_NAME
+readarray [Optionen] [Arrayname]
 ```
 
-### Häufige Optionen:
-- `-n N`: Liest nur die ersten N Zeilen der Eingabe.
+## Häufige Optionen
+- `-n N`: Liest nur die ersten N Zeilen ein.
 - `-s N`: Überspringt die ersten N Zeilen der Eingabe.
-- `-t`: Entfernt das Zeilenende (newline) von jeder Zeile, die in das Array gelesen wird.
-- `-d DELIMITER`: Setzt ein benutzerdefiniertes Trennzeichen anstelle des Standard-Zeilenumbruchs.
+- `-t`: Entfernt das Zeilenende von jeder Zeile, die in das Array eingelesen wird.
 
-## Beispiele
+## Häufige Beispiele
 
 ### Beispiel 1: Einfache Verwendung
-Angenommen, Sie haben eine Datei namens `daten.txt`, die mehrere Zeilen enthält. Sie können diese Datei in ein Array einlesen, wie folgt:
+Lese alle Zeilen aus einer Datei in ein Array namens `mein_array` ein.
 
 ```bash
-readarray zeilen < daten.txt
+readarray mein_array < datei.txt
 ```
 
-Nach dem Ausführen dieses Befehls sind die Zeilen der Datei `daten.txt` in dem Array `zeilen` gespeichert. Sie können dann auf die Elemente des Arrays zugreifen, z.B.:
+### Beispiel 2: Nur die ersten 3 Zeilen einlesen
+Lese nur die ersten 3 Zeilen aus einer Datei in ein Array.
 
 ```bash
-echo "${zeilen[0]}"  # Gibt die erste Zeile der Datei aus
+readarray -n 3 mein_array < datei.txt
 ```
 
-### Beispiel 2: Mit Optionen
-Wenn Sie nur die ersten 3 Zeilen einer Datei lesen möchten und die Zeilenenden entfernen wollen, können Sie den Befehl wie folgt verwenden:
+### Beispiel 3: Zeilen ohne Zeilenende einlesen
+Lese Zeilen aus einer Datei ein und entferne das Zeilenende.
 
 ```bash
-readarray -n 3 -t erste_drei < daten.txt
+readarray -t mein_array < datei.txt
 ```
 
-Jetzt enthält das Array `erste_drei` die ersten drei Zeilen der Datei ohne Zeilenenden.
+### Beispiel 4: Zeilen überspringen
+Überspringe die ersten 2 Zeilen und lese den Rest in ein Array ein.
+
+```bash
+readarray -s 2 mein_array < datei.txt
+```
 
 ## Tipps
 - Verwenden Sie die Option `-t`, um unerwünschte Zeilenenden zu vermeiden, wenn Sie die Daten weiterverarbeiten möchten.
-- Wenn Sie mit großen Dateien arbeiten, denken Sie daran, die Optionen `-n` und `-s` zu verwenden, um die Menge der gelesenen Daten zu steuern und die Leistung zu optimieren.
-- Testen Sie den Inhalt des Arrays mit einer Schleife, um sicherzustellen, dass die Daten korrekt eingelesen wurden:
-
-```bash
-for zeile in "${zeilen[@]}"; do
-    echo "$zeile"
-done
-```
-
-Mit diesen Informationen sind Sie gut gerüstet, um den Befehl `readarray` effektiv in Ihren Bash-Skripten zu verwenden.
+- Achten Sie darauf, dass das Array in Bash eine Null-basierte Indizierung hat. Das erste Element ist also `mein_array[0]`.
+- Nutzen Sie `printf` oder `echo`, um die Inhalte des Arrays anzuzeigen, z. B. `printf '%s\n' "${mein_array[@]}"`.

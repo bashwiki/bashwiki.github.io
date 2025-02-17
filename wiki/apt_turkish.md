@@ -1,42 +1,61 @@
-# [리눅스] Bash apt 사용법
+# [Linux] Bash apt Kullanımı: Paket yönetimi aracı
 
-## Overview
-`apt`, Debian tabanlı sistemlerde (örneğin Ubuntu) kullanılan bir paket yönetim aracıdır. `apt`, yazılım paketlerini yüklemek, güncellemek ve kaldırmak için kullanılır. Kullanıcıların sistemlerinde yazılım kurulumunu ve yönetimini kolaylaştırmak amacıyla tasarlanmıştır.
+## Genel Bakış
+`apt` (Advanced Package Tool), Debian tabanlı Linux dağıtımlarında yazılım paketlerini yönetmek için kullanılan bir komut satırı aracıdır. Kullanıcıların yazılımları yüklemesine, güncellemesine ve kaldırmasına olanak tanır.
 
-## Usage
-Temel `apt` komut yapısı şu şekildedir:
+## Kullanım
+`apt` komutunun temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-apt [seçenekler] [komut] [paket_adı]
+apt [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `update`: Paket listelerini günceller.
-- `upgrade`: Yüklenmiş paketleri en son sürümlerine günceller.
+## Yaygın Seçenekler
 - `install`: Belirtilen paketi yükler.
 - `remove`: Belirtilen paketi kaldırır.
+- `update`: Paket listelerini günceller.
+- `upgrade`: Yüklü paketleri günceller.
 - `search`: Belirtilen terimi içeren paketleri arar.
 
-## Examples
-### Örnek 1: Paket Güncelleme
-Yüklenmiş paketlerinizi güncellemek için aşağıdaki komutu kullanabilirsiniz:
+## Yaygın Örnekler
+Aşağıda `apt` komutunun bazı pratik örnekleri verilmiştir:
+
+### 1. Paket Yükleme
+Belirli bir paketi yüklemek için:
 
 ```bash
-sudo apt update && sudo apt upgrade
+sudo apt install paket_adi
 ```
 
-Bu komut, önce paket listelerini günceller, ardından sistemdeki tüm yüklü paketleri en son sürümlerine günceller.
-
-### Örnek 2: Yeni Bir Paket Yükleme
-Örneğin, `curl` adlı bir aracı yüklemek için şu komutu kullanabilirsiniz:
+### 2. Paket Kaldırma
+Yüklü bir paketi kaldırmak için:
 
 ```bash
-sudo apt install curl
+sudo apt remove paket_adi
 ```
 
-Bu komut, `curl` paketini sisteminize yükler.
+### 3. Paket Listelerini Güncelleme
+Paket listelerini güncellemek için:
 
-## Tips
-- `sudo` komutunu kullanmayı unutmayın; çünkü `apt` genellikle yönetici (root) yetkileri gerektirir.
-- `apt` komutunu kullanmadan önce `apt update` komutunu çalıştırarak paket listelerinizi güncel tutun.
-- Paketleri kaldırmadan önce, hangi dosyaların kaldırılacağını görmek için `apt remove --dry-run paket_adı` komutunu kullanabilirsiniz. Bu, kaldırma işleminin ne yapacağını önceden görmenizi sağlar.
+```bash
+sudo apt update
+```
+
+### 4. Yüklü Paketleri Güncelleme
+Tüm yüklü paketleri güncellemek için:
+
+```bash
+sudo apt upgrade
+```
+
+### 5. Paket Arama
+Belirli bir terimi içeren paketleri aramak için:
+
+```bash
+apt search arama_terimi
+```
+
+## İpuçları
+- `sudo` komutunu kullanarak yönetici hakları ile işlem yapmayı unutmayın.
+- `apt` komutunu kullanmadan önce `update` komutunu çalıştırarak paket listelerinizi güncel tutun.
+- Gereksiz dosyaları temizlemek için `sudo apt autoremove` komutunu kullanabilirsiniz.

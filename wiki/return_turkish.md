@@ -1,22 +1,24 @@
-# [리눅스] Bash return 사용법
+# [Linux] Bash return kullanımı: Çıkış durumunu döndürme
 
 ## Overview
-`return` komutu, bir fonksiyonun veya bir betiğin (script) çalışmasını sonlandırmak ve belirli bir çıkış kodu döndürmek için kullanılır. Bu komut, özellikle fonksiyonlar içinde kullanıldığında, fonksiyonun sonucunu çağıran yere iletmek için önemlidir. Çıkış kodları, bir işlemin başarılı olup olmadığını belirtmek için yaygın olarak kullanılır; genellikle 0 başarılı bir sonucu, 1 veya daha yüksek sayılar ise hataları temsil eder.
+`return` komutu, bir fonksiyondan çıkış durumunu döndürmek için kullanılır. Bu komut, bir fonksiyonun sonucunu belirlemek ve çağrıldığı yere geri bildirim sağlamak amacıyla kullanılır.
 
 ## Usage
-`return` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-return [çıkış_kodu]
+return [options] [n]
 ```
 
-- `çıkış_kodu`: (isteğe bağlı) Fonksiyonun veya betiğin döndüreceği çıkış kodudur. Belirtilmezse, son çalıştırılan komutun çıkış kodu kullanılır.
+Burada `n`, döndürmek istediğiniz çıkış durumunu belirtir. Eğer `n` belirtilmezse, fonksiyonun en son çalıştırılan komutunun çıkış durumu döndürülür.
 
-## Examples
+## Common Options
+- `n`: Döndürmek istediğiniz çıkış durumunu belirtir. Genellikle 0 (başarılı) veya 1 (başarısız) gibi değerler kullanılır.
 
-### Örnek 1: Basit Bir Fonksiyon
-Aşağıdaki örnekte, bir fonksiyon tanımlanmış ve bu fonksiyon bir çıkış kodu döndürmektedir:
+## Common Examples
+Aşağıda `return` komutunun bazı pratik örnekleri verilmiştir:
 
+### Örnek 1: Basit bir fonksiyon
 ```bash
 my_function() {
     echo "Fonksiyon çalışıyor."
@@ -24,31 +26,38 @@ my_function() {
 }
 
 my_function
-echo "Çıkış kodu: $?"
+echo "Çıkış durumu: $?"
 ```
+Bu örnekte, `my_function` çağrıldığında 0 çıkış durumu döndürülür.
 
-Bu örnekte, `my_function` çağrıldığında "Fonksiyon çalışıyor." mesajı yazdırılır ve ardından çıkış kodu 0 olarak döner.
-
-### Örnek 2: Hata Durumu
-Aşağıdaki örnekte, bir hata durumu simüle edilmiştir:
-
+### Örnek 2: Hata durumu döndürme
 ```bash
-check_file() {
-    if [ ! -f "$1" ]; then
-        echo "Dosya bulunamadı!"
-        return 1
-    fi
-    echo "Dosya mevcut."
+my_function() {
+    echo "Bir hata oluştu."
+    return 1
+}
+
+my_function
+echo "Çıkış durumu: $?"
+```
+Bu örnekte, fonksiyon 1 çıkış durumu döndürerek bir hata olduğunu belirtir.
+
+### Örnek 3: Çıkış durumunu kontrol etme
+```bash
+my_function() {
     return 0
 }
 
-check_file "olmayan_dosya.txt"
-echo "Çıkış kodu: $?"
+my_function
+if [ $? -eq 0 ]; then
+    echo "Fonksiyon başarılı bir şekilde çalıştı."
+else
+    echo "Fonksiyon başarısız oldu."
+fi
 ```
-
-Bu örnekte, `check_file` fonksiyonu verilen dosyanın varlığını kontrol eder. Dosya mevcut değilse, hata mesajı yazdırılır ve çıkış kodu 1 olarak döner.
+Bu örnekte, çıkış durumu kontrol edilerek fonksiyonun başarılı olup olmadığı belirlenir.
 
 ## Tips
-- `return` komutunu yalnızca fonksiyonlar içinde kullanın; betiklerin ana akışında `exit` komutunu tercih edin.
-- Çıkış kodlarını kullanarak hata ayıklama yaparken, her fonksiyonun sonunda uygun bir çıkış kodu döndürdüğünüzden emin olun.
-- `return` komutunu kullanarak, fonksiyonlarınızın daha okunabilir ve yönetilebilir olmasını sağlayabilirsiniz.
+- `return` komutunu yalnızca fonksiyonlar içinde kullanın; dışarıda kullanıldığında hata verebilir.
+- Çıkış durumlarını standart hale getirmek için 0'ı başarı, 1'i hata olarak kullanın.
+- Fonksiyonlarınızda anlamlı çıkış durumları döndürmek, hata ayıklamayı kolaylaştırır.

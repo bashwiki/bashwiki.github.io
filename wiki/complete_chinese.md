@@ -1,43 +1,40 @@
-# [리눅스] Bash complete 사용법
+# [Linux] Bash 完整命令：自动补全命令
 
 ## 概述
-`complete` 命令用于为 Bash shell 提供命令行自动补全功能。它允许用户定义特定命令的补全行为，从而提高命令行操作的效率。通过使用 `complete`，用户可以指定在输入特定命令时，应该显示哪些选项或参数。
+`complete` 命令用于为 Bash shell 中的命令提供自动补全功能。通过定义特定命令的补全规则，用户可以更高效地输入命令和参数。
 
 ## 用法
-`complete` 命令的基本语法如下：
-
+基本语法如下：
 ```bash
-complete [OPTIONS] COMMAND
+complete [options] [arguments]
 ```
 
-### 常用选项
-- `-o`：指定补全选项，例如 `-o nospace` 表示在补全后不添加空格。
-- `-F`：指定一个函数，该函数将用于生成补全选项。
-- `-A`：指定补全类型，例如 `-A command` 用于补全命令名称。
+## 常用选项
+- `-A`：指定补全类型，例如文件名、用户等。
+- `-o`：添加选项，例如 `default`，表示默认补全。
+- `-F`：指定一个函数，用于生成补全的内容。
 
-## 示例
-### 示例 1：为自定义命令添加补全
-假设我们有一个名为 `mycmd` 的自定义命令，我们希望为它添加补全功能。
+## 常见示例
+1. 为 `git` 命令添加文件名补全：
+   ```bash
+   complete -o default -A file git
+   ```
 
-```bash
-complete -o nospace -W "start stop restart" mycmd
-```
-在这个例子中，当用户输入 `mycmd` 后，按下 Tab 键时，将会显示 `start`、`stop` 和 `restart` 作为补全选项。
+2. 为自定义命令 `mycmd` 添加补全：
+   ```bash
+   _mycmd_completions() {
+       local commands="start stop restart"
+       COMPREPLY=( $(compgen -W "$commands" -- "${COMP_WORDS[1]}") )
+   }
+   complete -F _mycmd_completions mycmd
+   ```
 
-### 示例 2：使用函数进行动态补全
-我们可以定义一个函数来动态生成补全选项。例如，假设我们希望根据当前目录中的文件名来补全 `edit` 命令：
+3. 为 `ssh` 命令添加用户补全：
+   ```bash
+   complete -A user ssh
+   ```
 
-```bash
-_edit_files() {
-    COMPREPLY=($(compgen -f -- "$1"))
-}
-complete -F _edit_files edit
-```
-在这个例子中，当用户输入 `edit` 后，按下 Tab 键时，将会显示当前目录中的所有文件名作为补全选项。
-
-## 提示
-- 在定义补全时，确保补全选项与命令的功能相关，以提高用户体验。
-- 使用函数进行补全时，可以根据上下文动态生成选项，增强灵活性。
-- 测试补全功能，确保其在不同情况下都能正常工作，避免用户体验不佳。
-
-通过使用 `complete` 命令，您可以显著提升命令行操作的效率和便利性。
+## 小贴士
+- 在使用 `complete` 时，确保你了解要补全的命令及其参数。
+- 可以通过创建自定义补全函数来实现复杂的补全逻辑。
+- 定期检查和更新补全规则，以适应新的命令或参数变化。

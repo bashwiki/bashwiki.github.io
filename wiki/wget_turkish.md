@@ -1,38 +1,49 @@
-# [리눅스] Bash wget 사용법
+# [Linux] Bash wget Kullanımı: Dosya indirme aracı
 
-## Overview
-`wget`, web üzerinden dosya indirmek için kullanılan bir komut satırı aracıdır. HTTP, HTTPS ve FTP protokollerini destekleyerek, kullanıcıların internetten dosya indirmesine olanak tanır. `wget`, özellikle büyük dosyaların veya birden fazla dosyanın indirilmesi gerektiğinde kullanışlıdır. Ayrıca, bağlantı kesildiğinde indirme işlemini devam ettirme yeteneği ile dikkat çeker.
+## Genel Bakış
+`wget`, web üzerinden dosya indirmek için kullanılan güçlü bir komut satırı aracıdır. HTTP, HTTPS ve FTP protokollerini destekler ve kullanıcıların dosyaları kolayca indirmesine olanak tanır.
 
-## Usage
-`wget` komutunun temel sözdizimi aşağıdaki gibidir:
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
-wget [seçenekler] [URL]
+wget [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-O [dosya_adı]`: İndirilen dosyayı belirtilen isimle kaydeder.
-- `-c`: Kesilen bir indirmeyi devam ettirir.
-- `-r`: Belirtilen URL'den kaynakları (örneğin, HTML sayfaları ve bağlantılı dosyalar) rekürsif olarak indirir.
+## Yaygın Seçenekler
+- `-O [dosya_adı]`: İndirilen dosyayı belirtilen adla kaydeder.
+- `-c`: Kesilen indirmeleri devam ettirir.
 - `-q`: Sessiz modda çalışır, yalnızca hata mesajlarını gösterir.
-- `--limit-rate=[hız]`: İndirme hızını sınırlamak için kullanılır (örneğin, `--limit-rate=200k`).
+- `--limit-rate=[hız]`: İndirme hızını sınırlar.
+- `-r`: Dizinleri ve alt dizinleri rekürsif olarak indirir.
 
-## Examples
-### Örnek 1: Basit Dosya İndirme
-Aşağıdaki komut, belirtilen URL'den bir dosya indirir:
+## Yaygın Örnekler
+1. Basit bir dosya indirme:
+   ```bash
+   wget https://example.com/dosya.zip
+   ```
 
-```bash
-wget https://example.com/dosya.zip
-```
+2. İndirilen dosyayı farklı bir adla kaydetme:
+   ```bash
+   wget -O yeni_dosya.zip https://example.com/dosya.zip
+   ```
 
-### Örnek 2: İndirmeyi Devam Ettirme
-Eğer indirme işlemi kesildiyse, aşağıdaki komut ile kaldığı yerden devam edebilirsiniz:
+3. Kesilen bir indirmeyi devam ettirme:
+   ```bash
+   wget -c https://example.com/büyük_dosya.zip
+   ```
 
-```bash
-wget -c https://example.com/buyuk_dosya.iso
-```
+4. İndirme hızını sınırlandırma:
+   ```bash
+   wget --limit-rate=200k https://example.com/dosya.zip
+   ```
 
-## Tips
-- İndirme işlemlerini daha verimli hale getirmek için `-q` seçeneğini kullanarak gereksiz çıktıları gizleyebilirsiniz.
-- Birden fazla dosyayı indirmek için bir metin dosyası oluşturup, her bir URL'yi bu dosyaya yazdıktan sonra `-i [dosya_adı]` seçeneği ile bu dosyayı kullanabilirsiniz.
-- İndirme hızını sınırlamak, ağ trafiğinizi yönetmek için faydalı olabilir, bu nedenle `--limit-rate` seçeneğini kullanmayı düşünün.
+5. Bir web sitesinin tüm içeriğini indirme (rekürsif):
+   ```bash
+   wget -r https://example.com/
+   ```
+
+## İpuçları
+- İndirme işlemlerini arka planda gerçekleştirmek için `-b` seçeneğini kullanabilirsiniz.
+- İndirme işlemlerini zamanlamak için `cron` ile birlikte kullanabilirsiniz.
+- `wget` ile indirdiğiniz dosyaların bütünlüğünü kontrol etmek için `--no-check-certificate` seçeneğini kullanabilirsiniz. Bu, SSL sertifikası hatalarını göz ardı eder.

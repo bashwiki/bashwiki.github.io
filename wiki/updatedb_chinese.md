@@ -1,33 +1,42 @@
-# [리눅스] Bash updatedb 사용법
+# [Linux] Bash updatedb 用法: 更新文件数据库
 
 ## 概述
-`updatedb` 是一个用于更新文件数据库的 Bash 命令，通常与 `locate` 命令配合使用。其主要目的是快速索引文件系统中的文件和目录，以便用户可以通过 `locate` 命令快速查找文件。`updatedb` 会扫描指定的目录并将文件路径存储在数据库中，从而提高搜索效率。
+`updatedb` 命令用于更新文件系统的数据库，以便 `locate` 命令能够快速查找文件。它会扫描指定的目录并记录文件的路径，从而提高文件搜索的效率。
 
 ## 用法
 基本语法如下：
-```bash
-updatedb [选项]
+```
+updatedb [options] [arguments]
 ```
 
-常见选项包括：
-- `--local`：仅更新本地文件系统的数据库。
-- `--prunepaths`：指定不应包含在数据库中的路径。
-- `--output`：指定输出数据库的文件名，默认为 `/var/lib/mlocate/mlocate.db`。
+## 常用选项
+- `--localpaths`: 指定要更新的本地路径。
+- `--prunepaths`: 指定在更新过程中要排除的路径。
+- `--output`: 指定输出数据库的文件名。
+- `--help`: 显示帮助信息。
 
-## 示例
+## 常见示例
 1. 更新默认数据库：
    ```bash
-   sudo updatedb
+   updatedb
    ```
-   这个命令会以超级用户权限更新默认的文件数据库。
 
-2. 更新数据库并排除特定路径：
+2. 更新特定路径的数据库：
    ```bash
-   sudo updatedb --prunepaths='/tmp,/var/tmp'
+   updatedb --localpaths /home/user/documents
    ```
-   这个命令会更新数据库，同时排除 `/tmp` 和 `/var/tmp` 目录中的文件。
+
+3. 排除特定路径：
+   ```bash
+   updatedb --prunepaths /tmp
+   ```
+
+4. 将数据库输出到自定义文件：
+   ```bash
+   updatedb --output /path/to/custom.db
+   ```
 
 ## 提示
-- 定期运行 `updatedb` 可以确保文件数据库保持最新，特别是在频繁添加或删除文件的环境中。
-- 使用 `--prunepaths` 选项可以有效减少数据库的大小，从而提高 `locate` 命令的搜索速度。
-- 在大型文件系统上运行 `updatedb` 可能需要一些时间，建议在系统负载较低时执行该命令。
+- 定期运行 `updatedb` 可以确保文件数据库保持最新，提升 `locate` 命令的搜索效率。
+- 在大型文件系统上运行 `updatedb` 可能需要一些时间，建议在系统负载较低时执行。
+- 使用 `--prunepaths` 选项可以避免不必要的路径被索引，从而加快更新速度。

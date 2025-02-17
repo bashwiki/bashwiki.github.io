@@ -1,45 +1,54 @@
-# [리눅스] Bash shift 사용법
+# [Linux] Bash shift Kullanımı: Komut satırındaki argümanları kaydırma
 
 ## Overview
-`shift` komutu, Bash betiklerinde kullanılan bir komuttur ve pozisyonel parametreleri sola kaydırmak için kullanılır. Bu, bir betikteki argümanları yönetmek ve işlemek için oldukça yararlıdır. `shift` komutu, pozisyonel parametrelerin sırasını değiştirerek, ilk parametreyi kaldırır ve geri kalan parametreleri bir sola kaydırır. Bu, özellikle döngülerde veya argümanları sırayla işlemek istediğiniz durumlarda faydalıdır.
+`shift` komutu, Bash betiklerinde veya komut satırında, argümanların konumunu kaydırmak için kullanılır. Bu komut, `$1`, `$2`, `$3` gibi özel değişkenlerin değerlerini sola kaydırarak, ilk argümanı siler ve diğerlerini bir pozisyon sola kaydırır.
 
 ## Usage
-Temel kullanım şekli aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
 shift [n]
 ```
 
-Burada `n`, kaç pozisyonel parametrenin kaydırılacağını belirtir. Eğer `n` belirtilmezse, varsayılan olarak 1 kabul edilir. Örneğin, `shift` komutunu çağırdığınızda, `$1` parametresi kaybolur ve `$2` artık `$1` olur.
+Burada `n`, kaydırılacak argüman sayısını belirtir. Eğer `n` belirtilmezse, varsayılan olarak 1 kabul edilir.
 
-### Örnekler
-1. **Basit Kullanım**:
-   Aşağıdaki örnekte, bir betik içinde `shift` komutunun nasıl kullanılacağını görebilirsiniz:
+## Common Options
+- `n`: Kaydırılacak argüman sayısını belirtir. Örneğin, `shift 2` komutu, ilk iki argümanı kaydırır.
 
-   ```bash
-   #!/bin/bash
-   echo "İlk parametre: $1"
-   echo "İkinci parametre: $2"
-   shift
-   echo "Shift sonrası ilk parametre: $1"
-   echo "Shift sonrası ikinci parametre: $2"
-   ```
+## Common Examples
 
-   Bu betik çalıştırıldığında, ilk iki parametreyi ekrana yazdırır, ardından `shift` komutu ile ilk parametreyi kaydırır.
+### Örnek 1: Basit Kaydırma
+Aşağıdaki komut, ilk argümanı kaydırır ve ikinci argümanı birinci olarak alır.
 
-2. **Birden Fazla Kaydırma**:
-   Aşağıdaki örnekte, birden fazla pozisyonel parametreyi kaydırmayı gösterir:
+```bash
+#!/bin/bash
+echo "İlk argüman: $1"
+shift
+echo "Yeni ilk argüman: $1"
+```
 
-   ```bash
-   #!/bin/bash
-   echo "Parametreler: $@"
-   shift 2
-   echo "İki kaydırma sonrası parametreler: $@"
-   ```
+### Örnek 2: Birden Fazla Argümanı Kaydırma
+Bu örnekte, iki argümanı kaydırıyoruz.
 
-   Bu betik, başlangıçta tüm parametreleri yazdırır ve ardından iki pozisyonel parametreyi kaydırır.
+```bash
+#!/bin/bash
+echo "Argümanlar: $1, $2, $3"
+shift 2
+echo "Yeni argümanlar: $1, $2"
+```
+
+### Örnek 3: Argümanları Döngü ile İşleme
+Argümanları döngü ile işleyip kaydırarak tüm argümanları yazdırabiliriz.
+
+```bash
+#!/bin/bash
+while [ "$#" -gt 0 ]; do
+    echo "Argüman: $1"
+    shift
+done
+```
 
 ## Tips
-- `shift` komutunu kullanırken, kaydırma işlemi sonrasında pozisyonel parametrelerin sayısını kontrol etmek önemlidir. Eğer kaydırdığınızdan daha fazla parametre varsa, `$1` ve diğerleri boş kalabilir.
-- `shift` komutunu döngüler içinde kullanırken dikkatli olun; her döngüde kaydırma yapıldığında, parametrelerin sayısı azalır ve bu, döngünün beklenmedik bir şekilde sona ermesine neden olabilir.
-- `shift` komutunu kullanmadan önce, pozisyonel parametrelerin sayısını kontrol etmek için `"$#"` değişkenini kullanabilirsiniz. Bu, kaç tane parametre olduğunu gösterir ve kaydırma işlemi yapmadan önce bir kontrol mekanizması oluşturmanıza yardımcı olur.
+- `shift` komutunu kullanmadan önce, argüman sayısını kontrol etmek için `"$#"` değişkenini kullanabilirsiniz.
+- `shift` komutunu kullanırken, kaydırdığınız argümanların değerlerini kaybettiğinizi unutmayın; bu nedenle, önemli argümanları kaydırmadan önce bir değişkene atamak iyi bir uygulamadır.
+- `shift` komutunu, argümanları işlemek için döngülerle birlikte kullanmak, betiklerinizi daha esnek hale getirebilir.

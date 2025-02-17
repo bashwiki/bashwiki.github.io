@@ -1,40 +1,50 @@
-# [리눅스] Bash head 사용법
+# [Linux] Bash head Kullanımı: Dosyanın Başındaki Satırları Görüntüleme
 
 ## Genel Bakış
-`head` komutu, bir dosyanın en üst kısmındaki belirli sayıda satırı görüntülemek için kullanılır. Genellikle büyük dosyaların içeriğini hızlıca gözden geçirmek veya dosyanın başındaki önemli bilgileri kontrol etmek için tercih edilir. Varsayılan olarak, `head` komutu bir dosyanın ilk 10 satırını gösterir.
+`head` komutu, bir dosyanın en üst kısmındaki belirli sayıda satırı görüntülemek için kullanılır. Genellikle büyük dosyaların içeriğini hızlı bir şekilde gözden geçirmek için faydalıdır.
 
 ## Kullanım
-`head` komutunun temel sözdizimi şu şekildedir:
+Temel sözdizimi şu şekildedir:
 
 ```bash
-head [seçenekler] [dosya_adı]
+head [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-n [sayı]`: Görüntülenecek satır sayısını belirtir. Örneğin, `-n 5` ifadesi, dosyanın ilk 5 satırını gösterir.
-- `-c [bayt]`: Görüntülenecek bayt sayısını belirtir. Örneğin, `-c 100` ifadesi, dosyanın ilk 100 baytını gösterir.
-- `-q`: Birden fazla dosya belirtilmişse, dosya adlarını yazdırmadan sadece içeriklerini gösterir.
+## Yaygın Seçenekler
+- `-n [sayı]`: Görüntülenecek satır sayısını belirtir. Varsayılan olarak 10 satır gösterir.
+- `-c [bayt]`: Görüntülenecek bayt sayısını belirtir.
+- `-q`: Birden fazla dosya belirtildiğinde, dosya adlarını göstermeden çıktı verir.
+- `-v`: Her dosya için başlık bilgilerini gösterir.
 
-## Örnekler
-### Örnek 1: Bir dosyanın ilk 10 satırını görüntüleme
+## Yaygın Örnekler
+Aşağıda `head` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
+
+### 1. Varsayılan 10 Satırı Görüntüleme
 ```bash
 head dosya.txt
 ```
-Bu komut, `dosya.txt` dosyasının ilk 10 satırını gösterir.
 
-### Örnek 2: Bir dosyanın ilk 5 satırını görüntüleme
+### 2. İlk 5 Satırı Görüntüleme
 ```bash
 head -n 5 dosya.txt
 ```
-Bu komut, `dosya.txt` dosyasının ilk 5 satırını gösterir.
 
-### Örnek 3: Bir dosyanın ilk 100 baytını görüntüleme
+### 3. İlk 20 Baytı Görüntüleme
 ```bash
-head -c 100 dosya.txt
+head -c 20 dosya.txt
 ```
-Bu komut, `dosya.txt` dosyasının ilk 100 baytını gösterir.
+
+### 4. Birden Fazla Dosya ile Kullanma
+```bash
+head dosya1.txt dosya2.txt
+```
+
+### 5. Başlık Bilgisi ile Görüntüleme
+```bash
+head -v dosya1.txt dosya2.txt
+```
 
 ## İpuçları
-- `head` komutunu, büyük log dosyalarını veya metin dosyalarını hızlıca incelemek için kullanabilirsiniz. Bu sayede dosyanın başındaki önemli bilgileri kolayca görebilirsiniz.
-- `head` komutunu `tail` komutuyla birlikte kullanarak dosyanın hem başını hem de sonunu inceleyebilirsiniz. Örneğin, `head -n 10 dosya.txt | tail -n 5` komutu, dosyanın ilk 10 satırından son 5 satırı gösterir.
-- Birden fazla dosya belirtirseniz, her dosyanın içeriği arasında bir ayırıcı olarak dosya adları gösterilecektir. Bu, birden fazla dosyanın içeriğini karşılaştırmak için yararlıdır.
+- Büyük dosyalarla çalışırken, `head` komutunu kullanarak dosyanın içeriğini hızlıca gözden geçirebilirsiniz.
+- `head` komutunu bir boru (pipe) ile diğer komutlarla birleştirerek daha karmaşık işlemler gerçekleştirebilirsiniz. Örneğin, `grep` ile birlikte kullanarak belirli bir terimi içeren dosyanın başındaki satırları bulabilirsiniz.
+- Dosya içeriğini incelemek için `tail` komutuyla birlikte kullanarak hem baştan hem de sondan satırları görüntülemek faydalı olabilir.

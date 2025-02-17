@@ -1,39 +1,44 @@
-# [리눅스] Bash logout 사용법
+# [Linux] Bash çıkış komutu: Oturumu kapatır
 
-## Overview
-`logout` komutu, bir kullanıcı oturumunu sonlandırmak için kullanılan bir Bash komutudur. Genellikle bir terminal oturumunu kapatmak istediğinizde veya bir shell oturumundan çıkmak istediğinizde kullanılır. Bu komut, özellikle bir kullanıcı shell oturumunu kapatmak için tasarlanmıştır ve genellikle bir oturum açma işlemi sırasında kullanılan shell'lerde (örneğin, login shell) etkilidir.
+## Genel Bakış
+`logout` komutu, bir terminal oturumunu kapatmak için kullanılır. Genellikle, bir kullanıcı shell oturumunu sonlandırmak istediğinde bu komut tercih edilir. Bu komut, özellikle çoklu oturumlar arasında geçiş yapan kullanıcılar için faydalıdır.
 
-## Usage
-Temel kullanım şekli oldukça basittir. `logout` komutunu terminalde yazmanız yeterlidir:
+## Kullanım
+Temel sözdizimi şu şekildedir:
+
+```bash
+logout [seçenekler] [argümanlar]
+```
+
+## Yaygın Seçenekler
+- `-h`, `--help`: Komut hakkında yardım bilgilerini gösterir.
+- `-v`, `--version`: Komutun sürüm bilgilerini gösterir.
+
+## Yaygın Örnekler
+Aşağıda `logout` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
+
+### Örnek 1: Basit Çıkış
+Terminal oturumunu kapatmak için sadece `logout` komutunu yazabilirsiniz:
 
 ```bash
 logout
 ```
 
-Bu komut, mevcut oturumu kapatır ve kullanıcıyı shell'den çıkarır. `logout` komutu, genellikle bir login shell'de kullanılmalıdır; aksi takdirde, "logout" hatası alabilirsiniz.
-
-## Examples
-### Örnek 1: Basit Oturum Kapatma
-Bir terminal penceresinde, oturumu kapatmak için aşağıdaki komutu yazabilirsiniz:
+### Örnek 2: Yardım Bilgisi Alma
+Komut hakkında daha fazla bilgi almak için yardım seçeneğini kullanabilirsiniz:
 
 ```bash
-logout
+logout --help
 ```
 
-Bu komut, mevcut oturumu kapatacak ve terminal penceresini kapatacaktır.
-
-### Örnek 2: Oturum Kapatma ile Script Kullanımı
-Eğer bir script içinde oturumu kapatmak istiyorsanız, `logout` komutunu şu şekilde kullanabilirsiniz:
+### Örnek 3: Sürüm Bilgisi Görüntüleme
+Komutun sürümünü kontrol etmek için:
 
 ```bash
-#!/bin/bash
-echo "Oturum kapatılıyor..."
-logout
+logout --version
 ```
 
-Bu script çalıştırıldığında, "Oturum kapatılıyor..." mesajını gösterir ve ardından oturumu kapatır.
-
-## Tips
-- `logout` komutunu kullanmadan önce, kaydedilmemiş işlerinizi kaydettiğinizden emin olun. Oturum kapatıldığında, açık olan tüm işlemler sonlanacaktır.
-- `logout` komutunu yalnızca login shell'lerde kullanmaya dikkat edin. Eğer bir non-login shell'de kullanırsanız, hata mesajı alabilirsiniz.
-- Terminal oturumlarınızı yönetmek için `exit` komutunu da kullanabilirsiniz; ancak `logout`, özellikle login shell'lerde daha uygun bir seçimdir.
+## İpuçları
+- `logout` komutunu kullanmadan önce, kaydedilmemiş işlerinizin olup olmadığını kontrol edin; aksi takdirde, verileriniz kaybolabilir.
+- Eğer birden fazla terminal oturumu açtıysanız, yalnızca aktif olan oturumu kapatmak için `logout` komutunu kullanın.
+- `logout` komutu, genellikle bir shell oturumunun sonlandırılması için en uygun yöntemdir; bu nedenle, terminalden çıkmak istediğinizde tercih edin.

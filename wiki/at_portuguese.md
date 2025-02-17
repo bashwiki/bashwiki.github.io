@@ -1,7 +1,7 @@
-# [리눅스] Bash at 사용법
+# [Linux] Bash no at: Agendar tarefas
 
 ## Overview
-O comando `at` é uma ferramenta do sistema Linux que permite agendar a execução de comandos ou scripts em um momento específico no futuro. É especialmente útil para tarefas que precisam ser realizadas uma única vez, como backups, relatórios ou qualquer outra tarefa automatizada que não requer repetição regular.
+O comando `at` é utilizado para agendar a execução de tarefas em um momento específico no futuro. Ele permite que os usuários programem comandos ou scripts para serem executados uma única vez em um horário determinado.
 
 ## Usage
 A sintaxe básica do comando `at` é a seguinte:
@@ -10,30 +10,43 @@ A sintaxe básica do comando `at` é a seguinte:
 at [opções] [hora]
 ```
 
-### Opções Comuns:
-- `-f arquivo`: Especifica um arquivo que contém os comandos a serem executados.
-- `-m`: Envia um e-mail para o usuário após a execução do comando, mesmo que não haja saída.
-- `-q fila`: Permite especificar uma fila de trabalho diferente para o comando.
-- `-l`: Lista os trabalhos agendados.
-- `-d`: Remove um trabalho agendado.
+## Common Options
+Aqui estão algumas opções comuns do comando `at`:
 
-## Examples
-### Exemplo 1: Agendar um comando simples
-Para agendar a execução do comando `echo` para ser executado às 15:00 de hoje, você pode usar:
+- `-f`: Especifica um arquivo que contém os comandos a serem executados.
+- `-m`: Envia um e-mail ao usuário após a execução do comando, mesmo que não haja saída.
+- `-q`: Define a fila de execução (por exemplo, `a`, `b`, `c`, etc.).
+- `-v`: Exibe a hora em que o comando será executado.
 
-```bash
-echo "Hello, World!" | at 15:00
-```
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `at`:
 
-### Exemplo 2: Agendar um script
-Se você tiver um script chamado `backup.sh` que deseja executar amanhã às 2:00 da manhã, você pode fazer assim:
+1. **Agendar um comando para ser executado agora**:
+   ```bash
+   echo "echo 'Olá, mundo!'" | at now
+   ```
 
-```bash
-at 02:00 tomorrow -f backup.sh
-```
+2. **Agendar um comando para ser executado em uma hora específica**:
+   ```bash
+   echo "backup.sh" | at 14:00
+   ```
+
+3. **Agendar um comando para ser executado amanhã**:
+   ```bash
+   echo "limpar_temp.sh" | at tomorrow
+   ```
+
+4. **Usar um arquivo para agendar comandos**:
+   ```bash
+   at -f script.sh 15:00
+   ```
+
+5. **Agendar um comando e receber um e-mail após a execução**:
+   ```bash
+   echo "report.sh" | at -m 18:00
+   ```
 
 ## Tips
-- Sempre verifique se o serviço `atd` está em execução no seu sistema, pois ele é necessário para que os trabalhos agendados sejam executados.
-- Utilize o comando `at -l` para listar todos os trabalhos agendados e `at -d [job_id]` para remover um trabalho específico.
-- Para horários, você pode usar formatos como "now + 1 hour", "tomorrow", ou "5:00 PM" para maior flexibilidade.
-- Considere usar a opção `-m` se você precisar de uma confirmação por e-mail após a execução do comando, especialmente para tarefas críticas.
+- Sempre verifique se o serviço `atd` está em execução no seu sistema, pois ele é necessário para que os comandos agendados sejam executados.
+- Utilize o comando `atq` para listar os trabalhos agendados e `atrm` para remover um trabalho específico.
+- Para agendar tarefas recorrentes, considere usar o comando `cron`, que é mais adequado para execuções repetidas.

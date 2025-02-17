@@ -1,44 +1,54 @@
-# [리눅스] Bash dmesg 사용법
+# [Linux] Bash dmesg Uso: Visualizar mensajes del núcleo
 
 ## Overview
-El comando `dmesg` se utiliza en sistemas Unix y Linux para imprimir el mensaje del búfer del anillo del núcleo. Su propósito principal es mostrar información sobre el hardware del sistema, así como mensajes de diagnóstico y eventos del núcleo que se han producido durante el arranque del sistema o en tiempo de ejecución. Esto es especialmente útil para los ingenieros y desarrolladores que necesitan depurar problemas relacionados con el hardware o el sistema operativo.
+El comando `dmesg` se utiliza para mostrar los mensajes del núcleo de Linux. Estos mensajes son generados por el sistema operativo y pueden incluir información sobre el hardware, controladores y eventos del sistema. Es una herramienta útil para diagnosticar problemas y entender el comportamiento del sistema.
 
 ## Usage
-La sintaxis básica del comando `dmesg` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-dmesg [opciones]
+dmesg [opciones] [argumentos]
 ```
 
-### Opciones Comunes:
-- `-C`: Borra el búfer de mensajes del núcleo.
-- `-c`: Borra el búfer de mensajes después de mostrarlos.
+## Common Options
+- `-C`: Borra el buffer de mensajes del núcleo.
+- `-c`: Borra el buffer después de mostrar los mensajes.
 - `-n nivel`: Establece el nivel de prioridad de los mensajes que se mostrarán.
-- `-T`: Convierte las marcas de tiempo de los mensajes a un formato legible para humanos.
-- `-H`: Muestra los mensajes en un formato más legible (human-readable).
+- `-f fac`: Filtra los mensajes por la faceta especificada.
+- `-T`: Convierte las marcas de tiempo a un formato legible.
 
-## Examples
-### Ejemplo 1: Mostrar mensajes del núcleo
-Para ver los mensajes del núcleo desde el arranque del sistema, simplemente puedes ejecutar:
+## Common Examples
+- Para mostrar todos los mensajes del núcleo:
 
 ```bash
 dmesg
 ```
 
-### Ejemplo 2: Mostrar mensajes con marcas de tiempo legibles
-Si deseas ver los mensajes con marcas de tiempo en un formato más comprensible, puedes usar la opción `-T`:
+- Para mostrar los mensajes más recientes:
+
+```bash
+dmesg | tail
+```
+
+- Para borrar el buffer después de mostrar los mensajes:
+
+```bash
+dmesg -c
+```
+
+- Para mostrar mensajes con un nivel de prioridad específico (por ejemplo, nivel 3):
+
+```bash
+dmesg -n 3
+```
+
+- Para mostrar mensajes con marcas de tiempo legibles:
 
 ```bash
 dmesg -T
 ```
 
-Esto mostrará los mensajes del núcleo junto con la fecha y hora en que ocurrieron, facilitando la identificación de eventos específicos.
-
 ## Tips
-- Utiliza `dmesg | less` para paginar la salida, lo que te permitirá desplazarte por los mensajes de manera más cómoda.
-- Si estás depurando un problema de hardware, puedes combinar `dmesg` con `grep` para filtrar mensajes específicos. Por ejemplo, para buscar mensajes relacionados con USB, puedes usar:
-
-```bash
-dmesg | grep usb
-```
-- Recuerda que los mensajes del núcleo pueden ser muy extensos, así que es recomendable revisar solo los mensajes relevantes para tu diagnóstico.
+- Utiliza `dmesg | less` para navegar por los mensajes de manera más cómoda.
+- Revisa los mensajes de `dmesg` después de un arranque para identificar problemas de hardware.
+- Filtra los mensajes relevantes usando `grep`, por ejemplo: `dmesg | grep error` para buscar errores específicos.

@@ -1,42 +1,48 @@
-# [리눅스] Bash logout 사용법
+# [Linux] Bash logout Usage: Exit the current shell session
 
 ## Overview
-The `logout` command is used in Bash to terminate a login shell session. Its primary purpose is to log out the user from the current shell session, effectively closing the terminal window or returning to the previous shell if nested. This command is particularly useful when working in multi-user environments or when you want to ensure that your session is securely closed.
+The `logout` command is used in Bash to terminate a login shell session. When executed, it logs the user out of the current shell, effectively closing the terminal or console session. This command is particularly useful when you want to safely exit from a remote session or a terminal window.
 
 ## Usage
-The basic syntax of the `logout` command is simply:
+The basic syntax of the `logout` command is as follows:
+
+```bash
+logout [options]
+```
+
+## Common Options
+The `logout` command does not have many options, but here are a couple of common ones:
+
+- `--help`: Displays help information about the command.
+- `--version`: Shows the version of the shell being used.
+
+## Common Examples
+
+### Example 1: Basic Logout
+To log out of the current shell session, simply type:
 
 ```bash
 logout
 ```
 
-This command does not take any options or arguments. It is important to note that `logout` can only be used in a login shell. If you attempt to use it in a non-login shell, you will receive an error message indicating that the command is not valid.
-
-## Examples
-
-### Example 1: Logging Out from a Terminal Session
-To log out from a terminal session, simply type the following command:
+### Example 2: Logout from a Remote Session
+If you are connected to a remote server via SSH, you can log out by entering:
 
 ```bash
 logout
 ```
 
-Upon executing this command, the current session will be terminated, and you will be returned to the login prompt or the previous shell.
-
-### Example 2: Using `logout` in a Nested Shell
-If you have opened a new shell session within an existing terminal, you can log out of the nested session by typing:
+### Example 3: Using Logout in a Script
+In a script, you can use `logout` to end a session after completing tasks:
 
 ```bash
-bash  # Start a new shell
-# ... perform some tasks ...
-logout  # Log out of the nested shell
+#!/bin/bash
+# Perform some tasks
+echo "Tasks completed. Logging out..."
+logout
 ```
-
-This will close the nested shell and return you to the previous shell session.
 
 ## Tips
-- Always ensure that you save your work before using the `logout` command, as it will terminate the session immediately.
-- If you are using a graphical terminal emulator, closing the terminal window will also log you out of the session, but using `logout` ensures that all processes are properly terminated.
-- If you encounter an error stating that `logout` is not a valid command, check if you are in a login shell. You can start a login shell by using the command `bash --login`.
-
-By following these guidelines, you can effectively manage your Bash sessions and ensure a secure logout process.
+- Always ensure that you have saved your work before executing `logout`, as it will close your session immediately.
+- If you are using a non-login shell, `logout` may not work as expected; consider using `exit` instead.
+- For remote sessions, remember that logging out will terminate your connection, so make sure you are ready to disconnect.

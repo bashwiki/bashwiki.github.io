@@ -1,36 +1,43 @@
-# [리눅스] Bash whoami 사용법
+# [Linux] Bash whoami Kullanımı: Kullanıcı adını gösterir
 
 ## Genel Bakış
-`whoami` komutu, mevcut kullanıcı oturumunun adını gösteren basit bir Bash komutudur. Bu komut, hangi kullanıcı olarak oturum açtığınızı hızlı bir şekilde öğrenmenizi sağlar. Özellikle birden fazla kullanıcı hesabı olan sistemlerde veya kullanıcı izinlerini kontrol etmek için faydalıdır.
+`whoami` komutu, terminalde oturum açmış olan kullanıcının adını gösterir. Bu komut, kullanıcı kimliğini doğrulamak veya sistemde hangi kullanıcı olarak çalıştığınızı öğrenmek için oldukça yararlıdır.
 
 ## Kullanım
-`whoami` komutunun temel sözdizimi oldukça basittir:
+Temel sözdizimi aşağıdaki gibidir:
 
-```bash
-whoami
+```
+whoami [seçenekler] [argümanlar]
 ```
 
-Bu komut, ekrana mevcut kullanıcı adını yazdırır. `whoami` komutunun herhangi bir yerleşik seçeneği yoktur; bu nedenle, yalnızca bu şekilde kullanılmalıdır.
+## Yaygın Seçenekler
+`whoami` komutunun genellikle kullanılan seçenekleri şunlardır:
 
-## Örnekler
-1. Mevcut kullanıcı adınızı öğrenmek için `whoami` komutunu çalıştırabilirsiniz:
+- `--help`: Komut hakkında yardım bilgisi gösterir.
+- `--version`: Komutun sürüm bilgilerini gösterir.
 
+## Yaygın Örnekler
+Aşağıda `whoami` komutunun bazı pratik örnekleri bulunmaktadır:
+
+1. **Basit Kullanım**
    ```bash
    whoami
    ```
+   Bu komut, oturum açmış olan kullanıcı adını döndürür.
 
-   Çıktı olarak, örneğin `kullanici_adi` gibi bir kullanıcı adı göreceksiniz.
-
-2. Eğer bir terminalde `su` komutuyla başka bir kullanıcıya geçiş yaptıysanız, `whoami` komutunu kullanarak hangi kullanıcı olarak oturum açtığınızı kontrol edebilirsiniz:
-
+2. **Yardım Bilgisi Alma**
    ```bash
-   su - yeni_kullanici
-   whoami
+   whoami --help
    ```
+   Bu komut, `whoami` komutunun nasıl kullanılacağına dair yardım bilgilerini gösterir.
 
-   Bu durumda, `yeni_kullanici` adını göreceksiniz.
+3. **Sürüm Bilgisi Alma**
+   ```bash
+   whoami --version
+   ```
+   Bu komut, `whoami` komutunun sürüm bilgilerini gösterir.
 
 ## İpuçları
-- `whoami` komutunu kullanarak, bir script veya program içinde hangi kullanıcı ile çalıştığınızı kontrol edebilirsiniz. Bu, kullanıcı izinlerini yönetmek için yararlı olabilir.
-- Eğer birden fazla terminal penceresi açtıysanız ve hangi kullanıcı ile oturum açtığınızı unuttuysanız, her terminalde `whoami` komutunu çalıştırarak hızlıca kontrol edebilirsiniz.
-- `whoami` komutunu, kullanıcı kimlik bilgilerinizi doğrulamak için diğer komutlarla birlikte kullanmak, sistem güvenliğini artırabilir.
+- `whoami` komutunu, birden fazla kullanıcı hesabı arasında geçiş yaptığınızda hangi kullanıcıda olduğunuzu kontrol etmek için kullanabilirsiniz.
+- Komutu, betiklerinizde kullanıcı doğrulama amacıyla entegre edebilirsiniz.
+- Eğer sistemdeki diğer kullanıcıların bilgilerini görmek istiyorsanız, `who` veya `users` komutlarını kullanmayı düşünebilirsiniz.

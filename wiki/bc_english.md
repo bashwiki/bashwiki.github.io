@@ -1,58 +1,70 @@
-# [리눅스] Bash bc 사용법
+# [Linux] Bash bc Usage: Perform arbitrary precision arithmetic
 
 ## Overview
-The `bc` command in Bash stands for "Basic Calculator." It is an arbitrary precision calculator language that allows users to perform mathematical calculations in a command-line environment. `bc` is particularly useful for engineers and developers who need to handle complex calculations or require precision beyond standard floating-point arithmetic. It supports various mathematical operations, including addition, subtraction, multiplication, division, and more advanced functions like square roots and trigonometric calculations.
+The `bc` command in Bash is a powerful calculator that supports arbitrary precision arithmetic. It allows users to perform mathematical operations with a high degree of accuracy, making it ideal for calculations that require more precision than standard floating-point arithmetic.
 
 ## Usage
-The basic syntax for using `bc` is as follows:
+The basic syntax of the `bc` command is as follows:
 
 ```bash
-bc [options] [file]
+bc [options] [arguments]
 ```
 
-### Common Options:
-- `-l`: Loads the standard math library, which provides additional mathematical functions such as sine, cosine, and logarithm.
-- `-q`: Suppresses the introductory message and prompts, providing a quieter interface.
-- `-e`: Allows you to execute a command directly from the command line without entering the interactive mode.
+You can use `bc` in both interactive mode and by passing expressions directly through standard input or files.
 
-## Examples
+## Common Options
+- `-l`: Load the standard math library, which provides additional mathematical functions.
+- `-q`: Suppress the introductory message and prompt, useful for scripting.
+- `-e`: Execute the commands provided as arguments instead of entering interactive mode.
 
-### Example 1: Basic Arithmetic
-To perform a simple arithmetic calculation, you can echo a command into `bc`:
+## Common Examples
+
+### Basic Arithmetic
+To perform simple arithmetic operations, you can use `bc` as follows:
 
 ```bash
 echo "5 + 3" | bc
 ```
-This command will output `8`, which is the result of adding 5 and 3.
+This will output `8`.
 
-### Example 2: Using the Math Library
-To calculate the square root of a number using the math library, use the `-l` option:
+### Floating Point Division
+For division that requires precision, use the `scale` variable:
 
 ```bash
-echo "scale=2; sqrt(16)" | bc -l
+echo "scale=2; 10 / 3" | bc
 ```
-This command will output `4.00`, where `scale=2` specifies that the result should be displayed with two decimal places.
+This will output `3.33`.
+
+### Using the Math Library
+To use functions from the math library, include the `-l` option:
+
+```bash
+echo "scale=4; sqrt(2)" | bc -l
+```
+This will output `1.4142`.
+
+### Multiple Operations
+You can chain multiple operations together:
+
+```bash
+echo "scale=3; (5 + 2) * (10 - 3) / 2" | bc
+```
+This will output `24.500`.
+
+### Reading from a File
+You can also read expressions from a file:
+
+```bash
+echo -e "5 + 3\n10 / 2" > calculations.txt
+bc calculations.txt
+```
+This will output:
+```
+8
+5
+```
 
 ## Tips
-- **Setting Scale**: The `scale` variable determines the number of decimal places for division operations. Set it at the beginning of your calculation to control precision.
-  
-  ```bash
-  echo "scale=4; 10 / 3" | bc
-  ```
-  This will output `3.3333`.
-
-- **Using Variables**: You can assign values to variables in `bc` for more complex calculations:
-
-  ```bash
-  echo "a=5; b=10; a + b" | bc
-  ```
-  This will output `15`.
-
-- **Interactive Mode**: You can enter `bc` without any arguments to start an interactive session, allowing you to perform calculations directly:
-
-  ```bash
-  bc
-  ```
-  Then you can enter expressions line by line.
-
-By utilizing `bc`, engineers and developers can efficiently perform calculations directly from the command line, making it a powerful tool for scripting and automation tasks.
+- Always set the `scale` variable when performing division to avoid truncation of decimal points.
+- Use the `-l` option for advanced mathematical functions like sine, cosine, and logarithm.
+- For scripting, consider using the `-q` option to keep output clean and free of unnecessary prompts.

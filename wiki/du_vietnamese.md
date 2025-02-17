@@ -1,45 +1,56 @@
-# [리눅스] Bash du 사용법
+# [Linux] Bash du: [tính toán kích thước thư mục]
 
-## Tổng quan
-Lệnh `du` (Disk Usage) trong Bash được sử dụng để ước lượng kích thước của các tệp và thư mục trong hệ thống tệp. Mục đích chính của lệnh này là giúp người dùng hiểu rõ hơn về cách mà không gian lưu trữ được sử dụng trên đĩa cứng, từ đó có thể quản lý tài nguyên một cách hiệu quả hơn.
+## Overview
+Lệnh `du` (disk usage) được sử dụng để ước lượng kích thước của các thư mục và tệp tin trong hệ thống tệp. Nó giúp người dùng xác định dung lượng mà các tệp và thư mục chiếm trên đĩa.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `du` như sau:
-
 ```bash
-du [tùy chọn] [tệp hoặc thư mục]
+du [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-h`: Hiển thị kích thước theo định dạng dễ đọc (human-readable), ví dụ như KB, MB, GB.
-- `-s`: Tóm tắt kích thước của thư mục mà không liệt kê từng tệp con.
-- `-a`: Hiển thị kích thước của tất cả các tệp và thư mục con.
+## Common Options
+- `-h`: Hiển thị kích thước theo định dạng dễ đọc (KB, MB, GB).
+- `-s`: Tóm tắt kích thước của thư mục mà không liệt kê các tệp con.
+- `-a`: Hiển thị kích thước của tất cả các tệp và thư mục.
 - `-c`: Tính tổng kích thước của tất cả các tệp và thư mục được liệt kê.
-- `--max-depth=N`: Giới hạn độ sâu của thư mục được hiển thị, nơi N là số nguyên.
+- `--max-depth=N`: Giới hạn độ sâu của thư mục hiển thị (N là số nguyên).
 
-## Ví dụ
-### Ví dụ 1: Kiểm tra kích thước của một thư mục
-Để kiểm tra kích thước của thư mục hiện tại, bạn có thể sử dụng lệnh sau:
-
+## Common Examples
+- Để xem kích thước của thư mục hiện tại:
 ```bash
-du -sh .
+du -h
 ```
-Lệnh này sẽ hiển thị kích thước tổng cộng của thư mục hiện tại theo định dạng dễ đọc.
 
-### Ví dụ 2: Liệt kê kích thước của tất cả các thư mục con
-Để xem kích thước của tất cả các thư mục con trong thư mục hiện tại, bạn có thể sử dụng:
+- Để xem kích thước của một thư mục cụ thể:
+```bash
+du -h /path/to/directory
+```
 
+- Để tóm tắt kích thước của một thư mục mà không liệt kê các tệp con:
+```bash
+du -sh /path/to/directory
+```
+
+- Để hiển thị kích thước của tất cả các tệp và thư mục trong thư mục hiện tại:
+```bash
+du -ah
+```
+
+- Để tính tổng kích thước của tất cả các thư mục trong thư mục hiện tại:
+```bash
+du -ch
+```
+
+- Để giới hạn độ sâu hiển thị của thư mục:
 ```bash
 du -h --max-depth=1
 ```
-Lệnh này sẽ hiển thị kích thước của từng thư mục con trong thư mục hiện tại mà không đi sâu vào các thư mục con hơn nữa.
 
-## Mẹo
-- Sử dụng tùy chọn `-c` để có cái nhìn tổng quan về không gian lưu trữ của nhiều thư mục cùng một lúc.
-- Kết hợp lệnh `du` với lệnh `sort` để sắp xếp các thư mục theo kích thước, ví dụ:
-
+## Tips
+- Sử dụng tùy chọn `-h` để dễ dàng đọc kích thước mà không cần phải tính toán.
+- Kết hợp `du` với `sort` để sắp xếp các thư mục theo kích thước:
 ```bash
-du -h | sort -hr
+du -h | sort -h
 ```
-Điều này sẽ giúp bạn nhanh chóng xác định các thư mục chiếm nhiều không gian nhất trên đĩa cứng.
-- Hãy cẩn thận khi sử dụng lệnh `du` trên các hệ thống có nhiều tệp lớn, vì nó có thể mất thời gian để hoàn thành.
+- Thường xuyên kiểm tra kích thước của các thư mục để quản lý dung lượng đĩa hiệu quả hơn.

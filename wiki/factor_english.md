@@ -1,54 +1,61 @@
-# [리눅스] Bash factor 사용법
+# [Linux] Bash factor uso equivalente: Factorizar números
 
 ## Overview
-The `factor` command in Bash is a utility that computes the prime factors of a given integer. Its primary purpose is to break down numbers into their constituent prime factors, which can be useful in various mathematical applications, cryptography, and number theory. This command can handle multiple numbers at once and provides a straightforward output of the factors.
+The `factor` command in Bash is used to factor integers into their prime factors. It takes one or more integers as input and outputs the prime factorization of each number.
 
 ## Usage
 The basic syntax of the `factor` command is as follows:
 
-```
-factor [OPTION]... [NUMBER]...
-```
-
-### Common Options
-- `-h`, `--help`: Display help information about the command and its options.
-- `-V`, `--version`: Show the version of the `factor` command.
-
-You can provide one or more integers as arguments, and the command will return the prime factors for each number.
-
-## Examples
-
-### Example 1: Factor a Single Number
-To factor the number 28, you can use the following command:
-
 ```bash
-factor 28
+factor [options] [arguments]
 ```
 
-**Output:**
-```
-28: 2 2 7
-```
-This output indicates that the prime factors of 28 are 2, 2, and 7.
+## Common Options
+- `--help`: Displays help information about the command.
+- `--version`: Shows the version of the `factor` command.
+- `-n`: Suppresses the output of the number being factored, showing only the factors.
 
-### Example 2: Factor Multiple Numbers
-You can also factor multiple numbers in a single command. For example:
+## Common Examples
 
-```bash
-factor 15 28 100
-```
+1. **Factor a single number:**
+   To factor the number 12, you can use:
+   ```bash
+   factor 12
+   ```
+   Output:
+   ```
+   12: 2 2 3
+   ```
 
-**Output:**
-```
-15: 3 5
-28: 2 2 7
-100: 2 2 5 5
-```
-This output shows the prime factors for each of the numbers provided.
+2. **Factor multiple numbers:**
+   You can factor several numbers at once:
+   ```bash
+   factor 15 28 30
+   ```
+   Output:
+   ```
+   15: 3 5
+   28: 2 2 7
+   30: 2 3 5
+   ```
+
+3. **Using the `-n` option:**
+   To suppress the output of the numbers being factored:
+   ```bash
+   factor -n 18
+   ```
+   Output:
+   ```
+   2 3 3
+   ```
+
+4. **Getting help information:**
+   To see the help information for the `factor` command:
+   ```bash
+   factor --help
+   ```
 
 ## Tips
-- When using `factor`, ensure that the input numbers are non-negative integers, as negative numbers and non-integer values will not yield valid results.
-- If you are working with large numbers, consider the performance of the command, as factoring can become computationally intensive.
-- Use the `--help` option to quickly remind yourself of the command's syntax and options if you are unsure about its usage.
-
-By utilizing the `factor` command effectively, you can simplify the process of prime factorization in your programming and mathematical tasks.
+- Use `factor` in scripts to automate the process of finding prime factors for a list of numbers.
+- Combine `factor` with other commands like `xargs` to handle input from files or other command outputs.
+- Remember that `factor` only works with positive integers; using negative numbers or non-integer values will result in an error.

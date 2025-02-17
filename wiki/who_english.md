@@ -1,55 +1,49 @@
-# [리눅스] Bash who 사용법
+# [Linux] Bash who uso equivalente: Display logged-in users
 
 ## Overview
-The `who` command in Bash is used to display information about users who are currently logged into the system. It provides details such as the username, terminal line, login time, and originating IP address or hostname. This command is particularly useful for system administrators and developers who need to monitor user activity on a multi-user system.
+The `who` command in Bash is used to display a list of users currently logged into the system. It provides information such as the username, terminal, login time, and originating IP address or hostname.
 
 ## Usage
 The basic syntax of the `who` command is as follows:
 
 ```bash
-who [OPTION...]
+who [options] [arguments]
 ```
 
-### Common Options
-- `-a`, `--all`: Display all available information about users, including idle time and the process ID of their login session.
-- `-b`, `--boot`: Show the last system boot time.
-- `-q`, `--count`: Display only the usernames and the number of users currently logged in.
-- `-H`, `--heading`: Print the column headings for the output.
+## Common Options
+- `-a`: Show all available information, including users logged in and their idle time.
+- `-b`: Display the last system boot time.
+- `-q`: Show only the usernames and the number of users logged in.
+- `-H`: Print the column headers for the output.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Usage
-To simply list the users currently logged into the system, you can use the command without any options:
+1. **Basic Usage**: Display all users currently logged in.
+   ```bash
+   who
+   ```
 
-```bash
-who
-```
+2. **Show All Information**: Display detailed information about logged-in users.
+   ```bash
+   who -a
+   ```
 
-**Output:**
-```
-user1    pts/0        2023-10-01 10:00 (192.168.1.10)
-user2    pts/1        2023-10-01 10:05 (192.168.1.11)
-```
+3. **Last Boot Time**: Show the last time the system was booted.
+   ```bash
+   who -b
+   ```
 
-### Example 2: Detailed User Information
-To get a more detailed view of the logged-in users, including idle time and process IDs, you can use the `-a` option:
+4. **Count of Logged-in Users**: Display just the usernames and the count of users logged in.
+   ```bash
+   who -q
+   ```
 
-```bash
-who -a
-```
-
-**Output:**
-```
-user1    pts/0        2023-10-01 10:00   .         1234 (192.168.1.10)
-user2    pts/1        2023-10-01 10:05   .         5678 (192.168.1.11)
-```
+5. **With Headers**: Display logged-in users with column headers.
+   ```bash
+   who -H
+   ```
 
 ## Tips
-- Use `who -q` to quickly check how many users are logged in without displaying their details.
-- Combine `who` with other commands like `grep` to filter results. For example, to find a specific user, you can run:
-
-  ```bash
-  who | grep username
-  ```
-
-- Regularly check who is logged in, especially on shared systems, to maintain security and monitor user activity.
+- Use `who -H` for a clearer output when you need to present the information.
+- Combine `who` with other commands like `grep` to filter results for specific users.
+- Regularly check who is logged in, especially on shared systems, for security purposes.

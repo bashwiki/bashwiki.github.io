@@ -1,36 +1,50 @@
-# [리눅스] Bash finger 사용법
+# [Linux] Bash finger uso: Exibir informações sobre usuários do sistema
 
 ## Overview
-O comando `finger` é uma ferramenta de linha de comando utilizada em sistemas Unix e Linux para exibir informações sobre usuários do sistema. Ele fornece detalhes como o nome do usuário, o terminal em que está logado, o horário do último login e, em alguns casos, uma breve descrição do usuário. O principal propósito do `finger` é facilitar a visualização de informações sobre os usuários, tornando-o útil para administradores de sistema e desenvolvedores que precisam monitorar a atividade dos usuários.
+O comando `finger` é utilizado para exibir informações sobre usuários no sistema, como nome, terminal, data de login e tempo de atividade. Ele é útil para obter uma visão rápida sobre quem está logado e algumas informações adicionais sobre cada usuário.
 
 ## Usage
 A sintaxe básica do comando `finger` é a seguinte:
 
 ```bash
-finger [opções] [usuário]
+finger [opções] [argumentos]
 ```
 
-### Opções Comuns
-- `-l`: Exibe informações detalhadas sobre os usuários, incluindo o nome completo e a descrição.
-- `-m`: Ignora a distinção entre maiúsculas e minúsculas ao buscar nomes de usuários.
-- `-s`: Exibe um resumo das informações dos usuários, mostrando apenas o nome e o status de login.
+## Common Options
+Aqui estão algumas opções comuns do comando `finger`:
 
-## Examples
-### Exemplo 1: Ver informações de todos os usuários
-Para visualizar informações básicas sobre todos os usuários atualmente logados, você pode usar o comando:
+- `-l`: Exibe informações detalhadas sobre os usuários, incluindo o diretório inicial e a shell.
+- `-m`: Ignora a distinção entre maiúsculas e minúsculas ao procurar usuários.
+- `-s`: Exibe uma lista resumida dos usuários logados, mostrando apenas os nomes e os terminais.
 
+## Common Examples
+
+### Exibir informações sobre todos os usuários logados
 ```bash
 finger
 ```
 
-### Exemplo 2: Ver informações detalhadas de um usuário específico
-Se você quiser obter informações detalhadas sobre um usuário específico, como "joao", utilize:
-
+### Exibir informações detalhadas sobre um usuário específico
 ```bash
-finger -l joao
+finger nome_do_usuario
+```
+
+### Exibir informações resumidas sobre os usuários logados
+```bash
+finger -s
+```
+
+### Ignorar a distinção entre maiúsculas e minúsculas ao procurar um usuário
+```bash
+finger -m Nome_Do_Usuario
+```
+
+### Exibir informações detalhadas sobre todos os usuários
+```bash
+finger -l
 ```
 
 ## Tips
-- Utilize o comando `finger` em combinação com outros comandos, como `grep`, para filtrar informações específicas sobre usuários.
-- Lembre-se de que a disponibilidade do comando `finger` pode variar entre distribuições Linux, então verifique se ele está instalado no seu sistema.
-- Para uma visão mais clara, especialmente em sistemas com muitos usuários, considere usar a opção `-s` para um resumo mais conciso.
+- Utilize `finger` em scripts para monitorar usuários logados e suas atividades.
+- Combine `finger` com outros comandos, como `grep`, para filtrar informações específicas.
+- Lembre-se de que o `finger` pode não estar instalado por padrão em todas as distribuições Linux; você pode precisar instalá-lo usando o gerenciador de pacotes da sua distribuição.

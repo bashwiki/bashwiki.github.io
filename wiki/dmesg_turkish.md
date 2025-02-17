@@ -1,48 +1,51 @@
-# [리눅스] Bash dmesg 사용법
+# [Linux] Bash dmesg Kullanımı: Çekirdek döküm bilgilerini görüntüleme
 
-## Overview
-`dmesg`, Linux işletim sistemlerinde kullanılan bir komuttur ve "diagnostic message" (tanı mesajı) anlamına gelir. Bu komut, çekirdek (kernel) tarafından üretilen mesajları görüntülemek için kullanılır. Genellikle sistem başlangıcında veya donanım değişiklikleri sırasında meydana gelen olayları kaydeder. `dmesg`, sistemin donanım bileşenleriyle ilgili sorunları teşhis etmek ve sistemin genel durumu hakkında bilgi almak için oldukça yararlıdır.
+## Genel Bakış
+`dmesg` komutu, Linux çekirdeği tarafından üretilen mesajları görüntülemek için kullanılır. Genellikle sistem başlangıcında veya donanım hatalarını teşhis etmek için yararlıdır. Bu komut, sistemin donanım bileşenleri ve sürücüleri hakkında bilgi sağlar.
 
-## Usage
-`dmesg` komutunun temel sözdizimi aşağıdaki gibidir:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-dmesg [options]
+dmesg [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-C` veya `--clear`: Dmesg tamponunu temizler.
-- `-c` veya `--clear`: Dmesg tamponunu temizler ve temizlenmiş tamponu görüntüler.
-- `-n level` veya `--console-level level`: Konsol için minimum mesaj öncelik seviyesini ayarlar.
+## Yaygın Seçenekler
+- `-C`: Dmesg tamponunu temizler.
+- `-c`: Dmesg tamponunu temizler ve mevcut içeriği görüntüler.
+- `-n <seviyeler>`: Mesajların hangi öncelik seviyelerine kadar görüntüleneceğini ayarlar.
 - `-T`: Zaman damgalarını insan tarafından okunabilir bir biçimde gösterir.
-- `-H`: Zaman damgalarını daha okunabilir bir formatta gösterir.
+- `--help`: Kullanım bilgilerini gösterir.
 
-## Examples
-### Örnek 1: Dmesg Çıktısını Görüntüleme
-Temel `dmesg` komutunu çalıştırarak sistemin çekirdek mesajlarını görüntüleyebilirsiniz:
+## Yaygın Örnekler
+Aşağıda `dmesg` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
+### 1. Dmesg Çıktısını Görüntüleme
 ```bash
 dmesg
 ```
 
-### Örnek 2: Zaman Damgalarını İnsan Okunur Biçimde Görüntüleme
-Zaman damgalarını daha okunabilir bir formatta görüntülemek için `-T` seçeneğini kullanabilirsiniz:
-
+### 2. Zaman Damgalarını İnsan Okunabilir Biçimde Görüntüleme
 ```bash
 dmesg -T
 ```
 
-## Tips
-- `dmesg` çıktısı genellikle çok uzun olabilir. Çıktıyı daha yönetilebilir hale getirmek için `less` veya `more` komutları ile birleştirebilirsiniz:
-
+### 3. Dmesg Tamponunu Temizleme
 ```bash
-dmesg | less
+dmesg -C
 ```
 
-- Belirli bir hata veya uyarı mesajını bulmak için `grep` komutunu kullanarak filtreleme yapabilirsiniz:
-
+### 4. Sadece Hata Mesajlarını Görüntüleme
 ```bash
-dmesg | grep error
+dmesg --level=err
 ```
 
-- Dmesg çıktısını düzenli olarak kontrol etmek, sistemdeki donanım sorunlarını erken tespit etmek için iyi bir uygulamadır.
+### 5. Dmesg Çıktısını Bir Dosyaya Yazma
+```bash
+dmesg > dmesg_output.txt
+```
+
+## İpuçları
+- Dmesg çıktısını inceleyerek sistemdeki donanım hatalarını hızlıca tespit edebilirsiniz.
+- Uzun dmesg çıktısını daha okunabilir hale getirmek için `less` komutuyla birleştirebilirsiniz: `dmesg | less`.
+- Dmesg çıktısını düzenli olarak kontrol etmek, sisteminizin sağlığını izlemek için faydalı olabilir.

@@ -1,38 +1,46 @@
-# [리눅스] Bash pushd 사용법
+# [Linux] Bash pushd : Gérer les répertoires dans la pile
 
 ## Overview
-La commande `pushd` est utilisée dans le shell Bash pour manipuler la pile de répertoires. Son objectif principal est de changer le répertoire courant tout en sauvegardant l'ancien répertoire sur une pile. Cela permet aux utilisateurs de naviguer facilement entre différents répertoires sans perdre leur position précédente.
+La commande `pushd` permet de changer de répertoire tout en le sauvegardant dans une pile. Cela facilite la navigation entre plusieurs répertoires en permettant de revenir rapidement à un répertoire précédent.
 
 ## Usage
 La syntaxe de base de la commande `pushd` est la suivante :
 
 ```bash
-pushd [répertoire]
+pushd [options] [arguments]
 ```
 
-### Options courantes
-- **répertoire** : Spécifie le répertoire vers lequel vous souhaitez naviguer. Si aucun répertoire n'est fourni, `pushd` échangera le répertoire courant avec le répertoire en haut de la pile.
+## Common Options
+Voici quelques options courantes pour `pushd` :
 
-## Examples
-### Exemple 1 : Navigation vers un répertoire
-Supposons que vous soyez dans le répertoire `/home/user` et que vous souhaitiez naviguer vers `/var/log`. Vous pouvez utiliser la commande suivante :
+- `+n` : Accède à l'élément à l'index `n` de la pile.
+- `-n` : Accède à l'élément à l'index `-n` de la pile.
+- `-` : Permet de revenir au répertoire précédent.
 
-```bash
-pushd /var/log
-```
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `pushd` :
 
-Après l'exécution de cette commande, vous serez dans `/var/log`, et `/home/user` sera sauvegardé dans la pile.
+1. **Changer de répertoire et sauvegarder l'ancien :**
+   ```bash
+   pushd /chemin/vers/nouveau/repertoire
+   ```
 
-### Exemple 2 : Échange de répertoires
-Si vous souhaitez revenir au répertoire précédent, vous pouvez utiliser la commande `popd` :
+2. **Accéder à un répertoire spécifique dans la pile :**
+   ```bash
+   pushd +1
+   ```
 
-```bash
-popd
-```
+3. **Revenir au répertoire précédent :**
+   ```bash
+   pushd -
+   ```
 
-Cela vous ramènera au répertoire `/home/user` que vous avez précédemment sauvegardé.
+4. **Afficher la pile actuelle des répertoires :**
+   ```bash
+   dirs
+   ```
 
 ## Tips
-- Utilisez `dirs` pour afficher la pile de répertoires actuelle. Cela vous permet de voir où vous êtes et quels répertoires sont disponibles pour naviguer.
-- Combinez `pushd` avec des scripts pour automatiser la navigation dans des répertoires complexes, ce qui peut améliorer votre flux de travail.
-- N'oubliez pas que `pushd` et `popd` fonctionnent ensemble : chaque fois que vous utilisez `pushd`, assurez-vous d'utiliser `popd` pour revenir en arrière et maintenir votre pile de répertoires propre.
+- Utilisez `popd` pour retirer le répertoire du sommet de la pile et revenir au répertoire précédent.
+- Combinez `pushd` avec `popd` pour naviguer efficacement entre plusieurs répertoires sans perdre votre place.
+- Pensez à utiliser `dirs -v` pour afficher la pile avec des numéros d'index, ce qui facilite la navigation.

@@ -1,47 +1,60 @@
-# [리눅스] Bash blkid 사용법
+# [Linux] Bash blkid Uso: Retrieve block device attributes
 
 ## Overview
-The `blkid` command is a utility in Linux that is used to locate and print block device attributes. Its primary purpose is to identify and display information about block devices, such as their filesystem type, UUID (Universally Unique Identifier), and label. This command is particularly useful for system administrators and developers who need to manage disk partitions and filesystems.
+The `blkid` command in Linux is used to locate and print block device attributes. It can display information such as the device's UUID, filesystem type, and label, making it a valuable tool for system administrators and users who need to manage disk partitions and filesystems.
 
 ## Usage
 The basic syntax of the `blkid` command is as follows:
 
 ```bash
-blkid [OPTION]... [DEVICE]...
+blkid [options] [arguments]
 ```
 
-### Common Options
-- `-o, --output`: Specify the output format. Options include `value`, `full`, `udev`, and `list`.
-- `-s, --match-tag`: Specify which tags to display (e.g., `UUID`, `LABEL`).
-- `-p, --probe`: Probe the device for information (default behavior).
-- `-c, --cache`: Use the cache file to speed up the process.
+## Common Options
+- `-o, --output`: Specify the output format (e.g., `value`, `full`, `udev`).
+- `-s, --match-tag`: Filter output to show only specific tags (e.g., `UUID`, `TYPE`).
+- `-p, --probe`: Probe the device for filesystem information.
+- `-c, --cache`: Use a cache file to speed up the command.
 - `-h, --help`: Display help information about the command.
 
-## Examples
-### Example 1: Basic Usage
-To list all block devices along with their attributes, simply run:
+## Common Examples
+Here are several practical examples of using the `blkid` command:
 
+### Example 1: Display all block devices
 ```bash
 blkid
 ```
+This command lists all block devices along with their attributes.
 
-This command will output information for all detected block devices, including their UUIDs and filesystem types.
-
-### Example 2: Display Specific Attributes
-If you want to display only the UUIDs of the block devices, you can use the `-s` option:
-
+### Example 2: Get UUID of a specific device
 ```bash
-blkid -s UUID
+blkid /dev/sda1
 ```
+This command retrieves the UUID of the `/dev/sda1` partition.
 
-This command will filter the output to show only the UUIDs of the connected block devices.
+### Example 3: Show only the UUIDs
+```bash
+blkid -o value -s UUID
+```
+This command outputs only the UUIDs of all detected block devices.
+
+### Example 4: Display filesystem type
+```bash
+blkid -o value -s TYPE /dev/sda1
+```
+This command shows the filesystem type of the `/dev/sda1` partition.
+
+### Example 5: Use cache for faster results
+```bash
+blkid -c /etc/blkid.tab
+```
+This command uses a specified cache file to speed up the retrieval of block device information.
 
 ## Tips
-- Use the `-o value` option to get a cleaner output. For example, if you want just the UUIDs without additional information, you can run:
-
+- Use `blkid` with `sudo` if you encounter permission issues when accessing certain block devices.
+- Regularly check the output of `blkid` to keep track of changes in your disk partitions and filesystems.
+- Combine `blkid` with other commands like `grep` to filter specific information more efficiently. For example:
   ```bash
-  blkid -o value -s UUID
+  blkid | grep ext4
   ```
-
-- When scripting, consider using the `-c` option to utilize the cache, which can significantly speed up the command execution if you are querying the same devices multiple times.
-- Always check the man page (`man blkid`) for the most up-to-date information and additional options that may be available in your specific Linux distribution.
+  This command filters the output to show only devices with the ext4 filesystem type.

@@ -1,44 +1,53 @@
-# [리눅스] Bash ethtool 사용법
+# [Linux] Bash ethtool Uso: Ferramenta para gerenciar interfaces de rede
 
 ## Overview
-O `ethtool` é uma ferramenta de linha de comando utilizada em sistemas Linux para consultar e modificar as configurações de interfaces de rede Ethernet. Seu principal propósito é fornecer informações detalhadas sobre a interface de rede, como velocidade, duplex, estatísticas de transmissão e recepção, e também permitir a configuração de parâmetros como modo de operação e ativação/desativação de recursos.
+O comando `ethtool` é uma ferramenta poderosa utilizada no Linux para consultar e modificar as configurações de interfaces de rede Ethernet. Ele permite que os usuários obtenham informações detalhadas sobre a interface, como velocidade, duplex, e estatísticas de tráfego, além de permitir ajustes em parâmetros da interface.
 
 ## Usage
 A sintaxe básica do comando `ethtool` é a seguinte:
 
 ```bash
-ethtool [opções] <interface>
+ethtool [opções] [argumentos]
 ```
 
-Onde `<interface>` é o nome da interface de rede que você deseja consultar ou modificar (por exemplo, `eth0`, `enp3s0`, etc.).
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com o comando `ethtool`:
 
-### Opções Comuns
-- `-i`: Exibe informações do driver da interface.
-- `-S`: Mostra estatísticas detalhadas da interface.
-- `-p`: Pisca o LED da interface para identificação.
-- `-s`: Permite configurar parâmetros da interface, como velocidade e duplex.
-- `-a`: Exibe ou altera as configurações de auto-negociação.
+- `-s` : Modifica as configurações da interface de rede.
+- `-i` : Exibe informações do driver da interface.
+- `-p` : Pisca o LED da interface para identificação.
+- `-t` : Executa um teste de loopback na interface.
+- `-S` : Mostra estatísticas detalhadas da interface.
 
-## Examples
-### Exemplo 1: Consultar informações da interface
-Para obter informações básicas sobre a interface de rede `eth0`, você pode usar o seguinte comando:
+## Common Examples
+Aqui estão alguns exemplos práticos de como usar o `ethtool`:
 
-```bash
-ethtool eth0
-```
+1. **Verificar informações da interface de rede**:
+   ```bash
+   ethtool eth0
+   ```
 
-Este comando retornará detalhes como a velocidade da conexão, modo duplex e suporte a recursos.
+2. **Modificar a velocidade e o modo duplex**:
+   ```bash
+   ethtool -s eth0 speed 100 duplex full
+   ```
 
-### Exemplo 2: Exibir estatísticas da interface
-Para visualizar estatísticas detalhadas da interface `eth0`, utilize:
+3. **Exibir informações do driver**:
+   ```bash
+   ethtool -i eth0
+   ```
 
-```bash
-ethtool -S eth0
-```
+4. **Piscar o LED da interface para identificação**:
+   ```bash
+   ethtool -p eth0
+   ```
 
-Isso mostrará informações como pacotes transmitidos, pacotes recebidos e erros.
+5. **Mostrar estatísticas detalhadas da interface**:
+   ```bash
+   ethtool -S eth0
+   ```
 
 ## Tips
-- Sempre verifique se você tem permissões adequadas para executar o `ethtool`, pois algumas operações podem exigir privilégios de superusuário.
-- Utilize o comando `man ethtool` para acessar o manual completo e explorar todas as opções disponíveis.
-- Ao modificar configurações com a opção `-s`, tenha cuidado para não desativar acidentalmente a interface ou configurar parâmetros incompatíveis que possam causar perda de conectividade.
+- Sempre verifique as permissões necessárias, pois algumas operações do `ethtool` podem exigir privilégios de superusuário.
+- Utilize o comando `man ethtool` para acessar a documentação completa e explorar mais opções disponíveis.
+- Ao modificar configurações, tenha cuidado para não desativar acidentalmente a interface de rede, especialmente em servidores remotos.

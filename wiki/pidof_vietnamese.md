@@ -1,47 +1,44 @@
-# [리눅스] Bash pidof 사용법
+# [Linux] Bash pidof: Xác định PID của tiến trình
 
-## Tổng quan
-Lệnh `pidof` trong Bash được sử dụng để tìm kiếm Process ID (PID) của một hoặc nhiều tiến trình đang chạy trên hệ thống. Mục đích chính của lệnh này là giúp người dùng xác định PID của các tiến trình dựa trên tên của chúng, điều này rất hữu ích trong việc quản lý và giám sát các tiến trình.
+## Overview
+Lệnh `pidof` được sử dụng để tìm kiếm và xác định Process ID (PID) của một hoặc nhiều tiến trình đang chạy trên hệ thống. Nó trả về các PID tương ứng với tên tiến trình mà bạn chỉ định.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `pidof` như sau:
-
-```bash
-pidof [tên_tiến_trình]
+```
+pidof [options] [arguments]
 ```
 
-Trong đó:
-- `tên_tiến_trình`: Là tên của tiến trình mà bạn muốn tìm PID. Bạn có thể chỉ định tên đầy đủ hoặc một phần của tên tiến trình.
+## Common Options
+- `-o, --exclude`: Loại trừ một hoặc nhiều PID khỏi kết quả.
+- `-s, --single`: Chỉ trả về PID đầu tiên tìm thấy.
+- `-h, --help`: Hiển thị hướng dẫn sử dụng lệnh.
+- `-V, --version`: Hiển thị thông tin phiên bản của lệnh.
 
-### Tùy chọn phổ biến
-- `-s`: Chỉ in ra PID đầu tiên của tiến trình.
-- `-x`: Tìm PID của các tiến trình đang chạy từ các tập tin thực thi (không chỉ từ tên tiến trình).
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `pidof`:
 
-## Ví dụ
-### Ví dụ 1: Tìm PID của một tiến trình cụ thể
-Giả sử bạn muốn tìm PID của tiến trình `bash`, bạn có thể sử dụng lệnh sau:
+1. **Tìm PID của một tiến trình cụ thể**:
+   ```bash
+   pidof firefox
+   ```
 
-```bash
-pidof bash
-```
+2. **Tìm PID của nhiều tiến trình**:
+   ```bash
+   pidof sshd apache2
+   ```
 
-Kết quả sẽ là danh sách các PID của tất cả các tiến trình `bash` đang chạy.
+3. **Loại trừ một PID khỏi kết quả**:
+   ```bash
+   pidof -o 1234 firefox
+   ```
 
-### Ví dụ 2: Sử dụng tùy chọn -s
-Nếu bạn chỉ muốn lấy PID đầu tiên của tiến trình `sshd`, bạn có thể sử dụng lệnh sau:
+4. **Chỉ lấy PID đầu tiên của tiến trình**:
+   ```bash
+   pidof -s firefox
+   ```
 
-```bash
-pidof -s sshd
-```
-
-Kết quả sẽ chỉ hiển thị PID đầu tiên của tiến trình `sshd`.
-
-## Mẹo
-- Khi sử dụng `pidof`, hãy chắc chắn rằng tên tiến trình bạn nhập chính xác để tránh nhận được kết quả không mong muốn.
-- Kết hợp `pidof` với các lệnh khác như `kill` để dễ dàng quản lý tiến trình. Ví dụ, bạn có thể sử dụng:
-
-```bash
-kill $(pidof tiến_trình)
-```
-
-Điều này sẽ giúp bạn dừng một tiến trình cụ thể một cách nhanh chóng và hiệu quả.
+## Tips
+- Sử dụng `pidof` trong các script để tự động hóa việc theo dõi và quản lý tiến trình.
+- Kết hợp `pidof` với các lệnh khác như `kill` để dễ dàng dừng một tiến trình cụ thể.
+- Kiểm tra xem tiến trình có đang chạy hay không bằng cách sử dụng `pidof` trước khi thực hiện các thao tác khác.

@@ -1,48 +1,43 @@
-# [리눅스] Bash umask 사용법
+# [Linux] Bash umask Utilisation : Gérer les permissions par défaut des fichiers
 
-## Aperçu
+## Overview
+La commande `umask` définit les permissions par défaut pour les nouveaux fichiers et répertoires créés dans un système Linux. Elle détermine quelles permissions seront retirées lors de la création d'un fichier, influençant ainsi la sécurité et l'accès aux fichiers.
 
-La commande `umask` est utilisée dans les systèmes Unix et Linux pour définir les permissions par défaut des fichiers et des répertoires créés par un utilisateur. Le terme "umask" signifie "user file creation mask", et il détermine les permissions qui seront masquées lors de la création de nouveaux fichiers ou répertoires. Par défaut, les fichiers sont généralement créés avec des permissions de lecture et d'écriture, mais la valeur de umask peut restreindre ces permissions.
-
-## Utilisation
-
+## Usage
 La syntaxe de base de la commande `umask` est la suivante :
 
 ```bash
-umask [options] [valeur]
+umask [options] [arguments]
 ```
 
-### Options communes
+## Common Options
+- `-S` : Affiche les permissions sous forme symbolique.
+- `-p` : Affiche la valeur actuelle de umask dans un format qui peut être utilisé dans un script.
 
-- **valeur** : Spécifie la valeur de umask à définir. Cette valeur est généralement exprimée en octal (par exemple, 022, 077).
-- Si aucune valeur n'est fournie, `umask` affichera la valeur actuelle de umask.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `umask` :
 
-## Exemples
+1. **Afficher la valeur actuelle de umask :**
+   ```bash
+   umask
+   ```
 
-### Exemple 1 : Afficher la valeur actuelle de umask
+2. **Définir umask à 022 (permissions par défaut pour les fichiers : rw-r--r--) :**
+   ```bash
+   umask 022
+   ```
 
-Pour afficher la valeur actuelle de umask, il suffit de taper :
+3. **Définir umask à 077 (permissions par défaut pour les fichiers : rw-------) :**
+   ```bash
+   umask 077
+   ```
 
-```bash
-umask
-```
+4. **Afficher umask en format symbolique :**
+   ```bash
+   umask -S
+   ```
 
-Cela retournera une valeur, par exemple `0022`, qui indique les permissions masquées.
-
-### Exemple 2 : Définir une nouvelle valeur de umask
-
-Pour définir une nouvelle valeur de umask, par exemple `007`, qui permet aux fichiers d'être créés sans permissions pour le groupe et les autres, vous pouvez utiliser :
-
-```bash
-umask 007
-```
-
-Après avoir exécuté cette commande, tous les nouveaux fichiers créés auront des permissions de `rw-------` (lecture et écriture pour le propriétaire seulement).
-
-## Conseils
-
-- **Comprendre les permissions** : Avant de modifier la valeur de umask, il est essentiel de comprendre comment les permissions fonctionnent dans Unix/Linux. Les valeurs umask sont soustraites des permissions par défaut (généralement 666 pour les fichiers et 777 pour les répertoires).
-- **Utiliser des valeurs appropriées** : Évitez d'utiliser des valeurs de umask trop restrictives, car cela pourrait empêcher les autres utilisateurs ou groupes d'accéder aux fichiers que vous créez.
-- **Configurer dans les fichiers de profil** : Pour rendre les changements de umask permanents, vous pouvez ajouter la commande `umask` dans vos fichiers de profil utilisateur, comme `~/.bashrc` ou `~/.profile`.
-
-En suivant ces conseils, vous pourrez gérer efficacement les permissions de vos fichiers et répertoires créés dans un environnement Unix/Linux.
+## Tips
+- Utilisez `umask` dans vos scripts pour garantir des permissions sécurisées lors de la création de fichiers.
+- Vérifiez régulièrement la valeur de `umask` pour éviter des permissions trop larges sur des fichiers sensibles.
+- N'oubliez pas que `umask` affecte uniquement les fichiers nouvellement créés, pas ceux qui existent déjà.

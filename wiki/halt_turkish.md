@@ -1,36 +1,37 @@
-# [리눅스] Bash halt 사용법
+# [Linux] Bash halt Kullanımı: Sistemi durdurma komutu
 
 ## Overview
-`halt` komutu, bir Linux sistemini durdurmak için kullanılan bir komuttur. Bu komut, sistemin hemen kapanmasını sağlar ve genellikle sistem bakım işlemleri veya acil durumlarda kullanılır. `halt`, sistemin tüm işlemlerini durdurur ve ardından bilgisayarı kapatır.
+`halt` komutu, bir Linux sistemini durdurmak için kullanılır. Bu komut, sistemin hemen kapanmasını sağlar ve genellikle sistem yöneticileri tarafından kullanılır.
 
 ## Usage
-`halt` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-halt [seçenekler]
+halt [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-p`: Sistemi kapatırken güç kaynağını kapatır.
-- `-h`: Sistemi durdurur ve güç kaynağını kapatır (bu, `halt` komutunun varsayılan davranışıdır).
-- `-f`: Sistemi zorla kapatır, bu da açık olan işlemleri göz ardı eder.
+## Common Options
+- `-h`: Sistemi durdurur ve kapatır.
+- `-p`: Sistemi kapatır ve güç kaynağını kapatır.
+- `-f`: Sistemi hemen durdurur, herhangi bir kapanma işlemi olmadan.
 
-## Examples
-### Örnek 1: Sistemi hemen durdurma
-Aşağıdaki komut, sistemi hemen durdurur:
+## Common Examples
+1. Sistemi durdurmak için:
+   ```bash
+   halt
+   ```
 
-```bash
-sudo halt
-```
+2. Sistemi kapatıp güç kaynağını kapatmak için:
+   ```bash
+   halt -p
+   ```
 
-### Örnek 2: Güç kaynağını kapatarak durdurma
-Aşağıdaki komut, sistemi durdurur ve güç kaynağını kapatır:
-
-```bash
-sudo halt -p
-```
+3. Hızlı bir şekilde durdurmak için:
+   ```bash
+   halt -f
+   ```
 
 ## Tips
-- `halt` komutunu kullanmadan önce, sistemdeki tüm önemli verilerin kaydedildiğinden emin olun. Çünkü bu komut, açık olan tüm işlemleri durdurur ve kaydedilmemiş verileri kaybetmenize neden olabilir.
-- `halt` komutunu kullanmak için genellikle yönetici (root) yetkilerine ihtiyaç vardır, bu nedenle `sudo` ile birlikte kullanmanız gerekebilir.
-- Acil durumlarda sistemin kapatılması gerektiğinde `halt` komutunu kullanabilirsiniz, ancak normal kapanma işlemleri için `shutdown` komutunu tercih etmek daha iyi bir uygulamadır.
+- `halt` komutunu kullanmadan önce, sistemdeki açık dosyaları ve işlemleri kontrol edin. Açık işlemler kaybolabilir.
+- Bu komutu yalnızca yönetici (root) yetkileri ile çalıştırın.
+- Eğer sistemin düzgün bir şekilde kapanmasını istiyorsanız, `shutdown` komutunu tercih edebilirsiniz.

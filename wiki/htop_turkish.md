@@ -1,38 +1,47 @@
-# [리눅스] Bash htop 사용법
+# [Linux] Bash htop Kullanımı: Sistem kaynaklarını izleme aracı
 
 ## Genel Bakış
-`htop`, Linux sistemlerinde çalışan bir etkileşimli süreç görüntüleyicisidir. `top` komutunun daha gelişmiş bir versiyonu olarak düşünülebilir. Kullanıcıların sistemdeki işlemleri, bellek ve CPU kullanımını gerçek zamanlı olarak izlemesine olanak tanır. `htop`, kullanıcı dostu bir arayüze sahip olup, süreçleri kolayca yönetme ve sıralama imkanı sunar.
+htop, Linux ve Unix benzeri işletim sistemlerinde çalışan bir etkileşimli süreç görüntüleyicisidir. Kullanıcılara sistemdeki işlemleri, bellek ve CPU kullanımını gerçek zamanlı olarak izleme imkanı sunar. htop, top komutuna benzer, ancak daha kullanıcı dostu bir arayüze sahiptir ve daha fazla bilgi sunar.
 
 ## Kullanım
-Temel `htop` komutunun sözdizimi oldukça basittir:
+htop komutunun temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-htop [seçenekler]
+htop [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-d, --delay`: Güncelleme aralığını (saniye cinsinden) ayarlamak için kullanılır.
-- `-u, --user`: Belirli bir kullanıcıya ait süreçleri görüntülemek için kullanılır.
-- `-p, --pid`: Belirli bir süreç kimliğine (PID) ait bilgileri görüntülemek için kullanılır.
-- `--sort-key`: Görüntüleme sırasını belirlemek için kullanılır (örneğin, CPU veya bellek kullanımı).
+## Yaygın Seçenekler
+- `-h`, `--help`: Yardım bilgilerini gösterir.
+- `-s`, `--sort`: Görüntüleme sırasını belirler (örneğin, CPU veya bellek kullanımı).
+- `-p`, `--pid`: Belirli bir işlem kimliğini (PID) izlemek için kullanılır.
+- `-u`, `--user`: Belirli bir kullanıcıya ait işlemleri görüntüler.
 
-## Örnekler
-### Örnek 1: Temel Kullanım
-`htop` komutunu terminalde çalıştırarak sistemdeki tüm süreçleri görüntüleyebilirsiniz:
+## Yaygın Örnekler
+Aşağıda htop komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-```bash
-htop
-```
+1. **htop'u başlatmak:**
+   ```bash
+   htop
+   ```
 
-### Örnek 2: Belirli Bir Kullanıcıya Ait Süreçleri Görüntüleme
-Belirli bir kullanıcıya ait süreçleri görüntülemek için `-u` seçeneğini kullanabilirsiniz. Örneğin, "kullaniciadi" adlı kullanıcının süreçlerini görmek için:
+2. **Belirli bir kullanıcıya ait işlemleri görüntülemek:**
+   ```bash
+   htop -u kullanıcı_adı
+   ```
 
-```bash
-htop -u kullaniciadi
-```
+3. **İşlemleri CPU kullanımına göre sıralamak:**
+   ```bash
+   htop -s PERCENT_CPU
+   ```
+
+4. **Belirli bir PID'yi izlemek:**
+   ```bash
+   htop -p 1234
+   ```
 
 ## İpuçları
-- `htop` arayüzünde, süreçleri seçip `F9` tuşuna basarak sonlandırabilirsiniz.
-- Arama yapmak için `F3` tuşunu kullanarak belirli bir süreci hızlıca bulabilirsiniz.
-- `htop`'u daha verimli kullanmak için, sıralama seçeneklerini değiştirerek (örneğin, CPU veya bellek kullanımına göre) süreçleri analiz edebilirsiniz.
-- Renkli arayüzü sayesinde, kaynak kullanımını hızlı bir şekilde değerlendirebilirsiniz.
+- htop arayüzünde ok tuşları ile gezinerek işlemler arasında geçiş yapabilirsiniz.
+- `F9` tuşuna basarak bir işlemi sonlandırabilir ve `F10` ile htop'tan çıkabilirsiniz.
+- Htop'u çalıştırmadan önce terminalinizin boyutunu artırarak daha fazla bilgi görüntüleyebilirsiniz. 
+
+htop, sistem yöneticileri ve kullanıcılar için güçlü bir araçtır ve sistem kaynaklarını izlemek için sıklıkla tercih edilir.

@@ -1,48 +1,68 @@
-# [리눅스] Bash read 사용법
+# [Linux] Bash read Usage: Read user input from standard input
 
 ## Overview
-The `read` command in Bash is used to read a line of input from standard input (stdin) and assign it to one or more variables. This command is particularly useful in scripts where user interaction is required, allowing developers to capture user input dynamically during script execution.
+The `read` command in Bash is used to read a line of input from standard input (usually the keyboard) and assign it to one or more variables. This command is particularly useful in scripts where user interaction is required.
 
 ## Usage
 The basic syntax of the `read` command is as follows:
 
 ```bash
-read [options] variable_name
+read [options] [variable...]
 ```
 
-### Common Options:
-- `-p prompt`: Displays a prompt before reading input.
-- `-s`: Silent mode; does not echo input back to the terminal (useful for passwords).
-- `-a array`: Reads the input into an array variable.
-- `-d delimiter`: Sets a custom delimiter to end the input (default is newline).
-- `-n num`: Reads only a specified number of characters.
-- `-t timeout`: Sets a timeout for reading input.
+## Common Options
+- `-p PROMPT`: Display a prompt before reading input.
+- `-s`: Silent mode; does not echo input (useful for passwords).
+- `-t TIMEOUT`: Time out after a specified number of seconds if no input is received.
+- `-n N`: Read only N characters of input.
 
-## Examples
+## Common Examples
 
 ### Example 1: Basic Input
+To read a single line of input into a variable:
+
 ```bash
-#!/bin/bash
-echo "Please enter your name:"
 read name
 echo "Hello, $name!"
 ```
-In this example, the script prompts the user to enter their name and then greets them using the input received.
 
-### Example 2: Silent Input for Password
+### Example 2: Prompting for Input
+Using the `-p` option to display a prompt:
+
 ```bash
-#!/bin/bash
-read -sp "Enter your password: " password
-echo
-echo "Password entered."
+read -p "Enter your favorite color: " color
+echo "Your favorite color is $color."
 ```
-Here, the script reads a password without displaying it on the screen, ensuring privacy.
+
+### Example 3: Silent Input
+Reading a password without displaying it on the screen:
+
+```bash
+read -s -p "Enter your password: " password
+echo "Password read successfully."
+```
+
+### Example 4: Timeout for Input
+Setting a timeout for user input:
+
+```bash
+if read -t 5 -p "You have 5 seconds to enter your name: " name; then
+    echo "Hello, $name!"
+else
+    echo "No input received."
+fi
+```
+
+### Example 5: Reading Multiple Variables
+Reading multiple values into different variables:
+
+```bash
+read -p "Enter your first name and last name: " first last
+echo "Hello, $first $last!"
+```
 
 ## Tips
-- Always validate user input after using `read` to ensure it meets your requirements.
-- Use the `-p` option to provide clear prompts, making the script more user-friendly.
-- When using `-a` to read into an array, remember that the input will be split by whitespace.
-- Consider using the `-t` option to prevent your script from hanging indefinitely if no input is provided.
-- For sensitive information, always use the `-s` option to keep input secure.
-
-By following these guidelines and examples, you can effectively utilize the `read` command in your Bash scripts to enhance user interaction and input handling.
+- Always validate user input to ensure it meets your script's requirements.
+- Use the `-s` option when asking for sensitive information like passwords.
+- Consider using a timeout with `-t` to prevent your script from hanging indefinitely if the user does not respond.
+- When reading multiple variables, ensure the input format is clear to the user to avoid confusion.

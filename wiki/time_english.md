@@ -1,43 +1,43 @@
-# [리눅스] Bash time 사용법
+# [Linux] Bash time uso equivalente: Measure command execution time
 
 ## Overview
-The `time` command in Bash is a built-in utility that measures the duration of time taken by a command to execute. Its primary purpose is to provide users with insights into the performance of their commands, scripts, or programs by displaying the real time, user CPU time, and system CPU time consumed during execution. This information can be invaluable for optimizing scripts and understanding resource usage.
+The `time` command in Bash is used to measure the duration of execution of a command. It provides valuable information about how long a command takes to run, along with resource usage statistics such as CPU time and memory consumption.
 
 ## Usage
 The basic syntax of the `time` command is as follows:
 
 ```bash
-time [OPTION] COMMAND [ARGUMENTS...]
+time [options] [arguments]
 ```
 
-### Common Options
-- `-p`: This option formats the output in a POSIX-compliant manner, making it easier to parse.
-- `-o FILE`: Redirects the output to a specified file instead of standard output.
-- `-a`: Appends the output to the specified file when using the `-o` option.
-- `--verbose`: Provides detailed information about the command execution.
+## Common Options
+- `-p`: Use POSIX format for the output.
+- `-o FILE`: Write the timing output to the specified file instead of standard error.
+- `-v`: Provide a verbose output that includes more detailed resource usage information.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Usage
-To measure the time taken by the `sleep` command for 2 seconds, you can run:
+1. **Basic usage**: Measure the time taken by a command.
+   ```bash
+   time sleep 2
+   ```
 
-```bash
-time sleep 2
-```
+2. **Using the `-p` option**: Get the output in POSIX format.
+   ```bash
+   time -p ls
+   ```
 
-The output will display the real time taken, along with user and system CPU times.
+3. **Redirecting output to a file**: Save the timing information to a file.
+   ```bash
+   time -o timing.txt find / -name "*.txt"
+   ```
 
-### Example 2: Using Options
-To save the timing information to a file and use the POSIX format, you can execute:
-
-```bash
-time -p -o time_output.txt ls -l
-```
-
-This command will run `ls -l` and save the timing details in `time_output.txt` in a standardized format.
+4. **Verbose output**: Get detailed resource usage statistics.
+   ```bash
+   time -v grep "example" largefile.txt
+   ```
 
 ## Tips
-- Use the `-p` option when you need to parse the output programmatically, as it provides a consistent format.
-- Consider redirecting the output to a file if you are running long commands or scripts, as this can help in logging and later analysis.
-- Combine `time` with other commands in a pipeline to measure the performance of complex operations.
-- Remember that `time` measures the execution time of the command it precedes, so ensure that you place it correctly in your command line.
+- Use `time` with commands that you suspect may be resource-intensive to analyze their performance.
+- Combine `time` with other commands in a pipeline to measure the execution time of complex operations.
+- Remember that the `time` command measures the time of the command itself, not the time taken by any subprocesses it may spawn.

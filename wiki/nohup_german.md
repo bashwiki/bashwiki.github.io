@@ -1,41 +1,46 @@
-# [리눅스] Bash nohup 사용법
+# [Linux] Bash nohup Verwendung: Prozesse im Hintergrund ausführen
 
 ## Übersicht
-Der Befehl `nohup` (kurz für "no hang up") wird in der Bash verwendet, um Prozesse zu starten, die unabhängig von der aktuellen Sitzung weiterlaufen. Dies ist besonders nützlich, wenn Sie einen langen Prozess ausführen möchten, der nicht unterbrochen werden soll, selbst wenn Sie sich von der Shell abmelden oder die Verbindung zum Terminal verlieren. `nohup` leitet die Standardausgabe und die Standardfehlerausgabe des Prozesses standardmäßig in eine Datei namens `nohup.out`, es sei denn, Sie geben eine andere Ausgabedatei an.
+Der `nohup`-Befehl (no hang up) wird verwendet, um Prozesse im Hintergrund auszuführen, sodass sie nicht beendet werden, wenn die Sitzung geschlossen wird. Dies ist besonders nützlich, wenn Sie lang laufende Prozesse starten und sicherstellen möchten, dass sie weiterlaufen, auch wenn Sie sich vom Terminal abmelden.
 
 ## Verwendung
-Die grundlegende Syntax des `nohup`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-nohup Befehl [Argumente] &
+nohup [Optionen] [Befehle] &
 ```
 
-### Optionen
-- `Befehl`: Der auszuführende Befehl oder das Skript.
-- `[Argumente]`: Optional, die Argumente, die an den Befehl übergeben werden.
-- `&`: Führt den Befehl im Hintergrund aus, sodass Sie die Shell weiterhin verwenden können.
+Das `&` am Ende des Befehls sorgt dafür, dass der Prozess im Hintergrund ausgeführt wird.
 
-## Beispiele
-### Beispiel 1: Ein einfaches Skript im Hintergrund ausführen
-Angenommen, Sie haben ein Skript namens `mein_script.sh`, das lange läuft. Sie können es mit `nohup` wie folgt ausführen:
+## Häufige Optionen
+- `-h`: Zeigt die Hilfe für den Befehl an.
+- `-v`: Aktiviert den ausführlichen Modus, um mehr Informationen über den Prozess zu erhalten.
+- `--version`: Gibt die Versionsnummer von nohup aus.
 
-```bash
-nohup ./mein_script.sh &
-```
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung von `nohup`:
 
-Die Ausgabe wird in die Datei `nohup.out` geschrieben, und das Skript läuft im Hintergrund weiter, auch wenn Sie sich abmelden.
+1. **Ein einfaches Skript im Hintergrund ausführen:**
+   ```bash
+   nohup ./mein_skript.sh &
+   ```
 
-### Beispiel 2: Ein Befehl mit spezifischer Ausgabedatei
-Wenn Sie die Ausgabe in eine spezifische Datei umleiten möchten, können Sie dies wie folgt tun:
+2. **Einen Python-Server im Hintergrund starten:**
+   ```bash
+   nohup python3 -m http.server 8000 &
+   ```
 
-```bash
-nohup ./mein_script.sh > meine_ausgabe.log 2>&1 &
-```
+3. **Ein lang laufendes Backup-Skript ausführen und die Ausgabe in eine Datei umleiten:**
+   ```bash
+   nohup ./backup.sh > backup.log 2>&1 &
+   ```
 
-Hierbei wird die Standardausgabe und der Standardfehler in die Datei `meine_ausgabe.log` geschrieben.
+4. **Einen Prozess mit einer spezifischen Priorität im Hintergrund starten:**
+   ```bash
+   nohup nice -n 19 ./lang_laufender_prozess &
+   ```
 
 ## Tipps
-- Überprüfen Sie regelmäßig die `nohup.out`-Datei oder die von Ihnen angegebene Ausgabedatei, um sicherzustellen, dass Ihr Prozess wie erwartet läuft.
-- Verwenden Sie den Befehl `jobs`, um alle Hintergrundprozesse zu sehen, die in Ihrer aktuellen Shell-Sitzung laufen.
-- Nutzen Sie `disown`, um einen Hintergrundprozess von der aktuellen Shell zu trennen, sodass er weiterläuft, auch wenn die Shell geschlossen wird.
-- Stellen Sie sicher, dass Sie die Berechtigungen für das Skript oder den Befehl, den Sie ausführen möchten, korrekt gesetzt haben, um Ausführungsfehler zu vermeiden.
+- Verwenden Sie `nohup` in Kombination mit `&`, um sicherzustellen, dass der Prozess im Hintergrund läuft.
+- Leiten Sie die Ausgabe in eine Datei um, um die Protokollierung zu erleichtern und spätere Überprüfungen zu ermöglichen.
+- Überprüfen Sie regelmäßig die Ausgabedatei, um sicherzustellen, dass der Prozess wie erwartet läuft.

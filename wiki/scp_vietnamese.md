@@ -1,40 +1,42 @@
-# [리눅스] Bash scp 사용법
+# [Linux] Bash scp cách sử dụng: Chuyển tệp an toàn giữa các máy tính
 
 ## Tổng quan
-`scp` (Secure Copy Protocol) là một lệnh trong Bash được sử dụng để sao chép tệp tin và thư mục giữa các máy tính qua một kết nối SSH (Secure Shell). Lệnh này giúp đảm bảo rằng dữ liệu được truyền tải một cách an toàn và bảo mật. `scp` thường được sử dụng để sao chép tệp từ máy cục bộ đến máy từ xa hoặc ngược lại.
+Lệnh `scp` (Secure Copy Protocol) được sử dụng để sao chép tệp và thư mục giữa các máy tính qua mạng một cách an toàn. Nó sử dụng giao thức SSH để đảm bảo tính bảo mật trong quá trình truyền tải dữ liệu.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `scp` như sau:
-
-```
-scp [tùy chọn] [nguồn] [đích]
-```
-
-Trong đó:
-- **nguồn**: Đường dẫn đến tệp hoặc thư mục bạn muốn sao chép. Có thể là một tệp trên máy cục bộ hoặc trên máy từ xa (được định dạng là `user@host:/path/to/file`).
-- **đích**: Đường dẫn đến nơi bạn muốn sao chép tệp hoặc thư mục đến. Tương tự, có thể là máy cục bộ hoặc máy từ xa.
-
-### Một số tùy chọn phổ biến:
-- `-r`: Sao chép thư mục một cách đệ quy.
-- `-P`: Chỉ định cổng SSH khác với cổng mặc định (22).
-- `-i`: Chỉ định tệp khóa riêng để xác thực.
-
-## Ví dụ
-### Ví dụ 1: Sao chép tệp từ máy cục bộ đến máy từ xa
 ```bash
-scp /path/to/local/file.txt user@remote_host:/path/to/remote/directory/
+scp [tùy chọn] [đối số]
 ```
-Lệnh này sẽ sao chép tệp `file.txt` từ máy cục bộ đến thư mục chỉ định trên máy từ xa.
 
-### Ví dụ 2: Sao chép thư mục từ máy từ xa về máy cục bộ
-```bash
-scp -r user@remote_host:/path/to/remote/directory/ /path/to/local/directory/
-```
-Lệnh này sẽ sao chép toàn bộ thư mục từ máy từ xa về thư mục chỉ định trên máy cục bộ.
+## Các tùy chọn phổ biến
+- `-r`: Sao chép thư mục và tất cả các tệp bên trong.
+- `-P [cổng]`: Chỉ định cổng SSH khác với cổng mặc định (22).
+- `-i [tệp khóa]`: Sử dụng tệp khóa SSH để xác thực.
+- `-v`: Chế độ chi tiết, hiển thị thông tin về quá trình sao chép.
+
+## Ví dụ thường gặp
+1. Sao chép một tệp từ máy tính cục bộ đến máy chủ từ xa:
+   ```bash
+   scp /path/to/local/file.txt user@remote_host:/path/to/remote/directory/
+   ```
+
+2. Sao chép một tệp từ máy chủ từ xa về máy tính cục bộ:
+   ```bash
+   scp user@remote_host:/path/to/remote/file.txt /path/to/local/directory/
+   ```
+
+3. Sao chép một thư mục từ máy tính cục bộ đến máy chủ từ xa:
+   ```bash
+   scp -r /path/to/local/directory user@remote_host:/path/to/remote/
+   ```
+
+4. Sao chép một tệp sử dụng cổng SSH khác:
+   ```bash
+   scp -P 2222 /path/to/local/file.txt user@remote_host:/path/to/remote/
+   ```
 
 ## Mẹo
-- Đảm bảo rằng bạn có quyền truy cập vào máy từ xa và đã cấu hình SSH đúng cách trước khi sử dụng `scp`.
-- Sử dụng tùy chọn `-v` để bật chế độ chi tiết, giúp bạn theo dõi quá trình sao chép và phát hiện lỗi nếu có.
-- Nếu bạn thường xuyên sao chép tệp giữa hai máy, hãy xem xét việc thiết lập xác thực bằng khóa SSH để tiết kiệm thời gian nhập mật khẩu.
-
-Hy vọng bài viết này giúp bạn hiểu rõ hơn về cách sử dụng lệnh `scp` trong Bash!
+- Luôn kiểm tra kết nối mạng và quyền truy cập trước khi thực hiện lệnh `scp`.
+- Sử dụng tùy chọn `-v` để gỡ lỗi nếu gặp sự cố trong quá trình sao chép.
+- Để tăng tốc độ sao chép, bạn có thể sử dụng tùy chọn `-C` để nén dữ liệu trong quá trình truyền tải.

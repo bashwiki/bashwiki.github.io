@@ -1,44 +1,50 @@
-# [리눅스] Bash compgen 사용법
+# [Linux] Bash compgen Cách sử dụng: Lệnh tạo danh sách các tên
 
-## Tổng quan
-Lệnh `compgen` trong Bash là một công cụ mạnh mẽ được sử dụng để tạo ra danh sách các tên biến, hàm, alias, và các từ khóa khác trong shell. Mục đích chính của `compgen` là hỗ trợ việc tự động hoàn thành lệnh và giúp người dùng dễ dàng tìm kiếm và sử dụng các thành phần trong môi trường Bash của họ.
+## Overview
+Lệnh `compgen` trong Bash được sử dụng để tạo danh sách các tên, giúp người dùng có thể hoàn thành tự động các lệnh, biến hoặc tên tệp. Nó rất hữu ích trong việc phát triển shell script và tương tác với dòng lệnh.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `compgen` như sau:
-
 ```bash
-compgen [option] [word]
+compgen [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-A`: Chỉ định loại đối tượng cần hoàn thành, ví dụ như `alias`, `function`, `variable`, v.v.
-- `-a`: Liệt kê tất cả các alias hiện có.
-- `-b`: Liệt kê tất cả các lệnh có thể thực thi.
-- `-k`: Liệt kê tất cả các từ khóa trong Bash.
-- `-v`: Liệt kê tất cả các biến môi trường.
+## Common Options
+- `-A`: Chỉ định loại đối tượng mà bạn muốn tạo danh sách, ví dụ như `alias`, `function`, `variable`, v.v.
+- `-a`: Tạo danh sách tất cả các alias hiện có.
+- `-b`: Tạo danh sách tất cả các built-in commands.
+- `-k`: Tạo danh sách tất cả các từ khóa trong Bash.
+- `-c`: Tạo danh sách tất cả các lệnh có thể thực thi.
 
-## Ví dụ
+## Common Examples
 Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `compgen`:
 
-1. **Liệt kê tất cả các lệnh có thể thực thi**:
+1. **Liệt kê tất cả các alias:**
+   ```bash
+   compgen -a
+   ```
+
+2. **Liệt kê tất cả các built-in commands:**
    ```bash
    compgen -b
    ```
-   Lệnh này sẽ hiển thị danh sách tất cả các lệnh có thể chạy trong shell hiện tại.
 
-2. **Liệt kê tất cả các biến môi trường**:
+3. **Liệt kê tất cả các từ khóa trong Bash:**
+   ```bash
+   compgen -k
+   ```
+
+4. **Liệt kê tất cả các lệnh có thể thực thi:**
+   ```bash
+   compgen -c
+   ```
+
+5. **Tạo danh sách các biến môi trường:**
    ```bash
    compgen -v
    ```
-   Lệnh này sẽ hiển thị danh sách tất cả các biến môi trường đã được định nghĩa.
 
-## Mẹo
-- Sử dụng `compgen` kết hợp với `grep` để lọc kết quả. Ví dụ:
-  ```bash
-  compgen -a | grep 'my_alias'
-  ```
-  Lệnh này sẽ tìm kiếm và hiển thị tất cả các alias có chứa chuỗi 'my_alias'.
-  
-- Kết hợp `compgen` với các lệnh khác trong Bash để tạo ra các script tự động hoàn thành mạnh mẽ và linh hoạt hơn.
-
-Bằng cách sử dụng `compgen`, bạn có thể cải thiện hiệu suất làm việc của mình trong môi trường Bash và dễ dàng quản lý các thành phần khác nhau của shell.
+## Tips
+- Sử dụng `compgen` kết hợp với `grep` để lọc kết quả, ví dụ: `compgen -c | grep 'git'` để tìm các lệnh liên quan đến git.
+- Bạn có thể sử dụng `compgen` trong các script để tự động hoàn thành tên biến hoặc lệnh, giúp tiết kiệm thời gian và giảm lỗi.
+- Hãy thử nghiệm với các tùy chọn khác nhau để khám phá tất cả các khả năng của `compgen`.

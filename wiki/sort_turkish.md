@@ -1,38 +1,59 @@
-# [리눅스] Bash sort 사용법
+# [Linux] Bash sort Kullanımı: Dosya içeriğini sıralama
 
-## Overview
-`sort` komutu, bir dosyadaki veya standart girdi akışındaki verileri sıralamak için kullanılan bir Bash komutudur. Genellikle metin dosyalarındaki satırları alfabetik veya sayısal olarak sıralamak için kullanılır. `sort`, verileri belirli bir düzene göre düzenleyerek daha okunabilir hale getirir ve veri analizi için önemli bir araçtır.
+## Genel Bakış
+`sort` komutu, bir dosya veya standart girdi içindeki satırları sıralamak için kullanılır. Bu komut, verileri alfabetik veya sayısal olarak düzenleyerek daha okunabilir hale getirir.
 
-## Usage
-Temel `sort` komutunun sözdizimi şu şekildedir:
-
+## Kullanım
+Temel sözdizimi şu şekildedir:
 ```bash
-sort [seçenekler] [dosya_adı]
+sort [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler:
-- `-r`: Sıralamayı tersine çevirir (büyükten küçüğe).
+## Yaygın Seçenekler
+- `-r`: Sıralamayı tersine çevirir (azalan sırada).
 - `-n`: Sayısal sıralama yapar.
-- `-k`: Belirli bir alanı (kolonu) sıralamak için kullanılır. Örneğin, `-k2` ikinci alanı kullanarak sıralama yapar.
+- `-k`: Belirli bir alanı (kolonu) kullanarak sıralama yapar.
 - `-u`: Tekrar eden satırları kaldırarak yalnızca benzersiz satırları gösterir.
-- `-o`: Sıralanmış çıktıyı belirtilen dosyaya kaydeder.
+- `-o`: Sonuçları belirtilen dosyaya yazmak için kullanılır.
 
-## Examples
-### Örnek 1: Basit Sıralama
-Aşağıdaki komut, `veriler.txt` dosyasındaki satırları alfabetik olarak sıralar ve çıktıyı ekrana yazdırır.
+## Yaygın Örnekler
+1. **Basit Sıralama:**
+   Bir dosyadaki satırları alfabetik olarak sıralamak için:
+   ```bash
+   sort dosya.txt
+   ```
 
-```bash
-sort veriler.txt
-```
+2. **Ters Sıralama:**
+   Satırları tersine sıralamak için:
+   ```bash
+   sort -r dosya.txt
+   ```
 
-### Örnek 2: Sayısal Sıralama
-Aşağıdaki komut, `sayilar.txt` dosyasındaki sayıları sayısal olarak sıralar ve çıktıyı `sirali_sayilar.txt` dosyasına kaydeder.
+3. **Sayısal Sıralama:**
+   Sayıları içeren bir dosyayı sayısal olarak sıralamak için:
+   ```bash
+   sort -n sayilar.txt
+   ```
 
-```bash
-sort -n sayilar.txt -o sirali_sayilar.txt
-```
+4. **Belirli Bir Alan Üzerinden Sıralama:**
+   İkinci alana göre sıralamak için:
+   ```bash
+   sort -k2 dosya.txt
+   ```
 
-## Tips
-- Sıralama işlemi büyük/küçük harf duyarlıdır. Eğer büyük harfleri küçük harflerle birleştirerek sıralama yapmak istiyorsanız, `-f` seçeneğini kullanabilirsiniz.
-- Sıralama işlemi büyük dosyalar için zaman alabilir. Performansı artırmak için verilerinizi önceden filtrelemek veya düzenlemek iyi bir uygulamadır.
-- `sort` komutunu diğer komutlarla birleştirerek daha karmaşık veri işleme görevleri gerçekleştirebilirsiniz. Örneğin, `grep` ile filtreleme yapıp ardından `sort` ile sıralama yapabilirsiniz.
+5. **Benzersiz Satırları Gösterme:**
+   Tekrar eden satırları kaldırarak sıralamak için:
+   ```bash
+   sort -u dosya.txt
+   ```
+
+6. **Sonuçları Başka Bir Dosyaya Yazma:**
+   Sıralanmış çıktıyı yeni bir dosyaya kaydetmek için:
+   ```bash
+   sort dosya.txt -o sirali_dosya.txt
+   ```
+
+## İpuçları
+- Sıralama işlemlerini hızlandırmak için büyük dosyalarla çalışırken `-S` seçeneği ile bellek kullanımını ayarlayabilirsiniz.
+- Sıralama işlemlerinin sonuçlarını görmek için `-n` ve `-k` seçeneklerini birleştirerek karmaşık sıralamalar yapabilirsiniz.
+- `sort` komutunu diğer komutlarla birleştirerek daha karmaşık veri işleme işlemleri gerçekleştirebilirsiniz, örneğin `cat dosya.txt | sort | uniq`.

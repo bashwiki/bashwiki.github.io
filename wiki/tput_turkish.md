@@ -1,45 +1,57 @@
-# [리눅스] Bash tput 사용법
+# [Linux] Bash tput Kullanımı: Terminalde metin biçimlendirme ve renk ayarlama
 
 ## Genel Bakış
-`tput`, terminal üzerinde çeşitli özellikleri kontrol etmek ve ayarlamak için kullanılan bir Bash komutudur. Bu komut, terminalin görünümünü ve davranışını değiştirmek için ANSI kaçış dizilerini kullanarak, metin biçimlendirme, renk ayarlama ve ekran kontrolü gibi işlemleri gerçekleştirmeye olanak tanır. `tput`, özellikle terminal tabanlı uygulamalar geliştiren mühendisler ve geliştiriciler için yararlıdır.
+`tput` komutu, terminalde metin biçimlendirme ve renk ayarlama işlemleri için kullanılan bir araçtır. Bu komut, terminalin özelliklerini kontrol etmeye ve terminaldeki metinlerin görünümünü değiştirmeye olanak tanır.
 
 ## Kullanım
-`tput` komutunun temel sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-tput [seçenekler]
+tput [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `setaf [numara]`: Metin rengini ayarlamak için kullanılır. Renk numarası 0-7 arasında bir değer alır.
-- `setab [numara]`: Arka plan rengini ayarlamak için kullanılır. Renk numarası 0-7 arasında bir değer alır.
-- `bold`: Metni kalın yapmak için kullanılır.
+## Yaygın Seçenekler
+- `setaf [numara]`: Metin rengini ayarlar. Renk numarası 0-7 arasında olmalıdır.
+- `setab [numara]`: Arka plan rengini ayarlar. Renk numarası 0-7 arasında olmalıdır.
+- `bold`: Metni kalın yapar.
+- `underline`: Metni altı çizili yapar.
 - `clear`: Terminal ekranını temizler.
 - `cup [satır] [sütun]`: İmleci belirtilen satır ve sütuna taşır.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `tput` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-### Örnek 1: Metin Rengini Değiştirme
-Aşağıdaki komut, metin rengini yeşil yapmak için kullanılabilir:
+1. **Metin Rengini Ayarlamak:**
+   ```bash
+   tput setaf 1; echo "Bu kırmızı bir metin."
+   ```
 
-```bash
-tput setaf 2; echo "Bu yeşil bir metin."; tput sgr0
-```
-Bu komut, metni yeşil renkte yazdırır ve ardından varsayılan ayarlara geri döner.
+2. **Arka Plan Rengini Ayarlamak:**
+   ```bash
+   tput setab 4; echo "Bu mavi arka plana sahip bir metin."
+   ```
 
-### Örnek 2: Ekranı Temizleme
-Terminal ekranını temizlemek için şu komutu kullanabilirsiniz:
+3. **Kalın Metin:**
+   ```bash
+   tput bold; echo "Bu kalın bir metin."
+   ```
 
-```bash
-tput clear
-```
-Bu komut, terminal ekranını temizler ve imleci en üst satıra taşır.
+4. **Altı Çizili Metin:**
+   ```bash
+   tput underline; echo "Bu altı çizili bir metin."
+   ```
+
+5. **Ekranı Temizlemek:**
+   ```bash
+   tput clear
+   ```
+
+6. **İmleci Belirli Bir Konuma Taşımak:**
+   ```bash
+   tput cup 5 10; echo "İmleç buraya taşındı."
+   ```
 
 ## İpuçları
-- `tput` komutunu kullanmadan önce terminalinizin desteklediği renk ve özellikleri kontrol edin. Bazı terminal emülatörleri tüm renkleri desteklemeyebilir.
-- `tput` ile birden fazla özellik ayarlamak için komutları birleştirebilirsiniz. Örneğin, metni kalın ve kırmızı yapmak için:
-
-```bash
-tput bold; tput setaf 1; echo "Bu kalın ve kırmızı bir metin."; tput sgr0
-```
-- Terminal uygulamalarınızda kullanıcı deneyimini geliştirmek için `tput` komutunu kullanarak görsel geri bildirimler sağlayabilirsiniz.
+- `tput` komutunu bir script içinde kullanarak, terminal çıktılarınızı daha okunabilir hale getirebilirsiniz.
+- Renk kodlarını öğrenmek için `tput colors` komutunu kullanarak terminalinizin desteklediği renk sayısını kontrol edebilirsiniz.
+- Terminaldeki değişikliklerin kalıcı olması için `tput` komutlarını bir profil dosyasına ekleyebilirsiniz.

@@ -1,49 +1,52 @@
-# [리눅스] Bash whoami 사용법
+# [Linux] Bash whoami Uso equivalente: Display current user name
 
 ## Overview
-The `whoami` command in Bash is a simple yet essential utility that displays the username of the current user who is executing the command. Its primary purpose is to provide a quick way to identify the active user in a multi-user environment, which is particularly useful when working on shared systems or when executing scripts that may run under different user contexts.
+The `whoami` command is a simple yet effective tool in Bash that displays the username of the current user who is logged into the terminal session. It is particularly useful for confirming your identity in multi-user environments or when working with scripts that require user-specific actions.
 
 ## Usage
-The basic syntax of the `whoami` command is straightforward:
+The basic syntax of the `whoami` command is as follows:
 
 ```bash
-whoami
+whoami [options] [arguments]
 ```
 
-This command does not require any options or arguments, making it easy to use. When executed, it returns the username of the user currently logged into the terminal session.
+## Common Options
+The `whoami` command does not have many options, but here are the commonly used ones:
 
-### Common Options
-The `whoami` command does not have any additional options or flags. It is designed to be simple and direct, providing only the username without any additional information.
+- `--help`: Displays help information about the command and its usage.
+- `--version`: Shows the version of the `whoami` command.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Usage
-To display the current username, simply type:
+1. **Display Current User**
+   To simply display the username of the current user, you can run:
+   ```bash
+   whoami
+   ```
 
-```bash
-whoami
-```
+2. **Using with Other Commands**
+   You can use `whoami` in combination with other commands. For example, to create a directory named after the current user:
+   ```bash
+   mkdir /home/$(whoami)/new_directory
+   ```
 
-**Output:**
-```
-john_doe
-```
-In this example, the output indicates that the current user logged into the terminal is `john_doe`.
+3. **Check User in a Script**
+   In a Bash script, you can check if the current user is 'admin':
+   ```bash
+   if [ "$(whoami)" = "admin" ]; then
+       echo "You are logged in as admin."
+   else
+       echo "You are not logged in as admin."
+   fi
+   ```
 
-### Example 2: Using in Scripts
-You can also use `whoami` within shell scripts to perform actions based on the current user. For example:
-
-```bash
-#!/bin/bash
-current_user=$(whoami)
-echo "The current user is: $current_user"
-```
-
-When this script is executed, it will output the current user's name, making it useful for logging or conditional operations based on user identity.
+4. **Display Help Information**
+   To view help information for the `whoami` command, use:
+   ```bash
+   whoami --help
+   ```
 
 ## Tips
-- **Use in Scripts**: Incorporate `whoami` in scripts to ensure that actions are performed with the correct user context, especially when dealing with permissions.
-- **Combine with Other Commands**: You can combine `whoami` with other commands using command substitution. For instance, you can check if the current user has specific permissions or roles by combining it with `id` or `groups`.
-- **Security Considerations**: Be cautious when sharing scripts that include `whoami`, as they may reveal user information that could be sensitive in certain environments.
-
-By understanding and utilizing the `whoami` command, engineers and developers can effectively manage user contexts and enhance their command-line workflows.
+- Use `whoami` to quickly verify your user identity, especially when executing commands that require elevated privileges.
+- Combine `whoami` with other commands in scripts to tailor actions based on the logged-in user.
+- Remember that `whoami` will only show the username of the user associated with the current terminal session, which can differ from the root user or other users in a multi-user system.

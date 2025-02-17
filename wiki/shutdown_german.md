@@ -1,37 +1,51 @@
-# [리눅스] Bash shutdown 사용법
+# [Linux] Bash shutdown Verwendung: System herunterfahren oder neu starten
 
 ## Übersicht
-Der Befehl `shutdown` wird in Unix-ähnlichen Betriebssystemen verwendet, um das System sicher herunterzufahren oder neu zu starten. Er ermöglicht es Administratoren, das System zu einem bestimmten Zeitpunkt oder nach einer bestimmten Zeitspanne auszuschalten, was besonders nützlich ist, um Datenverlust zu vermeiden und sicherzustellen, dass alle Prozesse ordnungsgemäß beendet werden.
+Der Befehl `shutdown` wird verwendet, um ein Linux-System sicher herunterzufahren oder neu zu starten. Er ermöglicht es Benutzern, das System zu einem bestimmten Zeitpunkt oder nach einer bestimmten Zeitspanne auszuschalten.
 
 ## Verwendung
-Die grundlegende Syntax des `shutdown`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
-```bash
-shutdown [OPTIONEN] [ZEIT] [NACHRICHT]
+```
+shutdown [Optionen] [Zeit] [Nachricht]
 ```
 
-### Häufige Optionen:
-- `-h` oder `--halt`: Fährt das System herunter und schaltet es aus.
-- `-r` oder `--reboot`: Startet das System nach dem Herunterfahren neu.
-- `-P` oder `--poweroff`: Schaltet das System aus (dies ist oft die Standardaktion).
-- `now`: Fährt das System sofort herunter.
-- `+m`: Gibt an, dass das System in `m` Minuten heruntergefahren werden soll (z.B. `+5` für 5 Minuten).
-- `hh:mm`: Gibt die Uhrzeit an, zu der das System heruntergefahren werden soll (z.B. `23:00` für 23 Uhr).
+## Häufige Optionen
+- `-h`: Fährt das System herunter.
+- `-r`: Startet das System neu.
+- `-P`: Schaltet das System aus (verfügbar in einigen Distributionen).
+- `now`: Führt den Shutdown sofort aus.
+- `+m`: Fährt das System nach m Minuten herunter.
+- `hh:mm`: Fährt das System um die angegebene Uhrzeit herunter.
 
-## Beispiele
-1. Um das System sofort herunterzufahren, verwenden Sie den folgenden Befehl:
+## Häufige Beispiele
 
+1. **System sofort herunterfahren:**
    ```bash
-   shutdown now
+   shutdown -h now
    ```
 
-2. Um das System in 10 Minuten herunterzufahren und eine Nachricht an alle Benutzer zu senden, verwenden Sie:
-
+2. **System in 10 Minuten herunterfahren:**
    ```bash
-   shutdown +10 "Das System wird in 10 Minuten heruntergefahren."
+   shutdown -h +10
+   ```
+
+3. **System um 22:00 Uhr neu starten:**
+   ```bash
+   shutdown -r 22:00
+   ```
+
+4. **Nachricht an alle Benutzer senden:**
+   ```bash
+   shutdown -h now "Das System wird heruntergefahren für Wartungsarbeiten."
+   ```
+
+5. **System sofort neu starten:**
+   ```bash
+   shutdown -r now
    ```
 
 ## Tipps
-- Verwenden Sie den Befehl `shutdown -c`, um einen geplanten Shutdown abzubrechen, falls Sie es sich anders überlegen.
-- Informieren Sie Benutzer über bevorstehende Shutdowns, indem Sie eine Nachricht senden, um Datenverlust zu vermeiden.
-- Testen Sie den Befehl in einer sicheren Umgebung, bevor Sie ihn auf Produktionssystemen verwenden, um sicherzustellen, dass Sie die gewünschten Ergebnisse erzielen.
+- Verwenden Sie `shutdown -h now`, um sicherzustellen, dass alle Prozesse ordnungsgemäß beendet werden, bevor das System heruntergefahren wird.
+- Informieren Sie andere Benutzer über geplante Herunterfahrvorgänge, indem Sie eine Nachricht mit dem Befehl senden.
+- Nutzen Sie `shutdown -c`, um einen geplanten Shutdown abzubrechen, falls nötig.

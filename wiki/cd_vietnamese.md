@@ -1,44 +1,41 @@
-# [리눅스] Bash cd 사용법
+# [Linux] Bash cd cách sử dụng: Chuyển đổi thư mục làm việc
 
-## Tổng quan
-Lệnh `cd` (change directory) trong Bash được sử dụng để thay đổi thư mục làm việc hiện tại trong hệ thống tệp. Đây là một trong những lệnh cơ bản và quan trọng nhất mà người dùng cần biết khi làm việc với dòng lệnh, giúp điều hướng giữa các thư mục một cách dễ dàng.
+## Overview
+Lệnh `cd` (change directory) trong Bash được sử dụng để thay đổi thư mục làm việc hiện tại. Khi bạn sử dụng lệnh này, bạn có thể di chuyển giữa các thư mục trong hệ thống tệp của bạn.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `cd` như sau:
-
-```bash
-cd [tùy chọn] [thư mục]
+```
+cd [options] [arguments]
 ```
 
-### Tùy chọn phổ biến:
-- `..`: Quay lại thư mục cha của thư mục hiện tại.
-- `-`: Quay lại thư mục trước đó mà bạn đã truy cập.
+## Common Options
+- `..`: Quay lại thư mục cha.
+- `-`: Quay lại thư mục trước đó.
 - `~`: Chuyển đến thư mục chính của người dùng hiện tại.
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `cd`:
+## Common Examples
+- Chuyển đến thư mục con có tên "Documents":
+  ```bash
+  cd Documents
+  ```
+  
+- Quay lại thư mục cha:
+  ```bash
+  cd ..
+  ```
 
-1. Chuyển đến thư mục con có tên "documents":
-   ```bash
-   cd documents
-   ```
+- Chuyển đến thư mục chính của người dùng:
+  ```bash
+  cd ~
+  ```
 
-2. Quay lại thư mục cha:
-   ```bash
-   cd ..
-   ```
+- Quay lại thư mục trước đó:
+  ```bash
+  cd -
+  ```
 
-3. Quay lại thư mục trước đó:
-   ```bash
-   cd -
-   ```
-
-4. Chuyển đến thư mục chính của người dùng:
-   ```bash
-   cd ~
-   ```
-
-## Mẹo
-- Sử dụng phím Tab để tự động hoàn thành tên thư mục khi bạn gõ lệnh `cd`. Điều này giúp tiết kiệm thời gian và giảm lỗi chính tả.
-- Bạn có thể sử dụng đường dẫn tuyệt đối hoặc đường dẫn tương đối khi sử dụng lệnh `cd`. Đường dẫn tuyệt đối bắt đầu từ thư mục gốc (`/`), trong khi đường dẫn tương đối bắt đầu từ thư mục hiện tại.
-- Hãy chắc chắn rằng bạn có quyền truy cập vào thư mục mà bạn đang cố gắng chuyển đến, nếu không, bạn sẽ nhận được thông báo lỗi.
+## Tips
+- Sử dụng `cd` kèm theo `tab` để tự động hoàn thành tên thư mục.
+- Kiểm tra thư mục hiện tại bằng lệnh `pwd` trước khi sử dụng `cd` để đảm bảo bạn đang ở đúng vị trí.
+- Nếu bạn cần di chuyển đến một đường dẫn dài, hãy sử dụng dấu nháy đơn hoặc nháy kép để bao quanh đường dẫn đó.

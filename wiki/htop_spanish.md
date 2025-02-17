@@ -1,42 +1,43 @@
-# [리눅스] Bash htop 사용법
+# [Linux] Bash htop Uso: Monitorización interactiva de procesos
 
 ## Overview
-El comando `htop` es una herramienta interactiva de monitoreo de procesos en sistemas operativos Unix y Linux. A diferencia del comando `top`, `htop` ofrece una interfaz más amigable y colorida, permitiendo a los usuarios visualizar y gestionar los procesos en ejecución de manera más eficiente. Su propósito principal es proporcionar información en tiempo real sobre el uso de recursos del sistema, como CPU, memoria y swap, así como permitir la gestión de procesos mediante una interfaz de usuario intuitiva.
+El comando `htop` es una herramienta de visualización interactiva que permite monitorizar los procesos en un sistema Linux. A diferencia de `top`, `htop` proporciona una interfaz más amigable y permite la gestión de procesos de manera más intuitiva.
 
 ## Usage
 La sintaxis básica del comando `htop` es la siguiente:
 
 ```bash
-htop [opciones]
+htop [opciones] [argumentos]
 ```
 
-Algunas de las opciones más comunes que puedes utilizar con `htop` son:
-
+## Common Options
 - `-h`, `--help`: Muestra la ayuda y las opciones disponibles.
-- `-s`, `--sort`: Permite especificar el criterio de ordenación de los procesos (por ejemplo, `-s PERCENT_CPU` para ordenar por uso de CPU).
-- `-p`, `--pid`: Muestra solo los procesos con los identificadores de proceso (PID) especificados.
+- `-s`, `--sort`: Permite ordenar los procesos por diferentes criterios (por ejemplo, uso de CPU o memoria).
+- `-p`, `--pid`: Muestra solo los procesos con los IDs de proceso especificados.
+- `-u`, `--user`: Filtra los procesos para mostrar solo los de un usuario específico.
 
-## Examples
-Aquí tienes un par de ejemplos prácticos de cómo utilizar `htop`:
+## Common Examples
+- Para iniciar `htop` simplemente, ejecuta:
+  ```bash
+  htop
+  ```
 
-1. **Ejecutar htop sin opciones**:
-   Simplemente ejecuta `htop` en la terminal para abrir la interfaz interactiva y ver los procesos en tiempo real.
+- Para ordenar los procesos por uso de memoria, puedes usar:
+  ```bash
+  htop -s MEM%
+  ```
 
-   ```bash
-   htop
-   ```
+- Para mostrar solo los procesos de un usuario específico, por ejemplo, "usuario1":
+  ```bash
+  htop -u usuario1
+  ```
 
-2. **Ordenar procesos por uso de memoria**:
-   Puedes iniciar `htop` y luego presionar `F6` para seleccionar el criterio de ordenación. Sin embargo, también puedes iniciar `htop` directamente ordenado por uso de memoria con el siguiente comando:
-
-   ```bash
-   htop -s PERCENT_MEM
-   ```
+- Para ver los procesos con IDs específicos, por ejemplo, 1234 y 5678:
+  ```bash
+  htop -p 1234,5678
+  ```
 
 ## Tips
-- **Navegación**: Usa las teclas de flecha para navegar por la lista de procesos. Puedes seleccionar un proceso y presionar `F9` para enviar una señal (como `SIGTERM` o `SIGKILL`) para finalizarlo.
-- **Filtrado**: Presiona `F3` para buscar un proceso específico, lo que puede ser útil si tienes muchos procesos en ejecución.
-- **Personalización**: Puedes personalizar la visualización de `htop` presionando `F2` para acceder a la configuración, donde puedes ajustar la apariencia y los datos mostrados.
-- **Uso de recursos**: Observa la barra de uso de CPU y memoria en la parte superior para tener una idea rápida del estado general del sistema.
-
-`htop` es una herramienta poderosa para ingenieros y desarrolladores que buscan un control más granular sobre los procesos en sus sistemas.
+- Usa las teclas de función (F1 a F10) para acceder a diferentes funcionalidades, como ayuda, búsqueda y gestión de procesos.
+- Puedes usar las teclas de flecha para navegar entre los procesos y la tecla `F9` para matar un proceso seleccionado.
+- Personaliza la visualización de columnas presionando `F2` para acceder al menú de configuración.

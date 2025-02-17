@@ -1,48 +1,69 @@
-# [리눅스] Bash systemctl 사용법
+# [Linux] Bash systemctl uso: Manage system services and units
 
 ## Overview
-The `systemctl` command is a fundamental utility in Linux systems that use systemd as their init system. Its primary purpose is to control the systemd system and service manager, allowing users to manage services, check their status, and configure system states. With `systemctl`, you can start, stop, restart, enable, or disable services, as well as manage system states such as rebooting or shutting down the system.
+The `systemctl` command is a powerful tool used in Linux systems to manage system services and units. It is part of the systemd system and service manager, allowing users to start, stop, enable, disable, and check the status of services and other system resources.
 
 ## Usage
 The basic syntax of the `systemctl` command is as follows:
 
 ```bash
-systemctl [OPTIONS] COMMAND [NAME]
+systemctl [options] [arguments]
 ```
 
-### Common Options
+## Common Options
 - `start`: Starts a specified service.
-- `stop`: Stops a specified service.
+- `stop`: Stops a running service.
 - `restart`: Restarts a specified service.
-- `reload`: Reloads the configuration of a specified service without interrupting its operation.
-- `status`: Displays the status of a specified service.
+- `status`: Displays the current status of a service.
 - `enable`: Enables a service to start automatically at boot.
 - `disable`: Prevents a service from starting automatically at boot.
-- `list-units`: Lists all loaded units (services, sockets, etc.).
+- `list-units`: Lists all active units (services, sockets, etc.).
 - `is-active`: Checks if a specified service is currently active.
 
-## Examples
-### Example 1: Starting a Service
-To start the Apache web server service, you would use the following command:
+## Common Examples
+Here are some practical examples of using the `systemctl` command:
 
-```bash
-sudo systemctl start apache2
-```
+1. **Starting a service**:
+   ```bash
+   systemctl start apache2
+   ```
 
-### Example 2: Checking the Status of a Service
-To check the status of the same Apache service, you can run:
+2. **Stopping a service**:
+   ```bash
+   systemctl stop apache2
+   ```
 
-```bash
-sudo systemctl status apache2
-```
+3. **Restarting a service**:
+   ```bash
+   systemctl restart apache2
+   ```
 
-This command will provide detailed information about the service, including whether it is active, any recent logs, and its process ID.
+4. **Checking the status of a service**:
+   ```bash
+   systemctl status apache2
+   ```
+
+5. **Enabling a service to start at boot**:
+   ```bash
+   systemctl enable apache2
+   ```
+
+6. **Disabling a service from starting at boot**:
+   ```bash
+   systemctl disable apache2
+   ```
+
+7. **Listing all active units**:
+   ```bash
+   systemctl list-units
+   ```
+
+8. **Checking if a service is active**:
+   ```bash
+   systemctl is-active apache2
+   ```
 
 ## Tips
-- Always use `sudo` with `systemctl` commands that require administrative privileges, such as starting or stopping services.
-- Use `systemctl list-units --type=service` to get a quick overview of all active services and their statuses.
-- To ensure a service starts on boot, remember to use the `enable` command after starting it.
-- For troubleshooting, the `status` command is invaluable as it provides logs and error messages that can help diagnose issues with services.
-- Consider using `systemctl daemon-reload` after making changes to service unit files to ensure that systemd recognizes the changes. 
-
-By mastering `systemctl`, you can effectively manage services and system states in a Linux environment, enhancing your ability to maintain and troubleshoot systems.
+- Always check the status of a service after starting or stopping it to ensure the desired action was successful.
+- Use `systemctl list-units --type=service` to filter the list to only show services.
+- Be cautious when enabling services to start at boot, as this can affect system performance and boot time.

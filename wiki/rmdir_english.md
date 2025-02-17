@@ -1,46 +1,42 @@
-# [리눅스] Bash rmdir 사용법
+# [Linux] Bash rmdir Uso: Remove empty directories
 
 ## Overview
-The `rmdir` command in Bash is used to remove empty directories from the filesystem. Its primary purpose is to help users manage their directory structure by deleting directories that are no longer needed, provided that these directories do not contain any files or subdirectories. If a directory is not empty, `rmdir` will not delete it and will return an error message.
+The `rmdir` command is used in Bash to remove empty directories from the filesystem. If the directory contains files or other directories, the command will not execute and will return an error message.
 
 ## Usage
-The basic syntax for the `rmdir` command is as follows:
+The basic syntax of the `rmdir` command is as follows:
 
 ```bash
-rmdir [OPTION]... DIRECTORY...
+rmdir [options] [arguments]
 ```
 
-### Common Options
-- `-p`, `--parents`: Remove the DIRECTORY and its parent directories if they become empty after the removal.
-- `--ignore-fail-on-non-empty`: Do not report an error if the directory is not empty.
+## Common Options
+- `-p` : Remove parent directories if they become empty after the removal of the specified directory.
+- `--ignore-fail-on-non-empty` : Do not report an error if the directory is not empty.
 
-## Examples
+## Common Examples
 
-### Example 1: Removing a Single Empty Directory
-To remove a single empty directory named `mydir`, you would use the following command:
+1. **Remove a single empty directory:**
+   ```bash
+   rmdir my_empty_directory
+   ```
 
-```bash
-rmdir mydir
-```
+2. **Remove multiple empty directories:**
+   ```bash
+   rmdir dir1 dir2 dir3
+   ```
 
-If `mydir` is empty, it will be removed successfully. If it contains files or subdirectories, you will receive an error message.
+3. **Remove a directory and its empty parent directories:**
+   ```bash
+   rmdir -p parent_dir/child_dir
+   ```
 
-### Example 2: Removing a Directory and Its Parents
-If you want to remove a directory and its parent directories (if they are also empty), you can use the `-p` option. For example:
-
-```bash
-rmdir -p parentdir/childdir
-```
-
-This command will remove `childdir` and, if `parentdir` is empty after removing `childdir`, it will also remove `parentdir`.
+4. **Ignore errors for non-empty directories:**
+   ```bash
+   rmdir --ignore-fail-on-non-empty my_non_empty_directory
+   ```
 
 ## Tips
-- Always ensure that the directory you want to remove is empty before using `rmdir`, as it will not delete non-empty directories.
-- Use the `-p` option with caution, as it can remove multiple directories in one command if they are empty.
-- To check if a directory is empty before attempting to remove it, you can use the `ls` command:
-
-```bash
-ls -A mydir
-```
-
-If this command returns no output, the directory is empty and safe to remove with `rmdir`.
+- Always ensure that the directory is empty before using `rmdir`, as it will not remove directories that contain files or other directories.
+- Use the `-p` option carefully, as it will remove parent directories if they become empty after the specified directory is removed.
+- Consider using `rm -r` if you need to remove a directory and all its contents, but be cautious as this command is irreversible.

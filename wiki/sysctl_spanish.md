@@ -1,39 +1,52 @@
-# [리눅스] Bash sysctl 사용법
+# [Linux] Bash sysctl Uso: Configuración de parámetros del núcleo
+
+El comando `sysctl` se utiliza para modificar y consultar parámetros del núcleo de Linux en tiempo real.
 
 ## Overview
-El comando `sysctl` se utiliza en sistemas Unix y Linux para modificar y consultar parámetros del núcleo del sistema en tiempo real. Su propósito principal es permitir a los administradores del sistema ajustar configuraciones del núcleo sin necesidad de reiniciar el sistema. Esto es especialmente útil para optimizar el rendimiento y la seguridad del sistema.
+El comando `sysctl` permite a los usuarios y administradores de sistemas ajustar y obtener información sobre los parámetros del núcleo de Linux. Estos parámetros pueden influir en el comportamiento del sistema, como la gestión de memoria, la red y otros aspectos del rendimiento.
 
 ## Usage
 La sintaxis básica del comando `sysctl` es la siguiente:
 
 ```bash
-sysctl [opciones] [nombre_de_parámetro]
+sysctl [opciones] [argumentos]
 ```
 
-### Opciones Comunes:
-- `-a`: Muestra todos los parámetros del núcleo y sus valores actuales.
-- `-n`: Muestra solo el valor del parámetro especificado, sin mostrar el nombre del parámetro.
-- `-w`: Permite establecer un nuevo valor para un parámetro del núcleo. Este cambio es temporal y se perderá al reiniciar el sistema.
-- `-p [archivo]`: Carga parámetros desde un archivo de configuración, típicamente `/etc/sysctl.conf`.
+## Common Options
+- `-a`: Muestra todos los parámetros del núcleo y sus valores.
+- `-w`: Permite escribir o modificar un parámetro específico.
+- `-p`: Carga parámetros desde un archivo de configuración.
+- `-n`: Muestra solo el valor de un parámetro sin el nombre.
 
-## Examples
-### Ejemplo 1: Consultar todos los parámetros del núcleo
-Para ver todos los parámetros del núcleo y sus valores actuales, puedes usar:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `sysctl`:
 
-```bash
-sysctl -a
-```
+1. **Mostrar todos los parámetros del núcleo:**
+   ```bash
+   sysctl -a
+   ```
 
-### Ejemplo 2: Cambiar un parámetro del núcleo
-Si deseas cambiar el valor del parámetro `vm.swappiness` para ajustar la forma en que el sistema utiliza la memoria, puedes hacerlo con:
+2. **Consultar el valor de un parámetro específico (por ejemplo, el tamaño máximo de la cola de conexiones):**
+   ```bash
+   sysctl net.core.somaxconn
+   ```
 
-```bash
-sysctl -w vm.swappiness=10
-```
+3. **Modificar un parámetro (por ejemplo, aumentar el tamaño máximo de la cola de conexiones):**
+   ```bash
+   sudo sysctl -w net.core.somaxconn=1024
+   ```
 
-Este comando establece el valor de `swappiness` a 10, lo que indica al sistema que prefiera utilizar la memoria RAM antes de recurrir al intercambio en disco.
+4. **Cargar parámetros desde un archivo de configuración (por ejemplo, /etc/sysctl.conf):**
+   ```bash
+   sudo sysctl -p
+   ```
+
+5. **Mostrar solo el valor de un parámetro sin el nombre:**
+   ```bash
+   sysctl -n net.ipv4.ip_forward
+   ```
 
 ## Tips
-- **Persistencia de Cambios**: Para que los cambios realizados con `sysctl -w` sean persistentes después de un reinicio, es recomendable agregar los parámetros deseados en el archivo `/etc/sysctl.conf`.
-- **Verificación de Cambios**: Después de modificar un parámetro, puedes verificar que el cambio se haya aplicado correctamente utilizando `sysctl -n nombre_de_parámetro`.
-- **Precaución**: Al modificar parámetros del núcleo, es importante tener cuidado, ya que algunos cambios pueden afectar la estabilidad y el rendimiento del sistema. Siempre es recomendable realizar pruebas en un entorno controlado antes de aplicar cambios en producción.
+- Siempre verifica los cambios realizados con `sysctl -a` después de modificar parámetros para asegurarte de que se aplicaron correctamente.
+- Algunos cambios pueden requerir privilegios de superusuario, así que usa `sudo` cuando sea necesario.
+- Para que los cambios sean permanentes, agrégales al archivo `/etc/sysctl.conf` o a un archivo en `/etc/sysctl.d/`.

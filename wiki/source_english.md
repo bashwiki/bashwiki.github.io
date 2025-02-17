@@ -1,71 +1,58 @@
-# [리눅스] Bash source 사용법
+# [Linux] Bash source equivalent: Execute commands from a file in the current shell
 
 ## Overview
-The `source` command in Bash is used to execute commands from a file in the current shell environment. This means that any variables, functions, or changes made by the commands in the sourced file will affect the current shell session. The primary purpose of `source` is to load environment variables or functions defined in a script without creating a new subshell, allowing for immediate access to those definitions.
+The `source` command in Bash is used to execute commands from a specified file in the current shell session. This allows you to run scripts or load environment variables without creating a new subshell, making it a handy tool for managing your shell environment.
 
 ## Usage
-The basic syntax for the `source` command is as follows:
+The basic syntax of the `source` command is as follows:
 
 ```bash
-source FILENAME
+source [options] [filename]
 ```
 
-Alternatively, you can use the shorthand dot (`.`) to achieve the same result:
+You can also use the shorthand `.` (dot) to achieve the same effect:
 
 ```bash
-. FILENAME
+. [filename]
 ```
 
-### Common Options
-The `source` command does not have many options, but here are a couple of important points to note:
+## Common Options
+The `source` command does not have many options, but here are some relevant ones:
 
-- If the file specified does not exist or is not readable, `source` will return an error.
-- The commands in the sourced file are executed in the current shell context, which means any changes to variables or functions will persist after the command completes.
+- `-h`, `--help`: Display help information about the command.
+- `-V`, `--version`: Show the version of the shell.
 
-## Examples
+## Common Examples
 
-### Example 1: Sourcing a Script to Set Environment Variables
-Suppose you have a script named `env_setup.sh` that sets some environment variables:
+### Example 1: Sourcing a script
+To execute a script named `myscript.sh` in the current shell, you can use:
 
 ```bash
-# env_setup.sh
-export DATABASE_URL="mysql://user:password@localhost/dbname"
-export API_KEY="your_api_key_here"
+source myscript.sh
 ```
 
-You can source this script in your current shell session to set the variables:
+### Example 2: Using the dot shorthand
+You can achieve the same result using the dot shorthand:
 
 ```bash
-source env_setup.sh
+. myscript.sh
 ```
 
-After running this command, you can access the environment variables:
+### Example 3: Loading environment variables
+If you have a file named `env_vars.sh` that sets environment variables, you can load them into your current session:
 
 ```bash
-echo $DATABASE_URL
-# Output: mysql://user:password@localhost/dbname
+source env_vars.sh
 ```
 
-### Example 2: Sourcing a Script with Functions
-You can also use `source` to load functions defined in a script. For example, consider a script named `functions.sh`:
+### Example 4: Sourcing a file with arguments
+While `source` itself does not take arguments, you can pass arguments to the commands within the sourced file. For example, if `script.sh` uses positional parameters, you can call it like this:
 
 ```bash
-# functions.sh
-greet() {
-    echo "Hello, $1!"
-}
-```
-
-You can source this script and then use the `greet` function:
-
-```bash
-source functions.sh
-greet "World"
-# Output: Hello, World!
+source script.sh arg1 arg2
 ```
 
 ## Tips
-- Always check the existence and readability of the file before sourcing it to avoid runtime errors.
-- Use `source` for configuration files or scripts that you want to run in the current shell context, especially when working with environment variables or functions.
-- Consider using a dedicated directory for your scripts and configuration files to keep your workspace organized.
-- Remember that changes made by sourced scripts will persist in your current shell session, so be cautious with scripts that modify existing variables or functions.
+- Always ensure that the script you are sourcing is safe and does not contain harmful commands, as it will run in your current shell environment.
+- Use `source` to load configuration files for your shell or applications to avoid restarting the shell.
+- If you frequently use a specific script, consider adding it to your `.bashrc` or `.bash_profile` to load it automatically when starting a new shell session.

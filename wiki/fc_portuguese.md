@@ -1,40 +1,60 @@
-# [리눅스] Bash fc 사용법
+# [Linux] Bash fc Uso: Editar e reexecutar comandos anteriores
 
 ## Overview
-O comando `fc` é uma ferramenta do Bash que permite ao usuário editar e reexecutar comandos previamente digitados no shell. Ele é especialmente útil para corrigir erros em comandos anteriores ou para reutilizar comandos sem precisar digitá-los novamente. O `fc` pode abrir um editor de texto para que o usuário faça alterações nos comandos selecionados, facilitando a edição e a execução.
+O comando `fc` no Bash é utilizado para listar, editar e reexecutar comandos que foram executados anteriormente no shell. Ele permite que os usuários façam modificações em comandos passados antes de executá-los novamente, facilitando a correção de erros ou a reutilização de comandos.
 
 ## Usage
 A sintaxe básica do comando `fc` é a seguinte:
 
 ```bash
-fc [opções] [número_inicial] [número_final]
+fc [opções] [argumentos]
 ```
 
-### Comum opções:
-- `-l`: Lista os comandos anteriores. Você pode especificar um intervalo de números para listar apenas um conjunto específico de comandos.
-- `-e editor`: Especifica qual editor de texto usar para editar os comandos. O editor padrão é o definido pela variável de ambiente `EDITOR`.
-- `-s`: Executa o comando sem abrir um editor, útil para correções rápidas.
+## Common Options
+Aqui estão algumas opções comuns do comando `fc`:
 
-## Examples
-### Exemplo 1: Listar comandos anteriores
+- `-l`: Lista os comandos anteriores.
+- `-s`: Executa o comando sem abrir um editor.
+- `-e`: Especifica um editor diferente para editar o comando.
+
+## Common Examples
+
+### Listar comandos anteriores
 Para listar os últimos 10 comandos executados, você pode usar:
 
 ```bash
-fc -l -10
+fc -l -n -10
 ```
 
-### Exemplo 2: Editar um comando específico
-Se você deseja editar o comando de número 25 na sua lista de comandos anteriores, você pode fazer:
+### Editar o último comando
+Para editar o último comando executado no seu editor padrão, use:
 
 ```bash
-fc 25
+fc
 ```
 
-Isso abrirá o comando 25 no editor de texto padrão, permitindo que você faça as alterações necessárias antes de executá-lo novamente.
+### Executar o último comando sem editar
+Se você deseja reexecutar o último comando sem abri-lo para edição, utilize:
+
+```bash
+fc -s
+```
+
+### Editar um comando específico
+Para editar um comando específico, você pode especificar o número do comando. Por exemplo, para editar o comando número 5:
+
+```bash
+fc 5
+```
+
+### Usar um editor específico
+Para usar um editor específico, como `nano`, ao editar o último comando, você pode fazer:
+
+```bash
+fc -e nano
+```
 
 ## Tips
-- Utilize `fc -l` frequentemente para revisar seus comandos anteriores e aprender com erros passados.
-- Configure a variável `EDITOR` para um editor de sua preferência, como `vim` ou `nano`, para facilitar a edição dos comandos.
-- O uso da opção `-s` pode acelerar o processo de correção de comandos simples, permitindo que você execute rapidamente sem abrir um editor.
-
-Com essas informações, você deve estar apto a utilizar o comando `fc` de forma eficaz em suas atividades diárias no Bash.
+- Utilize `fc -l` frequentemente para revisar rapidamente seus comandos anteriores.
+- Combine `fc` com outros comandos, como `grep`, para encontrar comandos específicos na sua história.
+- Lembre-se de que o `fc` apenas funciona com comandos que estão na história do shell atual. Se você reiniciar o terminal, a história pode ser perdida, dependendo da configuração.

@@ -1,36 +1,44 @@
-# [리눅스] Bash sysctl 사용법
+# [Linux] Bash sysctl Kullanımı: Çekirdek parametrelerini ayarlama
 
-## Genel Bakış
-`sysctl`, Linux ve diğer Unix benzeri işletim sistemlerinde çekirdek parametrelerini ve ayarlarını yönetmek için kullanılan bir komuttur. Bu komut, sistem yöneticilerinin ve geliştiricilerin çekirdek yapılandırmalarını dinamik olarak değiştirmelerine olanak tanır. `sysctl`, sistemin çalışma zamanında performansını ve davranışını optimize etmek için kritik öneme sahiptir.
+## Overview
+`sysctl` komutu, Linux çekirdeği ile ilgili ayarları görüntülemek ve değiştirmek için kullanılır. Bu komut, sistem performansını optimize etmek ve çekirdek parametrelerini dinamik olarak ayarlamak için oldukça faydalıdır.
 
-## Kullanım
-`sysctl` komutunun temel sözdizimi aşağıdaki gibidir:
-
+## Usage
+Temel sözdizimi şu şekildedir:
 ```bash
-sysctl [seçenekler] [parametre]
+sysctl [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-a` veya `--all`: Tüm çekirdek parametrelerini ve mevcut değerlerini listelemek için kullanılır.
-- `-n`: Parametre değerlerini yalnızca değerleriyle birlikte gösterir, anahtarları göstermez.
-- `-w`: Çekirdek parametrelerini değiştirmek için kullanılır. Örneğin, `sysctl -w parametre=değer`.
+## Common Options
+- `-a`: Tüm sysctl ayarlarını ve değerlerini listelemek için kullanılır.
+- `-w`: Belirtilen bir parametreyi değiştirmek için kullanılır.
+- `-n`: Değerleri yalnızca gösterir, başlık bilgisi olmadan.
+- `-p`: Belirtilen bir dosyadan ayarları yüklemek için kullanılır.
 
-## Örnekler
-### Örnek 1: Tüm Çekirdek Parametrelerini Listeleme
-Aşağıdaki komut, sistemdeki tüm çekirdek parametrelerini ve mevcut değerlerini listeleyecektir:
+## Common Examples
+Aşağıda `sysctl` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-sysctl -a
-```
+1. Tüm sysctl ayarlarını listeleme:
+   ```bash
+   sysctl -a
+   ```
 
-### Örnek 2: Çekirdek Parametresini Değiştirme
-Aşağıdaki komut, `vm.swappiness` parametresini 10 olarak ayarlayacaktır. Bu parametre, sistemin bellek yönetimi davranışını etkiler.
+2. Belirli bir parametreyi görüntüleme (örneğin, `vm.swappiness`):
+   ```bash
+   sysctl vm.swappiness
+   ```
 
-```bash
-sysctl -w vm.swappiness=10
-```
+3. Bir parametreyi değiştirme (örneğin, `vm.swappiness` değerini 10 olarak ayarlama):
+   ```bash
+   sysctl -w vm.swappiness=10
+   ```
 
-## İpuçları
-- Çekirdek parametrelerini değiştirmeden önce mevcut değerleri not almak iyi bir uygulamadır. Bu, gerektiğinde geri dönmenizi kolaylaştırır.
-- Değişikliklerin kalıcı olmasını istiyorsanız, `/etc/sysctl.conf` dosyasına parametreleri eklemeyi unutmayın. Bu dosya, sistem her başlatıldığında `sysctl` tarafından okunur.
-- `sysctl` komutunu kullanırken dikkatli olun; bazı parametrelerin yanlış ayarlanması sistemin kararlılığını etkileyebilir.
+4. Bir dosyadan ayarları yükleme (örneğin, `/etc/sysctl.conf`):
+   ```bash
+   sysctl -p /etc/sysctl.conf
+   ```
+
+## Tips
+- Değişikliklerin kalıcı olmasını istiyorsanız, ayarları `/etc/sysctl.conf` dosyasına eklemeyi unutmayın.
+- `sysctl` komutunu kullanmadan önce mevcut ayarları yedeklemek iyi bir uygulamadır.
+- Performans sorunlarını gidermek için `sysctl` ile oynamadan önce, hangi parametrelerin ne işe yaradığını anlamak önemlidir.

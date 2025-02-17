@@ -1,51 +1,44 @@
-# [리눅스] Bash compopt 사용법
+# [Linux] Bash compopt Uso: Configurar opções de conclusão
 
 ## Overview
-O comando `compopt` é utilizado no Bash para modificar as opções de completamento de comandos. Ele permite que os desenvolvedores e engenheiros ajustem o comportamento do sistema de completamento de forma dinâmica, influenciando como as sugestões de completamento são apresentadas ao usuário. Isso é especialmente útil ao criar scripts ou funções que requerem uma experiência de usuário mais rica e personalizada.
+O comando `compopt` é utilizado no Bash para modificar as opções de conclusão de comandos. Ele permite que você ajuste o comportamento da conclusão automática, proporcionando uma experiência mais personalizada e eficiente ao usar o terminal.
 
 ## Usage
 A sintaxe básica do comando `compopt` é a seguinte:
 
 ```bash
-compopt [-o option] [-o option] ...
+compopt [options] [arguments]
 ```
 
-### Opções Comuns
-- `-o option`: Esta opção permite que você adicione ou remova opções de completamento. As opções podem incluir, mas não estão limitadas a:
-  - `nospace`: Impede que um espaço seja adicionado após a conclusão.
-  - `default`: Restaura o comportamento padrão de completamento para o comando.
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com `compopt`:
 
-## Examples
+- `-o`: Define uma opção de conclusão.
+- `+o`: Remove uma opção de conclusão.
+- `-d`: Desativa a conclusão para o comando atual.
 
-### Exemplo 1: Impedindo espaço após a conclusão
-Neste exemplo, vamos criar uma função de completamento que impede que um espaço seja adicionado após a conclusão.
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `compopt`:
 
-```bash
-_my_command() {
-    COMPREPLY=( $(compgen -W "option1 option2 option3" -- "${COMP_WORDS[COMP_CWORD]}") )
-    compopt -o nospace
-}
-complete -F _my_command my_command
-```
+1. **Definindo uma opção de conclusão**:
+   ```bash
+   compopt -o nospace
+   ```
+   Este comando configura a conclusão para não adicionar um espaço após a seleção.
 
-Neste caso, ao usar `my_command` e pressionar a tecla de tabulação, o completamento será sugerido sem adicionar um espaço após a opção selecionada.
+2. **Removendo uma opção de conclusão**:
+   ```bash
+   compopt +o nospace
+   ```
+   Este comando remove a opção que impede a adição de um espaço após a seleção.
 
-### Exemplo 2: Restaurando o comportamento padrão
-Se você tiver alterado as opções de completamento e quiser restaurar o comportamento padrão, você pode usar o seguinte comando:
-
-```bash
-_my_other_command() {
-    COMPREPLY=( $(compgen -W "start stop restart" -- "${COMP_WORDS[COMP_CWORD]}") )
-    compopt +o default
-}
-complete -F _my_other_command my_other_command
-```
-
-Aqui, o uso de `compopt +o default` garante que o comportamento padrão de completamento seja restaurado para o comando `my_other_command`.
+3. **Desativando a conclusão para um comando específico**:
+   ```bash
+   compopt -d
+   ```
+   Este comando desativa a conclusão para o comando atual.
 
 ## Tips
-- Sempre teste suas funções de completamento em um ambiente controlado antes de implementá-las em produção. Isso ajuda a evitar comportamentos inesperados.
-- Utilize `compopt` em conjunto com outras funções de completamento para criar uma experiência de usuário mais intuitiva e eficiente.
-- Documente as opções de completamento que você implementa, para que outros desenvolvedores possam entender e utilizar suas funções de forma eficaz.
-
-Com essas informações, você deve estar apto a utilizar o comando `compopt` para personalizar o comportamento do completamento de comandos no Bash.
+- Use `compopt` em scripts de conclusão personalizados para melhorar a usabilidade.
+- Teste diferentes opções para ver como elas afetam a conclusão automática e escolha as que melhor se adaptam ao seu fluxo de trabalho.
+- Consulte a documentação do Bash para entender todas as opções disponíveis e como elas podem ser combinadas para resultados mais eficazes.

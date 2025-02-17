@@ -1,54 +1,59 @@
-# [리눅스] Bash return 사용법
+# [Linux] Bash return 用法等价: 返回函数的退出状态
 
 ## 概述
-`return` 命令用于在 Bash 函数中返回一个退出状态。它的主要目的是结束函数的执行，并将一个整数值（通常是 0 到 255 之间的值）返回给调用该函数的上下文。这个返回值可以用于指示函数的成功或失败状态。
+`return` 命令用于在 Bash 脚本或函数中返回一个退出状态。它通常用于指示函数的执行结果，0 表示成功，非零值表示错误或特定的状态。
 
 ## 用法
 基本语法如下：
 ```bash
 return [n]
 ```
-- `n`：可选参数，表示要返回的退出状态码。如果不提供，默认返回上一个命令的退出状态。
+其中 `n` 是要返回的退出状态码，范围通常是 0 到 255。
 
-## 示例
-以下是两个使用 `return` 命令的示例：
+## 常用选项
+- `n`：指定要返回的退出状态码。默认情况下，如果不指定，`return` 将返回函数的最后一个命令的退出状态。
 
-### 示例 1：简单函数返回值
-```bash
-function check_number {
-    if [ $1 -gt 0 ]; then
-        return 0  # 返回 0 表示成功
-    else
-        return 1  # 返回 1 表示失败
-    fi
-}
+## 常见示例
+1. 返回成功状态：
+   ```bash
+   my_function() {
+       echo "Function executed successfully."
+       return 0
+   }
+   my_function
+   ```
 
-check_number 5
-echo $?  # 输出 0，表示函数成功执行
+2. 返回错误状态：
+   ```bash
+   my_function() {
+       echo "An error occurred."
+       return 1
+   }
+   my_function
+   ```
 
-check_number -1
-echo $?  # 输出 1，表示函数执行失败
-```
+3. 使用返回值进行条件判断：
+   ```bash
+   my_function() {
+       return 2
+   }
+   my_function
+   if [ $? -eq 2 ]; then
+       echo "Function returned 2."
+   fi
+   ```
 
-### 示例 2：使用返回值进行条件判断
-```bash
-function is_even {
-    if [ $(($1 % 2)) -eq 0 ]; then
-        return 0  # 返回 0 表示是偶数
-    else
-        return 1  # 返回 1 表示是奇数
-    fi
-}
-
-is_even 4
-if [ $? -eq 0 ]; then
-    echo "4 是偶数"
-else
-    echo "4 不是偶数"
-fi
-```
+4. 在脚本中使用 return：
+   ```bash
+   #!/bin/bash
+   my_function() {
+       return 5
+   }
+   my_function
+   echo "Returned status: $?"
+   ```
 
 ## 提示
-- 在函数中使用 `return` 时，确保返回值在 0 到 255 之间，因为 Bash 只接受这个范围内的值作为退出状态。
-- 使用 `return` 可以帮助提高代码的可读性和可维护性，特别是在复杂的脚本中，明确的返回状态可以帮助调试和错误处理。
-- 在调用函数后，可以使用 `$?` 来获取上一个命令的退出状态，这对于判断函数的执行结果非常有用。
+- 在函数中使用 `return` 时，确保在函数内部调用，而不是在全局上下文中。
+- 使用 `$?` 来获取上一个命令或函数的返回状态。
+- 在调试时，可以使用 `set -x` 来查看函数执行的详细信息，帮助理解返回状态的来源。

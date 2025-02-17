@@ -1,60 +1,42 @@
-# [리눅스] Bash disown 사용법
+# [Linux] Bash disown cách sử dụng: Giải phóng tiến trình khỏi terminal
 
 ## Tổng quan
-Lệnh `disown` trong Bash được sử dụng để loại bỏ một hoặc nhiều tiến trình khỏi danh sách tiến trình hiện tại của shell. Khi một tiến trình bị disown, nó sẽ không còn bị quản lý bởi shell, nghĩa là nó sẽ không nhận tín hiệu SIGHUP (tín hiệu khi shell thoát) và sẽ tiếp tục chạy ngay cả khi người dùng thoát khỏi phiên làm việc. Lệnh này rất hữu ích khi bạn muốn giữ cho một tiến trình chạy trong nền mà không bị ảnh hưởng bởi việc đóng shell.
+Lệnh `disown` trong Bash được sử dụng để loại bỏ một hoặc nhiều tiến trình khỏi danh sách tiến trình của shell hiện tại. Khi một tiến trình bị disown, nó sẽ không còn nhận tín hiệu từ terminal, cho phép nó tiếp tục chạy ngay cả khi terminal bị đóng.
 
-## Cách sử dụng
+## Cú pháp
 Cú pháp cơ bản của lệnh `disown` như sau:
-
 ```bash
-disown [options] [job_spec]
+disown [options] [arguments]
 ```
 
-Trong đó:
-- `job_spec`: Chỉ định tiến trình mà bạn muốn disown. Nếu không chỉ định, lệnh sẽ áp dụng cho tiến trình gần nhất trong danh sách tiến trình.
-- `options`: Một số tùy chọn phổ biến bao gồm:
-  - `-a`: Disown tất cả các tiến trình.
-  - `-r`: Chỉ disown các tiến trình đang chạy (running jobs).
-  - `-h`: Đánh dấu tiến trình để không nhận tín hiệu SIGHUP khi shell thoát.
+## Tùy chọn phổ biến
+- `-h`: Giữ lại tiến trình khỏi việc nhận tín hiệu SIGHUP khi terminal bị đóng.
+- `jobspec`: Chỉ định tiến trình cụ thể mà bạn muốn disown. Bạn có thể sử dụng số thứ tự của tiến trình hoặc tên của nó.
 
-## Ví dụ
-### Ví dụ 1: Disown một tiến trình cụ thể
-Giả sử bạn đã khởi động một tiến trình trong nền với lệnh:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `disown`:
 
-```bash
-sleep 100 &
-```
+1. **Disown một tiến trình cụ thể**:
+   ```bash
+   sleep 100 &
+   disown %1
+   ```
+   Trong ví dụ này, tiến trình `sleep 100` được chạy ở chế độ nền và sau đó bị disown.
 
-Bạn có thể sử dụng lệnh `jobs` để xem danh sách các tiến trình đang chạy:
+2. **Disown tất cả tiến trình**:
+   ```bash
+   disown
+   ```
+   Lệnh này sẽ disown tất cả các tiến trình đang chạy trong background.
 
-```bash
-jobs
-```
-
-Kết quả có thể là:
-
-```
-[1]+  12345 Running                 sleep 100 &
-```
-
-Để disown tiến trình này, bạn có thể sử dụng:
-
-```bash
-disown %1
-```
-
-### Ví dụ 2: Disown tất cả các tiến trình
-Nếu bạn muốn disown tất cả các tiến trình đang chạy trong nền, bạn có thể sử dụng:
-
-```bash
-disown -a
-```
-
-Điều này sẽ loại bỏ tất cả các tiến trình khỏi quản lý của shell.
+3. **Disown với tùy chọn -h**:
+   ```bash
+   long_running_process &
+   disown -h %1
+   ```
+   Tiến trình `long_running_process` sẽ không nhận tín hiệu SIGHUP khi terminal bị đóng.
 
 ## Mẹo
-- Trước khi sử dụng `disown`, hãy chắc chắn rằng bạn đã khởi động tiến trình trong nền bằng cách sử dụng dấu `&` ở cuối lệnh.
-- Sử dụng lệnh `jobs` để kiểm tra các tiến trình đang chạy trước khi disown để tránh nhầm lẫn.
-- Nếu bạn muốn giữ một tiến trình chạy mà không bị ảnh hưởng bởi việc thoát shell, hãy luôn sử dụng `disown` sau khi đưa tiến trình vào nền.
-
-Hy vọng bài viết này giúp bạn hiểu rõ hơn về lệnh `disown` trong Bash và cách sử dụng nó hiệu quả!
+- Hãy chắc chắn rằng bạn thực sự muốn disown một tiến trình trước khi thực hiện, vì bạn sẽ không thể điều khiển nó từ terminal sau khi disown.
+- Sử dụng lệnh `jobs` để kiểm tra danh sách các tiến trình đang chạy trước khi disown.
+- Nếu bạn muốn tiếp tục theo dõi tiến trình, hãy xem xét sử dụng `bg` hoặc `fg` thay vì disown.

@@ -1,48 +1,47 @@
-# [리눅스] Bash rsync 사용법
+# [Linux] Bash rsync Uso: Sincronizar archivos y directorios
 
 ## Overview
-`rsync` es una herramienta de línea de comandos utilizada para sincronizar archivos y directorios entre dos ubicaciones. Su principal propósito es transferir y sincronizar archivos de manera eficiente, minimizando la cantidad de datos que se copian al solo transferir las diferencias entre el origen y el destino. Esto lo convierte en una opción ideal para copias de seguridad y replicación de datos.
+El comando `rsync` se utiliza para sincronizar archivos y directorios entre dos ubicaciones, ya sea en la misma máquina o en diferentes sistemas a través de una red. Es especialmente útil para realizar copias de seguridad y transferencias eficientes, ya que solo copia los archivos que han cambiado.
 
 ## Usage
 La sintaxis básica del comando `rsync` es la siguiente:
 
 ```bash
-rsync [opciones] origen destino
+rsync [opciones] [origen] [destino]
 ```
 
-### Opciones Comunes
-- `-a`: Modo archivo; permite la sincronización recursiva y preserva atributos como permisos, tiempos de modificación y enlaces simbólicos.
-- `-v`: Muestra la salida detallada del proceso de sincronización.
-- `-z`: Comprime los datos durante la transferencia para reducir el uso del ancho de banda.
-- `-r`: Sincroniza directorios de forma recursiva.
-- `--delete`: Elimina archivos en el destino que ya no están en el origen.
-- `-e`: Especifica el método de conexión remoto, como SSH.
+## Common Options
+- `-a`: Modo archivo; preserva permisos, tiempos de modificación, y enlaces simbólicos.
+- `-v`: Modo verbose; muestra información detallada sobre el proceso de sincronización.
+- `-z`: Comprime los datos durante la transferencia para ahorrar ancho de banda.
+- `-r`: Sincroniza recursivamente los directorios.
+- `--delete`: Elimina archivos en el destino que no están en el origen.
 
-## Examples
-### Ejemplo 1: Sincronizar un directorio local a otro directorio local
-Para sincronizar un directorio llamado `carpeta_origen` a `carpeta_destino`, puedes usar el siguiente comando:
+## Common Examples
+1. Sincronizar un directorio local a otro directorio local:
+   ```bash
+   rsync -av /ruta/origen/ /ruta/destino/
+   ```
 
-```bash
-rsync -av carpeta_origen/ carpeta_destino/
-```
+2. Sincronizar un directorio local a un servidor remoto:
+   ```bash
+   rsync -av /ruta/origen/ usuario@servidor:/ruta/destino/
+   ```
 
-Este comando copiará todos los archivos y subdirectorios de `carpeta_origen` a `carpeta_destino`, preservando los atributos de los archivos.
+3. Sincronizar un directorio remoto a un directorio local:
+   ```bash
+   rsync -av usuario@servidor:/ruta/origen/ /ruta/destino/
+   ```
 
-### Ejemplo 2: Sincronizar archivos a un servidor remoto
-Para sincronizar un directorio local a un servidor remoto utilizando SSH, puedes usar el siguiente comando:
-
-```bash
-rsync -avz -e ssh carpeta_origen/ usuario@servidor:/ruta/destino/
-```
-
-Este comando transferirá los archivos de `carpeta_origen` al servidor remoto, comprimiendo los datos durante la transferencia.
+4. Sincronizar y eliminar archivos en el destino que no están en el origen:
+   ```bash
+   rsync -av --delete /ruta/origen/ /ruta/destino/
+   ```
 
 ## Tips
-- Siempre es recomendable realizar pruebas con la opción `--dry-run` (simulación) para ver qué archivos se transferirían sin realizar cambios reales. Por ejemplo:
-
-```bash
-rsync -av --dry-run carpeta_origen/ carpeta_destino/
-```
-
-- Utiliza la opción `--delete` con precaución, ya que eliminará archivos en el destino que no estén presentes en el origen.
-- Considera usar `rsync` en scripts de automatización para copias de seguridad programadas, lo que puede ayudar a mantener tus datos seguros y actualizados.
+- Siempre es recomendable usar la opción `-n` (dry run) para simular la operación antes de realizar cambios reales:
+  ```bash
+  rsync -avn /ruta/origen/ /ruta/destino/
+  ```
+- Asegúrate de incluir una barra al final de las rutas de origen y destino para evitar confusiones sobre qué se está sincronizando.
+- Utiliza la opción `-z` al transferir archivos grandes a través de conexiones lentas para mejorar la velocidad de transferencia.

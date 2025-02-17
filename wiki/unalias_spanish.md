@@ -1,37 +1,40 @@
-# [리눅스] Bash unalias 사용법
+# [Linux] Bash unalias uso: Eliminar alias en la terminal
 
 ## Overview
-El comando `unalias` en Bash se utiliza para eliminar alias previamente definidos en la sesión actual del shell. Los alias son atajos que permiten a los usuarios ejecutar comandos más largos o complejos con una palabra o frase corta. Al usar `unalias`, puedes limpiar tu entorno de trabajo eliminando alias que ya no necesitas o que pueden causar conflictos.
+El comando `unalias` se utiliza en Bash para eliminar alias previamente definidos. Los alias son atajos que permiten ejecutar comandos más largos o complejos con una palabra o frase corta. Al usar `unalias`, puedes deshacerte de estos atajos cuando ya no los necesites.
 
 ## Usage
 La sintaxis básica del comando `unalias` es la siguiente:
 
 ```bash
-unalias [opciones] [nombre_alias]
+unalias [opciones] [argumentos]
 ```
 
-### Opciones Comunes
+## Common Options
 - `-a`: Elimina todos los alias definidos en la sesión actual.
-- `nombre_alias`: Especifica el alias que deseas eliminar. Si no se proporciona un nombre, no se realizará ninguna acción.
+- `-p`: Muestra todos los alias definidos sin eliminarlos.
 
-## Examples
-### Ejemplo 1: Eliminar un alias específico
-Supongamos que has creado un alias llamado `ll` para `ls -la`. Si deseas eliminar este alias, puedes usar el siguiente comando:
+## Common Examples
 
-```bash
-unalias ll
-```
+1. **Eliminar un alias específico**:
+   Si tienes un alias llamado `ll` que lista archivos en formato largo, puedes eliminarlo con:
+   ```bash
+   unalias ll
+   ```
 
-### Ejemplo 2: Eliminar todos los alias
-Si deseas eliminar todos los alias definidos en tu sesión actual, puedes usar la opción `-a`:
+2. **Eliminar todos los alias**:
+   Para eliminar todos los alias de la sesión actual, utiliza:
+   ```bash
+   unalias -a
+   ```
 
-```bash
-unalias -a
-```
-
-Esto eliminará todos los alias, dejándote con un entorno limpio.
+3. **Mostrar todos los alias**:
+   Para ver qué alias tienes definidos antes de eliminarlos, puedes usar:
+   ```bash
+   alias
+   ```
 
 ## Tips
-- Siempre verifica tus alias actuales usando el comando `alias` antes de eliminar alguno. Esto te ayudará a evitar eliminar alias que aún necesitas.
-- Considera agregar alias que uses frecuentemente en tu archivo `.bashrc` o `.bash_profile` para que se carguen automáticamente en cada sesión. Si decides que ya no necesitas un alias, usa `unalias` para eliminarlo.
-- Recuerda que los cambios realizados con `unalias` solo afectan la sesión actual del shell. Si abres una nueva terminal, los alias volverán a estar disponibles a menos que los elimines de tu archivo de configuración.
+- Siempre verifica tus alias actuales con el comando `alias` antes de usar `unalias`, para asegurarte de que estás eliminando el correcto.
+- Considera usar `unalias` en tu archivo de configuración de Bash (como `~/.bashrc`) si deseas eliminar un alias cada vez que inicies una nueva sesión de terminal.
+- Recuerda que los alias son específicos de la sesión actual, por lo que si cierras la terminal, los alias se perderán a menos que estén definidos en un archivo de configuración.

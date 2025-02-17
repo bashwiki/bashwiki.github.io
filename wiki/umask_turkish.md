@@ -1,40 +1,46 @@
-# [리눅스] Bash umask 사용법
+# [Linux] Bash umask Kullanımı: Dosya izinlerini kontrol etme
 
-## Genel Bakış
-`umask`, Unix ve Linux sistemlerinde dosya ve dizinlerin varsayılan izinlerini belirlemek için kullanılan bir komuttur. Bu komut, yeni oluşturulan dosya ve dizinlerin sahiplik izinlerini kontrol eder. `umask` değeri, dosya izinlerini kısıtlamak için kullanılır ve bu sayede güvenlik sağlanır. Örneğin, bir dosya oluşturulduğunda, sistemin belirlediği varsayılan izinler `umask` değeri ile değiştirilir.
+## Overview
+`umask` komutu, yeni oluşturulan dosya ve dizinlerin varsayılan izinlerini belirlemek için kullanılır. Bu komut, kullanıcıların dosya ve dizinlere erişim izinlerini yönetmesine olanak tanır.
 
-## Kullanım
-Temel `umask` komutunun sözdizimi aşağıdaki gibidir:
-
+## Usage
+Temel sözdizimi şu şekildedir:
 ```bash
-umask [seçenekler] [değer]
+umask [seçenekler] [argümanlar]
 ```
 
-- **değer**: `umask` değeri, genellikle üç veya dört basamaklı bir oktal sayı olarak belirtilir. Bu değer, yeni dosya ve dizinlerin varsayılan izinlerini belirler.
-- **seçenekler**: `-S` seçeneği ile mevcut `umask` değerini sembolik olarak görüntüleyebilirsiniz.
+## Common Options
+- `-S`: Umask değerini sembolik olarak gösterir.
+- `-p`: Mevcut umask değerini gösterir.
+- `-h`: Yardım bilgilerini gösterir.
 
-## Örnekler
-### Örnek 1: Mevcut umask değerini görüntüleme
-Aşağıdaki komut, mevcut `umask` değerini gösterir:
+## Common Examples
+Aşağıda `umask` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-umask
-```
+1. **Mevcut umask değerini görüntüleme:**
+   ```bash
+   umask
+   ```
 
-Bu komut, örneğin `0022` gibi bir çıktı verebilir. Bu, yeni dosyaların varsayılan olarak `rw-r--r--` (644) ve dizinlerin `rwxr-xr-x` (755) izinlerine sahip olacağı anlamına gelir.
+2. **Umask değerini ayarlama:**
+   ```bash
+   umask 027
+   ```
+   Bu komut, yeni dosyaların varsayılan izinlerini `rw-r-----` olarak ayarlayacaktır.
 
-### Örnek 2: Yeni umask değeri ayarlama
-Aşağıdaki komut, yeni bir `umask` değeri ayarlamak için kullanılır:
+3. **Sembolik umask değerini görüntüleme:**
+   ```bash
+   umask -S
+   ```
 
-```bash
-umask 007
-```
+4. **Umask değerini geçici olarak değiştirme:**
+   ```bash
+   umask 002
+   touch yeni_dosya.txt
+   ```
+   Bu komut, `yeni_dosya.txt` dosyasını `rw-rw-r--` izinleriyle oluşturur.
 
-Bu komut, yeni oluşturulan dosyaların varsayılan izinlerini `rw-r-----` (640) ve dizinlerin `rwxr-x---` (750) olarak ayarlayacaktır.
-
-## İpuçları
-- `umask` değerini ayarlarken, izinlerin doğru bir şekilde ayarlandığından emin olun. Yanlış bir `umask` değeri, dosyalarınıza istenmeyen erişim kısıtlamaları getirebilir.
-- `umask` ayarlarını kalıcı hale getirmek için, bu komutu kullanıcı profil dosyalarınıza (örneğin, `~/.bashrc` veya `~/.bash_profile`) ekleyebilirsiniz.
-- `umask` değerini ayarlarken, her zaman izinlerin toplamının 777'yi geçmemesine dikkat edin. Örneğin, `umask 002` kullanıldığında, yeni dosyaların izinleri 664 olacaktır (666 - 002 = 664).
-
-Bu bilgilerle, `umask` komutunu etkili bir şekilde kullanarak dosya ve dizin izinlerinizi yönetebilirsiniz.
+## Tips
+- Umask değerini ayarlarken, güvenlik gereksinimlerinizi göz önünde bulundurun; çok geniş izinler vermekten kaçının.
+- Umask ayarlarını `.bashrc` veya `.bash_profile` dosyanıza ekleyerek, her oturum açtığınızda otomatik olarak ayarlanmasını sağlayabilirsiniz.
+- Umask değerlerini kontrol etmek ve gerektiğinde güncellemek, sistem güvenliğini artırmak için önemlidir.

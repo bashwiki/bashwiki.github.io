@@ -1,46 +1,91 @@
-# [리눅스] Bash expr 사용법
+# [Linux] Bash expr Uso equivalente: Evaluar expresiones
 
 ## Overview
-El comando `expr` en Bash es una herramienta utilizada para evaluar expresiones aritméticas, lógicas y de comparación. Su propósito principal es realizar cálculos simples y manipular cadenas de texto desde la línea de comandos. Aunque su uso ha disminuido con la llegada de herramientas más modernas, sigue siendo útil en scripts donde se necesita realizar operaciones básicas.
+El comando `expr` se utiliza en Bash para evaluar expresiones aritméticas, lógicas y de cadenas. Permite realizar cálculos simples y manipular cadenas de texto, lo que lo convierte en una herramienta útil en scripts y en la línea de comandos.
 
 ## Usage
 La sintaxis básica del comando `expr` es la siguiente:
 
 ```bash
-expr EXPRESIÓN
+expr [opciones] [argumentos]
 ```
 
-Donde `EXPRESIÓN` puede ser una operación aritmética, lógica o de comparación. Aquí hay algunas opciones comunes que puedes utilizar con `expr`:
+## Common Options
+- `+`: Suma dos números.
+- `-`: Resta dos números.
+- `*`: Multiplica dos números (se debe escapar con `\` o usar comillas).
+- `/`: Divide dos números.
+- `%`: Calcula el módulo de dos números.
+- `=`: Compara dos cadenas.
+- `:`: Utilizado para extraer subcadenas.
 
-- **Aritmética**: Puedes realizar operaciones como suma (`+`), resta (`-`), multiplicación (`*`), división (`/`) y módulo (`%`).
-- **Comparación**: Puedes comparar valores usando operadores como `=` (igual), `!=` (diferente), `<` (menor que), `>` (mayor que), `<=` (menor o igual que), `>=` (mayor o igual que).
-- **Cadenas**: Puedes evaluar cadenas para verificar su longitud o compararlas.
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `expr`:
 
-## Examples
-Aquí hay algunos ejemplos prácticos de cómo usar el comando `expr`:
+### Sumar dos números
+```bash
+expr 5 + 3
+```
+Salida:
+```
+8
+```
 
-1. **Suma de dos números**:
-   ```bash
-   resultado=$(expr 5 + 3)
-   echo "La suma es: $resultado"
-   ```
-   Este comando suma 5 y 3, y almacena el resultado en la variable `resultado`, que luego se imprime en la consola.
+### Restar dos números
+```bash
+expr 10 - 4
+```
+Salida:
+```
+6
+```
 
-2. **Comparación de cadenas**:
-   ```bash
-   cadena1="hola"
-   cadena2="mundo"
-   if expr "$cadena1" = "$cadena2" >/dev/null; then
-       echo "Las cadenas son iguales"
-   else
-       echo "Las cadenas son diferentes"
-   fi
-   ```
-   Este ejemplo compara dos cadenas y muestra un mensaje dependiendo de si son iguales o no.
+### Multiplicar dos números
+```bash
+expr 4 \* 2
+```
+Salida:
+```
+8
+```
+
+### Dividir dos números
+```bash
+expr 10 / 2
+```
+Salida:
+```
+5
+```
+
+### Calcular el módulo
+```bash
+expr 10 % 3
+```
+Salida:
+```
+1
+```
+
+### Comparar cadenas
+```bash
+expr "hola" = "hola"
+```
+Salida:
+```
+1
+```
+
+### Extraer una subcadena
+```bash
+expr substr "Hola Mundo" 1 4
+```
+Salida:
+```
+Hola
+```
 
 ## Tips
-- **Uso de comillas**: Es recomendable usar comillas alrededor de las variables y cadenas para evitar errores, especialmente si contienen espacios.
-- **Evitar espacios**: Asegúrate de no dejar espacios alrededor de los operadores, ya que esto puede causar errores en la evaluación.
-- **Alternativas**: Considera usar `(( ))` para operaciones aritméticas más complejas o `[[ ]]` para comparaciones, ya que son más modernas y ofrecen más funcionalidades.
-
-El comando `expr` es una herramienta simple pero poderosa para realizar cálculos y comparaciones en Bash, ideal para scripts rápidos y eficientes.
+- Recuerda escapar el asterisco (`*`) con una barra invertida (`\`) para evitar que sea interpretado como un comodín por el shell.
+- Usa comillas alrededor de las cadenas para evitar problemas con espacios.
+- Aunque `expr` es útil, considera usar `$(( ... ))` para cálculos aritméticos en Bash, ya que es más moderno y fácil de leer.

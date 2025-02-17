@@ -1,47 +1,44 @@
-# [리눅스] Bash yes 사용법
+# [Linux] Bash yes Kullanımı: Sürekli "evet" yanıtı verme
 
-## Overview
-`yes` komutu, belirli bir metni sürekli olarak ekrana yazdırmak için kullanılan basit bir Bash komutudur. Genellikle, bir komutun veya programın otomatik olarak "evet" (yes) yanıtını alması gerektiği durumlarda kullanılır. Bu, etkileşimli komutları otomatikleştirmek için faydalıdır.
+## Genel Bakış
+`yes` komutu, belirli bir metni sürekli olarak ekrana yazdırmak için kullanılır. Genellikle, bir komutun otomatik olarak "evet" yanıtını alması gerektiğinde kullanılır. Bu, etkileşimli komutların otomatikleştirilmesine yardımcı olur.
 
-## Usage
-`yes` komutunun temel sözdizimi şu şekildedir:
-
-```bash
-yes [METİN]
-```
-
-- **METİN**: Ekrana yazdırılacak metni belirtir. Eğer bir metin verilmezse, `yes` varsayılan olarak "y" harfini sürekli olarak yazdırır.
-
-### Common Options
-`yes` komutunun kendine özgü seçenekleri yoktur; ancak, genellikle diğer komutlarla birlikte kullanılır. Örneğin, bir komutun otomatik olarak "evet" yanıtı alması için `yes` komutunu bir boru (pipe) ile bağlayabilirsiniz.
-
-## Examples
-### Örnek 1: Varsayılan "y" Yanıtı
-Aşağıdaki komut, sürekli olarak "y" yazdırır:
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
-yes
+yes [seçenekler] [argümanlar]
 ```
 
-### Örnek 2: Özel Metin Yazdırma
-Aşağıdaki komut, "Devam etmek istiyor musunuz?" metnini sürekli olarak yazdırır:
+## Yaygın Seçenekler
+- `-n`: Belirtilen metni yazdırır. Varsayılan olarak "y" veya "evet" yazdırılır.
+- `--help`: Komut hakkında yardım bilgisi gösterir.
+- `--version`: Komutun sürüm bilgisini gösterir.
 
-```bash
-yes "Devam etmek istiyor musunuz?"
-```
+## Yaygın Örnekler
+Aşağıda `yes` komutunun bazı pratik örnekleri bulunmaktadır:
 
-Bu komut, "Devam etmek istiyor musunuz?" ifadesini sürekli olarak ekrana basacaktır.
+1. Sürekli "evet" yazdırmak:
+   ```bash
+   yes
+   ```
 
-### Örnek 3: Komutlarla Birlikte Kullanma
-`yes` komutunu, bir komutun otomatik olarak "evet" yanıtını alması için kullanabilirsiniz:
+2. Sürekli "hayır" yazdırmak:
+   ```bash
+   yes no
+   ```
 
-```bash
-yes | rm -i dosya.txt
-```
+3. Bir dosyaya sürekli "evet" yazdırmak:
+   ```bash
+   yes | head -n 10 > evet.txt
+   ```
 
-Bu komut, `rm -i` komutunun etkileşimli olarak dosyayı silme isteğine otomatik olarak "evet" yanıtı verir.
+4. Bir komutun otomatik olarak "evet" yanıtı alması:
+   ```bash
+   yes | rm -i *.txt
+   ```
 
-## Tips
-- `yes` komutunu kullanırken dikkatli olun; çünkü otomatik "evet" yanıtı vermek, istenmeyen veri kaybına veya sistem değişikliklerine yol açabilir.
-- `yes` komutunu uzun süre çalıştırmak, sistem kaynaklarını tüketebilir. Gereksiz yere çalıştırmaktan kaçının.
-- `yes` komutunu, test senaryolarında veya otomasyon süreçlerinde kullanmak, etkileşimli yanıtları hızlandırabilir.
+## İpuçları
+- `yes` komutunu kullanırken dikkatli olun, çünkü sonsuz döngü oluşturabilir.
+- Çıktıyı sınırlamak için `head` veya `tail` komutları ile birleştirin.
+- Otomatik yanıt vermek istediğiniz komutları dikkatlice seçin, aksi takdirde istenmeyen sonuçlar doğurabilir.

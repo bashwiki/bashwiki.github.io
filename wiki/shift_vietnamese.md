@@ -1,61 +1,53 @@
-# [리눅스] Bash shift 사용법
+# [Linux] Bash shift Cách sử dụng: Thay đổi vị trí các tham số trong dòng lệnh
 
 ## Tổng quan
-Lệnh `shift` trong Bash được sử dụng để dịch chuyển các tham số vị trí sang trái. Điều này có nghĩa là tham số đầu tiên ($1) sẽ bị loại bỏ, và các tham số còn lại sẽ được dịch chuyển lên một vị trí. Lệnh này rất hữu ích khi bạn cần xử lý một danh sách các tham số và muốn loại bỏ tham số đã xử lý.
+Lệnh `shift` trong Bash được sử dụng để thay đổi vị trí của các tham số trong dòng lệnh. Khi lệnh này được thực thi, nó sẽ loại bỏ tham số đầu tiên và dịch chuyển tất cả các tham số còn lại sang trái, giúp bạn dễ dàng xử lý các tham số còn lại trong một vòng lặp.
 
-## Cú pháp
+## Cách sử dụng
 Cú pháp cơ bản của lệnh `shift` như sau:
 
 ```bash
 shift [n]
 ```
 
-Trong đó:
-- `n` là số lượng tham số bạn muốn dịch chuyển. Nếu không chỉ định `n`, lệnh sẽ mặc định dịch chuyển một tham số.
+Trong đó `n` là số lượng tham số mà bạn muốn dịch chuyển. Nếu không chỉ định `n`, mặc định `shift` sẽ dịch chuyển 1 tham số.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `shift`.
+## Các tùy chọn phổ biến
+- `n`: Số lượng tham số muốn dịch chuyển. Nếu không có tùy chọn này, lệnh sẽ dịch chuyển 1 tham số.
 
-### Ví dụ 1: Dịch chuyển một tham số
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `shift`:
+
+### Ví dụ 1: Dịch chuyển 1 tham số
 ```bash
 #!/bin/bash
-echo "Tham số ban đầu: $1 $2 $3"
+echo "Tham số đầu tiên: $1"
 shift
-echo "Sau khi shift: $1 $2 $3"
+echo "Tham số đầu tiên sau khi shift: $1"
 ```
-Khi chạy script này với các tham số như sau:
-```bash
-./script.sh thamso1 thamso2 thamso3
-```
-Kết quả sẽ là:
-```
-Tham số ban đầu: thamso1 thamso2 thamso3
-Sau khi shift: thamso2 thamso3 
-```
+Khi chạy script này với các tham số, tham số đầu tiên sẽ bị loại bỏ sau khi lệnh `shift` được thực thi.
 
 ### Ví dụ 2: Dịch chuyển nhiều tham số
 ```bash
 #!/bin/bash
-echo "Tham số ban đầu: $1 $2 $3 $4"
+echo "Tham số đầu tiên: $1"
+echo "Tham số thứ hai: $2"
 shift 2
-echo "Sau khi shift 2: $1 $2 $3 $4"
+echo "Tham số đầu tiên sau khi shift 2: $1"
 ```
-Khi chạy script này với các tham số như sau:
+Trong ví dụ này, cả hai tham số đầu tiên và thứ hai sẽ bị loại bỏ.
+
+### Ví dụ 3: Sử dụng trong vòng lặp
 ```bash
-./script.sh thamso1 thamso2 thamso3 thamso4
+#!/bin/bash
+while [ "$#" -gt 0 ]; do
+    echo "Tham số: $1"
+    shift
+done
 ```
-Kết quả sẽ là:
-```
-Tham số ban đầu: thamso1 thamso2 thamso3 thamso4
-Sau khi shift 2: thamso3 thamso4 
-```
+Script này sẽ in ra tất cả các tham số cho đến khi không còn tham số nào.
 
 ## Mẹo
-- Sử dụng lệnh `shift` trong vòng lặp để xử lý tất cả các tham số một cách tuần tự. Ví dụ:
-  ```bash
-  while [ "$#" -gt 0 ]; do
-      echo "Xử lý tham số: $1"
-      shift
-  done
-  ```
-- Hãy cẩn thận khi sử dụng `shift`, vì nếu bạn dịch chuyển quá nhiều tham số, các tham số sẽ trở thành rỗng và có thể gây ra lỗi trong script của bạn.
+- Sử dụng lệnh `shift` trong các vòng lặp để dễ dàng xử lý danh sách tham số.
+- Kiểm tra số lượng tham số còn lại bằng cách sử dụng `$#` trước và sau khi gọi `shift`.
+- Hãy cẩn thận khi sử dụng `shift` trong các script phức tạp, vì nó có thể làm mất các tham số quan trọng nếu không được quản lý đúng cách.

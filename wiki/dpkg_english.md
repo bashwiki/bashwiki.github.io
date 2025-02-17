@@ -1,46 +1,70 @@
-# [리눅스] Bash dpkg 사용법
+# [Linux] Bash dpkg Uso: Manage Debian packages
 
 ## Overview
-`dpkg` is a low-level package management tool for Debian-based systems, including Ubuntu. Its primary purpose is to install, remove, and manage `.deb` packages. Unlike higher-level package managers like `apt`, which handle dependencies and repositories, `dpkg` operates directly on individual package files, making it a powerful tool for developers and system administrators who need granular control over package management.
+The `dpkg` command is a low-level package manager for Debian-based systems. It is used to install, remove, and manage `.deb` packages, which are the standard package format for Debian and its derivatives, such as Ubuntu. Unlike higher-level package managers like `apt`, `dpkg` does not resolve dependencies automatically.
 
 ## Usage
 The basic syntax of the `dpkg` command is as follows:
 
 ```bash
-dpkg [options] <command>
+dpkg [options] [arguments]
 ```
 
-### Common Options
+## Common Options
 - `-i`, `--install`: Install a package from a `.deb` file.
-- `-r`, `--remove`: Remove an installed package but keep its configuration files.
-- `-P`, `--purge`: Remove an installed package along with its configuration files.
+- `-r`, `--remove`: Remove an installed package.
+- `-P`, `--purge`: Remove a package and its configuration files.
 - `-l`, `--list`: List all installed packages.
-- `-s`, `--status`: Show the status of a specified package.
-- `-L`, `--listfiles`: List files installed by a specified package.
+- `-s`, `--status`: Show the status of a package.
+- `-L`, `--listfiles`: List files installed by a package.
 - `-S`, `--search`: Search for a package that owns a specific file.
 
-## Examples
+## Common Examples
+Here are some practical examples of using the `dpkg` command:
 
-### Example 1: Installing a Package
-To install a package from a `.deb` file, use the `-i` option:
-
+### Install a Package
+To install a package from a `.deb` file:
 ```bash
-sudo dpkg -i package_name.deb
+dpkg -i package_name.deb
 ```
 
-This command installs the specified package. If there are missing dependencies, you may need to resolve them manually or use `apt-get install -f` to fix broken dependencies.
+### Remove a Package
+To remove an installed package:
+```bash
+dpkg -r package_name
+```
 
-### Example 2: Listing Installed Packages
-To list all installed packages on your system, use the `-l` option:
+### Purge a Package
+To remove a package along with its configuration files:
+```bash
+dpkg -P package_name
+```
 
+### List Installed Packages
+To list all installed packages on the system:
 ```bash
 dpkg -l
 ```
 
-This command displays a list of all installed packages along with their versions and descriptions.
+### Check Package Status
+To check the status of a specific package:
+```bash
+dpkg -s package_name
+```
+
+### List Files of a Package
+To list all files installed by a specific package:
+```bash
+dpkg -L package_name
+```
+
+### Search for a Package
+To find which package owns a specific file:
+```bash
+dpkg -S /path/to/file
+```
 
 ## Tips
-- Always check for missing dependencies after using `dpkg` to install a package. You can do this by running `sudo apt-get install -f`.
-- Use the `-L` option to find out what files are installed by a specific package, which can help in troubleshooting or when you need to locate specific files.
+- Always check for dependencies before installing a package with `dpkg`, as it does not handle them automatically.
+- Use `apt` or `apt-get` for higher-level package management tasks that require dependency resolution.
 - When removing packages, consider using the `--purge` option if you want to clean up configuration files as well.
-- For a more user-friendly experience, consider using `apt` or `apt-get` for package management, as they handle dependencies automatically and provide a higher-level interface. However, `dpkg` is invaluable for specific tasks that require direct manipulation of `.deb` files.

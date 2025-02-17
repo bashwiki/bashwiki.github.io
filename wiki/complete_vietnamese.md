@@ -1,47 +1,40 @@
-# [리눅스] Bash complete 사용법
+# [Linux] Bash complete: Tự động hoàn thành lệnh
 
-## Tổng quan
-Lệnh `complete` trong Bash được sử dụng để định nghĩa cách hoàn thành tự động cho các lệnh tùy chỉnh. Mục đích chính của lệnh này là giúp người dùng dễ dàng hoàn thành các tham số hoặc tùy chọn cho các lệnh mà họ đã tạo ra, từ đó nâng cao hiệu suất làm việc và giảm thiểu lỗi khi nhập lệnh.
+## Overview
+Lệnh `complete` trong Bash được sử dụng để định nghĩa cách tự động hoàn thành cho các lệnh và tham số. Điều này giúp người dùng tiết kiệm thời gian khi nhập lệnh bằng cách gợi ý các tùy chọn có thể có.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `complete` như sau:
-
 ```bash
-complete [options] [command]
+complete [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-o`: Chỉ định các tùy chọn hoàn thành. Ví dụ: `-o nospace` để không thêm khoảng trắng sau khi hoàn thành.
-- `-F`: Chỉ định một hàm hoàn thành tùy chỉnh sẽ được gọi khi hoàn thành lệnh.
-- `-A`: Xác định loại đối tượng mà hoàn thành sẽ trả về, chẳng hạn như `file`, `command`, `user`, v.v.
+## Common Options
+- `-o`: Chỉ định các tùy chọn cho việc hoàn thành.
+- `-A`: Định nghĩa loại đối tượng để hoàn thành, như file, directory, hoặc command.
+- `-F`: Chỉ định một hàm để xử lý việc hoàn thành.
 
-## Ví dụ
-### Ví dụ 1: Hoàn thành lệnh tùy chỉnh
-Giả sử bạn có một lệnh tùy chỉnh có tên là `mycmd`, bạn muốn hoàn thành tự động cho nó với các tham số cụ thể:
+## Common Examples
+1. **Hoàn thành cho lệnh `git`:**
+   ```bash
+   complete -o nospace -o default -F _git git
+   ```
 
-```bash
-_mycmd_completions() {
-    local options="start stop restart"
-    COMPREPLY=($(compgen -W "$options" -- "${COMP_WORDS[1]}"))
-}
+2. **Hoàn thành cho một lệnh tùy chỉnh:**
+   ```bash
+   _my_command() {
+       local commands="start stop restart"
+       COMPREPLY=($(compgen -W "$commands" -- "${COMP_WORDS[1]}"))
+   }
+   complete -F _my_command my_command
+   ```
 
-complete -F _mycmd_completions mycmd
-```
+3. **Hoàn thành cho các file:**
+   ```bash
+   complete -A file myfile
+   ```
 
-Trong ví dụ này, khi bạn gõ `mycmd ` và nhấn Tab, Bash sẽ gợi ý các tham số `start`, `stop`, và `restart`.
-
-### Ví dụ 2: Hoàn thành tên tệp
-Bạn cũng có thể sử dụng lệnh `complete` để hoàn thành tên tệp cho một lệnh tùy chỉnh:
-
-```bash
-complete -o nospace -A file mycmd
-```
-
-Lệnh này sẽ cho phép hoàn thành tên tệp khi bạn gõ `mycmd ` và nhấn Tab, mà không thêm khoảng trắng sau tên tệp.
-
-## Mẹo
-- Hãy chắc chắn rằng các hàm hoàn thành của bạn được định nghĩa trước khi bạn gọi lệnh `complete`.
-- Sử dụng `compopt` để thay đổi các tùy chọn hoàn thành trong một hàm hoàn thành.
-- Kiểm tra các hoàn thành hiện có bằng cách sử dụng lệnh `complete -p` để xem tất cả các lệnh đã được cấu hình hoàn thành.
-
-Lệnh `complete` là một công cụ mạnh mẽ giúp cải thiện trải nghiệm dòng lệnh của bạn, đặc biệt là khi làm việc với các lệnh tùy chỉnh. Hãy thử nghiệm và tùy chỉnh nó theo nhu cầu của bạn!
+## Tips
+- Hãy sử dụng `complete` để tạo ra các tùy chọn hoàn thành cho các lệnh tùy chỉnh của bạn, giúp người dùng dễ dàng hơn trong việc sử dụng.
+- Kiểm tra các tùy chọn hoàn thành đã được định nghĩa bằng cách sử dụng lệnh `complete -p`.
+- Thử nghiệm với các hàm hoàn thành để tạo ra các trải nghiệm người dùng tốt hơn.

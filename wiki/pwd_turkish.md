@@ -1,42 +1,43 @@
-# [리눅스] Bash pwd 사용법
+# [Linux] Bash pwd Kullanımı: Geçerli dizini gösterir
 
 ## Genel Bakış
-`pwd` (print working directory), mevcut çalışma dizinini gösteren bir Bash komutudur. Terminalde çalışırken hangi dizinde bulunduğunuzu hızlı bir şekilde öğrenmek için kullanılır. Bu komut, özellikle birden fazla dizin arasında geçiş yaparken ve dosya yollarını belirlerken faydalıdır.
+`pwd` (print working directory) komutu, terminalde bulunduğunuz mevcut dizinin tam yolunu gösterir. Bu komut, dosya sisteminde hangi dizinde çalıştığınızı anlamanızı sağlar.
 
 ## Kullanım
-Temel `pwd` komutunun sözdizimi oldukça basittir:
-
-```bash
-pwd [seçenekler]
+Temel sözdizimi şu şekildedir:
+```
+pwd [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-L`: Bu seçenek, sembolik bağlantıları takip eder ve mevcut dizinin gerçek yolunu gösterir.
-- `-P`: Bu seçenek, sembolik bağlantıları takip etmeden mevcut dizinin fiziksel yolunu gösterir.
+## Yaygın Seçenekler
+- `-L`: Mantıksal yolu gösterir. (Varsayılan)
+- `-P`: Fiziksel yolu gösterir. Yani, sembolik bağlantılara bakmadan gerçek dizin yolunu verir.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `pwd` komutunun bazı pratik örnekleri bulunmaktadır:
+
 ### Örnek 1: Basit Kullanım
-Mevcut çalışma dizininizi öğrenmek için sadece `pwd` komutunu yazabilirsiniz:
-
+Mevcut dizini görmek için:
 ```bash
 pwd
 ```
-Çıktı:
-```
-/home/kullanici
+
+### Örnek 2: Mantıksal Yol Gösterimi
+Mantıksal yolu görüntülemek için:
+```bash
+pwd -L
 ```
 
-### Örnek 2: Fiziksel Yol Gösterimi
-Eğer sembolik bağlantıları takip etmeden mevcut dizinin fiziksel yolunu görmek isterseniz, `-P` seçeneğini kullanabilirsiniz:
-
+### Örnek 3: Fiziksel Yol Gösterimi
+Fiziksel yolu görüntülemek için:
 ```bash
 pwd -P
 ```
-Çıktı:
-```
-/home/kullanici/gercek_dizin
-```
 
 ## İpuçları
-- `pwd` komutunu sık sık kullanıyorsanız, terminalinizin başlangıç dizinini ayarlamak için `.bashrc` veya `.bash_profile` dosyalarınızı düzenleyebilirsiniz.
-- `pwd` komutunu diğer dosya yönetimi komutlarıyla birleştirerek, dosya yollarını daha etkili bir şekilde kullanabilirsiniz. Örneğin, `cd $(pwd)/belgeler` komutu ile mevcut dizininizdeki "belgeler" dizinine hızlıca geçiş yapabilirsiniz.
+- `pwd` komutunu sıkça kullanarak, terminalde hangi dizinde olduğunuzu kolayca kontrol edebilirsiniz.
+- Eğer sembolik bağlantılarla çalışıyorsanız, `-P` seçeneği ile gerçek dizin yolunu görmek faydalı olabilir.
+- Çalıştığınız dizinle ilgili daha fazla bilgi almak için `ls` komutunu `pwd` ile birleştirebilirsiniz. Örneğin:
+```bash
+ls $(pwd)
+```

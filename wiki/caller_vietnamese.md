@@ -1,50 +1,53 @@
-# [리눅스] Bash caller 사용법
+# [Linux] Bash caller Cách sử dụng: Gọi một lệnh trong Bash
 
-## Tổng quan
-Lệnh `caller` trong Bash được sử dụng để hiển thị thông tin về vị trí của một hàm hoặc một lệnh đang được gọi trong một script. Nó cho phép bạn xác định số dòng và tên file của lệnh gọi, điều này rất hữu ích cho việc gỡ lỗi và theo dõi luồng thực thi của chương trình.
+## Overview
+Lệnh `caller` trong Bash được sử dụng để hiển thị thông tin về hàm gọi lệnh hiện tại. Nó cho phép bạn biết được vị trí của lệnh gọi trong ngăn xếp hàm, giúp bạn dễ dàng gỡ lỗi và theo dõi luồng thực thi của chương trình.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `caller` như sau:
-
-```bash
+```
 caller [n]
 ```
+Trong đó `n` là số thứ tự của hàm trong ngăn xếp (tùy chọn).
 
-Trong đó:
-- `n` là một tham số tùy chọn, cho phép bạn chỉ định số cấp độ của lệnh gọi mà bạn muốn xem. Nếu không có tham số này, `caller` sẽ trả về thông tin về lệnh gọi gần nhất.
+## Common Options
+- `n`: Chỉ định số thứ tự của hàm trong ngăn xếp. Nếu không có tham số này, `caller` sẽ trả về thông tin của hàm gọi gần nhất.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `caller`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `caller`:
 
-### Ví dụ 1: Sử dụng caller trong một hàm
-```bash
-function my_function {
-    caller
-}
+1. **Hiển thị thông tin về hàm gọi gần nhất**:
+   ```bash
+   function my_function {
+       caller
+   }
+   my_function
+   ```
 
-function another_function {
-    my_function
-}
+2. **Sử dụng với tham số để hiển thị thông tin về hàm gọi thứ hai**:
+   ```bash
+   function second_function {
+       first_function
+   }
 
-another_function
-```
-Khi bạn chạy đoạn mã trên, `caller` sẽ hiển thị thông tin về vị trí của `another_function`, cho biết dòng và tên file nơi hàm này được gọi.
+   function first_function {
+       caller 1
+   }
 
-### Ví dụ 2: Sử dụng tham số n
-```bash
-function my_function {
-    caller 1
-}
+   second_function
+   ```
 
-function another_function {
-    my_function
-}
+3. **Kết hợp với lệnh `set -x` để gỡ lỗi**:
+   ```bash
+   set -x
+   function debug_function {
+       caller
+   }
+   debug_function
+   set +x
+   ```
 
-another_function
-```
-Trong ví dụ này, `caller 1` sẽ hiển thị thông tin về lệnh gọi của `my_function`, tức là `another_function`.
-
-## Mẹo
-- Sử dụng `caller` trong các hàm phức tạp để dễ dàng theo dõi và gỡ lỗi. Điều này giúp bạn xác định nhanh chóng nguồn gốc của lỗi hoặc vấn đề trong mã.
-- Kết hợp `caller` với các lệnh gỡ lỗi khác như `set -x` để có cái nhìn rõ hơn về luồng thực thi của script.
-- Hãy nhớ rằng `caller` chỉ hoạt động trong ngữ cảnh của các hàm, vì vậy hãy đảm bảo bạn đang gọi nó từ bên trong một hàm.
+## Tips
+- Sử dụng `caller` trong các hàm để dễ dàng theo dõi và gỡ lỗi mã nguồn của bạn.
+- Kết hợp `caller` với `set -x` để có cái nhìn rõ ràng hơn về luồng thực thi của chương trình.
+- Hãy nhớ rằng `caller` chỉ hoạt động trong ngữ cảnh của các hàm, vì vậy hãy đảm bảo bạn đang gọi nó từ một hàm.

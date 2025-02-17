@@ -1,49 +1,40 @@
-# [리눅스] Bash pwd 사용법
+# [Linux] Bash pwd Verwendung: Zeigt das aktuelle Verzeichnis an
 
 ## Übersicht
-Der Befehl `pwd` (Print Working Directory) wird in der Bash verwendet, um das aktuelle Arbeitsverzeichnis des Benutzers anzuzeigen. Dies ist besonders nützlich, wenn man sich in verschiedenen Verzeichnissen innerhalb des Dateisystems bewegt und sicherstellen möchte, in welchem Verzeichnis man sich gerade befindet. Der Befehl gibt den vollständigen Pfad des aktuellen Verzeichnisses aus.
+Der Befehl `pwd` (print working directory) wird in der Bash verwendet, um das aktuelle Arbeitsverzeichnis anzuzeigen. Er gibt den vollständigen Pfad des Verzeichnisses zurück, in dem sich der Benutzer gerade befindet.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls ist einfach:
+Die grundlegende Syntax des Befehls ist wie folgt:
 
 ```bash
-pwd
+pwd [Optionen]
 ```
 
-Es gibt keine speziellen Optionen, die häufig verwendet werden, da `pwd` in seiner einfachsten Form bereits die benötigten Informationen bereitstellt. In einigen Shells kann `pwd` jedoch mit den folgenden Optionen verwendet werden:
+## Häufige Optionen
+- `-L`: Zeigt den logischen Pfad des aktuellen Verzeichnisses an (Standardverhalten).
+- `-P`: Zeigt den physischen Pfad des aktuellen Verzeichnisses an, wobei symbolische Links aufgelöst werden.
 
-- `-L`: Gibt den symbolischen Pfad des aktuellen Verzeichnisses zurück. Dies ist die Standardoption.
-- `-P`: Gibt den physischen Pfad des aktuellen Verzeichnisses zurück, wobei symbolische Links aufgelöst werden.
+## Häufige Beispiele
+Hier sind einige praktische Beispiele zur Verwendung des `pwd`-Befehls:
 
-## Beispiele
-Hier sind einige praktische Beispiele zur Verwendung des Befehls `pwd`.
-
-1. **Einfacher Befehl**:
-   Wenn Sie einfach nur das aktuelle Verzeichnis anzeigen möchten, geben Sie einfach `pwd` ein:
+1. **Einfaches Anzeigen des aktuellen Verzeichnisses:**
 
    ```bash
    pwd
    ```
 
-   Ausgabe:
-   ```
-   /home/benutzername/dokumente
-   ```
-
-2. **Verwendung der Option -P**:
-   Wenn Sie den physischen Pfad des aktuellen Verzeichnisses anzeigen möchten, verwenden Sie die Option `-P`:
+2. **Anzeigen des physischen Pfades:**
 
    ```bash
-   cd /var/www/html
    pwd -P
    ```
 
-   Ausgabe:
-   ```
-   /var/www/html
+3. **Anzeigen des logischen Pfades (Standardverhalten):**
+
+   ```bash
+   pwd -L
    ```
 
 ## Tipps
-- Verwenden Sie `pwd` regelmäßig, um sich zu vergewissern, dass Sie im richtigen Verzeichnis arbeiten, insbesondere wenn Sie Skripte oder Befehle ausführen, die von der aktuellen Position im Dateisystem abhängen.
-- Kombinieren Sie `pwd` mit anderen Befehlen in Skripten, um den aktuellen Pfad dynamisch zu verwenden. Beispielsweise können Sie den aktuellen Pfad in Variablen speichern, um ihn später zu referenzieren.
-- Achten Sie darauf, dass die Ausgabe von `pwd` in Skripten verwendet werden kann, um sicherzustellen, dass Sie immer im richtigen Kontext arbeiten, insbesondere bei der Arbeit mit relativen Pfaden.
+- Verwenden Sie `pwd` regelmäßig, um sich zu vergewissern, in welchem Verzeichnis Sie sich befinden, insbesondere wenn Sie mit mehreren Verzeichnissen arbeiten.
+- Kombinieren Sie `pwd` mit anderen Befehlen, um Skripte zu erstellen, die den aktuellen Pfad dynamisch verwenden.

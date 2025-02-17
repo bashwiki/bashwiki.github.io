@@ -1,46 +1,60 @@
-# [리눅스] Bash readonly 사용법
+# [Linux] Bash readonly用法: Prevent variable modification
 
 ## Overview
-The `readonly` command in Bash is used to mark variables or functions as read-only. Once a variable or function is declared as readonly, it cannot be modified or unset during the current shell session. This is particularly useful for protecting important values from accidental changes and ensuring that certain configurations remain constant throughout the execution of a script or command.
+The `readonly` command in Bash is used to mark variables or functions as read-only. Once a variable or function is declared as readonly, its value cannot be changed or unset, which helps prevent accidental modifications in scripts.
 
 ## Usage
 The basic syntax of the `readonly` command is as follows:
 
 ```bash
-readonly [name[=value] ...]
+readonly [options] [arguments]
 ```
 
-### Options
-- `name`: The name of the variable or function you want to mark as readonly. You can also assign a value to the variable at the same time by using the `name=value` format.
-- If no arguments are provided, `readonly` will display a list of all readonly variables in the current shell session.
+## Common Options
+- `-p`: Display a list of all readonly variables and functions in the current shell session.
 
-## Examples
+## Common Examples
 
-### Example 1: Marking a Variable as Readonly
+### Example 1: Declaring a Readonly Variable
+To declare a variable as readonly, use the following command:
+
 ```bash
-# Declare a variable and assign a value
 readonly MY_VAR="Hello, World!"
-
-# Attempting to modify the variable will result in an error
-MY_VAR="New Value"  # This will produce an error: "bash: MY_VAR: readonly variable"
 ```
 
-### Example 2: Listing Readonly Variables
+Attempting to change the value of `MY_VAR` will result in an error:
+
 ```bash
-# Declare some readonly variables
-readonly VAR1="Value 1"
-readonly VAR2="Value 2"
+MY_VAR="New Value"  # This will fail with an error
+```
 
-# List all readonly variables
-readonly
+### Example 2: Declaring a Readonly Function
+You can also declare a function as readonly:
+
+```bash
+readonly my_function() {
+    echo "This is a readonly function."
+}
 ```
-This command will output:
+
+Trying to redefine `my_function` will produce an error:
+
+```bash
+my_function() {
+    echo "Attempting to redefine."  # This will fail with an error
+}
 ```
-declare -r VAR1="Value 1"
-declare -r VAR2="Value 2"
+
+### Example 3: Listing Readonly Variables
+To see all readonly variables and functions, use the `-p` option:
+
+```bash
+readonly -p
 ```
+
+This will output a list of all currently defined readonly variables and functions.
 
 ## Tips
-- Use `readonly` for variables that should not change throughout the execution of your script to avoid unintended side effects.
-- Remember that once a variable is marked as readonly, it cannot be unset or modified in the current session. If you need to change its value later, you will need to start a new shell session.
-- To remove the readonly attribute from a variable, you must first unset it (if it is not readonly) or start a new session if it is already marked as readonly.
+- Use readonly variables for constants that should not change throughout the script to improve code reliability.
+- Be cautious when declaring functions as readonly, as it can limit flexibility in your scripts.
+- Always check the list of readonly variables with `readonly -p` if you encounter unexpected behavior related to variable modification.

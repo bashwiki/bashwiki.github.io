@@ -1,44 +1,46 @@
-# [리눅스] Bash complete 사용법
+# [Linux] Bash completo uso: Completar comandos y argumentos
 
 ## Overview
-El comando `complete` en Bash se utiliza para definir o modificar la forma en que se completan automáticamente los comandos y sus argumentos en la línea de comandos. Su propósito principal es mejorar la experiencia del usuario al proporcionar opciones de autocompletado personalizadas, lo que facilita la escritura de comandos complejos y reduce la posibilidad de errores tipográficos.
+El comando `complete` en Bash se utiliza para definir o modificar el comportamiento de la autocompletación de comandos y sus argumentos en la línea de comandos. Esto permite a los usuarios personalizar cómo se completan los comandos, facilitando la interacción con el terminal.
 
 ## Usage
 La sintaxis básica del comando `complete` es la siguiente:
 
 ```bash
-complete [opciones] [nombre_comando]
+complete [opciones] [comando]
 ```
 
-### Opciones Comunes:
-- `-o`: Especifica opciones de completado, como `default`, `nospace`, `file`, entre otras.
-- `-A`: Define el tipo de argumento que se completará, como `command`, `directory`, `user`, etc.
-- `-F`: Asocia una función de completado personalizada al comando especificado.
-- `-r`: Elimina las reglas de completado para el comando especificado.
+## Common Options
+- `-A`: Especifica el tipo de argumento que se completará (por ejemplo, `file`, `command`, etc.).
+- `-o`: Añade opciones adicionales para la autocompletación, como `default`, `nospace`, etc.
+- `-F`: Indica una función que se utilizará para la autocompletación.
 
-## Examples
-### Ejemplo 1: Completado básico
-Supongamos que queremos que el comando `git` complete automáticamente las ramas disponibles. Podríamos usar el siguiente comando:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `complete`:
 
-```bash
-complete -o default -o nospace -A branch git
-```
+1. **Completar archivos para un comando específico:**
+   ```bash
+   complete -A file mycommand
+   ```
+   Esto permite que `mycommand` complete nombres de archivos.
 
-Con esta configuración, al escribir `git checkout` y presionar `Tab`, se mostrarán las ramas disponibles para completar.
+2. **Usar una función para la autocompletación:**
+   ```bash
+   _my_function() {
+       local commands="start stop restart"
+       COMPREPLY=( $(compgen -W "$commands" -- "${COMP_WORDS[1]}") )
+   }
+   complete -F _my_function mycommand
+   ```
+   Aquí, se define una función que proporciona opciones específicas para `mycommand`.
 
-### Ejemplo 2: Función de completado personalizada
-Podemos crear una función de completado que sugiera nombres de archivos en un directorio específico. Primero, definimos la función:
-
-```bash
-_my_custom_completion() {
-    COMPREPLY=( $(compgen -f -- "${COMP_WORDS[1]}") )
-}
-complete -F _my_custom_completion mycommand
-```
-
-En este caso, al escribir `mycommand` seguido de un espacio y presionar `Tab`, se completarán los nombres de archivos del directorio actual.
+3. **Desactivar la autocompletación para un comando:**
+   ```bash
+   complete -r mycommand
+   ```
+   Esto elimina cualquier configuración de autocompletación previamente establecida para `mycommand`.
 
 ## Tips
-- **Prueba tus configuraciones**: Después de definir nuevas reglas de completado, asegúrate de probarlas en la línea de comandos para verificar que funcionen como esperas.
-- **Usa funciones de completado**: Si necesitas lógica más compleja para el autocompletado, considera usar funciones de Bash para manejar la lógica de completado.
-- **Documenta tus cambios**: Si trabajas en un entorno compartido, documenta cualquier cambio que realices en las configuraciones de completado para que otros usuarios puedan beneficiarse de tus mejoras.
+- Asegúrate de definir funciones de autocompletación que sean intuitivas y útiles para mejorar la experiencia del usuario.
+- Puedes combinar múltiples opciones para personalizar aún más la autocompletación.
+- Prueba tus configuraciones en un entorno seguro antes de aplicarlas en tu terminal principal para evitar conflictos.

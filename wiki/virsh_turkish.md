@@ -1,39 +1,50 @@
-# [리눅스] Bash virsh 사용법
+# [Linux] Bash virsh Kullanımı: Sanal makineleri yönetmek için bir araç
 
-## Overview
-`virsh`, sanal makine yönetimi için kullanılan bir komut satırı aracıdır. Bu komut, KVM (Kernel-based Virtual Machine), Xen ve diğer sanal makine yöneticileri ile etkileşimde bulunarak sanal makineleri oluşturma, silme, başlatma, durdurma ve yönetme gibi işlemleri gerçekleştirmeye olanak tanır. `virsh`, sanal makineler üzerinde detaylı kontrol sağlamak için geniş bir komut seti sunar.
+## Genel Bakış
+`virsh`, sanal makineleri yönetmek için kullanılan bir komut satırı aracıdır. KVM, Xen ve diğer sanallaştırma teknolojileri ile çalışan sanal makineleri oluşturma, başlatma, durdurma ve yönetme işlemlerini kolaylaştırır.
 
-## Usage
-`virsh` komutunun temel sözdizimi aşağıdaki gibidir:
-
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-virsh [komut] [seçenekler]
+virsh [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
+## Yaygın Seçenekler
 - `list`: Aktif sanal makinelerin listesini gösterir.
 - `start <VM_adı>`: Belirtilen sanal makineyi başlatır.
 - `shutdown <VM_adı>`: Belirtilen sanal makineyi kapatır.
-- `destroy <VM_adı>`: Belirtilen sanal makineyi aniden durdurur.
-- `create <dosya>`: Belirtilen XML dosyasına göre yeni bir sanal makine oluşturur.
-- `define <dosya>`: Belirtilen XML dosyasını kullanarak sanal makine tanımını yapar.
+- `destroy <VM_adı>`: Belirtilen sanal makineyi durdurur ve siler.
+- `create <dosya>`: Belirtilen XML dosyasından yeni bir sanal makine oluşturur.
 
-## Examples
-### Örnek 1: Aktif Sanal Makineleri Listeleme
-Aşağıdaki komut, mevcut aktif sanal makinelerin listesini gösterir:
+## Yaygın Örnekler
+Sanal makineleri yönetmek için `virsh` komutunun nasıl kullanılacağını gösteren bazı örnekler:
 
+### 1. Aktif Sanal Makineleri Listeleme
 ```bash
 virsh list
 ```
 
-### Örnek 2: Bir Sanal Makineyi Başlatma
-`my_vm` adlı sanal makineyi başlatmak için şu komutu kullanabilirsiniz:
-
+### 2. Sanal Makine Başlatma
 ```bash
 virsh start my_vm
 ```
 
-## Tips
-- `virsh` komutunu kullanmadan önce, sanal makine yöneticinizin (örneğin, libvirt) düzgün bir şekilde kurulu ve çalışır durumda olduğundan emin olun.
-- Komutları çalıştırmadan önce `virsh help` komutunu kullanarak mevcut komutlar ve seçenekler hakkında bilgi alabilirsiniz.
-- Sanal makineleri yönetirken dikkatli olun; `destroy` komutu, sanal makineyi aniden kapatır ve veri kaybına neden olabilir. Bunun yerine `shutdown` komutunu kullanmak genellikle daha güvenlidir.
+### 3. Sanal Makineyi Kapatma
+```bash
+virsh shutdown my_vm
+```
+
+### 4. Sanal Makineyi Silme
+```bash
+virsh destroy my_vm
+```
+
+### 5. Yeni Bir Sanal Makine Oluşturma
+```bash
+virsh create my_vm.xml
+```
+
+## İpuçları
+- Sanal makinelerin durumunu kontrol etmek için `virsh list --all` komutunu kullanabilirsiniz.
+- XML dosyalarını düzenleyerek sanal makinelerin yapılandırmasını özelleştirebilirsiniz.
+- `virsh` komutunu kullanmadan önce gerekli izinlere sahip olduğunuzdan emin olun.

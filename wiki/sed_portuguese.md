@@ -1,45 +1,54 @@
-# [리눅스] Bash sed 사용법
+# [Linux] Bash sed Uso equivalente: Editar texto em arquivos
 
 ## Overview
-O `sed` (Stream Editor) é uma ferramenta poderosa de edição de texto em fluxo que permite manipular e transformar texto em arquivos ou na entrada padrão. Ele é amplamente utilizado para realizar substituições, inserções, exclusões e outras operações em linhas de texto, tornando-o uma escolha popular para automação de tarefas e processamento de dados em scripts.
+O comando `sed` (Stream Editor) é uma ferramenta poderosa para manipulação de texto em arquivos e streams. Ele permite realizar operações como substituição, inserção e exclusão de texto de forma não interativa, o que o torna ideal para automação de tarefas de edição de texto.
 
 ## Usage
 A sintaxe básica do comando `sed` é a seguinte:
 
 ```bash
-sed [opções] 'comando' arquivo
+sed [opções] [argumentos]
 ```
 
-### Comandos Comuns
-- `s/padrão/substituição/`: Substitui a primeira ocorrência do padrão por uma substituição na linha.
-- `g`: Usado com o comando `s` para substituir todas as ocorrências do padrão na linha.
-- `-i`: Edita os arquivos no local, ou seja, modifica o arquivo original.
-- `-n`: Suprime a saída padrão, permitindo que você controle quais linhas são exibidas.
+## Common Options
+Aqui estão algumas opções comuns do `sed`:
 
-## Examples
-### Exemplo 1: Substituição Simples
-Para substituir a primeira ocorrência da palavra "foo" pela palavra "bar" em um arquivo chamado `exemplo.txt`, você pode usar o seguinte comando:
+- `-e`: Permite adicionar múltiplas expressões de edição.
+- `-i`: Edita os arquivos no local, ou seja, faz as alterações diretamente nos arquivos.
+- `-n`: Supressão da saída padrão, útil quando você deseja apenas imprimir linhas específicas.
+- `s/padrão/substituição/`: Realiza uma substituição de texto, onde "padrão" é o texto a ser encontrado e "substituição" é o texto que irá substituí-lo.
+
+## Common Examples
+
+### Substituir texto em um arquivo
+Para substituir a palavra "antigo" por "novo" em um arquivo chamado `exemplo.txt`, você pode usar:
 
 ```bash
-sed 's/foo/bar/' exemplo.txt
+sed -i 's/antigo/novo/g' exemplo.txt
 ```
 
-### Exemplo 2: Substituição Global
-Se você deseja substituir todas as ocorrências da palavra "foo" por "bar" no mesmo arquivo, utilize a opção `g`:
+### Exibir linhas específicas
+Para exibir apenas as linhas que contêm a palavra "erro" em um arquivo:
 
 ```bash
-sed 's/foo/bar/g' exemplo.txt
+sed -n '/erro/p' exemplo.txt
 ```
 
-### Exemplo 3: Editar no Local
-Para editar o arquivo `exemplo.txt` diretamente e substituir "foo" por "bar", você pode usar a opção `-i`:
+### Remover linhas vazias
+Para remover todas as linhas vazias de um arquivo:
 
 ```bash
-sed -i 's/foo/bar/g' exemplo.txt
+sed -i '/^$/d' exemplo.txt
+```
+
+### Adicionar texto antes de uma linha
+Para adicionar a palavra "Início:" antes de cada linha que contém "exemplo":
+
+```bash
+sed -i '/exemplo/i Início:' exemplo.txt
 ```
 
 ## Tips
-- Sempre faça um backup do seu arquivo antes de usar a opção `-i`, pois as alterações são irreversíveis.
-- Para testar suas expressões `sed` sem modificar o arquivo, execute o comando sem a opção `-i`.
-- Você pode usar expressões regulares complexas para padrões mais sofisticados, aumentando a flexibilidade do `sed`.
-- Combine `sed` com outros comandos do Unix, como `grep` e `awk`, para criar pipelines poderosos de processamento de texto.
+- Sempre faça um backup dos seus arquivos antes de usar a opção `-i`, pois as alterações são irreversíveis.
+- Use `sed` em combinação com outros comandos, como `grep`, para filtrar e processar dados de forma mais eficaz.
+- Teste suas expressões `sed` sem a opção `-i` primeiro para garantir que o resultado seja o esperado antes de aplicar as mudanças diretamente no arquivo.

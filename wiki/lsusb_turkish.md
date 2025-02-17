@@ -1,57 +1,52 @@
-# [리눅스] Bash lsusb 사용법
+# [Linux] Bash lsusb Kullanımı: USB aygıtlarını listeleme
 
 ## Overview
-`lsusb`, Linux işletim sistemlerinde USB aygıtlarının listesini görüntülemek için kullanılan bir komuttur. Bu komut, sistemde bağlı olan tüm USB aygıtlarını tanımlamak ve bu aygıtlar hakkında bilgi almak için kullanılır. Geliştiriciler ve mühendisler için, USB aygıtlarının durumunu kontrol etmek ve sorunları teşhis etmek açısından oldukça yararlıdır.
+`lsusb` komutu, sistemdeki USB aygıtlarını listelemek için kullanılır. Bu komut, bağlı olan USB cihazlarının bilgilerini gösterir ve kullanıcıların bu cihazlar hakkında bilgi edinmesine yardımcı olur.
 
 ## Usage
-`lsusb` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-lsusb [options]
+lsusb [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-v`: Aygıtlar hakkında daha ayrıntılı bilgi görüntüler.
-- `-t`: USB aygıtlarının ağaç yapısını gösterir.
-- `-s [bus]:[device]`: Belirli bir USB aygıtını (bus ve device numarası ile) görüntüler.
-- `-d [vendor]:[product]`: Belirli bir üretici ve ürün kimliğine sahip aygıtları listeler.
+## Common Options
+- `-v`: Ayrıntılı bilgi gösterir. Her bir USB aygıtı hakkında daha fazla detay sağlar.
+- `-t`: Aygıtların ağaç yapısını gösterir. USB aygıtlarının hiyerarşik yapısını görmenizi sağlar.
+- `-s [bus]:[device]`: Belirli bir USB aygıtını hedeflemek için kullanılır. `[bus]` ve `[device]` numaralarını belirtmelisiniz.
+- `-d [vendor]:[product]`: Belirli bir üretici ve ürün kimliğine sahip aygıtları listelemek için kullanılır.
 
-## Examples
-### Örnek 1: Tüm USB Aygıtlarını Listeleme
-Aşağıdaki komut, sistemde bağlı olan tüm USB aygıtlarını listeler:
+## Common Examples
+Aşağıda `lsusb` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-lsusb
-```
+1. Tüm USB aygıtlarını listeleme:
+   ```bash
+   lsusb
+   ```
 
-Çıktı, her bir USB aygıtının üretici ve ürün bilgilerini içerecektir.
+2. Ayrıntılı bilgi ile listeleme:
+   ```bash
+   lsusb -v
+   ```
 
-### Örnek 2: Ayrıntılı Bilgi Alma
-Aşağıdaki komut, sistemdeki USB aygıtları hakkında daha ayrıntılı bilgi sağlar:
+3. Belirli bir USB aygıtını listeleme (örneğin, bus 001 ve device 002):
+   ```bash
+   lsusb -s 001:002
+   ```
 
-```bash
-lsusb -v
-```
+4. Belirli bir üretici ve ürün kimliğine sahip aygıtları listeleme (örneğin, 1234:5678):
+   ```bash
+   lsusb -d 1234:5678
+   ```
 
-Bu komut, her bir aygıtın özellikleri, sınıfı, alt sınıfı ve daha fazlası hakkında detaylı bilgi sunar.
+5. Aygıtların ağaç yapısını gösterme:
+   ```bash
+   lsusb -t
+   ```
 
 ## Tips
-- `lsusb` komutunu `grep` ile birleştirerek belirli bir aygıtı hızlıca bulabilirsiniz. Örneğin, bir USB belleği aramak için:
-
-```bash
-lsusb | grep 'USB Flash'
-```
-
-- Ayrıntılı bilgi almak için `-v` seçeneğini kullanırken, çıktının çok fazla bilgi içerebileceğini unutmayın. Bu nedenle, çıktıyı bir dosyaya yönlendirmek faydalı olabilir:
-
-```bash
-lsusb -v > usb_devices.txt
-```
-
-- `lsusb` komutunu sıkça kullanıyorsanız, kendi bash alias'ınızı oluşturmayı düşünebilirsiniz. Örneğin, `lsusb` komutunu daha kısa bir isimle çağırmak için `~/.bashrc` dosyanıza şu satırı ekleyebilirsiniz:
-
-```bash
-alias usb='lsusb'
-```
-
-Bu şekilde, `usb` yazarak hızlıca USB aygıtlarınızı listeleyebilirsiniz.
+- `lsusb` komutunu `sudo` ile kullanarak daha fazla ayrıntı elde edebilirsiniz.
+- USB aygıtlarının doğru çalışıp çalışmadığını kontrol etmek için `lsusb` komutunu düzenli olarak kullanın.
+- Aygıtların bağlantı noktalarını ve durumlarını takip etmek için `lsusb` çıktısını bir dosyaya yönlendirebilirsiniz:
+  ```bash
+  lsusb > usb_devices.txt
+  ```

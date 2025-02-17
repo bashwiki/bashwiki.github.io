@@ -1,44 +1,53 @@
-# [리눅스] Bash free 사용법
+# [Linux] Bash free uso: Visualizzare la memoria di sistema
 
 ## Overview
-Il comando `free` è uno strumento utile per monitorare l'utilizzo della memoria nel sistema Linux. Mostra informazioni dettagliate sulla memoria totale, utilizzata, libera e la memoria di swap. È particolarmente utile per gli ingegneri e gli sviluppatori che desiderano ottimizzare le prestazioni delle applicazioni e gestire le risorse di sistema in modo efficace.
+Il comando `free` in Bash è utilizzato per visualizzare informazioni sulla memoria di sistema, inclusa la memoria totale, utilizzata, libera e la memoria di swap. È uno strumento utile per monitorare l'uso della memoria e diagnosticare problemi di performance.
 
 ## Usage
 La sintassi di base del comando `free` è la seguente:
 
 ```bash
-free [opzioni]
+free [options] [arguments]
 ```
 
-Alcune delle opzioni più comuni includono:
-
-- `-h`: Mostra le dimensioni della memoria in un formato leggibile dall'utente (ad esempio, KB, MB, GB).
+## Common Options
+- `-h`: Mostra i valori in un formato leggibile dall'uomo (es. KB, MB, GB).
 - `-m`: Mostra la memoria in megabyte.
 - `-g`: Mostra la memoria in gigabyte.
-- `-s <seconds>`: Aggiorna le informazioni sulla memoria a intervalli regolari specificati in secondi.
-- `-t`: Mostra la somma totale della memoria.
+- `-s <seconds>`: Aggiorna le informazioni sulla memoria ogni numero specificato di secondi.
+- `-t`: Mostra il totale della memoria.
 
-## Examples
-Ecco alcuni esempi pratici di utilizzo del comando `free`:
+## Common Examples
 
-1. **Visualizzare la memoria in un formato leggibile**:
+1. **Visualizzare la memoria in formato leggibile:**
    ```bash
    free -h
    ```
-   Questo comando mostrerà l'utilizzo della memoria in un formato facilmente comprensibile, con unità di misura appropriate.
 
-2. **Monitorare la memoria ogni 5 secondi**:
+2. **Visualizzare la memoria in megabyte:**
+   ```bash
+   free -m
+   ```
+
+3. **Visualizzare la memoria in gigabyte:**
+   ```bash
+   free -g
+   ```
+
+4. **Aggiornare le informazioni sulla memoria ogni 5 secondi:**
    ```bash
    free -s 5
    ```
-   Con questo comando, il sistema mostrerà l'utilizzo della memoria ogni 5 secondi, consentendo di monitorare le variazioni in tempo reale.
+
+5. **Visualizzare la memoria totale insieme alla memoria utilizzata e libera:**
+   ```bash
+   free -h -t
+   ```
 
 ## Tips
-- Utilizzare l'opzione `-h` è sempre consigliato per una lettura più semplice dei dati.
-- Combinare `free` con altri comandi come `watch` può fornire una visualizzazione in tempo reale dell'utilizzo della memoria:
+- Utilizza l'opzione `-h` per ottenere una visualizzazione più comprensibile dei dati, specialmente su sistemi con grandi quantità di memoria.
+- Puoi combinare più opzioni per ottenere le informazioni che desideri in un formato specifico.
+- Integra `free` con altri comandi come `watch` per monitorare continuamente l'uso della memoria in tempo reale, ad esempio:
   ```bash
   watch free -h
   ```
-- È utile eseguire `free` insieme a strumenti di monitoraggio delle prestazioni per avere una visione completa delle risorse di sistema.
-
-Utilizzare il comando `free` regolarmente può aiutare a identificare colli di bottiglia nella memoria e ottimizzare le prestazioni delle applicazioni in esecuzione.

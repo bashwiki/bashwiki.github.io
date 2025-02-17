@@ -1,41 +1,46 @@
-# [리눅스] Bash cmake 사용법
+# [Linux] Bash cmake Verwendung: Ein Werkzeug zur Erstellung von Softwareprojekten
 
 ## Übersicht
-Der Befehl `cmake` ist ein plattformübergreifendes Build-System, das verwendet wird, um die Kompilierung von Softwareprojekten zu steuern. Es ermöglicht Entwicklern, Projekte durch die Verwendung von Konfigurationsdateien (CMakeLists.txt) zu erstellen, die die benötigten Informationen über Quellcode, Abhängigkeiten und Build-Optionen enthalten. CMake generiert dann die entsprechenden Makefiles oder Projektdateien für verschiedene Build-Umgebungen.
+Der Befehl `cmake` ist ein plattformübergreifendes Build-System, das verwendet wird, um Softwareprojekte zu konfigurieren und zu erstellen. Es generiert die notwendigen Makefiles oder Projektdateien für verschiedene Build-Umgebungen, sodass Entwickler ihre Software einfach kompilieren können.
 
 ## Verwendung
-Die grundlegende Syntax des `cmake`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-cmake [Optionen] [Pfad_zum_Quellverzeichnis]
+cmake [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-B <Verzeichnis>`: Gibt das Verzeichnis an, in dem die Build-Dateien generiert werden sollen.
-- `-S <Verzeichnis>`: Gibt das Verzeichnis an, das die Quelldateien enthält.
-- `-D <Name=Value>`: Definiert eine CMake-Variable mit einem bestimmten Wert.
+## Häufige Optionen
+- `-S <Verzeichnis>`: Gibt das Quellverzeichnis an, das die CMakeLists.txt-Datei enthält.
+- `-B <Verzeichnis>`: Gibt das Build-Verzeichnis an, in dem die Build-Dateien erstellt werden.
+- `-G <Generator>`: Wählt den Build-Generator aus (z.B. "Unix Makefiles", "Ninja").
+- `-D <Variable>=<Wert>`: Definiert eine CMake-Variable mit einem bestimmten Wert.
 - `--build <Verzeichnis>`: Baut das Projekt im angegebenen Verzeichnis.
-- `--target <Ziel>`: Gibt ein spezifisches Ziel an, das gebaut werden soll.
 
-## Beispiele
-### Beispiel 1: Einfaches Projekt erstellen
-Um ein einfaches CMake-Projekt zu erstellen, navigieren Sie in das Verzeichnis Ihres Projekts und führen Sie den folgenden Befehl aus:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung von `cmake`:
 
-```bash
-cmake -S . -B build
-```
-Dieser Befehl generiert die Build-Dateien im Unterverzeichnis `build`.
+1. **Ein einfaches Projekt erstellen:**
+   ```bash
+   cmake -S . -B build
+   ```
 
-### Beispiel 2: Projekt mit benutzerdefinierten Optionen bauen
-Wenn Sie eine benutzerdefinierte Option für Ihr Projekt festlegen möchten, können Sie dies wie folgt tun:
+2. **Ein Projekt mit einem spezifischen Generator erstellen:**
+   ```bash
+   cmake -S . -B build -G "Unix Makefiles"
+   ```
 
-```bash
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build
-```
-Hier wird das Projekt im `Release`-Modus gebaut.
+3. **Eine CMake-Variable definieren:**
+   ```bash
+   cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
+   ```
+
+4. **Das Projekt im Build-Verzeichnis kompilieren:**
+   ```bash
+   cmake --build build
+   ```
 
 ## Tipps
-- Stellen Sie sicher, dass Sie die CMakeLists.txt-Datei korrekt konfiguriert haben, bevor Sie den `cmake`-Befehl ausführen, da diese Datei die Anweisungen für den Build-Prozess enthält.
-- Verwenden Sie die Option `-D`, um Variablen zu definieren, die in Ihrer CMakeLists.txt verwendet werden können, um den Build-Prozess anzupassen.
-- Es ist eine gute Praxis, separate Build-Verzeichnisse zu verwenden, um die Quellverzeichnisse sauber zu halten und um die Möglichkeit zu haben, verschiedene Build-Konfigurationen (z.B. Debug und Release) zu verwalten.
+- Stellen Sie sicher, dass Sie die CMakeLists.txt-Datei im Quellverzeichnis haben, da CMake diese Datei benötigt, um das Projekt zu konfigurieren.
+- Nutzen Sie die Option `-D`, um benutzerdefinierte Konfigurationen einfach zu setzen, ohne die CMakeLists.txt zu ändern.
+- Es ist eine gute Praxis, ein separates Build-Verzeichnis zu verwenden, um die Quellverzeichnisse sauber zu halten.

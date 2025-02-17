@@ -1,48 +1,50 @@
-# [리눅스] Bash getenforce 사용법
+# [Linux] Bash getenforce : Vérifier le mode SELinux
 
 ## Overview
-La commande `getenforce` est utilisée pour afficher le mode actuel de SELinux (Security-Enhanced Linux) sur un système Linux. SELinux est une fonctionnalité de sécurité qui fournit un mécanisme de contrôle d'accès basé sur des politiques. Le mode peut être l'un des trois états : Enforcing, Permissive ou Disabled. Cette commande est essentielle pour les ingénieurs et développeurs qui souhaitent vérifier rapidement l'état de SELinux sur leur système.
+La commande `getenforce` est utilisée pour afficher le mode actuel de SELinux (Security-Enhanced Linux) sur un système. Elle permet de savoir si SELinux est en mode "Enforcing", "Permissive" ou "Disabled".
 
 ## Usage
-La syntaxe de base de la commande `getenforce` est très simple :
+La syntaxe de base de la commande est la suivante :
+
+```bash
+getenforce [options]
+```
+
+## Common Options
+`getenforce` ne possède pas d'options courantes, car elle est principalement utilisée pour afficher l'état de SELinux. Cependant, il est utile de connaître les modes qu'elle peut retourner :
+
+- **Enforcing** : SELinux est activé et applique les politiques de sécurité.
+- **Permissive** : SELinux est activé mais ne bloque pas les actions non autorisées, il enregistre simplement les violations.
+- **Disabled** : SELinux est désactivé.
+
+## Common Examples
+
+### Vérifier le mode SELinux
+Pour vérifier le mode actuel de SELinux, il suffit d'exécuter :
 
 ```bash
 getenforce
 ```
 
-Il n'y a pas d'options supplémentaires à utiliser avec cette commande, car elle ne nécessite pas d'arguments pour fonctionner. Elle renvoie simplement l'état actuel de SELinux.
-
-## Examples
-Voici quelques exemples pratiques pour illustrer l'utilisation de `getenforce`.
-
-### Exemple 1 : Vérifier l'état de SELinux
-Pour vérifier l'état de SELinux sur votre système, exécutez simplement :
+### Utiliser dans un script
+Vous pouvez utiliser `getenforce` dans un script pour prendre des décisions basées sur le mode SELinux. Par exemple :
 
 ```bash
-getenforce
-```
-
-Cela affichera l'un des trois états possibles :
-- Enforcing
-- Permissive
-- Disabled
-
-### Exemple 2 : Utilisation dans un script
-Vous pouvez également utiliser `getenforce` dans un script pour prendre des décisions basées sur l'état de SELinux. Par exemple :
-
-```bash
-if [ "$(getenforce)" = "Enforcing" ]; then
-    echo "SELinux est en mode Enforcing."
+if [ "$(getenforce)" == "Enforcing" ]; then
+    echo "SELinux est en mode enforcing."
 else
-    echo "SELinux n'est pas en mode Enforcing."
+    echo "SELinux n'est pas en mode enforcing."
 fi
 ```
 
-Ce script vérifie si SELinux est en mode Enforcing et affiche un message approprié.
+### Afficher le mode dans un message
+Pour afficher le mode SELinux dans un message :
+
+```bash
+echo "Le mode SELinux actuel est : $(getenforce)"
+```
 
 ## Tips
-- **Vérifiez régulièrement l'état de SELinux** : Il est recommandé de vérifier l'état de SELinux lors de la configuration de nouveaux services ou applications pour vous assurer qu'ils fonctionnent correctement avec les politiques de sécurité en place.
-- **Utilisez avec d'autres commandes** : Combinez `getenforce` avec d'autres commandes comme `setenforce` pour changer le mode de SELinux si nécessaire, mais soyez prudent lors de la modification des paramètres de sécurité.
-- **Documentation** : Consultez la documentation officielle de SELinux pour mieux comprendre les implications de chaque mode et comment cela peut affecter vos applications.
-
-En suivant ces conseils, vous pourrez utiliser efficacement la commande `getenforce` pour gérer la sécurité de votre système Linux.
+- Utilisez `getenforce` régulièrement pour vérifier l'état de SELinux, surtout lors de la configuration de services ou d'applications sensibles à la sécurité.
+- Intégrez `getenforce` dans vos scripts pour automatiser les vérifications de sécurité.
+- Familiarisez-vous avec les implications des différents modes de SELinux pour mieux gérer la sécurité de votre système.

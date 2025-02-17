@@ -1,50 +1,53 @@
-# [리눅스] Bash fdisk 사용법
+# [Linux] Bash fdisk Uso: Gerenciar partições de disco
 
-## Visão Geral
-O comando `fdisk` é uma ferramenta de particionamento de disco utilizada em sistemas operacionais baseados em Unix, como Linux. Sua principal função é permitir que os usuários criem, excluam, redimensionem e gerenciem partições em discos rígidos e outros dispositivos de armazenamento. O `fdisk` é especialmente útil para administradores de sistema que precisam configurar discos para instalação de sistemas operacionais ou para gerenciar espaço em disco.
+## Overview
+O comando `fdisk` é uma ferramenta de linha de comando utilizada para criar, excluir e gerenciar partições em discos rígidos e dispositivos de armazenamento. Ele é especialmente útil para usuários que precisam configurar partições em sistemas Linux.
 
-## Uso
+## Usage
 A sintaxe básica do comando `fdisk` é a seguinte:
 
 ```bash
-fdisk [opções] dispositivo
+fdisk [opções] [dispositivo]
 ```
 
-### Opções Comuns:
-- `-l`: Lista as partições de todos os dispositivos ou de um dispositivo específico.
-- `-u`: Exibe tamanhos de partição em setores em vez de cilindros.
-- `-n`: Cria uma nova partição.
-- `-d`: Exclui uma partição existente.
-- `-t`: Altera o tipo de uma partição.
+Onde `[dispositivo]` é o caminho para o dispositivo que você deseja manipular, como `/dev/sda`.
 
-## Exemplos
+## Common Options
+Aqui estão algumas opções comuns do `fdisk`:
 
-### Exemplo 1: Listar Partições
-Para listar as partições de todos os dispositivos conectados, você pode usar o seguinte comando:
+- `-l`: Lista todas as partições em todos os dispositivos.
+- `-u`: Usa setores como unidades de medida em vez de cilindros.
+- `-v`: Exibe a versão do `fdisk`.
+- `-s`: Exibe o tamanho de uma partição específica.
+
+## Common Examples
+
+### Listar Partições
+Para listar todas as partições em todos os dispositivos, você pode usar:
 
 ```bash
-sudo fdisk -l
+fdisk -l
 ```
 
-Esse comando exibirá uma lista de todos os discos e suas respectivas partições, incluindo informações sobre tamanho e tipo.
-
-### Exemplo 2: Criar uma Nova Partição
-Para criar uma nova partição em um dispositivo específico, como `/dev/sda`, você pode iniciar o `fdisk` com o seguinte comando:
+### Criar uma Nova Partição
+Para criar uma nova partição em um dispositivo específico, inicie o `fdisk` com o dispositivo desejado:
 
 ```bash
-sudo fdisk /dev/sda
+fdisk /dev/sda
+```
+Depois, siga as instruções interativas para criar uma nova partição.
+
+### Excluir uma Partição
+Para excluir uma partição, inicie o `fdisk` como mostrado acima e, em seguida, use o comando `d` para deletar a partição desejada.
+
+### Verificar o Tamanho de uma Partição
+Para verificar o tamanho de uma partição específica, você pode usar:
+
+```bash
+fdisk -s /dev/sda1
 ```
 
-Uma vez dentro do prompt do `fdisk`, você pode usar os seguintes comandos:
-1. Digite `n` para criar uma nova partição.
-2. Selecione o tipo de partição (primária ou estendida).
-3. Siga as instruções para definir o número da partição e o tamanho.
-4. Após concluir, digite `w` para gravar as alterações no disco.
-
-## Dicas
-- **Backup**: Sempre faça backup dos dados importantes antes de modificar partições, pois alterações podem resultar em perda de dados.
-- **Cuidado com o Dispositivo**: Certifique-se de especificar o dispositivo correto ao usar o `fdisk`, pois operações em um disco errado podem causar danos irreparáveis.
-- **Verifique o Sistema de Arquivos**: Após criar ou modificar partições, use ferramentas como `mkfs` para formatar a nova partição antes de usá-la.
-- **Utilize com Sudo**: O `fdisk` geralmente requer privilégios de superusuário, então use `sudo` para executar o comando.
-
-O `fdisk` é uma ferramenta poderosa, mas deve ser usada com cautela. Familiarize-se com suas funcionalidades e sempre siga as melhores práticas de segurança ao gerenciar partições de disco.
+## Tips
+- Sempre faça backup dos seus dados antes de modificar partições, pois alterações podem resultar em perda de dados.
+- Use o comando `man fdisk` para acessar o manual e obter mais informações sobre as opções disponíveis.
+- Após fazer alterações nas partições, pode ser necessário reiniciar o sistema para que as mudanças tenham efeito.

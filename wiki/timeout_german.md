@@ -1,40 +1,48 @@
-# [리눅스] Bash timeout 사용법
+# [Linux] Bash timeout Verwendung: Begrenzt die Ausführungszeit eines Befehls
 
 ## Übersicht
-Der `timeout` Befehl in Bash wird verwendet, um einen bestimmten Prozess oder Befehl nach einer festgelegten Zeitspanne zu beenden. Dies ist besonders nützlich, wenn Sie sicherstellen möchten, dass ein Skript oder ein Befehl nicht unbegrenzt läuft und Ressourcen verbraucht. Mit `timeout` können Sie die Ausführungszeit eines Befehls kontrollieren und gegebenenfalls beenden, wenn dieser zu lange dauert.
+Der `timeout` Befehl in Bash wird verwendet, um die Ausführungszeit eines anderen Befehls zu begrenzen. Wenn der angegebene Befehl die festgelegte Zeit überschreitet, wird er automatisch beendet. Dies ist besonders nützlich, um sicherzustellen, dass Skripte oder Prozesse nicht unendlich lange laufen.
 
 ## Verwendung
 Die grundlegende Syntax des `timeout` Befehls lautet:
 
 ```bash
-timeout [OPTIONEN] DURATION COMMAND [ARGUMENTE...]
+timeout [Optionen] Dauer Befehl [Argumente]
 ```
 
-Hierbei sind die wichtigsten Komponenten:
-- `DURATION`: Die Zeitspanne, nach der der Befehl beendet werden soll. Dies kann in Sekunden (z.B. `10s`), Minuten (z.B. `5m`) oder Stunden (z.B. `1h`) angegeben werden.
-- `COMMAND`: Der auszuführende Befehl, der möglicherweise zeitlich begrenzt werden soll.
-- `ARGUMENTE`: Optionale Argumente, die an den Befehl übergeben werden.
+## Häufige Optionen
+- `-s, --signal SIGNAL`: Gibt das Signal an, das gesendet werden soll, wenn der Timeout erreicht ist (Standard ist `SIGTERM`).
+- `--preserve-status`: Beibehaltung des Exit-Status des Befehls, auch wenn er durch `timeout` beendet wurde.
+- `-v, --verbose`: Gibt eine Meldung aus, wenn der Timeout erreicht wird.
 
-### Häufige Optionen
-- `-s`, `--signal`: Gibt das Signal an, das an den Befehl gesendet werden soll, wenn die Zeit abläuft. Standardmäßig wird das `SIGTERM` Signal verwendet.
-- `-k`, `--kill-after`: Gibt eine zusätzliche Zeitspanne an, nach der ein `SIGKILL` Signal gesendet wird, falls der Befehl nicht bereits beendet wurde.
+## Häufige Beispiele
 
-## Beispiele
-Hier sind einige praktische Beispiele zur Verwendung des `timeout` Befehls:
-
-1. Beenden eines Befehls nach 5 Sekunden:
+1. **Ein einfacher Timeout von 5 Sekunden für einen Befehl:**
    ```bash
    timeout 5s sleep 10
    ```
-   In diesem Beispiel wird der `sleep` Befehl, der normalerweise 10 Sekunden dauert, nach 5 Sekunden beendet.
+   In diesem Beispiel wird der `sleep` Befehl nach 5 Sekunden abgebrochen, obwohl er 10 Sekunden dauern würde.
 
-2. Verwendung eines spezifischen Signals:
+2. **Verwendung eines anderen Signals:**
    ```bash
-   timeout -s SIGINT 3s ping google.com
+   timeout -s SIGKILL 5s sleep 10
    ```
-   Hier wird der `ping` Befehl nach 3 Sekunden mit dem `SIGINT` Signal beendet.
+   Hier wird der `sleep` Befehl nach 5 Sekunden mit dem `SIGKILL` Signal beendet.
+
+3. **Beibehaltung des Exit-Status:**
+   ```bash
+   timeout --preserve-status 5s false
+   echo $?
+   ```
+   In diesem Fall wird der Befehl `false` nach 5 Sekunden beendet, und der Exit-Status bleibt erhalten, sodass der Wert von `$?` den Status von `false` anzeigt.
+
+4. **Verbose Ausgabe aktivieren:**
+   ```bash
+   timeout -v 5s sleep 10
+   ```
+   Dies gibt eine Meldung aus, wenn der Timeout erreicht wird.
 
 ## Tipps
-- Verwenden Sie `timeout` in Skripten, um sicherzustellen, dass lang laufende Prozesse nicht unbeaufsichtigt bleiben.
-- Testen Sie die Zeitüberschreitungen in einer sicheren Umgebung, um sicherzustellen, dass wichtige Prozesse nicht versehentlich beendet werden.
-- Nutzen Sie die `--kill-after` Option, um sicherzustellen, dass Prozesse, die nicht auf das erste Signal reagieren, nach einer bestimmten Zeit endgültig beendet werden.
+- Verwenden Sie `--preserve-status`, wenn Sie den Exit-Status des Befehls nach dem Timeout benötigen.
+- Experimentieren Sie mit verschiedenen Signalen, um zu sehen, welches Verhalten für Ihre Anwendung am besten geeignet ist.
+- Nutzen Sie `timeout` in Skripten, um sicherzustellen, dass Prozesse nicht hängen bleiben und Ressourcen blockieren.

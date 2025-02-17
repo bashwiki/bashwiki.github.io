@@ -1,44 +1,49 @@
-# [리눅스] Bash wait 사용법
+# [Linux] Bash wait Kullanımı: İşlem bekletme komutu
 
 ## Overview
-`wait` komutu, bir veya daha fazla arka plan işleminin tamamlanmasını beklemek için kullanılır. Bu komut, özellikle birden fazla işlemi aynı anda çalıştırdığınızda ve bu işlemlerin sonuçlarını almak istediğinizde faydalıdır. `wait`, belirtilen bir işlem kimliğini (PID) veya hiçbir argüman verilmediğinde mevcut shell'deki tüm arka plan işlemlerini bekler.
+`wait` komutu, bir veya daha fazla arka plan işleminin tamamlanmasını beklemek için kullanılır. Bu komut, genellikle bir betik içinde arka planda çalışan işlemlerin sonuçlarını almak için kullanılır.
 
 ## Usage
-Temel kullanım şekli aşağıdaki gibidir:
+Temel sözdizimi şu şekildedir:
 
 ```bash
-wait [PID...]
+wait [options] [arguments]
 ```
 
-- **PID**: Beklemek istediğiniz arka plan işleminin işlem kimliğidir. Birden fazla PID belirtebilirsiniz. Eğer hiçbir PID verilmezse, `wait` mevcut shell'deki tüm arka plan işlemlerini bekler.
+## Common Options
+- `-n`: Beklemek için belirtilen işlemlerden herhangi birinin tamamlanmasını bekler.
+- `PID`: Belirtilen işlem kimliğine (PID) sahip işlemi bekler. Eğer PID verilmezse, tüm arka plan işlemleri beklenir.
 
-## Examples
-### Örnek 1: Tek bir arka plan işlemini beklemek
-Aşağıdaki örnekte, bir arka plan işlemi başlatılır ve ardından `wait` komutu ile bu işlemin tamamlanması beklenir.
+## Common Examples
 
+### Örnek 1: Arka planda bir işlem başlatma ve bekleme
 ```bash
-sleep 5 &  # 5 saniye bekleyen bir arka plan işlemi başlat
-PID=$!     # Arka plan işleminin PID'sini al
-echo "Arka plan işlemi başlatıldı, PID: $PID"
-wait $PID  # Belirtilen PID'yi bekle
-echo "Arka plan işlemi tamamlandı."
+sleep 5 &
+wait
+echo "5 saniye bekledikten sonra devam edildi."
 ```
+Bu örnekte, `sleep 5` komutu arka planda çalıştırılır ve `wait` komutu, bu işlemin tamamlanmasını bekler.
 
-### Örnek 2: Birden fazla arka plan işlemini beklemek
-Aşağıdaki örnekte, iki arka plan işlemi başlatılır ve her ikisinin de tamamlanması beklenir.
-
+### Örnek 2: Belirli bir PID için bekleme
 ```bash
-sleep 3 &  # İlk arka plan işlemi
-PID1=$!    # İlk işlemin PID'sini al
-sleep 4 &  # İkinci arka plan işlemi
-PID2=$!    # İkinci işlemin PID'sini al
-
-echo "İki arka plan işlemi başlatıldı, PID1: $PID1, PID2: $PID2"
-wait $PID1 $PID2  # Her iki PID'yi bekle
-echo "Her iki arka plan işlemi tamamlandı."
+sleep 3 &
+PID=$!
+echo "PID: $PID"
+wait $PID
+echo "İşlem tamamlandı."
 ```
+Burada, `sleep 3` komutunun PID'si alınır ve `wait` komutu bu PID için bekler.
+
+### Örnek 3: Birden fazla arka plan işlemi için bekleme
+```bash
+sleep 2 &
+sleep 4 &
+wait
+echo "Tüm işlemler tamamlandı."
+```
+Bu örnekte, iki arka plan işlemi başlatılır ve `wait` komutu, her iki işlemin de tamamlanmasını bekler.
 
 ## Tips
-- `wait` komutunu kullanırken, arka plan işlemlerinin PID'lerini kaydetmek için `$!` değişkenini kullanmayı unutmayın.
-- Birden fazla işlemi beklerken, işlemlerin tamamlanma sürelerini göz önünde bulundurarak hangi işlemin daha önce tamamlanacağını tahmin edebilirsiniz.
-- `wait` komutu, bir hata oluşursa hata kodunu döndürür. Bu nedenle, `wait` komutunu kullandıktan sonra `$?` değişkenini kontrol ederek işlemin başarılı bir şekilde tamamlanıp tamamlanmadığını kontrol edebilirsiniz.
+- Arka planda çalışan işlemlerinizin sonuçlarını almak için `wait` komutunu kullanmayı unutmayın.
+- `wait` komutunu kullanırken, hangi işlemi beklediğinizi bilmek için PID'leri takip etmek iyi bir uygulamadır.
+- Eğer birden fazla işlem başlattıysanız, `-n` seçeneği ile herhangi birinin tamamlanmasını beklemek, zaman kazandırabilir.

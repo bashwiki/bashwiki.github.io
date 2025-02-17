@@ -1,46 +1,53 @@
-# [리눅스] Bash firewalld 사용법
+# [Linux] Bash firewalld Uso: Gerenciar regras de firewall
 
 ## Overview
-O `firewalld` é um gerenciador de firewall dinâmico que fornece uma interface para gerenciar regras de firewall em sistemas Linux. Ele permite que os usuários configurem regras de firewall de forma mais flexível e intuitiva, utilizando zonas e serviços, em vez de regras de iptables estáticas. O principal propósito do `firewalld` é proteger sistemas e redes, controlando o tráfego de entrada e saída com base em políticas definidas pelo usuário.
+O comando `firewalld` é uma ferramenta de gerenciamento de firewall que fornece uma interface dinâmica para configurar regras de firewall no Linux. Ele permite que os usuários definam e gerenciem zonas de segurança e regras de filtragem de pacotes de forma simples e eficaz.
 
 ## Usage
 A sintaxe básica do comando `firewalld` é a seguinte:
 
 ```bash
-firewall-cmd [OPÇÕES]
+firewalld [opções] [argumentos]
 ```
 
-Algumas opções comuns incluem:
+## Common Options
+Aqui estão algumas opções comuns que você pode usar com o `firewalld`:
 
-- `--zone=<zona>`: Especifica a zona na qual a regra será aplicada.
+- `--zone=<zona>`: Especifica a zona de firewall a ser usada.
 - `--add-service=<serviço>`: Adiciona um serviço à zona especificada.
 - `--remove-service=<serviço>`: Remove um serviço da zona especificada.
-- `--list-all`: Lista todas as configurações da zona atual, incluindo serviços, portas e regras.
-- `--permanent`: Aplica as mudanças de forma permanente, ou seja, persiste após a reinicialização do sistema.
+- `--list-all`: Lista todas as regras e serviços configurados na zona atual.
+- `--set-target=<alvo>`: Define o alvo da zona (por exemplo, `ACCEPT`, `DROP`).
 
-## Examples
-### Exemplo 1: Adicionar um serviço à zona pública
-Para adicionar o serviço HTTP à zona pública, você pode usar o seguinte comando:
+## Common Examples
+Aqui estão alguns exemplos práticos de como usar o `firewalld`:
 
-```bash
-sudo firewall-cmd --zone=public --add-service=http --permanent
-```
+1. **Listar todas as zonas disponíveis:**
+   ```bash
+   firewall-cmd --get-zones
+   ```
 
-Após adicionar o serviço, é necessário recarregar as configurações do `firewalld` para que as mudanças tenham efeito:
+2. **Adicionar o serviço HTTP à zona pública:**
+   ```bash
+   firewall-cmd --zone=public --add-service=http
+   ```
 
-```bash
-sudo firewall-cmd --reload
-```
+3. **Remover o serviço SSH da zona interna:**
+   ```bash
+   firewall-cmd --zone=internal --remove-service=ssh
+   ```
 
-### Exemplo 2: Listar todas as configurações da zona atual
-Para visualizar todas as configurações da zona atual, incluindo serviços e portas permitidas, utilize:
+4. **Listar todas as regras na zona pública:**
+   ```bash
+   firewall-cmd --zone=public --list-all
+   ```
 
-```bash
-sudo firewall-cmd --list-all
-```
+5. **Definir a zona de um dispositivo de rede:**
+   ```bash
+   firewall-cmd --zone=home --change-interface=eth0
+   ```
 
 ## Tips
-- Sempre utilize a opção `--permanent` ao adicionar ou remover serviços se você deseja que as mudanças persistam após a reinicialização do sistema.
-- Use `firewall-cmd --state` para verificar se o `firewalld` está ativo e em execução.
-- Considere a utilização de zonas para organizar melhor as regras de firewall, permitindo que diferentes interfaces de rede tenham diferentes níveis de segurança.
-- Teste suas configurações em um ambiente seguro antes de aplicá-las em produção para evitar interrupções no serviço.
+- Sempre verifique a configuração atual do firewall antes de fazer alterações, usando `firewall-cmd --list-all`.
+- Use a opção `--permanent` para tornar as alterações persistentes após a reinicialização do sistema.
+- Teste suas regras em um ambiente seguro antes de aplicá-las em um servidor de produção para evitar interrupções no serviço.

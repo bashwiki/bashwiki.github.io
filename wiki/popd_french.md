@@ -1,44 +1,47 @@
-# [리눅스] Bash popd 사용법
+# [Linux] Bash popd : Gérer les répertoires dans la pile
 
 ## Overview
-La commande `popd` est utilisée dans l'environnement de shell Bash pour gérer la pile de répertoires. Son but principal est de supprimer le répertoire le plus récemment ajouté à la pile et de changer le répertoire de travail courant pour celui-ci. Cela permet aux utilisateurs de naviguer facilement entre plusieurs répertoires sans avoir à taper les chemins complets.
+La commande `popd` est utilisée pour supprimer le répertoire supérieur de la pile de répertoires et se déplacer vers ce répertoire. Elle est souvent utilisée en conjonction avec la commande `pushd`, qui ajoute un répertoire à la pile.
 
 ## Usage
-La syntaxe de base de la commande `popd` est la suivante :
+La syntaxe de base de la commande est la suivante :
 
 ```bash
 popd [options]
 ```
 
-### Options courantes :
-- `-n` : Ne change pas le répertoire de travail, mais supprime le répertoire du sommet de la pile.
-- `+n` : Supprime le répertoire à la position `n` dans la pile (en commençant par 0 pour le sommet).
-- `-n` : Supprime le répertoire à la position `n` en partant de la fin de la pile.
+## Common Options
+- `-n` : Ne pas changer de répertoire, juste supprimer le répertoire supérieur de la pile.
+- `+N` : Accéder au répertoire à la position N dans la pile, en commençant par 0 pour le répertoire supérieur.
 
-## Examples
-### Exemple 1 : Utilisation de base
-Supposons que vous ayez déjà ajouté des répertoires à la pile avec la commande `pushd`. Vous pouvez revenir au répertoire précédent avec :
+## Common Examples
 
+### Exemple 1 : Retourner au répertoire précédent
 ```bash
 pushd /chemin/vers/repertoire1
 pushd /chemin/vers/repertoire2
 popd
 ```
+Dans cet exemple, après avoir exécuté `popd`, vous reviendrez à `/chemin/vers/repertoire1`.
 
-Après l'exécution de `popd`, vous serez de retour dans `/chemin/vers/repertoire1`.
-
-### Exemple 2 : Utilisation avec l'option `-n`
-Si vous souhaitez simplement retirer un répertoire de la pile sans changer le répertoire courant, vous pouvez utiliser l'option `-n` :
-
+### Exemple 2 : Utiliser l'option `-n`
 ```bash
 pushd /chemin/vers/repertoire1
 pushd /chemin/vers/repertoire2
 popd -n
 ```
+Ici, `popd -n` supprimera le répertoire supérieur de la pile sans changer le répertoire courant.
 
-Dans cet exemple, `popd -n` retirera `/chemin/vers/repertoire2` de la pile, mais vous resterez dans `/chemin/vers/repertoire2`.
+### Exemple 3 : Accéder à un répertoire spécifique dans la pile
+```bash
+pushd /chemin/vers/repertoire1
+pushd /chemin/vers/repertoire2
+pushd /chemin/vers/repertoire3
+popd +1
+```
+Cet exemple vous ramènera à `/chemin/vers/repertoire2`, qui est le répertoire à la position 1 dans la pile.
 
 ## Tips
-- Utilisez `dirs` pour afficher le contenu actuel de la pile de répertoires avant ou après l'utilisation de `popd`. Cela vous aidera à visualiser votre position dans la pile.
-- Combinez `pushd` et `popd` pour créer des scripts de navigation efficaces lorsque vous travaillez sur plusieurs projets ou répertoires.
-- Soyez conscient de l'ordre dans lequel vous utilisez `pushd` et `popd`, car un mauvais usage peut vous ramener à un répertoire inattendu.
+- Utilisez `pushd` et `popd` ensemble pour naviguer facilement entre plusieurs répertoires sans avoir à taper les chemins complets.
+- Vérifiez l'état de la pile de répertoires avec la commande `dirs` pour voir quels répertoires sont actuellement stockés.
+- Soyez prudent avec l'utilisation de l'option `+N`, car elle peut vous amener à un répertoire inattendu si vous ne connaissez pas bien l'ordre de la pile.

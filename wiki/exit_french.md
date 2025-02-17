@@ -1,41 +1,54 @@
-# [리눅스] Bash exit 사용법
+# [Linux] Bash exit usage : Terminer un script ou une session
 
 ## Overview
-La commande `exit` dans Bash est utilisée pour quitter un shell ou un script en cours d'exécution. Elle permet de terminer le processus en cours et de retourner un code de sortie à l'environnement appelant. Ce code de sortie est un entier qui indique si le script ou la commande s'est terminé avec succès ou s'il y a eu une erreur. Par convention, un code de sortie de `0` indique un succès, tandis qu'un code différent de `0` indique une erreur.
+La commande `exit` est utilisée dans les scripts Bash pour terminer l'exécution d'un script ou d'une session de terminal. Elle permet également de renvoyer un code de sortie qui peut indiquer le succès ou l'échec d'une opération.
 
 ## Usage
 La syntaxe de base de la commande `exit` est la suivante :
 
 ```bash
-exit [n]
+exit [options] [n]
 ```
 
-Où `n` est un entier optionnel qui représente le code de sortie. Si aucun code n'est spécifié, le code de sortie sera celui de la dernière commande exécutée.
+Ici, `n` est un nombre entier qui représente le code de sortie.
 
-### Options courantes
-- `n`: Un entier qui définit le code de sortie. Par exemple, `exit 1` indique une erreur, tandis que `exit 0` indique un succès.
+## Common Options
+- `n` : Un code de sortie numérique. Par convention, un code de sortie de `0` indique un succès, tandis qu'un code différent de `0` indique une erreur.
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `exit`.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `exit` :
 
-### Exemple 1 : Quitter un script avec succès
-```bash
-#!/bin/bash
-echo "Exécution du script..."
-# Code du script ici
-exit 0
-```
-Dans cet exemple, le script s'exécute et se termine avec succès en renvoyant le code de sortie `0`.
+1. Terminer un script avec succès :
+   ```bash
+   #!/bin/bash
+   echo "Script terminé avec succès."
+   exit 0
+   ```
 
-### Exemple 2 : Quitter un script avec une erreur
-```bash
-#!/bin/bash
-echo "Une erreur s'est produite."
-exit 1
-```
-Ici, le script signale une erreur et se termine avec le code de sortie `1`.
+2. Terminer un script avec une erreur :
+   ```bash
+   #!/bin/bash
+   echo "Une erreur est survenue."
+   exit 1
+   ```
+
+3. Utiliser exit dans une session interactive :
+   ```bash
+   exit
+   ```
+
+4. Terminer un script après une condition :
+   ```bash
+   #!/bin/bash
+   if [ ! -f "fichier.txt" ]; then
+       echo "Le fichier n'existe pas."
+       exit 1
+   fi
+   echo "Le fichier existe."
+   exit 0
+   ```
 
 ## Tips
-- Utilisez toujours des codes de sortie explicites pour faciliter le débogage. Cela permet aux utilisateurs de comprendre rapidement si un script a réussi ou échoué.
-- Lorsque vous écrivez des scripts complexes, envisagez d'utiliser des codes de sortie différents pour différents types d'erreurs. Cela peut aider à diagnostiquer des problèmes plus facilement.
-- N'oubliez pas que la commande `exit` ne peut être utilisée que dans un shell interactif ou un script. Dans un terminal, elle fermera simplement le shell en cours.
+- Utilisez `exit 0` pour indiquer que votre script s'est exécuté avec succès.
+- Utilisez des codes de sortie différents pour différentes erreurs afin de faciliter le débogage.
+- N'oubliez pas que `exit` terminera non seulement le script, mais aussi la session de terminal si elle est utilisée dans un terminal interactif.

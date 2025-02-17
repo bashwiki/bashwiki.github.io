@@ -1,40 +1,47 @@
-# [리눅스] Bash rar 사용법
+# [Linux] Bash rar cách sử dụng: Nén và giải nén tệp tin
 
 ## Tổng quan
-Lệnh `rar` là một công cụ dòng lệnh được sử dụng để nén và giải nén các tệp tin trong định dạng RAR. Được phát triển bởi Eugene Roshal, RAR là một trong những định dạng nén phổ biến, cho phép nén tệp tin hiệu quả và hỗ trợ nhiều tính năng như mã hóa và phân chia tệp tin. Lệnh `rar` thường được sử dụng trong các môi trường Unix/Linux để quản lý các tệp tin nén.
+Lệnh `rar` được sử dụng để nén và giải nén các tệp tin trong định dạng RAR. Đây là một công cụ mạnh mẽ giúp tiết kiệm không gian lưu trữ và dễ dàng chia sẻ tệp tin.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `rar` như sau:
-
 ```
-rar [tùy chọn] [lệnh] [tệp tin]
+rar [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `a`: Thêm tệp tin vào một tệp RAR.
-- `x`: Giải nén tệp tin từ một tệp RAR.
-- `v`: Hiển thị thông tin chi tiết về quá trình nén hoặc giải nén.
-- `m`: Chỉ định mức độ nén (0-5), với 0 là không nén và 5 là nén tối đa.
-- `p`: Thiết lập mật khẩu cho tệp RAR.
+## Các tùy chọn phổ biến
+- `a`: Thêm tệp vào một tệp RAR.
+- `x`: Giải nén tệp RAR.
+- `t`: Kiểm tra tính toàn vẹn của tệp RAR.
+- `v`: Hiển thị thông tin chi tiết trong quá trình nén hoặc giải nén.
+- `r`: Nén các tệp trong thư mục con.
 
-## Ví dụ
-### Ví dụ 1: Nén tệp tin
-Để nén một tệp tin có tên `file.txt` thành tệp RAR có tên `archive.rar`, bạn có thể sử dụng lệnh sau:
-
+## Ví dụ phổ biến
+- **Nén một tệp tin**:
 ```bash
 rar a archive.rar file.txt
 ```
+Lệnh này sẽ nén `file.txt` vào tệp `archive.rar`.
 
-### Ví dụ 2: Giải nén tệp RAR
-Để giải nén tệp `archive.rar` vào thư mục hiện tại, bạn có thể sử dụng lệnh sau:
-
+- **Giải nén một tệp RAR**:
 ```bash
 rar x archive.rar
 ```
+Lệnh này sẽ giải nén tất cả các tệp trong `archive.rar` vào thư mục hiện tại.
+
+- **Nén một thư mục**:
+```bash
+rar a archive.rar /path/to/directory
+```
+Lệnh này sẽ nén toàn bộ thư mục vào tệp `archive.rar`.
+
+- **Kiểm tra tính toàn vẹn của tệp RAR**:
+```bash
+rar t archive.rar
+```
+Lệnh này sẽ kiểm tra xem các tệp trong `archive.rar` có bị hỏng hay không.
 
 ## Mẹo
-- Khi nén nhiều tệp tin, bạn có thể sử dụng ký tự đại diện (wildcard) để chọn nhiều tệp tin cùng lúc. Ví dụ: `rar a archive.rar *.txt` sẽ nén tất cả các tệp tin có đuôi `.txt` trong thư mục hiện tại.
-- Để tăng cường bảo mật, hãy sử dụng tùy chọn `p` để thiết lập mật khẩu cho tệp RAR của bạn, ví dụ: `rar a -pYourPassword archive.rar file.txt`.
-- Hãy kiểm tra tệp RAR sau khi nén bằng cách sử dụng tùy chọn `t` để đảm bảo rằng tệp đã được nén đúng cách: `rar t archive.rar`.
-
-Sử dụng lệnh `rar` một cách hiệu quả sẽ giúp bạn quản lý các tệp tin nén một cách dễ dàng và an toàn.
+- Luôn kiểm tra tính toàn vẹn của tệp RAR sau khi giải nén để đảm bảo không có tệp nào bị hỏng.
+- Sử dụng tùy chọn `v` để theo dõi quá trình nén hoặc giải nén, điều này giúp bạn biết được tiến độ của lệnh.
+- Khi nén nhiều tệp, hãy sử dụng tùy chọn `r` để bao gồm cả các tệp trong thư mục con, giúp tiết kiệm thời gian và công sức.

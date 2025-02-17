@@ -1,38 +1,49 @@
-# [리눅스] Bash suspend 사용법
+# [Linux] Bash suspend Kullanımı: Arka planda işlemi duraklatma
 
 ## Overview
-`suspend` komutu, bir Bash shell oturumunu askıya almak için kullanılır. Bu komut, kullanıcıların mevcut shell oturumunu geçici olarak durdurmasına ve daha sonra bu oturuma geri dönmesine olanak tanır. Özellikle çoklu görev yaparken veya başka bir işleme geçiş yapmak gerektiğinde faydalıdır.
+`suspend` komutu, bir terminal oturumundaki aktif işlemi geçici olarak duraklatmak için kullanılır. Bu komut, genellikle bir işlemi arka planda çalıştırmak ve daha sonra devam ettirmek amacıyla kullanılır.
 
 ## Usage
-`suspend` komutunun temel kullanımı oldukça basittir. Komut, doğrudan terminalde yazılarak çalıştırılır:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-suspend
+suspend [options] [arguments]
 ```
 
-Bu komut, mevcut shell oturumunu askıya alır. Kullanıcı, askıya alınmış oturuma geri dönmek için `fg` (foreground) komutunu kullanabilir.
+## Common Options
+- `-h`, `--help`: Komut hakkında yardım bilgisi gösterir.
+- `-v`, `--version`: Komutun sürüm bilgisini gösterir.
 
-## Examples
-### Örnek 1: Shell Oturumunu Askıya Alma
-Aşağıdaki komut, mevcut shell oturumunu askıya alır:
+## Common Examples
+Aşağıda `suspend` komutunun bazı pratik örnekleri bulunmaktadır:
+
+### Örnek 1: Geçici Olarak Durdurma
+Bir terminalde çalışan bir işlemi duraklatmak için `Ctrl + Z` tuş kombinasyonunu kullanabilirsiniz. Bu, işlemi duraklatır ve arka plana alır.
 
 ```bash
-suspend
+# Bir işlem başlatın
+sleep 100
+
+# Ardından duraklatmak için Ctrl + Z tuşlarına basın
 ```
 
-Bu komut çalıştırıldığında, terminal oturumu askıya alınır ve kullanıcı başka bir terminal penceresinde veya uygulamada çalışabilir. Geri dönmek için, askıya alınmış oturumun bulunduğu terminal penceresinde `fg` komutunu yazmak yeterlidir.
-
-### Örnek 2: Çoklu Görev Yönetimi
-Bir dosya kopyalama işlemi sırasında, kullanıcı `suspend` komutunu kullanarak shell oturumunu askıya alabilir ve başka bir işlem yapabilir:
+### Örnek 2: Durdurulan İşlemi Devam Ettirme
+Durdurulan bir işlemi devam ettirmek için `fg` komutunu kullanabilirsiniz.
 
 ```bash
-cp büyük_dosya.txt /hedef/konum/
-suspend
+# Durdurulan işlemi devam ettirmek için
+fg
 ```
 
-Bu durumda, dosya kopyalama işlemi askıya alınır ve kullanıcı başka bir terminalde çalışabilir. İşlem tamamlandıktan sonra, `fg` komutuyla oturuma geri dönebilir.
+### Örnek 3: Arka Planda Çalıştırma
+Durdurulan bir işlemi arka planda çalıştırmak için `bg` komutunu kullanabilirsiniz.
+
+```bash
+# Durdurulan işlemi arka planda çalıştırmak için
+bg
+```
 
 ## Tips
-- `suspend` komutunu kullanmadan önce, askıya alınan oturumda çalışmakta olduğunuz işlemlerin durumunu kontrol edin. Askıya alma işlemi, bazı durumlarda veri kaybına neden olabilir.
-- `fg` komutunu kullanarak askıya alınmış oturuma geri döndüğünüzde, işlemlerin durumu ve çıktıları üzerinde dikkatli olun. Özellikle uzun süren işlemler için bu durum önemlidir.
-- Eğer `suspend` komutunu kullanmak istemiyorsanız, terminal penceresini kapatmak da bir alternatif olabilir, ancak bu durumda çalışmakta olan işlemler sonlandırılacaktır.
+- `Ctrl + Z` ile duraklatılan işlemleri takip etmek için `jobs` komutunu kullanabilirsiniz.
+- Durdurulan işlemleri yönetmek için `fg` ve `bg` komutlarını etkili bir şekilde kullanın.
+- İşlemleri duraklatmak, uzun süren görevlerde terminali serbest bırakmak için faydalıdır.

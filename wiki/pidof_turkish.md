@@ -1,45 +1,42 @@
-# [리눅스] Bash pidof 사용법
+# [Linux] Bash pidof Kullanımı: Bir işlemin PID'sini bulma
 
 ## Overview
-`pidof` komutu, Linux işletim sistemlerinde belirli bir programın veya işlemin PID'lerini (Process ID) bulmak için kullanılır. Bu komut, bir veya daha fazla çalışmakta olan işlemin kimliğini belirlemek için oldukça yararlıdır. Genellikle, bir uygulamanın çalışıp çalışmadığını kontrol etmek veya belirli bir işlemi hedeflemek için kullanılır.
+`pidof` komutu, belirli bir programın veya işlemin Process ID (PID) numarasını bulmak için kullanılır. Bu, bir işlemi yönetmek veya izlemek için önemlidir.
 
 ## Usage
-`pidof` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-pidof [seçenekler] <program_adı>
+pidof [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-o <pid>`: Belirtilen PID'yi hariç tutar.
-- `-s`: Sadece ilk bulunan PID'yi döndürür.
-- `-c`: PID'lerin yanı sıra, işlem adını da gösterir.
+## Common Options
+- `-o, --exclude`: Belirtilen PID'leri hariç tutar.
+- `-s, --silent`: Çıktıyı sessiz modda verir; yalnızca PID varsa çıktı verir.
+- `-c, --help`: Yardım bilgilerini gösterir.
 
-## Examples
-### Örnek 1: Basit Kullanım
-Belirli bir programın PID'lerini bulmak için `pidof` komutunu kullanabilirsiniz. Örneğin, `bash` işleminin PID'lerini bulmak için:
+## Common Examples
+1. Belirli bir programın PID'sini bulmak:
+   ```bash
+   pidof firefox
+   ```
 
-```bash
-pidof bash
-```
+2. Birden fazla PID'yi almak:
+   ```bash
+   pidof bash
+   ```
 
-Bu komut, sistemde çalışan tüm `bash` işlemlerinin PID'lerini döndürecektir.
+3. Hariç tutma seçeneği ile PID'leri bulmak:
+   ```bash
+   pidof -o 1234 firefox
+   ```
 
-### Örnek 2: Sadece İlk PID'yi Alma
-Eğer sadece ilk bulunan PID'yi almak istiyorsanız `-s` seçeneğini kullanabilirsiniz:
-
-```bash
-pidof -s bash
-```
-
-Bu komut, yalnızca ilk `bash` işleminin PID'sini döndürecektir.
+4. Sessiz modda PID almak:
+   ```bash
+   pidof -s firefox
+   ```
 
 ## Tips
-- `pidof` komutunu, bir işlemin çalışıp çalışmadığını kontrol etmek için bir betikte kullanabilirsiniz. Örneğin, bir işlem çalışmıyorsa başlatmak için bir koşul oluşturabilirsiniz.
-- PID'leri kullanarak işlemleri sonlandırmak için `kill` komutunu `pidof` ile birleştirebilirsiniz. Örneğin, `bash` işlemini sonlandırmak için:
-
-```bash
-kill $(pidof bash)
-```
-
-Bu, sistemdeki tüm `bash` işlemlerini sonlandıracaktır.
+- `pidof` komutunu, bir işlemin çalışıp çalışmadığını kontrol etmek için kullanabilirsiniz.
+- Birden fazla PID döndüğünde, çıktıyı bir dosyaya yönlendirmek faydalı olabilir.
+- PID'leri kullanarak işlemleri sonlandırmak için `kill` komutuyla birlikte kullanabilirsiniz.

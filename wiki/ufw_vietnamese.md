@@ -1,40 +1,54 @@
-# [리눅스] Bash ufw 사용법
+# [Linux] Bash ufw Cách sử dụng: Quản lý tường lửa dễ dàng
 
 ## Tổng quan
-`ufw` (Uncomplicated Firewall) là một công cụ dòng lệnh được thiết kế để đơn giản hóa việc quản lý tường lửa trên hệ điều hành Linux. Mục đích chính của `ufw` là cung cấp một giao diện dễ sử dụng cho việc cấu hình tường lửa iptables, giúp người dùng có thể dễ dàng cho phép hoặc từ chối lưu lượng mạng đến và đi từ hệ thống của họ.
+Lệnh `ufw` (Uncomplicated Firewall) là một công cụ quản lý tường lửa đơn giản trên hệ điều hành Linux. Nó giúp người dùng thiết lập và quản lý các quy tắc tường lửa một cách dễ dàng, bảo vệ hệ thống khỏi các mối đe dọa từ mạng.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `ufw` như sau:
-
 ```
-ufw [các tùy chọn] [các tham số]
+ufw [options] [arguments]
 ```
 
-Một số tùy chọn phổ biến bao gồm:
+## Các tùy chọn phổ biến
 - `enable`: Bật tường lửa.
 - `disable`: Tắt tường lửa.
-- `allow`: Cho phép lưu lượng mạng cho một dịch vụ hoặc cổng cụ thể.
-- `deny`: Từ chối lưu lượng mạng cho một dịch vụ hoặc cổng cụ thể.
 - `status`: Hiển thị trạng thái hiện tại của tường lửa.
+- `allow [port]`: Cho phép lưu lượng truy cập qua cổng chỉ định.
+- `deny [port]`: Từ chối lưu lượng truy cập qua cổng chỉ định.
+- `delete [rule]`: Xóa một quy tắc tường lửa đã được thiết lập.
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `ufw`:
+## Ví dụ thường gặp
+- Bật tường lửa:
+  ```bash
+  ufw enable
+  ```
 
-1. **Bật tường lửa**:
-   ```bash
-   sudo ufw enable
-   ```
-   Lệnh này sẽ bật tường lửa và bắt đầu áp dụng các quy tắc đã được cấu hình.
+- Tắt tường lửa:
+  ```bash
+  ufw disable
+  ```
 
-2. **Cho phép lưu lượng HTTP**:
-   ```bash
-   sudo ufw allow http
-   ```
-   Lệnh này sẽ cho phép lưu lượng đến cổng 80 (HTTP), cho phép người dùng truy cập vào các dịch vụ web.
+- Kiểm tra trạng thái tường lửa:
+  ```bash
+  ufw status
+  ```
+
+- Cho phép lưu lượng truy cập qua cổng 80 (HTTP):
+  ```bash
+  ufw allow 80
+  ```
+
+- Từ chối lưu lượng truy cập qua cổng 22 (SSH):
+  ```bash
+  ufw deny 22
+  ```
+
+- Xóa quy tắc cho phép cổng 80:
+  ```bash
+  ufw delete allow 80
+  ```
 
 ## Mẹo
-- **Kiểm tra trạng thái**: Trước và sau khi thay đổi cấu hình tường lửa, hãy sử dụng lệnh `ufw status` để kiểm tra trạng thái và đảm bảo rằng các quy tắc đã được áp dụng đúng cách.
-- **Sao lưu cấu hình**: Trước khi thực hiện các thay đổi lớn, hãy sao lưu cấu hình hiện tại của tường lửa để có thể khôi phục nếu cần thiết.
-- **Sử dụng các dịch vụ cụ thể**: Thay vì chỉ định cổng, bạn có thể sử dụng tên dịch vụ (như `http`, `ssh`, v.v.) để dễ quản lý hơn.
-
-Hy vọng bài viết này sẽ giúp bạn hiểu rõ hơn về cách sử dụng `ufw` để quản lý tường lửa trên hệ thống Linux của mình!
+- Luôn kiểm tra trạng thái tường lửa sau khi thay đổi quy tắc để đảm bảo rằng các quy tắc đã được áp dụng đúng cách.
+- Sử dụng `ufw status verbose` để có thêm thông tin chi tiết về các quy tắc đang hoạt động.
+- Đảm bảo rằng bạn không chặn các cổng cần thiết cho việc truy cập từ xa, đặc biệt là cổng SSH, nếu bạn quản lý máy chủ từ xa.

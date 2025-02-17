@@ -1,41 +1,44 @@
-# [리눅스] Bash route 사용법
+# [Linux] Bash route kullanımı: Ağ yönlendirme tablolarını görüntüleme ve yönetme
 
 ## Overview
-`route` komutu, Linux ve Unix tabanlı işletim sistemlerinde ağ yönlendirme tablolarını görüntülemek ve yönetmek için kullanılır. Bu komut, sistemin hangi ağlara nasıl erişeceğini belirleyen yönlendirme kurallarını ayarlamak ve incelemek için önemli bir araçtır. Ağ yönlendirmesi, veri paketlerinin hedeflerine ulaşabilmesi için en uygun yolları belirler.
+`route` komutu, Linux sistemlerinde ağ yönlendirme tablolarını görüntülemek ve yönetmek için kullanılır. Bu komut, sistemin hangi ağlara nasıl ulaşacağını belirleyen yönlendirme bilgilerini gösterir ve gerektiğinde bu bilgileri değiştirmeye olanak tanır.
 
 ## Usage
-`route` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-route [OPTION] [ARGUMENTS]
+Temel sözdizimi aşağıdaki gibidir:
+```
+route [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-n`: IP adreslerini sayısal formatta gösterir, isim çözümlemesi yapmaz.
-- `add`: Yeni bir yönlendirme kuralı ekler.
-- `del`: Mevcut bir yönlendirme kuralını siler.
+## Common Options
+- `-n`: IP adreslerini ve ağları sayısal olarak gösterir, isim çözümlemesi yapmaz.
+- `add`: Yeni bir yönlendirme ekler.
+- `del`: Mevcut bir yönlendirmeyi siler.
 - `-e`: Yönlendirme tablosunu detaylı bir şekilde gösterir.
 
-## Examples
-### Örnek 1: Yönlendirme Tablosunu Görüntüleme
-Ağ yönlendirme tablonuzu görüntülemek için aşağıdaki komutu kullanabilirsiniz:
+## Common Examples
+Aşağıda `route` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-route -n
-```
+1. **Yönlendirme tablosunu görüntüleme:**
+   ```bash
+   route -n
+   ```
 
-Bu komut, yönlendirme tablonuzdaki tüm girişleri sayısal IP adresleriyle birlikte listeleyecektir.
+2. **Yeni bir yönlendirme ekleme:**
+   ```bash
+   route add -net 192.168.1.0/24 gw 192.168.1.1
+   ```
 
-### Örnek 2: Yeni Bir Yönlendirme Kuralı Ekleme
-Ağınıza yeni bir yönlendirme kuralı eklemek için şu komutu kullanabilirsiniz:
+3. **Bir yönlendirmeyi silme:**
+   ```bash
+   route del -net 192.168.1.0/24
+   ```
 
-```bash
-route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.1
-```
-
-Bu komut, 192.168.1.0/24 ağı için 192.168.1.1 geçiş noktasını belirler.
+4. **Detaylı yönlendirme tablosunu görüntüleme:**
+   ```bash
+   route -e
+   ```
 
 ## Tips
-- `route` komutunu kullanmadan önce, ağ yapılandırmanızı ve mevcut yönlendirme kurallarınızı iyice anlamak önemlidir.
-- Yönlendirme değişiklikleri yapmadan önce mevcut yönlendirme tablonuzun bir yedeğini almak iyi bir uygulamadır.
-- `route` komutunun bazı sistemlerde `ip route` komutuyla değiştirilmiş olabileceğini unutmayın; bu nedenle, sisteminizde hangi komutun kullanılacağını kontrol edin.
+- Yönlendirme tablolarını değiştirmeden önce mevcut ayarları yedeklemek iyi bir uygulamadır.
+- `route` komutunu kullanmadan önce, sisteminizdeki ağ yapılandırmasını anlamak için `ifconfig` veya `ip a` komutlarını kullanabilirsiniz.
+- Ağ ayarlarını değiştirmek için genellikle yönetici (root) yetkilerine ihtiyaç duyarsınız; bu nedenle komutları `sudo` ile çalıştırmayı unutmayın.

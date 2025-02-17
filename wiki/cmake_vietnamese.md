@@ -1,40 +1,47 @@
-# [리눅스] Bash cmake 사용법
+# [Linux] Bash cmake Cách sử dụng: Tạo và quản lý dự án phần mềm
 
 ## Tổng quan
-`cmake` là một công cụ quản lý xây dựng phần mềm, giúp tự động hóa quá trình biên dịch và xây dựng các dự án phần mềm. Nó sử dụng các tệp cấu hình để tạo ra các tệp Makefile hoặc tệp dự án cho các IDE khác nhau, giúp lập trình viên dễ dàng biên dịch và quản lý mã nguồn của họ trên nhiều nền tảng khác nhau.
+Câu lệnh `cmake` được sử dụng để tạo và quản lý dự án phần mềm. Nó giúp người dùng cấu hình các tệp dự án, tạo Makefile hoặc tệp dự án cho các IDE khác nhau, từ đó dễ dàng biên dịch và xây dựng ứng dụng.
 
 ## Cách sử dụng
-Cú pháp cơ bản của lệnh `cmake` như sau:
-
-```bash
-cmake [tùy chọn] [đường dẫn đến thư mục nguồn]
+Cú pháp cơ bản của câu lệnh `cmake` như sau:
+```
+cmake [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-S <thư mục nguồn>`: Xác định thư mục chứa mã nguồn.
-- `-B <thư mục xây dựng>`: Xác định thư mục nơi các tệp xây dựng sẽ được tạo ra.
-- `-G <trình tạo>`: Chỉ định trình tạo mà bạn muốn sử dụng (ví dụ: "Unix Makefiles", "Ninja").
-- `-D <biến>=<giá trị>`: Đặt giá trị cho các biến cấu hình.
+## Tùy chọn phổ biến
+- `-S <path>`: Chỉ định thư mục nguồn chứa mã nguồn.
+- `-B <path>`: Chỉ định thư mục xây dựng nơi các tệp được tạo ra.
+- `-D <var>=<value>`: Đặt giá trị cho biến CMake.
+- `--build <path>`: Xây dựng dự án từ thư mục đã chỉ định.
+- `--install <path>`: Cài đặt dự án đã xây dựng vào thư mục chỉ định.
 
-## Ví dụ
-### Ví dụ 1: Xây dựng một dự án đơn giản
-Giả sử bạn có một thư mục mã nguồn tại `~/my_project`, bạn có thể sử dụng lệnh sau để tạo thư mục xây dựng và biên dịch dự án:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng `cmake`:
 
-```bash
-mkdir ~/my_project/build
-cd ~/my_project/build
-cmake -S .. -B . -G "Unix Makefiles"
-make
-```
+1. **Tạo một thư mục xây dựng và cấu hình dự án**:
+   ```bash
+   mkdir build
+   cd build
+   cmake ..
+   ```
 
-### Ví dụ 2: Đặt biến cấu hình
-Nếu bạn muốn đặt một biến cấu hình trong quá trình xây dựng, bạn có thể làm như sau:
+2. **Cấu hình dự án với biến**:
+   ```bash
+   cmake -D CMAKE_BUILD_TYPE=Release ..
+   ```
 
-```bash
-cmake -S ~/my_project -B ~/my_project/build -D CMAKE_BUILD_TYPE=Release
-```
+3. **Xây dựng dự án**:
+   ```bash
+   cmake --build .
+   ```
+
+4. **Cài đặt dự án đã xây dựng**:
+   ```bash
+   cmake --install .
+   ```
 
 ## Mẹo
-- Luôn tạo một thư mục xây dựng riêng biệt để giữ cho mã nguồn của bạn sạch sẽ và dễ quản lý.
-- Sử dụng tùy chọn `-D` để tùy chỉnh các tham số biên dịch mà không cần chỉnh sửa tệp CMakeLists.txt.
-- Kiểm tra các thông báo lỗi trong quá trình chạy `cmake` để đảm bảo rằng tất cả các thư viện và phụ thuộc cần thiết đều được cài đặt đúng cách.
+- Luôn tạo một thư mục xây dựng riêng để giữ cho thư mục mã nguồn sạch sẽ.
+- Sử dụng tùy chọn `-D` để tùy chỉnh các biến cấu hình mà không cần chỉnh sửa tệp CMakeLists.txt.
+- Kiểm tra tài liệu CMake để biết thêm thông tin về các tùy chọn và biến có sẵn để tối ưu hóa quá trình xây dựng của bạn.

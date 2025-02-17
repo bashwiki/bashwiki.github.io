@@ -1,58 +1,47 @@
-# [리눅스] Bash disown 사용법
+# [Linux] Bash disown : Gérer les tâches en arrière-plan
 
 ## Overview
-La commande `disown` dans Bash est utilisée pour détacher un ou plusieurs processus de la session de terminal en cours. Cela signifie que les processus ne seront plus associés à la session de terminal, ce qui permet de continuer leur exécution même si le terminal est fermé. Cette commande est particulièrement utile pour les utilisateurs qui lancent des tâches longues et souhaitent les laisser s'exécuter en arrière-plan sans avoir à garder le terminal ouvert.
+La commande `disown` est utilisée dans Bash pour retirer un ou plusieurs travaux de la liste des travaux gérés par le shell. Cela permet de continuer l'exécution de ces travaux même après la fermeture du terminal, évitant ainsi qu'ils ne soient interrompus.
 
 ## Usage
 La syntaxe de base de la commande `disown` est la suivante :
 
 ```bash
-disown [options] [jobspec]
+disown [options] [arguments]
 ```
 
-### Options courantes :
-- `-h` : Ne pas marquer le travail pour être tué lorsque le shell se termine.
-- `-a` : Appliquer la commande à tous les travaux en arrière-plan.
-- `-r` : Appliquer la commande uniquement aux travaux en cours d'exécution.
+## Common Options
+- `-h` : Ne pas signaler le travail à la commande `kill` lors de la fermeture du terminal.
+- `-a` : Appliquer `disown` à tous les travaux en cours.
+- `-r` : Appliquer `disown` uniquement aux travaux en arrière-plan.
 
-Si `jobspec` n'est pas spécifié, `disown` affecte le dernier travail en arrière-plan.
+## Common Examples
 
-## Examples
-### Exemple 1 : Détacher un travail spécifique
-Supposons que vous ayez lancé un script en arrière-plan :
-
-```bash
-./long_script.sh &
-```
-
-Vous pouvez vérifier les travaux en cours avec la commande `jobs` :
-
-```bash
-jobs
-```
-
-Cela pourrait afficher quelque chose comme :
-
-```
-[1]+  12345 Running                 ./long_script.sh &
-```
-
-Pour détacher ce travail, utilisez :
+### Exemple 1 : Retirer un travail spécifique
+Pour retirer un travail spécifique de la liste des travaux, utilisez :
 
 ```bash
 disown %1
 ```
+Cela retire le travail numéro 1 de la liste.
 
-### Exemple 2 : Détacher tous les travaux en arrière-plan
-Si vous avez plusieurs travaux en cours et que vous souhaitez tous les détacher, vous pouvez utiliser l'option `-a` :
+### Exemple 2 : Retirer tous les travaux
+Pour retirer tous les travaux en cours, utilisez :
 
 ```bash
 disown -a
 ```
+Cela déconnecte tous les travaux en cours du terminal.
 
-Cela détachera tous les travaux en arrière-plan de votre session de terminal.
+### Exemple 3 : Retirer un travail en arrière-plan
+Pour retirer un travail en arrière-plan, utilisez :
+
+```bash
+disown -r
+```
+Cela déconnecte tous les travaux en arrière-plan.
 
 ## Tips
-- Utilisez `jobs` pour lister tous les travaux en cours avant d'utiliser `disown`, afin de savoir quels travaux vous souhaitez détacher.
-- Pensez à utiliser `disown` après avoir mis un travail en arrière-plan avec `&` ou après avoir suspendu un travail avec `Ctrl+Z` suivi de `bg`.
-- Si vous détachez un travail, assurez-vous qu'il est bien configuré pour continuer à s'exécuter sans interaction avec le terminal, sinon il pourrait échouer si des entrées sont nécessaires.
+- Utilisez `jobs` pour voir la liste des travaux en cours avant d'utiliser `disown`.
+- Pensez à utiliser `nohup` en combinaison avec `disown` pour garantir que les travaux continuent à s'exécuter même après la déconnexion.
+- Soyez prudent lorsque vous retirez des travaux, car vous ne pourrez plus les gérer avec des commandes comme `fg` ou `bg` après avoir utilisé `disown`.

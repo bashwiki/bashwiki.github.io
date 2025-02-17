@@ -1,45 +1,56 @@
-# [리눅스] Bash arp 사용법
+# [Linux] Bash arp Uso: Gerenciar a tabela ARP
+
+O comando `arp` é utilizado para gerenciar a tabela ARP (Address Resolution Protocol) em sistemas operacionais baseados em Unix, permitindo visualizar e manipular as associações entre endereços IP e endereços MAC.
 
 ## Overview
-O comando `arp` é utilizado para manipular a tabela ARP (Address Resolution Protocol) do sistema. A tabela ARP é um mapeamento entre endereços IP e endereços MAC, permitindo que o sistema resolva endereços IP em endereços físicos na rede local. O comando `arp` é essencial para diagnosticar problemas de rede e para gerenciar a comunicação entre dispositivos em uma rede.
+O comando `arp` é usado para exibir e modificar a tabela ARP, que mapeia endereços IP para endereços MAC. Essa tabela é fundamental para a comunicação em redes locais, pois permite que dispositivos encontrem uns aos outros.
 
 ## Usage
 A sintaxe básica do comando `arp` é a seguinte:
 
+```bash
+arp [opções] [argumentos]
 ```
-arp [opções] [endereço]
+
+## Common Options
+Aqui estão algumas opções comuns do comando `arp`:
+
+- `-a`: Exibe a tabela ARP completa.
+- `-d <endereço>`: Remove uma entrada específica da tabela ARP.
+- `-s <endereço> <endereço_mac>`: Adiciona uma nova entrada à tabela ARP.
+- `-n`: Exibe endereços IP em formato numérico, sem tentar resolver nomes de host.
+
+## Common Examples
+
+### Exibir a tabela ARP
+Para visualizar todas as entradas da tabela ARP, use:
+
+```bash
+arp -a
 ```
 
-As opções comuns incluem:
+### Remover uma entrada da tabela ARP
+Para remover uma entrada específica, como por exemplo o IP `192.168.1.10`, execute:
 
-- `-a`: Exibe a tabela ARP completa, mostrando todos os endereços IP e seus correspondentes endereços MAC.
-- `-d endereço`: Remove a entrada ARP correspondente ao endereço especificado.
-- `-s endereço mac`: Adiciona uma entrada estática à tabela ARP, associando o endereço IP ao endereço MAC fornecido.
+```bash
+arp -d 192.168.1.10
+```
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `arp`.
+### Adicionar uma nova entrada à tabela ARP
+Para adicionar um novo mapeamento de IP para MAC, como o IP `192.168.1.20` com o MAC `00:11:22:33:44:55`, use:
 
-1. **Exibir a tabela ARP**:
-   Para visualizar todas as entradas na tabela ARP, você pode usar o seguinte comando:
+```bash
+arp -s 192.168.1.20 00:11:22:33:44:55
+```
 
-   ```bash
-   arp -a
-   ```
+### Exibir a tabela ARP sem resolver nomes
+Para exibir a tabela ARP em formato numérico, utilize:
 
-   Este comando listará todos os endereços IP e seus endereços MAC correspondentes que estão armazenados na tabela ARP do seu sistema.
-
-2. **Adicionar uma entrada ARP estática**:
-   Para adicionar uma entrada ARP estática, você pode usar o seguinte comando:
-
-   ```bash
-   arp -s 192.168.1.10 00:1A:2B:3C:4D:5E
-   ```
-
-   Neste exemplo, o endereço IP `192.168.1.10` é associado ao endereço MAC `00:1A:2B:3C:4D:5E`. Essa entrada permanecerá na tabela ARP até que o sistema seja reiniciado ou a entrada seja removida.
+```bash
+arp -an
+```
 
 ## Tips
-- **Verifique a tabela ARP regularmente**: Manter um olho na tabela ARP pode ajudar a identificar problemas de conectividade na rede.
-- **Use entradas estáticas com cautela**: Adicionar entradas ARP estáticas pode ser útil, mas deve ser feito com cuidado, pois entradas incorretas podem causar problemas de comunicação na rede.
-- **Limpeza da tabela ARP**: Se você estiver enfrentando problemas de rede, pode ser útil limpar a tabela ARP. Isso pode ser feito removendo entradas específicas ou reiniciando o serviço de rede.
-
-Com essas informações, você deve estar preparado para utilizar o comando `arp` de forma eficaz em suas atividades de engenharia e desenvolvimento.
+- Sempre verifique a tabela ARP após fazer alterações para garantir que as entradas estão corretas.
+- Use o comando `ping` antes de adicionar uma entrada ARP para garantir que o dispositivo está acessível na rede.
+- Lembre-se de que as alterações feitas com `arp` podem não persistir após a reinicialização do sistema, dependendo da configuração da rede.

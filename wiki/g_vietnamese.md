@@ -1,57 +1,49 @@
-# [리눅스] Bash g++ 사용법
+# [Linux] Bash g++ Cách sử dụng: Biên dịch mã nguồn C++
 
 ## Tổng quan
-`g++` là một trình biên dịch C++ thuộc bộ công cụ GNU Compiler Collection (GCC). Nó được sử dụng để biên dịch mã nguồn C++ thành mã máy, cho phép người lập trình phát triển và chạy các ứng dụng C++. `g++` hỗ trợ nhiều tính năng của ngôn ngữ C++ hiện đại và cung cấp các tùy chọn để tối ưu hóa mã, kiểm tra lỗi và quản lý các thư viện.
+Lệnh `g++` là một trình biên dịch cho ngôn ngữ lập trình C++. Nó được sử dụng để biên dịch các tệp mã nguồn C++ thành tệp thực thi, cho phép bạn chạy chương trình trên hệ thống của mình.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `g++` như sau:
 
 ```bash
-g++ [tùy chọn] [tệp nguồn] -o [tên tệp thực thi]
+g++ [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-o [tên tệp thực thi]`: Xác định tên tệp đầu ra cho chương trình biên dịch.
-- `-Wall`: Kích hoạt tất cả các cảnh báo, giúp phát hiện lỗi tiềm ẩn trong mã nguồn.
-- `-g`: Thêm thông tin gỡ lỗi vào tệp thực thi, hữu ích cho việc sử dụng gdb (GNU Debugger).
-- `-O2`: Kích hoạt tối ưu hóa mức độ 2, giúp cải thiện hiệu suất của chương trình.
+## Các tùy chọn phổ biến
+- `-o <filename>`: Chỉ định tên tệp đầu ra cho chương trình biên dịch.
+- `-Wall`: Kích hoạt tất cả các cảnh báo để giúp phát hiện lỗi trong mã nguồn.
+- `-g`: Thêm thông tin gỡ lỗi vào tệp biên dịch, hữu ích cho việc gỡ lỗi với gdb.
+- `-std=<standard>`: Chỉ định tiêu chuẩn C++ mà bạn muốn sử dụng (ví dụ: `-std=c++11`).
 
-## Ví dụ
-### Ví dụ 1: Biên dịch một tệp nguồn đơn giản
-Giả sử bạn có một tệp nguồn C++ tên là `hello.cpp` với nội dung sau:
+## Ví dụ thường gặp
+1. Biên dịch một tệp mã nguồn đơn giản:
+   ```bash
+   g++ main.cpp
+   ```
 
-```cpp
-#include <iostream>
-using namespace std;
+2. Biên dịch và chỉ định tên tệp đầu ra:
+   ```bash
+   g++ main.cpp -o my_program
+   ```
 
-int main() {
-    cout << "Hello, World!" << endl;
-    return 0;
-}
-```
+3. Biên dịch với cảnh báo:
+   ```bash
+   g++ -Wall main.cpp -o my_program
+   ```
 
-Bạn có thể biên dịch tệp này bằng lệnh sau:
+4. Biên dịch với thông tin gỡ lỗi:
+   ```bash
+   g++ -g main.cpp -o my_program
+   ```
 
-```bash
-g++ hello.cpp -o hello
-```
-
-Sau khi biên dịch, bạn có thể chạy chương trình bằng lệnh:
-
-```bash
-./hello
-```
-
-### Ví dụ 2: Biên dịch với cảnh báo và thông tin gỡ lỗi
-Nếu bạn muốn biên dịch tệp `hello.cpp` với các cảnh báo và thông tin gỡ lỗi, bạn có thể sử dụng lệnh sau:
-
-```bash
-g++ -Wall -g hello.cpp -o hello_debug
-```
-
-Điều này sẽ tạo ra tệp thực thi `hello_debug` với các cảnh báo được kích hoạt.
+5. Biên dịch với tiêu chuẩn C++11:
+   ```bash
+   g++ -std=c++11 main.cpp -o my_program
+   ```
 
 ## Mẹo
-- Luôn sử dụng tùy chọn `-Wall` để phát hiện các vấn đề trong mã nguồn của bạn.
-- Nếu bạn làm việc với nhiều tệp nguồn, hãy xem xét việc sử dụng Makefile để quản lý quá trình biên dịch một cách hiệu quả hơn.
-- Thường xuyên kiểm tra tài liệu chính thức của GCC để cập nhật các tính năng và tùy chọn mới nhất của `g++`.
+- Luôn sử dụng tùy chọn `-Wall` để phát hiện lỗi tiềm ẩn trong mã nguồn.
+- Thêm tùy chọn `-g` khi bạn cần gỡ lỗi chương trình để dễ dàng theo dõi lỗi.
+- Đặt tên tệp đầu ra rõ ràng để dễ dàng nhận diện chương trình sau khi biên dịch.
+- Nếu bạn làm việc với nhiều tệp mã nguồn, hãy sử dụng `g++ file1.cpp file2.cpp -o my_program` để biên dịch tất cả trong một lệnh.

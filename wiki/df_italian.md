@@ -1,41 +1,47 @@
-# [리눅스] Bash df 사용법
+# [Linux] Bash df Utilizzo: Visualizzare lo spazio su disco disponibile
 
 ## Overview
-Il comando `df` (disk free) è uno strumento utile in Bash per visualizzare lo spazio disponibile e utilizzato su file system montati. La sua principale funzione è fornire informazioni dettagliate sulle partizioni del disco, consentendo agli utenti di monitorare l'utilizzo dello spazio su disco e di gestire le risorse di archiviazione in modo più efficace.
+Il comando `df` (disk free) è utilizzato per visualizzare la quantità di spazio libero e utilizzato sui filesystem montati. È uno strumento utile per monitorare la capacità di archiviazione del sistema e per gestire lo spazio su disco.
 
 ## Usage
-La sintassi di base del comando `df` è la seguente:
+La sintassi di base del comando è la seguente:
 
 ```bash
-df [opzioni] [file...]
+df [opzioni] [argomenti]
 ```
 
-### Opzioni comuni:
-- `-h`: Mostra le dimensioni in un formato leggibile dall'uomo (ad esempio, KB, MB, GB).
-- `-T`: Mostra il tipo di file system.
-- `-a`: Mostra anche i file system con zero blocchi utilizzati.
-- `-i`: Mostra l'utilizzo delle inode invece dello spazio su disco.
+## Common Options
+Ecco alcune opzioni comuni per il comando `df`:
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `df`.
+- `-h`: Mostra le dimensioni in un formato leggibile dall'uomo (es. KB, MB, GB).
+- `-T`: Mostra il tipo di filesystem.
+- `-a`: Include i filesystem con zero blocchi.
+- `-i`: Mostra l'utilizzo degli inode invece dello spazio su disco.
 
-### Esempio 1: Visualizzare lo spazio su disco in formato leggibile
-```bash
-df -h
-```
-Questo comando mostrerà l'utilizzo dello spazio su disco in un formato facilmente comprensibile, come ad esempio "20G" per 20 gigabyte.
+## Common Examples
+Ecco alcuni esempi pratici dell'uso del comando `df`:
 
-### Esempio 2: Visualizzare il tipo di file system
-```bash
-df -T
-```
-Utilizzando questa opzione, il comando fornirà un elenco dei file system montati insieme ai loro tipi, come ext4, xfs, ecc.
+1. **Visualizzare lo spazio su disco in formato leggibile:**
+   ```bash
+   df -h
+   ```
+
+2. **Visualizzare lo spazio su disco con il tipo di filesystem:**
+   ```bash
+   df -hT
+   ```
+
+3. **Visualizzare tutti i filesystem, compresi quelli con zero blocchi:**
+   ```bash
+   df -a
+   ```
+
+4. **Visualizzare l'utilizzo degli inode:**
+   ```bash
+   df -i
+   ```
 
 ## Tips
-- È consigliabile utilizzare l'opzione `-h` per rendere i dati più comprensibili, specialmente quando si lavora con file system di grandi dimensioni.
-- Se si desidera monitorare l'utilizzo delle inode, l'opzione `-i` può essere molto utile, specialmente su file system con un gran numero di file.
-- Per ottenere informazioni su un file system specifico, è possibile fornire il percorso del file o della directory come argomento al comando `df`, ad esempio:
-  ```bash
-  df -h /home
-  ```
-  Questo mostrerà solo le informazioni relative al file system che contiene la directory `/home`.
+- Utilizza l'opzione `-h` per rendere le informazioni più comprensibili, specialmente se stai lavorando con filesystem di grandi dimensioni.
+- Controlla regolarmente lo spazio su disco per evitare problemi di archiviazione, specialmente su server e sistemi critici.
+- Puoi combinare più opzioni insieme, ad esempio `df -hT` per ottenere informazioni dettagliate e leggibili.

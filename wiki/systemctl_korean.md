@@ -1,42 +1,55 @@
-# [리눅스] Bash systemctl 사용법
+# [리눅스] Bash systemctl 사용법: 시스템 서비스 관리
 
 ## Overview
-`systemctl`은 시스템 및 서비스 관리자 도구로, Linux 시스템에서 systemd를 사용하여 서비스를 관리하고 시스템 상태를 제어하는 데 사용됩니다. 이 명령은 서비스의 시작, 중지, 재시작, 상태 확인 및 시스템 부팅 시 서비스 자동 시작 설정 등을 포함한 다양한 기능을 제공합니다. `systemctl`은 시스템의 전반적인 관리와 모니터링을 용이하게 하여 시스템 관리자와 개발자에게 필수적인 도구입니다.
+`systemctl` 명령어는 시스템의 서비스와 유닛을 관리하는 데 사용됩니다. 이 명령어를 통해 서비스의 시작, 중지, 재시작, 상태 확인 등을 수행할 수 있습니다.
 
 ## Usage
-`systemctl`의 기본 구문은 다음과 같습니다:
+기본 구문은 다음과 같습니다:
 
 ```bash
-systemctl [옵션] [명령] [서비스 이름]
+systemctl [옵션] [인수]
 ```
 
-### 일반 옵션
-- `start`: 지정된 서비스를 시작합니다.
-- `stop`: 지정된 서비스를 중지합니다.
-- `restart`: 지정된 서비스를 재시작합니다.
-- `status`: 지정된 서비스의 현재 상태를 확인합니다.
-- `enable`: 시스템 부팅 시 지정된 서비스를 자동으로 시작하도록 설정합니다.
-- `disable`: 시스템 부팅 시 지정된 서비스의 자동 시작을 비활성화합니다.
-- `list-units`: 현재 활성화된 유닛(서비스, 타이머 등)의 목록을 표시합니다.
+## Common Options
+- `start`: 서비스 시작
+- `stop`: 서비스 중지
+- `restart`: 서비스 재시작
+- `status`: 서비스 상태 확인
+- `enable`: 부팅 시 서비스 자동 시작 설정
+- `disable`: 부팅 시 서비스 자동 시작 해제
 
-## Examples
-### 예제 1: 서비스 시작 및 상태 확인
-다음 명령어는 `nginx` 서비스를 시작하고, 그 상태를 확인합니다.
+## Common Examples
+- 서비스 시작하기:
+  ```bash
+  systemctl start nginx
+  ```
 
-```bash
-sudo systemctl start nginx
-sudo systemctl status nginx
-```
+- 서비스 중지하기:
+  ```bash
+  systemctl stop nginx
+  ```
 
-### 예제 2: 서비스 자동 시작 설정
-다음 명령어는 `mysql` 서비스를 부팅 시 자동으로 시작하도록 설정합니다.
+- 서비스 상태 확인하기:
+  ```bash
+  systemctl status nginx
+  ```
 
-```bash
-sudo systemctl enable mysql
-```
+- 서비스 재시작하기:
+  ```bash
+  systemctl restart nginx
+  ```
+
+- 부팅 시 서비스 자동 시작 설정하기:
+  ```bash
+  systemctl enable nginx
+  ```
+
+- 부팅 시 서비스 자동 시작 해제하기:
+  ```bash
+  systemctl disable nginx
+  ```
 
 ## Tips
-- `systemctl` 명령어를 사용할 때는 일반적으로 `sudo` 권한이 필요합니다. 따라서 명령어 앞에 `sudo`를 추가하는 것을 잊지 마세요.
-- 서비스의 상태를 자주 확인하여 문제를 조기에 발견할 수 있습니다. `systemctl status [서비스 이름]` 명령어를 활용하세요.
-- `systemctl list-units` 명령어를 사용하여 현재 활성화된 모든 서비스의 상태를 한눈에 확인할 수 있습니다.
-- 로그를 확인하려면 `journalctl` 명령어와 함께 사용하여 서비스의 로그를 쉽게 추적할 수 있습니다. 예를 들어, `journalctl -u [서비스 이름]` 명령어를 사용합니다.
+- 서비스의 상태를 자주 확인하여 문제가 발생하지 않도록 관리하세요.
+- `systemctl` 명령어를 사용할 때는 관리자 권한이 필요할 수 있으므로 `sudo`를 사용하는 것이 좋습니다.
+- 서비스의 로그를 확인하려면 `journalctl -u [서비스명]` 명령어를 사용할 수 있습니다.

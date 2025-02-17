@@ -1,37 +1,54 @@
-# [리눅스] Bash export 사용법
+# [Linux] Bash export : Gérer les variables d'environnement
 
 ## Overview
-La commande `export` dans Bash est utilisée pour définir des variables d'environnement. Lorsqu'une variable est exportée, elle devient accessible aux processus enfants du shell, ce qui permet à ces processus d'utiliser les valeurs de ces variables. Cela est particulièrement utile pour configurer des paramètres d'environnement nécessaires à l'exécution de programmes ou de scripts.
+La commande `export` en Bash est utilisée pour définir des variables d'environnement qui seront accessibles aux processus enfants. Cela permet de partager des informations entre différents programmes exécutés dans le même shell.
 
 ## Usage
 La syntaxe de base de la commande `export` est la suivante :
 
 ```bash
-export VARIABLE=valeur
+export [options] [arguments]
 ```
 
-- **VARIABLE** : le nom de la variable que vous souhaitez définir.
-- **valeur** : la valeur que vous souhaitez assigner à la variable.
+## Common Options
+Voici quelques options courantes pour la commande `export` :
 
-### Options courantes
-- `-p` : affiche toutes les variables d'environnement exportées.
+- `-n` : Supprime l'exportation d'une variable, la rendant non disponible pour les processus enfants.
+- `-p` : Affiche toutes les variables d'environnement exportées.
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `export`.
+## Common Examples
 
-### Exemple 1 : Exporter une variable simple
+### Exporter une variable
+Pour créer une variable d'environnement et la rendre accessible aux processus enfants, utilisez :
+
 ```bash
-export MY_VAR="Hello, World!"
+export NOM_VARIABLE="valeur"
 ```
-Dans cet exemple, nous créons une variable `MY_VAR` et lui assignons la valeur "Hello, World!". Cette variable sera accessible dans les processus enfants.
 
-### Exemple 2 : Utiliser une variable exportée dans un script
+### Vérifier les variables exportées
+Pour afficher toutes les variables d'environnement exportées, utilisez :
+
 ```bash
-export PATH=$PATH:/usr/local/bin
+export -p
 ```
-Ici, nous ajoutons `/usr/local/bin` à la variable d'environnement `PATH`, ce qui permet au système de rechercher des exécutables dans ce répertoire.
+
+### Supprimer l'exportation d'une variable
+Pour rendre une variable non exportée, utilisez :
+
+```bash
+export -n NOM_VARIABLE
+```
+
+### Utiliser une variable exportée dans un script
+Si vous avez exporté une variable, vous pouvez l'utiliser dans un script comme ceci :
+
+```bash
+#!/bin/bash
+export MON_VARIABLE="Bonjour"
+bash -c 'echo $MON_VARIABLE'  # Affiche "Bonjour"
+```
 
 ## Tips
-- Utilisez des noms de variables en majuscules pour les variables d'environnement afin de les distinguer des variables locales.
-- Vérifiez les variables exportées avec la commande `export -p` pour voir celles qui sont actuellement disponibles dans votre session.
-- Évitez d'utiliser des espaces autour du signe `=` lors de l'assignation d'une valeur à une variable, sinon cela entraînera une erreur.
+- Utilisez `export` pour rendre les variables d'environnement disponibles dans les scripts ou les sous-shells.
+- Vérifiez régulièrement les variables exportées avec `export -p` pour éviter les conflits.
+- Évitez d'utiliser des noms de variables qui pourraient entrer en conflit avec des commandes ou des variables système.

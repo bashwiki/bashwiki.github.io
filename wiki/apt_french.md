@@ -1,40 +1,53 @@
-# [리눅스] Bash apt 사용법
+# [Linux] Bash apt utilisation : Gestion des paquets
 
 ## Overview
-La commande `apt` (Advanced Package Tool) est un gestionnaire de paquets utilisé sur les systèmes basés sur Debian, comme Ubuntu. Son objectif principal est de simplifier l'installation, la mise à jour et la gestion des logiciels. `apt` permet aux utilisateurs de rechercher, d'installer, de mettre à jour et de supprimer des paquets logiciels de manière efficace, tout en gérant les dépendances nécessaires.
+La commande `apt` est un outil de gestion de paquets utilisé sur les systèmes basés sur Debian, comme Ubuntu. Elle permet d'installer, de mettre à jour et de supprimer des logiciels facilement depuis la ligne de commande.
 
 ## Usage
 La syntaxe de base de la commande `apt` est la suivante :
 
 ```bash
-apt [options] commande [paquet...]
+apt [options] [arguments]
 ```
 
-### Options courantes :
-- `update` : Met à jour la liste des paquets disponibles et de leurs versions.
-- `upgrade` : Installe les mises à jour des paquets installés.
-- `install` : Installe un ou plusieurs paquets spécifiés.
-- `remove` : Supprime un ou plusieurs paquets spécifiés.
-- `search` : Recherche un paquet dans les dépôts disponibles.
-- `show` : Affiche des informations détaillées sur un paquet.
+## Common Options
+Voici quelques options courantes pour la commande `apt` :
 
-## Examples
-### Exemple 1 : Mettre à jour la liste des paquets
-Pour mettre à jour la liste des paquets disponibles, vous pouvez utiliser la commande suivante :
+- `update` : Met à jour la liste des paquets disponibles.
+- `upgrade` : Met à jour tous les paquets installés vers leur dernière version.
+- `install` : Installe un ou plusieurs paquets.
+- `remove` : Supprime un ou plusieurs paquets.
+- `search` : Recherche un paquet dans les dépôts.
 
-```bash
-sudo apt update
-```
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `apt` :
 
-### Exemple 2 : Installer un paquet
-Pour installer un paquet, par exemple `curl`, vous pouvez exécuter :
+1. **Mettre à jour la liste des paquets :**
+   ```bash
+   sudo apt update
+   ```
 
-```bash
-sudo apt install curl
-```
+2. **Mettre à jour tous les paquets installés :**
+   ```bash
+   sudo apt upgrade
+   ```
+
+3. **Installer un paquet (par exemple, `curl`) :**
+   ```bash
+   sudo apt install curl
+   ```
+
+4. **Supprimer un paquet (par exemple, `curl`) :**
+   ```bash
+   sudo apt remove curl
+   ```
+
+5. **Rechercher un paquet (par exemple, `git`) :**
+   ```bash
+   apt search git
+   ```
 
 ## Tips
-- Toujours exécuter `apt update` avant d'installer ou de mettre à jour des paquets pour s'assurer que vous disposez des dernières informations sur les paquets disponibles.
-- Utilisez `apt upgrade` pour mettre à jour tous les paquets installés en une seule commande.
-- Pour éviter les problèmes de dépendances, utilisez `apt full-upgrade` qui gère les changements de dépendances plus complexes.
-- Pensez à utiliser `apt search` pour trouver des paquets si vous n'êtes pas sûr du nom exact du logiciel que vous souhaitez installer.
+- Toujours exécuter `sudo apt update` avant d'installer ou de mettre à jour des paquets pour s'assurer que vous disposez des dernières informations sur les dépôts.
+- Utilisez `apt list --upgradable` pour voir quels paquets peuvent être mis à jour avant d'exécuter `apt upgrade`.
+- Pour une installation silencieuse, vous pouvez ajouter l'option `-y` à vos commandes, par exemple : `sudo apt install -y nom_du_paquet`.

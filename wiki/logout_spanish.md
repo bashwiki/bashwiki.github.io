@@ -1,37 +1,47 @@
-# [리눅스] Bash logout 사용법
+# [Linux] Bash logout uso: Cerrar sesión en la terminal
 
 ## Overview
-El comando `logout` se utiliza en entornos de shell de inicio de sesión para cerrar la sesión del usuario actual. Su propósito principal es finalizar la sesión activa de un usuario en un terminal o consola, lo que resulta en la desconexión del sistema. Este comando es especialmente útil en sistemas multiusuario, donde varios usuarios pueden acceder al mismo sistema.
+El comando `logout` se utiliza en Bash para cerrar la sesión actual de la terminal. Es especialmente útil cuando se trabaja en una sesión de shell interactiva y se desea salir de ella de manera ordenada.
 
 ## Usage
-La sintaxis básica del comando `logout` es la siguiente:
+La sintaxis básica del comando es la siguiente:
+
+```bash
+logout [opciones]
+```
+
+## Common Options
+El comando `logout` no tiene muchas opciones, ya que su función principal es cerrar la sesión. Sin embargo, aquí hay algunas consideraciones:
+
+- **Sin opciones**: Simplemente ejecutando `logout` se cerrará la sesión actual.
+  
+## Common Examples
+
+### Ejemplo 1: Cerrar sesión en la terminal
+Para cerrar la sesión actual, simplemente escribe:
 
 ```bash
 logout
 ```
 
-Este comando no tiene opciones adicionales, ya que su función es simplemente cerrar la sesión del usuario actual. Sin embargo, es importante tener en cuenta que `logout` solo se puede utilizar en un shell de inicio de sesión. Si se ejecuta en un shell no de inicio de sesión, puede que no tenga efecto o que genere un mensaje de error.
-
-## Examples
-### Ejemplo 1: Cerrar sesión en un terminal
-Para cerrar la sesión en un terminal de inicio de sesión, simplemente escribe el siguiente comando:
+### Ejemplo 2: Cerrar sesión en un shell de login
+Si estás en un shell de login, puedes usar `logout` para salir:
 
 ```bash
 logout
 ```
 
-Esto finalizará la sesión actual y te devolverá a la pantalla de inicio de sesión.
-
-### Ejemplo 2: Cerrar sesión en un entorno gráfico
-Si estás utilizando un entorno gráfico y deseas cerrar la sesión desde la terminal, puedes abrir una terminal y ejecutar:
+### Ejemplo 3: Cerrar sesión desde un script
+Si deseas cerrar la sesión desde un script, puedes incluir el comando `logout` al final del script:
 
 ```bash
+#!/bin/bash
+# Este es un script de ejemplo
+echo "Cerrando sesión..."
 logout
 ```
-
-Esto cerrará tu sesión en el entorno gráfico, similar a hacer clic en "Cerrar sesión" desde el menú del sistema.
 
 ## Tips
-- Asegúrate de guardar cualquier trabajo no guardado antes de ejecutar el comando `logout`, ya que este cerrará tu sesión y perderás cualquier dato no guardado.
-- Si estás utilizando un terminal que no es de inicio de sesión, considera usar el comando `exit` en su lugar, ya que `logout` puede no funcionar como se espera.
-- En sistemas que utilizan múltiples terminales, puedes utilizar `logout` en cada terminal para cerrar cada sesión de manera ordenada.
+- Asegúrate de guardar tu trabajo antes de ejecutar `logout`, ya que cerrará la sesión y perderás cualquier trabajo no guardado.
+- Si estás utilizando múltiples terminales, verifica en cuál estás trabajando antes de ejecutar el comando para evitar cerrar la sesión equivocada.
+- Recuerda que `logout` solo funcionará en shells de login; en otros tipos de shells, puedes usar `exit` para cerrar la sesión.

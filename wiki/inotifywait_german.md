@@ -1,50 +1,47 @@
-# [리눅스] Bash inotifywait 사용법
+# [Linux] Bash inotifywait Verwendung: Überwachen von Dateisystemereignissen
 
 ## Übersicht
-
-Der Befehl `inotifywait` ist ein Teil des inotify-Systems in Linux, das es ermöglicht, Änderungen an Dateien und Verzeichnissen in Echtzeit zu überwachen. Mit `inotifywait` können Benutzer auf bestimmte Ereignisse wie das Erstellen, Ändern oder Löschen von Dateien reagieren. Dies ist besonders nützlich für Anwendungen, die auf Dateisystemereignisse reagieren müssen, wie z.B. Backup-Skripte oder Überwachungsdienste.
+Der Befehl `inotifywait` wird verwendet, um auf Änderungen im Dateisystem zu warten und diese zu überwachen. Er ermöglicht es Benutzern, auf spezifische Ereignisse wie das Erstellen, Ändern oder Löschen von Dateien zu reagieren.
 
 ## Verwendung
-
 Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-inotifywait [OPTIONEN] VERZEICHNIS
+inotifywait [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
+## Häufige Optionen
+- `-m`: Aktiviert den Überwachungsmodus, sodass `inotifywait` kontinuierlich auf Ereignisse wartet.
+- `-r`: Überwacht Verzeichnisse rekursiv.
+- `-e`: Gibt das Ereignis an, auf das gewartet werden soll (z.B. `modify`, `create`, `delete`).
+- `-q`: Schaltet die Ausgabe in den "stillen" Modus, um nur Ereignisse anzuzeigen.
 
-- `-m` oder `--monitor`: Überwacht das Verzeichnis kontinuierlich und gibt Ereignisse aus, solange der Befehl läuft.
-- `-e` oder `--event`: Gibt die zu überwachenden Ereignisse an (z.B. `create`, `modify`, `delete`).
-- `-r` oder `--recursive`: Überwacht Verzeichnisse rekursiv.
-- `-q` oder `--quiet`: Unterdrückt die Ausgabe von Ereignissen, die nicht den angegebenen Ereignissen entsprechen.
+## Häufige Beispiele
+Hier sind einige praktische Beispiele zur Verwendung von `inotifywait`:
 
-## Beispiele
+1. Überwachen eines Verzeichnisses auf Änderungen:
+   ```bash
+   inotifywait -m /pfad/zum/verzeichnis
+   ```
 
-### Beispiel 1: Überwachen eines Verzeichnisses auf Dateiänderungen
+2. Überwachen eines Verzeichnisses rekursiv auf Dateiänderungen:
+   ```bash
+   inotifywait -mr /pfad/zum/verzeichnis
+   ```
 
-Um ein Verzeichnis auf Änderungen zu überwachen, verwenden Sie den folgenden Befehl:
+3. Warten auf spezifische Ereignisse, wie das Erstellen einer Datei:
+   ```bash
+   inotifywait -m -e create /pfad/zum/verzeichnis
+   ```
 
-```bash
-inotifywait -m -e modify,create,delete /pfad/zum/verzeichnis
-```
-
-Dieser Befehl überwacht das angegebene Verzeichnis und gibt eine Ausgabe für jede Dateiänderung, -erstellung oder -löschung aus.
-
-### Beispiel 2: Rekursive Überwachung eines Verzeichnisses
-
-Wenn Sie ein ganzes Verzeichnis und alle seine Unterverzeichnisse überwachen möchten, können Sie die rekursive Option verwenden:
-
-```bash
-inotifywait -m -r -e modify /pfad/zum/verzeichnis
-```
-
-Dieser Befehl überwacht alle Änderungen an Dateien in dem angegebenen Verzeichnis und seinen Unterverzeichnissen.
+4. Überwachen eines Verzeichnisses und Ausführen eines Befehls bei Änderungen:
+   ```bash
+   inotifywait -m -e modify /pfad/zum/verzeichnis | while read datei; do
+       echo "Datei geändert: $datei"
+   done
+   ```
 
 ## Tipps
-
-- **Kombinieren mit Skripten**: `inotifywait` kann in Shell-Skripten verwendet werden, um automatisierte Reaktionen auf Dateiänderungen zu implementieren. Beispielsweise können Sie ein Skript schreiben, das bei jeder Änderung eine Sicherungskopie der Datei erstellt.
-- **Verwendung von `-q`**: Wenn Sie nur an bestimmten Ereignissen interessiert sind, verwenden Sie die `-q`-Option, um die Ausgabe zu filtern und nur relevante Informationen zu erhalten.
-- **Ereignisse anpassen**: Experimentieren Sie mit verschiedenen Ereignissen, um herauszufinden, welche für Ihre Anwendung am nützlichsten sind. Sie können mehrere Ereignisse gleichzeitig angeben, indem Sie sie durch Kommas trennen.
-
-Mit diesen Informationen sind Sie gut gerüstet, um `inotifywait` effektiv in Ihren Projekten zu nutzen.
+- Verwenden Sie den `-q`-Schalter, um die Ausgabe zu minimieren, wenn Sie nur an den Ereignissen interessiert sind.
+- Kombinieren Sie `inotifywait` mit Skripten, um automatisierte Aufgaben bei Dateiänderungen durchzuführen.
+- Testen Sie die Optionen in einer sicheren Umgebung, um ein Gefühl für die Funktionsweise zu bekommen, bevor Sie sie in produktiven Systemen einsetzen.

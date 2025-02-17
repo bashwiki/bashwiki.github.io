@@ -1,55 +1,52 @@
-# [리눅스] Bash ufw 사용법
+# [Linux] Bash ufw Uso: Manage firewall rules easily
 
 ## Overview
-`ufw` (Uncomplicated Firewall) is a user-friendly command-line interface for managing a netfilter firewall on Linux systems. Its primary purpose is to simplify the process of configuring and managing firewall rules, making it easier for users to secure their systems against unauthorized access while allowing legitimate traffic.
+The `ufw` (Uncomplicated Firewall) command is a user-friendly interface for managing firewall rules in Linux systems. It simplifies the process of configuring the firewall, making it easier for users to allow or deny network traffic.
 
 ## Usage
-The basic syntax for the `ufw` command is as follows:
+The basic syntax of the `ufw` command is as follows:
 
-```
-ufw [OPTIONS] [COMMAND]
+```bash
+ufw [options] [arguments]
 ```
 
-### Common Options
-- `enable`: Activates the firewall and applies the current rules.
+## Common Options
+- `enable`: Activates the firewall.
 - `disable`: Deactivates the firewall.
 - `status`: Displays the current status of the firewall and its rules.
-- `allow [PORT]`: Allows incoming traffic on the specified port.
-- `deny [PORT]`: Denies incoming traffic on the specified port.
-- `delete [RULE]`: Removes a specified rule from the firewall.
-- `logging [on|off|level]`: Enables or disables logging, or sets the logging level.
+- `allow [port]`: Allows incoming traffic on the specified port.
+- `deny [port]`: Denies incoming traffic on the specified port.
+- `delete [rule]`: Removes a specified rule from the firewall.
 
-## Examples
+## Common Examples
+Here are some practical examples of using the `ufw` command:
 
-### Example 1: Allowing SSH Traffic
-To allow incoming SSH connections (default port 22), you can use the following command:
+1. **Enable the firewall:**
+   ```bash
+   sudo ufw enable
+   ```
 
-```bash
-sudo ufw allow 22
-```
+2. **Check the status of the firewall:**
+   ```bash
+   sudo ufw status
+   ```
 
-After executing this command, you can check the status of the firewall to confirm that the rule has been added:
+3. **Allow incoming traffic on port 80 (HTTP):**
+   ```bash
+   sudo ufw allow 80
+   ```
 
-```bash
-sudo ufw status
-```
+4. **Deny incoming traffic on port 22 (SSH):**
+   ```bash
+   sudo ufw deny 22
+   ```
 
-### Example 2: Blocking a Specific Port
-If you want to block incoming traffic on a specific port, for example, port 80 (HTTP), you can run:
-
-```bash
-sudo ufw deny 80
-```
-
-Again, verify the updated rules with:
-
-```bash
-sudo ufw status
-```
+5. **Delete a rule allowing traffic on port 80:**
+   ```bash
+   sudo ufw delete allow 80
+   ```
 
 ## Tips
-- Always check the status of your firewall after making changes to ensure that the rules are applied correctly.
-- Use `ufw logging on` to enable logging, which can help in troubleshooting and monitoring the traffic.
-- Consider using `ufw allow from [IP_ADDRESS]` to allow traffic only from specific IP addresses for enhanced security.
-- Remember to run `ufw enable` after configuring your rules to activate the firewall.
-- Be cautious when enabling or disabling the firewall, especially on remote servers, as it may affect your ability to connect.
+- Always check the status of your firewall after making changes to ensure the rules are set as intended.
+- Use `ufw status verbose` for a detailed view of the rules and their statuses.
+- Consider backing up your current rules before making significant changes, using `sudo ufw status > ufw-backup.txt`.

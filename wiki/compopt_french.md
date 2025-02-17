@@ -1,50 +1,59 @@
-# [리눅스] Bash compopt 사용법
+# [Linux] Bash compopt Utilisation : Gérer les options de complétion
 
 ## Overview
-La commande `compopt` est utilisée dans le contexte de l'achèvement de commandes dans Bash. Son objectif principal est de modifier les options d'achèvement pour une commande spécifique. Cela permet aux développeurs et aux ingénieurs de personnaliser le comportement de l'achèvement de commandes, en ajoutant des options supplémentaires ou en modifiant les options existantes pour améliorer l'expérience utilisateur lors de l'utilisation de la ligne de commande.
+La commande `compopt` est utilisée dans les scripts de complétion Bash pour modifier les options de complétion d'une commande. Elle permet de spécifier des comportements particuliers pour les options de complétion, améliorant ainsi l'expérience utilisateur lors de l'utilisation de la ligne de commande.
 
 ## Usage
 La syntaxe de base de la commande `compopt` est la suivante :
 
 ```bash
-compopt [-o|--option] [-o|--option]
+compopt [options] [arguments]
 ```
 
-### Options courantes
-- `-o` ou `--option` : Permet de spécifier une option d'achèvement. Cela peut inclure des options comme `nospace`, qui empêche l'ajout d'un espace après l'achèvement, ou `default`, qui rétablit le comportement par défaut de l'achèvement.
+## Common Options
+Voici quelques options courantes pour `compopt` :
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `compopt`.
+- `-o` : Définit une option de complétion.
+- `-D` : Supprime une option de complétion.
+- `-O` : Ajoute une option de complétion.
 
-### Exemple 1 : Désactiver l'espace après l'achèvement
-Supposons que vous souhaitiez désactiver l'ajout d'un espace après l'achèvement d'une commande :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `compopt` :
 
+### Exemple 1 : Ajouter une option de complétion
 ```bash
-_comp_mycmd() {
-    COMPREPLY=( $(compgen -W "option1 option2 option3" -- "${COMP_WORDS[COMP_CWORD]}") )
+_comp_mycommand() {
+    local options
+    options=$(compgen -W "start stop restart" -- "$word")
     compopt -o nospace
+    COMPREPLY=( $options )
 }
-complete -F _comp_mycmd mycmd
+complete -F _comp_mycommand mycommand
 ```
 
-Dans cet exemple, lorsque l'utilisateur tape `mycmd option`, il n'y aura pas d'espace ajouté après l'achèvement.
-
-### Exemple 2 : Réinitialiser les options d'achèvement
-Vous pouvez également réinitialiser les options d'achèvement à leur état par défaut :
-
+### Exemple 2 : Supprimer une option de complétion
 ```bash
-_comp_mycmd() {
-    COMPREPLY=( $(compgen -W "start stop restart" -- "${COMP_WORDS[COMP_CWORD]}") )
-    compopt -o default
+_comp_mycommand() {
+    local options
+    options=$(compgen -W "start stop restart" -- "$word")
+    compopt -D nospace
+    COMPREPLY=( $options )
 }
-complete -F _comp_mycmd mycmd
+complete -F _comp_mycommand mycommand
 ```
 
-Ici, l'achèvement de `mycmd` est réinitialisé pour utiliser les comportements par défaut.
+### Exemple 3 : Ajouter plusieurs options
+```bash
+_comp_mycommand() {
+    local options
+    options=$(compgen -W "start stop restart" -- "$word")
+    compopt -o nospace -o default
+    COMPREPLY=( $options )
+}
+complete -F _comp_mycommand mycommand
+```
 
 ## Tips
-- **Utilisation de `compopt`** : Assurez-vous d'utiliser `compopt` dans le contexte d'une fonction d'achèvement personnalisée pour qu'il ait un effet.
-- **Testez vos options** : Avant de déployer des modifications d'achèvement, testez-les dans un terminal pour vous assurer qu'elles fonctionnent comme prévu.
-- **Documentation** : Consultez la documentation de Bash pour une liste complète des options disponibles et des exemples d'utilisation.
-
-En utilisant `compopt`, vous pouvez améliorer considérablement l'expérience d'achèvement de commandes dans vos scripts Bash, rendant ainsi vos outils plus conviviaux et efficaces.
+- Utilisez `compopt` dans vos fonctions de complétion pour personnaliser le comportement de la complétion selon vos besoins.
+- Testez vos scripts de complétion dans un terminal interactif pour vous assurer qu'ils fonctionnent comme prévu.
+- Consultez la documentation de Bash pour plus de détails sur les options de complétion disponibles.

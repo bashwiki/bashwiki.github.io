@@ -1,40 +1,37 @@
-# [리눅스] Bash logout 사용법
+# [Linux] Bash logout utilisation : Se déconnecter de la session
 
 ## Overview
-La commande `logout` est utilisée dans un shell de connexion pour terminer la session de l'utilisateur. Son principal objectif est de déconnecter l'utilisateur du système, ce qui est particulièrement utile dans les environnements multi-utilisateurs ou lors de l'utilisation de terminaux distants. Lorsque cette commande est exécutée, elle ferme le shell en cours et libère toutes les ressources associées à la session.
+La commande `logout` est utilisée pour terminer une session de terminal dans un shell interactif. Elle permet à l'utilisateur de se déconnecter proprement de la session en cours.
 
 ## Usage
-La syntaxe de base de la commande `logout` est simple :
+La syntaxe de base de la commande `logout` est la suivante :
+
+```bash
+logout [options]
+```
+
+## Common Options
+La commande `logout` ne possède pas d'options standard. Elle est généralement utilisée sans arguments.
+
+## Common Examples
+
+### Exemple 1 : Se déconnecter d'une session
+Pour se déconnecter d'une session de terminal, il suffit de taper :
 
 ```bash
 logout
 ```
 
-Il n'y a pas d'options spécifiques associées à cette commande, car son rôle est de se déconnecter de la session actuelle. Il est important de noter que `logout` ne fonctionne que dans les shells de connexion. Si vous essayez de l'exécuter dans un shell non de connexion, vous recevrez un message d'erreur.
-
-## Examples
-Voici quelques exemples pratiques illustrant l'utilisation de la commande `logout`.
-
-### Exemple 1 : Déconnexion d'une session SSH
-Si vous êtes connecté à un serveur distant via SSH, vous pouvez utiliser la commande `logout` pour terminer votre session :
+### Exemple 2 : Se déconnecter d'une session SSH
+Si vous êtes connecté à un serveur distant via SSH, vous pouvez également utiliser `logout` pour terminer la session :
 
 ```bash
 ssh user@remote-server
-# Une fois connecté, pour se déconnecter :
-logout
-```
-
-### Exemple 2 : Déconnexion d'un terminal local
-Si vous êtes dans un terminal local et que vous souhaitez vous déconnecter :
-
-```bash
-# Ouvrez un terminal de connexion
+# Une fois connecté, tapez :
 logout
 ```
 
 ## Tips
-- **Utilisation dans les scripts** : Évitez d'utiliser `logout` dans des scripts automatisés, car cela peut provoquer la fermeture inattendue du shell.
-- **Alternatives** : Si vous êtes dans un shell non de connexion, utilisez la commande `exit` pour fermer le shell.
-- **Vérification des processus** : Avant de vous déconnecter, assurez-vous que tous vos processus en cours ne nécessitent pas votre session, car ils seront également terminés.
-
-En suivant ces conseils, vous pourrez utiliser la commande `logout` de manière efficace pour gérer vos sessions dans Bash.
+- Assurez-vous d'avoir sauvegardé tout travail en cours avant d'utiliser `logout`, car cela fermera votre session et vous perdrez les données non enregistrées.
+- Si vous êtes dans un shell non interactif (comme un script), utilisez `exit` plutôt que `logout` pour terminer le script.
+- Utilisez `exit` pour quitter un shell interactif si vous n'êtes pas sûr d'être dans une session de connexion.

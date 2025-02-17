@@ -1,46 +1,43 @@
-# [리눅스] Bash top 사용법
+# [Linux] Bash top cách sử dụng: Theo dõi tài nguyên hệ thống
 
 ## Tổng quan
-Lệnh `top` trong Bash là một công cụ giám sát hệ thống thời gian thực, cho phép người dùng theo dõi các quá trình đang chạy trên hệ thống Linux. Nó cung cấp thông tin chi tiết về việc sử dụng CPU, bộ nhớ, và các thông số khác của các tiến trình, giúp người dùng quản lý tài nguyên hệ thống một cách hiệu quả.
+Lệnh `top` trong Bash được sử dụng để hiển thị thông tin về các tiến trình đang chạy trên hệ thống, cũng như mức sử dụng tài nguyên như CPU và bộ nhớ. Nó cung cấp một cái nhìn trực quan và liên tục về hiệu suất của hệ thống.
 
 ## Cách sử dụng
-Cú pháp cơ bản của lệnh `top` là:
+Cú pháp cơ bản của lệnh `top` như sau:
 
 ```bash
 top [options]
 ```
 
-Một số tùy chọn phổ biến của lệnh `top` bao gồm:
+## Tùy chọn phổ biến
+- `-d <seconds>`: Đặt khoảng thời gian cập nhật giữa các lần hiển thị (mặc định là 3 giây).
+- `-p <pid>`: Chỉ hiển thị thông tin cho tiến trình có ID được chỉ định.
+- `-u <user>`: Chỉ hiển thị các tiến trình của người dùng cụ thể.
 
-- `-d <seconds>`: Đặt thời gian làm mới (refresh) giữa các lần cập nhật thông tin, tính bằng giây.
-- `-p <pid>`: Chỉ hiển thị thông tin cho tiến trình có ID (PID) cụ thể.
-- `-u <username>`: Chỉ hiển thị các tiến trình của người dùng cụ thể.
+## Ví dụ phổ biến
+- Để khởi động `top` với thông tin mặc định:
+  ```bash
+  top
+  ```
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `top`:
+- Để cập nhật mỗi 5 giây:
+  ```bash
+  top -d 5
+  ```
 
-1. Chạy lệnh `top` đơn giản để xem tất cả các tiến trình đang chạy:
+- Để chỉ hiển thị tiến trình của một người dùng cụ thể:
+  ```bash
+  top -u username
+  ```
 
-   ```bash
-   top
-   ```
-
-2. Chạy lệnh `top` với thời gian làm mới là 5 giây:
-
-   ```bash
-   top -d 5
-   ```
-
-3. Chỉ hiển thị thông tin cho một tiến trình cụ thể với PID 1234:
-
-   ```bash
-   top -p 1234
-   ```
+- Để theo dõi một tiến trình cụ thể bằng ID:
+  ```bash
+  top -p 1234
+  ```
 
 ## Mẹo
-- Sử dụng phím `h` trong giao diện `top` để xem hướng dẫn sử dụng chi tiết và các phím tắt có sẵn.
-- Bạn có thể nhấn `Shift + M` để sắp xếp các tiến trình theo mức sử dụng bộ nhớ, hoặc `Shift + P` để sắp xếp theo mức sử dụng CPU.
-- Để thoát khỏi giao diện `top`, nhấn phím `q`.
-- Nếu bạn muốn lưu lại thông tin từ `top`, bạn có thể sử dụng lệnh `top -b -n 1 > output.txt` để xuất kết quả ra file `output.txt`.
-
-Hy vọng rằng bài viết này sẽ giúp bạn hiểu rõ hơn về cách sử dụng lệnh `top` trong Bash!
+- Nhấn `h` trong giao diện `top` để xem hướng dẫn sử dụng nhanh.
+- Sử dụng phím `M` để sắp xếp các tiến trình theo mức sử dụng bộ nhớ.
+- Nhấn `P` để sắp xếp theo mức sử dụng CPU.
+- Để thoát khỏi `top`, nhấn `q`.

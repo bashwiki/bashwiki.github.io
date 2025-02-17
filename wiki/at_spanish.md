@@ -1,38 +1,51 @@
-# [리눅스] Bash at 사용법
+# [Linux] Bash en at: Programar tareas para ejecutar más tarde
 
 ## Overview
-El comando `at` en Bash se utiliza para programar la ejecución de tareas en un momento específico en el futuro. Es especialmente útil para los usuarios que desean automatizar tareas que deben realizarse una sola vez en un horario determinado. `at` permite a los ingenieros y desarrolladores ejecutar scripts, comandos o programas sin necesidad de estar presentes en la terminal.
+El comando `at` se utiliza en sistemas Unix y Linux para programar la ejecución de comandos o scripts en un momento específico en el futuro. Es útil para tareas que no necesitan ejecutarse de inmediato, permitiendo a los usuarios planificar su ejecución.
 
 ## Usage
 La sintaxis básica del comando `at` es la siguiente:
 
-```
+```bash
 at [opciones] [hora]
 ```
 
-### Opciones Comunes
-- `-f archivo`: Permite especificar un archivo que contiene los comandos a ejecutar.
+## Common Options
+- `-f archivo`: Permite especificar un archivo que contiene el comando a ejecutar.
 - `-m`: Envía un correo electrónico al usuario después de que se ejecute el comando, incluso si no hay salida.
-- `-q cola`: Permite especificar la cola de trabajo en la que se debe colocar el trabajo programado.
-- `-v`: Muestra la hora programada para la ejecución del trabajo.
+- `-q cola`: Permite especificar una cola de trabajos diferente.
+- `-l`: Lista los trabajos programados para el usuario actual.
+- `-d`: Elimina un trabajo programado.
 
-## Examples
-### Ejemplo 1: Programar un comando simple
-Para programar la ejecución del comando `echo "Hola, mundo"` para que se ejecute a las 15:00 del día actual, puedes usar el siguiente comando:
+## Common Examples
+Aquí hay algunos ejemplos prácticos de cómo usar el comando `at`:
 
-```bash
-echo "echo 'Hola, mundo'" | at 15:00
-```
+1. **Programar un comando para ejecutarse a las 3 PM:**
+   ```bash
+   echo "echo 'Hola, mundo'" | at 15:00
+   ```
 
-### Ejemplo 2: Ejecutar un script
-Si tienes un script llamado `backup.sh` que deseas ejecutar a las 2 de la mañana, puedes hacerlo de la siguiente manera:
+2. **Ejecutar un script a las 10:30 AM:**
+   ```bash
+   at 10:30 -f /ruta/al/script.sh
+   ```
 
-```bash
-at 02:00 -f /ruta/al/script/backup.sh
-```
+3. **Programar un comando para ejecutarse en 5 minutos:**
+   ```bash
+   echo "backup.sh" | at now + 5 minutes
+   ```
+
+4. **Listar trabajos programados:**
+   ```bash
+   at -l
+   ```
+
+5. **Eliminar un trabajo programado (suponiendo que el ID del trabajo es 2):**
+   ```bash
+   atrm 2
+   ```
 
 ## Tips
-- Asegúrate de que el servicio `atd` esté en ejecución en tu sistema, ya que es necesario para que `at` funcione correctamente.
-- Puedes listar los trabajos programados usando el comando `atq`.
-- Para eliminar un trabajo programado, utiliza el comando `atrm` seguido del número de trabajo que obtuviste con `atq`.
-- Es recomendable utilizar rutas absolutas en los scripts o comandos que se programan para evitar problemas de localización.
+- Asegúrate de que el servicio `atd` esté en ejecución en tu sistema para que los trabajos programados se ejecuten.
+- Usa `at -l` para verificar tus trabajos programados y asegurarte de que todo esté en orden.
+- Recuerda que los comandos programados se ejecutan en el contexto del usuario que los creó, así que asegúrate de tener los permisos necesarios para ejecutar los comandos o scripts.

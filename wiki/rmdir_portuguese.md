@@ -1,39 +1,44 @@
-# [리눅스] Bash rmdir 사용법
+# [Linux] Bash rmdir uso: Remove diretórios vazios
 
 ## Overview
-O comando `rmdir` é utilizado no sistema operacional Linux para remover diretórios vazios. Sua principal finalidade é facilitar a limpeza de estruturas de diretórios, permitindo que os usuários excluam pastas que não contêm arquivos ou subdiretórios. É importante notar que o `rmdir` não pode remover diretórios que contêm arquivos ou outros diretórios, garantindo assim que não haja perda acidental de dados.
+O comando `rmdir` é utilizado para remover diretórios vazios no sistema de arquivos. Se o diretório contiver arquivos ou subdiretórios, o comando não conseguirá removê-lo, e uma mensagem de erro será exibida.
 
 ## Usage
 A sintaxe básica do comando `rmdir` é a seguinte:
 
-```bash
-rmdir [opções] <diretório>
+```
+rmdir [opções] [argumentos]
 ```
 
-### Opções Comuns
-- `-p` ou `--parents`: Remove o diretório especificado e, se estiver vazio, também remove os diretórios pai, se eles também estiverem vazios.
+## Common Options
+- `-p`: Remove diretórios vazios pai, se eles também estiverem vazios.
 - `--ignore-fail-on-non-empty`: Ignora erros se o diretório não estiver vazio.
+- `--verbose`: Exibe uma mensagem para cada diretório removido.
 
-## Examples
-### Exemplo 1: Remover um diretório vazio
-Para remover um diretório chamado `meu_diretorio`, você pode usar o seguinte comando:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `rmdir`:
 
-```bash
-rmdir meu_diretorio
-```
+1. **Remover um diretório vazio:**
+   ```bash
+   rmdir meu_diretorio
+   ```
 
-Se `meu_diretorio` estiver vazio, ele será removido com sucesso.
+2. **Remover diretórios vazios pai:**
+   ```bash
+   rmdir -p meu_diretorio/pai
+   ```
 
-### Exemplo 2: Remover diretórios vazios em cadeia
-Se você deseja remover um diretório e seus diretórios pai, desde que estejam vazios, você pode usar a opção `-p`:
+3. **Remover um diretório vazio e mostrar uma mensagem:**
+   ```bash
+   rmdir --verbose meu_diretorio
+   ```
 
-```bash
-rmdir -p meu_diretorio/pasta1/pasta2
-```
-
-Se `pasta2`, `pasta1` e `meu_diretorio` estiverem vazios, todos eles serão removidos.
+4. **Ignorar erro se o diretório não estiver vazio:**
+   ```bash
+   rmdir --ignore-fail-on-non-empty meu_diretorio
+   ```
 
 ## Tips
-- Sempre verifique se o diretório que você está tentando remover está realmente vazio. Você pode usar o comando `ls` para listar os conteúdos do diretório antes de removê-lo.
-- Utilize `rmdir` com cautela, especialmente ao usar a opção `-p`, pois isso pode remover vários diretórios de uma só vez.
-- Para evitar a perda de dados, considere usar o comando `rm -r` se você precisar remover diretórios que contêm arquivos, mas esteja ciente de que isso não é reversível.
+- Sempre verifique se o diretório está realmente vazio antes de usar `rmdir`, para evitar erros.
+- Utilize a opção `-p` com cuidado, pois ela pode remover diretórios pai que você pode precisar.
+- Considere usar `rm -r` se precisar remover diretórios que contêm arquivos ou subdiretórios, mas tenha cuidado, pois essa opção é destrutiva.

@@ -1,45 +1,36 @@
-# [리눅스] Bash fg 사용법
+# [Linux] Bash fg Kullanımı: Arka planda çalışan bir işlemi ön plana çıkarma
 
 ## Overview
-`fg` komutu, arka planda çalışan bir işlemi (job) ön plana almak için kullanılır. Bu komut, kullanıcıların terminalde arka planda çalışan işlemlerle etkileşimde bulunmalarını sağlar. Genellikle, bir işlemi durdurup (suspend) arka plana aldıktan sonra, bu işlemi tekrar ön plana almak için `fg` komutu kullanılır.
+`fg` komutu, arka planda çalışan bir işlemi ön plana çıkararak kullanıcıya kontrol imkanı tanır. Bu, terminalde başlatılan bir işlemi durdurup, onu tekrar aktif hale getirerek etkileşimde bulunmayı sağlar.
 
 ## Usage
-Temel kullanım şekli aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-fg [job_spec]
+fg [işlem_numarası]
 ```
 
-- `job_spec`: Ön plana almak istediğiniz işlemin numarasını belirtir. Eğer bu parametre belirtilmezse, son durdurulan (suspend) iş ön plana alınır.
+## Common Options
+- `işlem_numarası`: Ön plana çıkarılacak işlemin numarasını belirtir. Eğer belirtilmezse, en son arka planda çalışan işlem ön plana çıkarılır.
 
-## Examples
-### Örnek 1: Basit Kullanım
-Bir işlemi başlatıp durdurduktan sonra onu ön plana almak için:
+## Common Examples
+1. En son arka planda çalışan işlemi ön plana çıkarma:
+   ```bash
+   fg
+   ```
 
-```bash
-sleep 100 &
-# İşlemi arka plana alır.
-Ctrl + Z
-# İşlemi durdurur ve arka plana alır.
-fg
-# Durdurulan işlemi ön plana alır.
-```
+2. Belirli bir işlem numarasını kullanarak ön plana çıkarma (örneğin, 1 numaralı işlem):
+   ```bash
+   fg %1
+   ```
 
-### Örnek 2: Belirli Bir İşlemi Ön Plana Alma
-Birden fazla arka planda çalışan işleminiz varsa, belirli bir işlemi ön plana almak için iş numarasını kullanabilirsiniz:
-
-```bash
-sleep 100 &
-sleep 200 &
-jobs
-# Çıktı:
-# [1]+  12345 Stopped                 sleep 100
-# [2]-  12346 Stopped                 sleep 200
-fg %1
-# İlk işlemi ön plana alır.
-```
+3. Arka planda çalışan işlemleri listeleme ve ardından birini ön plana çıkarma:
+   ```bash
+   jobs
+   fg %2
+   ```
 
 ## Tips
-- `jobs` komutunu kullanarak arka planda çalışan işlemlerinizi görüntüleyebilirsiniz. Bu, hangi işlemi ön plana almak istediğinizi belirlemenize yardımcı olur.
-- `fg` komutunu kullanmadan önce işleminizin durdurulmuş olduğundan emin olun. Durdurulmamış bir işlemi ön plana almaya çalışmak, hata mesajı almanıza neden olabilir.
-- Bir işlemi arka plana alırken `&` karakterini kullanarak işlemi başlatmak, işlemi doğrudan arka planda çalıştırır ve terminali serbest bırakır.
+- `fg` komutunu kullanmadan önce `jobs` komutunu çalıştırarak hangi işlemlerin arka planda olduğunu kontrol etmek faydalı olabilir.
+- İşlemi ön plana çıkardıktan sonra, işlemi durdurmak için `Ctrl + Z` tuş kombinasyonunu kullanabilirsiniz. Bu, işlemi arka plana alır.
+- `bg` komutunu kullanarak bir işlemi arka planda çalışmaya devam ettirebilir ve ardından `fg` ile tekrar ön plana çıkarabilirsiniz.

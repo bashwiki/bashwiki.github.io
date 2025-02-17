@@ -1,51 +1,56 @@
-# [리눅스] Bash grep 사용법
+# [Linux] Bash grep Kullanımı: Metin içinde desen arama
 
 ## Genel Bakış
-`grep`, metin dosyalarında belirli bir deseni aramak için kullanılan güçlü bir komuttur. "Global Regular Expression Print" ifadesinin kısaltmasıdır. Genellikle log dosyalarını incelemek, belirli bir kelime veya ifade içeren satırları bulmak ve metin dosyalarını filtrelemek için kullanılır. `grep`, düzenli ifadeleri destekleyerek karmaşık arama işlemlerini gerçekleştirmeye olanak tanır.
+`grep` komutu, metin dosyalarında belirli bir deseni aramak için kullanılan güçlü bir araçtır. Kullanıcıların dosyalar içinde kelimeleri, ifadeleri veya düzenli ifadeleri hızlı bir şekilde bulmalarını sağlar.
 
 ## Kullanım
-Temel `grep` komutunun sözdizimi aşağıdaki gibidir:
+Temel sözdizimi şu şekildedir:
 
 ```bash
-grep [seçenekler] 'desen' dosya_adı
+grep [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
+## Yaygın Seçenekler
 - `-i`: Büyük/küçük harf duyarsız arama yapar.
-- `-v`: Deseni içermeyen satırları gösterir.
-- `-r` veya `-R`: Alt dizinler dahil olmak üzere dizinlerde arama yapar.
+- `-v`: Belirtilen deseni içermeyen satırları gösterir.
+- `-r`: Alt dizinler dahil olmak üzere dizin içinde arama yapar.
 - `-n`: Eşleşen satırların numaralarını gösterir.
-- `-c`: Eşleşen satırların sayısını gösterir.
 - `-l`: Eşleşen dosya adlarını listeler.
 
-## Örnekler
-### Örnek 1: Basit Arama
-Aşağıdaki komut, `example.txt` dosyasında "hata" kelimesini arar ve eşleşen satırları gösterir:
+## Yaygın Örnekler
+Aşağıda `grep` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
+### 1. Basit Arama
+Bir dosyada belirli bir kelimeyi aramak için:
 ```bash
-grep 'hata' example.txt
+grep "kelime" dosya.txt
 ```
 
-### Örnek 2: Büyük/Küçük Harf Duyarsız Arama
-Aşağıdaki komut, `example.txt` dosyasında "HATA" veya "hata" kelimesini bulmak için büyük/küçük harf duyarsız arama yapar:
-
+### 2. Büyük/Küçük Harf Duyarsız Arama
+Büyük/küçük harf fark etmeksizin arama yapmak için:
 ```bash
-grep -i 'hata' example.txt
+grep -i "kelime" dosya.txt
+```
+
+### 3. Eşleşmeyen Satırları Gösterme
+Belirli bir kelimeyi içermeyen satırları görüntülemek için:
+```bash
+grep -v "kelime" dosya.txt
+```
+
+### 4. Dizin İçinde Arama
+Bir dizin ve alt dizinlerinde arama yapmak için:
+```bash
+grep -r "kelime" /path/to/dizin
+```
+
+### 5. Satır Numaraları ile Gösterme
+Eşleşen satırların numaralarını görmek için:
+```bash
+grep -n "kelime" dosya.txt
 ```
 
 ## İpuçları
-- `grep` komutunu diğer komutlarla birleştirerek daha karmaşık işlemler gerçekleştirebilirsiniz. Örneğin, `cat` komutunu kullanarak bir dosyanın içeriğini `grep` ile filtreleyebilirsiniz:
-
-```bash
-cat example.txt | grep 'hata'
-```
-
-- Düzenli ifadeleri kullanarak daha karmaşık desenler arayabilirsiniz. Örneğin, birden fazla kelimeyi aramak için `|` operatörünü kullanabilirsiniz:
-
-```bash
-grep 'hata|uyarı' example.txt
-```
-
-- Arama sonuçlarını daha iyi analiz etmek için `-n` seçeneğini kullanarak satır numaralarını görüntüleyin. Bu, hangi satırların eşleştiğini hızlıca bulmanıza yardımcı olur.
-
-Bu bilgilerle `grep` komutunu etkili bir şekilde kullanarak metin dosyalarındaki verileri hızlıca filtreleyebilir ve analiz edebilirsiniz.
+- `grep` komutunu diğer komutlarla birleştirerek daha karmaşık aramalar yapabilirsiniz. Örneğin, `cat` komutuyla birlikte kullanarak dosyanın içeriğini görüntüleyebilir ve belirli bir deseni arayabilirsiniz.
+- Arama işlemlerini hızlandırmak için dosyaların boyutuna dikkat edin. Büyük dosyalarda arama yaparken, arama kriterlerinizi daraltmak faydalı olabilir.
+- Düzenli ifadeleri kullanarak daha esnek ve güçlü aramalar gerçekleştirebilirsiniz.

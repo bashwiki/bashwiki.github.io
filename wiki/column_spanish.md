@@ -1,72 +1,42 @@
-# [리눅스] Bash column 사용법
+# [Linux] Bash column Uso: Formatear texto en columnas
 
 ## Overview
-El comando `column` en Bash se utiliza para formatear la salida de texto en columnas, lo que facilita la lectura y el análisis de datos tabulares. Su principal propósito es organizar datos en un formato estructurado, permitiendo que se visualicen de manera más clara y ordenada en la terminal.
+El comando `column` en Bash se utiliza para formatear texto en columnas, lo que facilita la lectura de datos tabulares. Este comando toma la entrada de texto y la organiza en un formato de columna, alineando los datos de manera ordenada.
 
 ## Usage
 La sintaxis básica del comando `column` es la siguiente:
 
 ```bash
-column [opciones] [archivo]
+column [options] [arguments]
 ```
 
-### Opciones Comunes:
-- `-t`: Esta opción permite al comando ajustar automáticamente el ancho de las columnas, creando una tabla bien alineada.
-- `-s <delimitador>`: Especifica un delimitador que se utiliza para separar las columnas. Por defecto, `column` utiliza espacios como delimitador.
-- `-n`: Esta opción evita que se realice el ajuste automático de columnas, lo que puede ser útil si se desea mantener el formato original.
+## Common Options
+- `-t`: Alinea el texto en columnas utilizando tabulaciones como delimitadores.
+- `-s`: Especifica un delimitador diferente para las columnas (por defecto es el espacio).
+- `-n`: No numera las filas.
+- `-x`: Organiza las columnas en un formato de varias filas.
 
-## Examples
-### Ejemplo 1: Formatear un archivo de texto
-Supongamos que tenemos un archivo llamado `datos.txt` con el siguiente contenido:
+## Common Examples
 
-```
-nombre edad ciudad
-Juan 25 Madrid
-Ana 30 Barcelona
-Luis 22 Valencia
-```
-
-Podemos usar el comando `column` para formatear este archivo en columnas:
-
+### Ejemplo 1: Formatear texto con tabulaciones
 ```bash
-column -t datos.txt
+cat archivo.txt | column -t
 ```
+Este comando toma el contenido de `archivo.txt` y lo formatea en columnas alineadas usando tabulaciones.
 
-La salida será:
-
-```
-nombre  edad  ciudad
-Juan    25    Madrid
-Ana     30    Barcelona
-Luis    22    Valencia
-```
-
-### Ejemplo 2: Usar un delimitador personalizado
-Si tenemos un archivo `datos.csv` que utiliza comas como delimitador:
-
-```
-nombre,edad,ciudad
-Juan,25,Madrid
-Ana,30,Barcelona
-Luis,22,Valencia
-```
-
-Podemos utilizar `column` con la opción `-s` para especificar la coma como delimitador:
-
+### Ejemplo 2: Usar un delimitador específico
 ```bash
-column -t -s, datos.csv
+cat datos.csv | column -s, -t
 ```
+Aquí, el comando utiliza una coma como delimitador para organizar el contenido de `datos.csv` en columnas.
 
-La salida será:
-
+### Ejemplo 3: Organizar en múltiples filas
+```bash
+cat lista.txt | column -x
 ```
-nombre  edad  ciudad
-Juan    25    Madrid
-Ana     30    Barcelona
-Luis    22    Valencia
-```
+Este comando organiza el contenido de `lista.txt` en un formato de varias filas, lo que puede ser útil para listas largas.
 
 ## Tips
-- Siempre que sea posible, utiliza la opción `-t` para obtener una salida bien alineada y fácil de leer.
-- Si trabajas con archivos que utilizan delimitadores diferentes a los espacios, asegúrate de especificar el delimitador correcto con la opción `-s`.
-- Puedes combinar `column` con otros comandos de Bash utilizando tuberías (`|`) para procesar datos de manera más eficiente. Por ejemplo, puedes usar `cat` o `grep` para filtrar datos antes de pasarlos a `column`.
+- Asegúrate de que los datos de entrada estén bien delimitados para obtener un mejor formato en las columnas.
+- Puedes combinar `column` con otros comandos de Unix, como `sort` o `grep`, para procesar datos antes de formatearlos.
+- Experimenta con diferentes delimitadores usando la opción `-s` para ver cuál se adapta mejor a tus datos.

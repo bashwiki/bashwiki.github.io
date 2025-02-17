@@ -1,46 +1,50 @@
-# [리눅스] Bash compgen 사용법
+# [Linux] Bash compgen Verwendung: Generierung von möglichen Befehlen und Argumenten
 
 ## Übersicht
-Der Befehl `compgen` ist ein nützliches Werkzeug in der Bash-Shell, das dazu dient, mögliche Befehle, Variablen, Aliase und andere Elemente zu generieren, die mit einem bestimmten Muster übereinstimmen. Er wird häufig in Kombination mit der Tab-Vervollständigung verwendet, um Entwicklern und Ingenieuren zu helfen, schnell und effizient durch verfügbare Optionen zu navigieren.
+Der `compgen` Befehl in Bash wird verwendet, um eine Liste von möglichen Befehlen, Variablen oder Argumenten zu generieren. Er ist besonders nützlich für die Autovervollständigung in der Kommandozeile.
 
 ## Verwendung
-Die grundlegende Syntax des `compgen`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-compgen [Optionen] [Muster]
+compgen [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
+## Häufige Optionen
+- `-c`: Listet alle verfügbaren Befehle auf.
 - `-a`: Listet alle Aliase auf.
-- `-b`: Listet alle Befehle auf.
-- `-c`: Listet alle Kommandos auf, die ausgeführt werden können.
-- `-d`: Listet alle Verzeichnisse auf.
-- `-e`: Listet alle Umgebungsvariablen auf.
+- `-b`: Listet alle Bash-Funktionen auf.
 - `-k`: Listet alle Schlüsselwörter auf.
-- `-v`: Listet alle Variablen auf.
+- `-A`: Gibt an, dass die Ausgabe auf einen bestimmten Typ beschränkt werden soll (z.B. `alias`, `function`, `command`).
 
-## Beispiele
-Hier sind einige praktische Beispiele zur Verwendung des `compgen`-Befehls:
+## Häufige Beispiele
 
-1. **Auflisten aller verfügbaren Befehle**:
+1. **Liste aller verfügbaren Befehle:**
    ```bash
    compgen -c
    ```
-   Dieser Befehl gibt eine Liste aller Befehle zurück, die im aktuellen Shell-Kontext verfügbar sind.
 
-2. **Auflisten aller Aliase**:
+2. **Liste aller definierten Aliase:**
    ```bash
    compgen -a
    ```
-   Mit diesem Befehl können Sie alle definierten Aliase in Ihrer aktuellen Shell-Umgebung anzeigen.
+
+3. **Liste aller Bash-Funktionen:**
+   ```bash
+   compgen -b
+   ```
+
+4. **Liste aller Schlüsselwörter:**
+   ```bash
+   compgen -k
+   ```
+
+5. **Filterung von Befehlen, die mit "git" beginnen:**
+   ```bash
+   compgen -c git
+   ```
 
 ## Tipps
-- Verwenden Sie `compgen` in Kombination mit anderen Befehlen wie `grep`, um spezifische Ergebnisse zu filtern. Zum Beispiel:
-  ```bash
-  compgen -c | grep 'git'
-  ```
-  Dieser Befehl listet alle Befehle auf, die mit "git" beginnen.
-  
-- Nutzen Sie die Tab-Taste in der Bash, um die Autovervollständigung zu aktivieren, während Sie `compgen` verwenden. Dies kann Ihnen helfen, schnell zu sehen, welche Optionen verfügbar sind.
-
-- Experimentieren Sie mit verschiedenen Optionen von `compgen`, um ein besseres Verständnis für die verfügbaren Elemente in Ihrer Shell zu bekommen.
+- Verwenden Sie `compgen` in Kombination mit `grep`, um spezifische Befehle oder Aliase zu finden.
+- Nutzen Sie die Autovervollständigung in der Shell, um schneller zu navigieren und Befehle einzugeben.
+- Experimentieren Sie mit verschiedenen Optionen, um ein besseres Verständnis für die verfügbaren Möglichkeiten zu erhalten.

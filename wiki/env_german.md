@@ -1,45 +1,57 @@
-# [리눅스] Bash env 사용법
+# [Linux] Bash env Verwendung: Umgebungsvariablen anzeigen und ändern
 
 ## Übersicht
-Der Befehl `env` wird in Bash verwendet, um Umgebungsvariablen anzuzeigen oder neue Umgebungsvariablen für die Ausführung von Programmen festzulegen. Er ist besonders nützlich, um sicherzustellen, dass ein Programm in einer bestimmten Umgebung ausgeführt wird, ohne die aktuelle Shell-Umgebung zu verändern.
+Der Befehl `env` wird verwendet, um die Umgebungsvariablen eines Systems anzuzeigen oder neue Umgebungsvariablen für die Ausführung eines Befehls festzulegen. Dies ist besonders nützlich, um die Umgebung zu modifizieren, in der Programme ausgeführt werden.
 
 ## Verwendung
-Die grundlegende Syntax des `env`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-env [OPTIONEN] [BEFEHL [ARGUMENTE...]]
+env [Optionen] [Befehle]
 ```
 
-### Häufige Optionen:
-- `-i`: Startet eine neue Umgebung ohne bestehende Umgebungsvariablen.
-- `-u VARIABLENNAME`: Entfernt die angegebene Umgebungsvariable aus der Umgebung.
-- `VARIABLENNAME=WERT`: Setzt eine neue Umgebungsvariable für den Befehl, der ausgeführt wird.
+## Häufige Optionen
+- `-i`: Startet eine leere Umgebung, ohne bestehende Umgebungsvariablen zu erben.
+- `-u VAR`: Entfernt die angegebene Umgebungsvariable `VAR`.
+- `VAR=WERT`: Setzt eine Umgebungsvariable `VAR` auf den angegebenen `WERT` für den folgenden Befehl.
 
-## Beispiele
+## Häufige Beispiele
 
-### Beispiel 1: Anzeigen der aktuellen Umgebungsvariablen
-Um alle aktuellen Umgebungsvariablen anzuzeigen, können Sie einfach `env` ohne weitere Argumente verwenden:
+### 1. Anzeigen aller Umgebungsvariablen
+Um alle aktuellen Umgebungsvariablen anzuzeigen, können Sie einfach `env` ohne Argumente verwenden:
 
 ```bash
 env
 ```
 
-### Beispiel 2: Ausführen eines Befehls mit einer neuen Umgebungsvariablen
+### 2. Ausführen eines Befehls mit einer neuen Umgebungsvariable
 Um einen Befehl mit einer neuen Umgebungsvariable auszuführen, verwenden Sie die folgende Syntax:
 
 ```bash
-env VARIABLENNAME=WERT befehl
+VAR=WERT command
 ```
 
-Ein Beispiel könnte sein:
+Beispiel:
 
 ```bash
-env MY_VAR=HelloWorld ./mein_script.sh
+MY_VAR=Hello env
 ```
 
-In diesem Fall wird das Skript `mein_script.sh` mit der Umgebungsvariable `MY_VAR` gesetzt auf `HelloWorld` ausgeführt.
+### 3. Entfernen einer Umgebungsvariable
+Um eine Umgebungsvariable zu entfernen, verwenden Sie die `-u` Option:
+
+```bash
+env -u MY_VAR command
+```
+
+### 4. Starten einer leeren Umgebung
+Um einen Befehl in einer leeren Umgebung auszuführen, verwenden Sie die `-i` Option:
+
+```bash
+env -i command
+```
 
 ## Tipps
-- Verwenden Sie die Option `-i`, wenn Sie sicherstellen möchten, dass keine bestehenden Umgebungsvariablen den Befehl beeinflussen. Dies ist besonders nützlich bei der Fehlersuche.
-- Seien Sie vorsichtig beim Entfernen von Umgebungsvariablen mit `-u`, da dies das Verhalten von Programmen beeinflussen kann, die auf diese Variablen angewiesen sind.
-- Nutzen Sie `env` in Skripten, um sicherzustellen, dass die richtigen Umgebungsvariablen gesetzt sind, bevor Sie kritische Befehle ausführen.
+- Verwenden Sie `env` in Skripten, um sicherzustellen, dass die richtigen Umgebungsvariablen gesetzt sind, bevor Sie einen Befehl ausführen.
+- Seien Sie vorsichtig beim Entfernen von Umgebungsvariablen, da dies das Verhalten von Programmen beeinflussen kann.
+- Nutzen Sie die `-i` Option, um sicherzustellen, dass keine unerwünschten Umgebungsvariablen geerbt werden, was besonders in Testumgebungen nützlich ist.

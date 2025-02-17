@@ -1,54 +1,37 @@
-# [리눅스] Bash users 사용법
+# [Linux] Usuários Bash: Exibir informações sobre usuários do sistema
 
 ## Overview
-O comando `users` é uma ferramenta simples e útil no ambiente Bash que exibe os nomes dos usuários atualmente logados no sistema. Sua principal finalidade é fornecer uma visão rápida de quem está acessando o sistema em um dado momento, o que pode ser útil para administradores de sistema e desenvolvedores que precisam monitorar a atividade do usuário.
+O comando `users` é utilizado para exibir os nomes dos usuários que estão atualmente logados no sistema. Ele fornece uma visão rápida de quem está acessando a máquina no momento, sendo útil para administradores e usuários que desejam monitorar a atividade.
 
 ## Usage
-A sintaxe básica do comando `users` é bastante direta:
+A sintaxe básica do comando `users` é a seguinte:
 
 ```
 users [opções]
 ```
 
-### Opções Comuns
-O comando `users` não possui muitas opções, mas algumas delas incluem:
+## Common Options
+- `-n`: Exibe apenas o número de usuários logados, sem listar os nomes.
+- `-r`: Exibe apenas os usuários que estão logados em sessões remotas.
 
-- `-n` ou `--no-heading`: Esta opção pode ser utilizada para suprimir o cabeçalho, embora o comando `users` normalmente não exiba cabeçalhos.
-  
-- `-r` ou `--reverse`: Inverte a ordem dos nomes dos usuários exibidos.
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `users`:
 
-Porém, é importante notar que o comando `users` é frequentemente utilizado sem opções, já que sua funcionalidade básica é bastante simples.
-
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `users`:
-
-1. **Exibir usuários logados**:
-   Para ver os nomes dos usuários que estão logados no sistema, basta executar o comando:
-
+1. **Listar usuários logados:**
    ```bash
    users
    ```
 
-   A saída será uma lista dos usuários atualmente conectados, separados por espaços.
-
-2. **Usando a opção -n**:
-   Embora o comando `users` não exiba cabeçalhos, você pode usar a opção `-n` para garantir que não haja formatação adicional:
-
+2. **Contar o número de usuários logados:**
    ```bash
    users -n
    ```
 
-   A saída será a mesma, mas é uma boa prática para scripts que precisam de uma saída limpa.
-
-## Tips
-- **Uso em scripts**: O comando `users` pode ser muito útil em scripts de monitoramento para verificar rapidamente quem está logado no sistema. Você pode redirecionar sua saída para um arquivo ou usar em combinação com outros comandos para análise adicional.
-
-- **Combinação com outros comandos**: Considere combinar o comando `users` com `wc -w` para contar o número de usuários logados:
-
+3. **Listar usuários logados remotamente:**
    ```bash
-   users | wc -w
+   users -r
    ```
 
-   Isso retornará o número total de usuários atualmente logados.
-
-- **Monitoramento de segurança**: Usar o comando `users` regularmente pode ajudar a identificar acessos não autorizados ou atividades suspeitas no sistema.
+## Tips
+- Utilize o comando `who` em conjunto com `users` para obter informações mais detalhadas sobre os usuários logados, como o terminal e o horário de login.
+- Para um monitoramento mais abrangente, considere usar o comando `w`, que fornece informações sobre o que os usuários estão fazendo no momento.

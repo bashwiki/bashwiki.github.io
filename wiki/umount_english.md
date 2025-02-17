@@ -1,39 +1,50 @@
-# [리눅스] Bash umount 사용법
+# [Linux] Bash umount Uso equivalente: Unmount file systems
 
 ## Overview
-The `umount` command in Bash is used to unmount file systems that have been mounted to the Linux operating system. Its primary purpose is to safely detach a file system from the file hierarchy, ensuring that all data is written to the disk and that the file system is no longer in use. This is crucial for maintaining data integrity and preventing data loss, especially when removing external storage devices or network file systems.
+The `umount` command in Bash is used to unmount file systems that have been mounted to the system. This is essential for safely disconnecting storage devices or network shares, ensuring that all data is written and no processes are using the file system.
 
 ## Usage
 The basic syntax of the `umount` command is as follows:
 
 ```bash
-umount [options] <target>
+umount [options] [arguments]
 ```
 
-### Common Options
-- `<target>`: This can be the mount point (directory) or the device name (e.g., `/dev/sdb1`) of the file system you wish to unmount.
-- `-a`: Unmount all mounted file systems listed in `/etc/mtab`.
-- `-l`: Lazy unmount. Detaches the file system immediately but delays the actual unmounting until it is no longer busy.
-- `-f`: Force unmount. This option is used to unmount a file system that is busy or has errors.
-- `-r`: Remount the file system read-only if it is busy.
+## Common Options
+- `-a`: Unmount all mounted file systems specified in `/etc/mtab`.
+- `-f`: Forcefully unmount a file system, useful if the device is busy.
+- `-l`: Lazy unmount; detaches the file system immediately and cleans up after it's no longer in use.
+- `-r`: Remount the file system read-only if it cannot be unmounted.
 
-## Examples
-### Example 1: Unmounting a Mounted File System
-To unmount a file system mounted at `/mnt/usb`, you would use the following command:
+## Common Examples
+Here are some practical examples of using the `umount` command:
 
-```bash
-umount /mnt/usb
-```
+1. **Unmounting a specific device:**
+   ```bash
+   umount /dev/sdb1
+   ```
 
-### Example 2: Force Unmounting a Busy File System
-If you need to forcefully unmount a file system that is busy, you can use the `-f` option:
+2. **Unmounting a directory:**
+   ```bash
+   umount /mnt/mydrive
+   ```
 
-```bash
-umount -f /mnt/usb
-```
+3. **Force unmounting a busy file system:**
+   ```bash
+   umount -f /dev/sdb1
+   ```
+
+4. **Lazy unmounting:**
+   ```bash
+   umount -l /mnt/mydrive
+   ```
+
+5. **Unmounting all file systems listed in `/etc/mtab`:**
+   ```bash
+   umount -a
+   ```
 
 ## Tips
-- Always ensure that no processes are using the file system you intend to unmount. You can use the `lsof` command to check for open files on the mount point.
-- Consider using the `-l` option for a lazy unmount if you encounter a busy file system, as it allows for a safer detachment without immediate disruption.
-- Be cautious when using the `-f` option, as it can lead to data loss if there are unsaved changes or ongoing processes.
-- Regularly check your `/etc/mtab` or use the `mount` command to see a list of currently mounted file systems before unmounting.
+- Always ensure that no processes are using the file system before unmounting to avoid data loss.
+- Use the `lsof` command to check for open files on the file system if you encounter issues unmounting.
+- If you need to unmount a device that is busy, consider using the `-l` option to perform a lazy unmount.

@@ -1,50 +1,54 @@
-# [리눅스] Bash mapfile 사용법
+# [Linux] Bash mapfile Usage: Read lines into an array
 
 ## Overview
-The `mapfile` command in Bash is used to read lines from a file or standard input into an indexed array. This command is particularly useful for processing multiline input or files, as it allows developers to easily manipulate and access each line as an element of an array. The primary purpose of `mapfile` is to facilitate the handling of input data in a structured manner.
+The `mapfile` command in Bash is used to read lines from a file or standard input into an array. This is particularly useful for processing multiline text data efficiently, allowing you to manipulate each line as an individual element of an array.
 
 ## Usage
 The basic syntax of the `mapfile` command is as follows:
 
 ```bash
-mapfile [options] array_name
+mapfile [options] [array_name]
 ```
 
-### Common Options
-- `-n N`: Read only the first N lines from the input.
-- `-s N`: Skip the first N lines before reading.
+If no array name is provided, the default array `MAPFILE` will be used.
+
+## Common Options
+- `-n N`: Read up to N lines.
+- `-s N`: Skip the first N lines.
 - `-t`: Remove the trailing newlines from each line read.
-- `-O N`: Specify the index at which to start storing the lines in the array.
+- `-d DELIMITER`: Use DELIMITER instead of a newline to determine line endings.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Usage
-To read lines from a file into an array, you can use the following command:
-
+### Example 1: Read lines from a file into an array
 ```bash
 mapfile lines < myfile.txt
+echo "${lines[@]}"
 ```
+This command reads all lines from `myfile.txt` into the array `lines` and then prints all elements of the array.
 
-In this example, each line from `myfile.txt` is stored as an element in the `lines` array. You can access the lines using `${lines[index]}`.
-
-### Example 2: Using Options
-Here’s an example that demonstrates the use of options:
-
+### Example 2: Read specific number of lines
 ```bash
-mapfile -t first_five < myfile.txt
+mapfile -n 3 lines < myfile.txt
+echo "${lines[@]}"
 ```
+Here, only the first 3 lines from `myfile.txt` are read into the array `lines`.
 
-This command reads the first five lines from `myfile.txt` into the `first_five` array, removing any trailing newlines. You can then iterate over the array like this:
-
+### Example 3: Skip lines and remove trailing newlines
 ```bash
-for line in "${first_five[@]}"; do
-    echo "$line"
-done
+mapfile -s 2 -t lines < myfile.txt
+echo "${lines[@]}"
 ```
+This example skips the first 2 lines of `myfile.txt`, reads the rest into the array `lines`, and removes any trailing newlines.
+
+### Example 4: Use a custom delimiter
+```bash
+mapfile -d ',' lines < myfile.csv
+echo "${lines[@]}"
+```
+In this case, the command reads lines from a CSV file `myfile.csv`, using a comma as the delimiter instead of the default newline.
 
 ## Tips
-- When using `mapfile`, remember that it reads until the end of the input, so if you're working with large files, consider using the `-n` option to limit the number of lines read.
-- Use the `-t` option to avoid issues with trailing newlines, especially if you plan to process the lines further.
-- If you need to skip a certain number of lines, the `-s` option can be very helpful, especially when dealing with header lines in CSV files or similar formats.
-
-By utilizing `mapfile`, you can efficiently manage multiline input in your Bash scripts, making your code cleaner and easier to maintain.
+- Always check the contents of your array after using `mapfile` to ensure it has been populated as expected.
+- Use the `-t` option if you want to avoid dealing with trailing newlines, which can lead to unexpected behavior in further processing.
+- Consider using `mapfile` in combination with other commands like `grep` or `awk` for more complex data manipulation tasks.

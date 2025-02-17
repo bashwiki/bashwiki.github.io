@@ -1,38 +1,46 @@
-# [리눅스] Bash tune2fs 사용법
+# [Linux] Bash tune2fs Kullanımı: Dosya sistemini ayarlamak için bir araç
 
-## Genel Bakış
-`tune2fs`, Linux işletim sistemlerinde kullanılan bir komuttur ve ext2, ext3 ve ext4 dosya sistemlerinin ayarlarını değiştirmek için kullanılır. Bu komut, dosya sisteminin performansını ve güvenliğini artırmak için çeşitli parametreleri ayarlamanıza olanak tanır. Örneğin, dosya sistemi etiketini değiştirebilir, günlükleme seçeneklerini ayarlayabilir veya dosya sistemi için maksimum dosya sayısını belirleyebilirsiniz.
+## Overview
+`tune2fs` komutu, Linux işletim sistemlerinde ext2, ext3 ve ext4 dosya sistemlerinin parametrelerini değiştirmek için kullanılır. Bu komut, dosya sisteminin performansını ve güvenliğini artırmak amacıyla çeşitli ayarların yapılmasına olanak tanır.
 
-## Kullanım
-`tune2fs` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-tune2fs [seçenekler] <dosya_sistemi>
-```
-
-### Yaygın Seçenekler
-- `-L <etiket>`: Dosya sisteminin etiketini ayarlamak için kullanılır.
-- `-O <özellik>`: Dosya sistemine yeni özellikler eklemek için kullanılır.
-- `-c <maks_dosya_sayısı>`: Dosya sisteminin maksimum dosya sayısını ayarlamak için kullanılır.
-- `-i <gün>`: Dosya sisteminin kontrol edilme sıklığını ayarlamak için kullanılır.
-- `-f`: Komutun zorla çalıştırılmasını sağlar.
-
-## Örnekler
-### Örnek 1: Dosya Sistemi Etiketini Değiştirme
-Aşağıdaki komut, `/dev/sda1` dosya sisteminin etiketini "YeniEtiket" olarak değiştirir:
+## Usage
+Temel sözdizimi şu şekildedir:
 
 ```bash
-sudo tune2fs -L YeniEtiket /dev/sda1
+tune2fs [seçenekler] [argümanlar]
 ```
 
-### Örnek 2: Maksimum Dosya Sayısını Ayarlama
-Aşağıdaki komut, `/dev/sda1` dosya sisteminin maksimum dosya sayısını 100000 olarak ayarlar:
+## Common Options
+- `-c <numara>`: Dosya sisteminin maksimum dosya sayısını ayarlar.
+- `-i <süre>`: Dosya sisteminin kontrol aralığını belirler.
+- `-m <yüzde>`: Kullanıcı alanının maksimum yüzdesini ayarlar.
+- `-o <seçenekler>`: Dosya sistemi seçeneklerini ayarlamak için kullanılır.
+- `-L <etiket>`: Dosya sistemine bir etiket atar.
 
+## Common Examples
+Aşağıda, `tune2fs` komutunun bazı yaygın kullanımları bulunmaktadır:
+
+### 1. Dosya sisteminin maksimum dosya sayısını ayarlama
 ```bash
-sudo tune2fs -c 100000 /dev/sda1
+tune2fs -c 10000 /dev/sda1
 ```
 
-## İpuçları
-- `tune2fs` komutunu kullanmadan önce dosya sisteminin yedeklemesini almanız önerilir. Yanlış ayarlar, veri kaybına yol açabilir.
-- Komutu çalıştırmadan önce dosya sisteminin bağlı olmadığından emin olun. Aksi takdirde, dosya sistemi üzerinde beklenmedik sonuçlar doğurabilir.
-- `tune2fs` ile yapılan değişikliklerin etkili olabilmesi için dosya sisteminin yeniden bağlanması veya sistemin yeniden başlatılması gerekebilir.
+### 2. Dosya sistemi kontrol aralığını değiştirme
+```bash
+tune2fs -i 2w /dev/sda1
+```
+
+### 3. Kullanıcı alanının maksimum yüzdesini ayarlama
+```bash
+tune2fs -m 5 /dev/sda1
+```
+
+### 4. Dosya sistemine etiket atama
+```bash
+tune2fs -L mylabel /dev/sda1
+```
+
+## Tips
+- `tune2fs` komutunu kullanmadan önce dosya sisteminin yedeklemesini almayı unutmayın.
+- Komutu çalıştırmadan önce dosya sisteminin montaj durumunu kontrol edin; montajda olan bir dosya sistemi üzerinde değişiklik yapmaktan kaçının.
+- Değişikliklerin etkili olabilmesi için dosya sisteminin yeniden monte edilmesi gerekebilir.

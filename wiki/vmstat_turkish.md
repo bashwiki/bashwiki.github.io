@@ -1,50 +1,51 @@
-# [리눅스] Bash vmstat 사용법
+# [Linux] Bash vmstat Kullanımı: Sistem kaynaklarını izleme aracı
 
 ## Overview
-`vmstat` (Virtual Memory Statistics) komutu, sistemin bellek, işlemci ve I/O (giriş/çıkış) aktiviteleri hakkında bilgi sağlar. Bu komut, sistem performansını izlemek ve analiz etmek için kullanılır. `vmstat`, sistem kaynaklarının nasıl kullanıldığını anlamak için yararlı bir araçtır ve özellikle bellek yönetimi ve işlemci yükü hakkında bilgi edinmek isteyen mühendisler ve geliştiriciler için faydalıdır.
+`vmstat` komutu, sistemin bellek, işlemci ve diğer kaynaklarının durumunu izlemek için kullanılır. Bu komut, sistem performansını değerlendirmek ve sorunları teşhis etmek için yararlı bilgiler sağlar.
 
 ## Usage
-`vmstat` komutunun temel sözdizimi şu şekildedir:
+Temel kullanım sözdizimi aşağıdaki gibidir:
 
 ```bash
-vmstat [options] [delay [count]]
+vmstat [options] [arguments]
 ```
 
-- **options**: Komutun çalışma şeklini değiştiren çeşitli seçeneklerdir.
-- **delay**: İstatistiklerin güncellenme süresini (saniye cinsinden) belirtir.
-- **count**: İstatistiklerin kaç kez gösterileceğini belirtir.
+## Common Options
+- `-a`: Tüm bellek alanlarını gösterir.
+- `-m`: Bellek sayfalarının istatistiklerini gösterir.
+- `-s`: Bellek istatistiklerini detaylı bir şekilde listeler.
+- `-t`: Zaman damgası ekler.
+- `interval`: Verilerin güncellenme sıklığını belirler (saniye cinsinden).
 
-### Yaygın Seçenekler
-- `-s`: Bellek ve diğer sistem kaynakları hakkında detaylı bir özet gösterir.
-- `-m`: Bellek sayfaları hakkında bilgi verir.
-- `-d`: Disk istatistiklerini gösterir.
+## Common Examples
+Aşağıda `vmstat` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-## Examples
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, her 2 saniyede bir sistem istatistiklerini gösterir:
+1. **Temel kullanım:**
+   ```bash
+   vmstat
+   ```
 
-```bash
-vmstat 2
-```
+2. **Her 2 saniyede bir güncellenen sistem durumu:**
+   ```bash
+   vmstat 2
+   ```
 
-Bu komut, işlemci, bellek, swap alanı ve I/O istatistiklerini sürekli olarak güncelleyerek görüntüler.
+3. **Bellek istatistiklerini detaylı olarak gösterme:**
+   ```bash
+   vmstat -s
+   ```
 
-### Örnek 2: Detaylı Bellek Bilgisi
-Aşağıdaki komut, sistemin bellek ve diğer kaynakları hakkında detaylı bir özet sunar:
+4. **Zaman damgası ile birlikte sistem durumu:**
+   ```bash
+   vmstat -t
+   ```
 
-```bash
-vmstat -s
-```
-
-Bu komut, toplam bellek, kullanılabilir bellek, swap alanı ve diğer önemli bilgileri listeler.
+5. **Tüm bellek alanlarını gösterme:**
+   ```bash
+   vmstat -a
+   ```
 
 ## Tips
-- `vmstat` çıktısını analiz ederken, sistemin genel performansını değerlendirmek için işlemci ve bellek kullanımı arasındaki ilişkiye dikkat edin.
-- Uzun süreli izleme için `vmstat` komutunu bir dosyaya yönlendirebilirsiniz. Örneğin:
-
-```bash
-vmstat 2 10 > vmstat_output.txt
-```
-
-Bu komut, 2 saniyede bir 10 kez istatistikleri alır ve çıktıyı `vmstat_output.txt` dosyasına kaydeder.
-- `vmstat` çıktısını diğer sistem izleme araçlarıyla birlikte kullanarak daha kapsamlı bir analiz yapabilirsiniz.
+- `vmstat` çıktısını daha iyi anlamak için, çıktıyı bir dosyaya yönlendirebilir ve inceleyebilirsiniz.
+- Uzun süreli izleme için, `vmstat` komutunu bir döngü içinde kullanarak belirli aralıklarla verileri toplayabilirsiniz.
+- Performans sorunlarını teşhis etmek için `vmstat` çıktısını diğer sistem izleme araçlarıyla birlikte kullanmak faydalı olabilir.

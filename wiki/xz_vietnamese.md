@@ -1,56 +1,48 @@
-# [리눅스] Bash xz 사용법
+# [Linux] Bash xz Cách sử dụng: Nén và giải nén tệp tin
 
 ## Tổng quan
-Lệnh `xz` là một công cụ nén dữ liệu trong hệ điều hành Unix/Linux, được sử dụng để nén và giải nén các tệp tin. Nó sử dụng thuật toán nén LZMA (Lempel-Ziv-Markov chain algorithm), cho phép nén tệp tin với tỷ lệ nén cao hơn so với nhiều công cụ nén khác như `gzip` hay `bzip2`. Mục đích chính của lệnh `xz` là giảm kích thước tệp tin để tiết kiệm không gian lưu trữ và băng thông khi truyền tải.
+Lệnh `xz` là một công cụ nén tệp tin mạnh mẽ, sử dụng thuật toán nén LZMA để giảm kích thước tệp. Nó thường được sử dụng để nén các tệp lớn, giúp tiết kiệm không gian lưu trữ và tăng tốc độ truyền tải dữ liệu.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `xz` như sau:
-
 ```bash
-xz [tùy chọn] [tệp tin]
+xz [options] [arguments]
 ```
 
-### Một số tùy chọn phổ biến:
-- `-d`, `--decompress`: Giải nén tệp tin đã nén.
+## Tùy chọn phổ biến
+- `-d`, `--decompress`: Giải nén tệp tin.
 - `-k`, `--keep`: Giữ lại tệp tin gốc sau khi nén.
-- `-v`, `--verbose`: Hiển thị thông tin chi tiết trong quá trình nén hoặc giải nén.
 - `-f`, `--force`: Buộc ghi đè lên tệp tin đã tồn tại.
-- `-9`: Sử dụng mức nén cao nhất (mức 1 đến 9, 9 là cao nhất).
+- `-9`: Sử dụng mức nén cao nhất (từ 1 đến 9).
+- `-z`: Nén tệp tin (mặc định).
 
-## Ví dụ
-### Ví dụ 1: Nén một tệp tin
-Để nén một tệp tin có tên `file.txt`, bạn có thể sử dụng lệnh sau:
+## Ví dụ phổ biến
+1. Nén một tệp tin:
+   ```bash
+   xz file.txt
+   ```
 
-```bash
-xz file.txt
-```
-Lệnh này sẽ tạo ra tệp tin nén có tên `file.txt.xz` và xóa tệp tin gốc `file.txt`.
+2. Giải nén một tệp tin đã nén:
+   ```bash
+   xz -d file.txt.xz
+   ```
 
-### Ví dụ 2: Giải nén một tệp tin
-Để giải nén tệp tin `file.txt.xz`, bạn có thể sử dụng lệnh sau:
+3. Nén tệp tin và giữ lại tệp gốc:
+   ```bash
+   xz -k file.txt
+   ```
 
-```bash
-xz -d file.txt.xz
-```
-Lệnh này sẽ khôi phục tệp tin gốc `file.txt` từ tệp tin nén.
+4. Nén với mức nén cao nhất:
+   ```bash
+   xz -9 file.txt
+   ```
+
+5. Giải nén tất cả các tệp `.xz` trong thư mục hiện tại:
+   ```bash
+   xz -d *.xz
+   ```
 
 ## Mẹo
-- Khi làm việc với nhiều tệp tin, bạn có thể nén chúng cùng một lúc bằng cách chỉ định nhiều tệp tin trong lệnh `xz`:
-
-```bash
-xz file1.txt file2.txt file3.txt
-```
-
-- Nếu bạn muốn giữ lại tệp tin gốc sau khi nén, hãy sử dụng tùy chọn `-k`:
-
-```bash
-xz -k file.txt
-```
-
-- Để nén một thư mục, bạn có thể kết hợp `tar` và `xz`:
-
-```bash
-tar -cvf - thư mục/ | xz > archive.tar.xz
-```
-
-Sử dụng lệnh `xz` một cách hiệu quả sẽ giúp bạn quản lý tệp tin dễ dàng hơn và tiết kiệm không gian lưu trữ.
+- Sử dụng tùy chọn `-k` nếu bạn muốn giữ lại tệp gốc sau khi nén, điều này rất hữu ích khi bạn cần kiểm tra nội dung của tệp gốc.
+- Khi làm việc với nhiều tệp, bạn có thể nén chúng thành một tệp `.tar.xz` bằng cách sử dụng lệnh `tar` kết hợp với `xz`.
+- Để tiết kiệm thời gian, hãy cân nhắc sử dụng mức nén thấp hơn nếu không cần thiết phải nén tối đa, vì mức nén cao hơn có thể tốn nhiều thời gian hơn.

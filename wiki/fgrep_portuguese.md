@@ -1,44 +1,62 @@
-# [리눅스] Bash fgrep 사용법
+# [Linux] Bash fgrep Uso: Busca por strings fixas em arquivos
 
 ## Overview
-O comando `fgrep` é uma ferramenta de busca no Unix/Linux que permite procurar por strings fixas em arquivos de texto. Ao contrário do `grep`, que interpreta expressões regulares, o `fgrep` busca por padrões exatos, o que o torna mais rápido quando você precisa encontrar uma sequência específica de caracteres sem a complexidade das expressões regulares.
+O comando `fgrep` é utilizado para buscar por strings fixas em arquivos de texto. Ele é uma versão do comando `grep`, mas que não interpreta expressões regulares, tornando a busca mais rápida e eficiente quando se trata de encontrar padrões exatos.
 
 ## Usage
 A sintaxe básica do comando `fgrep` é a seguinte:
 
 ```bash
-fgrep [opções] "padrão" [arquivo...]
+fgrep [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-i`: Ignora a distinção entre maiúsculas e minúsculas durante a busca.
-- `-v`: Inverte a busca, mostrando as linhas que **não** contêm o padrão.
-- `-c`: Conta o número de linhas que contêm o padrão.
-- `-n`: Mostra o número da linha junto com as linhas que contêm o padrão.
-- `-r` ou `-R`: Realiza a busca recursivamente em diretórios.
+## Common Options
+Aqui estão algumas opções comuns do `fgrep`:
 
-## Examples
-### Exemplo 1: Busca Simples
-Para buscar a string "erro" em um arquivo chamado `log.txt`, você pode usar o seguinte comando:
+- `-i`: Ignora a diferenciação entre maiúsculas e minúsculas.
+- `-v`: Inverte a busca, mostrando linhas que **não** contêm a string especificada.
+- `-c`: Conta o número de linhas que correspondem à busca.
+- `-n`: Mostra o número da linha junto com as correspondências.
+- `-r`: Busca recursivamente em diretórios.
+
+## Common Examples
+
+### Exemplo 1: Busca simples
+Para buscar a string "exemplo" em um arquivo chamado `arquivo.txt`:
 
 ```bash
-fgrep "erro" log.txt
+fgrep "exemplo" arquivo.txt
 ```
 
-Este comando irá listar todas as linhas do arquivo `log.txt` que contêm a palavra "erro".
-
-### Exemplo 2: Busca Ignorando Maiúsculas
-Se você quiser buscar a mesma string, mas ignorando a distinção entre maiúsculas e minúsculas, use a opção `-i`:
+### Exemplo 2: Ignorar maiúsculas e minúsculas
+Para buscar a string "ExEmPlO" ignorando a diferenciação entre maiúsculas e minúsculas:
 
 ```bash
-fgrep -i "Erro" log.txt
+fgrep -i "ExEmPlO" arquivo.txt
 ```
 
-Este comando irá encontrar "erro", "Erro", "ERRO", etc., no arquivo `log.txt`.
+### Exemplo 3: Contar correspondências
+Para contar quantas vezes a string "teste" aparece em um arquivo:
+
+```bash
+fgrep -c "teste" arquivo.txt
+```
+
+### Exemplo 4: Buscar recursivamente em diretórios
+Para buscar a string "dados" em todos os arquivos de um diretório e suas subpastas:
+
+```bash
+fgrep -r "dados" /caminho/para/diretorio
+```
+
+### Exemplo 5: Inverter a busca
+Para mostrar todas as linhas que **não** contêm a string "erro":
+
+```bash
+fgrep -v "erro" arquivo.txt
+```
 
 ## Tips
-- Utilize `fgrep` quando você tiver certeza de que não precisa de expressões regulares, pois isso pode melhorar a performance da busca.
-- Combine opções para refinar sua busca. Por exemplo, usar `-n` junto com `-v` pode ser útil para identificar quais linhas não contêm um determinado padrão e ainda mostrar suas posições.
-- Para buscas em múltiplos arquivos, você pode usar curingas, como `*.txt`, para buscar em todos os arquivos de texto em um diretório.
-
-Com essas informações, você deve estar preparado para usar o `fgrep` de forma eficaz em suas tarefas de busca em arquivos de texto.
+- Utilize `fgrep` quando precisar de uma busca rápida e não precisar de expressões regulares.
+- Combine opções para refinar suas buscas, como `-i` e `-n` para ignorar maiúsculas e mostrar números de linha.
+- Para arquivos grandes, considere usar `fgrep` em vez de `grep` para melhorar o desempenho.

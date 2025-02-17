@@ -1,45 +1,46 @@
-# [리눅스] Bash pidof 사용법
+# [Linux] Bash pidof Uso: Obtener el PID de un proceso
+
+El comando `pidof` se utiliza para encontrar el identificador de proceso (PID) de un programa en ejecución.
 
 ## Overview
-El comando `pidof` en Bash se utiliza para encontrar el identificador de proceso (PID) de un programa en ejecución. Su propósito principal es permitir a los usuarios y desarrolladores identificar y trabajar con procesos específicos en el sistema operativo, facilitando la gestión de procesos y la depuración.
+El comando `pidof` devuelve el PID de uno o más procesos que coinciden con el nombre del programa especificado. Es útil para identificar procesos en ejecución y para realizar tareas de administración del sistema.
 
 ## Usage
-La sintaxis básica del comando `pidof` es la siguiente:
-
-```
-pidof [opciones] nombre_del_programa
-```
-
-### Opciones Comunes
-- `-s`: Muestra solo el primer PID encontrado.
-- `-c`: Muestra el PID de todos los procesos que coinciden con el nombre, incluso si están en un estado de "zombie".
-- `-o`: Permite excluir ciertos PIDs de la salida.
-
-## Examples
-### Ejemplo 1: Obtener el PID de un programa específico
-Para encontrar el PID del programa `bash`, puedes usar el siguiente comando:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-pidof bash
+pidof [opciones] [argumentos]
 ```
 
-Este comando devolverá el o los PIDs asociados con todas las instancias de `bash` que se están ejecutando en el sistema.
+## Common Options
+- `-o, --ignore`: Ignora los PIDs de los procesos especificados.
+- `-s, --single`: Devuelve solo un PID, el primero encontrado.
+- `-h, --help`: Muestra la ayuda y la información del uso del comando.
 
-### Ejemplo 2: Usar la opción -s
-Si solo deseas obtener el primer PID de `bash`, puedes usar la opción `-s` de la siguiente manera:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `pidof`:
 
-```bash
-pidof -s bash
-```
+1. Obtener el PID de un proceso específico, por ejemplo, `bash`:
+   ```bash
+   pidof bash
+   ```
 
-Esto devolverá solo el primer PID encontrado para el programa `bash`.
+2. Ignorar un proceso específico al buscar el PID de `apache2`:
+   ```bash
+   pidof -o apache2 apache2
+   ```
+
+3. Obtener solo el primer PID del proceso `nginx`:
+   ```bash
+   pidof -s nginx
+   ```
+
+4. Ver la ayuda del comando:
+   ```bash
+   pidof --help
+   ```
 
 ## Tips
-- Asegúrate de que el nombre del programa que estás buscando sea correcto, ya que `pidof` es sensible a mayúsculas y minúsculas.
-- Puedes combinar `pidof` con otros comandos, como `kill`, para finalizar procesos de manera eficiente. Por ejemplo:
-
-```bash
-kill $(pidof nombre_del_programa)
-```
-
-- Utiliza `pidof` en scripts para automatizar la gestión de procesos, asegurando que siempre trabajas con los PIDs correctos.
+- Utiliza `pidof` junto con otros comandos como `kill` para terminar procesos específicos.
+- Si necesitas verificar si un proceso está en ejecución, puedes combinar `pidof` con el comando `if` en un script.
+- Recuerda que `pidof` solo funciona con procesos que están en ejecución; si el proceso no está activo, no devolverá ningún PID.

@@ -1,41 +1,57 @@
-# [리눅스] Bash nslookup 사용법
+# [Linux] Bash nslookup Uso: Consulta de endereços DNS
 
 ## Overview
-O comando `nslookup` (Name Server Lookup) é uma ferramenta de linha de comando utilizada para consultar servidores DNS (Domain Name System). Ele permite que os usuários obtenham informações sobre domínios, como endereços IP, registros de recursos e outros dados relacionados ao DNS. O `nslookup` é frequentemente utilizado por engenheiros de rede e desenvolvedores para diagnosticar problemas de resolução de nomes e verificar a configuração do DNS.
+O comando `nslookup` é uma ferramenta de linha de comando utilizada para consultar informações sobre servidores DNS. Ele permite que os usuários obtenham detalhes sobre domínios, como endereços IP, registros de MX, entre outros.
 
 ## Usage
 A sintaxe básica do comando `nslookup` é a seguinte:
 
-```
-nslookup [opções] [nome_do_domínio] [servidor_DNS]
+```bash
+nslookup [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-type=tipo`: Especifica o tipo de registro DNS a ser consultado (por exemplo, A, AAAA, MX, TXT).
-- `-debug`: Ativa o modo de depuração, fornecendo informações detalhadas sobre a consulta.
-- `-timeout=segundos`: Define o tempo limite para aguardar uma resposta do servidor DNS.
-- `-port=porta`: Especifica a porta a ser utilizada para a consulta DNS (o padrão é 53).
+## Common Options
+Aqui estão algumas opções comuns do `nslookup`:
 
-## Examples
-### Exemplo 1: Consultar o endereço IP de um domínio
-Para obter o endereço IP associado a um domínio, você pode usar o seguinte comando:
+- `-type=tipo`: Especifica o tipo de registro DNS a ser consultado (por exemplo, A, AAAA, MX).
+- `-timeout=segundos`: Define o tempo limite para a consulta em segundos.
+- `-retry=n`: Define o número de tentativas em caso de falha na consulta.
+- `-debug`: Ativa o modo de depuração, mostrando informações detalhadas sobre a consulta.
+
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `nslookup`:
+
+1. **Consultar o endereço IP de um domínio:**
 
 ```bash
 nslookup www.exemplo.com
 ```
 
-Este comando retornará o endereço IP do domínio "www.exemplo.com", juntamente com informações sobre o servidor DNS que respondeu à consulta.
-
-### Exemplo 2: Consultar registros MX de um domínio
-Para verificar os registros de troca de correio (MX) de um domínio, utilize a opção `-type=MX`:
+2. **Consultar um registro MX para um domínio:**
 
 ```bash
 nslookup -type=MX exemplo.com
 ```
 
-Esse comando retornará os registros MX do domínio "exemplo.com", que são utilizados para direcionar o tráfego de e-mail.
+3. **Consultar um registro específico (AAAA) para um domínio:**
+
+```bash
+nslookup -type=AAAA www.exemplo.com
+```
+
+4. **Definir um servidor DNS específico para a consulta:**
+
+```bash
+nslookup www.exemplo.com 8.8.8.8
+```
+
+5. **Ativar o modo de depuração:**
+
+```bash
+nslookup -debug www.exemplo.com
+```
 
 ## Tips
-- Sempre que possível, utilize o modo de depuração (`-debug`) para obter mais informações sobre a consulta, especialmente ao solucionar problemas de DNS.
-- Experimente consultar diferentes tipos de registros para obter uma visão mais abrangente da configuração DNS de um domínio.
-- Se você estiver enfrentando problemas de resolução de nomes, verifique se o servidor DNS que está sendo utilizado está funcionando corretamente ou experimente usar um servidor DNS público, como o Google DNS (8.8.8.8).
+- Sempre verifique se você está usando o servidor DNS correto, especialmente em redes corporativas.
+- Utilize o modo de depuração para resolver problemas de consulta e entender melhor o que está acontecendo.
+- Combine `nslookup` com outras ferramentas de rede, como `ping` e `traceroute`, para uma análise mais completa da conectividade.

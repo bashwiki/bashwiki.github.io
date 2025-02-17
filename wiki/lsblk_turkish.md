@@ -1,54 +1,59 @@
-# [리눅스] Bash lsblk 사용법
+# [Linux] Bash lsblk Kullanımı: Disk ve Bölüm Bilgilerini Listeleme
 
-## Genel Bakış
-`lsblk` komutu, Linux işletim sistemlerinde blok aygıtlarının (diskler, bölümler, vb.) listesini görüntülemek için kullanılır. Bu komut, sistemdeki mevcut depolama aygıtlarını ve bunların hiyerarşik yapısını gösterir. Özellikle disk yönetimi ve sistem yapılandırması ile ilgilenen mühendisler ve geliştiriciler için faydalıdır.
+## Overview
+`lsblk` komutu, sistemdeki blok aygıtlarını (diskler, bölümler, vb.) listelemek için kullanılır. Bu komut, aygıtların yapısını ve özelliklerini görsel olarak sunarak kullanıcıların disk yönetimini kolaylaştırır.
 
-## Kullanım
-`lsblk` komutunun temel sözdizimi aşağıdaki gibidir:
+## Usage
+Temel kullanım sözdizimi aşağıdaki gibidir:
 
 ```bash
-lsblk [seçenekler]
+lsblk [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-a`, `--all`: Tüm aygıtları, boş olanlar dahil, listele.
-- `-f`, `--fs`: Dosya sistemi bilgilerini göster.
-- `-l`, `--list`: Liste formatında çıktı verir.
-- `-o`, `--output`: Görüntülenecek sütunları belirtir.
-- `-p`, `--paths`: Aygıt yollarını tam olarak gösterir.
-- `-n`, `--noheadings`: Başlık satırını gizler.
+## Common Options
+- `-a` veya `--all`: Tüm aygıtları, boş olanlar da dahil olmak üzere gösterir.
+- `-f` veya `--fs`: Dosya sistemi bilgilerini gösterir.
+- `-l` veya `--list`: Liste formatında çıktı verir.
+- `-o` veya `--output`: Görüntülenecek sütunları belirler.
+- `-p` veya `--paths`: Aygıtların tam yollarını gösterir.
 
-## Örnekler
+## Common Examples
+Aşağıda `lsblk` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, sistemdeki tüm blok aygıtlarını listeleyecektir:
-
+### 1. Tüm blok aygıtlarını listeleme
 ```bash
 lsblk
 ```
 
-### Örnek 2: Dosya Sistemi Bilgileri ile Listeleme
-Dosya sistemi bilgilerini de içeren bir liste görüntülemek için şu komutu kullanabilirsiniz:
-
+### 2. Dosya sistemi bilgileri ile listeleme
 ```bash
 lsblk -f
 ```
 
-Bu komut, her bir aygıtın dosya sistemi türü ve etiket bilgilerini gösterir.
+### 3. Liste formatında çıktı alma
+```bash
+lsblk -l
+```
 
-## İpuçları
-- `lsblk` çıktısını daha okunabilir hale getirmek için `-o` seçeneği ile belirli sütunları seçebilirsiniz. Örneğin, sadece aygıt adı ve dosya sistemi türünü görüntülemek için:
+### 4. Belirli sütunları görüntüleme
+```bash
+lsblk -o NAME,SIZE,TYPE,MOUNTPOINT
+```
 
+### 5. Tüm aygıtları, boş olanlar dahil gösterme
+```bash
+lsblk -a
+```
+
+## Tips
+- `lsblk` çıktısını daha okunabilir hale getirmek için `column` komutunu kullanabilirsiniz:
   ```bash
-  lsblk -o NAME,FSTYPE
+  lsblk | column -t
   ```
-
-- Çıktıyı bir dosyaya kaydetmek için `>` operatörünü kullanabilirsiniz:
-
+- Disklerinizi düzenli olarak kontrol etmek için `lsblk` komutunu bir betik içinde kullanabilirsiniz.
+- Çıktıyı bir dosyaya yönlendirmek için `>` operatörünü kullanarak bilgileri kaydedebilirsiniz:
   ```bash
-  lsblk -f > lsblk_output.txt
-  ```
+  lsblk > disk_bilgileri.txt
+  ``` 
 
-Bu, `lsblk` komutunun çıktısını `lsblk_output.txt` dosyasına kaydedecektir. 
-
-`lsblk` komutu, sistemdeki blok aygıtlarını anlamak ve yönetmek için güçlü bir araçtır. Doğru seçenekleri kullanarak, ihtiyacınıza uygun bilgileri kolayca elde edebilirsiniz.
+Bu bilgilerle `lsblk` komutunu etkili bir şekilde kullanarak sisteminizdeki disk ve bölüm bilgilerini kolayca yönetebilirsiniz.

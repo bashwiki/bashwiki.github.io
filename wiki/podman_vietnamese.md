@@ -1,47 +1,62 @@
-# [리눅스] Bash podman 사용법
+# [Linux] Bash podman sử dụng: Quản lý container
 
-## Tổng quan
-`podman` là một công cụ quản lý container không cần daemon, cho phép người dùng tạo, chạy và quản lý các container và pod. Nó được thiết kế để hoạt động tương tự như Docker nhưng không yêu cầu một dịch vụ nền (daemon) chạy liên tục. `podman` hỗ trợ việc chạy các container trong môi trường không có quyền root, giúp tăng cường bảo mật và dễ dàng tích hợp vào các quy trình CI/CD.
+## Overview
+Podman là một công cụ dòng lệnh dùng để quản lý container và image container. Nó cho phép người dùng tạo, chạy và quản lý các container mà không cần một daemon chạy nền, giúp tăng cường tính bảo mật và tính linh hoạt.
 
-## Cách sử dụng
-Cú pháp cơ bản của lệnh `podman` như sau:
-
+## Usage
+Cú pháp cơ bản của lệnh podman như sau:
 ```
-podman [tùy chọn] [lệnh] [tham số]
-```
-
-Một số tùy chọn và lệnh phổ biến của `podman` bao gồm:
-
-- `podman run`: Tạo và chạy một container mới.
-- `podman ps`: Liệt kê các container đang chạy.
-- `podman images`: Hiển thị danh sách các hình ảnh container có sẵn.
-- `podman stop`: Dừng một hoặc nhiều container đang chạy.
-- `podman rm`: Xóa một hoặc nhiều container.
-
-## Ví dụ
-### Ví dụ 1: Chạy một container Nginx
-Để chạy một container Nginx, bạn có thể sử dụng lệnh sau:
-
-```bash
-podman run -d -p 8080:80 nginx
+podman [options] [arguments]
 ```
 
-Trong lệnh này:
-- `-d`: Chạy container ở chế độ nền (detached).
-- `-p 8080:80`: Chuyển tiếp cổng 8080 trên máy chủ đến cổng 80 trong container.
+## Common Options
+- `run`: Chạy một container mới.
+- `pull`: Tải một image từ kho chứa.
+- `ps`: Liệt kê các container đang chạy.
+- `stop`: Dừng một container đang chạy.
+- `rm`: Xóa một container đã dừng.
 
-### Ví dụ 2: Liệt kê các container đang chạy
-Để xem danh sách các container đang chạy, bạn có thể sử dụng lệnh:
+## Common Examples
+- **Chạy một container mới từ image**:
+    ```bash
+    podman run -d nginx
+    ```
+    Lệnh này sẽ chạy một container mới từ image `nginx` trong chế độ nền.
 
-```bash
-podman ps
-```
+- **Tải một image từ kho chứa**:
+    ```bash
+    podman pull ubuntu
+    ```
+    Lệnh này sẽ tải image `ubuntu` về máy.
 
-Lệnh này sẽ hiển thị thông tin về các container đang hoạt động, bao gồm ID, tên, trạng thái và cổng.
+- **Liệt kê các container đang chạy**:
+    ```bash
+    podman ps
+    ```
+    Lệnh này sẽ hiển thị danh sách các container đang hoạt động.
 
-## Mẹo
-- Sử dụng `podman --help` để xem danh sách đầy đủ các lệnh và tùy chọn có sẵn.
-- Để tiết kiệm tài nguyên, hãy dọn dẹp các container và hình ảnh không còn sử dụng bằng cách sử dụng `podman rm` và `podman rmi`.
-- Xem xét việc sử dụng `podman-compose` nếu bạn cần quản lý nhiều container cùng một lúc, tương tự như Docker Compose.
+- **Dừng một container**:
+    ```bash
+    podman stop <container_id>
+    ```
+    Thay `<container_id>` bằng ID của container bạn muốn dừng.
 
-Hy vọng rằng bài viết này sẽ giúp bạn hiểu rõ hơn về cách sử dụng `podman` trong các dự án phát triển của mình!
+- **Xóa một container đã dừng**:
+    ```bash
+    podman rm <container_id>
+    ```
+    Lệnh này sẽ xóa container đã dừng có ID tương ứng.
+
+## Tips
+- Sử dụng tùy chọn `-it` khi chạy container để có thể tương tác với nó:
+    ```bash
+    podman run -it ubuntu /bin/bash
+    ```
+- Để xem log của một container, bạn có thể sử dụng lệnh:
+    ```bash
+    podman logs <container_id>
+    ```
+- Thường xuyên kiểm tra các image và container không còn sử dụng để tiết kiệm không gian lưu trữ bằng cách sử dụng:
+    ```bash
+    podman image prune
+    ```

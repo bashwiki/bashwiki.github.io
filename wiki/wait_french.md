@@ -1,58 +1,54 @@
-# [리눅스] Bash wait 사용법
+# [Linux] Bash wait : Attendre la fin d'un processus
 
 ## Overview
-La commande `wait` en Bash est utilisée pour suspendre l'exécution d'un script jusqu'à ce qu'un ou plusieurs processus enfants se terminent. Son principal objectif est de permettre à un script de gérer les processus en arrière-plan, en s'assurant que certaines tâches sont complètes avant de continuer l'exécution.
+La commande `wait` en Bash est utilisée pour attendre la fin d'un ou plusieurs processus en arrière-plan. Elle permet de synchroniser l'exécution des scripts en s'assurant que certaines tâches sont terminées avant de continuer.
 
 ## Usage
 La syntaxe de base de la commande `wait` est la suivante :
 
 ```bash
-wait [PID...]
+wait [options] [arguments]
 ```
 
-- **PID** : Il s'agit de l'identifiant du processus (Process ID) que vous souhaitez attendre. Si aucun PID n'est spécifié, `wait` attendra que tous les processus enfants se terminent.
+## Common Options
+Voici quelques options courantes pour la commande `wait` :
 
-### Options courantes
-- Si vous spécifiez un PID, `wait` renverra le statut de sortie de ce processus.
-- Si vous n'attendez aucun PID, `wait` renverra le statut de sortie du dernier processus enfant terminé.
+- `-n` : Attend la fin du premier processus en arrière-plan.
+- `PID` : Attend la fin du processus spécifié par son identifiant de processus (PID).
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `wait`.
+## Common Examples
 
-### Exemple 1 : Attendre un processus spécifique
+### Attendre tous les processus en arrière-plan
+Pour attendre que tous les processus en arrière-plan se terminent, utilisez simplement :
+
 ```bash
-#!/bin/bash
-
-# Lancer un processus en arrière-plan
-sleep 5 &
-pid=$!
-
-# Attendre que le processus se termine
-wait $pid
-
-echo "Le processus avec PID $pid est terminé."
-```
-Dans cet exemple, le script lance une commande `sleep` en arrière-plan et attend que celle-ci se termine avant d'afficher un message.
-
-### Exemple 2 : Attendre plusieurs processus
-```bash
-#!/bin/bash
-
-# Lancer plusieurs processus en arrière-plan
-sleep 3 &
-pid1=$!
-sleep 5 &
-pid2=$!
-
-# Attendre que tous les processus se terminent
-wait $pid1
-wait $pid2
-
+sleep 5 &  # Démarre un processus en arrière-plan
+sleep 3 &  # Démarre un autre processus en arrière-plan
+wait        # Attend que tous les processus en arrière-plan se terminent
 echo "Tous les processus sont terminés."
 ```
-Ici, deux commandes `sleep` sont lancées en arrière-plan, et le script attend que chacun d'eux se termine avant d'afficher un message final.
+
+### Attendre un processus spécifique
+Pour attendre un processus spécifique, vous devez connaître son PID :
+
+```bash
+sleep 10 &  # Démarre un processus en arrière-plan
+PID=$!      # Récupère le PID du dernier processus en arrière-plan
+wait $PID   # Attend que le processus avec ce PID se termine
+echo "Le processus avec PID $PID est terminé."
+```
+
+### Attendre le premier processus terminé
+Pour attendre le premier processus qui se termine :
+
+```bash
+sleep 5 &  # Démarre un processus en arrière-plan
+sleep 3 &  # Démarre un autre processus en arrière-plan
+wait -n     # Attend la fin du premier processus en arrière-plan
+echo "Le premier processus est terminé."
+```
 
 ## Tips
-- Utilisez `wait` pour synchroniser les tâches en arrière-plan et éviter les problèmes de concurrence dans vos scripts.
-- Vérifiez toujours le statut de sortie des processus en utilisant `$?` après un `wait` pour gérer les erreurs potentielles.
-- Évitez d'utiliser `wait` dans des scripts qui ne lancent pas de processus en arrière-plan, car cela peut entraîner une attente indéfinie.
+- Utilisez `wait` dans des scripts pour gérer l'ordre d'exécution des tâches.
+- Vérifiez le code de sortie d'un processus après `wait` en utilisant `$?` pour savoir s'il s'est terminé avec succès.
+- Évitez d'utiliser `wait` sans arguments si vous avez des processus spécifiques à surveiller, car cela attendra tous les processus en arrière-plan.

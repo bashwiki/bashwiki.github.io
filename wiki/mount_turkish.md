@@ -1,42 +1,45 @@
-# [리눅스] Bash mount 사용법
+# [Linux] Bash mount Kullanımı: Dosya sistemlerini bağlama
 
-## Overview
-`mount` komutu, bir dosya sistemini belirli bir dizine bağlamak için kullanılır. Bu işlem, işletim sisteminin dosya sistemine erişimini sağlar. Genellikle, harici depolama aygıtları (USB bellekler, sabit diskler vb.) veya ağ dosya sistemleri gibi kaynakları sisteme entegre etmek için kullanılır. `mount` komutu, bağlama işlemi sırasında dosya sisteminin hangi aygıta ait olduğunu ve hangi dizine bağlanacağını belirler.
+## Genel Bakış
+`mount` komutu, bir dosya sistemini belirli bir dizine bağlamak için kullanılır. Bu işlem, dosya sisteminin içeriğine erişim sağlamanın yanı sıra, sistemin dosya yapısını yönetmeyi de kolaylaştırır.
 
-## Usage
-`mount` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-mount [seçenekler] <cihaz> <bağlama_noktası>
-```
-
-### Yaygın Seçenekler
-- `-t <dosya_sistemi>`: Bağlanacak dosya sisteminin türünü belirtir (örneğin, ext4, ntfs, vfat).
-- `-o <seçenekler>`: Bağlama işlemi sırasında kullanılacak özel seçenekleri belirtir (örneğin, `ro` sadece okunur, `rw` okuma/yazma).
-- `-a`: `/etc/fstab` dosyasındaki tüm dosya sistemlerini bağlar.
-- `-r`: Dosya sistemini sadece okunur modda bağlar.
-
-## Examples
-### Örnek 1: USB Belleği Bağlama
-Bir USB bellek cihazını `/mnt/usb` dizinine bağlamak için aşağıdaki komutu kullanabilirsiniz:
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
-sudo mount /dev/sdb1 /mnt/usb
+mount [seçenekler] [argümanlar]
 ```
 
-Burada `/dev/sdb1`, bağlanacak USB bellek aygıtının cihaz dosyasıdır ve `/mnt/usb` ise bağlama noktasını temsil eder.
+## Yaygın Seçenekler
+- `-t`: Bağlanacak dosya sisteminin türünü belirtir.
+- `-o`: Bağlama işlemi için özel seçenekler tanımlar.
+- `-a`: `/etc/fstab` dosyasında tanımlı olan tüm dosya sistemlerini bağlar.
+- `-r`: Dosya sistemini yalnızca okunur modda bağlar.
 
-### Örnek 2: Ağ Dosya Sistemini Bağlama
-Bir ağ dosya sistemini bağlamak için aşağıdaki komutu kullanabilirsiniz:
+## Yaygın Örnekler
+Aşağıda `mount` komutunun bazı pratik örnekleri verilmiştir:
 
-```bash
-sudo mount -t nfs 192.168.1.100:/paylasim /mnt/nfs
-```
+1. **Bir USB sürücüsünü bağlama:**
+   ```bash
+   mount /dev/sdb1 /mnt/usb
+   ```
 
-Bu komut, `192.168.1.100` IP adresindeki bir NFS paylaşımını `/mnt/nfs` dizinine bağlar.
+2. **Bir NFS dosya sistemini bağlama:**
+   ```bash
+   mount -t nfs 192.168.1.100:/paylasim /mnt/nfs
+   ```
 
-## Tips
-- Bağlama işlemi yapmadan önce, bağlama noktasının (örneğin, `/mnt/usb`) mevcut olduğundan emin olun. Eğer yoksa, `mkdir` komutuyla oluşturabilirsiniz.
-- Bağlı dosya sistemini çıkarmak için `umount <bağlama_noktası>` komutunu kullanmayı unutmayın.
-- `mount` komutunu kullanırken root yetkilerine ihtiyaç duyabilirsiniz, bu nedenle `sudo` ile çalıştırmak yaygın bir uygulamadır.
-- `/etc/fstab` dosyasını düzenleyerek, sistem açıldığında otomatik olarak bağlanacak dosya sistemlerini tanımlayabilirsiniz.
+3. **Tüm dosya sistemlerini bağlama:**
+   ```bash
+   mount -a
+   ```
+
+4. **Bir dosya sistemini yalnızca okunur modda bağlama:**
+   ```bash
+   mount -o ro /dev/sdc1 /mnt/read_only
+   ```
+
+## İpuçları
+- Bağlama işlemi için yeterli izinlere sahip olduğunuzdan emin olun; genellikle `root` kullanıcısı olmanız gerekir.
+- Bağladığınız dosya sistemini çıkarmadan önce, dosya sisteminin kullanılmadığından emin olun. Bunu sağlamak için `umount` komutunu kullanabilirsiniz.
+- `fstab` dosyasını düzenleyerek, sistem açıldığında otomatik olarak bağlanacak dosya sistemlerini tanımlayabilirsiniz.

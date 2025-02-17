@@ -1,38 +1,53 @@
-# [리눅스] Bash wget 사용법
+# [Linux] Bash wget Utilisation : Téléchargement de fichiers depuis le web
 
 ## Overview
-`wget` est un outil en ligne de commande utilisé pour télécharger des fichiers à partir du web. Il prend en charge divers protocoles, notamment HTTP, HTTPS et FTP. Son principal objectif est de permettre aux utilisateurs de récupérer des fichiers de manière non interactive, ce qui signifie qu'il peut fonctionner en arrière-plan sans nécessiter d'interaction de l'utilisateur.
+La commande `wget` est un outil en ligne de commande utilisé pour télécharger des fichiers depuis le web. Elle prend en charge divers protocoles tels que HTTP, HTTPS et FTP, permettant ainsi de récupérer des fichiers de manière simple et efficace.
 
 ## Usage
 La syntaxe de base de la commande `wget` est la suivante :
 
 ```bash
-wget [options] [URL]
+wget [options] [arguments]
 ```
 
-### Options courantes :
-- `-O <nom_fichier>` : Spécifie le nom du fichier de sortie.
+## Common Options
+Voici quelques options courantes que vous pouvez utiliser avec `wget` :
+
+- `-O [nom_fichier]` : Spécifie le nom du fichier de sortie.
 - `-c` : Reprend un téléchargement interrompu.
-- `-q` : Mode silencieux, n'affiche pas de messages.
-- `--limit-rate=<vitesse>` : Limite la vitesse de téléchargement.
-- `-r` : Télécharge récursivement les fichiers (utile pour les sites web).
+- `-q` : Exécute la commande en mode silencieux (sans sortie).
+- `--limit-rate=[vitesse]` : Limite la vitesse de téléchargement.
+- `-r` : Télécharge récursivement les fichiers d'un site web.
 
-## Examples
-### Exemple 1 : Télécharger un fichier
-Pour télécharger un fichier à partir d'une URL, vous pouvez utiliser la commande suivante :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `wget` :
 
-```bash
-wget https://example.com/fichier.zip
-```
+1. Télécharger un fichier à partir d'une URL :
+   ```bash
+   wget https://example.com/fichier.zip
+   ```
 
-### Exemple 2 : Reprendre un téléchargement interrompu
-Si un téléchargement a été interrompu, vous pouvez le reprendre avec l'option `-c` :
+2. Télécharger un fichier et le renommer :
+   ```bash
+   wget -O nouveau_nom.zip https://example.com/fichier.zip
+   ```
 
-```bash
-wget -c https://example.com/fichier.zip
-```
+3. Reprendre un téléchargement interrompu :
+   ```bash
+   wget -c https://example.com/fichier.zip
+   ```
+
+4. Télécharger un site web de manière récursive :
+   ```bash
+   wget -r https://example.com
+   ```
+
+5. Limiter la vitesse de téléchargement à 200 Ko/s :
+   ```bash
+   wget --limit-rate=200k https://example.com/fichier.zip
+   ```
 
 ## Tips
-- Utilisez l'option `-q` pour réduire le bruit dans vos scripts lorsque vous téléchargez des fichiers.
-- Pour les téléchargements de sites web, l'option `-r` peut être très utile, mais faites attention à ne pas surcharger le serveur.
-- Pensez à utiliser `--limit-rate` pour éviter de monopoliser la bande passante, surtout si vous téléchargez plusieurs fichiers en même temps.
+- Utilisez l'option `-q` pour éviter d'encombrer votre terminal avec des messages inutiles lors de téléchargements en arrière-plan.
+- Pour les téléchargements de sites web, assurez-vous de respecter les règles d'utilisation du site pour éviter d'être bloqué.
+- Pensez à vérifier l'intégrité des fichiers téléchargés, surtout si vous utilisez des fichiers importants ou sensibles.

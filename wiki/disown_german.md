@@ -1,44 +1,43 @@
-# [리눅스] Bash disown 사용법
+# [Linux] Bash disown Verwendung: Prozesse im Hintergrund verwalten
 
 ## Übersicht
-Der Befehl `disown` in Bash wird verwendet, um einen laufenden Hintergrundprozess von der aktuellen Shell zu trennen. Dies bedeutet, dass der Prozess nicht mehr mit der Shell verbunden ist, die ihn gestartet hat, und somit nicht mehr durch das Schließen der Shell beendet wird. Der Hauptzweck von `disown` ist es, sicherzustellen, dass ein Prozess weiterhin läuft, selbst wenn die Shell, die ihn gestartet hat, beendet wird.
+Der Befehl `disown` wird in der Bash verwendet, um einen laufenden Hintergrundprozess von der aktuellen Shell zu trennen. Dadurch wird der Prozess nicht mehr an die Shell gebunden, was bedeutet, dass er weiterläuft, auch wenn die Shell geschlossen wird.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls `disown` lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-disown [OPTION] [JOB_SPEC]
+disown [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-h`: Diese Option verhindert, dass die angegebene Aufgabe beim Schließen der Shell beendet wird, ohne sie vollständig von der Shell zu trennen.
-- `-a`: Diese Option bewirkt, dass alle aktuellen Jobs von der Shell getrennt werden.
-- `-r`: Diese Option listet nur die laufenden Jobs auf.
+## Häufige Optionen
+- `-h`: Verhindert, dass die angegebene Job-ID oder der Prozess von der Shell beendet wird, wenn die Shell geschlossen wird.
+- `-a`: Wendet den Befehl auf alle Jobs an, die in der aktuellen Shell laufen.
+- `-r`: Wendet den Befehl nur auf die laufenden Jobs an.
 
-Wenn keine spezifische Job-Spezifikation angegeben wird, wird der letzte Hintergrundprozess standardmäßig verwendet.
+## Häufige Beispiele
 
-## Beispiele
-### Beispiel 1: Einen Hintergrundprozess disown
-Angenommen, Sie haben einen langen Prozess gestartet, z.B. ein Skript, das im Hintergrund läuft:
+1. **Einen Job im Hintergrund starten und disown verwenden:**
+   ```bash
+   sleep 300 &
+   disown
+   ```
+   In diesem Beispiel wird der `sleep`-Befehl im Hintergrund gestartet und anschließend von der Shell getrennt.
 
-```bash
-./mein_script.sh &
-```
+2. **Einen bestimmten Job disownen:**
+   ```bash
+   sleep 300 &
+   disown %1
+   ```
+   Hier wird der erste Hintergrundjob (`%1`) von der Shell getrennt.
 
-Um diesen Prozess von der Shell zu trennen, verwenden Sie:
-
-```bash
-disown
-```
-
-### Beispiel 2: Alle Hintergrundprozesse disown
-Wenn Sie mehrere Hintergrundprozesse haben und alle von der Shell trennen möchten, können Sie dies mit der Option `-a` tun:
-
-```bash
-disown -a
-```
+3. **Alle Jobs disownen:**
+   ```bash
+   disown -a
+   ```
+   Mit diesem Befehl werden alle laufenden Hintergrundjobs von der Shell getrennt.
 
 ## Tipps
-- Verwenden Sie `jobs`, um eine Liste aller Hintergrundjobs anzuzeigen, bevor Sie `disown` verwenden. Dies hilft Ihnen, den Überblick über die laufenden Prozesse zu behalten.
-- Seien Sie vorsichtig beim Verwenden von `disown`, da Sie möglicherweise einen Prozess trennen, den Sie später wieder benötigen könnten. Überlegen Sie, ob Sie den Prozess stattdessen mit `bg` oder `fg` weiterverwenden möchten.
-- Es ist ratsam, `disown` zu verwenden, wenn Sie sicher sind, dass Sie den Prozess nicht mehr überwachen müssen, da Sie keinen Zugriff mehr auf die Ausgabe oder den Status des Prozesses haben, nachdem er disowned wurde.
+- Verwenden Sie `jobs`, um eine Liste aller Hintergrundjobs anzuzeigen, bevor Sie `disown` verwenden.
+- Seien Sie vorsichtig beim Disownen von Prozessen, die möglicherweise wichtige Ausgaben erzeugen, da Sie diese nicht mehr sehen können, wenn die Shell geschlossen wird.
+- Nutzen Sie `disown -h`, wenn Sie einen Job vor dem Schließen der Shell schützen möchten, ohne ihn zu trennen.

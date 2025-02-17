@@ -1,42 +1,56 @@
-# [리눅스] Bash shutdown 사용법
+# [Linux] Bash shutdown uso: Shut down or restart the system
 
 ## Overview
-The `shutdown` command in Bash is used to bring the system down in a safe manner. Its primary purpose is to halt, power off, or reboot the machine, ensuring that all processes are terminated properly and that the file system is unmounted safely. This is crucial for maintaining system integrity and preventing data loss.
+The `shutdown` command is used to safely turn off or restart a Linux system. It allows users to schedule shutdowns, notify logged-in users, and specify the reason for the shutdown.
 
 ## Usage
 The basic syntax of the `shutdown` command is as follows:
 
+```bash
+shutdown [options] [time] [message]
 ```
-shutdown [OPTION] [TIME] [MESSAGE]
-```
 
-### Common Options:
-- `-h` or `--halt`: Halt the machine after shutting down.
-- `-r` or `--reboot`: Reboot the machine after shutting down.
-- `-P` or `--poweroff`: Power off the machine after shutting down.
-- `TIME`: Specifies when to shut down. This can be specified in various formats, such as `now`, `+5` (for 5 minutes from now), or an exact time (e.g., `23:00`).
-- `MESSAGE`: An optional message that will be broadcasted to all logged-in users before the shutdown occurs.
+## Common Options
+- `-h` or `--halt`: Halts the system after shutdown.
+- `-r` or `--reboot`: Reboots the system after shutdown.
+- `-P` or `--poweroff`: Powers off the machine after shutdown.
+- `-c`: Cancels a scheduled shutdown.
+- `time`: Specifies when to shut down (e.g., `now`, `+5` for five minutes later, or a specific time like `23:00`).
+- `message`: An optional message to display to users before shutdown.
 
-## Examples
-
-1. **Shutting down immediately:**
-   To shut down the system immediately, you can use the following command:
+## Common Examples
+1. **Shut down immediately:**
    ```bash
    shutdown now
    ```
 
-2. **Rebooting after a delay:**
-   To reboot the system after a 10-minute delay, you can use:
+2. **Shut down after 10 minutes:**
    ```bash
-   shutdown -r +10 "The system will reboot in 10 minutes."
+   shutdown +10
+   ```
+
+3. **Reboot the system immediately:**
+   ```bash
+   shutdown -r now
+   ```
+
+4. **Power off the system at a specific time (e.g., 11:30 PM):**
+   ```bash
+   shutdown 23:30
+   ```
+
+5. **Cancel a scheduled shutdown:**
+   ```bash
+   shutdown -c
+   ```
+
+6. **Shut down with a custom message:**
+   ```bash
+   shutdown +5 "System will shut down in 5 minutes for maintenance."
    ```
 
 ## Tips
-- Always ensure that you save your work and notify users before executing a shutdown command, especially on multi-user systems.
-- Use the `-k` option to send a warning message without actually shutting down the system. This can be useful for notifying users without disrupting their work.
-- Consider scheduling shutdowns during off-peak hours to minimize disruption to users.
-- To cancel a scheduled shutdown, you can use the command:
-  ```bash
-  shutdown -c
-  ```
-  This will abort any pending shutdown operations.
+- Always notify users before shutting down the system, especially on multi-user systems, to prevent data loss.
+- Use the `-c` option to cancel a shutdown if you change your mind.
+- Schedule shutdowns during off-peak hours to minimize disruption.
+- Consider using `shutdown -h` for a complete halt or `shutdown -r` for a reboot, depending on your needs.

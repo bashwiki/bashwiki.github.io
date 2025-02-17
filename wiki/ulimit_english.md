@@ -1,52 +1,60 @@
-# [리눅스] Bash ulimit 사용법
+# [Linux] Bash ulimit uso equivalente: Manage user process limits
 
 ## Overview
-The `ulimit` command in Bash is used to set or display user-level resource limits for the shell and its child processes. These limits help manage system resources and prevent a single user or process from consuming too much, which can lead to system instability. Common resources that can be limited include the maximum size of files created, the maximum number of processes, and the maximum amount of memory that can be allocated.
+The `ulimit` command in Bash is used to set or display user-level resource limits for the shell and its child processes. This command helps manage system resources by controlling the maximum amount of resources that can be consumed by processes.
 
 ## Usage
 The basic syntax of the `ulimit` command is as follows:
 
 ```bash
-ulimit [options] [limit]
+ulimit [options] [arguments]
 ```
 
-### Common Options:
-- `-a`: Displays all current limits.
-- `-c`: Sets the maximum size of core files created (in blocks).
-- `-d`: Sets the maximum size of a process's data segment (in kilobytes).
-- `-f`: Sets the maximum size of files created (in blocks).
-- `-l`: Sets the maximum size of locked-in-memory address space (in kilobytes).
-- `-m`: Sets the maximum resident set size (in kilobytes).
-- `-n`: Sets the maximum number of open file descriptors.
-- `-s`: Sets the maximum stack size (in kilobytes).
-- `-t`: Sets the maximum CPU time (in seconds).
-- `-u`: Sets the maximum number of processes available to a single user.
-- `-v`: Sets the maximum virtual memory available to a process (in kilobytes).
+## Common Options
+- `-a`: Display all current limits.
+- `-c`: Set the maximum size of core files created.
+- `-d`: Set the maximum size of a process's data segment.
+- `-f`: Set the maximum size of files created by the shell.
+- `-l`: Set the maximum size allowed for locked-in-memory segments.
+- `-m`: Set the maximum resident set size.
+- `-n`: Set the maximum number of open file descriptors.
+- `-s`: Set the maximum stack size.
+- `-t`: Set the maximum amount of CPU time (in seconds) that the process can use.
+- `-v`: Set the maximum virtual memory available to the process.
 
-To set a limit, you can specify the desired value after the option. For example, `ulimit -n 1024` sets the maximum number of open file descriptors to 1024.
+## Common Examples
 
-## Examples
-
-### Example 1: Displaying Current Limits
-To view all current resource limits for your shell session, you can use the following command:
-
+### Display All Limits
+To view all current limits for the user, use:
 ```bash
 ulimit -a
 ```
 
-This will output a list of all limits, such as the maximum file size, number of processes, and more.
-
-### Example 2: Setting a Limit
-If you want to increase the maximum number of open file descriptors to 2048, you can execute:
-
+### Set Maximum Number of Open Files
+To set the maximum number of open files to 1024:
 ```bash
-ulimit -n 2048
+ulimit -n 1024
 ```
 
-This command will set the limit for the current shell session. Note that increasing limits may require appropriate permissions.
+### Set Maximum Stack Size
+To set the maximum stack size to 8 MB:
+```bash
+ulimit -s 8192
+```
+
+### Set Maximum CPU Time
+To limit the CPU time to 60 seconds:
+```bash
+ulimit -t 60
+```
+
+### Set Core File Size
+To prevent core dumps by setting the core file size to 0:
+```bash
+ulimit -c 0
+```
 
 ## Tips
-- Always check the current limits with `ulimit -a` before making changes to understand the existing configurations.
-- Be cautious when increasing limits, especially on production systems, as it can lead to resource exhaustion.
-- Changes made with `ulimit` are session-specific. To make them permanent, consider adding the command to your shell's configuration file (e.g., `.bashrc` or `.bash_profile`).
-- Use `ulimit` in scripts to ensure that your applications run with the desired resource constraints.
+- Always check current limits with `ulimit -a` before making changes to avoid unintended consequences.
+- Use `ulimit` in scripts to ensure that processes spawned by the script adhere to the specified limits.
+- Be cautious when increasing limits, as it may lead to resource exhaustion on the system.

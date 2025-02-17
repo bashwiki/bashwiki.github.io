@@ -1,38 +1,41 @@
-# [리눅스] Bash su 사용법
+# [Linux] Bash su: Thay đổi người dùng trong phiên làm việc
 
-## Tổng quan
-Lệnh `su` (viết tắt của "substitute user") trong Bash được sử dụng để chuyển đổi giữa các tài khoản người dùng trong hệ thống Linux. Lệnh này cho phép người dùng đăng nhập vào tài khoản khác mà không cần phải đăng xuất và đăng nhập lại. Thông thường, lệnh `su` được sử dụng để chuyển sang tài khoản người dùng root, cho phép thực hiện các tác vụ quản trị hệ thống.
+## Overview
+Lệnh `su` (switch user) trong Bash cho phép người dùng thay đổi tài khoản người dùng trong một phiên làm việc hiện tại. Điều này rất hữu ích khi bạn cần thực hiện các tác vụ yêu cầu quyền truy cập của người dùng khác, thường là người dùng root.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `su` như sau:
-
 ```bash
-su [tùy chọn] [người_dùng]
+su [options] [username]
 ```
 
-### Các tùy chọn phổ biến:
-- `-`: Chuyển sang môi trường shell của người dùng mục tiêu, bao gồm cả biến môi trường.
-- `-c`: Chạy lệnh cụ thể với quyền của người dùng mục tiêu.
-- `-l` hoặc `--login`: Tương tự như `-`, khởi động một shell đăng nhập cho người dùng mục tiêu.
+## Common Options
+- `-l` hoặc `--login`: Đăng nhập như một người dùng mới và khởi động một shell mới.
+- `-c`: Chạy một lệnh cụ thể với quyền của người dùng khác.
+- `-s`: Chỉ định shell để sử dụng cho người dùng mới.
 
-## Ví dụ
-### Ví dụ 1: Chuyển sang tài khoản root
-Để chuyển sang tài khoản root, bạn có thể sử dụng lệnh sau:
-
+## Common Examples
+- Để chuyển sang người dùng root:
 ```bash
-su -
+su
 ```
-Sau khi nhập lệnh này, bạn sẽ được yêu cầu nhập mật khẩu của tài khoản root.
 
-### Ví dụ 2: Chạy một lệnh với quyền của người dùng khác
-Nếu bạn muốn chạy một lệnh cụ thể với quyền của người dùng khác, bạn có thể sử dụng tùy chọn `-c` như sau:
-
+- Để chuyển sang người dùng cụ thể (ví dụ: user1):
 ```bash
-su -c "ls /root" username
+su user1
 ```
-Trong ví dụ này, lệnh `ls /root` sẽ được thực hiện với quyền của `username`.
 
-## Mẹo
-- Hãy cẩn thận khi sử dụng lệnh `su`, đặc biệt là khi chuyển sang tài khoản root, vì bạn có thể thực hiện các thay đổi quan trọng trong hệ thống.
-- Sử dụng lệnh `sudo` thay vì `su` nếu bạn chỉ cần thực hiện một lệnh cụ thể với quyền quản trị, vì `sudo` cho phép bạn thực hiện lệnh mà không cần chuyển đổi hoàn toàn sang tài khoản root.
-- Đảm bảo rằng bạn đã biết rõ mật khẩu của tài khoản mà bạn muốn chuyển sang trước khi sử dụng lệnh `su`.
+- Để chạy một lệnh với quyền của người dùng root:
+```bash
+su -c 'apt update'
+```
+
+- Để đăng nhập vào một shell mới với người dùng cụ thể:
+```bash
+su -l user1
+```
+
+## Tips
+- Hãy chắc chắn rằng bạn có quyền truy cập để sử dụng lệnh `su`, thường là bạn cần biết mật khẩu của người dùng mà bạn muốn chuyển sang.
+- Sử dụng `sudo` thay vì `su` nếu bạn chỉ cần thực hiện một lệnh với quyền root mà không cần chuyển đổi hoàn toàn sang tài khoản root.
+- Luôn cẩn thận khi làm việc với quyền root, vì bạn có thể thay đổi hoặc xóa các tệp quan trọng trong hệ thống.

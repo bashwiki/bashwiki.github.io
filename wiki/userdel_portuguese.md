@@ -1,35 +1,45 @@
-# [리눅스] Bash userdel 사용법
+# [Linux] Bash userdel Uso: Remove usuários do sistema
 
 ## Overview
-O comando `userdel` é utilizado no Linux para remover contas de usuários do sistema. Sua principal finalidade é excluir um usuário e, opcionalmente, seus arquivos de diretório pessoal e outros arquivos associados. É uma ferramenta essencial para a administração de sistemas, permitindo que administradores gerenciem contas de usuários de forma eficaz.
+O comando `userdel` é utilizado para remover contas de usuário do sistema Linux. Quando um usuário é excluído, todas as suas informações e arquivos associados podem ser removidos, dependendo das opções utilizadas.
 
 ## Usage
 A sintaxe básica do comando `userdel` é a seguinte:
 
 ```bash
-userdel [opções] nome_do_usuario
+userdel [opções] [nome_do_usuário]
 ```
 
-### Opções Comuns
-- `-r`: Remove o diretório pessoal do usuário e seus arquivos de spool.
-- `-f`: Força a exclusão do usuário, mesmo que ele esteja logado ou tenha processos em execução.
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com o comando `userdel`:
 
-## Examples
-### Exemplo 1: Remover um usuário sem deletar o diretório pessoal
-Para remover um usuário chamado `exemplo_user` sem deletar seu diretório pessoal, você pode usar o seguinte comando:
+- `-r`: Remove o diretório home do usuário e seus arquivos.
+- `-f`: Força a remoção do usuário, mesmo que ele esteja logado ou tenha processos em execução.
+- `-Z`: Remove o contexto de segurança SELinux do usuário.
 
+## Common Examples
+
+### Excluir um usuário sem remover o diretório home
 ```bash
-sudo userdel exemplo_user
+userdel usuario_exemplo
 ```
 
-### Exemplo 2: Remover um usuário e seu diretório pessoal
-Para remover um usuário chamado `exemplo_user` e também deletar seu diretório pessoal e arquivos associados, use a opção `-r`:
-
+### Excluir um usuário e remover seu diretório home
 ```bash
-sudo userdel -r exemplo_user
+userdel -r usuario_exemplo
+```
+
+### Forçar a remoção de um usuário
+```bash
+userdel -f usuario_exemplo
+```
+
+### Excluir um usuário e remover seu contexto de segurança SELinux
+```bash
+userdel -Z usuario_exemplo
 ```
 
 ## Tips
-- Sempre verifique se o usuário que você está prestes a excluir não está logado no sistema, pois isso pode causar problemas.
-- Considere fazer um backup dos dados do usuário antes de excluí-lo, especialmente se você estiver usando a opção `-r`, que remove todos os arquivos do diretório pessoal.
-- Utilize o comando `id nome_do_usuario` para verificar se o usuário existe antes de tentar removê-lo.
+- Sempre verifique se o usuário que você está prestes a excluir não está logado ou executando processos importantes.
+- Considere fazer um backup dos dados do usuário antes de removê-lo, especialmente se você estiver usando a opção `-r`.
+- Use o comando `id nome_do_usuário` para verificar se o usuário existe antes de tentar excluí-lo.

@@ -1,47 +1,52 @@
-# [리눅스] Bash docker 사용법
+# [Linux] Bash docker uso: Gestión de contenedores
 
 ## Overview
-El comando `docker` es una herramienta de línea de comandos que permite a los desarrolladores y administradores de sistemas gestionar contenedores de aplicaciones. Docker utiliza contenedores para empaquetar aplicaciones y sus dependencias en un solo objeto, lo que facilita la implementación y escalabilidad en diferentes entornos. Su principal propósito es simplificar el proceso de creación, despliegue y ejecución de aplicaciones en contenedores, proporcionando un entorno consistente y aislado.
+El comando `docker` se utiliza para gestionar contenedores de aplicaciones. Permite crear, ejecutar y administrar contenedores que encapsulan aplicaciones y sus dependencias, facilitando la portabilidad y escalabilidad.
 
 ## Usage
 La sintaxis básica del comando `docker` es la siguiente:
 
 ```bash
-docker [opciones] [comando] [argumentos]
+docker [opciones] [argumentos]
 ```
 
-### Comandos Comunes
-- `docker run`: Ejecuta un contenedor a partir de una imagen.
-- `docker ps`: Muestra los contenedores en ejecución.
-- `docker images`: Lista las imágenes disponibles en el sistema.
-- `docker stop`: Detiene uno o más contenedores en ejecución.
-- `docker rm`: Elimina uno o más contenedores.
+## Common Options
+- `run`: Crea y ejecuta un contenedor a partir de una imagen.
+- `ps`: Lista los contenedores en ejecución.
+- `images`: Muestra las imágenes disponibles en el sistema.
+- `rm`: Elimina uno o más contenedores.
+- `rmi`: Elimina una o más imágenes.
 
-### Opciones Comunes
-- `-d`: Ejecuta el contenedor en segundo plano (modo "detached").
-- `--name`: Asigna un nombre al contenedor.
-- `-p`: Mapea puertos entre el contenedor y el host.
-- `-v`: Monta volúmenes para persistencia de datos.
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `docker`:
 
-## Examples
-### Ejemplo 1: Ejecutar un contenedor de Nginx
-Para ejecutar un contenedor de Nginx en segundo plano y mapear el puerto 80 del contenedor al puerto 8080 del host, puedes usar el siguiente comando:
+1. **Ejecutar un contenedor de Ubuntu:**
+   ```bash
+   docker run -it ubuntu
+   ```
 
-```bash
-docker run -d --name mi-nginx -p 8080:80 nginx
-```
+2. **Listar contenedores en ejecución:**
+   ```bash
+   docker ps
+   ```
 
-### Ejemplo 2: Listar contenedores en ejecución
-Para ver todos los contenedores que están actualmente en ejecución, utiliza:
+3. **Mostrar todas las imágenes disponibles:**
+   ```bash
+   docker images
+   ```
 
-```bash
-docker ps
-```
+4. **Eliminar un contenedor específico:**
+   ```bash
+   docker rm nombre_del_contenedor
+   ```
+
+5. **Eliminar una imagen específica:**
+   ```bash
+   docker rmi nombre_de_la_imagen
+   ```
 
 ## Tips
-- Siempre utiliza nombres descriptivos para tus contenedores con la opción `--name` para facilitar la gestión.
-- Aprovecha los volúmenes (`-v`) para mantener los datos persistentes, especialmente en bases de datos.
-- Utiliza `docker-compose` para gestionar aplicaciones multi-contenedor de manera más sencilla.
-- Mantén tus imágenes actualizadas y elimina las que no necesites para liberar espacio en disco.
-
-Con estos conceptos y ejemplos, estarás mejor preparado para utilizar el comando `docker` en tus proyectos de desarrollo y administración de sistemas.
+- Siempre utiliza la opción `-it` al ejecutar contenedores interactivos para acceder a la terminal.
+- Usa `docker-compose` para gestionar aplicaciones multicontenedor de manera más sencilla.
+- Mantén tus imágenes actualizadas para evitar vulnerabilidades de seguridad.
+- Considera etiquetar tus imágenes con versiones para un mejor control de versiones.

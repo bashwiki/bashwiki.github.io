@@ -1,40 +1,47 @@
-# [리눅스] Bash arp 사용법
+# [Linux] Bash arp uso: Gestionar la tabla ARP
+
+El comando `arp` se utiliza para manipular y mostrar la tabla de resolución de direcciones de protocolo de Internet (ARP) en sistemas basados en Unix.
 
 ## Overview
-El comando `arp` en Bash se utiliza para manipular la tabla ARP (Address Resolution Protocol) de un sistema. Su propósito principal es permitir a los usuarios ver, agregar o eliminar entradas en la tabla ARP, que asocia direcciones IP con direcciones MAC en una red local. Esto es esencial para la comunicación en redes, ya que permite a los dispositivos encontrar la dirección física correspondiente a una dirección IP.
+El comando `arp` permite a los usuarios ver y modificar la tabla ARP, que asocia direcciones IP con direcciones MAC. Esto es útil para la resolución de direcciones en redes locales.
 
 ## Usage
-La sintaxis básica del comando `arp` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-arp [opciones] [dirección]
+arp [opciones] [argumentos]
 ```
 
-### Opciones Comunes:
-- `-a`: Muestra la tabla ARP completa en un formato legible.
-- `-d dirección`: Elimina la entrada ARP para la dirección especificada.
-- `-s dirección dirección_mac`: Agrega una entrada estática a la tabla ARP, asociando una dirección IP con una dirección MAC.
+## Common Options
+- `-a`: Muestra la tabla ARP completa.
+- `-d [dirección]`: Elimina una entrada específica de la tabla ARP.
+- `-s [dirección] [dirección MAC]`: Agrega una nueva entrada a la tabla ARP.
+- `-n`: Muestra las direcciones IP en formato numérico, sin intentar resolver los nombres de host.
 
-## Examples
-### Ejemplo 1: Ver la tabla ARP
-Para mostrar todas las entradas en la tabla ARP, puedes usar el siguiente comando:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `arp`:
 
-```bash
-arp -a
-```
+1. **Mostrar la tabla ARP completa:**
+   ```bash
+   arp -a
+   ```
 
-Este comando listará todas las direcciones IP y sus correspondientes direcciones MAC en la red local.
+2. **Eliminar una entrada específica de la tabla ARP:**
+   ```bash
+   arp -d 192.168.1.10
+   ```
 
-### Ejemplo 2: Agregar una entrada ARP
-Si deseas agregar una entrada estática a la tabla ARP, puedes usar el siguiente comando:
+3. **Agregar una nueva entrada a la tabla ARP:**
+   ```bash
+   arp -s 192.168.1.20 00:1A:2B:3C:4D:5E
+   ```
 
-```bash
-arp -s 192.168.1.10 00:1A:2B:3C:4D:5E
-```
-
-Este comando asocia la dirección IP `192.168.1.10` con la dirección MAC `00:1A:2B:3C:4D:5E`.
+4. **Mostrar la tabla ARP sin resolver nombres de host:**
+   ```bash
+   arp -n
+   ```
 
 ## Tips
-- Asegúrate de tener privilegios de administrador (root) para agregar o eliminar entradas en la tabla ARP.
-- Utiliza el comando `arp -a` regularmente para monitorear la tabla ARP y detectar entradas no deseadas o inconsistencias.
-- Recuerda que las entradas ARP dinámicas pueden expirar; considera agregar entradas estáticas para dispositivos que necesiten una asociación constante.
+- Asegúrate de tener privilegios de administrador al modificar la tabla ARP, ya que algunas operaciones requieren permisos elevados.
+- Utiliza `arp -a` frecuentemente para verificar las entradas ARP y asegurarte de que no haya conflictos en la red.
+- Recuerda que las entradas ARP pueden caducar, así que verifica periódicamente si necesitas agregar o actualizar entradas.

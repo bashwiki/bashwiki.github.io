@@ -1,38 +1,53 @@
-# [리눅스] Bash tcpdump 사용법
+# [Linux] Bash tcpdump Cách sử dụng: Công cụ phân tích lưu lượng mạng
 
 ## Tổng quan
-`tcpdump` là một công cụ dòng lệnh mạnh mẽ được sử dụng để phân tích và ghi lại lưu lượng mạng trên các giao diện mạng. Nó cho phép người dùng xem các gói dữ liệu đang được truyền qua mạng, giúp trong việc chẩn đoán sự cố mạng, kiểm tra bảo mật và phân tích hiệu suất. `tcpdump` hỗ trợ nhiều giao thức và có thể lọc các gói dựa trên nhiều tiêu chí khác nhau.
+Lệnh `tcpdump` là một công cụ mạnh mẽ dùng để phân tích và ghi lại lưu lượng mạng trên các giao thức TCP/IP. Nó cho phép người dùng xem các gói dữ liệu đang đi qua một giao diện mạng cụ thể, giúp trong việc khắc phục sự cố và giám sát mạng.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `tcpdump` như sau:
 
 ```bash
-tcpdump [tùy chọn] [biểu thức lọc]
+tcpdump [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-i <giao_diện>`: Chỉ định giao diện mạng mà bạn muốn theo dõi (ví dụ: `eth0`, `wlan0`).
-- `-c <số_lượng>`: Giới hạn số lượng gói được ghi lại.
-- `-w <tệp>`: Ghi lại các gói vào một tệp để phân tích sau.
-- `-r <tệp>`: Đọc các gói từ một tệp đã ghi.
-- `-n`: Không phân giải địa chỉ IP thành tên miền, giúp tăng tốc độ.
-- `-v`, `-vv`, `-vvv`: Tăng cường mức độ chi tiết của thông tin được hiển thị.
+## Các tùy chọn phổ biến
+- `-i <interface>`: Chỉ định giao diện mạng để theo dõi.
+- `-n`: Không phân giải tên miền, hiển thị địa chỉ IP.
+- `-v`: Hiển thị thông tin chi tiết hơn về các gói.
+- `-c <count>`: Dừng sau khi đã ghi lại số lượng gói chỉ định.
+- `-w <file>`: Ghi lại lưu lượng vào một tệp tin.
+- `-r <file>`: Đọc lưu lượng từ một tệp tin đã ghi.
 
-## Ví dụ
-### Ví dụ 1: Theo dõi lưu lượng mạng trên giao diện `eth0`
-```bash
-tcpdump -i eth0
-```
-Lệnh này sẽ hiển thị tất cả các gói dữ liệu đang đi qua giao diện `eth0`.
+## Ví dụ thường gặp
+Dưới đây là một số ví dụ thực tế khi sử dụng lệnh `tcpdump`:
 
-### Ví dụ 2: Ghi lại 10 gói dữ liệu vào tệp `capture.pcap`
-```bash
-tcpdump -i eth0 -c 10 -w capture.pcap
-```
-Lệnh này sẽ ghi lại 10 gói dữ liệu đầu tiên từ giao diện `eth0` vào tệp `capture.pcap`.
+1. Theo dõi lưu lượng trên giao diện mạng `eth0`:
+   ```bash
+   tcpdump -i eth0
+   ```
+
+2. Ghi lại 10 gói dữ liệu vào tệp tin `capture.pcap`:
+   ```bash
+   tcpdump -i eth0 -c 10 -w capture.pcap
+   ```
+
+3. Xem lưu lượng mà không phân giải tên miền:
+   ```bash
+   tcpdump -i eth0 -n
+   ```
+
+4. Đọc lưu lượng từ tệp tin đã ghi:
+   ```bash
+   tcpdump -r capture.pcap
+   ```
+
+5. Theo dõi lưu lượng HTTP (cổng 80):
+   ```bash
+   tcpdump -i eth0 port 80
+   ```
 
 ## Mẹo
-- Sử dụng tùy chọn `-n` để tránh việc phân giải tên miền, điều này có thể giúp tăng tốc độ ghi lại gói.
-- Kết hợp `tcpdump` với các công cụ phân tích khác như Wireshark để có cái nhìn sâu hơn về lưu lượng mạng.
-- Thực hiện kiểm tra với quyền root hoặc sử dụng `sudo` để đảm bảo bạn có quyền truy cập vào các giao diện mạng.
-- Lưu ý rằng việc ghi lại lưu lượng mạng có thể tạo ra một lượng lớn dữ liệu, vì vậy hãy cân nhắc sử dụng các biểu thức lọc để chỉ ghi lại những gì bạn cần.
+- Luôn sử dụng tùy chọn `-n` để tránh việc phân giải tên miền, giúp lệnh chạy nhanh hơn.
+- Sử dụng tùy chọn `-v` hoặc `-vv` để có thêm thông tin chi tiết về các gói.
+- Hãy chắc chắn rằng bạn có quyền truy cập vào giao diện mạng mà bạn muốn theo dõi, có thể cần quyền root.
+- Lưu trữ các bản ghi vào tệp tin để phân tích sau này, sử dụng tùy chọn `-w` và `-r`.

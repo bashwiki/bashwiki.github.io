@@ -1,44 +1,51 @@
-# [리눅스] Bash killall 사용법
+# [Linux] Bash killall Uso: Termina procesos por nombre
 
 ## Overview
-The `killall` command in Bash is used to terminate processes by name. Unlike the `kill` command, which requires a process ID (PID), `killall` allows users to specify the name of the process they want to terminate. This is particularly useful for managing multiple instances of the same application or service, providing a straightforward way to stop them all at once.
+The `killall` command in Bash is used to terminate processes by their name. Unlike the `kill` command, which requires a process ID (PID), `killall` allows you to specify the name of the process you want to stop, making it easier to manage multiple instances of the same application.
 
 ## Usage
-The basic syntax for the `killall` command is as follows:
+The basic syntax of the `killall` command is as follows:
 
 ```bash
-killall [options] process_name
+killall [options] [arguments]
 ```
 
-### Common Options
-- `-u, --user <username>`: Kill processes owned by the specified user.
-- `-q, --quiet`: Suppress output messages.
-- `-I, --ignore-case`: Ignore case when matching process names.
-- `-s, --signal <signal>`: Specify a signal to send to the processes. The default is `TERM` (terminate).
-- `-v, --verbose`: Provide detailed output of the actions taken.
+## Common Options
+- `-u <user>`: Only kill processes owned by the specified user.
+- `-i`: Prompt for confirmation before killing each process.
+- `-q`: Suppress error messages for processes that do not exist.
+- `-r`: Use regular expressions to match process names.
+- `-s <signal>`: Specify a signal to send to the processes (default is `TERM`).
 
-## Examples
+## Common Examples
+Here are some practical examples of using the `killall` command:
 
-### Example 1: Terminating a Process by Name
-To terminate all instances of a process named `firefox`, you can use the following command:
+1. **Terminate all instances of a process by name:**
+   ```bash
+   killall firefox
+   ```
 
-```bash
-killall firefox
-```
+2. **Kill all processes owned by a specific user:**
+   ```bash
+   killall -u username
+   ```
 
-This command will send the default `TERM` signal to all running instances of Firefox, effectively closing them.
+3. **Prompt for confirmation before killing each process:**
+   ```bash
+   killall -i chrome
+   ```
 
-### Example 2: Using a Specific Signal
-If you want to forcefully kill all instances of a process named `myapp`, you can specify the `KILL` signal as follows:
+4. **Use a regular expression to match process names:**
+   ```bash
+   killall -r 'python.*'
+   ```
 
-```bash
-killall -s KILL myapp
-```
-
-This command will immediately terminate all instances of `myapp`, bypassing any cleanup processes.
+5. **Send a specific signal to a process (e.g., SIGKILL):**
+   ```bash
+   killall -s KILL apache2
+   ```
 
 ## Tips
-- Use `killall -q` to suppress output if you are running scripts and do not want unnecessary messages cluttering your terminal.
-- Always double-check the process name you are targeting, especially when using `killall` in scripts, to avoid unintentionally terminating critical system processes.
-- Combine `killall` with other commands like `ps` or `pgrep` to dynamically find and kill processes based on specific criteria. For example, you can use `killall -u $(whoami)` to terminate all processes owned by the current user.
-- Be cautious with the `KILL` signal, as it does not allow processes to clean up before termination, which may lead to data loss or corruption.
+- Always double-check the process name before using `killall`, as it will terminate all matching processes without confirmation (unless the `-i` option is used).
+- Use the `-q` option to avoid cluttering your terminal with error messages if some processes are not found.
+- Consider using `pgrep` in combination with `killall` for more complex process management tasks, such as filtering processes based on additional criteria.

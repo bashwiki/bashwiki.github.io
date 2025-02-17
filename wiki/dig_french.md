@@ -1,46 +1,52 @@
-# [리눅스] Bash dig 사용법
+# [Linux] Bash dig : Interroger les serveurs DNS
 
 ## Overview
-La commande `dig` (Domain Information Groper) est un outil de ligne de commande utilisé pour interroger les serveurs DNS (Domain Name System). Son objectif principal est de récupérer des informations sur les enregistrements DNS d'un domaine spécifique, ce qui est essentiel pour le dépannage des problèmes de réseau et la gestion des noms de domaine. `dig` fournit des résultats détaillés et est souvent préféré pour sa simplicité et sa capacité à afficher des informations complètes.
+La commande `dig` (Domain Information Groper) est un outil de ligne de commande utilisé pour interroger les serveurs DNS. Elle permet d'obtenir des informations détaillées sur les enregistrements DNS d'un domaine, ce qui est utile pour le dépannage et la gestion des réseaux.
 
 ## Usage
 La syntaxe de base de la commande `dig` est la suivante :
 
+```bash
+dig [options] [arguments]
 ```
-dig [@serveur] nom_de_domaine [type]
-```
 
-- `@serveur` : (optionnel) spécifie le serveur DNS à interroger. Si omis, `dig` utilise le serveur DNS par défaut configuré sur le système.
-- `nom_de_domaine` : le nom de domaine pour lequel vous souhaitez obtenir des informations.
-- `type` : (optionnel) spécifie le type d'enregistrement DNS à interroger (par exemple, A, AAAA, MX, CNAME, etc.). Si omis, `dig` interroge par défaut les enregistrements de type A.
+## Common Options
+Voici quelques options courantes que vous pouvez utiliser avec `dig` :
 
-### Options courantes
-- `+short` : affiche une sortie simplifiée, utile pour obtenir rapidement l'adresse IP.
-- `+trace` : suit la chaîne de résolution DNS, montrant chaque étape du processus de recherche.
+- `@server` : Spécifie le serveur DNS à interroger.
+- `-t type` : Définit le type d'enregistrement DNS à rechercher (par exemple, A, MX, TXT).
+- `+short` : Affiche une sortie simplifiée, ne montrant que les résultats pertinents.
+- `+trace` : Suit la chaîne de résolution DNS pour un domaine donné.
 
-## Examples
+## Common Examples
 Voici quelques exemples pratiques de l'utilisation de la commande `dig` :
 
-1. **Interroger un enregistrement A pour un domaine** :
+1. **Interroger un enregistrement A :**
    ```bash
-   dig example.com
+   dig example.com A
    ```
-   Cette commande renvoie l'enregistrement A pour `example.com`, affichant l'adresse IP associée.
 
-2. **Interroger un enregistrement MX pour un domaine** :
+2. **Obtenir des enregistrements MX :**
    ```bash
    dig example.com MX
    ```
-   Cela renvoie les enregistrements MX (Mail Exchange) pour `example.com`, indiquant les serveurs de messagerie associés au domaine.
 
-3. **Utiliser l'option +short pour une sortie simplifiée** :
+3. **Interroger un serveur DNS spécifique :**
    ```bash
-   dig +short example.com
+   dig @8.8.8.8 example.com
    ```
-   Cette commande renvoie uniquement l'adresse IP de `example.com`, sans les détails supplémentaires.
+
+4. **Afficher une sortie simplifiée :**
+   ```bash
+   dig example.com +short
+   ```
+
+5. **Suivre la chaîne de résolution DNS :**
+   ```bash
+   dig example.com +trace
+   ```
 
 ## Tips
-- Utilisez l'option `+trace` pour diagnostiquer les problèmes de résolution DNS en suivant chaque étape de la recherche.
-- Pour un usage fréquent, envisagez de créer des alias dans votre fichier `.bashrc` pour des requêtes courantes afin de gagner du temps.
-- Vérifiez les enregistrements DNS de votre propre domaine pour vous assurer qu'ils sont correctement configurés, ce qui peut aider à éviter des problèmes de connectivité.
-- Familiarisez-vous avec les différents types d'enregistrements DNS pour tirer le meilleur parti de `dig` dans vos tâches de gestion de réseau.
+- Utilisez l'option `+short` pour obtenir des résultats rapides et clairs, surtout lorsque vous n'avez besoin que des adresses IP.
+- Pour le dépannage, l'option `+trace` peut vous aider à comprendre où se situe un problème dans la résolution DNS.
+- N'hésitez pas à interroger différents serveurs DNS pour comparer les résultats, surtout si vous soupçonnez un problème de cache.

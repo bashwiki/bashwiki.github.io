@@ -1,40 +1,53 @@
-# [리눅스] Bash cmake 사용법
+# [Linux] Bash cmake : Générer des fichiers de construction à partir de fichiers de configuration
 
 ## Overview
-La commande `cmake` est un outil de construction multiplateforme qui utilise des fichiers de configuration pour générer des fichiers de projet pour divers systèmes de construction, tels que Makefiles ou des projets Visual Studio. Son objectif principal est de simplifier le processus de compilation de logiciels en automatisant la configuration des projets, ce qui permet aux développeurs de se concentrer sur le code plutôt que sur les détails de construction.
+La commande `cmake` est un outil de construction qui permet de gérer le processus de compilation de projets logiciels. Elle génère des fichiers de construction adaptés à différents systèmes de compilation à partir de fichiers de configuration, facilitant ainsi la création et la gestion de projets complexes.
 
 ## Usage
 La syntaxe de base de la commande `cmake` est la suivante :
 
 ```bash
-cmake [options] <répertoire_source>
+cmake [options] [arguments]
 ```
 
-### Options courantes :
-- `-B <répertoire_build>` : Spécifie le répertoire où les fichiers de construction seront générés.
-- `-S <répertoire_source>` : Indique le répertoire source contenant le fichier CMakeLists.txt.
-- `-D <variable>=<valeur>` : Définit une variable pour la configuration du projet.
-- `--build <répertoire_build>` : Lance le processus de construction dans le répertoire spécifié.
+## Common Options
+Voici quelques options courantes pour la commande `cmake` :
 
-## Examples
-### Exemple 1 : Configuration d'un projet
-Pour configurer un projet à partir d'un répertoire source, vous pouvez utiliser la commande suivante :
+- `-S <source_dir>` : Spécifie le répertoire source contenant le fichier `CMakeLists.txt`.
+- `-B <build_dir>` : Définit le répertoire de construction où les fichiers générés seront placés.
+- `-D <var>=<value>` : Définit une variable CMake avec une valeur spécifique.
+- `--build <dir>` : Compile le projet dans le répertoire spécifié.
+- `--target <target>` : Spécifie une cible de construction particulière à construire.
 
-```bash
-cmake -S . -B build
-```
-Cette commande configure le projet en utilisant le répertoire courant comme source et crée un répertoire `build` pour les fichiers de construction.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `cmake` :
 
-### Exemple 2 : Construction du projet
-Une fois que le projet est configuré, vous pouvez le construire avec :
+1. **Générer des fichiers de construction dans un répertoire spécifique :**
 
-```bash
-cmake --build build
-```
-Cette commande compile le projet en utilisant les fichiers générés dans le répertoire `build`.
+   ```bash
+   cmake -S . -B build
+   ```
+
+2. **Construire le projet après l'avoir configuré :**
+
+   ```bash
+   cmake --build build
+   ```
+
+3. **Définir une variable lors de la configuration :**
+
+   ```bash
+   cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
+   ```
+
+4. **Construire une cible spécifique :**
+
+   ```bash
+   cmake --build build --target my_target
+   ```
 
 ## Tips
-- Assurez-vous que le fichier `CMakeLists.txt` est correctement configuré dans votre répertoire source, car il contient les instructions nécessaires pour la construction du projet.
-- Utilisez l'option `-D` pour personnaliser les paramètres de construction, comme les chemins d'installation ou les options de compilation spécifiques.
-- Pour des projets complexes, envisagez d'utiliser des sous-répertoires avec des fichiers `CMakeLists.txt` séparés pour une meilleure organisation.
-- N'hésitez pas à consulter la documentation officielle de CMake pour des options avancées et des fonctionnalités supplémentaires.
+- Toujours créer un répertoire de construction séparé pour garder votre répertoire source propre.
+- Utilisez `cmake-gui` pour une interface graphique si vous préférez une approche visuelle.
+- Vérifiez les messages d'erreur lors de l'exécution de `cmake` pour résoudre rapidement les problèmes de configuration.
+- Consultez la documentation officielle de CMake pour des options avancées et des configurations spécifiques à votre projet.

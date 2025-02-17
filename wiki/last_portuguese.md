@@ -1,46 +1,56 @@
-# [리눅스] Bash last 사용법
+# [Linux] Bash last uso: Exibir logins de usuários
 
 ## Overview
-O comando `last` é uma ferramenta do Bash utilizada para exibir uma lista dos usuários que se conectaram e desconectaram do sistema. Ele lê o arquivo de log `/var/log/wtmp`, que registra todas as sessões de login e logout, permitindo que os administradores e desenvolvedores monitorem a atividade dos usuários no sistema.
+O comando `last` é utilizado para exibir uma lista dos últimos logins de usuários no sistema. Ele lê o arquivo de log `/var/log/wtmp`, que registra todas as entradas e saídas dos usuários, permitindo que você veja quem acessou o sistema e quando.
 
 ## Usage
 A sintaxe básica do comando `last` é a seguinte:
 
 ```bash
-last [opções] [usuário]
+last [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-a`: Mostra o nome do host remoto na saída.
-- `-n [número]`: Limita o número de entradas exibidas a `[número]`.
-- `-x`: Exibe também as entradas de shutdown e reboot.
-- `-R`: Não mostra o nome do host remoto.
+## Common Options
+Aqui estão algumas opções comuns que você pode usar com o comando `last`:
 
-## Examples
-### Exemplo 1: Listar todas as sessões de login
-Para visualizar todas as sessões de login registradas, você pode simplesmente executar:
+- `-a`: Mostra o nome do host da máquina remota.
+- `-n <número>`: Limita a saída aos últimos `número` de logins.
+- `-x`: Exibe também as sessões de encerramento e reinicializações do sistema.
+- `-R`: Não exibe o nome do host.
 
-```bash
-last
-```
+## Common Examples
 
-Este comando retornará uma lista de usuários que se conectaram ao sistema, incluindo informações como o terminal utilizado, o endereço IP (se aplicável), e as datas e horários de login e logout.
+Aqui estão alguns exemplos práticos do uso do comando `last`:
 
-### Exemplo 2: Limitar a saída a 5 entradas
-Se você quiser ver apenas as últimas 5 sessões de login, utilize a opção `-n`:
+1. **Exibir todos os logins**:
+   ```bash
+   last
+   ```
 
-```bash
-last -n 5
-```
+2. **Limitar a saída aos últimos 5 logins**:
+   ```bash
+   last -n 5
+   ```
 
-Isso mostrará as cinco entradas mais recentes do log de sessões.
+3. **Mostrar logins com o nome do host**:
+   ```bash
+   last -a
+   ```
+
+4. **Incluir sessões de encerramento e reinicializações**:
+   ```bash
+   last -x
+   ```
+
+5. **Exibir logins sem o nome do host**:
+   ```bash
+   last -R
+   ```
 
 ## Tips
-- Utilize a opção `-a` para facilitar a identificação de onde os usuários estão se conectando, especialmente útil em ambientes com múltiplos servidores.
-- Combine o comando `last` com `grep` para filtrar resultados específicos. Por exemplo, para encontrar todas as sessões de um usuário específico, você pode usar:
-
-```bash
-last | grep nome_do_usuario
-```
-
-- Lembre-se de que o arquivo de log `/var/log/wtmp` pode ser rotacionado, o que significa que entradas mais antigas podem não estar disponíveis se o log foi arquivado.
+- Utilize `last` em combinação com outros comandos, como `grep`, para filtrar resultados específicos. Por exemplo, para encontrar logins de um usuário específico:
+  ```bash
+  last | grep nome_do_usuario
+  ```
+- Verifique regularmente os logs de login para monitorar atividades suspeitas no sistema.
+- Lembre-se de que o arquivo `/var/log/wtmp` pode ser rotacionado, então os dados mais antigos podem não estar disponíveis.

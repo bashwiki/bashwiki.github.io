@@ -1,39 +1,43 @@
-# [리눅스] Bash hash 사용법
+# [Linux] Bash hash cách sử dụng: Quản lý cache của các lệnh
 
-## Tổng quan
-Lệnh `hash` trong Bash được sử dụng để quản lý và theo dõi các đường dẫn của các lệnh đã được thực thi. Khi bạn chạy một lệnh, Bash sẽ ghi nhớ vị trí của lệnh đó trong bộ nhớ cache, giúp tăng tốc độ thực thi cho các lần gọi lệnh tiếp theo. Lệnh này rất hữu ích trong việc tối ưu hóa hiệu suất khi làm việc với các lệnh thường xuyên.
+## Overview
+Lệnh `hash` trong Bash được sử dụng để quản lý cache của các lệnh đã được thực thi. Khi bạn chạy một lệnh, Bash lưu trữ vị trí của nó trong bộ nhớ cache để tăng tốc độ thực thi cho các lần gọi sau. Lệnh này cho phép bạn xem và xóa các mục trong cache này.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `hash` như sau:
-
 ```bash
-hash [options] [command]
+hash [options] [arguments]
 ```
 
-### Tùy chọn phổ biến:
-- `-r`: Xóa bộ nhớ cache của tất cả các lệnh đã được ghi nhớ.
-- `-l`: Hiển thị danh sách các lệnh đã được ghi nhớ cùng với đường dẫn của chúng.
-- `command`: Tên của lệnh mà bạn muốn kiểm tra hoặc cập nhật trong bộ nhớ cache.
+## Common Options
+- `-r`: Xóa toàn bộ cache của các lệnh đã lưu.
+- `-p`: Chỉ định một đường dẫn cụ thể cho lệnh mà bạn muốn lưu vào cache.
+- `-l`: Liệt kê tất cả các lệnh đã được lưu trong cache.
 
-## Ví dụ
-### Ví dụ 1: Kiểm tra các lệnh đã được ghi nhớ
-Bạn có thể sử dụng lệnh `hash` mà không có tùy chọn nào để xem danh sách các lệnh đã được ghi nhớ:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `hash`:
 
-```bash
-hash
-```
+1. **Liệt kê các lệnh đã lưu trong cache**:
+   ```bash
+   hash
+   ```
 
-Kết quả sẽ hiển thị danh sách các lệnh cùng với đường dẫn của chúng.
+2. **Xóa toàn bộ cache**:
+   ```bash
+   hash -r
+   ```
 
-### Ví dụ 2: Xóa bộ nhớ cache
-Nếu bạn muốn xóa tất cả các lệnh đã được ghi nhớ, bạn có thể sử dụng tùy chọn `-r`:
+3. **Lưu một lệnh cụ thể vào cache với đường dẫn**:
+   ```bash
+   hash -p /usr/local/bin/mycommand mycommand
+   ```
 
-```bash
-hash -r
-```
+4. **Liệt kê các lệnh đã lưu cùng với đường dẫn**:
+   ```bash
+   hash -l
+   ```
 
-Điều này sẽ làm mới bộ nhớ cache, giúp Bash quên đi tất cả các đường dẫn đã lưu trước đó.
-
-## Mẹo
-- Sử dụng lệnh `hash` để kiểm tra xem một lệnh cụ thể có được ghi nhớ hay không, giúp bạn xác định xem có cần cập nhật đường dẫn cho lệnh đó hay không.
-- Hãy nhớ rằng việc xóa bộ nhớ cache có thể làm giảm hiệu suất tạm thời cho các lệnh thường xuyên, vì Bash sẽ phải tìm kiếm lại đường dẫn cho các lệnh đó. Do đó, chỉ nên sử dụng tùy chọn `-r` khi thực sự cần thiết.
+## Tips
+- Sử dụng `hash` để kiểm tra xem lệnh nào đã được lưu trong cache, điều này giúp bạn xác định xem có cần phải cập nhật đường dẫn hay không.
+- Nếu bạn thay đổi vị trí của một lệnh, hãy nhớ sử dụng `hash -r` để làm mới cache, tránh việc gọi lệnh từ vị trí cũ.
+- Lệnh `hash` rất hữu ích khi làm việc với nhiều phiên bản của một lệnh, giúp bạn quản lý dễ dàng hơn.

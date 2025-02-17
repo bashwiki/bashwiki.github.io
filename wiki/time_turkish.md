@@ -1,40 +1,43 @@
-# [리눅스] Bash time 사용법
+# [Linux] Bash time Kullanımı: Komutların çalışma süresini ölçme
 
 ## Overview
-`time` komutu, bir komutun veya bir komut dizisinin çalıştırılması için geçen süreyi ölçmek amacıyla kullanılır. Bu komut, bir işlemin ne kadar sürdüğünü belirlemek için yararlıdır ve genellikle performans analizi yapmak isteyen mühendisler ve geliştiriciler tarafından kullanılır. `time`, işlem süresi, kullanıcı süresi ve sistem süresi gibi bilgileri sağlar.
+`time` komutu, bir komutun veya programın ne kadar sürede çalıştığını ölçmek için kullanılır. Bu komut, çalıştırılan işlemin CPU süresi, gerçek zaman ve sistem zamanı gibi bilgileri sağlar.
 
 ## Usage
-`time` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-time [seçenekler] komut
+time [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-p`: Daha basit bir çıktı formatı sağlar. Bu seçenek kullanıldığında, süre bilgileri daha okunabilir bir şekilde sunulur.
-- `-o dosya`: Çıktıyı belirtilen dosyaya yazmak için kullanılır.
-- `-v`: Detaylı bir zamanlama raporu verir. Bu, daha fazla bilgi almak isteyen kullanıcılar için faydalıdır.
+## Common Options
+- `-p`: POSIX uyumlu çıktı formatı sağlar.
+- `-o <file>`: Çıktıyı belirtilen dosyaya yönlendirir.
+- `-v`: Daha ayrıntılı bir çıktı verir.
 
-## Examples
-### Örnek 1: Basit Kullanım
-Aşağıdaki komut, `sleep` komutunu 2 saniye süreyle çalıştırır ve geçen süreyi ölçer:
+## Common Examples
+Aşağıda `time` komutunun bazı pratik kullanımları bulunmaktadır:
 
-```bash
-time sleep 2
-```
+1. Basit bir komutun çalışma süresini ölçme:
+   ```bash
+   time ls -l
+   ```
 
-Çıktı, işlemin ne kadar sürdüğünü gösteren bir rapor olacaktır.
+2. Bir dosyayı kopyalama işleminin süresini ölçme:
+   ```bash
+   time cp largefile.txt /backup/
+   ```
 
-### Örnek 2: Detaylı Rapor
-Detaylı bir zamanlama raporu almak için `-v` seçeneğini kullanabilirsiniz:
+3. Çıktıyı bir dosyaya yönlendirme:
+   ```bash
+   time -o output.txt sleep 5
+   ```
 
-```bash
-time -v ls
-```
-
-Bu komut, `ls` komutunun çalıştırılması için geçen süreyi ve diğer detayları gösterir.
+4. Daha ayrıntılı bilgi almak için:
+   ```bash
+   time -v find / -name "*.txt"
+   ```
 
 ## Tips
-- `time` komutunu, uzun süren işlemlerin performansını analiz etmek için kullanın. Bu, optimizasyon fırsatlarını belirlemenize yardımcı olabilir.
-- Çıktıyı bir dosyaya yönlendirmek için `-o` seçeneğini kullanarak, zamanlama raporlarını daha sonra incelemek üzere kaydedebilirsiniz.
-- `time` komutunu, bir betik dosyası içinde veya karmaşık komut dizileri ile birlikte kullanarak, belirli işlemlerin ne kadar sürdüğünü izlemek için entegre edebilirsiniz.
+- `time` komutunu, uzun süren işlemleri izlemek için kullanarak performans analizi yapabilirsiniz.
+- Çıktıyı bir dosyaya yönlendirmek, sonuçları daha sonra incelemek için faydalı olabilir.
+- `time` komutunu, birden fazla komutla birlikte kullanarak, her birinin süresini ayrı ayrı ölçebilirsiniz.

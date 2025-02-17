@@ -1,43 +1,39 @@
-# [리눅스] Bash readonly 사용법
+# [Linux] Bash readonly Verwendung: Variablen als schreibgeschützt festlegen
 
 ## Übersicht
-Der Befehl `readonly` in Bash wird verwendet, um Variablen als schreibgeschützt zu deklarieren. Das bedeutet, dass einmal festgelegte Werte nicht mehr verändert werden können. Dies ist besonders nützlich, um sicherzustellen, dass kritische Variablen während der Ausführung eines Skripts nicht versehentlich geändert werden.
+Der `readonly` Befehl in Bash wird verwendet, um Variablen als schreibgeschützt zu deklarieren. Das bedeutet, dass einmal gesetzte Werte nicht mehr verändert werden können, was hilfreich ist, um versehentliche Änderungen zu vermeiden.
 
 ## Verwendung
-Die grundlegende Syntax des `readonly`-Befehls lautet:
+Die grundlegende Syntax des `readonly` Befehls lautet:
 
 ```bash
-readonly VARIABLE_NAME=VALUE
+readonly [options] [arguments]
 ```
 
-oder um eine bereits definierte Variable schreibgeschützt zu machen:
+## Häufige Optionen
+- `-p`: Gibt eine Liste aller schreibgeschützten Variablen und deren Werte aus.
 
+## Häufige Beispiele
+
+### Beispiel 1: Eine schreibgeschützte Variable erstellen
 ```bash
-readonly VARIABLE_NAME
+readonly MEINE_VARIABLE="Hallo Welt"
 ```
+In diesem Beispiel wird die Variable `MEINE_VARIABLE` auf "Hallo Welt" gesetzt und als schreibgeschützt markiert.
 
-### Optionen
-- Es gibt keine speziellen Optionen für den `readonly`-Befehl, da er hauptsächlich dazu dient, Variablen zu deklarieren oder deren Schreibschutz aufzuheben.
-
-## Beispiele
-Hier sind einige praktische Beispiele zur Verwendung des `readonly`-Befehls:
-
-### Beispiel 1: Eine neue schreibgeschützte Variable erstellen
+### Beispiel 2: Versuch, eine schreibgeschützte Variable zu ändern
 ```bash
-readonly PI=3.14
-echo $PI  # Ausgabe: 3.14
+MEINE_VARIABLE="Neue Werte"  # Dies wird einen Fehler auslösen
 ```
-In diesem Beispiel wird die Variable `PI` mit dem Wert `3.14` erstellt und als schreibgeschützt deklariert. Ein Versuch, den Wert von `PI` zu ändern, führt zu einem Fehler.
+Wenn Sie versuchen, den Wert von `MEINE_VARIABLE` zu ändern, wird Bash einen Fehler ausgeben, da die Variable schreibgeschützt ist.
 
-### Beispiel 2: Eine bestehende Variable schreibgeschützt machen
+### Beispiel 3: Auflisten schreibgeschützter Variablen
 ```bash
-MY_VAR="Hello"
-readonly MY_VAR
-MY_VAR="World"  # Fehler: cannot assign to readonly variable
+readonly -p
 ```
-Hier wird die Variable `MY_VAR` zuerst mit dem Wert "Hello" erstellt und dann als schreibgeschützt deklariert. Ein Versuch, den Wert auf "World" zu ändern, schlägt fehl.
+Dieser Befehl listet alle schreibgeschützten Variablen und deren Werte auf.
 
 ## Tipps
-- Verwenden Sie `readonly` für Variablen, die während der Ausführung eines Skripts nicht verändert werden sollen, um unbeabsichtigte Fehler zu vermeiden.
-- Sie können die Liste der schreibgeschützten Variablen mit dem Befehl `declare -r` oder `declare -p` anzeigen.
-- Beachten Sie, dass `readonly` nur für die aktuelle Shell-Sitzung gilt. Wenn Sie ein Skript beenden und erneut starten, müssen Sie die `readonly`-Deklarationen erneut vornehmen.
+- Verwenden Sie `readonly`, um wichtige Variablen zu schützen, die nicht versehentlich geändert werden sollten.
+- Überprüfen Sie regelmäßig schreibgeschützte Variablen mit `readonly -p`, um sicherzustellen, dass sie korrekt gesetzt sind.
+- Seien Sie vorsichtig, wenn Sie `readonly` verwenden, da es nicht möglich ist, den schreibgeschützten Status einer Variablen zu entfernen, ohne die Shell neu zu starten oder eine neue Shell-Instanz zu öffnen.

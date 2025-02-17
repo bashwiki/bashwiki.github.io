@@ -1,40 +1,48 @@
-# [리눅스] Bash brew 사용법
+# [리눅스] Bash brew 사용법: 패키지 관리 도구
 
 ## Overview
-`brew`는 Homebrew 패키지 관리자를 사용하는 명령어로, macOS 및 Linux에서 소프트웨어를 쉽게 설치, 관리 및 제거할 수 있도록 돕습니다. Homebrew는 사용자가 필요한 패키지를 간편하게 설치할 수 있게 해주며, 의존성 관리 및 업데이트를 자동으로 처리합니다. 개발자와 엔지니어에게 매우 유용한 도구입니다.
+`brew` 명령어는 macOS 및 Linux에서 소프트웨어 패키지를 관리하는 도구입니다. Homebrew를 통해 사용자는 다양한 소프트웨어를 쉽게 설치, 업데이트 및 제거할 수 있습니다.
 
 ## Usage
-`brew` 명령어의 기본 구문은 다음과 같습니다:
-
+기본 구문은 다음과 같습니다:
 ```
-brew [옵션] [명령] [패키지]
+brew [options] [arguments]
 ```
 
-### 일반적인 옵션
+## Common Options
 - `install`: 지정한 패키지를 설치합니다.
 - `uninstall`: 지정한 패키지를 제거합니다.
-- `update`: Homebrew와 모든 설치된 패키지의 정보를 업데이트합니다.
+- `update`: Homebrew와 설치된 패키지 목록을 업데이트합니다.
 - `upgrade`: 설치된 패키지를 최신 버전으로 업그레이드합니다.
-- `list`: 설치된 모든 패키지를 나열합니다.
+- `list`: 설치된 모든 패키지의 목록을 표시합니다.
 
-## Examples
-### 예제 1: 패키지 설치
-다음 명령어는 `wget` 패키지를 설치합니다.
+## Common Examples
+- 패키지 설치:
+  ```bash
+  brew install wget
+  ```
 
-```bash
-brew install wget
-```
+- 패키지 제거:
+  ```bash
+  brew uninstall wget
+  ```
 
-### 예제 2: 패키지 업그레이드
-설치된 모든 패키지를 최신 버전으로 업그레이드하려면 다음 명령어를 사용합니다.
+- 패키지 목록 업데이트:
+  ```bash
+  brew update
+  ```
 
-```bash
-brew upgrade
-```
+- 설치된 패키지 업그레이드:
+  ```bash
+  brew upgrade
+  ```
+
+- 설치된 패키지 목록 확인:
+  ```bash
+  brew list
+  ```
 
 ## Tips
-- Homebrew를 설치한 후, `brew doctor` 명령어를 실행하여 시스템의 문제를 진단하고 해결할 수 있습니다.
-- 패키지를 설치하기 전에 `brew search [패키지명]` 명령어를 사용하여 해당 패키지가 Homebrew 저장소에 있는지 확인하세요.
-- 자주 사용하는 패키지는 `brew bundle`을 사용하여 관리할 수 있으며, 이를 통해 여러 패키지를 한 번에 설치할 수 있습니다.
-
-이 문서에서는 `brew` 명령어에 대해 간략히 설명하였습니다. Homebrew를 활용하여 소프트웨어 관리의 효율성을 높이세요!
+- Homebrew를 사용하기 전에 `brew update`를 실행하여 최신 정보를 유지하세요.
+- 패키지를 설치하기 전에 `brew search [패키지명]`을 사용하여 해당 패키지가 존재하는지 확인할 수 있습니다.
+- `brew info [패키지명]`을 사용하면 패키지에 대한 자세한 정보를 확인할 수 있습니다.

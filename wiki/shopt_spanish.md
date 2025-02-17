@@ -1,45 +1,45 @@
-# [리눅스] Bash shopt 사용법
+# [Linux] Bash shopt Uso: Configuración de opciones de shell
 
 ## Overview
-El comando `shopt` en Bash se utiliza para habilitar o deshabilitar opciones específicas del shell. Estas opciones permiten modificar el comportamiento del shell de manera que se adapte mejor a las necesidades del usuario. `shopt` es especialmente útil para activar características que no están habilitadas por defecto, lo que puede mejorar la funcionalidad y la usabilidad del entorno de línea de comandos.
+El comando `shopt` en Bash se utiliza para habilitar o deshabilitar opciones específicas del shell. Estas opciones pueden modificar el comportamiento del shell y personalizar la experiencia del usuario en la línea de comandos.
 
 ## Usage
 La sintaxis básica del comando `shopt` es la siguiente:
 
 ```bash
-shopt [opciones] [nombre_opción]
+shopt [options] [arguments]
 ```
 
-### Opciones Comunes
-- `-s` : Habilita la opción especificada.
-- `-u` : Deshabilita la opción especificada.
-- `-p` : Muestra el estado actual de todas las opciones de `shopt`.
+## Common Options
+- `-s`: Habilita una opción.
+- `-u`: Deshabilita una opción.
+- `-p`: Muestra las opciones actuales y su estado (habilitada o deshabilitada).
 
-## Examples
-### Ejemplo 1: Habilitar la opción `cdable_vars`
-Para habilitar la opción `cdable_vars`, que permite usar variables de entorno como directorios en el comando `cd`, puedes ejecutar:
+## Common Examples
+1. **Habilitar la opción de globbing extendido:**
+   ```bash
+   shopt -s extglob
+   ```
+   Esto permite el uso de patrones de coincidencia más complejos en los comandos de globbing.
 
-```bash
-shopt -s cdable_vars
-```
+2. **Deshabilitar la opción de globbing extendido:**
+   ```bash
+   shopt -u extglob
+   ```
 
-Después de habilitar esta opción, puedes cambiar a un directorio usando una variable de entorno. Por ejemplo, si tienes una variable `DIR` que apunta a un directorio, puedes hacer:
+3. **Mostrar el estado de todas las opciones:**
+   ```bash
+   shopt -p
+   ```
+   Este comando lista todas las opciones de `shopt` junto con su estado actual.
 
-```bash
-DIR=/ruta/al/directorio
-cd $DIR
-```
-
-### Ejemplo 2: Verificar el estado de las opciones
-Para ver todas las opciones de `shopt` y su estado actual, puedes usar:
-
-```bash
-shopt -p
-```
-
-Esto mostrará una lista de todas las opciones disponibles y si están habilitadas o deshabilitadas.
+4. **Habilitar la opción de autocd:**
+   ```bash
+   shopt -s autocd
+   ```
+   Con esta opción habilitada, puedes cambiar a un directorio simplemente escribiendo su nombre sin necesidad de usar el comando `cd`.
 
 ## Tips
-- Siempre verifica el estado de las opciones con `shopt -p` antes de habilitar o deshabilitar una opción para asegurarte de que no afectará negativamente a tus scripts o entorno de trabajo.
-- Considera agregar las configuraciones de `shopt` que uses frecuentemente en tu archivo `.bashrc` para que se apliquen automáticamente cada vez que inicies una nueva sesión de terminal.
-- Utiliza `shopt` con precaución, ya que algunas opciones pueden cambiar significativamente el comportamiento del shell y afectar la ejecución de scripts existentes.
+- Revisa las opciones disponibles con `shopt -p` para conocer qué configuraciones puedes ajustar.
+- Considera crear un archivo de configuración (como `.bashrc`) para habilitar opciones que desees utilizar de manera constante.
+- Experimenta con las opciones en un entorno de prueba antes de aplicarlas en tu entorno de trabajo habitual para evitar comportamientos inesperados.

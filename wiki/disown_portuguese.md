@@ -1,49 +1,48 @@
-# [리눅스] Bash disown 사용법
+# [Linux] Bash disown Uso: Remove jobs da lista de jobs do shell
 
 ## Overview
-O comando `disown` no Bash é utilizado para remover um ou mais jobs da lista de jobs do shell, permitindo que esses jobs continuem a ser executados em segundo plano mesmo após o shell ser encerrado. Isso é especialmente útil quando você inicia um processo em segundo plano e deseja garantir que ele não seja interrompido quando você sair da sessão do terminal.
+O comando `disown` é utilizado no Bash para remover um ou mais jobs da lista de jobs do shell. Isso é útil quando você deseja que um processo continue em execução mesmo após fechar a sessão do terminal, permitindo que ele funcione em segundo plano sem ser interrompido.
 
 ## Usage
 A sintaxe básica do comando `disown` é a seguinte:
 
 ```bash
-disown [opções] [job_spec]
+disown [opções] [jobs]
 ```
 
-### Opções Comuns:
-- `-h`: Esta opção impede que o job especificado receba um sinal SIGHUP quando o shell é encerrado.
+## Common Options
+- `-h`: Impede que o job especificado receba um sinal SIGHUP quando a sessão do terminal for encerrada.
 - `-a`: Aplica o comando a todos os jobs em segundo plano.
-- `-r`: Aplica o comando apenas aos jobs que estão em execução.
+- `-r`: Aplica o comando apenas aos jobs em execução.
 
-Se você não especificar um `job_spec`, o `disown` irá aplicar-se ao job mais recente.
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `disown`:
 
-## Examples
+1. **Remover um job específico da lista de jobs:**
+   ```bash
+   disown %1
+   ```
+   Neste exemplo, `%1` refere-se ao primeiro job em segundo plano.
 
-### Exemplo 1: Desconectar um job específico
-Suponha que você tenha iniciado um processo em segundo plano, como um servidor Python:
+2. **Remover todos os jobs da lista:**
+   ```bash
+   disown
+   ```
+   Este comando remove todos os jobs da lista de jobs do shell.
 
-```bash
-python -m http.server &
-```
+3. **Impedir que um job específico receba SIGHUP:**
+   ```bash
+   disown -h %2
+   ```
+   Aqui, `%2` é o segundo job em segundo plano, que não receberá o sinal SIGHUP.
 
-Você pode verificar os jobs em segundo plano com o comando `jobs`. Para desconectar este job específico, você pode usar:
-
-```bash
-disown %1
-```
-
-Aqui, `%1` refere-se ao primeiro job listado.
-
-### Exemplo 2: Desconectar todos os jobs
-Se você tiver vários jobs em segundo plano e quiser desconectar todos eles de uma vez, você pode usar a opção `-a`:
-
-```bash
-disown -a
-```
-
-Isso garantirá que todos os jobs em segundo plano continuem a ser executados mesmo após o encerramento do shell.
+4. **Remover todos os jobs em execução:**
+   ```bash
+   disown -r
+   ```
+   Este comando remove todos os jobs que estão atualmente em execução.
 
 ## Tips
-- Sempre verifique a lista de jobs em segundo plano usando o comando `jobs` antes de usar `disown`, para garantir que você está desconectando o job correto.
-- Use `disown -h` se você deseja que um job continue rodando mesmo após o shell ser encerrado, mas não quer que ele receba um sinal SIGHUP.
-- Lembre-se de que uma vez que um job é desconectado, você não poderá mais trazê-lo de volta para o controle do shell. Portanto, use o `disown` com cautela.
+- Sempre verifique a lista de jobs em segundo plano com o comando `jobs` antes de usar `disown`, para garantir que você está removendo o job correto.
+- Use `disown` após iniciar um processo em segundo plano com `&` para garantir que ele continue a funcionar mesmo se você fechar o terminal.
+- Lembre-se de que, uma vez que um job é desassociado com `disown`, você não poderá mais trazê-lo de volta para o controle do terminal.

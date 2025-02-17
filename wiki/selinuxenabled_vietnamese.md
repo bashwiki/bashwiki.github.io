@@ -1,55 +1,46 @@
-# [리눅스] Bash selinuxenabled 사용법
+# [Linux] Bash selinuxenabled <Kiểm tra trạng thái SELinux>: Kiểm tra xem SELinux có được kích hoạt hay không
 
 ## Tổng quan
-Lệnh `selinuxenabled` được sử dụng để kiểm tra xem SELinux (Security-Enhanced Linux) có được kích hoạt hay không trên hệ thống Linux. SELinux là một kiến trúc bảo mật mạnh mẽ giúp quản lý quyền truy cập và bảo vệ hệ thống khỏi các hành vi không mong muốn. Lệnh này trả về mã trạng thái, cho phép người dùng xác định nhanh chóng trạng thái của SELinux.
+Lệnh `selinuxenabled` được sử dụng để kiểm tra xem SELinux (Security-Enhanced Linux) có được kích hoạt trên hệ thống hay không. Nếu SELinux đang hoạt động, lệnh sẽ trả về mã thoát 0, ngược lại, nó sẽ trả về mã thoát 1.
 
-## Cách sử dụng
-Cú pháp cơ bản của lệnh `selinuxenabled` là:
-
-```bash
-selinuxenabled
-```
-
-Lệnh này không có tùy chọn nào, và nó chỉ trả về mã trạng thái:
-
-- Nếu SELinux được kích hoạt, lệnh sẽ trả về mã trạng thái 0.
-- Nếu SELinux không được kích hoạt, lệnh sẽ trả về mã trạng thái 1.
-
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `selinuxenabled`.
-
-### Ví dụ 1: Kiểm tra trạng thái SELinux
-Bạn có thể chạy lệnh sau để kiểm tra xem SELinux có được kích hoạt hay không:
+## Cú pháp
+Cú pháp cơ bản của lệnh `selinuxenabled` như sau:
 
 ```bash
-selinuxenabled
+selinuxenabled [options]
 ```
 
-Sau khi chạy lệnh, bạn có thể kiểm tra mã trạng thái bằng cách sử dụng `$?`:
+## Các tùy chọn phổ biến
+- Không có tùy chọn nào đặc biệt cho lệnh này. Nó chỉ đơn giản là kiểm tra trạng thái của SELinux.
 
-```bash
-selinuxenabled
-if [ $? -eq 0 ]; then
-    echo "SELinux is enabled."
-else
-    echo "SELinux is not enabled."
-fi
-```
+## Ví dụ thường gặp
+Dưới đây là một số ví dụ thực tế khi sử dụng lệnh `selinuxenabled`:
 
-### Ví dụ 2: Sử dụng trong script
-Lệnh `selinuxenabled` có thể được sử dụng trong các script để tự động hóa việc kiểm tra trạng thái SELinux:
+1. **Kiểm tra trạng thái SELinux**:
+   ```bash
+   selinuxenabled
+   ```
 
-```bash
-#!/bin/bash
+2. **Kiểm tra trạng thái và sử dụng trong một câu lệnh điều kiện**:
+   ```bash
+   if selinuxenabled; then
+       echo "SELinux is enabled."
+   else
+       echo "SELinux is not enabled."
+   fi
+   ```
 
-if selinuxenabled; then
-    echo "SELinux is enabled. Proceeding with secure operations."
-else
-    echo "Warning: SELinux is not enabled. Security may be compromised."
-fi
-```
+3. **Sử dụng trong một script**:
+   ```bash
+   #!/bin/bash
+   if selinuxenabled; then
+       echo "SELinux is active."
+   else
+       echo "SELinux is inactive."
+   fi
+   ```
 
 ## Mẹo
-- Sử dụng `selinuxenabled` trong các script shell để đảm bảo rằng các tác vụ bảo mật chỉ được thực hiện khi SELinux được kích hoạt.
-- Kết hợp lệnh này với các lệnh khác để tạo ra các quy trình tự động kiểm tra và xử lý tình huống bảo mật.
-- Để biết thêm thông tin chi tiết về SELinux, bạn có thể tham khảo tài liệu chính thức hoặc sử dụng lệnh `man selinux` để tìm hiểu thêm về các tùy chọn và cấu hình liên quan.
+- **Sử dụng trong các script**: Lệnh `selinuxenabled` rất hữu ích để kiểm tra trạng thái SELinux trong các script tự động hóa, giúp bạn thực hiện các hành động khác nhau dựa trên trạng thái của SELinux.
+- **Kết hợp với các lệnh khác**: Bạn có thể kết hợp lệnh này với các lệnh khác để thực hiện các tác vụ bảo mật tùy thuộc vào trạng thái của SELinux.
+- **Kiểm tra mã thoát**: Để kiểm tra mã thoát của lệnh, bạn có thể sử dụng biến `$?` ngay sau khi chạy lệnh `selinuxenabled`.

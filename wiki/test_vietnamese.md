@@ -1,51 +1,49 @@
-# [리눅스] Bash test 사용법
+# [Linux] Bash test cách sử dụng: Kiểm tra điều kiện
 
-## Tổng quan
-Lệnh `test` trong Bash được sử dụng để kiểm tra điều kiện và đánh giá các biểu thức. Lệnh này thường được sử dụng trong các câu lệnh điều kiện như `if`, `while`, hoặc `until` để xác định xem một điều kiện có đúng hay không. Nếu điều kiện đúng, lệnh `test` trả về mã thoát 0 (thành công), ngược lại, nó trả về mã thoát 1 (thất bại).
+## Overview
+Lệnh `test` trong Bash được sử dụng để kiểm tra các điều kiện khác nhau, chẳng hạn như kiểm tra sự tồn tại của tệp, so sánh số, hoặc kiểm tra chuỗi. Kết quả của lệnh này sẽ trả về giá trị đúng (0) hoặc sai (1), giúp bạn thực hiện các quyết định trong các kịch bản lập trình shell.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `test` như sau:
-
 ```bash
-test EXPRESSION
+test [options] [arguments]
 ```
 
-Hoặc bạn có thể sử dụng cú pháp sau với dấu ngoặc vuông:
-
-```bash
-[ EXPRESSION ]
-```
-
-### Các tùy chọn phổ biến
+## Common Options
+Dưới đây là một số tùy chọn phổ biến của lệnh `test`:
 - `-e FILE`: Kiểm tra xem tệp có tồn tại hay không.
-- `-d FILE`: Kiểm tra xem tệp có phải là thư mục hay không.
-- `-f FILE`: Kiểm tra xem tệp có phải là tệp thường hay không.
+- `-f FILE`: Kiểm tra xem tệp có phải là tệp thông thường hay không.
+- `-d DIRECTORY`: Kiểm tra xem thư mục có tồn tại hay không.
 - `-z STRING`: Kiểm tra xem chuỗi có rỗng hay không.
-- `-n STRING`: Kiểm tra xem chuỗi có không rỗng hay không.
-- `STRING1 = STRING2`: Kiểm tra xem hai chuỗi có bằng nhau hay không.
-- `STRING1 != STRING2`: Kiểm tra xem hai chuỗi có khác nhau hay không.
+- `-eq`, `-ne`, `-lt`, `-le`, `-gt`, `-ge`: So sánh các số.
 
-## Ví dụ
-### Ví dụ 1: Kiểm tra sự tồn tại của một tệp
-```bash
-if test -e myfile.txt; then
-    echo "Tệp myfile.txt tồn tại."
-else
-    echo "Tệp myfile.txt không tồn tại."
-fi
-```
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `test`:
 
-### Ví dụ 2: Kiểm tra một chuỗi
-```bash
-my_string="Hello"
-if test -n "$my_string"; then
-    echo "Chuỗi không rỗng."
-else
-    echo "Chuỗi rỗng."
-fi
-```
+1. Kiểm tra sự tồn tại của một tệp:
+   ```bash
+   test -e myfile.txt && echo "Tệp tồn tại"
+   ```
 
-## Mẹo
-- Sử dụng dấu ngoặc vuông `[` thay cho lệnh `test` để làm cho mã dễ đọc hơn. Ví dụ: `[ -e myfile.txt ]` có thể dễ hiểu hơn so với `test -e myfile.txt`.
-- Đảm bảo sử dụng dấu cách đúng cách giữa các tham số và dấu ngoặc để tránh lỗi cú pháp.
-- Khi kiểm tra nhiều điều kiện, bạn có thể sử dụng các toán tử logic như `-a` (và) và `-o` (hoặc) để kết hợp các điều kiện.
+2. Kiểm tra xem một thư mục có tồn tại hay không:
+   ```bash
+   test -d /home/user && echo "Thư mục tồn tại"
+   ```
+
+3. So sánh hai số:
+   ```bash
+   a=5
+   b=10
+   test $a -lt $b && echo "$a nhỏ hơn $b"
+   ```
+
+4. Kiểm tra xem một chuỗi có rỗng hay không:
+   ```bash
+   str=""
+   test -z "$str" && echo "Chuỗi rỗng"
+   ```
+
+## Tips
+- Sử dụng `[` thay cho `test` để viết mã ngắn gọn hơn, ví dụ: `[ -e myfile.txt ]`.
+- Kết hợp lệnh `test` với các cấu trúc điều kiện như `if` để thực hiện các hành động dựa trên kết quả kiểm tra.
+- Luôn sử dụng dấu ngoặc kép cho các biến chứa chuỗi để tránh lỗi khi chuỗi rỗng hoặc chứa khoảng trắng.

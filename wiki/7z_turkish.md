@@ -1,49 +1,53 @@
-# [리눅스] Bash 7z 사용법
+# [Linux] Bash 7z Kullanımı: Dosyaları sıkıştırma ve açma aracı
 
-## Overview
-`7z`, 7-Zip arşivleme yazılımının komut satırı sürümüdür. Bu komut, dosyaları sıkıştırmak, arşivlemek ve açmak için kullanılır. `7z`, yüksek sıkıştırma oranları ve çeşitli dosya formatlarını desteklemesi ile bilinir. Genellikle büyük dosyaların veya klasörlerin depolanması ve taşınması için idealdir.
+## Genel Bakış
+7z, dosyaları sıkıştırmak ve açmak için kullanılan güçlü bir komut satırı aracıdır. 7z formatı, yüksek sıkıştırma oranları sunarak dosyaların boyutunu önemli ölçüde azaltabilir. Bu araç, hem sıkıştırma hem de açma işlemleri için geniş bir dosya formatı desteği sunar.
 
-## Usage
-Temel `7z` komutunun sözdizimi şu şekildedir:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
-```bash
-7z [seçenekler] [işlem] [arşiv dosyası] [dosyalar]
+```
+7z [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `a`: Arşiv oluşturur ve dosyaları ekler.
-- `x`: Arşivi çıkarır.
+## Yaygın Seçenekler
+- `a`: Yeni bir arşiv oluşturur ve dosyaları ekler.
+- `x`: Arşivden dosyaları çıkarır.
 - `l`: Arşiv içeriğini listeler.
 - `d`: Arşivden dosyaları siler.
-- `t`: Arşivin bütünlüğünü test eder.
+- `t`: Arşivin bütünlüğünü kontrol eder.
+- `e`: Arşivden dosyaları çıkarır, ancak dizin yapısını korumaz.
 
-## Examples
+## Yaygın Örnekler
+1. **Yeni bir arşiv oluşturma:**
+   ```bash
+   7z a arşiv.7z dosya1.txt dosya2.txt
+   ```
 
-### Örnek 1: Dosya Sıkıştırma
-Aşağıdaki komut, `dosya.txt` adlı dosyayı `arşiv.7z` adlı bir arşiv dosyasına sıkıştırır:
+2. **Arşivden dosyaları çıkarma:**
+   ```bash
+   7z x arşiv.7z
+   ```
 
-```bash
-7z a arşiv.7z dosya.txt
-```
+3. **Arşiv içeriğini listeleme:**
+   ```bash
+   7z l arşiv.7z
+   ```
 
-### Örnek 2: Arşivden Dosya Çıkarma
-Aşağıdaki komut, `arşiv.7z` adlı arşiv dosyasını çıkarır:
+4. **Arşivden belirli bir dosyayı silme:**
+   ```bash
+   7z d arşiv.7z dosya1.txt
+   ```
 
-```bash
-7z x arşiv.7z
-```
+5. **Arşivin bütünlüğünü kontrol etme:**
+   ```bash
+   7z t arşiv.7z
+   ```
 
-## Tips
-- Sıkıştırma oranını artırmak için `-mx=9` seçeneğini kullanabilirsiniz. Bu, en yüksek sıkıştırma seviyesini ayarlar. Örneğin:
-
-```bash
-7z a -mx=9 arşiv.7z dosya.txt
-```
-
-- Arşiv içeriğini listelemek için `l` seçeneğini kullanarak arşivdeki dosyaları hızlıca görebilirsiniz:
-
-```bash
-7z l arşiv.7z
-```
-
-- Büyük dosyalarla çalışırken, işlem süresini ve sistem kaynaklarını göz önünde bulundurun. Gereksiz dosyaları arşivden çıkarmak veya silmek, yer tasarrufu sağlar.
+## İpuçları
+- Sıkıştırma oranını artırmak için `-mx=9` seçeneğini kullanabilirsiniz. Örneğin:
+  ```bash
+  7z a -mx=9 arşiv.7z dosya.txt
+  ```
+- Büyük dosyalarla çalışırken, işlemlerinizi daha hızlı hale getirmek için çoklu iş parçacığı desteğini kullanabilirsiniz.
+- Arşivlerinizi düzenli olarak kontrol edin ve gereksiz dosyaları silerek alan tasarrufu yapın.

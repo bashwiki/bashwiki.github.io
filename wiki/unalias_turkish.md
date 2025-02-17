@@ -1,36 +1,38 @@
-# [리눅스] Bash unalias 사용법
+# [Linux] Bash unalias Kullanımı: Alias'ları kaldırma
 
 ## Genel Bakış
-`unalias` komutu, Bash kabuğunda tanımlı olan takma adları (alias) kaldırmak için kullanılır. Takma adlar, sık kullanılan komutların daha kısa ve kolay hatırlanabilir biçimlerde tanımlanmasını sağlar. Ancak, bazen bu takma adların kaldırılması gerekebilir. `unalias` komutu, belirli bir takma adı veya tüm takma adları kaldırmak için kullanılır.
+`unalias` komutu, Bash kabuğunda tanımlı olan alias'ları (takma adları) kaldırmak için kullanılır. Kullanıcılar, sık kullandıkları komutlar için daha kısa veya daha anlamlı isimler tanımlayabilirler. Ancak, bazen bu alias'ların kaldırılması gerekebilir; işte bu noktada `unalias` devreye girer.
 
 ## Kullanım
 Temel sözdizimi aşağıdaki gibidir:
 
-```bash
-unalias [seçenekler] [takma_ad]
+```
+unalias [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-a` veya `--all`: Tüm takma adlarını kaldırır.
-- `-h` veya `--help`: Komut hakkında yardım bilgisi gösterir.
-- `-V` veya `--version`: Komutun sürüm bilgisini gösterir.
+## Yaygın Seçenekler
+- `-a`: Tüm alias'ları kaldırır.
+- `-r`: Belirtilen alias'ı kaldırır.
 
-## Örnekler
-### Örnek 1: Belirli bir takma adı kaldırma
-Aşağıdaki komut, `ll` takma adını kaldırır:
+## Yaygın Örnekler
+Aşağıda `unalias` komutunun bazı pratik örnekleri bulunmaktadır:
 
-```bash
-unalias ll
-```
+1. Belirli bir alias'ı kaldırma:
+   ```bash
+   unalias ll
+   ```
 
-### Örnek 2: Tüm takma adlarını kaldırma
-Aşağıdaki komut, tanımlı olan tüm takma adlarını kaldırır:
+2. Tüm alias'ları kaldırma:
+   ```bash
+   unalias -a
+   ```
 
-```bash
-unalias -a
-```
+3. Birden fazla alias'ı aynı anda kaldırma:
+   ```bash
+   unalias ll rm
+   ```
 
 ## İpuçları
-- Takma adları kaldırmadan önce, hangi takma adlarının tanımlı olduğunu görmek için `alias` komutunu kullanabilirsiniz.
-- Eğer bir takma adını kaldırdıktan sonra tekrar kullanmak isterseniz, onu yeniden tanımlamak için `alias` komutunu kullanabilirsiniz.
-- Takma adlarını kaldırmak, özellikle bir komutun beklenmedik bir şekilde çalışmasını önlemek için yararlıdır. Bu nedenle, takma adları yönetirken dikkatli olunmalıdır.
+- Alias'ları kaldırmadan önce, hangi alias'ların tanımlı olduğunu görmek için `alias` komutunu kullanabilirsiniz.
+- `unalias` komutunu, terminal oturumunuzun başlangıcında çalıştırarak belirli alias'ların otomatik olarak kaldırılmasını sağlayabilirsiniz.
+- Eğer bir alias'ı kaldırdıktan sonra tekrar kullanmak isterseniz, onu yeniden tanımlamanız gerekecektir.

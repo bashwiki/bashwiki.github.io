@@ -1,38 +1,42 @@
-# [리눅스] Bash timeout 사용법
+# [Linux] Bash timeout Kullanımı: Komutların belirli bir süre içinde çalışmasını sağlamak
 
-## Genel Bakış
-`timeout` komutu, belirli bir süre boyunca bir komutun çalışmasına izin veren ve bu süre dolduğunda komutu otomatik olarak sonlandıran bir araçtır. Bu, uzun süren işlemleri kontrol altında tutmak ve sistem kaynaklarını verimli bir şekilde yönetmek için kullanışlıdır. Özellikle, bir komutun beklenmedik şekilde sonsuza kadar çalışmasını önlemek için idealdir.
+## Overview
+`timeout` komutu, bir komutun veya programın belirli bir süre içinde çalışmasını sağlar. Eğer belirtilen süre dolduğunda komut hala çalışıyorsa, `timeout` komutu onu durdurur. Bu, uzun süren işlemleri kontrol altında tutmak için oldukça yararlıdır.
 
-## Kullanım
-`timeout` komutunun temel sözdizimi şu şekildedir:
-
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-timeout [SEÇENEKLER] SÜRE KOMUT [ARGÜMANLAR]
+timeout [options] [duration] [command]
 ```
 
-### Yaygın Seçenekler
-- `SÜRE`: Komutun çalışmasına izin verilen süreyi belirtir. Bu süre, `s` (saniye), `m` (dakika), `h` (saat) veya `d` (gün) ile birim olarak ifade edilebilir. Örneğin, `30s` 30 saniye, `1m` 1 dakika anlamına gelir.
-- `-k SÜRE`: Komut zaman aşımına uğradıktan sonra, belirtilen süre boyunca (bu süre içinde) komutun sonlandırılmadan önce bir sinyal almasını sağlar.
-- `-s SİNYAL`: Komuta gönderilecek sinyali belirtir. Varsayılan olarak `TERM` sinyali gönderilir.
+## Common Options
+- `-k`, `--kill-after=DURATION`: Komut belirtilen süre içinde bitmezse, bu süre dolduktan sonra komutu öldürmek için ek bir süre belirler.
+- `-s`, `--signal=SIGNAL`: Komuta gönderilecek sinyali belirtir. Varsayılan olarak `TERM` sinyali gönderilir.
+- `--preserve-status`: Komutun çıkış durumunu korur. Bu, `timeout` komutunun çıkış durumunu değiştirmeden komutun çıkış durumunu döndürmesini sağlar.
 
-## Örnekler
-### Örnek 1: Basit Kullanım
-Aşağıdaki komut, `sleep` komutunu 5 saniye boyunca çalıştırır. Eğer 5 saniye içinde bitmezse, komut otomatik olarak sonlandırılır.
+## Common Examples
+Aşağıda `timeout` komutunun bazı pratik örnekleri bulunmaktadır:
 
+### Örnek 1: Basit bir komut için timeout kullanma
 ```bash
 timeout 5s sleep 10
 ```
-Bu durumda, `sleep` komutu 10 saniye sürecek olsa da, `timeout` onu 5 saniye sonra sonlandıracaktır.
+Bu komut, `sleep 10` komutunu başlatır, ancak sadece 5 saniye çalışmasına izin verir. 5 saniye sonra `sleep` komutu durdurulacaktır.
 
-### Örnek 2: Sinyal Gönderme
-Aşağıdaki komut, `sleep` komutunu 5 saniye boyunca çalıştırır ve zaman aşımına uğradığında `KILL` sinyali gönderir.
-
+### Örnek 2: Belirli bir sinyal ile komutu durdurma
 ```bash
-timeout -s KILL 5s sleep 10
+timeout -s SIGKILL 3m my_long_running_command
 ```
-Bu durumda, `sleep` komutu 5 saniye sonra `KILL` sinyali ile sonlandırılacaktır.
+Bu komut, `my_long_running_command` komutunu 3 dakika çalıştırır. Eğer bu süre dolarsa, komut `SIGKILL` sinyali ile durdurulur.
 
-## İpuçları
-- Zaman aşımını ayarlarken, komutun beklenen çalışma süresini göz önünde bulundurun. Çok kısa bir süre belirlemek, komutun beklenmedik bir şekilde sonlanmasına neden olabilir.
-- `-k` seçeneğini kullanarak, komutun sonlanmadan önce belirli bir süre daha çalışmasına izin verebilirsiniz. Bu, bazı durumlarda önemli olabilir.
-- Uzun süren işlemler için `timeout` kullanarak sistem kaynaklarınızı koruyabilir ve beklenmedik durumlarla başa çıkabilirsiniz.
+### Örnek 3: Çıkış durumunu koruma
+```bash
+timeout --preserve-status 10s my_command
+echo $?
+```
+Bu komut, `my_command`'ı 10 saniye içinde çalıştırır ve ardından çıkış durumunu korur. `echo $?` ile `my_command`'ın çıkış durumu görüntülenir.
+
+## Tips
+- `timeout` komutunu uzun süren işlemleri yönetmek için kullanarak sistem kaynaklarınızı daha verimli kullanabilirsiniz.
+- Komutlarınızın beklenmedik bir şekilde uzun sürmesini önlemek için `timeout` ile birlikte uygun süreler belirleyin.
+- Çalıştırdığınız komutların hangi sinyalleri desteklediğini kontrol ederek, `-s` seçeneği ile uygun sinyali seçin.

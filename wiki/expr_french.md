@@ -1,44 +1,60 @@
-# [리눅스] Bash expr 사용법
+# [Linux] Bash expr Utilisation : Évaluation d'expressions
 
 ## Overview
-La commande `expr` est un utilitaire en ligne de commande sous Unix et Linux qui permet d'évaluer des expressions. Son principal objectif est de réaliser des opérations arithmétiques, de manipuler des chaînes de caractères et d'effectuer des comparaisons. Bien que `expr` soit souvent utilisé dans des scripts shell pour effectuer des calculs simples, il est important de noter qu'il est moins courant aujourd'hui en raison de l'existence d'autres outils comme `$(( ))` pour les calculs arithmétiques.
+La commande `expr` est utilisée pour évaluer des expressions arithmétiques, des chaînes de caractères et des comparaisons. Elle permet d'effectuer des calculs simples et de manipuler des chaînes dans un environnement Bash.
 
 ## Usage
 La syntaxe de base de la commande `expr` est la suivante :
 
+```bash
+expr [options] [arguments]
 ```
-expr [expression]
-```
 
-### Options courantes :
-- **Arithmétique** : `expr` peut effectuer des opérations comme l'addition (`+`), la soustraction (`-`), la multiplication (`*`), et la division (`/`).
-- **Comparaison** : `expr` peut comparer des valeurs avec des opérateurs comme `=` (égal), `!=` (différent), `<` (moins que), et `>` (plus que).
-- **Manipulation de chaînes** : `expr` peut également être utilisé pour extraire des sous-chaînes ou trouver la longueur d'une chaîne.
+## Common Options
+- `+` : Additionne deux nombres.
+- `-` : Soustrait le deuxième nombre du premier.
+- `*` : Multiplie deux nombres.
+- `/` : Divise le premier nombre par le deuxième.
+- `%` : Renvoie le reste de la division du premier nombre par le deuxième.
+- `=` : Évalue si deux valeurs sont égales.
+- `!=` : Évalue si deux valeurs ne sont pas égales.
+- `>` : Évalue si la première valeur est supérieure à la deuxième.
+- `<` : Évalue si la première valeur est inférieure à la deuxième.
 
-## Examples
-### Exemple 1 : Opérations arithmétiques
-Pour additionner deux nombres, vous pouvez utiliser la commande suivante :
+## Common Examples
 
+### Exemple 1 : Addition de deux nombres
 ```bash
 result=$(expr 5 + 3)
-echo $result
+echo $result  # Affiche 8
 ```
-Cela affichera `8`.
 
-### Exemple 2 : Comparaison de chaînes
-Pour comparer deux chaînes de caractères, vous pouvez utiliser :
-
+### Exemple 2 : Soustraction
 ```bash
-if expr "abc" = "abc" > /dev/null; then
-    echo "Les chaînes sont égales."
-else
-    echo "Les chaînes ne sont pas égales."
+result=$(expr 10 - 4)
+echo $result  # Affiche 6
+```
+
+### Exemple 3 : Multiplication
+```bash
+result=$(expr 7 \* 6)
+echo $result  # Affiche 42
+```
+
+### Exemple 4 : Division
+```bash
+result=$(expr 20 / 4)
+echo $result  # Affiche 5
+```
+
+### Exemple 5 : Comparaison
+```bash
+if expr 5 \> 3; then
+    echo "5 est supérieur à 3"  # Affiche ce message
 fi
 ```
-Cela affichera `Les chaînes sont égales.`
 
 ## Tips
-- Utilisez des parenthèses pour contrôler l'ordre des opérations dans les expressions arithmétiques. Par exemple, `expr 2 + 3 \* 4` donnera `14`, tandis que `expr (2 + 3) \* 4` donnera une erreur de syntaxe.
-- Évitez d'utiliser `expr` pour des calculs complexes. Pour des opérations arithmétiques avancées, envisagez d'utiliser `bc` ou `$(( ))`.
-- N'oubliez pas d'échapper les caractères spéciaux comme `*` en utilisant un antislash (`\`) pour éviter des erreurs de syntaxe.
-- Pour des scripts modernes, privilégiez l'utilisation de `let`, `(( ))`, ou `bc` pour une meilleure lisibilité et fonctionnalité.
+- Utilisez des guillemets autour des arguments pour éviter des erreurs avec des espaces ou des caractères spéciaux.
+- N'oubliez pas d'échapper le caractère `*` avec un antislash (`\`) pour éviter qu'il soit interprété par le shell.
+- Pour des calculs plus complexes, envisagez d'utiliser `bc` ou `awk`, qui offrent plus de fonctionnalités.

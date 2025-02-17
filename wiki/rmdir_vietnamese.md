@@ -1,41 +1,40 @@
-# [리눅스] Bash rmdir 사용법
+# [Linux] Bash rmdir: Xóa thư mục rỗng
 
-## Tổng quan
-Lệnh `rmdir` trong Bash được sử dụng để xóa các thư mục rỗng. Mục đích chính của lệnh này là giúp người dùng quản lý hệ thống tệp bằng cách loại bỏ những thư mục không còn cần thiết, giúp giữ cho cấu trúc thư mục gọn gàng và dễ quản lý hơn.
+## Overview
+Lệnh `rmdir` được sử dụng để xóa các thư mục rỗng trong hệ thống tệp. Nếu thư mục không rỗng, lệnh này sẽ không thực hiện được và sẽ thông báo lỗi.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `rmdir` như sau:
-
-```bash
-rmdir [tùy chọn] <thư_mục>
+```
+rmdir [options] [arguments]
 ```
 
-### Tùy chọn phổ biến:
-- `-p`: Xóa thư mục và các thư mục cha của nó nếu chúng cũng rỗng.
-- `--ignore-fail-on-non-empty`: Không báo lỗi nếu thư mục không rỗng.
+## Common Options
+- `-p`: Xóa thư mục rỗng và tất cả các thư mục cha của nó nếu chúng cũng rỗng.
+- `--ignore-fail-on-non-empty`: Bỏ qua lỗi nếu thư mục không rỗng.
 
-## Ví dụ
-### Ví dụ 1: Xóa một thư mục rỗng
-Giả sử bạn có một thư mục rỗng tên là `thumuc_rong`, bạn có thể xóa nó bằng lệnh sau:
+## Common Examples
+- **Xóa một thư mục rỗng:**
+  ```bash
+  rmdir my_empty_directory
+  ```
 
-```bash
-rmdir thumuc_rong
-```
+- **Xóa nhiều thư mục rỗng cùng một lúc:**
+  ```bash
+  rmdir dir1 dir2 dir3
+  ```
 
-### Ví dụ 2: Xóa thư mục và các thư mục cha rỗng
-Nếu bạn có một cấu trúc thư mục như sau:
+- **Xóa thư mục rỗng và các thư mục cha của nó:**
+  ```bash
+  rmdir -p parent_dir/child_dir
+  ```
 
-```
-/home/user/thumuc_cha/thumuc_con/
-```
+- **Bỏ qua lỗi khi thư mục không rỗng:**
+  ```bash
+  rmdir --ignore-fail-on-non-empty my_non_empty_directory
+  ```
 
-Và cả `thumuc_con` và `thumuc_cha` đều rỗng, bạn có thể xóa chúng bằng lệnh:
-
-```bash
-rmdir -p /home/user/thumuc_cha/thumuc_con
-```
-
-## Mẹo
-- Trước khi sử dụng lệnh `rmdir`, hãy đảm bảo rằng thư mục bạn muốn xóa thực sự rỗng. Bạn có thể sử dụng lệnh `ls` để kiểm tra nội dung của thư mục.
-- Nếu bạn muốn xóa thư mục không rỗng, hãy sử dụng lệnh `rm -r` thay vì `rmdir`, nhưng hãy cẩn thận vì lệnh này sẽ xóa tất cả nội dung bên trong thư mục.
-- Sử dụng tùy chọn `-p` một cách cẩn thận để tránh xóa nhầm các thư mục cha không còn cần thiết.
+## Tips
+- Trước khi sử dụng `rmdir`, hãy chắc chắn rằng thư mục bạn muốn xóa là rỗng để tránh thông báo lỗi.
+- Sử dụng tùy chọn `-p` để tiết kiệm thời gian khi bạn cần xóa nhiều thư mục rỗng lồng nhau.
+- Kiểm tra nội dung của thư mục bằng lệnh `ls` trước khi xóa để đảm bảo rằng bạn không xóa nhầm dữ liệu quan trọng.

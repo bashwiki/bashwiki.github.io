@@ -1,44 +1,51 @@
-# [리눅스] Bash ps 사용법
+# [Linux] Bash ps Utilisation : Afficher les processus en cours
 
 ## Overview
-La commande `ps` (process status) est utilisée dans les systèmes Unix et Linux pour afficher des informations sur les processus en cours d'exécution. Son objectif principal est de fournir un instantané des processus actifs, ce qui permet aux utilisateurs de surveiller l'état de leur système, d'identifier les processus qui consomment des ressources, et de gérer les tâches en cours.
+La commande `ps` (pour "process status") est utilisée pour afficher les informations sur les processus en cours d'exécution sur un système. Elle permet aux utilisateurs de surveiller et de gérer les processus, offrant ainsi une vue d'ensemble des tâches en cours.
 
 ## Usage
 La syntaxe de base de la commande `ps` est la suivante :
 
-```
-ps [options]
+```bash
+ps [options] [arguments]
 ```
 
-Voici quelques options courantes que vous pouvez utiliser avec la commande `ps` :
+## Common Options
+Voici quelques options courantes pour la commande `ps` :
 
-- `-e` ou `-A` : Affiche tous les processus en cours d'exécution.
-- `-f` : Affiche les processus sous forme de liste complète, incluant des informations supplémentaires comme l'UID, le PID, le PPID, et le temps CPU utilisé.
+- `-e` : Affiche tous les processus en cours d'exécution.
+- `-f` : Affiche les informations complètes sur les processus, y compris l'UID, le PID, le PPID, et la commande.
 - `-u [utilisateur]` : Affiche les processus appartenant à un utilisateur spécifique.
-- `-aux` : Affiche tous les processus en cours d'exécution avec des informations détaillées, même ceux qui ne sont pas associés à un terminal.
+- `-aux` : Affiche tous les processus avec des informations détaillées, y compris ceux qui ne sont pas associés à un terminal.
 
-## Examples
+## Common Examples
 Voici quelques exemples pratiques de l'utilisation de la commande `ps` :
 
-1. Pour afficher tous les processus en cours d'exécution :
+1. Afficher tous les processus en cours d'exécution :
 
    ```bash
    ps -e
    ```
 
-2. Pour afficher une liste détaillée de tous les processus, y compris ceux qui ne sont pas associés à un terminal :
+2. Afficher les processus avec des informations complètes :
+
+   ```bash
+   ps -f
+   ```
+
+3. Afficher les processus d'un utilisateur spécifique :
+
+   ```bash
+   ps -u nom_utilisateur
+   ```
+
+4. Afficher tous les processus avec des détails :
 
    ```bash
    ps aux
    ```
 
-3. Pour afficher les processus d'un utilisateur spécifique, par exemple `john` :
-
-   ```bash
-   ps -u john
-   ```
-
 ## Tips
-- Utilisez `ps aux | grep [nom_du_processus]` pour filtrer les résultats et trouver un processus spécifique.
-- Combinez `ps` avec d'autres commandes comme `sort` ou `head` pour affiner vos résultats. Par exemple, `ps aux --sort=-%mem | head` affichera les 10 processus utilisant le plus de mémoire.
-- Familiarisez-vous avec les différents formats de sortie de `ps` pour mieux comprendre les informations fournies.
+- Utilisez `ps aux | grep [nom_du_processus]` pour rechercher un processus spécifique.
+- Combinez `ps` avec d'autres commandes comme `sort` pour trier les processus par utilisation de la mémoire ou du CPU.
+- Pensez à utiliser `top` ou `htop` pour une vue dynamique et interactive des processus en cours.

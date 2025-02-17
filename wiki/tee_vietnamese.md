@@ -1,40 +1,43 @@
-# [리눅스] Bash tee 사용법
+# [Linux] Bash tee cách sử dụng: Ghi và hiển thị đầu ra đồng thời
 
-## Tổng quan
-Lệnh `tee` trong Bash là một công cụ hữu ích cho phép bạn đọc dữ liệu từ đầu vào chuẩn (stdin) và ghi nó vào một hoặc nhiều tệp, đồng thời cũng gửi dữ liệu đó đến đầu ra chuẩn (stdout). Điều này rất hữu ích khi bạn muốn theo dõi đầu ra của một lệnh trong khi vẫn lưu trữ nó vào tệp.
+## Overview
+Lệnh `tee` trong Bash được sử dụng để đọc từ đầu vào chuẩn và ghi vào cả đầu ra chuẩn và một hoặc nhiều tệp. Điều này cho phép bạn xem dữ liệu trong khi cũng lưu trữ nó cho các mục đích sử dụng sau.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `tee` như sau:
-
 ```bash
-tee [tùy chọn] [tệp...]
+tee [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-a` hoặc `--append`: Ghi dữ liệu vào cuối tệp thay vì ghi đè lên tệp.
-- `-i` hoặc `--ignore-interrupts`: Bỏ qua các tín hiệu ngắt khi đang ghi dữ liệu.
-- `-p` hoặc `--output-error`: Chỉ định cách xử lý lỗi khi ghi vào tệp.
+## Common Options
+- `-a`, `--append`: Ghi thêm vào tệp thay vì ghi đè.
+- `-i`, `--ignore-interrupts`: Bỏ qua các tín hiệu ngắt.
+- `-p`, `--output-error`: Chỉ định cách xử lý lỗi đầu ra.
 
-## Ví dụ
-### Ví dụ 1: Ghi đầu ra vào tệp
-Giả sử bạn muốn ghi đầu ra của lệnh `echo` vào tệp `output.txt`:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `tee`:
 
-```bash
-echo "Hello, World!" | tee output.txt
-```
+1. Ghi đầu ra của lệnh `echo` vào tệp:
+   ```bash
+   echo "Hello, World!" | tee output.txt
+   ```
 
-Lệnh này sẽ ghi "Hello, World!" vào tệp `output.txt` và cũng hiển thị nó trên màn hình.
+2. Ghi đầu ra vào nhiều tệp:
+   ```bash
+   echo "Logging data" | tee file1.txt file2.txt
+   ```
 
-### Ví dụ 2: Ghi đầu ra vào nhiều tệp
-Bạn có thể ghi đầu ra vào nhiều tệp bằng cách chỉ định nhiều tệp trong lệnh:
+3. Ghi thêm vào tệp thay vì ghi đè:
+   ```bash
+   echo "Appending this line" | tee -a output.txt
+   ```
 
-```bash
-echo "Logging data" | tee file1.txt file2.txt
-```
+4. Sử dụng với lệnh `cat` để xem nội dung tệp và lưu lại:
+   ```bash
+   cat input.txt | tee output.txt
+   ```
 
-Lệnh này sẽ ghi "Logging data" vào cả `file1.txt` và `file2.txt`, đồng thời hiển thị nó trên màn hình.
-
-## Mẹo
-- Sử dụng tùy chọn `-a` nếu bạn muốn thêm dữ liệu vào cuối tệp mà không ghi đè lên nội dung hiện có.
-- Kết hợp `tee` với các lệnh khác trong chuỗi lệnh để theo dõi và lưu trữ đầu ra mà không làm mất thông tin.
-- Khi làm việc với các tệp lớn, hãy cẩn thận với việc ghi đè, vì bạn có thể mất dữ liệu quan trọng nếu không sử dụng tùy chọn `-a`.
+## Tips
+- Sử dụng tùy chọn `-a` khi bạn muốn thêm dữ liệu vào tệp mà không làm mất dữ liệu cũ.
+- Kết hợp `tee` với các lệnh khác trong pipeline để theo dõi và lưu trữ đầu ra một cách hiệu quả.
+- Kiểm tra quyền ghi vào tệp trước khi sử dụng `tee` để tránh lỗi không mong muốn.

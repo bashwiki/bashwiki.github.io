@@ -1,47 +1,61 @@
-# [리눅스] Bash sort 사용법
+# [Linux] Bash sort uso: Sorts lines of text files
 
 ## Overview
-The `sort` command in Bash is a powerful utility used to sort lines of text files or standard input. Its primary purpose is to arrange the lines in a specified order, which can be either ascending or descending. The sorting can be based on various criteria, such as numerical values, alphabetical order, or specific fields within a line. This command is essential for data processing, making it easier to analyze and manage text data.
+The `sort` command in Bash is used to sort lines of text files. It organizes the input data in a specified order, which can be ascending or descending, and can handle both numerical and alphabetical sorting. This command is particularly useful for organizing data for easier reading or processing.
 
 ## Usage
 The basic syntax of the `sort` command is as follows:
 
 ```bash
-sort [OPTION]... [FILE]...
+sort [options] [arguments]
 ```
 
-### Common Options:
-- `-n`: Sorts the input numerically.
-- `-r`: Reverses the sorting order (sorts in descending order).
-- `-k`: Specifies a key (or field) to sort by. For example, `-k2` sorts by the second field.
-- `-t`: Defines a custom delimiter for fields. For example, `-t,` uses a comma as the delimiter.
-- `-u`: Outputs only unique lines, removing duplicates.
-- `-o FILE`: Writes the output to a specified file instead of standard output.
+## Common Options
+Here are some common options you can use with the `sort` command:
 
-## Examples
-### Example 1: Basic Alphabetical Sort
-To sort a file named `names.txt` in alphabetical order:
+- `-r`: Sort in reverse order (descending).
+- `-n`: Sort numerically instead of alphabetically.
+- `-k`: Sort based on a specific key (column).
+- `-u`: Output only the first of an equal run (unique).
+- `-o`: Write the result to a specified output file.
 
-```bash
-sort names.txt
-```
+## Common Examples
 
-### Example 2: Numerical Sort with Reverse Order
-To sort a file named `numbers.txt` numerically in descending order:
+1. **Sort a text file alphabetically:**
+   ```bash
+   sort filename.txt
+   ```
 
-```bash
-sort -nr numbers.txt
-```
+2. **Sort a text file in reverse order:**
+   ```bash
+   sort -r filename.txt
+   ```
 
-### Example 3: Sorting by a Specific Field
-If you have a CSV file named `data.csv` and want to sort it by the second column:
+3. **Sort numerically:**
+   ```bash
+   sort -n numbers.txt
+   ```
 
-```bash
-sort -t, -k2 data.csv
-```
+4. **Sort based on a specific column (e.g., second column):**
+   ```bash
+   sort -k2 filename.txt
+   ```
+
+5. **Sort and save the output to a new file:**
+   ```bash
+   sort filename.txt -o sorted.txt
+   ```
+
+6. **Sort unique lines:**
+   ```bash
+   sort -u filename.txt
+   ```
 
 ## Tips
-- Always consider using the `-o` option to save sorted output directly to a file, which can help avoid overwriting the original data unintentionally.
-- When sorting large files, consider using the `-S` option to specify the amount of memory to use for sorting, which can improve performance.
-- Use the `-u` option in conjunction with sorting to eliminate duplicate entries, especially useful in data cleanup tasks.
-- Familiarize yourself with the `man sort` command to explore more advanced options and features of the `sort` command.
+- When sorting large files, consider using the `-S` option to specify the amount of memory to use for sorting.
+- Combine `sort` with other commands like `uniq` to filter out duplicate lines after sorting.
+- Use `cat` with `sort` for sorting the output of multiple files:
+  ```bash
+  cat file1.txt file2.txt | sort
+  ```
+- Always check the output with `head` or `tail` to ensure the sorting is as expected.

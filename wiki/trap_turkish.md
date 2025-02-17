@@ -1,53 +1,44 @@
-# [리눅스] Bash trap 사용법
+# [Linux] Bash trap Kullanımı: Sinyal yakalama ve işleme
 
 ## Overview
-`trap` komutu, bir Bash betiği çalışırken belirli sinyalleri veya olayları yakalamak ve bu olaylar gerçekleştiğinde belirli komutları çalıştırmak için kullanılır. Bu, betiğinizi daha güvenilir hale getirmek ve beklenmedik durumlarla başa çıkmak için oldukça yararlıdır. Örneğin, bir betik çalışırken kullanıcı CTRL+C tuşuna bastığında, `trap` komutu ile bu durumu yakalayabilir ve uygun bir temizleme işlemi gerçekleştirebilirsiniz.
+`trap` komutu, bir Bash betiği çalışırken belirli sinyalleri veya olayları yakalamak ve bunlara yanıt vermek için kullanılır. Bu, betiğin belirli bir durumda düzgün bir şekilde sonlanmasını veya belirli bir işlemi gerçekleştirmesini sağlar.
 
 ## Usage
-`trap` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-trap 'komutlar' sinyal
+trap [options] [commands] [signals]
 ```
 
-- `komutlar`: Sinyal alındığında çalıştırılacak olan komutlar.
-- `sinyal`: Yakalamak istediğiniz sinyalin adı veya numarası. Örneğin, `SIGINT` (CTRL+C) veya `EXIT`.
+## Common Options
+- `-l`: Tüm sinyalleri listelemek için kullanılır.
+- `-p`: Mevcut `trap` ayarlarını yazdırır.
+- `-n`: Sinyal yakalamayı devre dışı bırakır.
 
-### Yaygın Sinyaller
-- `SIGINT`: Kullanıcının CTRL+C tuşuna basması.
-- `SIGTERM`: Bir programın sonlandırılması.
-- `EXIT`: Betik sona erdiğinde çalıştırılacak komutlar.
+## Common Examples
 
-## Examples
-
-### Örnek 1: CTRL+C ile Çıkış Yapıldığında Temizleme
-Aşağıdaki örnekte, kullanıcı CTRL+C tuşuna bastığında bir temizleme işlemi gerçekleştirilir.
+### Örnek 1: Sinyal Yakalama
+Bir betik çalışırken `SIGINT` (Ctrl+C) sinyalini yakalamak için:
 
 ```bash
-#!/bin/bash
-
-trap 'echo "Temizleme işlemi yapılıyor..."; exit' SIGINT
-
-while true; do
-    echo "Betiğiniz çalışıyor. CTRL+C ile durdurabilirsiniz."
-    sleep 1
-done
+trap 'echo "Sinyal yakalandı!"' SIGINT
 ```
 
-### Örnek 2: Betik Sona Erdiğinde Mesaj Gösterme
-Bu örnekte, betik sona erdiğinde bir mesaj gösterilir.
+### Örnek 2: Betik Sonlanırken Temizlik Yapma
+Betik sona erdiğinde geçici dosyaları silmek için:
 
 ```bash
-#!/bin/bash
+trap 'rm -f /tmp/mytempfile' EXIT
+```
 
-trap 'echo "Betiğiniz sona erdi."' EXIT
+### Örnek 3: Birden Fazla Sinyali Yakalama
+Hem `SIGINT` hem de `SIGTERM` sinyallerini yakalamak için:
 
-echo "Betiğiniz çalışıyor..."
-sleep 5
+```bash
+trap 'echo "Sinyal yakalandı!"' SIGINT SIGTERM
 ```
 
 ## Tips
 - `trap` komutunu kullanırken, her zaman hangi sinyalleri yakalamak istediğinizi net bir şekilde belirleyin.
-- Temizleme işlemleri için `trap` kullanmak, betiğinizin düzgün bir şekilde sonlanmasını sağlar ve kaynak sızıntılarını önler.
-- Birden fazla sinyali aynı anda yakalamak için, sinyalleri boşlukla ayırarak belirtebilirsiniz. Örneğin: `trap 'komutlar' SIGINT SIGTERM`.
-- `trap` komutunu kullanarak hata durumlarını yönetmek için, hata yakalama mekanizmaları ile birleştirebilirsiniz.
+- Betiğinizin sonlanma durumunda temizlik işlemleri yapmak için `EXIT` sinyalini kullanmayı unutmayın.
+- Sinyal yakalama işlemlerinin karmaşık hale gelmemesi için, mümkün olduğunca basit ve anlaşılır komutlar yazmaya özen gösterin.

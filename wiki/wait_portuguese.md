@@ -1,52 +1,53 @@
-# [리눅스] Bash wait 사용법
+# [Linux] Bash wait uso equivalente: Esperar por processos
 
-## Visão Geral
-O comando `wait` no Bash é utilizado para pausar a execução de um script até que um ou mais processos em segundo plano (background) terminem. Ele é especialmente útil em scripts onde é necessário garantir que certos processos sejam concluídos antes de prosseguir com a execução de outras tarefas. O `wait` pode ser usado sem argumentos para esperar por todos os processos em segundo plano ou pode receber um ID de processo específico para aguardar apenas aquele.
+## Overview
+O comando `wait` no Bash é utilizado para pausar a execução de um script até que um ou mais processos filhos terminem. Isso é especialmente útil quando você deseja garantir que certas operações sejam concluídas antes de prosseguir com outras.
 
-## Uso
+## Usage
 A sintaxe básica do comando `wait` é a seguinte:
 
 ```bash
-wait [PID]
+wait [opções] [argumentos]
 ```
 
-- `PID`: (opcional) O identificador do processo que você deseja aguardar. Se não for fornecido, o `wait` aguardará todos os processos em segundo plano iniciados pelo script atual.
+## Common Options
+- `PID`: Especifica o ID do processo que você deseja esperar. Se nenhum PID for fornecido, o `wait` aguardará todos os processos filhos.
+- `-n`: Aguarda até que qualquer processo filho termine, em vez de esperar por todos.
 
-## Exemplos
+## Common Examples
 
-### Exemplo 1: Aguardar todos os processos em segundo plano
+### Exemplo 1: Aguardar todos os processos filhos
 ```bash
 #!/bin/bash
-
-# Inicia dois processos em segundo plano
 sleep 5 &
 sleep 3 &
-
-# Aguardar a conclusão de todos os processos em segundo plano
 wait
-
-echo "Todos os processos em segundo plano foram concluídos."
+echo "Todos os processos filhos terminaram."
 ```
-Neste exemplo, o script inicia dois processos `sleep` em segundo plano e aguarda a conclusão de ambos antes de imprimir a mensagem final.
+Neste exemplo, o script aguarda a conclusão de ambos os comandos `sleep` antes de imprimir a mensagem.
 
 ### Exemplo 2: Aguardar um processo específico
 ```bash
 #!/bin/bash
-
-# Inicia um processo em segundo plano
-sleep 10 &
+sleep 5 &
 PID=$!
-
 echo "Aguardando o processo com PID $PID..."
-
-# Aguardar apenas o processo específico
 wait $PID
-
-echo "O processo com PID $PID foi concluído."
+echo "O processo com PID $PID terminou."
 ```
-Aqui, o script inicia um processo `sleep` em segundo plano, captura seu PID e aguarda apenas esse processo antes de continuar.
+Aqui, o script aguarda especificamente o processo que foi iniciado em segundo plano.
 
-## Dicas
-- Utilize `wait` sempre que precisar garantir que processos em segundo plano sejam concluídos antes de continuar a execução do script. Isso ajuda a evitar condições de corrida e problemas de sincronização.
-- Verifique o status de saída do processo aguardado usando `wait $PID; echo $?`, onde `$?` retornará o código de saída do processo, permitindo que você trate erros adequadamente.
-- Em scripts complexos, considere o uso de `wait` em combinação com outras estruturas de controle, como loops e condicionais, para gerenciar a execução de processos de forma mais eficaz.
+### Exemplo 3: Usando a opção -n
+```bash
+#!/bin/bash
+sleep 5 &
+sleep 3 &
+wait -n
+echo "Um dos processos filhos terminou."
+```
+Neste caso, o script aguarda que qualquer um dos processos filhos termine, imprimindo uma mensagem assim que isso acontecer.
+
+## Tips
+- Utilize `wait` em scripts que envolvem múltiplos processos para garantir que todos sejam concluídos antes de continuar.
+- Sempre que possível, capture o PID do processo que você deseja monitorar, isso ajuda a evitar confusões em scripts mais complexos.
+- Combine `wait` com outras construções de controle de fluxo, como loops e condicionais, para criar scripts mais robustos e eficientes.

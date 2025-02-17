@@ -1,44 +1,69 @@
-# [리눅스] Bash tput 사용법
+# [Linux] Bash tput Uso: Control terminal display settings
 
 ## Overview
-`tput` is a command-line utility in Unix-like operating systems that allows users to manipulate terminal capabilities. Its primary purpose is to enable the control of terminal features such as colors, cursor movement, and text formatting. By using `tput`, developers can create more visually appealing and user-friendly command-line interfaces.
+The `tput` command is used in Bash to initialize and manipulate terminal settings. It allows users to control various aspects of terminal behavior, such as text formatting, cursor movement, and color output. This command is particularly useful for creating visually appealing scripts and enhancing user interfaces in the terminal.
 
 ## Usage
 The basic syntax of the `tput` command is as follows:
 
-```
-tput [option] [parameter]
+```bash
+tput [options] [arguments]
 ```
 
-### Common Options
-- `setaf`: Set the foreground color (text color).
-- `setab`: Set the background color.
+## Common Options
+- `setaf [n]`: Set the foreground color to the color represented by the number `n`.
+- `setab [n]`: Set the background color to the color represented by the number `n`.
 - `clear`: Clear the terminal screen.
-- `cup`: Move the cursor to a specified position (row and column).
-- `bold`: Set text to bold.
-- `smso`: Start standout mode (usually bold or highlighted text).
-- `rmso`: End standout mode.
+- `cup [y] [x]`: Move the cursor to the specified position, where `y` is the row and `x` is the column.
+- `bold`: Set the text to bold.
+- `rev`: Reverse the foreground and background colors.
 
-## Examples
-### Example 1: Changing Text Color
-To change the text color to green, you can use the following command:
+## Common Examples
+Here are some practical examples of using the `tput` command:
 
-```bash
-tput setaf 2; echo "This text is green"; tput sgr0
-```
-In this example, `setaf 2` sets the text color to green (where `2` represents green), and `sgr0` resets the terminal to its default settings after displaying the message.
-
-### Example 2: Moving the Cursor
-To move the cursor to the 5th row and 10th column of the terminal and print a message, you can use:
+### Change Text Color
+To change the text color to red:
 
 ```bash
-tput cup 5 10; echo "Hello, World!"
+tput setaf 1
+echo "This text is red"
+tput sgr0  # Reset to default
 ```
-Here, `cup 5 10` moves the cursor to the specified position before printing "Hello, World!".
+
+### Clear the Screen
+To clear the terminal screen:
+
+```bash
+tput clear
+```
+
+### Move the Cursor
+To move the cursor to the 5th row and 10th column:
+
+```bash
+tput cup 5 10
+echo "Cursor moved here"
+```
+
+### Set Bold Text
+To print bold text:
+
+```bash
+tput bold
+echo "This text is bold"
+tput sgr0  # Reset to default
+```
+
+### Change Background Color
+To change the background color to blue and print text:
+
+```bash
+tput setab 4
+echo "This text has a blue background"
+tput sgr0  # Reset to default
+```
 
 ## Tips
-- Always reset terminal settings after using `tput` to avoid leaving the terminal in an unexpected state. Use `tput sgr0` to reset all attributes.
-- You can find the numeric values for different colors by using `tput colors`, which returns the number of colors supported by the terminal.
-- Combine multiple `tput` commands in a single script to create complex terminal interfaces, but ensure to manage cursor positions and text attributes carefully to avoid confusion.
-
-By utilizing `tput`, you can enhance your command-line applications and scripts, making them more interactive and visually appealing.
+- Always use `tput sgr0` to reset terminal settings after making changes to avoid affecting subsequent output.
+- Experiment with different color codes (0-7 for basic colors) to customize your terminal output.
+- Combine multiple `tput` commands in a single script to create a more dynamic and visually appealing user interface.

@@ -1,45 +1,55 @@
-# [리눅스] Bash lspci 사용법
+# [Linux] Bash lspci Uso: Listar dispositivos PCI
 
 ## Overview
-The `lspci` command is a utility in Linux that displays information about all PCI (Peripheral Component Interconnect) devices on the system. It provides details such as the device's vendor, model, and other relevant attributes. This command is particularly useful for engineers and developers who need to troubleshoot hardware issues, gather system information, or verify the presence of specific hardware components.
+The `lspci` command is used in Linux to display information about all PCI (Peripheral Component Interconnect) devices on the system. This includes details about graphics cards, network adapters, and other hardware components connected via the PCI bus.
 
 ## Usage
-The basic syntax for the `lspci` command is as follows:
+The basic syntax of the `lspci` command is as follows:
 
 ```bash
-lspci [options]
+lspci [options] [arguments]
 ```
 
-### Common Options:
-- `-v` or `--verbose`: Provides more detailed information about each device.
-- `-vv`: Increases the verbosity level, providing even more detailed information.
-- `-k` or `--kernel`: Shows the kernel driver in use for each device.
-- `-n`: Displays numeric IDs instead of the human-readable names.
-- `-s <slot>`: Displays information for a specific device identified by its slot number.
-- `-t`: Displays the PCI device hierarchy in a tree format.
+## Common Options
+- `-v`: Verbose output. Provides more detailed information about each device.
+- `-vv`: Even more verbose output, showing additional details.
+- `-k`: Show kernel driver information for each device.
+- `-n`: Show numeric IDs instead of names for devices.
+- `-s <slot>`: Display information for a specific device identified by its slot number.
+- `-t`: Display the devices in a tree format.
 
-## Examples
-1. **Basic Usage**: To list all PCI devices on your system, simply run:
-   ```bash
-   lspci
-   ```
+## Common Examples
+To list all PCI devices:
+```bash
+lspci
+```
 
-2. **Verbose Output**: To get detailed information about each PCI device, use the verbose option:
-   ```bash
-   lspci -v
-   ```
+To get detailed information about each device:
+```bash
+lspci -v
+```
 
-3. **Kernel Driver Information**: To see which kernel driver is being used for each PCI device, you can use:
-   ```bash
-   lspci -k
-   ```
+To show kernel driver information:
+```bash
+lspci -k
+```
+
+To display numeric IDs for devices:
+```bash
+lspci -n
+```
+
+To view a specific device by its slot number (for example, `00:1f.0`):
+```bash
+lspci -s 00:1f.0
+```
+
+To display the devices in a tree format:
+```bash
+lspci -t
+```
 
 ## Tips
-- When troubleshooting hardware issues, combining `lspci` with the `-v` and `-k` options can provide comprehensive insights into the devices and their associated drivers.
-- If you are looking for a specific device, you can pipe the output to `grep` to filter results. For example, to find information about a network controller, you can use:
-  ```bash
-  lspci | grep -i network
-  ```
-- For a clearer view of the device hierarchy, consider using the `-t` option, which can help visualize the relationships between devices.
-
-By utilizing the `lspci` command effectively, engineers and developers can gain valuable insights into the hardware components of their Linux systems.
+- Use `lspci | less` to scroll through the output if you have many devices.
+- Combine options for more specific output, like `lspci -vv -k` to get verbose information along with driver details.
+- If you need to search for a specific device, you can pipe the output to `grep`, for example: `lspci | grep -i network` to find network devices.

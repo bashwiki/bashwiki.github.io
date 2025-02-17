@@ -1,43 +1,46 @@
-# [리눅스] Bash shopt 사용법
+# [Linux] Bash shopt: [quản lý các tùy chọn shell]
 
-## Tổng quan
-`shopt` là một lệnh trong Bash cho phép người dùng quản lý các tùy chọn shell. Nó giúp người dùng bật hoặc tắt các tính năng mở rộng của shell, từ đó cải thiện khả năng sử dụng và hiệu suất của môi trường dòng lệnh. Các tùy chọn này có thể ảnh hưởng đến cách mà Bash xử lý các lệnh, biến và các tính năng khác.
+## Overview
+Lệnh `shopt` trong Bash được sử dụng để quản lý các tùy chọn shell. Nó cho phép người dùng bật hoặc tắt các tính năng bổ sung của shell, giúp tùy chỉnh hành vi của môi trường làm việc.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `shopt` như sau:
-
 ```bash
-shopt [OPTION] [NAME]
+shopt [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-s, --set`: Bật một tùy chọn.
-- `-u, --unset`: Tắt một tùy chọn.
-- `-p, --print`: In ra danh sách các tùy chọn hiện tại và trạng thái của chúng.
+## Common Options
+- `-s`: Bật một tùy chọn.
+- `-u`: Tắt một tùy chọn.
+- `-p`: Hiển thị tất cả các tùy chọn hiện tại và trạng thái của chúng.
 
-## Ví dụ
-### Ví dụ 1: Bật tùy chọn `autocd`
-Tùy chọn `autocd` cho phép người dùng chuyển đến một thư mục chỉ bằng cách gõ tên thư mục mà không cần sử dụng lệnh `cd`.
+## Common Examples
 
+### Bật một tùy chọn
+Để bật tùy chọn `cdable_vars`, cho phép sử dụng biến trong lệnh `cd`, bạn có thể sử dụng:
 ```bash
-shopt -s autocd
+shopt -s cdable_vars
 ```
 
-Sau khi bật tùy chọn này, bạn có thể chỉ cần gõ tên thư mục để chuyển đến nó:
-
+### Tắt một tùy chọn
+Để tắt tùy chọn `cdable_vars`, bạn có thể sử dụng:
 ```bash
-Documents
+shopt -u cdable_vars
 ```
 
-### Ví dụ 2: Kiểm tra trạng thái của tùy chọn
-Để xem tất cả các tùy chọn hiện tại và trạng thái của chúng, bạn có thể sử dụng lệnh sau:
-
+### Hiển thị tất cả các tùy chọn
+Để xem tất cả các tùy chọn hiện tại và trạng thái của chúng, bạn có thể sử dụng:
 ```bash
-shopt
+shopt -p
 ```
 
-Điều này sẽ in ra danh sách tất cả các tùy chọn cùng với trạng thái bật hoặc tắt của chúng.
+### Kiểm tra trạng thái của một tùy chọn
+Để kiểm tra xem một tùy chọn cụ thể đã được bật hay chưa, bạn có thể sử dụng:
+```bash
+shopt cdable_vars
+```
 
-## Mẹo
-- Sử dụng `shopt -p` để in ra các tùy chọn hiện tại mà bạn đã bật. Điều này hữu ích khi bạn muốn ghi lại cấu hình shell của mình.
-- Hãy cẩn thận khi bật hoặc tắt các tùy chọn, vì một số tùy chọn có thể thay đổi cách mà Bash hoạt động một cách đáng kể. Hãy thử nghiệm trong một phiên shell tạm thời trước khi áp dụng vào môi trường làm việc chính của bạn.
+## Tips
+- Hãy kiểm tra các tùy chọn có sẵn bằng cách sử dụng `shopt -p` để biết những gì có thể được tùy chỉnh.
+- Sử dụng `shopt` trong tệp cấu hình `.bashrc` của bạn để tự động áp dụng các tùy chọn khi mở terminal.
+- Cẩn thận với các tùy chọn có thể ảnh hưởng đến cách thức hoạt động của các lệnh khác trong shell.

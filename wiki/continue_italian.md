@@ -1,56 +1,89 @@
-# [리눅스] Bash continue 사용법
+# [Linux] Bash continue uso: Riprende l'esecuzione di un ciclo
 
 ## Overview
-Il comando `continue` in Bash è utilizzato all'interno di cicli come `for`, `while` e `until`. La sua funzione principale è quella di saltare l'iterazione corrente del ciclo e passare direttamente alla successiva. Questo è utile quando si desidera ignorare determinate condizioni senza terminare completamente il ciclo.
+Il comando `continue` in Bash viene utilizzato all'interno di un ciclo per saltare l'iterazione corrente e passare direttamente alla successiva. Questo è utile quando si desidera ignorare determinate condizioni senza terminare completamente il ciclo.
 
 ## Usage
-La sintassi di base del comando `continue` è molto semplice:
+La sintassi di base del comando è la seguente:
 
 ```bash
 continue [n]
 ```
 
-Dove `n` è un numero opzionale che indica il numero di livelli di ciclo da cui si desidera continuare. Se non specificato, `continue` salterà all'iterazione successiva del ciclo più interno.
+Dove `n` è un numero opzionale che indica quanti cicli si desidera saltare. Se non specificato, il valore predefinito è 1.
 
-## Examples
+## Common Options
+- `n`: Specifica il numero di iterazioni da saltare. Se `n` è omesso, il comando salta solo l'iterazione corrente.
 
-### Esempio 1: Utilizzo di `continue` in un ciclo `for`
+## Common Examples
+
+### Esempio 1: Ignorare numeri dispari
+Questo esempio mostra come utilizzare `continue` per ignorare i numeri dispari in un ciclo `for`.
+
 ```bash
-for i in {1..5}; do
-    if [ $i -eq 3 ]; then
-        continue
-    fi
-    echo "Numero: $i"
+for i in {1..10}; do
+  if (( i % 2 != 0 )); then
+    continue
+  fi
+  echo $i
 done
 ```
-In questo esempio, quando `i` è uguale a 3, il comando `continue` salta l'iterazione corrente, quindi l'output sarà:
+Output:
 ```
-Numero: 1
-Numero: 2
-Numero: 4
-Numero: 5
+2
+4
+6
+8
+10
 ```
 
-### Esempio 2: Utilizzo di `continue` in un ciclo `while`
+### Esempio 2: Saltare valori specifici
+In questo esempio, saltiamo il numero 5 durante l'iterazione.
+
 ```bash
-count=0
-while [ $count -lt 5 ]; do
-    count=$((count + 1))
-    if [ $count -eq 2 ]; then
-        continue
-    fi
-    echo "Contatore: $count"
+for i in {1..10}; do
+  if [ $i -eq 5 ]; then
+    continue
+  fi
+  echo $i
 done
 ```
-In questo caso, quando `count` è uguale a 2, l'iterazione corrente viene saltata e l'output sarà:
+Output:
 ```
-Contatore: 1
-Contatore: 3
-Contatore: 4
-Contatore: 5
+1
+2
+3
+4
+6
+7
+8
+9
+10
+```
+
+### Esempio 3: Utilizzare `continue` in un ciclo `while`
+Ecco un esempio di utilizzo di `continue` all'interno di un ciclo `while`.
+
+```bash
+count=1
+while [ $count -le 10 ]; do
+  (( count % 3 == 0 )) && { count=$((count + 1)); continue; }
+  echo $count
+  ((count++))
+done
+```
+Output:
+```
+1
+2
+4
+5
+7
+8
+10
 ```
 
 ## Tips
-- Utilizza `continue` per migliorare la leggibilità del codice, evitando annidamenti complessi di `if` e semplificando la logica del ciclo.
-- Ricorda che `continue` influisce solo sul ciclo più interno, quindi fai attenzione quando utilizzi più cicli annidati.
-- È buona pratica documentare il motivo per cui si utilizza `continue`, specialmente in cicli complessi, per rendere il codice più comprensibile per altri sviluppatori.
+- Utilizza `continue` per migliorare la leggibilità del codice, evitando annidamenti complessi di condizioni.
+- Ricorda che `continue` influisce solo sul ciclo più interno; se hai cicli annidati, considera quale ciclo stai influenzando.
+- Testa sempre il tuo script con diverse condizioni per assicurarti che il comportamento sia quello desiderato.

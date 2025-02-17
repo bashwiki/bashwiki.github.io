@@ -1,46 +1,41 @@
-# [리눅스] Bash mkfifo 사용법
+# [Linux] Bash mkfifo Kullanımı: İletişim için özel dosyalar oluşturma
 
-## Genel Bakış
-`mkfifo`, Unix ve Linux işletim sistemlerinde kullanılan bir komuttur. Bu komut, "named pipe" (isimli boru) oluşturmak için kullanılır. İsimli borular, süreçler arasında veri iletimi sağlamak için kullanılır ve bu süreçlerin birbirleriyle senkronize bir şekilde iletişim kurmasına olanak tanır. `mkfifo` komutu, bir dosya sistemi nesnesi olarak bir isimli boru oluşturur, böylece diğer süreçler bu boruya veri yazabilir veya bu borudan veri okuyabilir.
+## Overview
+`mkfifo` komutu, adlandırılmış bir boru (FIFO) dosyası oluşturmak için kullanılır. Bu dosyalar, birden fazla işlem arasında veri iletimi sağlamak için kullanılır ve verilerin sıralı bir şekilde akmasını sağlar.
 
-## Kullanım
-`mkfifo` komutunun temel sözdizimi şu şekildedir:
-
-```bash
-mkfifo [seçenekler] FIFO_ADI
-```
-
-### Yaygın Seçenekler
-- `-m, --mode=MODE`: Oluşturulan FIFO'nun izinlerini belirler. Örneğin, `-m 0666` ile herkesin okuma ve yazma iznine sahip olmasını sağlayabilirsiniz.
-
-## Örnekler
-### Örnek 1: Basit FIFO Oluşturma
-Aşağıdaki komut, "myfifo" adında bir isimli boru oluşturur:
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-mkfifo myfifo
+mkfifo [seçenekler] [argümanlar]
 ```
 
-Bu komut çalıştırıldığında, "myfifo" adında bir dosya oluşturulur. Diğer süreçler bu boruya veri yazabilir veya bu borudan veri okuyabilir.
+## Common Options
+- `-m, --mode=MODE`: Oluşturulan FIFO dosyasının izinlerini belirler.
+- `-Z, --context=CONTEXT`: Oluşturulan dosya için SELinux bağlamını ayarlar.
 
-### Örnek 2: FIFO Üzerinden Veri İletimi
-Aşağıdaki örnekte, bir terminalde veri yazmak ve diğer bir terminalde bu veriyi okumak için `myfifo` borusunu kullanacağız.
+## Common Examples
+Aşağıda `mkfifo` komutunun bazı pratik örnekleri bulunmaktadır:
 
-1. Bir terminalde, `myfifo`'ya veri yazmak için:
+1. Basit bir FIFO dosyası oluşturma:
+   ```bash
+   mkfifo myfifo
+   ```
 
-    ```bash
-    echo "Merhaba, FIFO!" > myfifo
-    ```
+2. Belirli bir izinle FIFO dosyası oluşturma:
+   ```bash
+   mkfifo -m 644 myfifo
+   ```
 
-2. Diğer bir terminalde, `myfifo`'dan veri okumak için:
+3. Bir FIFO dosyasını belirli bir SELinux bağlamıyla oluşturma:
+   ```bash
+   mkfifo -Z myfifo
+   ```
 
-    ```bash
-    cat myfifo
-    ```
-
-Bu iki komut çalıştırıldığında, ilk terminalde yazılan "Merhaba, FIFO!" mesajı, ikinci terminalde görüntülenecektir.
-
-## İpuçları
-- FIFO'lar, birden fazla süreç arasında veri iletimi sağlamak için oldukça kullanışlıdır. Ancak, bir süreç FIFO'ya veri yazarken diğer bir süreç bu veriyi okumazsa, yazma işlemi bloklanır. Bu nedenle, FIFO'ları kullanırken süreçlerin senkronizasyonuna dikkat etmek önemlidir.
-- `mkfifo` ile oluşturduğunuz FIFO dosyalarının izinlerini kontrol etmek için `ls -l` komutunu kullanabilirsiniz. Bu, hangi kullanıcıların bu FIFO'ya erişim iznine sahip olduğunu görmenizi sağlar.
-- FIFO'lar, geçici veri iletimi için idealdir, ancak kalıcı veri saklama gereksinimleriniz varsa, dosya sisteminde normal dosyalar kullanmayı düşünmelisiniz.
+## Tips
+- FIFO dosyalarını kullanmadan önce, bu dosyaların hangi işlemler arasında veri iletimi sağlayacağını planlayın.
+- FIFO dosyalarını kullanırken, bir işlem veriyi yazmadan önce diğerinin okuma yapmaya hazır olduğundan emin olun; aksi takdirde, yazma işlemi beklemede kalabilir.
+- FIFO dosyalarını silmek için `rm` komutunu kullanabilirsiniz. Örneğin:
+  ```bash
+  rm myfifo
+  ```

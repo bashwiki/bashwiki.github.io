@@ -1,53 +1,46 @@
-# [리눅스] Bash disown 사용법
+# [Linux] Bash disown utilizzo: Rimuovere un processo dalla gestione del terminale
 
 ## Overview
-Il comando `disown` in Bash è utilizzato per rimuovere uno o più processi dalla lista dei lavori in background. Quando si esegue un comando in background, il terminale tiene traccia di quel processo, permettendo di riprendere o terminare il processo in un secondo momento. Utilizzando `disown`, il processo non sarà più associato al terminale, il che significa che continuerà a funzionare anche se il terminale viene chiuso. Questo è particolarmente utile per mantenere attivi i processi a lungo termine senza preoccuparsi della loro interruzione.
+Il comando `disown` in Bash viene utilizzato per rimuovere uno o più processi in esecuzione dalla lista dei processi controllati dal terminale. Questo è particolarmente utile se si desidera continuare a eseguire un processo in background anche dopo aver chiuso il terminale.
 
 ## Usage
-La sintassi di base del comando `disown` è la seguente:
+La sintassi di base del comando è la seguente:
 
 ```bash
-disown [opzioni] [job_spec]
+disown [opzioni] [argomenti]
 ```
 
-### Opzioni comuni:
-- `-h`: Questa opzione impedisce che il lavoro specificato venga notificato quando termina.
-- `-a`: Applica il comando a tutti i lavori in background.
-- `-r`: Applica il comando solo ai lavori in background che sono attualmente in esecuzione.
+## Common Options
+- `-h`: Non segnala il processo come "sospeso" (hanging).
+- `-a`: Applica il comando a tutti i processi in background.
+- `-r`: Applica il comando solo ai processi in esecuzione (running).
 
-Se non viene specificato alcun `job_spec`, `disown` rimuoverà il lavoro più recente dalla lista.
+## Common Examples
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `disown`.
-
-### Esempio 1: Disown di un lavoro specifico
-Supponiamo di avere un processo in background, come un server che stiamo eseguendo:
+### Esempio 1: Disown di un processo specifico
+Se hai avviato un processo in background e vuoi rimuoverlo dalla gestione del terminale, puoi usare:
 
 ```bash
-$ sleep 100 &
-[1] 12345
+sleep 100 &
+disown %1
 ```
 
-Per disownare questo processo, possiamo utilizzare:
+### Esempio 2: Disown di tutti i processi in background
+Per rimuovere tutti i processi in background dalla gestione del terminale, utilizza:
 
 ```bash
-$ disown %1
+disown -a
 ```
 
-Dopo aver eseguito questo comando, il processo con ID 12345 non sarà più associato al terminale e continuerà a funzionare anche se chiudiamo il terminale.
-
-### Esempio 2: Disown di tutti i lavori in background
-Se vogliamo disownare tutti i lavori in background attivi, possiamo usare l'opzione `-a`:
+### Esempio 3: Disown di un processo in esecuzione
+Se hai avviato un processo e vuoi disownarlo mentre è ancora in esecuzione:
 
 ```bash
-$ disown -a
+ping google.com &
+disown %1
 ```
-
-Questo comando rimuoverà tutti i lavori in background dalla lista, permettendo loro di continuare a funzionare indipendentemente dal terminale.
 
 ## Tips
-- È buona pratica utilizzare `disown` per processi a lungo termine che non necessitano di interazione continua, come download o elaborazioni di dati.
-- Ricorda di controllare lo stato dei tuoi processi in background con il comando `jobs` prima di utilizzare `disown`, per assicurarti di disownare il processo corretto.
-- Utilizza `disown -h` se desideri mantenere il lavoro in background ma non vuoi ricevere notifiche quando termina.
-
-Utilizzando `disown`, puoi gestire i tuoi processi in background in modo più efficace e garantire che continuino a funzionare anche quando non sei attivamente connesso al terminale.
+- Utilizza `jobs` per visualizzare i processi in background e identificare quale disownare.
+- Ricorda che una volta disownato, non potrai più riportare il processo sotto il controllo del terminale.
+- È buona pratica disownare i processi che richiedono molto tempo, per evitare di chiudere accidentalmente il terminale e terminare il processo.

@@ -1,48 +1,59 @@
-# [리눅스] Bash free 사용법
+# [Linux] Bash free comando: mostrar el uso de memoria del sistema
 
 ## Overview
-The `free` command is a simple yet powerful tool in Linux that provides information about the system's memory usage. Its primary purpose is to display the total amount of free and used physical and swap memory in the system, along with the buffers and caches used by the kernel. This command is particularly useful for system administrators and developers who need to monitor memory usage and ensure optimal performance of applications.
+The `free` command is a simple yet powerful tool in Linux that displays the amount of free and used memory in the system. It provides a quick overview of memory usage, including physical memory (RAM) and swap space, helping users monitor system performance.
 
 ## Usage
 The basic syntax of the `free` command is as follows:
 
 ```bash
-free [options]
+free [options] [arguments]
 ```
 
-### Common Options
-- `-h`, `--human`: Display the output in a human-readable format (e.g., using KB, MB, or GB).
+## Common Options
+- `-h` or `--human`: Display the output in a human-readable format (e.g., in MB or GB).
 - `-m`: Show memory usage in megabytes.
 - `-g`: Show memory usage in gigabytes.
 - `-s <seconds>`: Continuously display memory usage at specified intervals (in seconds).
-- `-t`: Display a total line that summarizes the memory usage.
+- `-t`: Show a total line that summarizes the memory usage.
 
-## Examples
-### Example 1: Basic Memory Usage
-To view the current memory usage in a human-readable format, you can use the following command:
+## Common Examples
+Here are some practical examples of using the `free` command:
 
-```bash
-free -h
-```
+1. **Basic Memory Usage**
+   ```bash
+   free
+   ```
 
-This command will output the total, used, free, shared, buff/cache, and available memory in a format that is easy to understand.
+2. **Human-Readable Format**
+   ```bash
+   free -h
+   ```
 
-### Example 2: Continuous Monitoring
-If you want to monitor memory usage continuously every 5 seconds, you can use the `-s` option:
+3. **Memory Usage in Megabytes**
+   ```bash
+   free -m
+   ```
 
-```bash
-free -h -s 5
-```
+4. **Memory Usage in Gigabytes**
+   ```bash
+   free -g
+   ```
 
-This command will refresh the memory usage statistics every 5 seconds, allowing you to observe changes in real-time.
+5. **Continuous Monitoring Every 5 Seconds**
+   ```bash
+   free -s 5
+   ```
+
+6. **Including Total Memory Usage**
+   ```bash
+   free -t
+   ```
 
 ## Tips
-- Use the `-h` option for a more intuitive understanding of memory usage, especially when dealing with large amounts of data.
-- Combine `free` with other commands like `watch` for real-time monitoring. For example:
-
+- Use the `-h` option for easier reading of memory statistics, especially on systems with large amounts of RAM.
+- Combine `free` with other commands like `watch` for real-time monitoring:
   ```bash
   watch free -h
   ```
-
-- Regularly check memory usage to identify potential memory leaks or performance bottlenecks in your applications.
-- Remember that the "available" memory is a more accurate representation of how much memory is free for new applications, as it includes memory that can be reclaimed from buffers and caches.
+- Regularly check memory usage to identify potential performance issues or memory leaks in applications.

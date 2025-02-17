@@ -1,41 +1,45 @@
-# [리눅스] Bash getenforce 사용법
+# [Linux] Bash getenforce 使用法: SELinuxの現在のモードを表示する
 
-## 概要
-`getenforce` コマンドは、Linux システムにおける SELinux (Security-Enhanced Linux) の現在の動作モードを表示するためのコマンドです。SELinux は、アクセス制御を強化するためのセキュリティ機能であり、`getenforce` を使用することで、システムがどのようにセキュリティポリシーを適用しているかを確認できます。
+## Overview
+`getenforce` コマンドは、SELinux（Security-Enhanced Linux）の現在の動作モードを表示します。このコマンドを使用することで、システムのセキュリティポリシーがどのように適用されているかを確認できます。
 
-## 使用法
+## Usage
 基本的な構文は以下の通りです。
 
+```bash
+getenforce [options]
+```
+
+## Common Options
+`getenforce` コマンドには特にオプションはありませんが、以下のような情報を得ることができます。
+
+- `Enforcing`: SELinuxが有効で、ポリシーが適用されている状態。
+- `Permissive`: SELinuxが無効ではないが、ポリシーは適用されず、違反がログに記録される状態。
+- `Disabled`: SELinuxが無効になっている状態。
+
+## Common Examples
+
+### 現在のSELinuxモードを確認する
 ```bash
 getenforce
 ```
 
-このコマンドには特にオプションはありませんが、実行することで以下のいずれかの状態が返されます。
-
-- **Enforcing**: SELinux が有効で、ポリシーが適用されている状態。
-- **Permissive**: SELinux が有効だが、ポリシー違反がログに記録されるだけで、実際にはブロックされない状態。
-- **Disabled**: SELinux が無効になっている状態。
-
-## 例
-以下に、`getenforce` コマンドの使用例を示します。
-
-### 例 1: 現在の SELinux モードを確認する
+### SELinuxのモードを確認し、結果を変数に格納する
 ```bash
-$ getenforce
-Enforcing
+mode=$(getenforce)
+echo "現在のSELinuxモードは: $mode"
 ```
-このコマンドを実行すると、現在の SELinux モードが "Enforcing" であることが表示されます。
 
-### 例 2: スクリプト内での使用
+### SELinuxのモードを確認し、条件に応じてメッセージを表示する
 ```bash
-if [ "$(getenforce)" == "Enforcing" ]; then
-    echo "SELinux is enforcing."
+if [ "$(getenforce)" = "Enforcing" ]; then
+    echo "SELinuxは有効です。"
 else
-    echo "SELinux is not enforcing."
+    echo "SELinuxは無効または許可モードです。"
 fi
 ```
-このスクリプトは、SELinux が "Enforcing" モードであるかどうかを確認し、その結果に応じてメッセージを表示します。
 
-## ヒント
-- SELinux の設定を変更する前に、`getenforce` を使用して現在のモードを確認することをお勧めします。これにより、システムのセキュリティ状態を理解し、適切な対策を講じることができます。
-- SELinux のトラブルシューティングを行う際には、`getenforce` の結果を基に、必要に応じてモードを変更することを検討してください。
+## Tips
+- SELinuxのモードを確認することは、システムのセキュリティを維持するために重要です。
+- `getenforce` コマンドは、スクリプト内で条件分岐を行う際に非常に便利です。
+- SELinuxの設定を変更する場合は、`setenforce` コマンドを使用してモードを変更できますが、変更後は必ず `getenforce` で確認しましょう。

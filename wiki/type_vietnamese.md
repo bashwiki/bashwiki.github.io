@@ -1,42 +1,47 @@
-# [리눅스] Bash type 사용법
+# [Linux] Bash type: Xác định loại của lệnh
 
-## Tổng quan
-Lệnh `type` trong Bash được sử dụng để xác định loại của một lệnh hoặc một tên lệnh. Nó cho phép người dùng biết liệu một lệnh là một lệnh nội bộ (built-in), một lệnh bên ngoài (external command), một alias hay một function. Điều này rất hữu ích khi bạn muốn hiểu rõ hơn về cách mà Bash xử lý các lệnh mà bạn nhập vào.
+## Overview
+Lệnh `type` trong Bash được sử dụng để xác định loại của một lệnh hoặc một biến. Nó cho phép người dùng biết lệnh đó là một lệnh nội bộ, lệnh bên ngoài, hoặc một alias.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `type` như sau:
 
 ```bash
-type [tùy chọn] tên_lệnh
+type [options] [arguments]
 ```
 
-### Tùy chọn phổ biến
+## Common Options
 - `-t`: Chỉ hiển thị loại của lệnh mà không có thông tin bổ sung.
-- `-a`: Hiển thị tất cả các vị trí mà lệnh có thể được tìm thấy, bao gồm cả alias và function.
-- `-p`: Chỉ hiển thị đường dẫn đầy đủ đến lệnh bên ngoài.
+- `-a`: Hiển thị tất cả các vị trí mà lệnh có thể được tìm thấy.
+- `-p`: Chỉ hiển thị đường dẫn của lệnh nếu nó là một lệnh bên ngoài.
 
-## Ví dụ
-### Ví dụ 1: Kiểm tra loại của một lệnh
+## Common Examples
+- Kiểm tra loại của một lệnh:
+
 ```bash
 type ls
 ```
-Kết quả có thể là:
-```
-ls is aliased to `ls --color=auto'
-```
-Điều này cho thấy `ls` là một alias.
 
-### Ví dụ 2: Xem tất cả các vị trí của một lệnh
+- Kiểm tra loại của một alias:
+
+```bash
+alias ll='ls -l'
+type ll
+```
+
+- Hiển thị tất cả các vị trí của một lệnh:
+
 ```bash
 type -a echo
 ```
-Kết quả có thể là:
-```
-echo is a shell builtin
-```
-Điều này cho thấy `echo` là một lệnh nội bộ.
 
-## Mẹo
-- Sử dụng tùy chọn `-t` để nhanh chóng xác định loại lệnh mà không cần thông tin chi tiết.
-- Khi làm việc với các script phức tạp, hãy sử dụng `type` để kiểm tra xem các lệnh bạn đang sử dụng có phải là lệnh nội bộ hay không, điều này có thể giúp tránh các lỗi không mong muốn.
-- Kết hợp `type` với các lệnh khác để tạo ra các script tự động kiểm tra môi trường và cấu hình hệ thống.
+- Kiểm tra đường dẫn của một lệnh bên ngoài:
+
+```bash
+type -p grep
+```
+
+## Tips
+- Sử dụng `type` để xác định xem một lệnh có phải là lệnh nội bộ hay không, điều này có thể giúp bạn hiểu rõ hơn về cách hoạt động của shell.
+- Khi làm việc với nhiều alias, `type -a` rất hữu ích để tìm hiểu tất cả các phiên bản của lệnh mà bạn có thể sử dụng.
+- Kết hợp `type` với các lệnh khác để kiểm tra tính khả dụng của các lệnh trong script của bạn.

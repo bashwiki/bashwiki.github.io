@@ -1,44 +1,44 @@
-# [리눅스] Bash readonly 사용법
+# [Linux] Bash readonly uso: Define variáveis como somente leitura
 
 ## Overview
-O comando `readonly` no Bash é utilizado para marcar variáveis como somente leitura. Uma vez que uma variável é definida como readonly, seu valor não pode ser alterado ou removido durante a execução do script ou da sessão do terminal. Isso é útil para proteger valores que não devem ser modificados acidentalmente, garantindo a integridade dos dados em scripts e aplicações.
+O comando `readonly` no Bash é utilizado para marcar variáveis como somente leitura. Isso significa que, uma vez que uma variável é definida como readonly, seu valor não pode ser alterado ou removido durante a execução do script ou da sessão do terminal.
 
 ## Usage
 A sintaxe básica do comando `readonly` é a seguinte:
 
 ```bash
-readonly NOME_VARIAVEL=valor
+readonly [opções] [variáveis]
 ```
 
-Você também pode usar o comando `readonly` sem atribuir um valor, apenas para tornar uma variável existente como somente leitura:
+## Common Options
+O comando `readonly` não possui muitas opções, mas aqui estão algumas que podem ser úteis:
 
-```bash
-readonly NOME_VARIAVEL
-```
+- `-p`: Exibe uma lista de todas as variáveis que estão marcadas como somente leitura.
 
-### Opções Comuns
-- `-p`: Esta opção exibe uma lista de todas as variáveis que estão marcadas como somente leitura no ambiente atual.
+## Common Examples
 
-## Examples
 ### Exemplo 1: Definindo uma variável como somente leitura
 ```bash
-readonly MEU_NOME="João"
-echo $MEU_NOME  # Saída: João
-MEU_NOME="Maria"  # Isso resultará em um erro
+my_var="Hello, World!"
+readonly my_var
 ```
+Neste exemplo, `my_var` é definida como somente leitura. Qualquer tentativa de alterar seu valor resultará em um erro.
 
-Neste exemplo, a variável `MEU_NOME` é definida como somente leitura. Tentar alterar seu valor resultará em um erro.
-
-### Exemplo 2: Listando variáveis somente leitura
+### Exemplo 2: Tentando modificar uma variável readonly
 ```bash
-readonly VAR1="Valor1"
-readonly VAR2="Valor2"
-readonly -p  # Saída: declare -r VAR1="Valor1"; declare -r VAR2="Valor2"
+my_var="Hello, World!"
+readonly my_var
+my_var="New Value"  # Isso causará um erro
 ```
+Aqui, a tentativa de modificar `my_var` após defini-la como readonly resultará em uma mensagem de erro.
 
-Aqui, duas variáveis são definidas como somente leitura e, em seguida, a opção `-p` é usada para listar todas as variáveis somente leitura no ambiente atual.
+### Exemplo 3: Listando variáveis somente leitura
+```bash
+readonly -p
+```
+Este comando exibirá todas as variáveis que estão marcadas como somente leitura na sessão atual.
 
 ## Tips
-- Utilize `readonly` para proteger variáveis que contêm configurações críticas ou constantes que não devem ser alteradas durante a execução do script.
-- Lembre-se de que uma vez que uma variável é marcada como somente leitura, você não poderá alterá-la ou removê-la. Portanto, use essa funcionalidade com cautela.
-- Para verificar se uma variável é somente leitura, você pode tentar reatribuir um valor a ela. Se a variável for readonly, você receberá um erro informando que a variável não pode ser modificada.
+- Use `readonly` para proteger variáveis que não devem ser alteradas acidentalmente, especialmente em scripts complexos.
+- Lembre-se de que variáveis de ambiente também podem ser definidas como readonly, garantindo que não sejam modificadas durante a execução do script.
+- Para remover a proteção de uma variável readonly, você precisará redefini-la sem a palavra-chave `readonly`, mas isso só é possível se você não estiver em um contexto onde a variável já foi definida como readonly.

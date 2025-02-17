@@ -1,37 +1,42 @@
-# [리눅스] Bash sysctl 사용법
+# [Linux] Bash sysctl cách sử dụng: Quản lý tham số kernel
 
 ## Tổng quan
-Lệnh `sysctl` được sử dụng để xem và thay đổi các tham số cấu hình của kernel trong hệ điều hành Linux. Nó cho phép người dùng điều chỉnh các thiết lập hệ thống mà không cần khởi động lại máy, giúp tối ưu hóa hiệu suất và bảo mật của hệ thống. Các tham số này thường được lưu trữ trong `/proc/sys`.
+Lệnh `sysctl` được sử dụng để xem và thay đổi các tham số cấu hình của kernel Linux trong thời gian chạy. Điều này cho phép người dùng điều chỉnh các thiết lập hệ thống mà không cần khởi động lại máy.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `sysctl` như sau:
 
 ```bash
-sysctl [options] [parameter]
+sysctl [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-a`: Hiển thị tất cả các tham số kernel và giá trị của chúng.
-- `-n`: Chỉ hiển thị giá trị của tham số mà không có tên tham số.
+## Các tùy chọn phổ biến
+- `-a`: Hiển thị tất cả các tham số kernel hiện tại.
 - `-w`: Thay đổi giá trị của một tham số kernel.
-- `-p`: Tải các tham số từ một tệp cấu hình.
+- `-p`: Đọc và áp dụng các tham số từ một tệp cấu hình.
 
-## Ví dụ
-### Ví dụ 1: Xem tất cả các tham số kernel
-Để xem tất cả các tham số kernel hiện tại, bạn có thể sử dụng lệnh sau:
+## Ví dụ thường gặp
+1. **Hiển thị tất cả các tham số kernel:**
+   ```bash
+   sysctl -a
+   ```
 
-```bash
-sysctl -a
-```
+2. **Thay đổi giá trị của tham số kernel:**
+   ```bash
+   sysctl -w net.ipv4.ip_forward=1
+   ```
 
-### Ví dụ 2: Thay đổi giá trị của một tham số
-Giả sử bạn muốn thay đổi kích thước tối đa của một tệp có thể được mở bởi một tiến trình, bạn có thể sử dụng lệnh sau:
+3. **Áp dụng các tham số từ tệp cấu hình:**
+   ```bash
+   sysctl -p /etc/sysctl.conf
+   ```
 
-```bash
-sysctl -w fs.file-max=100000
-```
+4. **Kiểm tra giá trị của một tham số cụ thể:**
+   ```bash
+   sysctl net.ipv4.tcp_max_syn_backlog
+   ```
 
 ## Mẹo
-- Trước khi thay đổi bất kỳ tham số nào, hãy chắc chắn rằng bạn hiểu rõ về tác động của nó đối với hệ thống.
-- Để lưu các thay đổi của bạn và tự động áp dụng chúng khi khởi động lại, bạn có thể thêm các tham số vào tệp `/etc/sysctl.conf`.
-- Sử dụng lệnh `sysctl -n` để lấy giá trị của một tham số mà không cần hiển thị tên tham số, giúp bạn dễ dàng sử dụng trong các kịch bản tự động hóa.
+- Trước khi thay đổi các tham số kernel, hãy chắc chắn rằng bạn hiểu rõ về tác động của những thay đổi đó đối với hệ thống.
+- Sử dụng tệp `/etc/sysctl.conf` để lưu trữ các thay đổi mà bạn muốn áp dụng tự động khi khởi động lại hệ thống.
+- Kiểm tra các tham số kernel thường xuyên để đảm bảo rằng hệ thống của bạn hoạt động tối ưu.

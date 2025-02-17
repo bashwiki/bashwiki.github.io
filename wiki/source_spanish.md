@@ -1,69 +1,43 @@
-# [리눅스] Bash source 사용법
+# [Linux] Bash source uso equivalente: Ejecutar comandos de un archivo en el entorno actual
 
 ## Overview
-El comando `source` en Bash se utiliza para ejecutar comandos desde un archivo en el contexto del shell actual. Esto significa que cualquier variable o función definida en el archivo se mantendrá en el entorno actual, a diferencia de ejecutar un script de forma independiente, donde se crea un nuevo entorno. Este comando es especialmente útil para cargar configuraciones y funciones que se utilizan frecuentemente.
+El comando `source` en Bash se utiliza para ejecutar comandos desde un archivo en el contexto del shell actual. Esto es especialmente útil para cargar configuraciones o funciones definidas en scripts sin iniciar un nuevo proceso de shell.
 
 ## Usage
 La sintaxis básica del comando `source` es la siguiente:
 
 ```bash
-source nombre_del_archivo
+source [opciones] [archivo]
 ```
 
-O alternativamente, se puede usar el punto (`.`) como un atajo para el comando `source`:
+## Common Options
+- `-h`, `--help`: Muestra la ayuda sobre el comando.
+- `-V`, `--version`: Muestra la versión del shell.
+
+## Common Examples
+
+### Cargar un archivo de configuración
+Para cargar un archivo de configuración, como `.bashrc`, puedes usar:
 
 ```bash
-. nombre_del_archivo
+source ~/.bashrc
 ```
 
-### Opciones Comunes
-El comando `source` no tiene opciones adicionales, pero es importante asegurarse de que el archivo que se está intentando cargar sea ejecutable y contenga comandos válidos de Bash.
-
-## Examples
-### Ejemplo 1: Cargar un archivo de configuración
-Supongamos que tienes un archivo llamado `config.sh` que contiene algunas variables de entorno:
+### Ejecutar un script
+Si tienes un script llamado `script.sh` que contiene varias funciones, puedes ejecutarlo con:
 
 ```bash
-# config.sh
-export VAR1="Hola"
-export VAR2="Mundo"
+source script.sh
 ```
 
-Puedes cargar este archivo en tu shell actual usando:
+### Actualizar variables de entorno
+Si has modificado un archivo que define variables de entorno, puedes actualizar el entorno actual con:
 
 ```bash
-source config.sh
+source variables.sh
 ```
-
-Después de ejecutar este comando, las variables `VAR1` y `VAR2` estarán disponibles en tu entorno actual. Puedes verificarlas con:
-
-```bash
-echo $VAR1
-echo $VAR2
-```
-
-### Ejemplo 2: Definir funciones en un archivo
-Imagina que tienes un archivo llamado `funciones.sh` que define una función:
-
-```bash
-# funciones.sh
-mi_funcion() {
-    echo "Esta es una función cargada desde un archivo."
-}
-```
-
-Cargando este archivo con `source`, podrás llamar a la función directamente:
-
-```bash
-source funciones.sh
-mi_funcion
-```
-
-Esto imprimirá: `Esta es una función cargada desde un archivo.`
 
 ## Tips
-- **Uso de archivos de configuración**: Es común utilizar `source` para cargar archivos de configuración al inicio de una sesión de terminal, como `.bashrc` o `.bash_profile`, para establecer variables de entorno y funciones personalizadas.
-- **Verificación de errores**: Después de usar `source`, verifica si hay errores en el archivo cargado. Puedes hacerlo ejecutando `echo $?` inmediatamente después de `source`, donde un valor de `0` indica éxito y cualquier otro valor indica un error.
-- **Mantenimiento de scripts**: Mantén tus scripts organizados y documentados para facilitar su uso y evitar confusiones al cargarlos con `source`.
-
-Utilizar el comando `source` de manera efectiva puede mejorar tu flujo de trabajo en Bash y hacer que la gestión de configuraciones y funciones sea mucho más sencilla.
+- Asegúrate de que el archivo que estás cargando tenga permisos de lectura.
+- Utiliza `source` en lugar de `.` (punto) para mayor claridad, aunque ambos cumplen la misma función.
+- Es buena práctica verificar que el archivo existe antes de intentar cargarlo para evitar errores.

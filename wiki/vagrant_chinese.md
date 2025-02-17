@@ -1,37 +1,48 @@
-# [리눅스] Bash vagrant 사용법
+# [Linux] Bash vagrant 使用指南: 管理虚拟环境
 
 ## 概述
-`vagrant` 是一个开源工具，用于构建和管理虚拟化开发环境。它允许开发人员通过简单的命令快速创建和配置虚拟机，确保开发环境的一致性和可重复性。Vagrant 支持多种虚拟化平台，如 VirtualBox、VMware 和 Docker，使得开发者能够在不同的环境中轻松切换。
+Vagrant 是一个用于构建和管理虚拟化开发环境的工具。它使得开发者能够轻松创建、配置和共享虚拟机，确保开发环境的一致性。
 
 ## 用法
-`vagrant` 命令的基本语法如下：
+基本语法如下：
 ```
-vagrant [command] [options]
+vagrant [options] [arguments]
 ```
-常用的命令包括：
-- `up`：启动并配置 Vagrant 环境。
-- `halt`：停止 Vagrant 环境。
-- `destroy`：销毁 Vagrant 环境。
-- `ssh`：通过 SSH 连接到 Vagrant 虚拟机。
-- `status`：查看 Vagrant 环境的当前状态。
 
-## 示例
-以下是一些使用 `vagrant` 命令的实际示例：
+## 常用选项
+- `init`：初始化一个新的 Vagrant 环境。
+- `up`：启动并配置 Vagrant 虚拟机。
+- `halt`：停止正在运行的虚拟机。
+- `destroy`：销毁虚拟机及其所有数据。
+- `ssh`：通过 SSH 连接到正在运行的虚拟机。
 
-1. 启动 Vagrant 环境：
+## 常见示例
+1. 初始化一个新的 Vagrant 环境：
+   ```bash
+   vagrant init ubuntu/bionic64
+   ```
+
+2. 启动虚拟机：
    ```bash
    vagrant up
    ```
-   这个命令会根据 `Vagrantfile` 中的配置启动虚拟机并进行必要的设置。
 
-2. 连接到 Vagrant 虚拟机：
+3. 停止虚拟机：
+   ```bash
+   vagrant halt
+   ```
+
+4. 销毁虚拟机：
+   ```bash
+   vagrant destroy
+   ```
+
+5. 通过 SSH 连接到虚拟机：
    ```bash
    vagrant ssh
    ```
-   该命令通过 SSH 连接到正在运行的 Vagrant 虚拟机，允许用户在虚拟机内执行命令。
 
 ## 提示
-- 在使用 `vagrant` 之前，确保已经安装了所需的虚拟化软件（如 VirtualBox）。
-- 使用 `vagrant init` 命令可以快速创建一个新的 Vagrant 项目，生成一个基本的 `Vagrantfile`。
-- 定期使用 `vagrant destroy` 清理不再需要的虚拟机，以节省磁盘空间。
-- 通过版本控制系统（如 Git）管理 `Vagrantfile`，以便团队成员可以轻松共享和复现开发环境。
+- 在使用 Vagrant 之前，确保已安装 VirtualBox 或其他支持的虚拟化软件。
+- 使用 `vagrant status` 查看虚拟机的当前状态。
+- 定期使用 `vagrant box update` 更新基础镜像，以获得最新的安全补丁和功能。

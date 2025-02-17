@@ -1,44 +1,48 @@
-# [리눅스] Bash who 사용법
+# [Linux] Bash who uso: Visualizza gli utenti connessi
 
 ## Overview
-Il comando `who` in Bash è utilizzato per visualizzare l'elenco degli utenti attualmente connessi al sistema. Fornisce informazioni utili come il nome dell'utente, il terminale utilizzato, la data e l'ora di accesso e, in alcuni casi, l'indirizzo IP o il nome host dell'utente. Questo comando è particolarmente utile per gli amministratori di sistema e gli sviluppatori che desiderano monitorare l'attività degli utenti nel sistema.
+Il comando `who` in Bash viene utilizzato per visualizzare gli utenti attualmente connessi al sistema. Mostra informazioni come il nome dell'utente, il terminale utilizzato, la data e l'ora di accesso.
 
 ## Usage
 La sintassi di base del comando `who` è la seguente:
 
 ```bash
-who [opzioni]
+who [opzioni] [argomenti]
 ```
 
-### Opzioni comuni:
-- `-a`: Mostra tutte le informazioni disponibili, inclusi gli utenti disconnessi.
+## Common Options
+- `-a`: Mostra tutte le informazioni disponibili, inclusi gli utenti inattivi.
 - `-b`: Mostra l'ultima volta che il sistema è stato avviato.
-- `-q`: Mostra solo i nomi degli utenti connessi e il conteggio totale.
+- `-q`: Mostra solo i nomi degli utenti connessi e il numero totale di utenti.
 - `--help`: Mostra un messaggio di aiuto con le opzioni disponibili.
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `who`.
+## Common Examples
+Ecco alcuni esempi pratici dell'uso del comando `who`:
 
-1. **Visualizzare gli utenti connessi**:
+1. **Visualizzare gli utenti connessi:**
    ```bash
    who
    ```
-   Questo comando mostrerà un elenco di tutti gli utenti attualmente connessi al sistema, insieme alle informazioni relative al terminale e all'orario di accesso.
 
-2. **Mostrare informazioni dettagliate**:
+2. **Mostrare informazioni complete sugli utenti:**
    ```bash
    who -a
    ```
-   Utilizzando l'opzione `-a`, questo comando fornirà un output più dettagliato, inclusi gli utenti disconnessi e altre informazioni utili.
+
+3. **Visualizzare l'ultima volta che il sistema è stato avviato:**
+   ```bash
+   who -b
+   ```
+
+4. **Mostrare solo i nomi degli utenti connessi:**
+   ```bash
+   who -q
+   ```
 
 ## Tips
-- Utilizza `who` insieme ad altri comandi come `grep` per filtrare i risultati. Ad esempio, per trovare un utente specifico:
+- Usa `who` regolarmente per monitorare chi è connesso al tuo sistema, specialmente in ambienti multi-utente.
+- Combina `who` con altri comandi come `grep` per filtrare risultati specifici. Ad esempio:
   ```bash
   who | grep nome_utente
   ```
-- Se desideri monitorare continuamente gli accessi degli utenti, puoi combinare `who` con `watch`:
-  ```bash
-  watch who
-  ```
-  Questo comando aggiornerà automaticamente l'elenco degli utenti ogni 2 secondi.
-- Ricorda che il comando `who` può mostrare informazioni sensibili sugli utenti, quindi è consigliabile utilizzarlo con attenzione, specialmente in ambienti condivisi.
+- Ricorda che `who` mostra solo gli utenti attivi; per una panoramica più completa, considera di usare anche il comando `w`.

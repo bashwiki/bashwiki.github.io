@@ -1,56 +1,61 @@
-# [리눅스] Bash continue 사용법
+# [Linux] Bash continue uso equivalente: Continuar a execução de um loop
 
 ## Overview
-O comando `continue` no Bash é utilizado dentro de estruturas de repetição, como loops `for`, `while` e `until`. Sua principal finalidade é interromper a iteração atual do loop e passar para a próxima iteração. Isso é útil quando você deseja pular certas condições ou iterações sem sair completamente do loop.
+O comando `continue` é utilizado dentro de estruturas de repetição em Bash, como `for`, `while` ou `until`. Ele serve para pular a iteração atual do loop e continuar com a próxima iteração, permitindo que você controle o fluxo de execução de maneira mais eficiente.
 
 ## Usage
-A sintaxe básica do comando `continue` é bastante simples:
+A sintaxe básica do comando `continue` é a seguinte:
 
 ```bash
 continue [n]
 ```
 
-- `n`: Um número opcional que especifica quantos níveis de loops externos devem ser ignorados. Se não for fornecido, o `continue` afetará apenas o loop mais interno.
+Aqui, `n` é um número opcional que indica quantas iterações do loop devem ser puladas. Se `n` não for especificado, o padrão é `1`.
 
-## Examples
+## Common Options
+- `n`: Um número que indica quantas iterações do loop devem ser puladas. Se não for fornecido, o valor padrão é `1`.
 
-### Exemplo 1: Usando `continue` em um loop `for`
+## Common Examples
+
+### Exemplo 1: Usando continue em um loop for
+Neste exemplo, o comando `continue` é usado para pular números ímpares em um loop que imprime números de 1 a 10.
+
+```bash
+for i in {1..10}; do
+    if (( i % 2 != 0 )); then
+        continue
+    fi
+    echo $i
+done
+```
+
+### Exemplo 2: Usando continue em um loop while
+Aqui, o comando `continue` é utilizado para pular a iteração quando a variável `count` é igual a 5.
+
+```bash
+count=0
+while [ $count -lt 10 ]; do
+    count=$((count + 1))
+    if [ $count -eq 5 ]; then
+        continue
+    fi
+    echo $count
+done
+```
+
+### Exemplo 3: Usando continue com um número específico
+Neste exemplo, o comando `continue` é usado para pular duas iterações quando o número atual é 3.
+
 ```bash
 for i in {1..5}; do
     if [ $i -eq 3 ]; then
-        continue
+        continue 2
     fi
-    echo "Número: $i"
+    echo $i
 done
-```
-Neste exemplo, quando `i` é igual a 3, o comando `continue` é acionado, fazendo com que a iteração atual seja pulada. A saída será:
-```
-Número: 1
-Número: 2
-Número: 4
-Número: 5
-```
-
-### Exemplo 2: Usando `continue` em um loop `while`
-```bash
-count=0
-while [ $count -lt 5 ]; do
-    count=$((count + 1))
-    if [ $count -eq 2 ]; then
-        continue
-    fi
-    echo "Contagem: $count"
-done
-```
-Aqui, quando `count` é igual a 2, o `continue` faz com que a contagem pule essa iteração. A saída será:
-```
-Contagem: 1
-Contagem: 3
-Contagem: 4
-Contagem: 5
 ```
 
 ## Tips
-- Utilize o `continue` quando precisar ignorar certas condições dentro de loops, tornando seu código mais limpo e legível.
-- Lembre-se de que o `continue` só afeta o loop mais interno, a menos que você especifique um número para pular múltiplos níveis de loops.
-- Combine `continue` com outras estruturas de controle, como `if`, para um controle mais refinado sobre a lógica do seu loop.
+- Use `continue` para evitar a execução de código desnecessário dentro de loops, tornando seu script mais eficiente.
+- Lembre-se de que o `continue` só afeta a iteração atual do loop em que está inserido.
+- Utilize comentários no seu código para explicar o uso do `continue`, especialmente se a lógica for complexa, para facilitar a manutenção futura.

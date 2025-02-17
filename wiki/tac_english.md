@@ -1,45 +1,55 @@
-# [리눅스] Bash tac 사용법
+# [Linux] Bash tac Usage: Reverse file contents line by line
 
 ## Overview
-The `tac` command in Bash is a utility that reads lines from a file and outputs them in reverse order. The name "tac" is derived from "cat" spelled backwards, reflecting its functionality of reversing the order of lines rather than concatenating them. This command is particularly useful for quickly viewing the last entries in log files or any text files where the most recent information is located at the end.
+The `tac` command in Bash is used to concatenate and display files in reverse order, specifically reversing the order of lines. It is essentially the reverse of the `cat` command, which displays file contents in the standard order.
 
 ## Usage
 The basic syntax of the `tac` command is as follows:
 
 ```bash
-tac [OPTION]... [FILE]...
+tac [options] [arguments]
 ```
 
-### Common Options
-- `-r`, `--regex`: Treats each line as a regular expression.
-- `-s`, `--separator=STRING`: Specifies a custom separator instead of the default newline character.
-- `-b`, `--before`: Places the separator before the line instead of after it.
-- `-h`, `--help`: Displays a help message with usage information.
-- `-V`, `--version`: Outputs the version information of the `tac` command.
+## Common Options
+- `-b`, `--before`: Place a delimiter before the line instead of after it.
+- `-r`, `--regex`: Treat the delimiter as a regular expression.
+- `-s`, `--separator`: Specify a custom separator instead of the default newline.
 
-If no file is specified, `tac` reads from standard input.
+## Common Examples
 
-## Examples
-
-### Example 1: Basic Usage
-To reverse the lines of a file named `example.txt`, you would use the following command:
+### Example 1: Reverse a Single File
+To reverse the contents of a file named `example.txt`:
 
 ```bash
 tac example.txt
 ```
 
-This command will display the contents of `example.txt` with the last line appearing first and the first line appearing last.
+### Example 2: Reverse Multiple Files
+To reverse the contents of multiple files, `file1.txt` and `file2.txt`, and display them one after the other:
 
-### Example 2: Using a Custom Separator
-If you want to reverse lines in a file but separate them with a custom string, such as a comma, you can use the `-s` option:
+```bash
+tac file1.txt file2.txt
+```
+
+### Example 3: Using a Custom Separator
+To reverse the contents of a file and use a custom separator, such as a comma:
 
 ```bash
 tac -s ',' example.txt
 ```
 
-In this example, `tac` will reverse the lines of `example.txt` and separate them with commas instead of newlines.
+### Example 4: Reverse Output with a Delimiter
+To reverse lines and place a delimiter before each line:
+
+```bash
+tac -b example.txt
+```
 
 ## Tips
-- When working with large files, consider using `tac` in combination with other commands like `head` or `tail` to quickly access specific sections of the file.
-- If you are processing multiple files, `tac` will reverse the lines of each file individually and concatenate the results in the order they are provided.
-- Be cautious when using `tac` with files that contain a large number of lines, as reversing the entire file may consume significant memory.
+- Use `tac` in combination with other commands like `grep` or `sort` to manipulate data more effectively.
+- Redirect the output of `tac` to a new file if you want to save the reversed content:
+
+  ```bash
+  tac example.txt > reversed_example.txt
+  ```
+- Remember that `tac` reads the entire file into memory, so it may not be suitable for very large files.

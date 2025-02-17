@@ -1,39 +1,44 @@
-# [리눅스] Bash dirs 사용법
+# [Linux] Bash dirs Kullanımı: Dizin yığınını görüntüleme
 
-## Genel Bakış
-`dirs` komutu, Bash kabuğunda kullanılan bir komuttur ve mevcut dizin yığınını görüntülemek için kullanılır. Bu komut, kullanıcıların dizinler arasında geçiş yaparken hangi dizinlerde olduklarını takip etmelerine yardımcı olur. `dirs`, dizin yığınındaki dizinlerin listesini gösterir ve bu sayede kullanıcılar daha önce ziyaret ettikleri dizinlere kolayca geri dönebilirler.
+## Overview
+`dirs` komutu, Bash kabuğunda mevcut dizin yığınını görüntülemek için kullanılır. Kullanıcı, dizinler arasında geçiş yaparken, `pushd` ve `popd` komutları ile oluşturulan dizin yığınını yönetmek için bu komutu kullanabilir.
 
-## Kullanım
-`dirs` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```
-dirs [opsiyonlar]
-```
-
-### Yaygın Seçenekler
-- `-l`: Dizin yığınını uzun formatta görüntüler. Bu seçenek, dizinlerin tam yollarını gösterir.
-- `-p`: Dizin yığınını basit bir formatta gösterir, her dizini yeni bir satıra yazar.
-
-## Örnekler
-### Örnek 1: Dizin Yığınını Görüntüleme
-Aşağıdaki komut, mevcut dizin yığınını görüntüler:
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-dirs
+dirs [options] [arguments]
 ```
 
-Çıktı, kullanıcı tarafından ziyaret edilen dizinlerin listesini gösterecektir.
+## Common Options
+- `-l`: Dizinleri uzun biçimde gösterir.
+- `-p`: Dizinleri tam yol olarak gösterir.
+- `-c`: Dizin yığınını temizler.
 
-### Örnek 2: Uzun Format Kullanma
-Dizin yığınını uzun formatta görüntülemek için `-l` seçeneğini kullanabilirsiniz:
+## Common Examples
+Aşağıda `dirs` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-dirs -l
-```
+1. Mevcut dizin yığınını görüntülemek:
+   ```bash
+   dirs
+   ```
 
-Bu komut, dizinlerin tam yollarını göstererek daha fazla bilgi sağlar.
+2. Dizinleri uzun biçimde görüntülemek:
+   ```bash
+   dirs -l
+   ```
 
-## İpuçları
-- Dizin yığınını kullanarak hızlı bir şekilde dizinler arasında geçiş yapabilirsiniz. `pushd` ve `popd` komutları ile birlikte kullanıldığında, `dirs` komutu dizin yığınını yönetmek için oldukça faydalıdır.
-- Dizin yığınındaki dizinleri takip etmek, karmaşık projelerde çalışırken zaman kazandırabilir. Bu nedenle, sıkça kullandığınız dizinleri yığınınıza eklemeyi unutmayın.
-- Dizin yığınını düzenli olarak kontrol etmek, hangi dizinlerde çalıştığınızı hatırlamanıza yardımcı olur ve gereksiz dizin geçişlerini azaltır.
+3. Dizinleri tam yol olarak görüntülemek:
+   ```bash
+   dirs -p
+   ```
+
+4. Dizin yığınını temizlemek:
+   ```bash
+   dirs -c
+   ```
+
+## Tips
+- `dirs` komutunu, `pushd` ve `popd` komutları ile birlikte kullanarak dizinler arasında hızlı geçiş yapabilirsiniz.
+- Dizin yığınını düzenli tutmak için sık sık `dirs` komutunu kontrol edin.
+- Uzun dizin yollarını görmek için `-l` seçeneğini kullanarak daha fazla bilgi edinebilirsiniz.

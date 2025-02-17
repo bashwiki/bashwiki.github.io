@@ -1,43 +1,55 @@
-# [리눅스] Bash docker 사용법
+# [Linux] Bash docker kullanımı: Docker konteynerlerini yönetmek için bir araç
 
 ## Genel Bakış
-`docker` komutu, konteyner tabanlı uygulamaları oluşturmak, dağıtmak ve çalıştırmak için kullanılan bir platformdur. Docker, geliştiricilerin uygulamalarını ve bağımlılıklarını izole bir ortamda paketlemelerine olanak tanır. Bu sayede, uygulamalar farklı ortamlarda tutarlı bir şekilde çalışabilir. Docker, mikro hizmet mimarisi ve DevOps süreçleri için yaygın olarak kullanılmaktadır.
+Docker, uygulamaları ve hizmetleri konteynerler içinde çalıştırmak için kullanılan bir platformdur. Konteynerler, uygulamaların bağımlılıklarıyla birlikte izole bir ortamda çalışmasını sağlar, böylece taşınabilirlik ve ölçeklenebilirlik sunar.
 
 ## Kullanım
-`docker` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-docker [OPTIONS] COMMAND [ARG...]
+docker [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-v`, `--version`: Docker sürümünü gösterir.
-- `-h`, `--help`: Docker komutları hakkında yardım almanızı sağlar.
-- `--config`: Docker yapılandırma dosyasının yolunu belirtir.
+## Yaygın Seçenekler
+- `run`: Yeni bir konteyner başlatır.
+- `ps`: Çalışan konteynerleri listeler.
+- `stop`: Çalışan bir konteyneri durdurur.
+- `rm`: Bir konteyneri siler.
+- `images`: Mevcut Docker imajlarını listeler.
 
-## Örnekler
-### Örnek 1: Docker Sürümünü Kontrol Etme
-Docker'ın yüklü sürümünü kontrol etmek için aşağıdaki komutu kullanabilirsiniz:
+## Yaygın Örnekler
+Aşağıda, Docker komutlarının bazı pratik örnekleri bulunmaktadır:
 
+### Yeni Bir Konteyner Başlatma
 ```bash
-docker --version
+docker run -d --name my_container nginx
 ```
+Bu komut, arka planda (`-d` seçeneği ile) yeni bir Nginx konteyneri başlatır.
 
-Bu komut, yüklü olan Docker sürümünü terminalde gösterecektir.
-
-### Örnek 2: Bir Konteyner Çalıştırma
-Docker ile bir konteyner çalıştırmak için aşağıdaki komutu kullanabilirsiniz:
-
+### Çalışan Konteynerleri Listeleme
 ```bash
-docker run hello-world
+docker ps
 ```
+Bu komut, o anda çalışan tüm konteynerleri listeler.
 
-Bu komut, "hello-world" adlı bir konteyneri çalıştırır ve Docker'ın düzgün bir şekilde kurulduğunu doğrulamak için basit bir mesaj gösterir.
+### Bir Konteyneri Durdurma
+```bash
+docker stop my_container
+```
+Bu komut, `my_container` adındaki konteyneri durdurur.
+
+### Bir Konteyneri Silme
+```bash
+docker rm my_container
+```
+Bu komut, durdurulmuş olan `my_container` konteynerini siler.
+
+### Mevcut İmajları Listeleme
+```bash
+docker images
+```
+Bu komut, sistemde mevcut olan Docker imajlarını listeler.
 
 ## İpuçları
-- Docker'ı kullanmadan önce, Docker daemon'unun çalıştığından emin olun. Aksi takdirde, komutlarınız çalışmayabilir.
-- Konteynerlerinizi yönetmek için `docker ps` komutunu kullanarak aktif konteynerlerinizi listeleyebilirsiniz.
-- Docker görüntülerinizi güncel tutmak için `docker pull` komutunu kullanarak en son sürümleri çekebilirsiniz.
-- Geliştirme sürecinde, konteynerlerinizi hızlı bir şekilde başlatmak ve durdurmak için `docker start` ve `docker stop` komutlarını kullanabilirsiniz.
-
-Bu bilgiler, `docker` komutunu etkili bir şekilde kullanmanıza yardımcı olacaktır. Docker ile uygulama geliştirme sürecinizi hızlandırabilir ve daha verimli hale getirebilirsiniz.
+- Konteynerlerinizi düzenli olarak temizleyin. Kullanmadığınız konteynerleri silmek, sistem kaynaklarınızı korumanıza yardımcı olur.
+- Docker imajlarını güncel tutun. Güvenlik açıklarını önlemek için imajlarınızı düzenli olarak güncelleyin.
+- `docker-compose` kullanarak birden fazla konteyneri kolayca yönetebilirsiniz. Bu, uygulama mimarinizin karmaşıklığını azaltır.

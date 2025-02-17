@@ -1,41 +1,45 @@
-# [리눅스] Bash fdisk 사용법
+# [Linux] Bash fdisk cách sử dụng: Quản lý phân vùng ổ đĩa
 
 ## Tổng quan
-`fdisk` là một công cụ dòng lệnh trong hệ điều hành Linux được sử dụng để quản lý các phân vùng trên ổ đĩa cứng. Nó cho phép người dùng tạo, xóa, thay đổi kích thước và quản lý các phân vùng, giúp tối ưu hóa việc sử dụng không gian lưu trữ trên hệ thống. `fdisk` thường được sử dụng cho các ổ đĩa có định dạng MBR (Master Boot Record).
+Lệnh `fdisk` là một công cụ dòng lệnh dùng để quản lý các phân vùng trên ổ đĩa cứng. Nó cho phép người dùng tạo, xóa, sửa đổi và xem thông tin phân vùng của các ổ đĩa.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `fdisk` như sau:
 
-```
-fdisk [tùy chọn] [thiết bị]
+```bash
+fdisk [options] [arguments]
 ```
 
-Trong đó:
-- `[tùy chọn]`: Các tùy chọn có thể được sử dụng để điều chỉnh hành vi của lệnh.
-- `[thiết bị]`: Đường dẫn đến thiết bị ổ đĩa mà bạn muốn quản lý, ví dụ: `/dev/sda`.
-
-### Một số tùy chọn phổ biến:
+## Các tùy chọn phổ biến
 - `-l`: Liệt kê tất cả các phân vùng trên các ổ đĩa.
 - `-u`: Sử dụng đơn vị là sector thay vì cylinder.
-- `-v`: Hiển thị thông tin phiên bản của `fdisk`.
+- `-n`: Tạo một phân vùng mới.
+- `-d`: Xóa một phân vùng.
+- `-p`: In ra bảng phân vùng hiện tại.
 
-## Ví dụ
-### Ví dụ 1: Liệt kê các phân vùng
-Để xem danh sách các phân vùng trên ổ đĩa `/dev/sda`, bạn có thể sử dụng lệnh sau:
+## Ví dụ thường gặp
+1. **Liệt kê các phân vùng trên ổ đĩa**:
+   ```bash
+   fdisk -l
+   ```
 
-```bash
-sudo fdisk -l /dev/sda
-```
+2. **Mở một ổ đĩa cụ thể để quản lý phân vùng**:
+   ```bash
+   fdisk /dev/sda
+   ```
 
-### Ví dụ 2: Tạo một phân vùng mới
-Để tạo một phân vùng mới trên ổ đĩa `/dev/sda`, bạn có thể chạy lệnh sau:
+3. **Tạo một phân vùng mới**:
+   Trong chế độ tương tác của `fdisk`, bạn có thể sử dụng lệnh `n` để tạo phân vùng mới.
 
-```bash
-sudo fdisk /dev/sda
-```
-Sau đó, bạn sẽ vào chế độ tương tác của `fdisk`, nơi bạn có thể nhập các lệnh như `n` để tạo phân vùng mới, `d` để xóa phân vùng, và `w` để lưu thay đổi.
+4. **Xóa một phân vùng**:
+   Trong chế độ tương tác của `fdisk`, bạn có thể sử dụng lệnh `d` để xóa phân vùng.
+
+5. **In ra bảng phân vùng hiện tại**:
+   ```bash
+   fdisk -p /dev/sda
+   ```
 
 ## Mẹo
-- **Sao lưu dữ liệu**: Trước khi thực hiện bất kỳ thay đổi nào trên phân vùng, hãy chắc chắn sao lưu dữ liệu quan trọng để tránh mất mát dữ liệu.
-- **Kiểm tra phân vùng**: Sau khi thay đổi phân vùng, hãy sử dụng lệnh `lsblk` để kiểm tra lại cấu trúc phân vùng và đảm bảo mọi thứ hoạt động như mong đợi.
-- **Sử dụng với cẩn thận**: `fdisk` là một công cụ mạnh mẽ và có thể gây ra thiệt hại nghiêm trọng nếu không sử dụng đúng cách. Hãy chắc chắn hiểu rõ các lệnh trước khi thực hiện.
+- Trước khi thực hiện bất kỳ thay đổi nào với `fdisk`, hãy sao lưu dữ liệu quan trọng để tránh mất mát.
+- Sử dụng `man fdisk` để xem hướng dẫn chi tiết và các tùy chọn khác của lệnh.
+- Hãy cẩn thận khi xóa hoặc thay đổi phân vùng, vì điều này có thể ảnh hưởng đến hệ điều hành và dữ liệu của bạn.

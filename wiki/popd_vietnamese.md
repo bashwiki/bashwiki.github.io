@@ -1,40 +1,46 @@
-# [리눅스] Bash popd 사용법
+# [Linux] Bash popd Cách sử dụng: Quay lại thư mục trước đó
 
 ## Tổng quan
-Lệnh `popd` trong Bash được sử dụng để xóa thư mục khỏi ngăn xếp thư mục hiện tại và chuyển đến thư mục đó. Ngăn xếp thư mục là một cấu trúc dữ liệu cho phép bạn lưu trữ nhiều thư mục và dễ dàng điều hướng giữa chúng. `popd` thường được sử dụng kết hợp với lệnh `pushd`, cho phép người dùng quay lại thư mục trước đó một cách nhanh chóng.
+Lệnh `popd` trong Bash được sử dụng để quay lại thư mục trước đó mà bạn đã lưu trong ngăn xếp thư mục. Nó giúp bạn dễ dàng di chuyển giữa các thư mục mà không cần phải nhập lại đường dẫn.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `popd` như sau:
 
-```bash
+```
 popd [options]
 ```
 
-### Tùy chọn phổ biến
-- `-n`: Không thay đổi thư mục hiện tại, chỉ xóa thư mục khỏi ngăn xếp.
-- `+N`: Chỉ định một vị trí cụ thể trong ngăn xếp để xóa. Ví dụ, `+1` sẽ xóa thư mục ở vị trí thứ hai trong ngăn xếp.
+## Các tùy chọn phổ biến
+- `-n`: Không thay đổi thư mục hiện tại, chỉ cập nhật ngăn xếp.
+- `+n`: Quay lại thư mục ở vị trí thứ n trong ngăn xếp.
+- `-n`: Quay lại thư mục ở vị trí âm n trong ngăn xếp.
 
-## Ví dụ
-### Ví dụ 1: Quay lại thư mục trước đó
-Giả sử bạn đang ở trong thư mục `/home/user/documents` và đã sử dụng `pushd` để chuyển đến `/var/log`. Bạn có thể sử dụng `popd` để quay lại thư mục trước đó:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `popd`:
 
-```bash
-pushd /var/log
-# Chuyển đến thư mục /var/log
-popd
-# Quay lại thư mục /home/user/documents
-```
+1. **Quay lại thư mục trước đó**:
+   ```bash
+   pushd /path/to/directory
+   # Thực hiện một số công việc trong thư mục
+   popd
+   ```
 
-### Ví dụ 2: Sử dụng tùy chọn -n
-Nếu bạn muốn xóa thư mục khỏi ngăn xếp mà không thay đổi thư mục hiện tại, bạn có thể sử dụng tùy chọn `-n`:
+2. **Sử dụng tùy chọn `+n` để quay lại thư mục cụ thể**:
+   ```bash
+   pushd /path/to/first
+   pushd /path/to/second
+   pushd /path/to/third
+   popd +1  # Quay lại thư mục thứ hai trong ngăn xếp
+   ```
 
-```bash
-pushd /tmp
-# Chuyển đến thư mục /tmp
-popd -n
-# Xóa /tmp khỏi ngăn xếp nhưng vẫn ở trong thư mục /tmp
-```
+3. **Sử dụng tùy chọn `-n` để không thay đổi thư mục hiện tại**:
+   ```bash
+   pushd /path/to/first
+   pushd /path/to/second
+   popd -n  # Cập nhật ngăn xếp nhưng không thay đổi thư mục hiện tại
+   ```
 
 ## Mẹo
-- Sử dụng `dirs` để xem danh sách các thư mục trong ngăn xếp trước khi sử dụng `popd`. Điều này giúp bạn biết được vị trí hiện tại của các thư mục trong ngăn xếp.
-- Kết hợp `pushd` và `popd` để tạo ra một quy trình làm việc hiệu quả hơn khi bạn thường xuyên chuyển đổi giữa nhiều thư mục.
+- Luôn kiểm tra ngăn xếp thư mục bằng lệnh `dirs` trước khi sử dụng `popd` để biết vị trí hiện tại của các thư mục.
+- Sử dụng `pushd` và `popd` cùng nhau để dễ dàng quản lý các thư mục khi làm việc với nhiều dự án.
+- Hãy cẩn thận với các tùy chọn `+n` và `-n` để tránh nhầm lẫn trong việc quay lại thư mục.

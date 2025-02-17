@@ -1,44 +1,42 @@
-# [리눅스] Bash popd 사용법
+# [Linux] Bash popd uso equivalente: Regresar al directorio anterior
 
 ## Overview
-El comando `popd` se utiliza en Bash para eliminar el directorio superior de la pila de directorios y cambiar el directorio de trabajo actual a ese directorio. Este comando es especialmente útil para navegar de manera eficiente entre múltiples directorios sin tener que escribir la ruta completa cada vez. `popd` complementa al comando `pushd`, que agrega un directorio a la pila.
+El comando `popd` se utiliza en Bash para cambiar al directorio que se encuentra en la parte superior de la pila de directorios. Este comando es útil para navegar entre directorios de manera eficiente, permitiendo volver rápidamente a ubicaciones anteriores.
 
 ## Usage
-La sintaxis básica del comando `popd` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-popd [options]
+popd [options] [arguments]
 ```
 
-### Opciones Comunes
-- `-n`: No cambia el directorio actual, solo elimina el directorio superior de la pila.
-- `+n`: Elimina el directorio en la posición `n` de la pila y cambia al directorio correspondiente. La posición se cuenta desde 0, siendo el directorio más reciente el 0.
+## Common Options
+- `-n`: No elimina el directorio de la pila, solo cambia al directorio superior.
+- `+n`: Cambia al directorio en la posición `n` de la pila, donde `n` es un número que representa la posición del directorio en la pila.
 
-## Examples
-### Ejemplo 1: Uso básico de `popd`
-Primero, agregamos algunos directorios a la pila con `pushd` y luego usamos `popd` para volver al directorio anterior.
+## Common Examples
 
-```bash
-pushd /ruta/al/directorio1
-pushd /ruta/al/directorio2
-# Ahora estamos en /ruta/al/directorio2
-popd
-# Ahora estamos de vuelta en /ruta/al/directorio1
-```
+1. **Regresar al directorio anterior**:
+   ```bash
+   popd
+   ```
 
-### Ejemplo 2: Uso de la opción `+n`
-Si tenemos varios directorios en la pila, podemos especificar cuál queremos eliminar y cambiar.
+2. **Regresar al segundo directorio en la pila**:
+   ```bash
+   popd +1
+   ```
 
-```bash
-pushd /ruta/al/directorio1
-pushd /ruta/al/directorio2
-pushd /ruta/al/directorio3
-# La pila ahora contiene: /ruta/al/directorio3, /ruta/al/directorio2, /ruta/al/directorio1
-popd +1
-# Ahora estamos en /ruta/al/directorio3, y /ruta/al/directorio2 ha sido eliminado de la pila
-```
+3. **Regresar al tercer directorio en la pila**:
+   ```bash
+   popd +2
+   ```
+
+4. **No eliminar el directorio de la pila**:
+   ```bash
+   popd -n
+   ```
 
 ## Tips
-- Utiliza `dirs` para ver el contenido actual de la pila de directorios antes de usar `popd`. Esto te ayudará a saber qué directorios están disponibles para navegar.
-- Combina `pushd` y `popd` para crear scripts de navegación más eficientes, permitiéndote cambiar rápidamente entre directorios sin perder el rastro de tu ubicación.
-- Recuerda que `popd` solo afecta la pila de directorios si has utilizado `pushd` previamente; de lo contrario, no tendrá efecto.
+- Asegúrate de usar `pushd` antes de `popd` para que haya directorios en la pila.
+- Puedes ver el contenido de la pila de directorios usando el comando `dirs`.
+- Utiliza `popd` junto con `pushd` para crear un flujo de trabajo eficiente al navegar por múltiples directorios.

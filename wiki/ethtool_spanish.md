@@ -1,44 +1,49 @@
-# [리눅스] Bash ethtool 사용법
+# [Linux] Bash ethtool Uso: Herramienta para gestionar interfaces de red
 
 ## Overview
-El comando `ethtool` es una herramienta de línea de comandos utilizada en sistemas Linux para consultar y modificar la configuración de interfaces de red Ethernet. Su propósito principal es proporcionar información sobre las capacidades de la tarjeta de red, así como permitir la configuración de parámetros como la velocidad, el modo dúplex y la activación o desactivación de funciones específicas.
+El comando `ethtool` se utiliza para consultar y modificar las configuraciones de las interfaces de red Ethernet en sistemas Linux. Permite obtener información detallada sobre la conexión de red, así como ajustar parámetros como la velocidad, el modo dúplex y otras características del hardware de red.
 
 ## Usage
 La sintaxis básica del comando `ethtool` es la siguiente:
 
 ```bash
-ethtool [opciones] <interfaz>
+ethtool [opciones] [argumentos]
 ```
 
-Donde `<interfaz>` es el nombre de la interfaz de red que deseas consultar o modificar (por ejemplo, `eth0`, `enp3s0`, etc.).
+## Common Options
+- `-s`: Cambia la configuración de la interfaz de red.
+- `-i`: Muestra información del controlador de la interfaz.
+- `-p`: Parpadea el LED de la interfaz para identificarla.
+- `-a`: Muestra las estadísticas de la interfaz.
+- `-S`: Muestra estadísticas extendidas de la interfaz.
 
-### Opciones Comunes
-- `-h`, `--help`: Muestra la ayuda y las opciones disponibles.
-- `-i`, `--driver`: Muestra información sobre el controlador de la interfaz.
-- `-s`, `--set`: Permite establecer parámetros específicos de la interfaz.
-- `-p`, `--identify`: Hace parpadear el LED de la interfaz para identificarla.
-- `-a`, `--show-autoneg`: Muestra el estado de la negociación automática.
+## Common Examples
+- **Consultar información básica de una interfaz de red:**
+  ```bash
+  ethtool eth0
+  ```
 
-## Examples
-### Ejemplo 1: Consultar información de la interfaz
-Para obtener información detallada sobre la interfaz de red `eth0`, puedes usar el siguiente comando:
+- **Ver el controlador de la interfaz:**
+  ```bash
+  ethtool -i eth0
+  ```
 
-```bash
-ethtool eth0
-```
+- **Cambiar la velocidad y modo dúplex de la interfaz:**
+  ```bash
+  ethtool -s eth0 speed 100 duplex full
+  ```
 
-Este comando mostrará información como la velocidad de la conexión, el modo dúplex, y las capacidades de la tarjeta de red.
+- **Parpadear el LED de la interfaz para identificarla:**
+  ```bash
+  ethtool -p eth0
+  ```
 
-### Ejemplo 2: Cambiar la velocidad y el modo dúplex
-Si deseas establecer la velocidad de la interfaz `eth0` a 100 Mbps y el modo dúplex a completo, puedes ejecutar:
-
-```bash
-ethtool -s eth0 speed 100 duplex full
-```
-
-Este comando configura la interfaz para operar a la velocidad y modo especificados.
+- **Mostrar estadísticas extendidas de la interfaz:**
+  ```bash
+  ethtool -S eth0
+  ```
 
 ## Tips
 - Asegúrate de tener privilegios de superusuario (root) para realizar cambios en la configuración de la interfaz.
-- Utiliza `ethtool -i <interfaz>` para verificar el controlador y la versión del firmware de la tarjeta de red, lo que puede ser útil para la solución de problemas.
-- Ten en cuenta que algunos cambios pueden requerir que la interfaz de red se reinicie para que tengan efecto.
+- Utiliza `ethtool` junto con otros comandos como `ifconfig` o `ip` para obtener una visión más completa de la configuración de red.
+- Revisa la documentación de `ethtool` con `man ethtool` para explorar más opciones y configuraciones avanzadas.

@@ -1,36 +1,60 @@
-# [리눅스] Bash dirname 사용법
+# [Linux] Bash dirname 用法: 获取路径的目录部分
 
 ## 概述
-`dirname` 是一个用于处理文件路径的 Bash 命令。它的主要功能是从给定的文件路径中提取目录部分，返回路径中最后一个斜杠（/）之前的部分。这对于在脚本中处理文件路径时非常有用，尤其是在需要分离文件名和目录时。
+`dirname` 命令用于提取给定路径的目录部分。它返回指定文件路径中去掉文件名后的部分，通常用于脚本和命令行操作中，以便处理文件路径。
 
 ## 用法
 基本语法如下：
-```bash
-dirname [路径]
 ```
-### 常用选项
-- `-z`：如果路径为空，则返回空字符串。
-- `--help`：显示帮助信息并退出。
-- `--version`：显示版本信息并退出。
-
-## 示例
-以下是两个使用 `dirname` 命令的实际示例：
-
-### 示例 1：提取目录路径
-```bash
-$ dirname /home/user/documents/file.txt
-/home/user/documents
+dirname [options] [arguments]
 ```
-在这个例子中，`dirname` 提取了文件 `file.txt` 的目录路径。
 
-### 示例 2：处理相对路径
-```bash
-$ dirname ./projects/my_project/main.py
-./projects/my_project
-```
-在这个例子中，`dirname` 从相对路径中提取了目录部分。
+## 常用选项
+- `-z`：在输出中使用空字符串代替空路径。
+- `--help`：显示帮助信息。
+- `--version`：显示版本信息。
+
+## 常见示例
+以下是一些常见的 `dirname` 使用示例：
+
+1. 获取单个文件路径的目录部分：
+   ```bash
+   dirname /home/user/documents/file.txt
+   ```
+   输出：
+   ```
+   /home/user/documents
+   ```
+
+2. 处理相对路径：
+   ```bash
+   dirname ./folder/file.txt
+   ```
+   输出：
+   ```
+   ./folder
+   ```
+
+3. 从多个路径中提取目录部分：
+   ```bash
+   dirname /var/log/syslog /etc/hosts
+   ```
+   输出：
+   ```
+   /var/log
+   /etc
+   ```
+
+4. 结合其他命令使用：
+   ```bash
+   dirname $(which bash)
+   ```
+   输出：
+   ```
+   /usr/bin
+   ```
 
 ## 提示
-- 使用 `dirname` 时，确保提供有效的路径，以避免意外的空输出。
-- 可以将 `dirname` 与其他命令结合使用，例如 `basename`，以便在脚本中更灵活地处理文件路径。
-- 在处理多个路径时，可以使用循环来逐个处理每个路径，确保脚本的可读性和可维护性。
+- 使用 `dirname` 时，可以与其他命令结合使用，以便动态获取文件路径。
+- 注意处理相对路径和绝对路径的区别，确保得到预期的结果。
+- 在脚本中使用 `dirname` 时，可以将其输出赋值给变量，以便后续操作。

@@ -1,43 +1,60 @@
-# [리눅스] Bash at 사용법
+# [Linux] Bash bei at: Aufgaben zeitgesteuert ausführen
 
 ## Übersicht
-Der Befehl `at` wird in Unix-ähnlichen Betriebssystemen verwendet, um Aufgaben zu einem bestimmten Zeitpunkt in der Zukunft zu planen. Mit `at` können Benutzer Befehle oder Skripte zu einem festgelegten Zeitpunkt ausführen, was besonders nützlich ist, um wiederkehrende Aufgaben oder einmalige Jobs zu automatisieren.
+Der `at`-Befehl wird verwendet, um einmalige Aufgaben zu einem bestimmten Zeitpunkt in der Zukunft auszuführen. Mit `at` können Sie Befehle oder Skripte planen, die zu einem festgelegten Zeitpunkt automatisch ausgeführt werden.
 
 ## Verwendung
 Die grundlegende Syntax des `at`-Befehls lautet:
 
 ```bash
-at [OPTIONEN] ZEIT
+at [Optionen] [Zeit]
 ```
 
-Hierbei sind die wichtigsten Optionen:
+## Häufige Optionen
+- `-f [Datei]`: Führt die Befehle aus der angegebenen Datei aus.
+- `-m`: Sendet eine E-Mail, wenn der Job abgeschlossen ist, auch wenn keine Ausgabe erzeugt wurde.
+- `-q [Warteschlange]`: Gibt die Warteschlange an, in der der Job ausgeführt werden soll (z.B. a, b, c).
+- `-l`: Listet alle geplanten `at`-Jobs auf.
+- `-d [Job-ID]`: Löscht den angegebenen Job.
 
-- `-f DATEI`: Gibt eine Datei an, die die Befehle enthält, die zu dem angegebenen Zeitpunkt ausgeführt werden sollen.
-- `-l`: Listet die geplanten Aufträge auf.
-- `-d JOB_ID`: Löscht einen bestimmten geplanten Auftrag.
-- `-m`: Sendet eine E-Mail-Benachrichtigung, wenn der Job abgeschlossen ist.
+## Häufige Beispiele
 
-Die Zeit kann in verschiedenen Formaten angegeben werden, z. B. `now + 1 hour`, `tomorrow`, oder ein spezifisches Datum und Uhrzeit wie `2023-10-15 14:00`.
-
-## Beispiele
 ### Beispiel 1: Einfache Aufgabe planen
-Um einen einfachen Befehl zu einem bestimmten Zeitpunkt auszuführen, können Sie Folgendes tun:
+Um einen Befehl um 15:00 Uhr auszuführen, können Sie Folgendes verwenden:
 
 ```bash
-echo "echo 'Hallo, Welt!'" | at now + 1 minute
+echo "echo 'Hallo Welt'" | at 15:00
 ```
-Dieser Befehl plant, dass in einer Minute der Text "Hallo, Welt!" in die Konsole ausgegeben wird.
 
-### Beispiel 2: Skript zu einem späteren Zeitpunkt ausführen
-Um ein Skript zu einem bestimmten Zeitpunkt auszuführen, verwenden Sie die `-f` Option:
+### Beispiel 2: Skript zu einem bestimmten Zeitpunkt ausführen
+Um ein Skript namens `backup.sh` um 2 Uhr nachts auszuführen:
 
 ```bash
-at 14:00 -f /path/to/script.sh
+at 02:00 -f /pfad/zu/backup.sh
 ```
-Dieser Befehl plant die Ausführung des Skripts `script.sh` um 14:00 Uhr.
+
+### Beispiel 3: Job für einen bestimmten Tag planen
+Um einen Befehl für den nächsten Montag um 10:00 Uhr zu planen:
+
+```bash
+echo "python /pfad/zu/script.py" | at 10:00 Montag
+```
+
+### Beispiel 4: Geplante Jobs auflisten
+Um alle geplanten `at`-Jobs anzuzeigen:
+
+```bash
+at -l
+```
+
+### Beispiel 5: Job löschen
+Um einen Job mit der ID 5 zu löschen:
+
+```bash
+at -d 5
+```
 
 ## Tipps
-- Stellen Sie sicher, dass der `atd`-Dienst (At Daemon) auf Ihrem System läuft, da `at` ohne diesen Dienst nicht funktionieren kann.
-- Verwenden Sie die `-l` Option, um Ihre geplanten Aufträge zu überprüfen und sicherzustellen, dass sie korrekt eingeplant wurden.
-- Nutzen Sie die `-m` Option, um Benachrichtigungen zu erhalten, wenn Ihre Aufgaben abgeschlossen sind, insbesondere bei längeren oder kritischen Jobs.
-- Achten Sie darauf, dass die Zeitzone Ihres Systems korrekt eingestellt ist, um unerwartete Ausführungszeiten zu vermeiden.
+- Stellen Sie sicher, dass der `atd`-Dienst läuft, damit geplante Jobs ausgeführt werden können.
+- Verwenden Sie die `-m`-Option, um Benachrichtigungen über den Abschluss Ihrer Jobs zu erhalten.
+- Testen Sie Ihre Befehle zuerst in der Kommandozeile, bevor Sie sie mit `at` planen, um sicherzustellen, dass sie wie gewünscht funktionieren.

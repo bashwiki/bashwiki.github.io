@@ -1,51 +1,72 @@
-# [리눅스] Bash netstat 사용법
+# [Linux] Bash netstat Uso: Exibir conexões de rede e estatísticas
 
 ## Overview
-O comando `netstat` (Network Statistics) é uma ferramenta de linha de comando utilizada para exibir informações sobre conexões de rede, tabelas de roteamento, estatísticas de interface e muito mais. É amplamente utilizado por engenheiros e desenvolvedores para monitorar e diagnosticar problemas de rede, permitindo que os usuários vejam quais portas estão abertas, quais serviços estão escutando e quais conexões estão ativas.
+O comando `netstat` é uma ferramenta de linha de comando que exibe informações sobre conexões de rede, tabelas de roteamento, estatísticas de interface e muito mais. Ele é útil para monitorar e diagnosticar problemas de rede em sistemas operacionais baseados em Unix.
 
 ## Usage
 A sintaxe básica do comando `netstat` é a seguinte:
 
 ```bash
-netstat [opções]
+netstat [opções] [argumentos]
 ```
 
-Algumas das opções mais comuns incluem:
+## Common Options
+Aqui estão algumas opções comuns do `netstat`:
 
 - `-a`: Exibe todas as conexões e escuta as portas.
 - `-t`: Mostra apenas as conexões TCP.
 - `-u`: Mostra apenas as conexões UDP.
-- `-n`: Exibe endereços e números de porta em formato numérico, evitando a resolução de nomes.
-- `-l`: Exibe apenas as portas que estão em escuta.
-- `-p`: Mostra o identificador do processo (PID) e o nome do programa que está usando a conexão.
+- `-n`: Exibe endereços e números de porta em formato numérico, sem tentar resolver nomes.
+- `-l`: Mostra apenas os sockets que estão escutando.
+- `-p`: Exibe o PID e o nome do programa ao qual cada socket pertence.
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `netstat`:
+## Common Examples
 
-1. Para exibir todas as conexões de rede e as portas em escuta:
+Aqui estão alguns exemplos práticos do uso do `netstat`:
 
-```bash
-netstat -a
-```
+1. **Exibir todas as conexões e portas em escuta:**
 
-2. Para visualizar apenas as conexões TCP em formato numérico:
+   ```bash
+   netstat -a
+   ```
 
-```bash
-netstat -tn
-```
+2. **Mostrar apenas conexões TCP:**
 
-3. Para listar as portas em escuta junto com o PID dos processos:
+   ```bash
+   netstat -t
+   ```
 
-```bash
-netstat -lpn
-```
+3. **Mostrar apenas conexões UDP:**
+
+   ```bash
+   netstat -u
+   ```
+
+4. **Exibir conexões em formato numérico:**
+
+   ```bash
+   netstat -n
+   ```
+
+5. **Mostrar apenas sockets que estão escutando:**
+
+   ```bash
+   netstat -l
+   ```
+
+6. **Exibir conexões com o PID do processo:**
+
+   ```bash
+   netstat -p
+   ```
 
 ## Tips
-- Utilize o comando `netstat` em combinação com `grep` para filtrar resultados específicos. Por exemplo, para encontrar conexões relacionadas ao SSH, você pode usar:
+- Utilize a opção `-n` para acelerar a execução do comando, evitando a resolução de nomes de host.
+- Combine opções para obter informações mais detalhadas, como `netstat -tunlp` para ver todas as conexões TCP e UDP com detalhes do processo.
+- Para uma visualização mais organizada, você pode canalizar a saída do `netstat` para o comando `less`:
 
-```bash
-netstat -tna | grep :22
-```
+  ```bash
+  netstat -a | less
+  ``` 
 
-- Lembre-se de que o `netstat` pode não estar instalado por padrão em algumas distribuições modernas do Linux. Você pode precisar instalar o pacote `net-tools` para ter acesso a esse comando.
-- Para uma análise mais detalhada das conexões de rede, considere usar o `ss`, que é uma ferramenta mais moderna e eficiente que pode substituir o `netstat` em muitos casos.
+Essas dicas podem ajudar a otimizar o uso do `netstat` e facilitar a análise das informações de rede.

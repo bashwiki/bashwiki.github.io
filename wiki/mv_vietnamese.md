@@ -1,42 +1,46 @@
-# [리눅스] Bash mv 사용법
+# [Linux] Bash mv Cách sử dụng: Di chuyển hoặc đổi tên tệp
 
-## Tổng quan
-Lệnh `mv` trong Bash được sử dụng để di chuyển hoặc đổi tên các tệp và thư mục. Đây là một trong những lệnh cơ bản và quan trọng trong quản lý tệp trên hệ thống Unix/Linux. Khi bạn muốn tổ chức lại các tệp hoặc thay đổi tên của chúng, lệnh `mv` sẽ giúp bạn thực hiện điều đó một cách nhanh chóng và hiệu quả.
+## Overview
+Lệnh `mv` trong Bash được sử dụng để di chuyển hoặc đổi tên các tệp và thư mục. Khi bạn sử dụng lệnh này, bạn có thể chuyển tệp từ vị trí này sang vị trí khác hoặc thay đổi tên của tệp mà không cần tạo một bản sao mới.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `mv` như sau:
-
 ```
-mv [tùy chọn] nguồn đích
+mv [options] [arguments]
 ```
 
-Trong đó:
-- `nguồn`: là tệp hoặc thư mục mà bạn muốn di chuyển hoặc đổi tên.
-- `đích`: là vị trí mới hoặc tên mới cho tệp hoặc thư mục.
-
-### Các tùy chọn phổ biến
-- `-i`: Hiển thị cảnh báo trước khi ghi đè lên tệp đích nếu nó đã tồn tại.
+## Common Options
+- `-i`: Yêu cầu xác nhận trước khi ghi đè lên tệp đích nếu nó đã tồn tại.
 - `-u`: Chỉ di chuyển tệp nếu tệp nguồn mới hơn tệp đích hoặc nếu tệp đích không tồn tại.
-- `-v`: Hiển thị thông tin chi tiết về các tệp được di chuyển.
+- `-v`: Hiển thị thông tin chi tiết về các tệp đang được di chuyển.
 
-## Ví dụ
-### Ví dụ 1: Di chuyển tệp
-Giả sử bạn có một tệp tên là `file.txt` trong thư mục hiện tại và bạn muốn di chuyển nó vào thư mục `documents`:
+## Common Examples
+1. **Di chuyển một tệp đến thư mục khác:**
+   ```bash
+   mv file.txt /path/to/destination/
+   ```
 
-```bash
-mv file.txt documents/
-```
+2. **Đổi tên một tệp:**
+   ```bash
+   mv oldname.txt newname.txt
+   ```
 
-### Ví dụ 2: Đổi tên tệp
-Nếu bạn muốn đổi tên tệp `file.txt` thành `newfile.txt`, bạn có thể sử dụng lệnh sau:
+3. **Di chuyển nhiều tệp cùng lúc:**
+   ```bash
+   mv file1.txt file2.txt /path/to/destination/
+   ```
 
-```bash
-mv file.txt newfile.txt
-```
+4. **Sử dụng tùy chọn xác nhận khi ghi đè:**
+   ```bash
+   mv -i file.txt /path/to/destination/
+   ```
 
-## Mẹo
-- Luôn sử dụng tùy chọn `-i` khi di chuyển hoặc đổi tên tệp để tránh ghi đè lên các tệp quan trọng mà bạn không muốn mất.
-- Kiểm tra vị trí đích trước khi di chuyển tệp để đảm bảo rằng bạn đang di chuyển đến đúng thư mục.
-- Sử dụng tùy chọn `-v` để theo dõi quá trình di chuyển tệp, đặc biệt là khi bạn làm việc với nhiều tệp cùng một lúc. 
+5. **Di chuyển tệp chỉ khi tệp nguồn mới hơn tệp đích:**
+   ```bash
+   mv -u file.txt /path/to/destination/
+   ```
 
-Lệnh `mv` là một công cụ mạnh mẽ trong việc quản lý tệp, và việc hiểu rõ cách sử dụng nó sẽ giúp bạn làm việc hiệu quả hơn trên hệ thống Unix/Linux.
+## Tips
+- Luôn kiểm tra tệp đích trước khi di chuyển để tránh ghi đè mất dữ liệu quan trọng.
+- Sử dụng tùy chọn `-v` để theo dõi quá trình di chuyển tệp, đặc biệt khi làm việc với nhiều tệp.
+- Nếu bạn không chắc chắn về lệnh, hãy thử với tùy chọn `-i` để đảm bảo an toàn cho dữ liệu của bạn.

@@ -1,39 +1,48 @@
-# [리눅스] Bash type 사용법
+# [Linux] Bash türü kullanımı: Komutların türünü belirleme
 
-## Overview
-`type` komutu, bir komutun veya bir değişkenin türünü belirlemek için kullanılır. Bu komut, bir komutun yerel bir shell fonksiyonu, bir alias, bir shell built-in komutu veya bir dış program olup olmadığını gösterir. Geliştiriciler ve mühendisler için, hangi komutların hangi türde olduğunu anlamak, hata ayıklama ve script yazma süreçlerinde oldukça faydalıdır.
+## Genel Bakış
+`type` komutu, bir komutun türünü belirlemek için kullanılır. Bu komut, bir komutun yerel bir komut mu, bir alias mı, bir fonksiyon mu yoksa bir shell built-in komut mu olduğunu gösterir.
 
-## Usage
-Temel kullanım şekli aşağıdaki gibidir:
-
+## Kullanım
+Temel sözdizimi şu şekildedir:
 ```bash
-type [seçenekler] komut
+type [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-t`: Komutun türünü yalnızca bir kelime olarak döndürür (örneğin, "alias", "function", "builtin", "file").
-- `-a`: Komutun tüm tanımlarını listeler, yani eğer birden fazla tanım varsa hepsini gösterir.
-- `-p`: Komutun yolunu gösterir, eğer bir dış komut ise.
+## Yaygın Seçenekler
+- `-t`: Komutun türünü yalnızca gösterir (örneğin, "alias", "function", "builtin", "file").
+- `-a`: Komutun tüm tanımlarını listeler.
+- `-p`: Komutun yolunu gösterir.
 
-## Examples
-### Örnek 1: Basit Kullanım
-Bir komutun türünü öğrenmek için `type` komutunu kullanabilirsiniz:
+## Yaygın Örnekler
+Aşağıda `type` komutunun bazı pratik örnekleri bulunmaktadır:
 
+### 1. Bir komutun türünü öğrenme
 ```bash
 type ls
 ```
-Bu komut, `ls` komutunun bir dış program olduğunu gösterir.
+Bu komut, `ls` komutunun türünü gösterir.
 
-### Örnek 2: Alias ve Fonksiyonları Kontrol Etme
-Eğer bir alias veya fonksiyon tanımladıysanız, bunları kontrol etmek için `type` komutunu kullanabilirsiniz:
-
+### 2. Bir alias'ın türünü kontrol etme
 ```bash
 alias ll='ls -l'
 type ll
 ```
-Bu komut, `ll`'nin bir alias olduğunu belirtecektir.
+Bu komut, `ll` alias'ının tanımını ve türünü gösterir.
 
-## Tips
-- `type` komutunu kullanarak, bir komutun hangi türde olduğunu anlamak, özellikle karmaşık scriptlerde hangi kaynakların kullanıldığını belirlemek için faydalıdır.
-- Eğer bir komutun hangi dosyada bulunduğunu öğrenmek istiyorsanız, `type -p komut` seçeneğini kullanabilirsiniz. Bu, komutun tam yolunu gösterecektir.
-- `type` komutunu sık sık kullanmak, shell ortamınızda hangi komutların mevcut olduğunu ve bunların nasıl tanımlandığını anlamanıza yardımcı olur.
+### 3. Tüm tanımları listeleme
+```bash
+type -a echo
+```
+Bu komut, `echo` komutunun tüm tanımlarını listeler.
+
+### 4. Bir komutun yolunu bulma
+```bash
+type -p grep
+```
+Bu komut, `grep` komutunun bulunduğu yolu gösterir.
+
+## İpuçları
+- `type` komutunu, bir komutun hangi türde olduğunu anlamak için sıkça kullanabilirsiniz; bu, hata ayıklama sürecinde faydalıdır.
+- Eğer bir alias veya fonksiyon tanımladıysanız, `type` komutunu kullanarak bunların çakışıp çakışmadığını kontrol edebilirsiniz.
+- `type` komutunu, bir komutun hangi shell built-in komutları ile çakışabileceğini görmek için de kullanabilirsiniz.

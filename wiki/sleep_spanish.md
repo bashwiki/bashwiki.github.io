@@ -1,39 +1,55 @@
-# [리눅스] Bash sleep 사용법
+# [Linux] Bash sleep Uso: Pausar la ejecución de un script
 
 ## Overview
-El comando `sleep` en Bash se utiliza para pausar la ejecución de un script o comando durante un período de tiempo específico. Su propósito principal es permitir que los usuarios introduzcan retrasos en la ejecución de procesos, lo que puede ser útil en diversas situaciones, como la sincronización de tareas, la espera de recursos o la creación de temporizadores.
+El comando `sleep` en Bash se utiliza para pausar la ejecución de un script o un comando durante un período de tiempo específico. Es útil para controlar el flujo de ejecución en scripts, permitiendo retrasos entre comandos.
 
 ## Usage
 La sintaxis básica del comando `sleep` es la siguiente:
 
-```bash
-sleep [duración]
+```
+sleep [opciones] [tiempo]
 ```
 
-Donde `[duración]` puede especificarse en segundos, minutos, horas o días. A continuación se presentan algunas opciones comunes:
+## Common Options
+- `-h`, `--help`: Muestra la ayuda sobre el comando.
+- `-V`, `--version`: Muestra la versión del comando.
 
-- **Segundos**: Simplemente se puede escribir un número entero (por ejemplo, `5` para cinco segundos).
-- **Minutos**: Se puede usar `m` después del número (por ejemplo, `2m` para dos minutos).
-- **Horas**: Se puede usar `h` después del número (por ejemplo, `1h` para una hora).
-- **Días**: Se puede usar `d` después del número (por ejemplo, `1d` para un día).
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `sleep`:
 
-## Examples
-### Ejemplo 1: Pausar durante 10 segundos
-```bash
-sleep 10
-```
-Este comando pausará la ejecución del script o terminal durante 10 segundos.
+1. **Pausar por 5 segundos:**
+   ```bash
+   sleep 5
+   ```
 
-### Ejemplo 2: Pausar durante 2 minutos
-```bash
-sleep 2m
-```
-Este comando detendrá la ejecución durante 2 minutos.
+2. **Pausar por 2 minutos:**
+   ```bash
+   sleep 2m
+   ```
+
+3. **Pausar por 1.5 segundos:**
+   ```bash
+   sleep 1.5
+   ```
+
+4. **Usar sleep en un bucle:**
+   ```bash
+   for i in {1..5}; do
+       echo "Contando: $i"
+       sleep 1
+   done
+   ```
+
+5. **Pausar entre comandos en un script:**
+   ```bash
+   echo "Iniciando proceso..."
+   sleep 3
+   echo "Proceso en ejecución..."
+   sleep 2
+   echo "Proceso completado."
+   ```
 
 ## Tips
-- **Cadena de comandos**: Puedes usar `sleep` en combinación con otros comandos utilizando el operador `&&` para ejecutar el siguiente comando solo después de que se complete el tiempo de espera. Por ejemplo:
-  ```bash
-  echo "Esperando 5 segundos..." && sleep 5 && echo "¡Listo!"
-  ```
-- **Uso en scripts**: Al crear scripts de automatización, `sleep` puede ser útil para esperar que un servicio esté disponible o para evitar la sobrecarga de recursos al realizar múltiples solicitudes en un corto período de tiempo.
-- **Precaución con tiempos largos**: Ten cuidado al usar tiempos de espera muy largos, ya que pueden hacer que tu script sea menos responsivo. Considera usar tiempos de espera más cortos y realizar verificaciones periódicas si es necesario.
+- Utiliza `sleep` para evitar que un script consuma demasiados recursos al hacer pausas entre tareas.
+- Puedes combinar `sleep` con otros comandos en un script para crear temporizadores o retrasos.
+- Recuerda que el tiempo puede ser especificado en segundos (s), minutos (m), horas (h) o días (d).

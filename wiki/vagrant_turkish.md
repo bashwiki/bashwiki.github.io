@@ -1,44 +1,51 @@
-# [리눅스] Bash vagrant 사용법
+# [Linux] Bash vagrant Kullanımı: Sanal Ortam Yönetimi
 
-## Overview
-Vagrant, sanal makineler oluşturmak ve yönetmek için kullanılan bir araçtır. Geliştiricilere, projeleri için tutarlı bir geliştirme ortamı sağlamayı amaçlar. Vagrant, sanal makineleri kolayca oluşturma, yapılandırma ve dağıtma imkanı sunarak, farklı platformlarda çalışmayı kolaylaştırır. Bu sayede, projelerin taşınabilirliği ve tekrarlanabilirliği artırılır.
+## Genel Bakış
+Vagrant, yazılım geliştirme süreçlerinde sanal ortamlar oluşturmak ve yönetmek için kullanılan bir araçtır. Geliştiricilerin projeleri için tutarlı ve taşınabilir geliştirme ortamları oluşturmasına olanak tanır.
 
-## Usage
-Vagrant komutunun temel sözdizimi şu şekildedir:
-
-```bash
-vagrant [komut] [seçenekler]
-```
-
-En yaygın kullanılan Vagrant komutları şunlardır:
-
-- `vagrant init`: Yeni bir Vagrant projesi başlatır ve bir Vagrantfile oluşturur.
-- `vagrant up`: Tanımlı sanal makineyi başlatır.
-- `vagrant halt`: Çalışan sanal makineyi durdurur.
-- `vagrant destroy`: Sanal makineyi siler.
-- `vagrant ssh`: Sanal makineye SSH ile bağlanır.
-
-## Examples
-### Örnek 1: Yeni bir Vagrant projesi oluşturma
-Aşağıdaki komut, yeni bir Vagrant projesi başlatır ve varsayılan bir Vagrantfile oluşturur:
+## Kullanım
+Vagrant komutunun temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-vagrant init hashicorp/bionic64
+vagrant [seçenekler] [argümanlar]
 ```
 
-Bu komut, Ubuntu 18.04 (Bionic Beaver) tabanlı bir sanal makine için bir Vagrantfile oluşturur.
+## Yaygın Seçenekler
+- `init`: Yeni bir Vagrant projesi başlatmak için kullanılır.
+- `up`: Vagrant ortamını başlatır ve yapılandırır.
+- `halt`: Çalışan Vagrant ortamını durdurur.
+- `destroy`: Vagrant ortamını tamamen siler.
+- `ssh`: Vagrant makinesine SSH ile bağlanır.
 
-### Örnek 2: Sanal makineyi başlatma
-Oluşturduğunuz Vagrant projesini başlatmak için şu komutu kullanabilirsiniz:
+## Yaygın Örnekler
+Aşağıda Vagrant komutunun bazı pratik örnekleri verilmiştir:
 
+### Yeni Bir Vagrant Projesi Başlatma
+```bash
+vagrant init ubuntu/bionic64
+```
+
+### Vagrant Ortamını Başlatma
 ```bash
 vagrant up
 ```
 
-Bu komut, Vagrantfile'da tanımlı olan sanal makineyi başlatır ve gerekli yapılandırmaları otomatik olarak yapar.
+### Vagrant Ortamını Durdurma
+```bash
+vagrant halt
+```
 
-## Tips
-- Vagrant ile çalışırken, her zaman güncel bir Vagrant ve sanal makine sağlayıcısı (örneğin VirtualBox) kullanmaya özen gösterin.
-- Projelerinizde Vagrantfile'ı versiyon kontrol sistemine ekleyerek, ekip üyeleri arasında tutarlılığı sağlayabilirsiniz.
-- `vagrant destroy` komutunu kullanmadan önce, sanal makinenizdeki verilerin yedeğini aldığınızdan emin olun, çünkü bu komut tüm verileri siler.
-- Vagrant ile birlikte kullanılan provisioner'lar (örneğin, shell, Ansible, Puppet) ile sanal makinelerinizi otomatik olarak yapılandırabilirsiniz.
+### Vagrant Ortamını Silme
+```bash
+vagrant destroy
+```
+
+### Vagrant Makinesine SSH ile Bağlanma
+```bash
+vagrant ssh
+```
+
+## İpuçları
+- Vagrantfile'ınızı versiyon kontrol sistemine ekleyin, böylece ekip arkadaşlarınızla paylaşabilirsiniz.
+- Ortamınızı güncel tutmak için `vagrant box update` komutunu düzenli olarak kullanın.
+- Vagrant ile çalışırken, her zaman `vagrant status` komutunu kullanarak ortamınızın durumunu kontrol edin.

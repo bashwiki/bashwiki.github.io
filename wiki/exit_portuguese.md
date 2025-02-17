@@ -1,38 +1,47 @@
-# [리눅스] Bash exit 사용법
+# [Linux] Bash exit uso: Finaliza um shell ou script
 
 ## Overview
-O comando `exit` no Bash é utilizado para encerrar a execução de um script ou de uma sessão de terminal. Ele permite que o usuário saia de um shell ou finalize um script, retornando um código de saída que pode ser utilizado para indicar o sucesso ou a falha da operação. O código de saída é um número inteiro que pode ser interpretado por outros processos ou scripts.
+O comando `exit` é utilizado para encerrar um shell ou script em Bash. Ele pode retornar um código de saída que indica o status da execução do script ou do shell. Um código de saída de zero geralmente indica sucesso, enquanto qualquer número diferente de zero indica um erro.
 
 ## Usage
 A sintaxe básica do comando `exit` é a seguinte:
 
 ```bash
-exit [número]
+exit [opções] [status]
 ```
 
-- `número`: (opcional) Um código de saída que pode ser um inteiro entre 0 e 255. O padrão é 0, que geralmente indica que o script foi executado com sucesso. Qualquer número diferente de 0 geralmente indica que ocorreu um erro.
+## Common Options
+O comando `exit` não possui muitas opções, mas aqui estão algumas informações úteis:
 
-## Examples
+- `status`: Um número que representa o código de saída. Se não for especificado, o código de saída será o último comando executado.
 
-### Exemplo 1: Saindo de um script com sucesso
-```bash
-#!/bin/bash
-echo "Executando o script..."
-# Código do script
-exit 0
-```
-Neste exemplo, o script é executado e, ao final, o comando `exit 0` é chamado, indicando que o script foi concluído com sucesso.
+## Common Examples
 
-### Exemplo 2: Saindo de um script com erro
-```bash
-#!/bin/bash
-echo "Executando o script..."
-# Simulando um erro
-exit 1
-```
-Aqui, o script é executado e, ao final, o comando `exit 1` é chamado, indicando que ocorreu um erro durante a execução do script.
+1. **Saindo de um script com sucesso:**
+   ```bash
+   #!/bin/bash
+   echo "Script executado com sucesso."
+   exit 0
+   ```
+
+2. **Saindo de um script com erro:**
+   ```bash
+   #!/bin/bash
+   echo "Ocorreu um erro."
+   exit 1
+   ```
+
+3. **Saindo de um shell interativo:**
+   ```bash
+   exit
+   ```
+
+4. **Saindo com um código de erro específico:**
+   ```bash
+   exit 42
+   ```
 
 ## Tips
-- Sempre utilize códigos de saída apropriados para facilitar a depuração de scripts. O código 0 deve ser usado para indicar sucesso, enquanto números diferentes de 0 devem ser usados para indicar diferentes tipos de erros.
-- Em scripts complexos, considere usar variáveis para armazenar códigos de saída e facilitar a manutenção do código.
-- Lembre-se de que, ao sair de um shell interativo, o código de saída pode ser verificado usando o comando `echo $?` logo após o uso do `exit`.
+- Sempre utilize `exit 0` ao final de scripts que foram executados com sucesso para indicar que não houve erros.
+- Utilize códigos de saída diferentes para diferentes tipos de erros, facilitando a depuração.
+- Em scripts mais complexos, considere capturar o código de saída de comandos críticos e usar `exit` para sair com esse código.

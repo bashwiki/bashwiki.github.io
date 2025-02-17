@@ -1,43 +1,61 @@
-# [리눅스] Bash lspci 사용법
+# [Linux] Bash lspci Kullanımı: Donanım aygıtlarını listeleme
 
-## Overview
-`lspci`, Linux işletim sistemlerinde kullanılan bir komuttur ve sistemdeki PCI (Peripheral Component Interconnect) aygıtlarını listelemek için kullanılır. Bu komut, bilgisayar donanımının yapılandırmasını anlamak ve aygıtların özelliklerini incelemek amacıyla mühendisler ve geliştiriciler tarafından sıklıkla tercih edilir. `lspci`, sistemdeki tüm PCI aygıtlarının kimlik bilgilerini ve özelliklerini gösterir.
+## Genel Bakış
+`lspci` komutu, Linux tabanlı sistemlerde PCI (Peripheral Component Interconnect) aygıtlarını listelemek için kullanılır. Bu komut, sistemdeki tüm PCI aygıtlarının bilgilerini gösterir, böylece donanım bileşenlerini tanımlamak ve sorun gidermek daha kolay hale gelir.
 
-## Usage
-`lspci` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-lspci [seçenekler]
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
+```
+lspci [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-v`: Daha ayrıntılı bilgi gösterir.
-- `-vv`: Çok daha ayrıntılı bilgi sağlar.
-- `-k`: Aygıt sürücülerinin hangi sürücü tarafından kullanıldığını gösterir.
-- `-n`: Aygıtların PCI kimlik numaralarını gösterir.
-- `-s [bölüm]`: Belirtilen bölümdeki aygıtı listelemek için kullanılır.
+## Yaygın Seçenekler
+- `-v`: Ayrıntılı bilgi gösterir.
+- `-vv`: Daha fazla ayrıntı gösterir.
+- `-k`: Aygıt sürücülerini gösterir.
+- `-n`: Aygıtları sayısal kimlikleriyle gösterir.
+- `-s <bölüm>`: Belirtilen bölüm için bilgileri gösterir.
 
-## Examples
-### Örnek 1: Tüm PCI Aygıtlarını Listeleme
-Aşağıdaki komut, sistemdeki tüm PCI aygıtlarını listeleyecektir:
+## Yaygın Örnekler
+Aşağıda `lspci` komutunun bazı pratik örnekleri bulunmaktadır:
 
-```bash
-lspci
-```
+1. Tüm PCI aygıtlarını listeleme:
+   ```bash
+   lspci
+   ```
 
-### Örnek 2: Ayrıntılı Bilgi Gösterme
-Aşağıdaki komut, PCI aygıtları hakkında daha ayrıntılı bilgi almak için kullanılabilir:
+2. Ayrıntılı bilgi ile listeleme:
+   ```bash
+   lspci -v
+   ```
 
-```bash
-lspci -v
-```
+3. Aygıt sürücülerini gösterme:
+   ```bash
+   lspci -k
+   ```
 
-## Tips
-- `lspci` çıktısını daha okunabilir hale getirmek için `less` komutunu kullanabilirsiniz. Örneğin:
+4. Belirli bir aygıtın bilgilerini gösterme (örneğin, 00:1f.0):
+   ```bash
+   lspci -s 00:1f.0
+   ```
 
-```bash
-lspci | less
-```
+5. Aygıtları sayısal kimlikleriyle listeleme:
+   ```bash
+   lspci -n
+   ```
 
-- Eğer belirli bir aygıt hakkında bilgi almak istiyorsanız, `-s` seçeneğini kullanarak o aygıtın bölüm numarasını belirtebilirsiniz. Bu, çıktıyı daha hedefli hale getirir.
-- `lspci` komutunu kullanmadan önce, sistemde gerekli izinlerin olduğundan emin olun; bazı durumlarda, kök (root) erişimi gerekebilir.
+## İpuçları
+- `lspci` çıktısını daha okunabilir hale getirmek için `less` komutuyla birleştirebilirsiniz:
+  ```bash
+  lspci | less
+  ```
+- Çıktıyı bir dosyaya kaydetmek için yönlendirme kullanabilirsiniz:
+  ```bash
+  lspci > aygıtlar.txt
+  ```
+- `lspci` komutunu sık sık kullanıyorsanız, belirli seçenekleri varsayılan olarak ayarlamak için bir alias oluşturabilirsiniz:
+  ```bash
+  alias lspci='lspci -v'
+  ``` 
+
+Bu bilgilerle `lspci` komutunu etkili bir şekilde kullanarak sisteminizdeki donanım aygıtlarını kolayca yönetebilirsiniz.

@@ -1,47 +1,50 @@
-# [리눅스] Bash unalias 사용법
+# [Linux] Bash unalias uso: Remove aliases in the current shell session
 
 ## Overview
-The `unalias` command in Bash is used to remove aliases that have been previously defined in the shell session. Aliases are shortcuts for longer commands, and while they can enhance productivity, there may be times when you need to revert to the original command behavior. The primary purpose of `unalias` is to ensure that these shortcuts do not interfere with command execution, allowing developers and engineers to maintain control over their command-line environment.
+The `unalias` command in Bash is used to remove existing aliases from the current shell session. Aliases are shortcuts that allow users to create custom commands or modify existing ones for convenience. When you no longer need an alias, `unalias` helps to clean up your environment.
 
 ## Usage
 The basic syntax of the `unalias` command is as follows:
 
 ```bash
-unalias [options] [alias_name]
+unalias [options] [arguments]
 ```
 
-### Common Options
-- `-a`: This option allows you to remove all defined aliases in the current shell session. It is useful when you want to clear all shortcuts at once.
+## Common Options
+- `-a`: Remove all aliases defined in the current shell session.
+- `-m`: Remove aliases that match a specified pattern.
 
-## Examples
+## Common Examples
 
-### Example 1: Removing a Specific Alias
-Suppose you have defined an alias for the `ls` command to include color output:
+### Remove a Specific Alias
+To remove a specific alias, use the alias name as an argument:
 
 ```bash
-alias ls='ls --color=auto'
+unalias ll
 ```
 
-If you decide that you no longer want this alias, you can remove it using:
+### Remove Multiple Aliases
+You can remove multiple aliases by listing them:
 
 ```bash
-unalias ls
+unalias ll grep
 ```
 
-After executing this command, typing `ls` will revert to its default behavior.
-
-### Example 2: Removing All Aliases
-If you want to clear all aliases that you have set in your session, you can use the `-a` option:
+### Remove All Aliases
+To remove all aliases at once, use the `-a` option:
 
 ```bash
 unalias -a
 ```
 
-This command will remove all aliases, allowing you to start fresh without any predefined shortcuts.
+### Remove Aliases Matching a Pattern
+To remove aliases that match a certain pattern, use the `-m` option:
+
+```bash
+unalias -m 'g*'
+```
 
 ## Tips
-- **Check Existing Aliases**: Before using `unalias`, you can check your current aliases by typing `alias` in the terminal. This will list all defined aliases, helping you decide which ones to remove.
-- **Persistent Aliases**: Remember that `unalias` only affects the current shell session. If you have defined aliases in your shell configuration files (like `.bashrc` or `.bash_profile`), you will need to remove or comment them out in those files to prevent them from being reloaded in future sessions.
-- **Use with Caution**: Be careful when using `unalias -a`, as this will remove all aliases, which might disrupt your workflow if you rely on them frequently. Consider removing aliases one at a time for better control.
-
-By understanding and utilizing the `unalias` command effectively, you can manage your Bash environment more efficiently and avoid potential command conflicts.
+- Always check your current aliases with the `alias` command before removing them to avoid accidentally deleting something important.
+- Consider using `unalias -a` with caution, as it will remove all aliases and may disrupt your workflow.
+- If you want to make sure an alias is removed every time you start a new session, consider adding the `unalias` command to your shell's configuration file (like `.bashrc` or `.bash_profile`).

@@ -1,36 +1,44 @@
-# [리눅스] Bash nice 사용법
+# [Linux] Bash nice cách sử dụng: Quản lý độ ưu tiên của tiến trình
 
-## Tổng quan
-Lệnh `nice` trong Bash được sử dụng để điều chỉnh mức độ ưu tiên của một tiến trình khi nó chạy trên hệ thống. Mục đích chính của lệnh này là cho phép người dùng khởi động một tiến trình với một mức độ ưu tiên thấp hơn, giúp hệ thống có thể phân phối tài nguyên một cách hiệu quả hơn, đặc biệt trong các tình huống mà nhiều tiến trình đang chạy đồng thời.
+## Overview
+Lệnh `nice` trong Bash được sử dụng để điều chỉnh độ ưu tiên của các tiến trình khi chúng chạy trên hệ thống. Bằng cách thay đổi độ ưu tiên, bạn có thể kiểm soát tài nguyên CPU mà một tiến trình sử dụng, giúp hệ thống hoạt động mượt mà hơn.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `nice` như sau:
 
 ```bash
-nice [OPTION] [COMMAND [ARGUMENTS...]]
+nice [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-n, --adjustment=N`: Điều chỉnh mức độ ưu tiên của tiến trình. Giá trị `N` có thể là một số nguyên từ -20 (ưu tiên cao nhất) đến 19 (ưu tiên thấp nhất). Mặc định là 10.
-- `-h, --help`: Hiển thị thông tin trợ giúp về lệnh.
-- `--version`: Hiển thị phiên bản của lệnh `nice`.
+## Common Options
+- `-n, --adjustment=N`: Điều chỉnh độ ưu tiên của tiến trình. Giá trị N có thể là số dương hoặc âm.
+- `-h, --help`: Hiển thị hướng dẫn sử dụng.
+- `--version`: Hiển thị phiên bản của lệnh.
 
-## Ví dụ
-### Ví dụ 1: Khởi động một tiến trình với mức độ ưu tiên thấp hơn
-Giả sử bạn muốn chạy một tiến trình `my_script.sh` với mức độ ưu tiên thấp hơn:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `nice`:
 
-```bash
-nice -n 10 ./my_script.sh
-```
+1. Chạy một tiến trình với độ ưu tiên thấp hơn:
+   ```bash
+   nice -n 10 ./my_script.sh
+   ```
 
-### Ví dụ 2: Khởi động một tiến trình với mức độ ưu tiên cao hơn
-Nếu bạn muốn khởi động một tiến trình với mức độ ưu tiên cao hơn, bạn có thể sử dụng giá trị âm:
+2. Chạy một lệnh với độ ưu tiên cao hơn:
+   ```bash
+   nice -n -5 ./my_heavy_process
+   ```
 
-```bash
-nice -n -5 ./my_important_script.sh
-```
+3. Kiểm tra độ ưu tiên của một tiến trình đang chạy:
+   ```bash
+   ps -o pid,ni,cmd
+   ```
 
-## Mẹo
-- Sử dụng `nice` khi bạn chạy các tiến trình không cần tài nguyên hệ thống cao, như sao lưu dữ liệu hoặc xử lý tệp lớn, để không làm ảnh hưởng đến các tiến trình quan trọng khác.
-- Kết hợp `nice` với lệnh `renice` để thay đổi mức độ ưu tiên của một tiến trình đang chạy.
-- Hãy cẩn thận khi sử dụng giá trị âm, vì điều này có thể làm giảm hiệu suất của các tiến trình khác nếu không được quản lý đúng cách.
+4. Chạy một lệnh `make` với độ ưu tiên thấp:
+   ```bash
+   nice -n 15 make
+   ```
+
+## Tips
+- Sử dụng giá trị âm để tăng độ ưu tiên cho các tiến trình quan trọng.
+- Tránh sử dụng độ ưu tiên quá cao cho các tiến trình không cần thiết, vì điều này có thể làm chậm các tiến trình khác.
+- Kiểm tra độ ưu tiên của các tiến trình đang chạy bằng lệnh `ps` để quản lý tài nguyên hiệu quả hơn.

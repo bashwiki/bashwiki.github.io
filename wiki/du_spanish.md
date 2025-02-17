@@ -1,40 +1,55 @@
-# [리눅스] Bash du 사용법
+# [Linux] Bash du uso: Muestra el uso del disco de archivos y directorios
 
 ## Overview
-El comando `du` (disk usage) se utiliza en sistemas operativos basados en Unix para estimar y mostrar el uso del espacio en disco de archivos y directorios. Su propósito principal es ayudar a los usuarios a identificar cuánto espacio en disco están utilizando diferentes archivos y directorios, lo que es útil para la gestión del almacenamiento y la optimización del uso del espacio.
+El comando `du` (disk usage) se utiliza para estimar y mostrar el uso del espacio en disco de archivos y directorios en sistemas operativos tipo Unix. Es una herramienta útil para identificar qué archivos o carpetas están ocupando más espacio en el sistema.
 
 ## Usage
 La sintaxis básica del comando `du` es la siguiente:
 
 ```bash
-du [opciones] [archivo o directorio]
+du [opciones] [argumentos]
 ```
 
-### Opciones Comunes
-- `-h`: Muestra el tamaño en un formato legible por humanos (por ejemplo, KB, MB, GB).
-- `-s`: Muestra solo el total para cada argumento, sin listar los tamaños de los subdirectorios.
-- `-a`: Muestra el tamaño de todos los archivos, no solo de los directorios.
+## Common Options
+- `-h`: Muestra el tamaño en un formato legible por humanos (por ejemplo, KB, MB).
+- `-s`: Muestra solo el total para cada argumento, sin listar los subdirectorios.
+- `-a`: Incluye archivos individuales en la salida, no solo directorios.
 - `-c`: Muestra un total acumulado al final de la salida.
-- `--max-depth=N`: Limita la profundidad de la lista de directorios que se muestra.
+- `--max-depth=N`: Limita la profundidad de los subdirectorios que se muestran.
 
-## Examples
-### Ejemplo 1: Uso básico
-Para ver el uso del espacio en disco de todos los archivos y directorios en el directorio actual, se puede usar:
+## Common Examples
+1. **Mostrar el uso del disco de un directorio específico:**
+   ```bash
+   du /ruta/al/directorio
+   ```
 
-```bash
-du -h
-```
+2. **Mostrar el uso del disco en un formato legible por humanos:**
+   ```bash
+   du -h /ruta/al/directorio
+   ```
 
-### Ejemplo 2: Total de un directorio específico
-Si deseas ver solo el total del espacio utilizado por un directorio específico, puedes usar la opción `-s`:
+3. **Mostrar solo el total del uso del disco de un directorio:**
+   ```bash
+   du -sh /ruta/al/directorio
+   ```
 
-```bash
-du -sh /ruta/al/directorio
-```
+4. **Incluir archivos individuales en la salida:**
+   ```bash
+   du -ah /ruta/al/directorio
+   ```
 
-Esto mostrará el tamaño total del directorio especificado en un formato legible por humanos.
+5. **Mostrar el uso del disco con un total acumulado:**
+   ```bash
+   du -ch /ruta/al/directorio
+   ```
+
+6. **Limitar la profundidad de los subdirectorios mostrados:**
+   ```bash
+   du --max-depth=1 /ruta/al/directorio
+   ```
 
 ## Tips
-- Utiliza la opción `-c` junto con `-h` para obtener un resumen total del uso del disco de varios directorios de manera más clara.
-- Si trabajas con directorios grandes y solo necesitas información sobre un nivel específico de subdirectorios, considera usar `--max-depth=1` para limitar la salida y hacerla más manejable.
-- Recuerda que `du` puede tardar un tiempo en ejecutarse si se aplica a directorios muy grandes o con muchos archivos, así que ten paciencia mientras se recopilan los datos.
+- Utiliza la opción `-h` para facilitar la lectura de los tamaños, especialmente en directorios grandes.
+- Combina `-s` y `-h` para obtener un resumen rápido del tamaño total de un directorio.
+- Si deseas analizar el uso del disco de manera más detallada, considera usar `du -ah` para incluir todos los archivos.
+- Recuerda que `du` puede tardar un tiempo en ejecutarse en directorios muy grandes, así que ten paciencia.

@@ -1,38 +1,52 @@
-# [리눅스] Bash lsof 사용법
+# [Linux] Bash lsof Kullanımı: Açık dosyaları listeleme
 
-## Overview
-`lsof`, "List Open Files" anlamına gelir ve Linux ve Unix tabanlı sistemlerde açık dosyaları listelemek için kullanılan bir komuttur. Bu komut, dosya tanımlayıcıları, ağ bağlantıları ve açık dosyalar hakkında bilgi sağlayarak, sistem yöneticilerine ve geliştiricilere sistemin durumunu analiz etme ve sorun giderme konusunda yardımcı olur. `lsof`, hangi süreçlerin hangi dosyaları kullandığını görmek için oldukça faydalıdır.
+## Genel Bakış
+`lsof` (List Open Files), sistemde açık olan dosyaları ve bu dosyaları kullanan süreçleri listelemek için kullanılan bir komuttur. Bu komut, dosya tanımlayıcıları, ağ bağlantıları ve daha fazlası hakkında bilgi sağlar.
 
-## Usage
-Temel `lsof` komutunun sözdizimi şu şekildedir:
-
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-lsof [seçenekler] [dosya_adı]
+lsof [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-a`: Birden fazla koşulun tümünü karşılayan sonuçları gösterir.
-- `-c <isim>`: Belirtilen süreç adını kullanan dosyaları listeler.
-- `-u <kullanıcı>`: Belirtilen kullanıcıya ait açık dosyaları gösterir.
-- `-p <PID>`: Belirtilen süreç kimliğine (PID) ait dosyaları listeler.
-- `+D <dizin>`: Belirtilen dizin altındaki tüm dosyaları gösterir.
+## Yaygın Seçenekler
+- `-i`: Ağ bağlantılarını listelemek için kullanılır.
+- `-u [kullanıcı]`: Belirtilen kullanıcıya ait açık dosyaları gösterir.
+- `-p [pid]`: Belirtilen süreç kimliğine (PID) ait açık dosyaları listeler.
+- `+D [dizin]`: Belirtilen dizindeki tüm dosyaları ve alt dizinlerdeki dosyaları gösterir.
 
-## Examples
-### Örnek 1: Tüm Açık Dosyaları Listeleme
-Aşağıdaki komut, sistemdeki tüm açık dosyaları listeleyecektir:
+## Yaygın Örnekler
+Aşağıda `lsof` komutunun bazı pratik kullanımları verilmiştir:
 
-```bash
-lsof
-```
+1. Tüm açık dosyaları listelemek için:
+   ```bash
+   lsof
+   ```
 
-### Örnek 2: Belirli Bir Kullanıcının Açık Dosyalarını Listeleme
-Aşağıdaki komut, "kullanici_adi" adlı kullanıcının açık dosyalarını gösterir:
+2. Belirli bir kullanıcıya ait açık dosyaları görüntülemek için:
+   ```bash
+   lsof -u kullanıcı_adı
+   ```
 
-```bash
-lsof -u kullanici_adi
-```
+3. Belirli bir süreç kimliğine ait dosyaları listelemek için:
+   ```bash
+   lsof -p 1234
+   ```
 
-## Tips
-- `lsof` komutunu kullanırken, çıktının çok fazla bilgi içerebileceğini unutmayın. Çıktıyı filtrelemek için yukarıda belirtilen seçenekleri kullanarak daha spesifik sonuçlar alabilirsiniz.
-- Ağ bağlantılarını izlemek için `lsof -i` seçeneğini kullanarak açık ağ bağlantılarını görebilirsiniz.
-- `lsof` komutunu çalıştırmak için genellikle yönetici (root) izinlerine ihtiyaç duyulabilir, bu nedenle `sudo` ile birlikte kullanmanız gerekebilir.
+4. Belirli bir ağ bağlantısını kontrol etmek için:
+   ```bash
+   lsof -i :80
+   ```
+
+5. Belirli bir dizindeki açık dosyaları listelemek için:
+   ```bash
+   lsof +D /path/to/directory
+   ```
+
+## İpuçları
+- `lsof` komutunu çalıştırmak için genellikle yönetici (root) yetkilerine ihtiyaç duyulabilir, bu nedenle `sudo` ile kullanmak faydalı olabilir.
+- Açık dosyaları izlemek için `lsof` çıktısını `grep` ile filtreleyerek belirli dosyaları veya süreçleri bulabilirsiniz.
+- `lsof` çıktısını bir dosyaya yönlendirmek için `>` operatörünü kullanarak sonuçları kaydedebilirsiniz. Örneğin:
+  ```bash
+  lsof > lsof_output.txt
+  ```

@@ -1,42 +1,43 @@
-# [리눅스] Bash help 사용법
+# [Linux] Bash help Cách sử dụng: Hiển thị thông tin trợ giúp cho các lệnh
 
 ## Tổng quan
-Lệnh `help` trong Bash được sử dụng để hiển thị thông tin trợ giúp về các lệnh tích hợp (built-in commands) của Bash. Mục đích chính của lệnh này là cung cấp cho người dùng thông tin chi tiết về cách sử dụng các lệnh tích hợp, bao gồm cú pháp, tùy chọn và ví dụ.
+Lệnh `help` trong Bash được sử dụng để hiển thị thông tin trợ giúp cho các built-in commands. Nó giúp người dùng hiểu cách sử dụng các lệnh này, bao gồm cú pháp và các tùy chọn có sẵn.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `help` như sau:
-
-```bash
-help [tùy chọn] [lệnh]
+```
+help [options] [arguments]
 ```
 
-- **tùy chọn**: Một số tùy chọn có thể được sử dụng với lệnh `help`, bao gồm:
-  - `-s`: Hiển thị thông tin ngắn gọn về lệnh.
-  - `-m`: Hiển thị thông tin trợ giúp theo định dạng Markdown.
+## Các tùy chọn phổ biến
+- `-s`, `--silent`: Không hiển thị tiêu đề.
+- `-m`, `--man`: Hiển thị thông tin trợ giúp theo định dạng của trang man.
+- `-d`, `--description`: Hiển thị chỉ phần mô tả của lệnh.
 
-- **lệnh**: Tên của lệnh tích hợp mà bạn muốn tìm hiểu thêm.
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ về cách sử dụng lệnh `help`:
 
-Nếu không có lệnh nào được chỉ định, lệnh `help` sẽ hiển thị danh sách tất cả các lệnh tích hợp có sẵn trong Bash.
-
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `help`:
-
-1. Hiển thị thông tin trợ giúp về lệnh `cd`:
+1. Hiển thị thông tin trợ giúp cho lệnh `cd`:
    ```bash
    help cd
    ```
 
-2. Hiển thị danh sách tất cả các lệnh tích hợp:
+2. Hiển thị thông tin trợ giúp cho lệnh `echo`:
+   ```bash
+   help echo
+   ```
+
+3. Hiển thị thông tin trợ giúp cho tất cả các lệnh built-in:
    ```bash
    help
    ```
 
-3. Hiển thị thông tin ngắn gọn về lệnh `echo`:
+4. Hiển thị thông tin trợ giúp cho lệnh `set` mà không có tiêu đề:
    ```bash
-   help -s echo
+   help -s set
    ```
 
 ## Mẹo
-- Sử dụng lệnh `help` để nhanh chóng tìm hiểu về các lệnh tích hợp mà bạn chưa quen thuộc.
-- Khi bạn gặp khó khăn với một lệnh tích hợp, hãy thử sử dụng `help [lệnh]` để xem thông tin trợ giúp cụ thể.
-- Kết hợp lệnh `help` với các lệnh khác trong Bash để nâng cao khả năng sử dụng và hiểu biết về môi trường dòng lệnh.
+- Sử dụng `help` để nhanh chóng tìm hiểu về các lệnh built-in mà bạn chưa quen thuộc.
+- Kết hợp với các tùy chọn để có được thông tin chi tiết hơn hoặc theo định dạng mà bạn muốn.
+- Thường xuyên tham khảo thông tin trợ giúp khi làm việc với các lệnh mới để tránh nhầm lẫn.

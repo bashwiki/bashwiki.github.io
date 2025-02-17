@@ -1,42 +1,49 @@
-# [리눅스] Bash lsattr 사용법
+# [Linux] Bash lsattr Usage: List file attributes
 
 ## Overview
-The `lsattr` command in Linux is used to list the file attributes on a file system. It provides information about the attributes that can be set on files and directories, which control how they can be accessed and modified. This command is particularly useful for system administrators and developers who need to manage file permissions and security settings.
+The `lsattr` command in Linux is used to display the file attributes of files and directories in a specified directory. It provides information about the attributes that affect how files can be manipulated, such as whether they can be deleted or modified.
 
 ## Usage
 The basic syntax of the `lsattr` command is as follows:
 
 ```bash
-lsattr [OPTION]... [FILE]...
+lsattr [options] [arguments]
 ```
 
-### Common Options
-- `-a`: List all files, including hidden files.
-- `-d`: List directories themselves, not their contents.
+## Common Options
+- `-d`: List attributes of directories only.
 - `-R`: Recursively list attributes of files in directories.
+- `-a`: Include hidden files in the output.
 - `-V`: Display version information.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Usage
-To list the attributes of files in the current directory, you can simply run:
+1. **List attributes of files in the current directory:**
+   ```bash
+   lsattr
+   ```
 
-```bash
-lsattr
-```
+2. **List attributes of a specific file:**
+   ```bash
+   lsattr filename.txt
+   ```
 
-This will display a list of files along with their attributes, such as whether they are immutable or append-only.
+3. **Recursively list attributes of all files in a directory:**
+   ```bash
+   lsattr -R /path/to/directory
+   ```
 
-### Example 2: Recursively Listing Attributes
-To list the attributes of all files and directories within a specific directory and its subdirectories, use the `-R` option:
+4. **List attributes including hidden files:**
+   ```bash
+   lsattr -a
+   ```
 
-```bash
-lsattr -R /path/to/directory
-```
-
-This command will provide a comprehensive view of all file attributes in the specified directory tree.
+5. **List attributes of directories only:**
+   ```bash
+   lsattr -d /path/to/directory
+   ```
 
 ## Tips
-- Use `lsattr` in combination with `chattr` to modify file attributes. For example, if you find a file that needs to be made immutable, you can first check its current attributes with `lsattr` and then use `chattr +i filename` to set the immutable attribute.
-- Regularly check the attributes of critical system files to ensure they have the appropriate settings for security and stability.
-- Remember that file attributes set with `chattr` can affect how files are backed up or restored, so be cautious when changing them.
+- Use `lsattr` in combination with `chattr` to modify file attributes if needed.
+- Regularly check file attributes to ensure that important files are protected from accidental deletion or modification.
+- Familiarize yourself with the various attributes that can be set using `chattr` to better understand the output of `lsattr`.

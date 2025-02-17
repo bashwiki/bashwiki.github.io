@@ -1,45 +1,54 @@
-# [리눅스] Bash vmstat 사용법
+# [Linux] Bash vmstat utilizzo: Monitorare le risorse di sistema
 
 ## Overview
-Il comando `vmstat` (Virtual Memory Statistics) è uno strumento utile per monitorare le prestazioni del sistema in tempo reale. Fornisce informazioni sulla memoria virtuale, sul sistema e sui processi, consentendo agli ingegneri e agli sviluppatori di analizzare l'utilizzo delle risorse del sistema e identificare eventuali colli di bottiglia nelle prestazioni.
+Il comando `vmstat` è utilizzato per monitorare le risorse di sistema, fornendo informazioni su processi, memoria, paging, blocchi di I/O, e utilizzo della CPU. È uno strumento utile per analizzare le prestazioni del sistema e identificare eventuali colli di bottiglia.
 
 ## Usage
 La sintassi di base del comando `vmstat` è la seguente:
 
 ```bash
-vmstat [opzioni] [intervallo] [conteggio]
+vmstat [opzioni] [argomenti]
 ```
 
-### Opzioni comuni:
-- `-a`: Mostra informazioni sulla memoria attiva e inattiva.
-- `-m`: Mostra le statistiche della memoria per le pagine di cache.
-- `-s`: Mostra le statistiche della memoria in un formato leggibile.
-- `-d`: Mostra le statistiche sui dischi.
-- `intervallo`: Specifica il tempo (in secondi) tra le misurazioni.
-- `conteggio`: Specifica quante volte il comando deve essere eseguito.
+## Common Options
+- `-a`: Mostra la memoria attiva e inattiva.
+- `-m`: Mostra le statistiche della memoria.
+- `-s`: Mostra le statistiche della memoria in forma tabellare.
+- `-t`: Mostra il timestamp con ogni riga di output.
+- `delay`: Specifica l'intervallo di tempo in secondi tra le misurazioni.
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `vmstat`.
+## Common Examples
+Ecco alcuni esempi pratici dell'uso del comando `vmstat`:
 
-### Esempio 1: Monitoraggio delle prestazioni del sistema
-Per monitorare le prestazioni del sistema ogni 2 secondi per 5 volte, puoi utilizzare il seguente comando:
+1. **Visualizzare le statistiche di sistema ogni 2 secondi:**
+   ```bash
+   vmstat 2
+   ```
 
-```bash
-vmstat 2 5
-```
+2. **Mostrare le statistiche della memoria in forma tabellare:**
+   ```bash
+   vmstat -s
+   ```
 
-Questo comando restituirà un output che mostra le statistiche della memoria, dei processi e dell'I/O per ogni intervallo di 2 secondi, fino a un totale di 5 misurazioni.
+3. **Monitorare la memoria attiva e inattiva:**
+   ```bash
+   vmstat -a
+   ```
 
-### Esempio 2: Visualizzazione delle statistiche della memoria
-Per visualizzare le statistiche della memoria in un formato leggibile, puoi utilizzare l'opzione `-s`:
+4. **Visualizzare le statistiche con timestamp:**
+   ```bash
+   vmstat -t 5
+   ```
 
-```bash
-vmstat -s
-```
-
-Questo comando fornirà un riepilogo dettagliato delle statistiche della memoria, come la memoria totale, la memoria libera e la memoria utilizzata.
+5. **Mostrare le statistiche della memoria con un intervallo di 10 secondi:**
+   ```bash
+   vmstat 10
+   ```
 
 ## Tips
-- Utilizza `vmstat` in combinazione con altri strumenti di monitoraggio, come `top` o `iostat`, per ottenere una visione più completa delle prestazioni del sistema.
-- Prova a eseguire `vmstat` con diverse opzioni per ottenere informazioni più dettagliate e specifiche in base alle tue esigenze.
-- Ricorda che l'output di `vmstat` può variare a seconda della configurazione del sistema e delle risorse disponibili, quindi è utile eseguire il comando in diverse condizioni di carico per una migliore analisi.
+- Utilizza `vmstat` insieme ad altri strumenti come `top` o `htop` per avere una visione più completa delle prestazioni del sistema.
+- Esegui `vmstat` in un terminale separato per monitorare le risorse mentre esegui altre operazioni.
+- Considera di salvare l'output di `vmstat` in un file per analisi successive, utilizzando la redirezione:
+  ```bash
+  vmstat 2 > vmstat_output.txt
+  ```

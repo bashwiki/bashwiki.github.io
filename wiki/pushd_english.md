@@ -1,42 +1,48 @@
-# [리눅스] Bash pushd 사용법
+# [Linux] Bash pushd Uso: Manage directory stack efficiently
 
 ## Overview
-The `pushd` command in Bash is used to change the current directory while simultaneously saving the previous directory on a stack. This allows users to easily switch back to the original directory later using the `popd` command. The primary purpose of `pushd` is to facilitate navigation between directories without losing track of where you came from, which is especially useful in scripting and command-line operations.
+The `pushd` command in Bash is used to change the current directory while simultaneously saving the previous directory in a stack. This allows users to easily navigate back to the previous directory using the `popd` command.
 
 ## Usage
 The basic syntax of the `pushd` command is as follows:
 
 ```bash
-pushd [directory]
+pushd [options] [arguments]
 ```
 
-### Common Options
-- `directory`: This is the target directory you want to navigate to. If no directory is specified, `pushd` will swap the top two directories on the stack.
+## Common Options
+- `+n`: Rotate the directory stack to the right by `n` positions.
+- `-n`: Rotate the directory stack to the left by `n` positions.
+- `-q`: Suppress the output of the directory stack after the command is executed.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Usage
-To navigate to a specific directory and save the current directory on the stack, you can use:
+1. **Change to a directory and save the current one:**
+   ```bash
+   pushd /path/to/directory
+   ```
 
-```bash
-pushd /path/to/directory
-```
+2. **Change to a directory and view the directory stack:**
+   ```bash
+   pushd /path/to/directory
+   ```
 
-After executing this command, your current working directory will change to `/path/to/directory`, and the previous directory will be saved on the stack.
+3. **Return to the previous directory:**
+   ```bash
+   popd
+   ```
 
-### Example 2: Using pushd without Arguments
-If you want to swap between the current directory and the last directory you visited, simply run:
+4. **Rotate the stack to the right:**
+   ```bash
+   pushd +1
+   ```
 
-```bash
-pushd
-```
-
-This will switch your current directory with the last one on the stack.
+5. **Suppress output while changing directories:**
+   ```bash
+   pushd -q /path/to/directory
+   ```
 
 ## Tips
-- **Stack Management**: You can view the current directory stack by using the `dirs` command. This will show you the list of directories stored in the stack.
-- **Combining with popd**: To return to the previous directory, use the `popd` command. This will remove the top directory from the stack and change your current directory back to it.
-- **Scripting**: When writing scripts, consider using `pushd` and `popd` to manage directory changes cleanly, ensuring that your script can return to the original directory without hardcoding paths.
-- **Error Handling**: Always check if the directory you are trying to push exists to avoid errors. You can use conditional statements to handle such cases gracefully.
-
-By utilizing `pushd`, you can enhance your command-line navigation efficiency, making it easier to work across multiple directories.
+- Use `dirs` to view the current directory stack at any time.
+- Combine `pushd` and `popd` for quick navigation between frequently used directories.
+- Remember that the directory stack is maintained only for the current session; it resets when you log out.

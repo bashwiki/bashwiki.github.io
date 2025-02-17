@@ -1,38 +1,51 @@
-# [리눅스] Bash shopt 사용법
+# [Linux] Bash shopt Verwendung: Konfiguration von Shell-Optionen
 
 ## Übersicht
-Der Befehl `shopt` (Shell Options) in Bash wird verwendet, um die verschiedenen Optionen und Einstellungen der Shell zu steuern. Mit `shopt` können Benutzer bestimmte Verhaltensweisen der Bash anpassen, indem sie Optionen aktivieren oder deaktivieren. Diese Optionen beeinflussen, wie die Shell Befehle interpretiert und ausführt, was zu einer flexibleren und anpassbaren Benutzererfahrung führt.
+Der Befehl `shopt` in Bash ermöglicht es Benutzern, verschiedene Shell-Optionen zu aktivieren oder zu deaktivieren. Diese Optionen beeinflussen das Verhalten der Shell und können die Benutzererfahrung verbessern oder anpassen.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls `shopt` lautet:
+Die grundlegende Syntax des `shopt`-Befehls lautet:
 
 ```bash
-shopt [OPTIONEN] [OPTION]
+shopt [optionen] [argumente]
 ```
 
-### Häufige Optionen
-- `-s, --set`: Aktiviert die angegebene Option.
-- `-u, --unset`: Deaktiviert die angegebene Option.
-- `-p, --print`: Gibt den aktuellen Status der Optionen aus, ohne Änderungen vorzunehmen.
+## Häufige Optionen
+- `-s`: Aktiviert die angegebene Option.
+- `-u`: Deaktiviert die angegebene Option.
+- `-p`: Zeigt die aktuellen Einstellungen der Optionen an.
 
-## Beispiele
-### Beispiel 1: Aktivieren einer Option
-Um die Option `autocd` zu aktivieren, die es ermöglicht, Verzeichnisse durch Eingabe des Verzeichnisnamens ohne das `cd`-Kommando zu wechseln, verwenden Sie:
+## Häufige Beispiele
+
+### Aktivieren einer Option
+Um die Option `cdable_vars` zu aktivieren, die es ermöglicht, Variablen in `cd`-Befehlen zu verwenden, können Sie folgenden Befehl verwenden:
 
 ```bash
-shopt -s autocd
+shopt -s cdable_vars
 ```
 
-### Beispiel 2: Überprüfen des Status von Optionen
-Um den aktuellen Status aller Optionen anzuzeigen, können Sie den Befehl mit der `-p` Option verwenden:
+### Deaktivieren einer Option
+Um die Option `cdable_vars` wieder zu deaktivieren, verwenden Sie:
 
 ```bash
-shopt -p
+shopt -u cdable_vars
 ```
 
-Dies gibt eine Liste aller Optionen und deren aktuellen Status (aktiviert oder deaktiviert) aus.
+### Anzeigen aller Optionen
+Um alle verfügbaren Optionen und deren Status anzuzeigen, können Sie den folgenden Befehl ausführen:
+
+```bash
+shopt
+```
+
+### Überprüfen einer spezifischen Option
+Um den Status einer bestimmten Option, z.B. `nullglob`, zu überprüfen, verwenden Sie:
+
+```bash
+shopt nullglob
+```
 
 ## Tipps
-- Überprüfen Sie regelmäßig die verfügbaren Optionen mit `shopt -p`, um sicherzustellen, dass Ihre Bash-Umgebung optimal konfiguriert ist.
-- Nutzen Sie `shopt` in Ihren Shell-Skripten, um sicherzustellen, dass die gewünschten Optionen vor der Ausführung von Befehlen gesetzt sind.
-- Dokumentieren Sie Änderungen an den Optionen in Ihren Skripten, um die Wartbarkeit zu erhöhen und anderen Benutzern zu helfen, die beabsichtigte Funktionalität zu verstehen.
+- Überprüfen Sie regelmäßig die aktiven Optionen mit `shopt`, um sicherzustellen, dass Ihre Shell wie gewünscht funktioniert.
+- Nutzen Sie `shopt -p`, um eine Liste der aktiven Optionen zu speichern, die Sie später wiederherstellen können.
+- Seien Sie vorsichtig beim Aktivieren von Optionen, da einige das Verhalten von Skripten oder Befehlen unerwartet ändern können.

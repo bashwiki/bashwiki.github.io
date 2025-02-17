@@ -1,72 +1,62 @@
-# [리눅스] Bash xmlstarlet 사용법
+# [Linux] Bash xmlstarlet uso: Manipulação e transformação de XML
 
 ## Overview
-O `xmlstarlet` é uma ferramenta de linha de comando projetada para manipulação de arquivos XML. Ele permite que os usuários realizem uma variedade de operações em documentos XML, como transformação, validação, consulta e edição. O `xmlstarlet` é amplamente utilizado por desenvolvedores e engenheiros para automatizar tarefas relacionadas a XML, tornando-o uma ferramenta poderosa para processamento de dados estruturados.
+O comando `xmlstarlet` é uma ferramenta poderosa para a manipulação e transformação de documentos XML. Ele permite que os usuários realizem operações como consulta, edição, validação e formatação de arquivos XML de maneira eficiente através da linha de comando.
 
 ## Usage
 A sintaxe básica do comando `xmlstarlet` é a seguinte:
 
 ```bash
-xmlstarlet [opções] comando [argumentos]
+xmlstarlet [options] [arguments]
 ```
 
-Alguns dos comandos e opções mais comuns incluem:
+## Common Options
+Aqui estão algumas opções comuns que você pode usar com o `xmlstarlet`:
 
-- `xmlstarlet sel`: Seleciona e extrai dados de documentos XML.
-- `xmlstarlet ed`: Edita documentos XML, permitindo adicionar, modificar ou remover elementos e atributos.
-- `xmlstarlet tr`: Aplica transformações XSLT a documentos XML.
-- `xmlstarlet val`: Valida documentos XML contra um esquema.
+- `xmlstarlet sel`: Seleciona partes de um documento XML usando XPath.
+- `xmlstarlet ed`: Edita um documento XML, permitindo adicionar, modificar ou remover elementos e atributos.
+- `xmlstarlet val`: Valida um documento XML contra um esquema XSD.
+- `xmlstarlet fo`: Formata um documento XML para melhorar a legibilidade.
+- `xmlstarlet tr`: Transforma um documento XML usando XSLT.
 
-Exemplo de uso básico:
+## Common Examples
+
+### Selecionar elementos de um XML
+Para selecionar elementos de um arquivo XML, você pode usar o seguinte comando:
 
 ```bash
-xmlstarlet sel -t -m "//elemento" -v "." -n arquivo.xml
+xmlstarlet sel -t -m "//nome" -v "." -n arquivo.xml
 ```
 
-Neste exemplo, o comando seleciona todos os elementos chamados "elemento" no arquivo `arquivo.xml` e imprime seus valores.
-
-## Examples
-### Exemplo 1: Selecionar e exibir elementos
-Suponha que você tenha um arquivo XML chamado `dados.xml` com o seguinte conteúdo:
-
-```xml
-<root>
-    <item>
-        <name>Item 1</name>
-        <value>10</value>
-    </item>
-    <item>
-        <name>Item 2</name>
-        <value>20</value>
-    </item>
-</root>
-```
-
-Para selecionar e exibir todos os nomes dos itens, você pode usar o seguinte comando:
+### Editar um elemento XML
+Para editar um elemento específico, você pode usar o comando `ed`:
 
 ```bash
-xmlstarlet sel -t -m "//item/name" -v "." -n dados.xml
+xmlstarlet ed -u "/root/nome" -v "Novo Nome" arquivo.xml
 ```
 
-Saída esperada:
-```
-Item 1
-Item 2
-```
-
-### Exemplo 2: Editar um elemento
-Para modificar o valor de um elemento no mesmo arquivo `dados.xml`, você pode usar o comando `ed`:
+### Validar um arquivo XML
+Para validar um arquivo XML contra um esquema XSD, utilize:
 
 ```bash
-xmlstarlet ed -u "//item[name='Item 1']/value" -v "15" dados.xml
+xmlstarlet val -e -s esquema.xsd arquivo.xml
 ```
 
-Este comando atualiza o valor do primeiro item para 15.
+### Formatar um arquivo XML
+Para formatar um arquivo XML e torná-lo mais legível, use:
+
+```bash
+xmlstarlet fo arquivo.xml
+```
+
+### Transformar um XML usando XSLT
+Para transformar um documento XML com um arquivo XSLT, você pode fazer o seguinte:
+
+```bash
+xmlstarlet tr transformacao.xsl arquivo.xml
+```
 
 ## Tips
-- Utilize a opção `-h` ou `--help` para obter uma lista completa de comandos e opções disponíveis no `xmlstarlet`.
-- Sempre faça um backup do seu arquivo XML antes de realizar operações de edição, para evitar perda de dados.
-- Experimente usar `xmlstarlet` em combinação com outros comandos do Bash para criar scripts mais complexos e automatizados.
-- Para validar um arquivo XML, utilize o comando `xmlstarlet val -e arquivo.xsd arquivo.xml` para verificar se o XML está em conformidade com um esquema específico.
-
-Com essas informações, você deve estar apto a utilizar o `xmlstarlet` para manipular arquivos XML de maneira eficaz em seus projetos.
+- Sempre faça um backup dos seus arquivos XML antes de realizar edições, para evitar perda de dados.
+- Utilize a opção `-o` para salvar a saída em um novo arquivo, ao invés de sobrescrever o arquivo original.
+- Familiarize-se com XPath e XSLT, pois essas linguagens são fundamentais para aproveitar ao máximo o `xmlstarlet`.

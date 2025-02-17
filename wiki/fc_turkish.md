@@ -1,43 +1,55 @@
-# [리눅스] Bash fc 사용법
+# [Linux] Bash fc Kullanımı: Geçmişteki Komutları Düzenleme
 
-## Genel Bakış
-`fc` komutu, Bash kabuğunda daha önce çalıştırılmış komutları düzenlemek ve tekrar çalıştırmak için kullanılan bir araçtır. Bu komut, kullanıcıların geçmişteki komutlarını kolayca bulmalarını, düzenlemelerini ve yeniden çalıştırmalarını sağlar. `fc`, "fix command" (komutu düzelt) ifadesinin kısaltmasıdır ve genellikle hata yapıldığında veya bir komutun tekrar çalıştırılması gerektiğinde kullanılır.
+## Overview
+`fc` komutu, Bash kabuğunda daha önce çalıştırılmış komutları düzenlemek ve yeniden çalıştırmak için kullanılır. Bu komut, kullanıcıların geçmişteki komutları kolayca bulup düzenlemesine ve tekrar çalıştırmasına olanak tanır.
 
-## Kullanım
-`fc` komutunun temel sözdizimi şu şekildedir:
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-fc [seçenekler] [ilk] [son]
+fc [options] [arguments]
 ```
 
-### Yaygın Seçenekler
+## Common Options
 - `-l`: Geçmişteki komutların listesini gösterir.
 - `-r`: Komutları ters sırada listeler.
-- `-s`: Belirtilen komutu çalıştırmadan önce düzenlemeden doğrudan çalıştırır.
-- `[ilk]` ve `[son]`: Geçmişteki komutların hangi aralıkta gösterileceğini belirtir. Eğer belirtilmezse, en son komutlar kullanılır.
+- `-s`: Belirtilen komutu çalıştırmadan önce düzenler.
+- `-n`: Komut numaralarını göstermeden listeleme yapar.
 
-## Örnekler
+## Common Examples
+Aşağıda `fc` komutunun bazı yaygın kullanım örnekleri verilmiştir:
 
-### Örnek 1: Geçmiş Komutlarını Listeleme
-Geçmişteki komutlarınızı listelemek için aşağıdaki komutu kullanabilirsiniz:
+1. **Son Komutu Düzenleme:**
+   ```bash
+   fc
+   ```
+   Bu komut, en son çalıştırılan komutu varsayılan metin düzenleyici ile açar.
 
-```bash
-fc -l
-```
-Bu komut, geçmişteki komutlarınızı numaralarıyla birlikte listeleyecektir.
+2. **Belirli Bir Komutu Düzenleme:**
+   ```bash
+   fc 10
+   ```
+   Bu komut, geçmişteki 10 numaralı komutu düzenler.
 
-### Örnek 2: Belirli Bir Komutu Düzenleme
-Son çalıştırdığınız komutu düzenlemek için:
+3. **Geçmişteki Komutları Listeleme:**
+   ```bash
+   fc -l
+   ```
+   Bu komut, geçmişteki tüm komutları listeler.
 
-```bash
-fc
-```
-Bu komut, son komutu varsayılan metin düzenleyicinizde açar. Düzenledikten sonra kaydedip çıkarsanız, komut otomatik olarak çalıştırılacaktır.
+4. **Ters Sırada Listeleme:**
+   ```bash
+   fc -lr
+   ```
+   Bu komut, geçmişteki komutları ters sırada listeler.
 
-## İpuçları
-- `fc` komutunu kullanırken, geçmişteki komutlarınızı düzenlemek için tercih ettiğiniz bir metin düzenleyici ayarlamak iyi bir uygulamadır. Bunu yapmak için `EDITOR` ortam değişkenini ayarlayabilirsiniz:
-  ```bash
-  export EDITOR=nano
-  ```
-- Komut geçmişinizi daha iyi yönetmek için `HISTSIZE` ve `HISTFILESIZE` değişkenlerini ayarlayarak geçmişte saklanan komut sayısını artırabilirsiniz.
-- `fc` komutunu kullanarak sık kullandığınız komutları hızlıca düzenleyip çalıştırmak, zaman kazandırabilir ve hata yapma olasılığını azaltabilir.
+5. **Komutu Düzenleyip Çalıştırma:**
+   ```bash
+   fc -s 10
+   ```
+   Bu komut, geçmişteki 10 numaralı komutu düzenler ve hemen çalıştırır.
+
+## Tips
+- `fc` komutunu kullanmadan önce, hangi komutları düzenlemek istediğinizi belirlemek için `history` komutunu kullanabilirsiniz.
+- Düzenleme işlemi için varsayılan metin düzenleyicinizi ayarlamak isterseniz, `EDITOR` ortam değişkenini kullanabilirsiniz.
+- `fc` komutunu kullanarak sık kullandığınız komutları daha verimli hale getirebilirsiniz; bu, zaman kazandırır ve hata yapma olasılığını azaltır.

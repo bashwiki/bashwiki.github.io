@@ -1,38 +1,47 @@
-# [리눅스] Bash times 사용법
+# [Linux] Bash times en español: Muestra el tiempo de ejecución de los procesos
 
 ## Overview
-El comando `times` en Bash se utiliza para mostrar el tiempo de CPU utilizado por el shell y sus procesos hijos. Este comando es útil para los ingenieros y desarrolladores que desean analizar el rendimiento de sus scripts o comandos ejecutados en el entorno de shell. Proporciona información sobre el tiempo total de usuario y el tiempo total del sistema, lo que permite a los usuarios identificar cuántos recursos de CPU han consumido sus procesos.
+El comando `times` en Bash se utiliza para mostrar el tiempo de CPU utilizado por los procesos en ejecución en la shell actual. Este comando es útil para medir el rendimiento y el tiempo que tardan los comandos en ejecutarse.
 
 ## Usage
-La sintaxis básica del comando `times` es la siguiente:
+La sintaxis básica del comando es la siguiente:
+
+```bash
+times [opciones] [argumentos]
+```
+
+## Common Options
+El comando `times` no tiene muchas opciones, pero aquí hay algunas que pueden ser útiles:
+
+- `-p`: Muestra el tiempo en un formato más legible, que incluye el tiempo de usuario y el tiempo de sistema.
+
+## Common Examples
+
+### Ejemplo 1: Uso básico de times
+Para ver el tiempo de CPU utilizado por los procesos en la shell actual, simplemente escribe:
 
 ```bash
 times
 ```
 
-No hay opciones o argumentos adicionales que se puedan pasar al comando `times`. Simplemente se ejecuta tal cual para obtener la información deseada.
-
-## Examples
-### Ejemplo 1: Uso básico
-Para ver el tiempo de CPU utilizado por el shell actual y sus procesos hijos, simplemente ejecuta el comando:
+### Ejemplo 2: Uso de times con el formato legible
+Para obtener el tiempo en un formato más claro, puedes usar la opción `-p`:
 
 ```bash
+times -p
+```
+
+### Ejemplo 3: Medir el tiempo de un comando específico
+Puedes ejecutar un comando y luego usar `times` para ver cuánto tiempo ha tardado. Por ejemplo:
+
+```bash
+sleep 5
 times
 ```
 
-La salida mostrará dos valores: el tiempo de CPU en modo usuario y el tiempo de CPU en modo sistema, en segundos.
-
-### Ejemplo 2: Análisis después de ejecutar un script
-Supongamos que tienes un script llamado `mi_script.sh`. Puedes ejecutar el script y luego usar `times` para ver cuánto tiempo de CPU ha utilizado:
-
-```bash
-bash mi_script.sh
-times
-```
-
-Esto te dará una idea clara de los recursos de CPU que ha consumido tu script.
+Esto mostrará el tiempo de CPU utilizado después de que el comando `sleep` haya finalizado.
 
 ## Tips
-- **Uso en scripts**: Considera incluir el comando `times` al final de tus scripts para registrar el tiempo de CPU utilizado. Esto puede ser útil para la optimización y el análisis de rendimiento.
-- **Comparación de rendimiento**: Ejecuta diferentes versiones de un script y usa `times` para comparar el tiempo de CPU utilizado, lo que te ayudará a identificar qué cambios mejoran el rendimiento.
-- **No olvides el contexto**: Recuerda que `times` solo muestra el tiempo de CPU utilizado por el shell y sus procesos hijos, por lo que no incluirá el tiempo de otros procesos que puedan estar ejecutándose en el sistema.
+- Utiliza `times` después de ejecutar varios comandos para obtener una visión general del tiempo total de CPU utilizado.
+- Recuerda que `times` solo muestra el tiempo de CPU utilizado por los procesos de la shell actual; no mostrará información sobre procesos en otras shells o terminales.
+- Combina `times` con otros comandos para medir el rendimiento de scripts o tareas más complejas.

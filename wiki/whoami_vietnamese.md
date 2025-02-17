@@ -1,39 +1,36 @@
-# [리눅스] Bash whoami 사용법
+# [Linux] Bash whoami Cách sử dụng: Xác định tên người dùng hiện tại
 
 ## Tổng quan
-Lệnh `whoami` trong Bash được sử dụng để hiển thị tên người dùng hiện tại đang đăng nhập vào hệ thống. Đây là một công cụ hữu ích cho các kỹ sư và nhà phát triển để xác định danh tính của người dùng đang thực hiện các lệnh trong terminal, đặc biệt trong các môi trường đa người dùng.
+Lệnh `whoami` trong Bash được sử dụng để hiển thị tên người dùng hiện tại đang đăng nhập vào hệ thống. Đây là một công cụ hữu ích để xác định danh tính của người dùng trong môi trường dòng lệnh.
 
 ## Cách sử dụng
-Cú pháp cơ bản của lệnh `whoami` rất đơn giản:
+Cú pháp cơ bản của lệnh `whoami` như sau:
 
-```bash
-whoami
+```
+whoami [options] [arguments]
 ```
 
-Lệnh này không yêu cầu bất kỳ tùy chọn nào và sẽ trả về tên người dùng hiện tại.
+## Tùy chọn phổ biến
+- Không có tùy chọn đặc biệt nào cho lệnh `whoami`, nó chỉ đơn giản là hiển thị tên người dùng hiện tại.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `whoami`:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `whoami`:
 
-1. **Hiển thị tên người dùng hiện tại**:
+1. **Hiển thị tên người dùng hiện tại:**
    ```bash
    whoami
    ```
-   Kết quả có thể là:
-   ```
-   username
+
+2. **Sử dụng trong một script:**
+   ```bash
+   echo "Bạn đang đăng nhập với tên người dùng: $(whoami)"
    ```
 
-2. **Sử dụng trong một script**:
-   Bạn có thể sử dụng lệnh `whoami` trong một script để kiểm tra người dùng hiện tại:
+3. **Kết hợp với lệnh khác:**
    ```bash
-   #!/bin/bash
-   echo "Người dùng hiện tại là: $(whoami)"
+   sudo -u $(whoami) command
    ```
-   Khi chạy script này, nó sẽ in ra tên người dùng hiện tại.
 
 ## Mẹo
-- **Kiểm tra quyền truy cập**: Sử dụng `whoami` để xác nhận bạn đang hoạt động với quyền người dùng nào, điều này rất quan trọng khi thực hiện các lệnh yêu cầu quyền truy cập cao hơn.
-- **Kết hợp với các lệnh khác**: Bạn có thể kết hợp `whoami` với các lệnh khác trong Bash để thực hiện các tác vụ tùy chỉnh dựa trên người dùng hiện tại.
-
-Lệnh `whoami` là một công cụ đơn giản nhưng mạnh mẽ giúp bạn xác định danh tính người dùng trong môi trường dòng lệnh.
+- Sử dụng lệnh `whoami` trong các script để xác định quyền truy cập của người dùng.
+- Kết hợp lệnh `whoami` với các lệnh khác để thực hiện các tác vụ dựa trên quyền của người dùng hiện tại.

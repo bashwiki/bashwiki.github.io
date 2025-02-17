@@ -1,52 +1,65 @@
-# [리눅스] Bash yum 사용법
+# [Linux] Bash yum uso: Package management made easy
 
 ## Overview
-`yum` (Yellowdog Updater, Modified) is a package management utility for RPM (Red Hat Package Manager) based Linux distributions. It simplifies the process of managing software packages by automating the installation, updating, and removal of software. `yum` resolves dependencies automatically, ensuring that all required packages are installed or updated along with the requested software.
+The `yum` command, short for Yellowdog Updater Modified, is a package management utility for RPM-compatible Linux distributions. It simplifies the process of installing, updating, and removing software packages, making it easier for users to manage system software.
 
 ## Usage
 The basic syntax of the `yum` command is as follows:
 
-```
-yum [options] <command> [package...]
+```bash
+yum [options] [arguments]
 ```
 
-### Common Options:
-- `install`: Installs the specified package(s).
-- `remove`: Uninstalls the specified package(s).
-- `update`: Updates all packages to the latest version or a specific package if specified.
+## Common Options
+Here are some common options you can use with the `yum` command:
+
+- `install`: Installs a specified package.
+- `remove`: Uninstalls a specified package.
+- `update`: Updates all installed packages to the latest version.
 - `search`: Searches for a package by name or description.
-- `info`: Displays detailed information about a package.
-- `list`: Lists all available packages or installed packages.
-- `clean`: Cleans up cached files to free up space.
+- `info`: Displays detailed information about a specified package.
+- `list`: Lists available packages or installed packages.
 
-## Examples
+## Common Examples
+Here are several practical examples of using the `yum` command:
 
-### Example 1: Installing a Package
-To install a package, such as `httpd` (Apache web server), you would use the following command:
+1. **Install a package**:
+   To install a package, such as `wget`, use:
+   ```bash
+   yum install wget
+   ```
 
-```bash
-yum install httpd
-```
+2. **Remove a package**:
+   To remove a package, such as `wget`, use:
+   ```bash
+   yum remove wget
+   ```
 
-This command will download and install the `httpd` package along with any necessary dependencies.
+3. **Update all packages**:
+   To update all installed packages to their latest versions, use:
+   ```bash
+   yum update
+   ```
 
-### Example 2: Updating a Package
-To update the `httpd` package to the latest version, you can run:
+4. **Search for a package**:
+   To search for a package by name, such as `httpd`, use:
+   ```bash
+   yum search httpd
+   ```
 
-```bash
-yum update httpd
-```
+5. **Get information about a package**:
+   To get detailed information about a package, such as `httpd`, use:
+   ```bash
+   yum info httpd
+   ```
 
-This command checks for the latest version of `httpd` and updates it if a newer version is available.
+6. **List installed packages**:
+   To list all installed packages, use:
+   ```bash
+   yum list installed
+   ```
 
 ## Tips
-- Always run `yum update` regularly to keep your system and packages up to date, which can help improve security and performance.
-- Use `yum search <keyword>` to quickly find packages related to a specific keyword.
-- To view detailed information about a package before installing it, use `yum info <package-name>`.
-- If you want to remove a package but keep its configuration files, use the `remove` option with the `-y` flag to automatically confirm the action:
-
-```bash
-yum remove -y <package-name>
-```
-
-By following these guidelines, you can effectively manage software packages on your RPM-based Linux system using `yum`.
+- Always run `yum update` regularly to keep your system secure and up to date.
+- Use `yum info [package_name]` before installing a package to understand its dependencies and purpose.
+- Consider using `yum clean all` to clear cached data and free up space if you encounter issues with package installations.

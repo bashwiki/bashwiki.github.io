@@ -1,49 +1,49 @@
-# [리눅스] Bash dirs 사용법
+# [Linux] Bash dirs utilizzo: visualizzare le directory nel percorso
 
 ## Overview
-Il comando `dirs` in Bash è utilizzato per visualizzare la lista delle directory memorizzate nella "directory stack". La directory stack è una struttura dati che tiene traccia delle directory in cui si è navigato, consentendo agli utenti di passare rapidamente tra di esse. Il comando `dirs` è particolarmente utile per gli sviluppatori e gli ingegneri che lavorano frequentemente in diverse directory e desiderano un modo semplice per gestirle.
+Il comando `dirs` in Bash è utilizzato per visualizzare l'elenco delle directory nel percorso di lavoro corrente. Questo comando è particolarmente utile quando si naviga tra diverse directory e si desidera tenere traccia delle posizioni.
 
 ## Usage
-La sintassi di base del comando `dirs` è la seguente:
+La sintassi di base del comando è la seguente:
 
 ```bash
-dirs [options]
+dirs [options] [arguments]
 ```
 
-### Opzioni comuni:
-- `-l`: Mostra la lista delle directory in un formato lungo, includendo informazioni aggiuntive.
-- `-p`: Mostra solo i percorsi delle directory senza alcuna formattazione aggiuntiva.
-- `+N`: Visualizza la directory nella posizione N della stack, dove N è un numero intero.
-- `-N`: Visualizza la directory nella posizione N dalla fine della stack.
+## Common Options
+- `-l`: Mostra le directory in formato lungo, inclusi i percorsi completi.
+- `-p`: Stampa le directory in un formato separato da spazi.
+- `-c`: Cancella l'elenco delle directory.
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `dirs`.
+## Common Examples
 
-### Esempio 1: Visualizzare la directory stack
-```bash
-cd /home/user/project
-cd /var/log
-dirs
-```
-Uscita:
-```
-/var/log /home/user/project
-```
-In questo esempio, dopo aver navigato in due directory, il comando `dirs` mostra la stack corrente con le directory in cui ci si trova.
+1. **Visualizzare la lista delle directory**
+   ```bash
+   dirs
+   ```
 
-### Esempio 2: Utilizzare opzioni per visualizzare la stack
-```bash
-dirs -l
-```
-Uscita:
-```
-/var/log /home/user/project
-```
-In questo caso, l'opzione `-l` non cambia l'output, ma può fornire informazioni aggiuntive se utilizzata in contesti specifici.
+2. **Visualizzare la lista in formato lungo**
+   ```bash
+   dirs -l
+   ```
+
+3. **Visualizzare la lista separata da spazi**
+   ```bash
+   dirs -p
+   ```
+
+4. **Cancellare l'elenco delle directory**
+   ```bash
+   dirs -c
+   ```
+
+5. **Aggiungere una directory alla lista**
+   ```bash
+   pushd /path/to/directory
+   dirs
+   ```
 
 ## Tips
-- Utilizza `pushd` e `popd` insieme a `dirs` per gestire la directory stack in modo più efficiente. `pushd` aggiunge una directory alla stack e cambia in essa, mentre `popd` rimuove la directory superiore dalla stack e torna alla directory precedente.
-- Ricorda che la directory stack è limitata dalla memoria disponibile, quindi evita di accumulare troppe directory per mantenere le operazioni veloci e reattive.
-- Puoi combinare `dirs` con altri comandi come `grep` per filtrare le directory in base a criteri specifici, migliorando ulteriormente la tua produttività.
-
-Utilizzando il comando `dirs`, puoi semplificare la gestione delle directory e migliorare il flusso di lavoro nella tua esperienza di sviluppo.
+- Utilizza `pushd` e `popd` in combinazione con `dirs` per gestire facilmente la tua cronologia delle directory.
+- Ricorda che `dirs` mostra solo le directory nel percorso di lavoro della shell corrente, quindi assicurati di utilizzare `pushd` per aggiungere directory.
+- Se hai bisogno di visualizzare rapidamente la tua posizione attuale, `dirs` può essere un comando utile da inserire nel tuo prompt della shell.

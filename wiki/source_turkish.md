@@ -1,45 +1,48 @@
-# [리눅스] Bash source 사용법
+# [Linux] Bash source Kullanımı: Komut dosyalarını çalıştırma
 
-## Genel Bakış
-`source` komutu, bir Bash betiğini veya bir dosyayı geçerli kabuk ortamında çalıştırmak için kullanılır. Bu komut, belirtilen dosyadaki tüm komutları yürütür ve bu komutların etkileri, çağrıldığı kabukta kalır. `source` komutu, genellikle ortam değişkenlerini ayarlamak veya kabuk ayar dosyalarını yüklemek için kullanılır.
+## Overview
+`source` komutu, bir Bash betiğini veya komut dosyasını mevcut shell ortamında çalıştırmak için kullanılır. Bu, betikteki değişkenlerin ve fonksiyonların mevcut shell oturumuna yüklenmesini sağlar.
 
-## Kullanım
+## Usage
 Temel sözdizimi şu şekildedir:
 
 ```bash
-source [dosya_adı]
+source [seçenekler] [argümanlar]
 ```
 
 Alternatif olarak, `.` (nokta) ile de kullanılabilir:
 
 ```bash
-. [dosya_adı]
+. [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-`source` komutunun kendine özgü seçenekleri yoktur; ancak, dosya adını belirtirken, dosyanın tam yolunu kullanmak veya mevcut dizinde olup olmadığını kontrol etmek önemlidir.
+## Common Options
+- `-e`: Betik dosyasını çalıştırmadan önce hata kontrolü yapar.
+- `-u`: Tanımsız değişkenler için hata verir.
+- `-p`: Betik dosyasını çalıştırmadan önce, mevcut ortamda değişiklik yapmadan çalıştırır.
 
-## Örnekler
+## Common Examples
+1. Bir betik dosyasını çalıştırma:
+   ```bash
+   source myscript.sh
+   ```
 
-### Örnek 1: Ortam Değişkenlerini Yüklemek
-Bir dosyada tanımlı ortam değişkenlerini yüklemek için `source` komutunu kullanabilirsiniz. Örneğin, `env.sh` adında bir dosyanız varsa:
+2. Nokta ile aynı işlemi yapma:
+   ```bash
+   . myscript.sh
+   ```
 
-```bash
-source env.sh
-```
+3. Çevresel değişkenleri yükleme:
+   ```bash
+   source ~/.bash_profile
+   ```
 
-Bu komut, `env.sh` dosyasındaki tüm değişkenleri geçerli kabuk ortamınıza yükleyecektir.
+4. Hata kontrolü ile bir betik çalıştırma:
+   ```bash
+   source -e myscript.sh
+   ```
 
-### Örnek 2: Kabuk Ayar Dosyalarını Yüklemek
-Kendi kabuk ayar dosyanızı yüklemek için de `source` komutunu kullanabilirsiniz. Örneğin, `.bashrc` dosyanızı güncelledikten sonra değişikliklerin hemen etkili olmasını sağlamak için:
-
-```bash
-source ~/.bashrc
-```
-
-Bu komut, `.bashrc` dosyasındaki tüm ayarları geçerli oturumda uygulayacaktır.
-
-## İpuçları
-- `source` komutunu kullanarak dosyaları yüklerken, dosyanın doğru bir şekilde yazıldığından ve gerekli izinlere sahip olduğundan emin olun.
-- Sıklıkla kullandığınız ortam değişkenlerini ve fonksiyonları içeren bir dosya oluşturmak, çalışma ortamınızı daha verimli hale getirebilir.
-- `.bash_profile` veya `.bashrc` gibi dosyalarınızı güncelledikten sonra değişikliklerinizi görmek için `source` komutunu kullanmayı unutmayın.
+## Tips
+- `source` komutunu kullanarak, değişkenlerinizi ve fonksiyonlarınızı her seferinde yeniden tanımlamak zorunda kalmadan mevcut shell oturumunuza yükleyebilirsiniz.
+- Betik dosyalarınızı çalıştırmadan önce, dosyanın doğru izinlere sahip olduğundan emin olun.
+- Hataları önlemek için, betiklerinizi test ortamında çalıştırmayı düşünün.

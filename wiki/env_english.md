@@ -1,42 +1,53 @@
-# [리눅스] Bash env 사용법
+# [Linux] Bash env uso equivalente: Manage environment variables
 
 ## Overview
-The `env` command in Bash is used to run a command in a modified environment. It allows users to set environment variables for the command being executed, or to print a list of the current environment variables. This command is particularly useful for scripting and for ensuring that a command runs with the correct environment settings.
+The `env` command in Bash is used to run a command in a modified environment. It allows you to set or unset environment variables for the command you want to execute, making it a useful tool for testing and running applications with specific configurations.
 
 ## Usage
 The basic syntax of the `env` command is as follows:
 
 ```bash
-env [OPTION]... [NAME=VALUE]... [COMMAND [ARGUMENTS]...]
+env [options] [arguments]
 ```
 
-### Common Options
-- `-i`, `--ignore-environment`: Start with an empty environment, ignoring the current environment variables.
-- `-u`, `--unset=NAME`: Remove the variable NAME from the environment.
-- `--help`: Display help information about the command.
-- `--version`: Show the version of the `env` command.
+## Common Options
+- `-i`: Start with an empty environment, ignoring the current environment variables.
+- `-u NAME`: Remove the variable NAME from the environment.
+- `-0`: Use a null character as the delimiter instead of a newline (useful for handling filenames with spaces).
 
-## Examples
+## Common Examples
 
-### Example 1: Running a Command with Modified Environment Variables
-You can use `env` to run a command with specific environment variables. For instance, if you want to run a Python script with a specific `PYTHONPATH`, you can do so as follows:
+1. **Running a command with a modified environment variable:**
+   ```bash
+   env VAR=value command
+   ```
+   This sets `VAR` to `value` only for the execution of `command`.
 
-```bash
-env PYTHONPATH=/my/custom/path python my_script.py
-```
+2. **Clearing all environment variables:**
+   ```bash
+   env -i bash
+   ```
+   This starts a new Bash shell with no inherited environment variables.
 
-In this example, `PYTHONPATH` is set to `/my/custom/path` only for the duration of `my_script.py`.
+3. **Removing a specific environment variable:**
+   ```bash
+   env -u VAR command
+   ```
+   This runs `command` without the environment variable `VAR`.
 
-### Example 2: Listing Current Environment Variables
-To simply list all the current environment variables, you can use the `env` command without any arguments:
+4. **Listing all current environment variables:**
+   ```bash
+   env
+   ```
+   This displays all the environment variables currently set in the shell.
 
-```bash
-env
-```
-
-This will display a list of all environment variables along with their values.
+5. **Running a script with a specific environment:**
+   ```bash
+   env PATH=/custom/path ./script.sh
+   ```
+   This executes `script.sh` with a modified `PATH`.
 
 ## Tips
-- Use `env` in scripts to ensure that the script runs with the expected environment variables, especially when deploying applications in different environments.
-- When using `-i` to ignore the current environment, be cautious as it may lead to unexpected behavior if the command relies on certain environment variables.
-- Combine `env` with other commands in a pipeline to manipulate the environment dynamically, enhancing the flexibility of your scripts.
+- Use `env` to test scripts in a clean environment to avoid unexpected behavior due to inherited variables.
+- When scripting, consider using `env` to ensure that your scripts run with the correct interpreter by specifying it at the top of the script (e.g., `#!/usr/bin/env python`).
+- Be cautious when using `-i`, as it will remove all environment variables, which might affect the execution of commands that rely on them.

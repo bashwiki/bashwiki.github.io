@@ -1,40 +1,54 @@
-# [리눅스] Bash readarray 사용법
+# [Linux] Bash readarray : Lire des lignes dans un tableau
 
 ## Overview
-La commande `readarray` (ou `mapfile`) est utilisée dans Bash pour lire les lignes d'un fichier ou d'une entrée standard et les stocker dans un tableau. Cette commande est particulièrement utile pour manipuler des données ligne par ligne, ce qui est courant dans le traitement de fichiers texte ou de flux de données.
+La commande `readarray` en Bash permet de lire des lignes d'un fichier ou de l'entrée standard et de les stocker dans un tableau. Cela facilite le traitement des données ligne par ligne dans des scripts.
 
 ## Usage
-La syntaxe de base de la commande `readarray` est la suivante :
+La syntaxe de base de la commande est la suivante :
 
 ```bash
-readarray [options] array_name
+readarray [options] [nom_du_tableau]
 ```
 
-### Options courantes :
-- `-t` : Supprime les caractères de nouvelle ligne à la fin de chaque ligne lue, ce qui est souvent souhaitable pour éviter des éléments de tableau indésirables.
-- `-n` : Limite le nombre de lignes à lire à `n`.
-- `-s` : Ignore les `n` premières lignes du fichier ou de l'entrée standard.
+## Common Options
+- `-t` : Supprime les caractères de nouvelle ligne à la fin de chaque ligne lue.
+- `-n N` : Lit au maximum N lignes.
+- `-s N` : Ignore les N premières lignes.
+- `-d DELIM` : Utilise un délimiteur spécifique au lieu du caractère de nouvelle ligne par défaut.
 
-## Examples
+## Common Examples
+
 ### Exemple 1 : Lire un fichier dans un tableau
-Supposons que vous ayez un fichier nommé `data.txt` contenant plusieurs lignes de texte. Vous pouvez lire ce fichier dans un tableau comme suit :
-
 ```bash
-readarray -t lines < data.txt
+readarray lignes < fichier.txt
 ```
+Cet exemple lit toutes les lignes de `fichier.txt` et les stocke dans le tableau `lignes`.
 
-Après l'exécution de cette commande, chaque ligne du fichier `data.txt` sera stockée dans le tableau `lines`. Vous pouvez accéder à chaque élément du tableau en utilisant la syntaxe `${lines[index]}`.
-
-### Exemple 2 : Lire l'entrée standard
-Vous pouvez également utiliser `readarray` pour lire des lignes à partir de l'entrée standard. Par exemple :
-
+### Exemple 2 : Supprimer les nouvelles lignes
 ```bash
-echo -e "ligne 1\nligne 2\nligne 3" | readarray -t lines
+readarray -t lignes < fichier.txt
 ```
+Ici, les nouvelles lignes à la fin de chaque ligne sont supprimées.
 
-Dans cet exemple, les lignes "ligne 1", "ligne 2" et "ligne 3" seront stockées dans le tableau `lines`.
+### Exemple 3 : Lire un nombre limité de lignes
+```bash
+readarray -n 5 lignes < fichier.txt
+```
+Cet exemple lit seulement les 5 premières lignes de `fichier.txt`.
+
+### Exemple 4 : Ignorer les premières lignes
+```bash
+readarray -s 2 lignes < fichier.txt
+```
+Cela ignore les 2 premières lignes de `fichier.txt` et lit le reste dans le tableau.
+
+### Exemple 5 : Utiliser un délimiteur personnalisé
+```bash
+readarray -d ',' lignes < fichier.csv
+```
+Ici, les lignes sont lues en utilisant une virgule comme délimiteur.
 
 ## Tips
-- Lorsque vous utilisez `readarray`, il est souvent utile d'utiliser l'option `-t` pour éviter d'avoir des caractères de nouvelle ligne dans les éléments du tableau.
-- Pensez à vérifier la taille du tableau après la lecture en utilisant `${#lines[@]}` pour éviter les erreurs lors de l'accès aux éléments.
-- `readarray` est particulièrement efficace pour traiter de grandes quantités de données, car il lit toutes les lignes en une seule opération, ce qui est plus performant que de lire ligne par ligne dans une boucle.
+- Utilisez l'option `-t` pour éviter d'avoir des caractères de nouvelle ligne indésirables dans votre tableau.
+- Vérifiez la taille de votre tableau après la lecture avec `echo ${#lignes[@]}` pour vous assurer que vous avez lu le bon nombre de lignes.
+- Combinez `readarray` avec d'autres commandes comme `grep` ou `awk` pour filtrer les données avant de les stocker dans un tableau.

@@ -1,41 +1,55 @@
-# [리눅스] Bash at 사용법
+# [Linux] Bash at Kullanımı: Zamanlanmış komut çalıştırma
 
 ## Genel Bakış
-`at` komutu, belirli bir zamanda bir veya daha fazla komutun çalıştırılmasını sağlamak için kullanılan bir zamanlayıcıdır. Genellikle, belirli bir tarih ve saatte bir görev planlamak için kullanılır. Bu, sistem yöneticileri ve geliştiriciler için otomatik görevleri zamanlamak adına oldukça yararlıdır.
+`at` komutu, belirli bir zamanda bir veya daha fazla komutun çalıştırılmasını sağlamak için kullanılır. Bu, kullanıcıların belirli bir zaman diliminde otomatik olarak görevler planlamasına olanak tanır.
 
 ## Kullanım
-`at` komutunun temel sözdizimi şu şekildedir:
-
-```bash
-at [seçenekler] [zaman]
+Temel sözdizimi şu şekildedir:
+```
+at [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-f [dosya]`: Belirtilen dosyadaki komutları çalıştırır.
-- `-m`: Görev tamamlandığında e-posta bildirimi gönderir.
-- `-q [kuyruk]`: Görevin hangi kuyrukta çalışacağını belirtir.
+## Yaygın Seçenekler
+- `-f`: Belirtilen dosyadaki komutları çalıştırır.
+- `-m`: Komut çalıştırıldığında e-posta bildirimi gönderir.
+- `-q`: Kuyruk belirler (örneğin, a, b, c gibi).
 - `-l`: Planlanmış görevlerin listesini gösterir.
-- `-d`: Belirtilen görevi iptal eder.
+- `-d`: Belirli bir görevden kurtulmak için kullanılır.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `at` komutunun bazı pratik örnekleri bulunmaktadır:
 
-### Örnek 1: Basit Görev Planlama
-Aşağıdaki komut, 5 dakika sonra `echo "Merhaba Dünya"` komutunu çalıştırır:
+1. **Belirli bir zamanda bir komut çalıştırma:**
+   ```bash
+   echo "echo 'Merhaba Dünya'" | at 14:00
+   ```
+   Bu komut, her gün saat 14:00'te "Merhaba Dünya" mesajını yazdırır.
 
-```bash
-echo "echo Merhaba Dünya" | at now + 5 minutes
-```
+2. **Bir dosyadaki komutları çalıştırma:**
+   ```bash
+   at -f /path/to/komutlar.txt 09:00
+   ```
+   Bu komut, belirtilen dosyadaki komutları her gün saat 09:00'da çalıştırır.
 
-### Örnek 2: Belirli Bir Tarihte Görev Planlama
-Aşağıdaki komut, 1 Ekim 2023 tarihinde saat 14:00'te `backup.sh` dosyasını çalıştırır:
+3. **E-posta bildirimi ile görev planlama:**
+   ```bash
+   echo "backup.sh" | at -m now + 1 hour
+   ```
+   Bu komut, `backup.sh` dosyasını bir saat sonra çalıştırır ve işlem tamamlandığında e-posta bildirimi gönderir.
 
-```bash
-at 14:00 10/01/2023 -f backup.sh
-```
+4. **Planlanmış görevlerin listesini görüntüleme:**
+   ```bash
+   at -l
+   ```
+   Bu komut, mevcut planlanmış görevlerin listesini gösterir.
+
+5. **Belirli bir görevi iptal etme:**
+   ```bash
+   at -d 5
+   ```
+   Bu komut, ID'si 5 olan planlanmış görevi iptal eder.
 
 ## İpuçları
-- `at` komutunu kullanmadan önce, sisteminizde `atd` (at daemon) hizmetinin çalıştığından emin olun. Bu hizmet, planlanmış görevleri yürütmek için gereklidir.
-- Görevlerinizi düzenli olarak kontrol etmek için `at -l` komutunu kullanarak planlanmış görevlerinizi listeleyebilirsiniz.
-- Görevlerinizi iptal etmek için `at -d [görev numarası]` komutunu kullanabilirsiniz. Görev numarasını `at -l` komutuyla öğrenebilirsiniz.
-
-Bu bilgilerle, `at` komutunu etkili bir şekilde kullanarak zamanlama işlemlerinizi kolaylaştırabilirsiniz.
+- `at` komutunu kullanmadan önce, sisteminizde `atd` hizmetinin çalıştığından emin olun.
+- Zaman formatında dikkatli olun; saat dilimlerini ve tarihleri doğru girdiğinizden emin olun.
+- Planladığınız görevlerin çıktısını kontrol etmek için, e-posta bildirimlerini etkinleştirmeyi düşünün.

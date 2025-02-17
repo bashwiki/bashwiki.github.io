@@ -1,53 +1,54 @@
-# [리눅스] Bash dig 사용법
+# [Linux] Bash dig Kullanımı: DNS sorgulama aracı
 
-## Overview
-`dig` (Domain Information Groper), DNS (Domain Name System) sorguları yapmak için kullanılan bir komut satırı aracıdır. İnternet üzerindeki alan adlarının IP adreslerini, DNS kayıtlarını ve diğer DNS bilgilerini sorgulamak için yaygın olarak kullanılır. Geliştiriciler ve sistem yöneticileri için DNS sorunlarını teşhis etmek ve ağ yapılandırmalarını doğrulamak amacıyla oldukça faydalıdır.
+## Genel Bakış
+`dig` (Domain Information Groper), DNS (Domain Name System) sorguları yapmak için kullanılan bir komut satırı aracıdır. Bu komut, bir alan adının IP adresini, DNS kayıtlarını ve diğer bilgileri sorgulamak için yaygın olarak kullanılır.
 
-## Usage
-`dig` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```
-dig [@sunucu] [alan_adı] [seçenekler]
-```
-
-- `@sunucu`: (isteğe bağlı) Sorgunun gönderileceği DNS sunucusunu belirtir. Eğer belirtilmezse, sistemin varsayılan DNS sunucusu kullanılır.
-- `alan_adı`: Sorgulamak istediğiniz alan adıdır.
-- `seçenekler`: (isteğe bağlı) Sorgu türünü veya diğer parametreleri belirlemek için kullanılabilecek çeşitli seçeneklerdir.
-
-### Yaygın Seçenekler
-- `A`: IPv4 adresi sorgulamak için kullanılır.
-- `AAAA`: IPv6 adresi sorgulamak için kullanılır.
-- `MX`: Mail exchange (posta değişim) kayıtlarını sorgulamak için kullanılır.
-- `NS`: Alan adının ad sunucularını sorgulamak için kullanılır.
-- `CNAME`: Alan adının takma adlarını sorgulamak için kullanılır.
-
-## Examples
-### Örnek 1: Basit bir A kaydı sorgulama
-Aşağıdaki komut, `example.com` alan adının IPv4 adresini sorgular:
-
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-dig example.com A
+dig [seçenekler] [argümanlar]
 ```
 
-### Örnek 2: Belirli bir DNS sunucusunu kullanarak MX kaydı sorgulama
-Aşağıdaki komut, Google'ın DNS sunucusunu kullanarak `example.com` alan adının mail exchange kayıtlarını sorgular:
+## Yaygın Seçenekler
+- `@sunucu`: Sorgunun gönderileceği DNS sunucusunu belirtir.
+- `-t tür`: Sorgulamak istediğiniz DNS kayıt türünü belirler (örneğin, A, AAAA, MX).
+- `+short`: Sadece kısa bir çıktı almak için kullanılır.
+- `-x`: Ters DNS sorgusu yapmak için kullanılır.
 
+## Yaygın Örnekler
+Aşağıda `dig` komutunun bazı pratik örnekleri bulunmaktadır:
+
+### 1. Basit bir DNS sorgusu
+Bir alan adının IP adresini sorgulamak için:
 ```bash
-dig @8.8.8.8 example.com MX
+dig example.com
 ```
 
-## Tips
-- `+short` seçeneğini ekleyerek daha kısa ve okunabilir bir çıktı alabilirsiniz. Örneğin:
-
+### 2. Belirli bir DNS kayıt türünü sorgulama
+Bir alan adının MX (Mail Exchange) kayıtlarını sorgulamak için:
 ```bash
-dig example.com +short
+dig -t MX example.com
 ```
 
-- Sorgu sonuçlarını daha iyi anlamak için `+trace` seçeneğini kullanarak DNS sorgusunun nasıl işlendiğini adım adım görebilirsiniz.
-- `dig` çıktısını bir dosyaya yönlendirmek için `>` operatörünü kullanabilirsiniz. Örneğin:
-
+### 3. Kısa çıktı almak
+Sadece IP adresini görmek için:
 ```bash
-dig example.com > sonuc.txt
+dig +short example.com
 ```
 
-- DNS önbelleğini temizlemek veya güncellemek için `dig` komutunu sık sık kullanarak DNS kayıtlarındaki değişiklikleri hızlıca kontrol edebilirsiniz.
+### 4. Ters DNS sorgusu
+Bir IP adresinin alan adını sorgulamak için:
+```bash
+dig -x 93.184.216.34
+```
+
+### 5. Belirli bir DNS sunucusunu kullanma
+Sorguyu belirli bir DNS sunucusu üzerinden yapmak için:
+```bash
+dig @8.8.8.8 example.com
+```
+
+## İpuçları
+- `dig` komutunu kullanmadan önce, hangi DNS kayıt türlerini sorgulamak istediğinizi belirleyin.
+- Çıktıyı daha iyi anlamak için `+trace` seçeneğini ekleyerek sorgu sürecini takip edebilirsiniz.
+- Sık kullanılan DNS sunucularını (örneğin, Google DNS: 8.8.8.8) kullanarak daha hızlı sonuçlar alabilirsiniz.

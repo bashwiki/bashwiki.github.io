@@ -1,51 +1,43 @@
-# [리눅스] Bash popd 사용법
+# [Linux] Bash popd Kullanımı: Dizin yığınından dizin çıkarmak
 
-## Genel Bakış
-`popd` komutu, Bash kabuğunda kullanılan bir komuttur ve dizin yığınından (directory stack) en üstteki dizini kaldırmak için kullanılır. Bu komut, `pushd` komutuyla eklenen dizinleri yönetmek için idealdir. `popd` kullanarak, kullanıcı önceki dizine kolayca geri dönebilir.
+## Overview
+`popd` komutu, dizin yığını (directory stack) üzerinde işlem yaparak en üstteki dizini kaldırır ve kullanıcıyı bir önceki dizine geri döndürür. Bu, kullanıcıların dizinler arasında daha verimli bir şekilde geçiş yapmalarını sağlar.
 
-## Kullanım
+## Usage
 Temel sözdizimi şu şekildedir:
-
 ```bash
-popd [options]
+popd [options] [arguments]
 ```
 
-`popd` komutunun bazı yaygın seçenekleri şunlardır:
+## Common Options
+- `-n`: Dizin yığınını değiştirmeden sadece dizin listesini görüntüler.
+- `+N`: N. dizini yığınından çıkarır. N, dizin yığınının sırasını belirtir.
+- `-N`: N. dizini yığınından çıkarır ve ardından dizin yığınındaki bir önceki dizine geçer.
 
-- `+n`: Yığın içindeki n'inci dizini kaldırır. (0, en üstteki dizini temsil eder)
-- `-n`: Yığın içindeki n'inci dizine geçiş yapar ve onu en üstteki dizin yapar.
+## Common Examples
+Aşağıda `popd` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-## Örnekler
+1. **En üstteki dizini kaldır ve önceki dizine geç:**
+   ```bash
+   popd
+   ```
 
-### Örnek 1: Temel Kullanım
-Öncelikle bir dizine geçelim ve ardından `pushd` ile başka bir dizine geçelim:
+2. **Dizin yığınındaki 2. dizini kaldır:**
+   ```bash
+   popd +1
+   ```
 
-```bash
-pushd /home/kullanici/dizin1
-pushd /home/kullanici/dizin2
-```
+3. **Dizin yığınındaki 3. dizini kaldır ve önceki dizine geç:**
+   ```bash
+   popd -2
+   ```
 
-Şimdi dizin yığınında iki dizin var. `popd` komutunu kullanarak en üstteki dizini kaldırabiliriz:
+4. **Dizin yığınını görüntülemeden kaldır:**
+   ```bash
+   popd -n
+   ```
 
-```bash
-popd
-```
-
-Bu komut, `/home/kullanici/dizin2` dizinini yığından kaldırır ve `/home/kullanici/dizin1` dizinine geri döner.
-
-### Örnek 2: Belirli Bir Dizin Kaldırma
-Diyelim ki yığınınızda üç dizin var ve bunlar sırasıyla `/home/kullanici/dizin1`, `/home/kullanici/dizin2`, ve `/home/kullanici/dizin3`. En üstteki dizini kaldırmak yerine, ikinci dizini kaldırmak istiyorsanız:
-
-```bash
-pushd /home/kullanici/dizin1
-pushd /home/kullanici/dizin2
-pushd /home/kullanici/dizin3
-popd +1
-```
-
-Bu komut, `/home/kullanici/dizin2` dizinini kaldırır ve yığın şu şekilde güncellenir: `/home/kullanici/dizin1`, `/home/kullanici/dizin3`.
-
-## İpuçları
-- `popd` komutunu kullanmadan önce dizin yığınını kontrol etmek için `dirs` komutunu kullanabilirsiniz. Bu, yığındaki dizinleri görmenizi sağlar.
-- `pushd` ve `popd` komutlarını birlikte kullanarak dizinler arasında kolayca geçiş yapabilir ve çalışma ortamınızı daha verimli yönetebilirsiniz.
-- Dizin yığınını yönetmek için `pushd` ve `popd` komutlarını sık sık kullanıyorsanız, bu komutları bir alias ile kısaltmayı düşünebilirsiniz.
+## Tips
+- `pushd` komutunu kullanarak dizinleri yığına ekleyebilirsiniz. Bu, `popd` ile birlikte etkili bir dizin yönetimi sağlar.
+- Dizin yığınının durumunu kontrol etmek için `dirs` komutunu kullanabilirsiniz.
+- Dizin yığınındaki dizinlerin sırasını hatırlamak için yorumlar ekleyerek daha iyi bir organizasyon sağlayabilirsiniz.

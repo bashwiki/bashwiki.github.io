@@ -1,41 +1,49 @@
-# [리눅스] Bash cmake 사용법
+# [Linux] Bash cmake Kullanımı: Proje yapılandırma aracı
 
-## Overview
-`cmake`, yazılım projelerini derlemek ve yapılandırmak için kullanılan bir araçtır. CMake, platformdan bağımsız bir yapı sistemi oluşturmanıza olanak tanır ve projelerinizi farklı derleyiciler ve işletim sistemleri üzerinde kolayca yapılandırmanıza yardımcı olur. Genellikle C ve C++ projeleri için kullanılsa da, diğer dillerle de uyumlu çalışabilir.
+## Genel Bakış
+`cmake`, yazılım projelerini yapılandırmak için kullanılan bir araçtır. Proje dosyalarını oluşturmak ve derleme süreçlerini yönetmek için platformdan bağımsız bir çözüm sunar. CMake, farklı derleyicilere ve platformlara uygun yapı dosyaları oluşturmayı kolaylaştırır.
 
-## Usage
-CMake komutunun temel sözdizimi şu şekildedir:
-
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-cmake [OPTIONS] <path-to-source>
+cmake [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-B <dir>`: Derleme dosyalarının oluşturulacağı dizini belirtir. Bu seçenek, genellikle derleme dizinini ayırmak için kullanılır.
-- `-S <dir>`: Kaynak dosyalarının bulunduğu dizini belirtir.
-- `-G <generator>`: Kullanılacak yapılandırma aracını belirtir. Örneğin, `Ninja`, `Unix Makefiles` gibi.
-- `-D <var>=<value>`: CMake değişkenlerini ayarlamak için kullanılır. Örneğin, `-D CMAKE_BUILD_TYPE=Release` ile yapı türünü belirleyebilirsiniz.
+## Yaygın Seçenekler
+- `-S <dizin>`: Kaynak dizinini belirtir.
+- `-B <dizin>`: Yapı dizinini belirtir.
+- `-D <değişken>=<değer>`: Değişkenleri tanımlamak için kullanılır.
+- `--build <dizin>`: Belirtilen dizinde projeyi derler.
+- `--target <hedef>`: Belirtilen hedefi derler.
 
-## Examples
-### Örnek 1: Basit bir proje yapılandırması
-Aşağıdaki komut, mevcut dizindeki kaynak dosyalarından bir derleme dizini oluşturur:
+## Yaygın Örnekler
+Aşağıda `cmake` komutunun bazı pratik kullanım örnekleri verilmiştir:
 
+### Proje Yapılandırma
+Bir proje dizininde yapılandırma yapmak için:
 ```bash
-cmake -B build -S .
+cmake -S . -B build
 ```
 
-Bu komut, `build` adlı bir dizin oluşturacak ve mevcut dizindeki kaynak dosyalarını kullanarak yapılandırma işlemini gerçekleştirecektir.
-
-### Örnek 2: Özelleştirilmiş bir yapılandırma
-Aşağıdaki komut, `Ninja` jeneratörünü kullanarak bir proje yapılandırması yapar ve yapı türünü `Release` olarak ayarlar:
-
+### Belirli Bir Değişken Tanımlama
+Bir değişken tanımlayarak yapılandırma yapmak için:
 ```bash
-cmake -B build -S . -G Ninja -D CMAKE_BUILD_TYPE=Release
+cmake -S . -B build -D CMAKE_BUILD_TYPE=Release
 ```
 
-Bu komut, `build` dizininde `Ninja` jeneratörü ile yapılandırılmış bir proje oluşturacaktır.
+### Projeyi Derleme
+Yapı dizininde projeyi derlemek için:
+```bash
+cmake --build build
+```
 
-## Tips
-- CMake ile çalışırken, derleme ve kaynak dizinlerini ayırmak iyi bir uygulamadır. Bu, projelerinizi daha düzenli tutmanıza yardımcı olur.
-- CMakeLists.txt dosyanızı düzenlerken, her değişiklikten sonra yapılandırma komutunu yeniden çalıştırmayı unutmayın.
-- CMake ile ilgili daha fazla bilgi için resmi belgeleri inceleyebilirsiniz. Bu belgeler, daha karmaşık projeler için faydalı bilgiler içermektedir.
+### Belirli Bir Hedefi Derleme
+Belirli bir hedefi derlemek için:
+```bash
+cmake --build build --target my_target
+```
+
+## İpuçları
+- Projelerinizi temiz bir şekilde yapılandırmak için her zaman ayrı bir yapı dizini kullanın.
+- `CMakeLists.txt` dosyanızda değişiklik yaptıktan sonra yapı dizinini yeniden yapılandırmayı unutmayın.
+- Hata ayıklama için `-D CMAKE_VERBOSE_MAKEFILE:BOOL=ON` seçeneğini ekleyerek daha fazla bilgi alabilirsiniz.

@@ -1,63 +1,52 @@
-# [리눅스] Bash uniq 사용법
+# [Linux] Bash uniq Cách sử dụng: Loại bỏ các dòng trùng lặp trong tệp
 
-## Tổng quan
-Lệnh `uniq` trong Bash được sử dụng để loại bỏ các dòng trùng lặp trong một tệp hoặc đầu ra của một lệnh. Mục đích chính của `uniq` là giúp người dùng dễ dàng xử lý và phân tích dữ liệu bằng cách chỉ giữ lại các dòng duy nhất. Lệnh này thường được sử dụng kết hợp với lệnh `sort`, vì `uniq` chỉ loại bỏ các dòng trùng lặp liên tiếp.
+## Overview
+Lệnh `uniq` trong Bash được sử dụng để loại bỏ các dòng trùng lặp liên tiếp trong một tệp hoặc đầu ra của một lệnh khác. Nó rất hữu ích khi bạn muốn làm sạch dữ liệu và chỉ giữ lại các dòng duy nhất.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `uniq` như sau:
-
 ```bash
-uniq [tùy chọn] [tệp]
+uniq [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-c`: Đếm số lần xuất hiện của mỗi dòng và hiển thị số đó trước dòng.
-- `-d`: Chỉ hiển thị các dòng trùng lặp.
-- `-u`: Chỉ hiển thị các dòng duy nhất (không trùng lặp).
-- `-i`: Bỏ qua sự khác biệt về chữ hoa và chữ thường khi so sánh các dòng.
+## Common Options
+- `-c`: Đếm số lần xuất hiện của mỗi dòng.
+- `-d`: Hiển thị chỉ các dòng trùng lặp.
+- `-u`: Hiển thị chỉ các dòng duy nhất.
+- `-i`: Bỏ qua sự khác biệt giữa chữ hoa và chữ thường.
 
-## Ví dụ
-### Ví dụ 1: Loại bỏ các dòng trùng lặp
-Giả sử bạn có một tệp có tên `data.txt` với nội dung sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `uniq`:
 
-```
-apple
-banana
-apple
-orange
-banana
-```
+1. **Loại bỏ các dòng trùng lặp trong tệp**:
+   ```bash
+   uniq input.txt output.txt
+   ```
 
-Bạn có thể sử dụng lệnh `uniq` để loại bỏ các dòng trùng lặp như sau:
+2. **Đếm số lần xuất hiện của mỗi dòng**:
+   ```bash
+   uniq -c input.txt
+   ```
 
-```bash
-sort data.txt | uniq
-```
+3. **Hiển thị chỉ các dòng trùng lặp**:
+   ```bash
+   uniq -d input.txt
+   ```
 
-Kết quả sẽ là:
+4. **Hiển thị chỉ các dòng duy nhất**:
+   ```bash
+   uniq -u input.txt
+   ```
 
-```
-apple
-banana
-orange
-```
+5. **Bỏ qua sự khác biệt giữa chữ hoa và chữ thường**:
+   ```bash
+   uniq -i input.txt output.txt
+   ```
 
-### Ví dụ 2: Đếm số lần xuất hiện của mỗi dòng
-Nếu bạn muốn đếm số lần xuất hiện của mỗi dòng trong tệp `data.txt`, bạn có thể sử dụng tùy chọn `-c`:
-
-```bash
-sort data.txt | uniq -c
-```
-
-Kết quả sẽ là:
-
-```
-      2 apple
-      2 banana
-      1 orange
-```
-
-## Mẹo
-- Luôn sử dụng `sort` trước khi sử dụng `uniq` để đảm bảo rằng các dòng trùng lặp được đặt cạnh nhau, vì `uniq` chỉ loại bỏ các dòng trùng lặp liên tiếp.
-- Sử dụng tùy chọn `-i` nếu bạn muốn so sánh các dòng mà không phân biệt chữ hoa và chữ thường.
-- Khi làm việc với các tệp lớn, hãy xem xét việc sử dụng `uniq` trong các ống lệnh để tiết kiệm bộ nhớ và thời gian xử lý.
+## Tips
+- Để `uniq` hoạt động chính xác, bạn nên sắp xếp tệp đầu vào trước khi sử dụng, vì `uniq` chỉ loại bỏ các dòng trùng lặp liên tiếp.
+- Kết hợp `uniq` với lệnh `sort` để xử lý dữ liệu hiệu quả:
+   ```bash
+   sort input.txt | uniq > output.txt
+   ```
+- Sử dụng tùy chọn `-c` để có cái nhìn tổng quan về tần suất xuất hiện của các dòng trong tệp.

@@ -1,42 +1,62 @@
-# [리눅스] Bash ip 사용법
+# [Linux] Bash ip utilisation : Gérer les adresses IP et les interfaces réseau
 
 ## Overview
-La commande `ip` est un outil puissant utilisé pour gérer les interfaces réseau sur les systèmes Linux. Elle fait partie de la suite d'outils iproute2 et remplace les anciennes commandes comme `ifconfig` et `route`. Le but principal de la commande `ip` est de fournir une interface pour configurer, surveiller et gérer les paramètres réseau, y compris les adresses IP, les routes et les interfaces.
+La commande `ip` est un outil puissant utilisé pour gérer les interfaces réseau, les adresses IP, les routes et d'autres aspects de la configuration réseau sur les systèmes Linux. Elle remplace les anciennes commandes comme `ifconfig` et `route`.
 
 ## Usage
 La syntaxe de base de la commande `ip` est la suivante :
 
-```
-ip [OPTIONS] OBJECT { COMMAND | help }
+```bash
+ip [options] [arguments]
 ```
 
-### Options courantes :
-- `link` : Gérer les interfaces réseau.
+## Common Options
+Voici quelques options courantes de la commande `ip` :
+
 - `addr` : Gérer les adresses IP.
+- `link` : Gérer les interfaces réseau.
 - `route` : Gérer les tables de routage.
 - `neigh` : Gérer les entrées de la table ARP.
+- `monitor` : Surveiller les changements dans l'état des interfaces ou des adresses.
 
-## Examples
-### Exemple 1 : Afficher les interfaces réseau
-Pour afficher toutes les interfaces réseau et leurs paramètres, vous pouvez utiliser la commande suivante :
+## Common Examples
+
+### Afficher les interfaces réseau
+Pour lister toutes les interfaces réseau disponibles sur le système, utilisez :
 
 ```bash
 ip link show
 ```
 
-Cette commande liste toutes les interfaces réseau disponibles sur le système, y compris leur état (up ou down).
-
-### Exemple 2 : Ajouter une adresse IP à une interface
-Pour ajouter une adresse IP à une interface spécifique (par exemple, `eth0`), utilisez la commande suivante :
+### Afficher les adresses IP
+Pour afficher les adresses IP configurées sur toutes les interfaces, utilisez :
 
 ```bash
-sudo ip addr add 192.168.1.10/24 dev eth0
+ip addr show
 ```
 
-Cette commande attribue l'adresse IP `192.168.1.10` avec un masque de sous-réseau de `24` à l'interface `eth0`.
+### Ajouter une adresse IP à une interface
+Pour ajouter une adresse IP à une interface spécifique, par exemple `eth0`, utilisez :
+
+```bash
+ip addr add 192.168.1.100/24 dev eth0
+```
+
+### Supprimer une adresse IP d'une interface
+Pour supprimer une adresse IP d'une interface, par exemple `eth0`, utilisez :
+
+```bash
+ip addr del 192.168.1.100/24 dev eth0
+```
+
+### Afficher la table de routage
+Pour afficher la table de routage actuelle, utilisez :
+
+```bash
+ip route show
+```
 
 ## Tips
-- Utilisez `ip help` pour obtenir une liste complète des sous-commandes et options disponibles.
-- Pour des opérations nécessitant des privilèges élevés, n'oubliez pas d'utiliser `sudo`.
-- Familiarisez-vous avec les différentes sous-commandes (`link`, `addr`, `route`, etc.) pour tirer le meilleur parti de la commande `ip`.
-- Utilisez `ip -s` pour afficher des statistiques supplémentaires sur les interfaces et les routes, ce qui peut être utile pour le dépannage.
+- Utilisez `ip -h` pour afficher l'aide et obtenir des informations sur les options disponibles.
+- Combinez les commandes avec `grep` pour filtrer les résultats, par exemple : `ip addr show | grep 192.168`.
+- Pensez à exécuter la commande avec des privilèges élevés (par exemple, en utilisant `sudo`) si vous devez apporter des modifications à la configuration réseau.

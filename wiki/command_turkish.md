@@ -1,37 +1,48 @@
-# [리눅스] Bash command 사용법
+# [Linux] Bash komutu cp: [dosya kopyalama]
 
-## Overview
-`command` komutu, Bash kabuğunda belirli bir komutun çalıştırılmasını sağlamak için kullanılır. Bu komut, shell'in yerleşik fonksiyonları veya alias'ları atlayarak, doğrudan belirtilen komutu çalıştırmak için kullanılır. Genellikle, bir komutun yerleşik bir versiyonunu kullanmak istemediğinizde veya bir alias'ın etkisini geçersiz kılmak istediğinizde yararlıdır.
+## Genel Bakış
+`cp` komutu, Linux ve diğer Unix benzeri işletim sistemlerinde dosyaları ve dizinleri kopyalamak için kullanılır. Bu komut, kaynak dosyaları hedef konuma kopyalayarak yeni dosyalar oluşturur.
 
-## Usage
+## Kullanım
 Temel sözdizimi şu şekildedir:
 
-```bash
-command [options] [arguments]
+```
+cp [seçenekler] [kaynak] [hedef]
 ```
 
-Burada `options` komutun belirli davranışlarını değiştiren seçeneklerdir ve `arguments` ise komutun işlemesi gereken girdilerdir. `command` komutu genellikle herhangi bir özel seçenek içermez, ancak belirli bir komutun kendine özgü seçenekleri olabilir.
+## Yaygın Seçenekler
+- `-r`: Dizinleri ve içindeki dosyaları kopyalamak için kullanılır. (recursive)
+- `-i`: Hedef dosya mevcutsa, üzerine yazmadan önce kullanıcıdan onay ister. (interactive)
+- `-u`: Sadece kaynak dosya hedef dosyadan daha yeni ise kopyalama yapar. (update)
+- `-v`: Kopyalama işlemi sırasında hangi dosyaların kopyalandığını gösterir. (verbose)
 
-## Examples
-### Örnek 1: Alias'ı Atlamak
-Eğer `ls` komutunu bir alias ile değiştirdiyseniz ve gerçek `ls` komutunu çalıştırmak istiyorsanız:
+## Yaygın Örnekler
+1. Basit bir dosya kopyalama:
+   ```bash
+   cp dosya.txt yedek_dosya.txt
+   ```
 
-```bash
-command ls
-```
+2. Bir dizini ve içindeki tüm dosyaları kopyalama:
+   ```bash
+   cp -r dizin_adi/ yedek_dizin/
+   ```
 
-Bu komut, `ls` alias'ını atlayarak doğrudan `ls` komutunu çalıştırır.
+3. Kullanıcıdan onay alarak dosya kopyalama:
+   ```bash
+   cp -i dosya.txt yedek_dosya.txt
+   ```
 
-### Örnek 2: Yerleşik Fonksiyonu Atlamak
-Eğer `echo` komutunu bir fonksiyon ile değiştirdiyseniz ve gerçek `echo` komutunu çalıştırmak istiyorsanız:
+4. Sadece daha yeni dosyaları kopyalama:
+   ```bash
+   cp -u dosya.txt yedek_dosya.txt
+   ```
 
-```bash
-command echo "Hello, World!"
-```
+5. Kopyalama işlemi sırasında hangi dosyaların kopyalandığını gösterme:
+   ```bash
+   cp -v dosya.txt yedek_dosya.txt
+   ```
 
-Bu komut, `echo` fonksiyonunu atlayarak doğrudan `echo` komutunu çalıştırır.
-
-## Tips
-- `command` komutunu kullanırken, hangi komutun çalıştırıldığını net bir şekilde bilmek önemlidir. Özellikle, alias veya fonksiyonlar ile çakışma durumlarında `command` komutunun sağladığı avantajı kullanabilirsiniz.
-- `command` komutunu kullanmak, shell'de belirli bir komutun beklenen davranışını garanti eder, bu nedenle karmaşık scriptlerde kullanılması önerilir.
-- Komutlarınızı test ederken `command` ile çalıştırarak, beklenmedik sonuçların önüne geçebilirsiniz.
+## İpuçları
+- Kopyalama işlemi sırasında dosya adlarını dikkatlice kontrol edin, yanlışlıkla mevcut dosyaların üzerine yazmamak için `-i` seçeneğini kullanın.
+- Büyük dizinleri kopyalarken `-v` seçeneği ile hangi dosyaların kopyalandığını takip edebilirsiniz.
+- Kopyalama işlemi sonrasında hedef dizinde dosyaların doğru bir şekilde kopyalandığını kontrol etmek için `ls` komutunu kullanabilirsiniz.

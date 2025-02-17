@@ -1,39 +1,54 @@
-# [리눅스] Bash journalctl 사용법
+# [Linux] Bash journalctl uso: Visualizar registros del sistema
 
 ## Overview
-El comando `journalctl` es una herramienta utilizada en sistemas que emplean `systemd` para acceder y manipular los registros del sistema. Su principal propósito es permitir a los usuarios y administradores visualizar los mensajes de registro generados por el sistema y las aplicaciones, facilitando la depuración y el monitoreo del estado del sistema.
+El comando `journalctl` se utiliza para acceder y mostrar los registros del sistema que son gestionados por el sistema de registro `systemd`. Permite a los usuarios ver mensajes de log de diferentes servicios y del propio sistema, facilitando la depuración y el monitoreo del estado del sistema.
 
 ## Usage
-La sintaxis básica del comando `journalctl` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-journalctl [opciones]
+journalctl [opciones] [argumentos]
 ```
 
-Algunas de las opciones más comunes incluyen:
-
-- `-b`: Muestra los registros desde el último arranque del sistema.
+## Common Options
+- `-b`: Muestra los registros desde el último arranque.
 - `-f`: Sigue los registros en tiempo real, similar a `tail -f`.
-- `-u <unidad>`: Filtra los registros para mostrar solo los de una unidad específica del sistema (por ejemplo, un servicio).
-- `--since <fecha>`: Muestra los registros desde una fecha específica.
-- `--until <fecha>`: Muestra los registros hasta una fecha específica.
+- `--since "fecha"`: Muestra registros desde una fecha específica.
+- `--until "fecha"`: Muestra registros hasta una fecha específica.
+- `-u nombre_servicio`: Filtra los registros para un servicio específico.
 
-## Examples
-Aquí hay un par de ejemplos prácticos de cómo usar `journalctl`:
+## Common Examples
+- Mostrar todos los registros desde el último arranque:
 
-1. Para ver los registros desde el último arranque del sistema, puedes usar:
+```bash
+journalctl -b
+```
 
-   ```bash
-   journalctl -b
-   ```
+- Seguir los registros en tiempo real:
 
-2. Si deseas seguir los registros en tiempo real de un servicio específico, como `nginx`, puedes usar:
+```bash
+journalctl -f
+```
 
-   ```bash
-   journalctl -u nginx -f
-   ```
+- Mostrar registros desde una fecha específica:
+
+```bash
+journalctl --since "2023-10-01"
+```
+
+- Mostrar registros hasta una fecha específica:
+
+```bash
+journalctl --until "2023-10-10"
+```
+
+- Filtrar registros para un servicio específico, por ejemplo, `ssh.service`:
+
+```bash
+journalctl -u ssh.service
+```
 
 ## Tips
-- Utiliza `journalctl -p <nivel>` para filtrar los registros por nivel de prioridad, donde `<nivel>` puede ser `emerg`, `alert`, `crit`, `err`, `warning`, `notice`, `info`, o `debug`.
-- Combina opciones para obtener resultados más específicos, como `journalctl -u <unidad> --since "2023-10-01"`.
-- Recuerda que puedes usar `man journalctl` para acceder a la página de manual y obtener más información sobre todas las opciones disponibles.
+- Utiliza `-n` seguido de un número para limitar la cantidad de registros mostrados, por ejemplo, `journalctl -n 100` para ver los últimos 100 registros.
+- Combina opciones para obtener resultados más específicos, como `journalctl -b -u nombre_servicio`.
+- Recuerda que puedes usar `man journalctl` para acceder a la página de manual y explorar más opciones y detalles sobre el comando.

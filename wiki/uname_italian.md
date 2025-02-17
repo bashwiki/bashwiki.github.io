@@ -1,42 +1,54 @@
-# [리눅스] Bash uname 사용법
+# [Linux] Bash uname uso: Ottieni informazioni sul sistema
 
 ## Overview
-Il comando `uname` in Bash è utilizzato per visualizzare informazioni sul sistema operativo e sull'architettura hardware in uso. È particolarmente utile per gli ingegneri e gli sviluppatori che necessitano di conoscere dettagli specifici sul sistema in cui stanno lavorando, come il nome del kernel, la versione e il tipo di macchina.
+Il comando `uname` è utilizzato per ottenere informazioni sul sistema operativo in uso. Fornisce dettagli come il nome del kernel, la versione e altre informazioni utili che possono aiutare a identificare l'ambiente di esecuzione.
 
 ## Usage
 La sintassi di base del comando `uname` è la seguente:
 
 ```bash
-uname [opzioni]
+uname [options] [arguments]
 ```
 
-### Opzioni comuni:
+## Common Options
+Ecco alcune opzioni comuni per il comando `uname`:
+
 - `-a`: Mostra tutte le informazioni disponibili sul sistema.
-- `-s`: Mostra il nome del kernel.
+- `-s`: Restituisce il nome del kernel.
 - `-n`: Mostra il nome del nodo di rete.
-- `-r`: Mostra la versione del kernel.
-- `-v`: Mostra la data di compilazione del kernel.
-- `-m`: Mostra il tipo di architettura hardware.
-- `-p`: Mostra il tipo di processore (se disponibile).
-- `-i`: Mostra il tipo di piattaforma hardware (se disponibile).
-- `-o`: Mostra il nome del sistema operativo.
+- `-r`: Fornisce la versione del kernel.
+- `-v`: Mostra la data e l'ora di compilazione del kernel.
+- `-m`: Restituisce l'architettura della macchina.
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `uname`.
+## Common Examples
+Ecco alcuni esempi pratici dell'uso del comando `uname`:
 
-1. **Visualizzare tutte le informazioni sul sistema**:
+1. **Mostrare tutte le informazioni sul sistema:**
    ```bash
    uname -a
    ```
-   Questo comando restituirà un output che include il nome del kernel, il nome del nodo di rete, la versione del kernel, la data di compilazione e il tipo di architettura.
 
-2. **Visualizzare solo il nome del kernel**:
+2. **Ottenere solo il nome del kernel:**
    ```bash
    uname -s
    ```
-   Questo comando mostrerà solo il nome del kernel in uso, ad esempio "Linux".
+
+3. **Visualizzare la versione del kernel:**
+   ```bash
+   uname -r
+   ```
+
+4. **Scoprire l'architettura della macchina:**
+   ```bash
+   uname -m
+   ```
+
+5. **Mostrare il nome del nodo di rete:**
+   ```bash
+   uname -n
+   ```
 
 ## Tips
-- Utilizza `uname -a` per ottenere un quadro completo delle informazioni sul sistema in un solo comando, utile per la diagnostica e la risoluzione dei problemi.
-- Se stai scrivendo script, considera di utilizzare `uname -m` per verificare l'architettura del sistema, in modo da garantire la compatibilità con i pacchetti software.
-- Ricorda che alcune opzioni potrebbero non restituire informazioni complete su sistemi non standard o meno comuni.
+- Utilizza `uname -a` per ottenere un riepilogo completo delle informazioni sul sistema in un solo comando.
+- Puoi combinare le opzioni per ottenere informazioni specifiche. Ad esempio, `uname -sr` mostra sia il nome del kernel che la sua versione.
+- Ricorda che le informazioni fornite da `uname` possono variare a seconda del sistema operativo e della sua configurazione.

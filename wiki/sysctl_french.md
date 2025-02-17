@@ -1,44 +1,44 @@
-# [리눅스] Bash sysctl 사용법
+# [Linux] Bash sysctl utilisation : Gérer les paramètres du noyau
 
 ## Overview
-La commande `sysctl` est un outil puissant utilisé pour examiner et modifier les paramètres du noyau Linux à la volée. Elle permet aux utilisateurs et aux administrateurs système de configurer des paramètres de performance et de sécurité sans avoir besoin de redémarrer le système. Les paramètres gérés par `sysctl` sont stockés dans le fichier `/proc/sys`, ce qui permet une gestion dynamique des configurations du noyau.
+La commande `sysctl` permet de modifier et d'afficher les paramètres du noyau Linux à la volée. Elle est souvent utilisée pour ajuster les performances du système ou pour activer/désactiver certaines fonctionnalités du noyau sans avoir à redémarrer le système.
 
 ## Usage
 La syntaxe de base de la commande `sysctl` est la suivante :
 
 ```bash
-sysctl [options] [variable]
+sysctl [options] [arguments]
 ```
 
-### Options courantes :
-- `-a` : Affiche tous les paramètres du noyau et leurs valeurs actuelles.
-- `-w` : Modifie la valeur d'un paramètre spécifique. Par exemple, `sysctl -w variable=value`.
-- `-p` : Charge les paramètres à partir d'un fichier de configuration, généralement `/etc/sysctl.conf`.
+## Common Options
+- `-a` : Affiche tous les paramètres du noyau et leurs valeurs.
+- `-w` : Modifie un paramètre du noyau à la volée.
+- `-p` : Charge les paramètres du noyau à partir d'un fichier de configuration.
 
-## Examples
-### Exemple 1 : Afficher tous les paramètres du noyau
-Pour afficher tous les paramètres du noyau et leurs valeurs actuelles, vous pouvez utiliser la commande suivante :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `sysctl` :
 
-```bash
-sysctl -a
-```
+1. **Afficher tous les paramètres du noyau :**
+   ```bash
+   sysctl -a
+   ```
 
-### Exemple 2 : Modifier un paramètre du noyau
-Si vous souhaitez modifier un paramètre, par exemple, pour activer le forwarding IP, vous pouvez utiliser :
+2. **Modifier un paramètre du noyau (par exemple, augmenter le nombre maximum de fichiers ouverts) :**
+   ```bash
+   sysctl -w fs.file-max=100000
+   ```
 
-```bash
-sysctl -w net.ipv4.ip_forward=1
-```
+3. **Charger les paramètres du noyau à partir d'un fichier de configuration (par exemple, /etc/sysctl.conf) :**
+   ```bash
+   sysctl -p
+   ```
 
-Cette commande permet d'activer le routage IP sur le système.
+4. **Afficher la valeur d'un paramètre spécifique (par exemple, la taille de la mémoire partagée) :**
+   ```bash
+   sysctl kernel.shmmax
+   ```
 
 ## Tips
-- **Persistente des modifications** : Pour rendre les modifications permanentes, ajoutez les paramètres souhaités dans le fichier `/etc/sysctl.conf`. Par exemple, pour rendre l'activation du forwarding IP permanente, ajoutez la ligne suivante dans ce fichier :
-  ```
-  net.ipv4.ip_forward=1
-  ```
-  Ensuite, exécutez `sysctl -p` pour appliquer les changements.
-
-- **Vérification des modifications** : Après avoir modifié un paramètre, il est toujours bon de vérifier que le changement a été appliqué correctement en utilisant `sysctl variable`.
-
-- **Utilisation prudente** : Modifiez les paramètres du noyau avec précaution, car des valeurs incorrectes peuvent affecter la stabilité et la sécurité de votre système.
+- Toujours vérifier les paramètres actuels avant de les modifier pour éviter des configurations indésirables.
+- Utiliser `sysctl -p` après avoir modifié le fichier `/etc/sysctl.conf` pour appliquer les changements sans redémarrer.
+- Documenter les modifications apportées aux paramètres du noyau pour faciliter le dépannage et la maintenance future.

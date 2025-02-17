@@ -1,42 +1,44 @@
-# [리눅스] Bash man 사용법
+# [Linux] Bash man uso: Muestra la documentación de comandos
 
 ## Overview
-El comando `man` en Bash se utiliza para acceder a las páginas del manual del sistema. Su propósito principal es proporcionar documentación sobre otros comandos, funciones y utilidades disponibles en el sistema operativo. Esto permite a los usuarios, especialmente a ingenieros y desarrolladores, obtener información detallada sobre cómo usar diferentes comandos, sus opciones y ejemplos de uso.
+El comando `man` en Bash se utiliza para mostrar el manual de otros comandos del sistema. Proporciona información detallada sobre cómo usar un comando específico, sus opciones y ejemplos de uso.
 
 ## Usage
 La sintaxis básica del comando `man` es la siguiente:
 
-```
-man [opciones] [comando]
-```
-
-### Opciones Comunes:
-- `-k`: Busca en las páginas del manual las palabras clave proporcionadas.
-- `-f`: Muestra una breve descripción de los comandos especificados.
-- `-a`: Muestra todas las páginas del manual disponibles para el comando especificado, en lugar de solo la primera.
-- `-l`: Carga un archivo de manual local en lugar de buscar en las páginas del manual del sistema.
-
-## Examples
-### Ejemplo 1: Acceder a la página del manual de un comando específico
-Para ver la documentación del comando `ls`, puedes usar el siguiente comando:
-
 ```bash
-man ls
+man [opciones] [argumentos]
 ```
 
-Esto abrirá la página del manual que describe cómo usar `ls`, incluyendo sus opciones y ejemplos.
+## Common Options
+- `-k`: Busca en las páginas del manual por una palabra clave.
+- `-f`: Muestra una breve descripción de un comando.
+- `-a`: Muestra todas las páginas del manual disponibles para un comando, en lugar de solo la primera.
 
-### Ejemplo 2: Buscar una palabra clave en las páginas del manual
-Si deseas buscar información sobre "copy", puedes usar:
+## Common Examples
+Aquí hay algunos ejemplos prácticos de cómo usar el comando `man`:
 
-```bash
-man -k copy
-```
+1. Para ver la página del manual del comando `ls`:
+   ```bash
+   man ls
+   ```
 
-Esto mostrará una lista de comandos y funciones que contienen la palabra "copy" en su descripción.
+2. Para buscar una palabra clave, por ejemplo, "copy":
+   ```bash
+   man -k copy
+   ```
+
+3. Para obtener una breve descripción del comando `cp`:
+   ```bash
+   man -f cp
+   ```
+
+4. Para ver todas las páginas del manual relacionadas con `tar`:
+   ```bash
+   man -a tar
+   ```
 
 ## Tips
-- Utiliza las teclas de navegación (como las flechas arriba y abajo) para desplazarte por la página del manual. Presiona `q` para salir.
-- Si no estás seguro de cómo se escribe un comando, puedes usar `man -k` para buscarlo por palabras clave.
-- Familiarízate con las secciones del manual, ya que algunos comandos pueden tener múltiples páginas de manual que cubren diferentes aspectos o versiones.
-- Recuerda que puedes utilizar `man` para acceder a la documentación de programas instalados, así como de las bibliotecas del sistema.
+- Usa la tecla `q` para salir de la página del manual.
+- Puedes navegar por el manual usando las teclas de flecha o `Page Up` y `Page Down`.
+- Si no estás seguro de cómo se escribe un comando, puedes usar `man -k` para buscarlo por palabra clave.

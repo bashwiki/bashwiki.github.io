@@ -1,48 +1,72 @@
-# [리눅스] Bash break 사용법
+# [Linux] Bash break uso equivalente: Finaliza un bucle
 
 ## Overview
-El comando `break` en Bash se utiliza para salir de un bucle (loop) anticipadamente. Su propósito principal es interrumpir la ejecución de un bucle `for`, `while` o `until` cuando se cumple una condición específica, permitiendo así un control más preciso sobre el flujo de ejecución de los scripts.
+El comando `break` en Bash se utiliza para salir de un bucle, ya sea un bucle `for`, `while` o `until`. Cuando se ejecuta `break`, el control del programa se transfiere a la siguiente línea de código después del bucle.
 
 ## Usage
-La sintaxis básica del comando `break` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
 break [n]
 ```
 
-- `n`: Este argumento opcional especifica el número de niveles de bucles que se deben romper. Si se omite, `break` saldrá del bucle más interno.
+Donde `n` es un número opcional que indica cuántos niveles de bucles se deben romper. Si no se especifica, `break` saldrá del bucle más interno.
 
-## Examples
-### Ejemplo 1: Salir de un bucle `while`
+## Common Options
+- `n`: Un número que especifica cuántos niveles de bucles se deben romper. Por defecto, se rompe solo el bucle más interno.
+
+## Common Examples
+
+### Ejemplo 1: Romper un bucle `for`
 ```bash
-#!/bin/bash
-
-contador=1
-
-while [ $contador -le 5 ]; do
-  echo "Contador: $contador"
-  if [ $contador -eq 3 ]; then
-    break
-  fi
-  contador=$((contador + 1))
-done
-```
-En este ejemplo, el bucle `while` imprime el valor del contador hasta que este llega a 3, momento en el cual se ejecuta el comando `break` y se sale del bucle.
-
-### Ejemplo 2: Salir de un bucle `for`
-```bash
-#!/bin/bash
-
 for i in {1..5}; do
-  if [ $i -eq 4 ]; then
+  if [ $i -eq 3 ]; then
     break
   fi
   echo "Número: $i"
 done
 ```
-Aquí, el bucle `for` imprime los números del 1 al 5, pero se interrumpe cuando `i` es igual a 4, gracias al uso del comando `break`.
+**Salida:**
+```
+Número: 1
+Número: 2
+```
+
+### Ejemplo 2: Romper un bucle `while`
+```bash
+contador=1
+while [ $contador -le 5 ]; do
+  if [ $contador -eq 4 ]; then
+    break
+  fi
+  echo "Contador: $contador"
+  contador=$((contador + 1))
+done
+```
+**Salida:**
+```
+Contador: 1
+Contador: 2
+Contador: 3
+```
+
+### Ejemplo 3: Romper múltiples niveles de bucles
+```bash
+for i in {1..3}; do
+  for j in {1..3}; do
+    if [ $j -eq 2 ]; then
+      break 2
+    fi
+    echo "i: $i, j: $j"
+  done
+done
+```
+**Salida:**
+```
+i: 1, j: 1
+```
 
 ## Tips
-- Utiliza `break` cuando necesites salir de un bucle basado en una condición específica para evitar la ejecución innecesaria de código.
-- Si trabajas con bucles anidados, puedes usar el argumento `n` para especificar cuántos niveles de bucles deseas romper. Por ejemplo, `break 2` saldrá de dos niveles de bucles.
-- Asegúrate de que el uso de `break` no interrumpa la lógica de tu script de manera inesperada, revisando las condiciones que lo activan.
+- Utiliza `break` cuando necesites salir de un bucle basado en una condición específica para evitar iteraciones innecesarias.
+- Si estás usando bucles anidados, especifica el número de niveles que deseas romper para un control más preciso.
+- Recuerda que el uso excesivo de `break` puede dificultar la lectura del código; asegúrate de que su uso sea claro y justificado.

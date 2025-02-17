@@ -1,37 +1,44 @@
-# [리눅스] Bash hash 사용법
+# [Linux] Bash hash Kullanımı: Komutların yolunu görüntüleme ve yönetme
 
 ## Genel Bakış
-`hash` komutu, Bash kabuğunda kullanılan bir komuttur ve komutların yolunu önbelleğe alarak, daha hızlı erişim sağlar. Komutlar çalıştırıldığında, Bash bu komutların tam yollarını kaydeder. Böylece, aynı komut tekrar çalıştırıldığında, Bash önbellekten bu yolu alarak daha hızlı bir şekilde çalıştırabilir. Bu, özellikle sık kullanılan komutlar için performansı artırır.
+`hash` komutu, Bash kabuğunda kullanılan bir komuttur. Bu komut, daha önce çalıştırılmış komutların dosya yollarını saklar ve hızlı erişim sağlar. Böylece, komutları tekrar tekrar yazmadan hızlı bir şekilde çalıştırabilirsiniz.
 
 ## Kullanım
-Temel sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-hash [seçenekler] [komutlar]
+hash [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-r`: Tüm önbelleği temizler. Bu seçenek kullanıldığında, önbellekteki tüm komut yolları silinir ve bir sonraki komut çalıştırıldığında, yollar yeniden kaydedilir.
-- `-l`: Mevcut önbellekteki tüm komutların listesini gösterir.
+## Yaygın Seçenekler
+- `-r`: Tüm önbelleği temizler ve komutların yollarını sıfırlar.
+- `-p`: Belirtilen bir komutun yolunu belirler ve onu önbelleğe alır.
+- `-l`: Önceden kaydedilmiş komutların yollarını listeler.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `hash` komutunun bazı pratik kullanımları bulunmaktadır:
 
-### Örnek 1: Mevcut önbelleği görüntüleme
-Aşağıdaki komut, mevcut önbellekteki tüm komutların yollarını listeleyecektir:
+1. **Tüm komutların yollarını listeleme:**
+   ```bash
+   hash
+   ```
 
-```bash
-hash -l
-```
+2. **Belirli bir komutun yolunu öğrenme:**
+   ```bash
+   hash ls
+   ```
 
-### Örnek 2: Önbelleği temizleme
-Eğer önbelleği temizlemek isterseniz, şu komutu kullanabilirsiniz:
+3. **Önbelleği temizleme:**
+   ```bash
+   hash -r
+   ```
 
-```bash
-hash -r
-```
-
-Bu komut, tüm önbelleği sıfırlayarak, bir sonraki komut çalıştırıldığında yolların yeniden kaydedilmesini sağlar.
+4. **Belirli bir komutun yolunu belirleyip önbelleğe alma:**
+   ```bash
+   hash -p /usr/bin/python3 python
+   ```
 
 ## İpuçları
-- `hash` komutunu sık kullandığınız komutların performansını artırmak için kullanabilirsiniz. Özellikle, uzun ve karmaşık yolları olan komutlar için bu önbellekleme işlemi faydalı olacaktır.
-- Eğer bir komutun yolunu değiştirdiyseniz veya yeni bir komut eklediyseniz, `hash -r` komutunu kullanarak önbelleği güncelleyebilirsiniz. Bu, eski yol bilgilerini temizler ve yeni bilgilerin kaydedilmesini sağlar.
+- `hash` komutunu sıkça kullandığınız komutlar için kullanarak, sisteminizdeki performansı artırabilirsiniz.
+- Önbelleği temizlemek, yeni yüklenen veya güncellenen komutların doğru yollarını almanızı sağlar.
+- Komutların yollarını kontrol etmek, hangi sürümün çalıştığını anlamanıza yardımcı olabilir.

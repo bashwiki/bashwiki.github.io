@@ -1,43 +1,58 @@
-# [리눅스] Bash netstat 사용법
+# [Linux] Bash netstat Verwendung: Netzwerkverbindungen anzeigen
 
 ## Übersicht
-Der Befehl `netstat` (Network Statistics) ist ein nützliches Tool in der Bash, das Netzwerkverbindungen, Routing-Tabellen, Schnittstellenstatistiken und andere Netzwerkinformationen anzeigt. Er wird häufig von Ingenieuren und Entwicklern verwendet, um den Status von Netzwerkverbindungen zu überwachen und Probleme zu diagnostizieren.
+Der Befehl `netstat` wird verwendet, um Netzwerkverbindungen, Routing-Tabellen, Schnittstellenstatistiken und andere Netzwerkinformationen anzuzeigen. Er ist ein nützliches Werkzeug zur Diagnose von Netzwerkproblemen und zur Überwachung von Verbindungen auf einem System.
 
 ## Verwendung
 Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-netstat [Optionen]
+netstat [Optionen] [Argumente]
 ```
 
-Einige gängige Optionen sind:
-
+## Häufige Optionen
 - `-a`: Zeigt alle Verbindungen und Listening-Ports an.
 - `-t`: Zeigt nur TCP-Verbindungen an.
 - `-u`: Zeigt nur UDP-Verbindungen an.
-- `-n`: Zeigt Adressen und Portnummern numerisch an, anstatt sie aufzulösen.
-- `-l`: Zeigt nur die Ports an, die auf eingehende Verbindungen warten.
+- `-n`: Zeigt IP-Adressen und Portnummern numerisch an, anstatt sie in Namen aufzulösen.
+- `-l`: Zeigt nur die Listening-Ports an.
+- `-p`: Zeigt die PID und den Namen des Prozesses, der die Verbindung hält.
 
-## Beispiele
-Hier sind einige praktische Beispiele zur Verwendung des Befehls `netstat`:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung von `netstat`:
 
-1. **Alle aktiven Verbindungen anzeigen**:
+1. **Alle aktiven Verbindungen anzeigen:**
    ```bash
    netstat -a
    ```
-   Dieser Befehl zeigt alle aktiven Netzwerkverbindungen sowie die Ports, die auf eingehende Verbindungen warten.
 
-2. **Nur TCP-Verbindungen anzeigen**:
+2. **Nur TCP-Verbindungen anzeigen:**
    ```bash
-   netstat -t -n
+   netstat -t
    ```
-   Mit diesem Befehl werden nur die aktiven TCP-Verbindungen angezeigt, wobei die Adressen und Portnummern numerisch dargestellt werden.
+
+3. **Nur Listening-Ports anzeigen:**
+   ```bash
+   netstat -l
+   ```
+
+4. **Verbindungen mit numerischen Adressen anzeigen:**
+   ```bash
+   netstat -n
+   ```
+
+5. **Verbindungen mit Prozessinformationen anzeigen:**
+   ```bash
+   netstat -p
+   ```
 
 ## Tipps
-- Verwenden Sie die Option `-p`, um den Prozess anzuzeigen, der die Verbindung hält. Dies kann hilfreich sein, um herauszufinden, welche Anwendung eine bestimmte Verbindung verwendet.
-- Kombinieren Sie `netstat` mit `grep`, um nach bestimmten Verbindungen oder Ports zu filtern. Zum Beispiel:
+- Verwenden Sie `netstat` zusammen mit `grep`, um gezielt nach bestimmten Verbindungen oder Ports zu suchen. Beispiel:
   ```bash
   netstat -tuln | grep 80
   ```
-  Dieser Befehl zeigt alle Verbindungen auf Port 80 an.
-- Beachten Sie, dass `netstat` in einigen modernen Linux-Distributionen durch `ss` ersetzt wird, das ähnliche, aber erweiterte Funktionen bietet.
+- Kombinieren Sie Optionen, um spezifischere Informationen zu erhalten. Zum Beispiel:
+  ```bash
+  netstat -tulnp
+  ```
+- Beachten Sie, dass `netstat` in einigen modernen Linux-Distributionen durch `ss` ersetzt wurde, das ähnliche Funktionen bietet, aber schneller und effizienter ist.

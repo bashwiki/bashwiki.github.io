@@ -1,46 +1,59 @@
-# [리눅스] Bash svn 사용법
+# [Linux] Bash svn Utilisation : Gestion de versions de fichiers
 
 ## Overview
-La commande `svn` (Subversion) est un système de contrôle de version open-source qui permet de gérer des fichiers et des répertoires, ainsi que les modifications apportées à ces fichiers au fil du temps. Son objectif principal est de faciliter la collaboration entre plusieurs développeurs en permettant le suivi des modifications, la gestion des versions et la restauration des versions antérieures des fichiers.
+La commande `svn` (Subversion) est un système de contrôle de version qui permet de gérer les modifications apportées à des fichiers et des répertoires au fil du temps. Elle est largement utilisée pour le développement de logiciels, permettant aux utilisateurs de suivre les modifications, de collaborer et de revenir à des versions antérieures si nécessaire.
 
 ## Usage
 La syntaxe de base de la commande `svn` est la suivante :
 
-```
-svn [options] commande [arguments]
+```bash
+svn [options] [arguments]
 ```
 
-### Options courantes :
-- `checkout` : Récupère un projet depuis un dépôt et crée une copie locale.
+## Common Options
+Voici quelques options courantes de la commande `svn` :
+
+- `checkout` : Récupère une copie locale d'un dépôt.
 - `commit` : Envoie les modifications locales au dépôt.
 - `update` : Met à jour la copie locale avec les dernières modifications du dépôt.
-- `add` : Ajoute un nouveau fichier ou répertoire à la copie de travail.
-- `delete` : Supprime un fichier ou répertoire de la copie de travail.
-- `status` : Affiche l'état des fichiers dans la copie de travail.
+- `add` : Ajoute un nouveau fichier ou répertoire au contrôle de version.
+- `delete` : Supprime un fichier ou répertoire du contrôle de version.
+- `status` : Affiche l'état des fichiers dans la copie locale.
 
-## Examples
-### Exemple 1 : Récupérer un projet depuis un dépôt
-Pour récupérer un projet depuis un dépôt Subversion, utilisez la commande `checkout` :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `svn` :
 
+### Récupérer une copie du dépôt
 ```bash
-svn checkout https://example.com/svn/mon_projet
+svn checkout https://example.com/svn/repo
 ```
 
-Cette commande crée une copie locale du projet à l'emplacement spécifié.
-
-### Exemple 2 : Envoyer des modifications au dépôt
-Après avoir modifié des fichiers dans votre copie locale, vous pouvez envoyer ces modifications au dépôt avec la commande `commit` :
-
+### Enregistrer des modifications
 ```bash
-svn commit -m "Ajout d'une nouvelle fonctionnalité"
+svn commit -m "Message de commit décrivant les modifications"
 ```
 
-L'option `-m` permet d'ajouter un message de commit décrivant les modifications.
+### Mettre à jour la copie locale
+```bash
+svn update
+```
+
+### Ajouter un nouveau fichier
+```bash
+svn add nouveau_fichier.txt
+```
+
+### Supprimer un fichier
+```bash
+svn delete ancien_fichier.txt
+```
+
+### Vérifier l'état des fichiers
+```bash
+svn status
+```
 
 ## Tips
-- **Utilisez des messages de commit clairs** : Lorsque vous utilisez la commande `commit`, assurez-vous d'écrire des messages de commit descriptifs pour faciliter la compréhension des modifications apportées.
-- **Mettez à jour régulièrement** : Avant de commencer à travailler sur un projet, utilisez `svn update` pour vous assurer que votre copie locale est à jour avec les dernières modifications du dépôt.
-- **Vérifiez l'état de votre copie de travail** : Utilisez `svn status` pour voir quels fichiers ont été modifiés, ajoutés ou supprimés avant de faire un commit.
-- **Sauvegardez vos modifications** : Avant de faire des modifications majeures, envisagez de créer une branche pour éviter d'affecter la version principale du projet.
-
-En suivant ces conseils, vous pourrez utiliser la commande `svn` de manière efficace pour gérer vos projets de développement.
+- Toujours ajouter un message descriptif lors de l'utilisation de `commit` pour faciliter le suivi des modifications.
+- Utilisez `svn update` régulièrement pour vous assurer que votre copie locale est à jour avec le dépôt.
+- Avant de supprimer des fichiers, vérifiez leur état avec `svn status` pour éviter de perdre des données importantes.

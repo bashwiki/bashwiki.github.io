@@ -1,34 +1,44 @@
-# [리눅스] Bash time 사용법
+# [Linux] Bash time uso: Mide el tiempo de ejecución de comandos
 
 ## Overview
-El comando `time` en Bash se utiliza para medir el tiempo que tarda en ejecutarse un comando o un script. Su propósito principal es proporcionar información sobre el tiempo de ejecución, incluyendo el tiempo real, el tiempo de CPU en modo usuario y el tiempo de CPU en modo sistema. Esta información es útil para optimizar el rendimiento de scripts y programas, permitiendo a los desarrolladores identificar cuellos de botella en el tiempo de ejecución.
+El comando `time` en Bash se utiliza para medir el tiempo que tarda en ejecutarse un comando específico. Proporciona información sobre el tiempo real, el tiempo de CPU y el tiempo de sistema, lo que puede ser útil para optimizar scripts y procesos.
 
 ## Usage
 La sintaxis básica del comando `time` es la siguiente:
 
 ```bash
-time [opciones] comando [argumentos]
+time [opciones] [argumentos]
 ```
 
-### Opciones Comunes
-- `-p`: Muestra el tiempo en un formato POSIX. Este formato es más legible y estandarizado.
-- `-o archivo`: Redirige la salida del tiempo a un archivo en lugar de mostrarla en la consola.
-- `-v`: Muestra información detallada sobre el uso de recursos del comando ejecutado.
+## Common Options
+- `-p`: Muestra el tiempo en un formato más legible.
+- `-o archivo`: Guarda la salida del tiempo en un archivo especificado.
+- `-v`: Muestra información detallada sobre el tiempo de ejecución.
 
-## Examples
-### Ejemplo 1: Medir el tiempo de ejecución de un comando simple
-```bash
-time ls -l
-```
-Este comando medirá cuánto tiempo tarda en listar los archivos en el directorio actual con detalles.
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `time`:
 
-### Ejemplo 2: Guardar la salida en un archivo
-```bash
-time -o tiempo.txt sleep 5
-```
-Este comando ejecuta `sleep 5`, que pausa la ejecución durante 5 segundos, y guarda el tiempo de ejecución en un archivo llamado `tiempo.txt`.
+1. Medir el tiempo de ejecución de un comando simple:
+   ```bash
+   time ls -l
+   ```
+
+2. Guardar la salida del tiempo en un archivo:
+   ```bash
+   time -o tiempo.txt sleep 2
+   ```
+
+3. Usar la opción de formato legible:
+   ```bash
+   time -p sleep 3
+   ```
+
+4. Obtener información detallada sobre el tiempo de ejecución:
+   ```bash
+   time -v find / -name "*.txt"
+   ```
 
 ## Tips
-- Utiliza el comando `time` para comparar el rendimiento de diferentes implementaciones de un script o programa.
-- Para scripts más largos, considera usar `time` con la opción `-v` para obtener un análisis más detallado del uso de recursos.
-- Recuerda que el tiempo medido incluye el tiempo de espera, así que ten en cuenta esto al analizar los resultados.
+- Utiliza `time` para identificar cuellos de botella en tus scripts y optimizar su rendimiento.
+- Recuerda que el tiempo de ejecución puede variar según la carga del sistema y otros procesos en ejecución.
+- Experimenta con diferentes opciones para obtener la información que mejor se adapte a tus necesidades.

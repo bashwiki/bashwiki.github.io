@@ -1,49 +1,56 @@
-# [리눅스] Bash fdisk 사용법
+# [Linux] Bash fdisk Verwendung: Partitionierung von Festplatten
 
 ## Übersicht
-Der Befehl `fdisk` ist ein leistungsstarkes Tool zur Partitionierung von Festplatten unter Linux. Es ermöglicht Benutzern, Partitionen auf Festplatten zu erstellen, zu löschen und zu verwalten. `fdisk` unterstützt hauptsächlich MBR (Master Boot Record) Partitionstabellen, ist jedoch auch in der Lage, GPT (GUID Partition Table) Partitionen zu verwalten, wenn die richtige Option verwendet wird.
+Der `fdisk`-Befehl ist ein leistungsstarkes Tool zur Partitionierung von Festplatten unter Linux. Mit `fdisk` können Benutzer Partitionen erstellen, löschen und verwalten, um den Speicherplatz auf ihren Laufwerken effizient zu nutzen.
 
 ## Verwendung
 Die grundlegende Syntax des `fdisk`-Befehls lautet:
 
 ```bash
-fdisk [OPTIONEN] [GERÄT]
+fdisk [Optionen] [Gerät]
 ```
 
-Hierbei ist `[GERÄT]` das zu bearbeitende Blockgerät, z. B. `/dev/sda`. Einige häufig verwendete Optionen sind:
-
-- `-l`: Listet alle Partitionen auf den verfügbaren Festplatten auf.
-- `-u`: Zeigt die Größe der Partitionen in Sektoren an, anstatt in Blöcken.
+## Häufige Optionen
+- `-l`: Listet alle Partitionen auf allen Festplatten auf.
+- `-u`: Verwendet Sektoren anstelle von Zylindern zur Anzeige der Partitionierung.
 - `-n`: Erstellt eine neue Partition.
 - `-d`: Löscht eine bestehende Partition.
-- `-t`: Ändert den Partitionstyp.
+- `-t`: Ändert den Typ einer Partition.
 
-## Beispiele
-### Beispiel 1: Auflisten der Partitionen
-Um alle Partitionen auf der Festplatte `/dev/sda` aufzulisten, verwenden Sie den folgenden Befehl:
+## Häufige Beispiele
+
+### 1. Auflisten der Partitionen
+Um alle Partitionen auf dem System anzuzeigen, verwenden Sie:
 
 ```bash
-fdisk -l /dev/sda
+fdisk -l
 ```
 
-Dieser Befehl zeigt eine Übersicht über alle Partitionen, deren Größe und Typ auf der angegebenen Festplatte.
-
-### Beispiel 2: Erstellen einer neuen Partition
-Um eine neue Partition auf der Festplatte `/dev/sda` zu erstellen, führen Sie `fdisk` ohne Optionen aus:
+### 2. Neue Partition erstellen
+Um eine neue Partition auf `/dev/sda` zu erstellen, starten Sie `fdisk` mit dem Gerät:
 
 ```bash
 fdisk /dev/sda
 ```
+Dann folgen Sie den Anweisungen, um eine neue Partition zu erstellen.
 
-Sie gelangen in die interaktive `fdisk`-Sitzung. Verwenden Sie die folgenden Schritte:
-1. Geben Sie `n` ein, um eine neue Partition zu erstellen.
-2. Wählen Sie den Partitionstyp (primär oder logisch).
-3. Geben Sie die Start- und Endsektoren oder die Größe der Partition an.
-4. Speichern Sie die Änderungen mit `w`.
+### 3. Partition löschen
+Um eine Partition zu löschen, starten Sie `fdisk` und wählen Sie die entsprechende Partition aus:
+
+```bash
+fdisk /dev/sda
+```
+Geben Sie dann den Befehl `d` ein, um die Partition zu löschen.
+
+### 4. Partitionstyp ändern
+Um den Typ einer Partition zu ändern, verwenden Sie:
+
+```bash
+fdisk /dev/sda
+```
+Geben Sie dann den Befehl `t` ein und wählen Sie die Partition sowie den neuen Typ aus.
 
 ## Tipps
-- **Sichern Sie Ihre Daten**: Vor der Verwendung von `fdisk` sollten Sie immer ein Backup Ihrer wichtigen Daten erstellen, da Partitionierungsänderungen zu Datenverlust führen können.
-- **Verwenden Sie `parted` für GPT**: Wenn Sie mit GPT-Partitionen arbeiten, ziehen Sie in Betracht, das Tool `parted` zu verwenden, da es eine bessere Unterstützung für GPT bietet.
-- **Vorsicht bei der Auswahl des Geräts**: Stellen Sie sicher, dass Sie das richtige Gerät auswählen, um versehentliche Änderungen an der falschen Festplatte zu vermeiden.
-
-Mit diesen Informationen sind Sie gut gerüstet, um den `fdisk`-Befehl effektiv zu nutzen und Ihre Festplattenpartitionen zu verwalten.
+- Stellen Sie sicher, dass Sie ein Backup Ihrer Daten haben, bevor Sie Partitionen ändern oder löschen.
+- Verwenden Sie `fdisk` mit Bedacht, da falsche Befehle zu Datenverlust führen können.
+- Überprüfen Sie nach Änderungen die Partitionstabelle mit `fdisk -l`, um sicherzustellen, dass alles korrekt ist.

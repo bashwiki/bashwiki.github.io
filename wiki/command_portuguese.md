@@ -1,35 +1,44 @@
-# [리눅스] Bash command 사용법
+# [Linux] Bash command uso: [executar comandos em segundo plano]
 
 ## Overview
-O comando `command` no Bash é utilizado para executar um comando, ignorando qualquer função ou alias que tenha o mesmo nome. Isso é útil quando você deseja garantir que está chamando o comando original do sistema, em vez de uma versão personalizada ou redefinida.
+O comando `nohup` é utilizado para executar processos em segundo plano, permitindo que eles continuem rodando mesmo após o usuário sair da sessão. Isso é especialmente útil para longas tarefas que não precisam de interação contínua.
 
 ## Usage
-A sintaxe básica do comando é a seguinte:
+A sintaxe básica do comando `nohup` é a seguinte:
 
 ```bash
-command [opções] comando [argumentos]
+nohup comando [opções] [argumentos] &
 ```
 
-### Opções Comuns
-- `-v`: Mostra a versão do comando, se disponível.
-- `-p`: Ignora funções e aliases e procura o comando no caminho padrão do sistema.
+## Common Options
+- `&`: Coloca o comando em segundo plano.
+- `-p`: Permite que você especifique um PID (Process ID) para o comando.
+- `-n`: Ignora a saída padrão, redirecionando-a para `/dev/null`.
 
-## Examples
-### Exemplo 1: Executar um comando ignorando funções
-Se você tiver uma função chamada `ls` definida em seu ambiente, mas deseja usar o comando `ls` original, você pode fazer o seguinte:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `nohup`:
 
-```bash
-command ls -l
-```
+1. Executar um script em segundo plano:
+   ```bash
+   nohup ./meu_script.sh &
+   ```
 
-### Exemplo 2: Usar o comando com a opção `-p`
-Para garantir que você está chamando o comando `grep` do caminho padrão do sistema, você pode usar:
+2. Rodar um comando de backup sem se preocupar com a sessão:
+   ```bash
+   nohup tar -czf backup.tar.gz /pasta/para/backup &
+   ```
 
-```bash
-command -p grep "texto" arquivo.txt
-```
+3. Executar um servidor web em segundo plano:
+   ```bash
+   nohup python -m http.server 8000 &
+   ```
+
+4. Executar um comando e redirecionar a saída para um arquivo:
+   ```bash
+   nohup long_running_command > output.log &
+   ```
 
 ## Tips
-- Utilize o `command` quando houver conflitos entre comandos e funções ou aliases que você definiu.
-- É uma boa prática verificar se um comando está sendo ofuscado por uma função ou alias, especialmente em scripts, para evitar comportamentos inesperados.
-- Combine o `command` com outras ferramentas de linha de comando para garantir que você está utilizando a versão correta dos comandos em scripts complexos.
+- Sempre use `&` ao final do comando para garantir que ele seja executado em segundo plano.
+- Verifique o arquivo `nohup.out` para mensagens de saída e erros, caso não tenha redirecionado a saída.
+- Utilize `jobs` para listar os processos em segundo plano e `fg` para trazê-los de volta para o primeiro plano, se necessário.

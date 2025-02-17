@@ -1,38 +1,42 @@
-# [리눅스] Bash renice 사용법
+# [Linux] Bash renice Kullanımı: Süreç önceliğini değiştirme
 
 ## Overview
-`renice` komutu, çalışan bir işlemin önceliğini değiştirmek için kullanılır. İşletim sistemi, işlem önceliğine göre kaynakları tahsis eder; bu nedenle, bir işlemin önceliğini artırmak veya azaltmak, sistem performansını etkileyebilir. `renice`, özellikle yüksek öncelikli işlemlerin daha fazla CPU zamanı almasını sağlamak veya düşük öncelikli işlemleri yavaşlatmak için yararlıdır.
+`renice` komutu, çalışan bir sürecin önceliğini değiştirmek için kullanılır. Bu komut, sistem kaynaklarını daha verimli kullanmak ve belirli süreçlerin performansını artırmak amacıyla öncelik seviyelerini ayarlamak için idealdir.
 
 ## Usage
-`renice` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-renice [yeni öncelik] -p [işlem ID'si]
+renice [options] [arguments]
 ```
 
-### Yaygın Seçenekler:
-- `-p`: Belirtilen işlem ID'sine (PID) sahip işlemin önceliğini değiştirir.
-- `-g`: Belirtilen grup ID'sine (GID) sahip işlemlerin önceliğini değiştirir.
-- `-u`: Belirtilen kullanıcıya ait işlemlerin önceliğini değiştirir.
+## Common Options
+- `-n`, `--priority`: Yeni öncelik seviyesini belirtir. Bu değer -20 (en yüksek öncelik) ile 19 (en düşük öncelik) arasında olmalıdır.
+- `-p`, `--pid`: Önceliği değiştirilecek sürecin PID'sini belirtir.
+- `-g`, `--pgroup`: Bir süreç grubunun önceliğini değiştirmek için kullanılır.
+- `-u`, `--user`: Belirli bir kullanıcıya ait süreçlerin önceliğini değiştirir.
 
-Öncelik değeri, -20 (en yüksek öncelik) ile 19 (en düşük öncelik) arasında bir tam sayı olmalıdır.
+## Common Examples
+Aşağıda `renice` komutunun bazı pratik örnekleri verilmiştir:
 
-## Examples
-### Örnek 1: Bir İşlemin Önceliğini Artırma
-Aşağıdaki komut, PID'si 1234 olan işlemin önceliğini 10 olarak ayarlayacaktır:
+1. Belirli bir sürecin önceliğini artırmak:
+   ```bash
+   renice -n -5 -p 1234
+   ```
+   Bu komut, PID'si 1234 olan sürecin önceliğini -5 olarak ayarlar.
 
-```bash
-renice 10 -p 1234
-```
+2. Bir süreç grubunun önceliğini değiştirmek:
+   ```bash
+   renice -n 10 -g 5678
+   ```
+   Bu komut, PID'si 5678 olan süreç grubunun önceliğini 10 olarak ayarlar.
 
-### Örnek 2: Belirli Bir Kullanıcıya Ait Tüm İşlemlerin Önceliğini Düşürme
-Aşağıdaki komut, "kullanici_adi" adlı kullanıcının tüm işlemlerinin önceliğini 5 olarak ayarlayacaktır:
-
-```bash
-renice 5 -u kullanici_adi
-```
+3. Belirli bir kullanıcıya ait tüm süreçlerin önceliğini düşürmek:
+   ```bash
+   renice -n 15 -u kullanıcı_adı
+   ```
+   Bu komut, "kullanıcı_adı"na ait tüm süreçlerin önceliğini 15 olarak ayarlar.
 
 ## Tips
-- İşlem önceliğini değiştirirken dikkatli olun; yüksek öncelikli işlemler, sistemin diğer işlemler için yeterli kaynak bulmasını zorlaştırabilir.
-- `renice` komutunu çalıştırmak için genellikle root yetkilerine ihtiyaç duyulur, bu nedenle `sudo` kullanmayı unutmayın.
-- İşlem önceliğini değiştirmeden önce, mevcut öncelikleri görmek için `ps` veya `top` komutlarını kullanabilirsiniz. Bu, hangi işlemlerin önceliğini değiştireceğinizi belirlemenize yardımcı olur.
+- Öncelik seviyelerini değiştirirken dikkatli olun; yüksek öncelikler sistem kaynaklarını daha fazla tüketebilir.
+- Süreçlerin önceliklerini değiştirmeden önce, hangi süreçlerin kritik olduğunu değerlendirin.
+- `renice` komutunu kullanmadan önce, sürecin mevcut önceliğini kontrol etmek için `ps` veya `top` komutlarını kullanabilirsiniz.

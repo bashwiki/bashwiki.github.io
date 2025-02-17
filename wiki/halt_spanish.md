@@ -1,40 +1,45 @@
-# [리눅스] Bash halt 사용법
+# [Linux] Bash halt uso: Detener el sistema de manera segura
 
 ## Overview
-El comando `halt` se utiliza en sistemas operativos basados en Unix para detener el sistema de manera controlada. Su propósito principal es finalizar todos los procesos en ejecución y apagar el sistema de forma segura. Este comando es especialmente útil para administradores de sistemas que necesitan realizar un apagado inmediato o programado del sistema.
+El comando `halt` se utiliza en sistemas Unix y Linux para detener el sistema de manera segura. Este comando apaga el sistema de forma controlada, asegurando que todos los procesos se cierren adecuadamente antes de que la máquina se apague.
 
 ## Usage
 La sintaxis básica del comando `halt` es la siguiente:
 
-```bash
-halt [opciones]
+```
+halt [opciones] [argumentos]
 ```
 
-### Opciones comunes:
-- `-p`: Apaga el sistema y corta la alimentación (en sistemas que lo soportan).
-- `-f`: Fuerza el apagado del sistema sin enviar señales a los procesos en ejecución.
-- `--help`: Muestra la ayuda sobre el uso del comando.
+## Common Options
+Aquí hay algunas opciones comunes que se pueden usar con el comando `halt`:
 
-## Examples
-### Ejemplo 1: Apagar el sistema de forma controlada
-Para detener el sistema de manera segura, simplemente puedes ejecutar:
+- `-p`: Apagar el sistema y encenderlo de nuevo.
+- `-h`: Detener el sistema sin reiniciarlo.
+- `-f`: Forzar el apagado del sistema sin realizar un cierre limpio.
 
-```bash
-sudo halt
-```
+## Common Examples
 
-Este comando finalizará todos los procesos y apagará el sistema.
+1. **Apagar el sistema de manera segura:**
+   ```bash
+   halt
+   ```
 
-### Ejemplo 2: Forzar el apagado
-Si necesitas forzar el apagado sin esperar a que los procesos terminen, puedes usar la opción `-f`:
+2. **Apagar el sistema sin reiniciar:**
+   ```bash
+   halt -h
+   ```
 
-```bash
-sudo halt -f
-```
+3. **Forzar el apagado del sistema:**
+   ```bash
+   halt -f
+   ```
 
-Este comando forzará el apagado inmediato del sistema.
+4. **Apagar el sistema y encenderlo de nuevo:**
+   ```bash
+   halt -p
+   ```
 
 ## Tips
-- **Uso con precaución**: Utiliza el comando `halt` con cuidado, especialmente con la opción `-f`, ya que puede provocar la pérdida de datos si hay procesos en ejecución que no se cierran correctamente.
-- **Alternativas**: Considera usar el comando `shutdown` si deseas programar un apagado o enviar advertencias a los usuarios antes de que el sistema se apague.
-- **Permisos**: Asegúrate de tener los permisos adecuados (normalmente se requiere acceso de superusuario) para ejecutar el comando `halt`.
+- Asegúrate de guardar todo tu trabajo antes de ejecutar el comando `halt`, ya que cerrará todos los procesos en ejecución.
+- Utiliza `halt` con privilegios de superusuario (por ejemplo, usando `sudo`) para asegurarte de que el comando se ejecute correctamente.
+- Considera usar `shutdown` si deseas programar un apagado o enviar un mensaje a otros usuarios antes de que el sistema se apague.

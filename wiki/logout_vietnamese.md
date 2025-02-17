@@ -1,43 +1,41 @@
-# [리눅스] Bash logout 사용법
+# [Linux] Bash logout <Sử dụng tương đương>: Đăng xuất khỏi phiên làm việc
 
-## Tổng quan
-Lệnh `logout` trong Bash được sử dụng để thoát khỏi một phiên làm việc của shell. Lệnh này thường được sử dụng trong các phiên shell tương tác, đặc biệt là khi bạn đang làm việc trong một terminal hoặc một phiên SSH. Mục đích chính của lệnh này là để kết thúc phiên làm việc hiện tại và trả lại quyền kiểm soát cho hệ thống hoặc máy chủ.
+## Overview
+Lệnh `logout` trong Bash được sử dụng để kết thúc một phiên làm việc của người dùng trong terminal. Khi bạn thực hiện lệnh này, nó sẽ đóng cửa sổ terminal hoặc đăng xuất khỏi phiên SSH, giúp giải phóng tài nguyên hệ thống.
 
-## Cú pháp
-Cú pháp cơ bản của lệnh `logout` rất đơn giản:
-
-```bash
-logout
+## Usage
+Cú pháp cơ bản của lệnh `logout` như sau:
+```
+logout [options]
 ```
 
-Lệnh này không có các tùy chọn đi kèm. Khi được thực thi, nó sẽ kết thúc phiên làm việc của shell hiện tại.
+## Common Options
+Lệnh `logout` không có nhiều tùy chọn, nhưng dưới đây là một số thông tin hữu ích:
+- Không có tùy chọn: Lệnh `logout` thường được sử dụng mà không cần thêm tùy chọn nào.
 
-## Ví dụ
-Dưới đây là một số ví dụ về cách sử dụng lệnh `logout`:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `logout`:
 
-### Ví dụ 1: Thoát khỏi phiên shell
-Khi bạn đang làm việc trong một terminal và muốn thoát khỏi phiên shell, bạn chỉ cần gõ:
+1. **Đăng xuất khỏi phiên terminal:**
+   ```bash
+   logout
+   ```
 
-```bash
-logout
-```
+2. **Đăng xuất khỏi phiên SSH:**
+   ```bash
+   ssh user@hostname
+   # Sau khi hoàn tất công việc, bạn có thể đăng xuất bằng cách:
+   logout
+   ```
 
-Sau khi thực hiện lệnh này, bạn sẽ được đưa trở lại màn hình đăng nhập hoặc terminal trước đó.
+3. **Khi bạn đang trong một shell con:**
+   ```bash
+   bash
+   # Thực hiện một số lệnh
+   logout
+   ```
 
-### Ví dụ 2: Thoát khỏi phiên SSH
-Nếu bạn đang kết nối đến một máy chủ từ xa qua SSH và muốn kết thúc phiên làm việc của mình, bạn cũng có thể sử dụng lệnh `logout`:
-
-```bash
-ssh user@remote-server
-# Sau khi hoàn tất công việc
-logout
-```
-
-Lệnh này sẽ kết thúc phiên SSH và đưa bạn trở lại máy tính của bạn.
-
-## Mẹo
-- **Sử dụng lệnh `exit`**: Trong nhiều trường hợp, bạn có thể sử dụng lệnh `exit` thay cho `logout` để thoát khỏi phiên shell. Tuy nhiên, `logout` là lựa chọn tốt hơn khi bạn đang làm việc trong một phiên shell đăng nhập.
-- **Kiểm tra trước khi thoát**: Trước khi sử dụng lệnh `logout`, hãy chắc chắn rằng bạn đã lưu tất cả công việc của mình và không có tiến trình quan trọng nào đang chạy trong phiên shell.
-- **Sử dụng trong script**: Lệnh `logout` không nên được sử dụng trong các script tự động, vì nó sẽ kết thúc toàn bộ phiên shell, có thể gây ra lỗi hoặc dừng quá trình thực thi của script.
-
-Hy vọng rằng bài viết này sẽ giúp bạn hiểu rõ hơn về cách sử dụng lệnh `logout` trong Bash!
+## Tips
+- Hãy chắc chắn rằng bạn đã lưu tất cả công việc của mình trước khi thực hiện lệnh `logout`, vì lệnh này sẽ đóng phiên làm việc và không thể hoàn tác.
+- Nếu bạn đang sử dụng nhiều tab hoặc cửa sổ terminal, hãy kiểm tra xem bạn có muốn đăng xuất tất cả hay chỉ một phiên làm việc cụ thể.
+- Sử dụng lệnh `exit` cũng có thể đạt được hiệu ứng tương tự trong nhiều trường hợp.

@@ -1,54 +1,48 @@
-# [리눅스] Bash lsof 사용법
+# [Linux] Bash lsof Cách sử dụng: Liệt kê các tệp đang mở
 
-## Tổng quan
-Lệnh `lsof` (List Open Files) trong Bash được sử dụng để liệt kê tất cả các tệp đang mở trên hệ thống. Tệp ở đây không chỉ bao gồm các tệp tin thông thường mà còn bao gồm các socket, pipe, và thiết bị. Lệnh này rất hữu ích cho các kỹ sư và lập trình viên khi cần theo dõi các tệp mà một tiến trình đang sử dụng, từ đó giúp xác định các vấn đề liên quan đến hiệu suất hoặc xung đột tài nguyên.
+## Overview
+Lệnh `lsof` (List Open Files) được sử dụng để liệt kê tất cả các tệp đang mở trên hệ thống. Nó cung cấp thông tin về các tiến trình đang sử dụng tệp, giúp người dùng theo dõi và quản lý tài nguyên hệ thống hiệu quả hơn.
 
-## Cách sử dụng
-Cú pháp cơ bản của lệnh `lsof` như sau:
-
-```bash
-lsof [tùy chọn] [tên tệp hoặc tiến trình]
+## Usage
+Cú pháp cơ bản của lệnh lsof như sau:
+```
+lsof [options] [arguments]
 ```
 
-Một số tùy chọn phổ biến của lệnh `lsof` bao gồm:
+## Common Options
 - `-i`: Hiển thị các tệp mạng đang mở.
-- `-u [tên người dùng]`: Liệt kê các tệp mở bởi một người dùng cụ thể.
-- `-p [PID]`: Hiển thị các tệp mở bởi một tiến trình cụ thể (PID).
-- `+D [thư mục]`: Liệt kê tất cả các tệp mở trong một thư mục cụ thể.
+- `-u`: Liệt kê các tệp mở bởi một người dùng cụ thể.
+- `-p`: Hiển thị các tệp mở bởi một tiến trình cụ thể.
+- `+D`: Liệt kê tất cả các tệp mở trong một thư mục cụ thể.
+- `-t`: Chỉ hiển thị ID của tiến trình (PID) mà không có thông tin chi tiết.
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `lsof`:
+## Common Examples
+- Liệt kê tất cả các tệp đang mở:
+  ```bash
+  lsof
+  ```
 
-1. Để liệt kê tất cả các tệp đang mở trên hệ thống, bạn chỉ cần chạy:
+- Liệt kê các tệp mở bởi một người dùng cụ thể:
+  ```bash
+  lsof -u username
+  ```
 
-   ```bash
-   lsof
-   ```
+- Hiển thị các tệp mạng đang mở:
+  ```bash
+  lsof -i
+  ```
 
-2. Để xem các tệp mở bởi một tiến trình cụ thể (ví dụ PID là 1234):
+- Liệt kê các tệp mở bởi một tiến trình cụ thể:
+  ```bash
+  lsof -p 1234
+  ```
 
-   ```bash
-   lsof -p 1234
-   ```
+- Liệt kê tất cả các tệp mở trong một thư mục:
+  ```bash
+  lsof +D /path/to/directory
+  ```
 
-3. Để liệt kê tất cả các kết nối mạng đang mở:
-
-   ```bash
-   lsof -i
-   ```
-
-## Mẹo
-- Sử dụng `lsof` với quyền root (bằng cách thêm `sudo`) có thể cung cấp thông tin chi tiết hơn về các tệp đang mở, đặc biệt là các tệp mà người dùng bình thường không có quyền truy cập.
-- Kết hợp `lsof` với các lệnh khác như `grep` để lọc kết quả theo nhu cầu cụ thể. Ví dụ, để tìm các tệp mở bởi một người dùng cụ thể, bạn có thể sử dụng:
-
-   ```bash
-   lsof -u username
-   ```
-
-- Để theo dõi các thay đổi theo thời gian, bạn có thể sử dụng lệnh `watch` kết hợp với `lsof`:
-
-   ```bash
-   watch lsof -i
-   ```
-
-Hy vọng rằng bài viết này sẽ giúp bạn hiểu rõ hơn về lệnh `lsof` và cách sử dụng nó trong các tình huống khác nhau!
+## Tips
+- Sử dụng lệnh `lsof` với quyền root để có thể xem tất cả các tệp mở của hệ thống.
+- Kết hợp lệnh `grep` với `lsof` để lọc kết quả theo nhu cầu cụ thể, ví dụ: `lsof | grep filename`.
+- Để theo dõi các tệp mở theo thời gian thực, bạn có thể sử dụng lệnh `watch`, ví dụ: `watch lsof`.

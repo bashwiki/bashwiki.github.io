@@ -1,43 +1,54 @@
-# [리눅스] Bash nslookup 사용법
+# [Linux] Bash nslookup Uso: Query DNS records
 
 ## Overview
-The `nslookup` command is a network utility used to query the Domain Name System (DNS) to obtain domain name or IP address mapping information. Its primary purpose is to help users troubleshoot DNS-related issues by allowing them to look up DNS records for a specified domain or IP address. This command can be particularly useful for network engineers and developers when diagnosing connectivity problems or verifying DNS configurations.
+The `nslookup` command is a network utility used to query Domain Name System (DNS) records. It allows users to obtain information about domain names, IP addresses, and other DNS-related data, making it a valuable tool for troubleshooting network issues and verifying DNS configurations.
 
 ## Usage
 The basic syntax of the `nslookup` command is as follows:
 
 ```bash
-nslookup [options] [hostname | IP address]
+nslookup [options] [arguments]
 ```
 
-### Common Options
-- `-type=TYPE`: Specifies the type of DNS record to query (e.g., A, AAAA, MX, CNAME, etc.). If not specified, the default type is A (IPv4 address).
-- `-debug`: Provides detailed information about the query process, which can be helpful for troubleshooting.
-- `-timeout=seconds`: Sets the time to wait for a response from the DNS server.
-- `-port=port`: Specifies the port number to use for the DNS query (default is 53).
-- `server`: Allows you to specify a different DNS server to query instead of the default one.
+## Common Options
+- `-type=TYPE`: Specifies the type of DNS record to query (e.g., A, AAAA, MX, TXT).
+- `-debug`: Enables debugging mode to provide more detailed output.
+- `-timeout=SECONDS`: Sets the time to wait for a response before timing out.
+- `-port=PORT`: Specifies the port number to use for the DNS query (default is 53).
 
-## Examples
-### Example 1: Basic Domain Lookup
-To look up the IP address of a domain, you can use the following command:
+## Common Examples
 
-```bash
-nslookup example.com
-```
+1. **Querying an A record:**
+   To find the IP address associated with a domain name:
+   ```bash
+   nslookup example.com
+   ```
 
-This command will return the IP address associated with `example.com`, along with other relevant DNS information.
+2. **Querying a specific DNS record type:**
+   To retrieve the MX (Mail Exchange) records for a domain:
+   ```bash
+   nslookup -type=MX example.com
+   ```
 
-### Example 2: Querying a Specific DNS Record Type
-If you want to find the mail exchange (MX) records for a domain, you can specify the record type like this:
+3. **Using a specific DNS server:**
+   To query a specific DNS server (e.g., Google's public DNS):
+   ```bash
+   nslookup example.com 8.8.8.8
+   ```
 
-```bash
-nslookup -type=MX example.com
-```
+4. **Debugging DNS queries:**
+   To enable debugging for more detailed output:
+   ```bash
+   nslookup -debug example.com
+   ```
 
-This command will return the MX records for `example.com`, showing the mail servers responsible for handling email for that domain.
+5. **Querying a reverse DNS lookup:**
+   To find the domain name associated with an IP address:
+   ```bash
+   nslookup 93.184.216.34
+   ```
 
 ## Tips
-- Use the `-debug` option to gain insights into the DNS resolution process, especially when troubleshooting issues.
-- If you frequently query a specific DNS server, consider specifying it directly in your command to avoid relying on the default server.
-- Remember that DNS changes can take time to propagate; if you don't see expected results, it may be worth waiting or checking the TTL (Time to Live) settings for the records.
-- For more comprehensive DNS diagnostics, consider using `dig`, which provides more detailed output and additional functionality compared to `nslookup`.
+- Always specify the type of record you are interested in to get more relevant results.
+- Use the `-debug` option when troubleshooting to gain insights into the DNS resolution process.
+- If you frequently query a specific DNS server, consider setting it as the default in your `nslookup` session for convenience.

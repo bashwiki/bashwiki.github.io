@@ -1,37 +1,37 @@
-# [리눅스] Bash builtin 사용법
+# [Linux] Bash builtin: eingebauter Befehl zur Ausführung von Shell-Befehlen
 
 ## Übersicht
-Der Befehl `builtin` in Bash ermöglicht es Benutzern, Bash-interne Befehle (builtins) auszuführen, selbst wenn sie durch externe Programme mit demselben Namen überschrieben werden. Dies ist besonders nützlich, wenn Sie sicherstellen möchten, dass Sie die interne Version eines Befehls verwenden, anstatt eine möglicherweise installierte externe Version.
+Der `builtin` Befehl in Bash ermöglicht es Benutzern, interne Shell-Befehle direkt auszuführen, ohne dass externe Programme geladen werden müssen. Dies kann die Leistung verbessern und die Effizienz steigern, da interne Befehle in der Shell schneller verarbeitet werden.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls lautet:
+Die grundlegende Syntax des `builtin` Befehls lautet:
 
 ```bash
-builtin Befehl [Argumente...]
+builtin [Optionen] [Argumente]
 ```
 
-Hierbei ist `Befehl` der interne Bash-Befehl, den Sie ausführen möchten, und `[Argumente...]` sind die optionalen Argumente, die an diesen Befehl übergeben werden.
+## Häufige Optionen
+- `-f`: Verhindert die Suche nach externen Befehlen.
+- `-p`: Sucht nach dem Befehl im PATH, um sicherzustellen, dass der externe Befehl nicht verwendet wird.
 
-### Häufige Optionen
-- Es gibt keine speziellen Optionen für den `builtin` Befehl selbst, da er hauptsächlich dazu dient, interne Befehle direkt anzusprechen.
-
-## Beispiele
+## Häufige Beispiele
 
 ### Beispiel 1: Verwendung von `builtin` mit `echo`
-Angenommen, Sie haben ein externes Programm namens `echo`, das Sie installiert haben, aber Sie möchten die interne Version von Bash verwenden:
-
 ```bash
-builtin echo "Dies ist ein internes Echo."
+builtin echo "Dies ist eine interne Echo-Anweisung."
 ```
 
 ### Beispiel 2: Verwendung von `builtin` mit `cd`
-Wenn Sie sicherstellen möchten, dass Sie den internen `cd` Befehl verwenden, um in ein Verzeichnis zu wechseln, können Sie Folgendes tun:
-
 ```bash
-builtin cd /path/to/directory
+builtin cd /home/benutzername
+```
+
+### Beispiel 3: Verwendung von `builtin` mit `exit`
+```bash
+builtin exit 1
 ```
 
 ## Tipps
-- Verwenden Sie `builtin`, wenn Sie sicherstellen möchten, dass Sie die interne Version eines Befehls verwenden, insbesondere wenn Sie Konflikte mit externen Programmen haben.
-- Es ist eine gute Praxis, `builtin` in Skripten zu verwenden, wenn Sie sicherstellen möchten, dass die interne Funktionalität von Bash verwendet wird, um unerwartete Ergebnisse zu vermeiden.
-- Sie können die interne Version eines Befehls auch überprüfen, indem Sie `type Befehl` verwenden, um zu sehen, ob es sich um einen builtin handelt oder nicht.
+- Verwenden Sie `builtin`, wenn Sie sicherstellen möchten, dass Sie den internen Befehl der Shell verwenden, anstatt eine externe Version.
+- Überprüfen Sie die Verfügbarkeit interner Befehle, um die Leistung Ihrer Skripte zu optimieren.
+- Nutzen Sie `builtin` in Skripten, um Konflikte mit externen Befehlen zu vermeiden, insbesondere wenn Sie benutzerdefinierte Aliase oder Funktionen definiert haben.

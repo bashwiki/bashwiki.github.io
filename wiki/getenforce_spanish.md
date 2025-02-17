@@ -1,48 +1,43 @@
-# [리눅스] Bash getenforce 사용법
+# [Linux] Bash getenforce Uso: Muestra el estado de SELinux
 
 ## Overview
-El comando `getenforce` se utiliza en sistemas basados en Linux para mostrar el estado actual del sistema de control de acceso SELinux (Security-Enhanced Linux). Su propósito principal es informar si SELinux está habilitado y en qué modo está funcionando: "Enforcing", "Permissive" o "Disabled". Este comando es esencial para los administradores de sistemas y desarrolladores que necesitan verificar la configuración de seguridad de su entorno.
+El comando `getenforce` se utiliza en sistemas Linux para mostrar el estado actual de SELinux (Security-Enhanced Linux). Este comando indica si SELinux está habilitado y en qué modo se está ejecutando: Enforcing, Permissive o Disabled.
 
 ## Usage
-La sintaxis básica del comando `getenforce` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-getenforce
+getenforce [opciones]
 ```
 
-No requiere opciones adicionales, ya que su función principal es simplemente devolver el estado actual de SELinux.
+## Common Options
+El comando `getenforce` no tiene muchas opciones, pero aquí están las más comunes:
 
-### Modos de SELinux
-- **Enforcing**: SELinux está habilitado y se están aplicando las políticas de seguridad.
-- **Permissive**: SELinux está habilitado, pero no se aplican las políticas; en su lugar, se registran las violaciones.
-- **Disabled**: SELinux está deshabilitado.
+- `-h`, `--help`: Muestra la ayuda sobre el uso del comando.
+- `-V`, `--version`: Muestra la versión del comando.
 
-## Examples
-### Ejemplo 1: Verificar el estado de SELinux
-Para comprobar rápidamente el estado de SELinux, simplemente ejecute el siguiente comando:
+## Common Examples
+Aquí tienes algunos ejemplos prácticos del uso de `getenforce`:
 
-```bash
-getenforce
-```
+1. **Ver el estado de SELinux:**
+   ```bash
+   getenforce
+   ```
+   Este comando mostrará uno de los siguientes estados: Enforcing, Permissive o Disabled.
 
-La salida puede ser uno de los siguientes: `Enforcing`, `Permissive` o `Disabled`.
+2. **Obtener ayuda sobre el comando:**
+   ```bash
+   getenforce --help
+   ```
+   Este comando mostrará la información de ayuda sobre cómo usar `getenforce`.
 
-### Ejemplo 2: Uso en un script
-Puedes utilizar `getenforce` dentro de un script para tomar decisiones basadas en el estado de SELinux. Por ejemplo:
-
-```bash
-#!/bin/bash
-
-if [ "$(getenforce)" == "Enforcing" ]; then
-    echo "SELinux está en modo Enforcing. Procediendo con precaución."
-else
-    echo "SELinux no está en modo Enforcing. Verifica la configuración de seguridad."
-fi
-```
+3. **Ver la versión del comando:**
+   ```bash
+   getenforce --version
+   ```
+   Este comando mostrará la versión actual del comando `getenforce`.
 
 ## Tips
-- **Verificación regular**: Es recomendable verificar el estado de SELinux regularmente, especialmente antes de implementar cambios en la configuración del sistema o al instalar nuevas aplicaciones.
-- **Integración en scripts**: Considera integrar `getenforce` en scripts de automatización para asegurarte de que las políticas de seguridad se respeten en todo momento.
-- **Documentación**: Familiarízate con la documentación de SELinux para entender mejor cómo los diferentes modos afectan la seguridad de tu sistema.
-
-Con estos conocimientos, podrás utilizar el comando `getenforce` de manera efectiva para gestionar y verificar la configuración de seguridad de SELinux en tu entorno Linux.
+- Asegúrate de ejecutar `getenforce` con privilegios adecuados si no obtienes la información esperada.
+- Utiliza `getenforce` junto con otros comandos de SELinux para gestionar la seguridad de tu sistema de manera efectiva.
+- Recuerda que el estado de SELinux puede afectar la ejecución de aplicaciones, así que verifica su estado antes de realizar cambios en la configuración del sistema.

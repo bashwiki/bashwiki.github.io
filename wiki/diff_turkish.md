@@ -1,49 +1,47 @@
-# [리눅스] Bash diff 사용법
+# [Linux] Bash diff Kullanımı: İki dosya arasındaki farkları gösterir
 
-## Overview
-`diff` komutu, iki dosya arasındaki farklılıkları karşılaştırmak için kullanılan bir araçtır. Genellikle metin dosyaları için kullanılır ve bu dosyalar arasındaki satır düzeyindeki değişiklikleri, eklemeleri ve silmeleri gösterir. Yazılım geliştirme süreçlerinde, kod değişikliklerini izlemek ve sürüm kontrol sistemleri ile entegrasyon sağlamak için yaygın olarak kullanılır.
+## Genel Bakış
+`diff` komutu, iki dosya arasındaki farklılıkları karşılaştırmak ve bu farklılıkları göstermek için kullanılır. Özellikle metin dosyalarında yapılan değişiklikleri tespit etmek için oldukça faydalıdır.
 
-## Usage
-`diff` komutunun temel sözdizimi aşağıdaki gibidir:
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
-diff [seçenekler] dosya1 dosya2
+diff [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-u`: Unified format (birleştirilmiş format) ile çıktı verir, bu da değişikliklerin daha okunabilir bir şekilde gösterilmesini sağlar.
-- `-c`: Context format (bağlam formatı) ile çıktı verir, bu da değişikliklerin etrafındaki satırları gösterir.
+## Yaygın Seçenekler
+- `-u`: Birleştirilmiş formatta çıktı verir.
+- `-c`: Bağlam formatında çıktı verir.
 - `-i`: Büyük/küçük harf duyarsız karşılaştırma yapar.
-- `-w`: Boşlukları göz ardı eder, yani sadece anlamlı değişiklikleri gösterir.
+- `-w`: Boşlukları göz ardı eder.
+- `-r`: Dizindeki alt dizinleri de karşılaştırır.
 
-## Examples
-### Örnek 1: Temel Kullanım
-İki metin dosyasını karşılaştırmak için aşağıdaki komutu kullanabilirsiniz:
+## Yaygın Örnekler
+1. İki dosya arasındaki farkları görmek için:
+   ```bash
+   diff dosya1.txt dosya2.txt
+   ```
 
-```bash
-diff dosya1.txt dosya2.txt
-```
+2. Birleştirilmiş formatta çıktı almak için:
+   ```bash
+   diff -u dosya1.txt dosya2.txt
+   ```
 
-Bu komut, `dosya1.txt` ve `dosya2.txt` dosyaları arasındaki farklılıkları satır bazında gösterecektir.
+3. Boşlukları göz ardı ederek karşılaştırma yapmak için:
+   ```bash
+   diff -w dosya1.txt dosya2.txt
+   ```
 
-### Örnek 2: Unified Format Kullanımı
-Daha okunabilir bir çıktı almak için `-u` seçeneğini kullanabilirsiniz:
+4. Bir dizindeki tüm dosyaları karşılaştırmak için:
+   ```bash
+   diff -r dizin1/ dizin2/
+   ```
 
-```bash
-diff -u dosya1.txt dosya2.txt
-```
-
-Bu komut, değişiklikleri daha net bir şekilde gösterir ve hangi satırların eklendiğini veya silindiğini anlamayı kolaylaştırır.
-
-## Tips
-- `diff` çıktısını bir dosyaya yönlendirmek için `>` operatörünü kullanabilirsiniz. Örneğin:
-
-```bash
-diff -u dosya1.txt dosya2.txt > farklar.patch
-```
-
-Bu komut, farklılıkları `farklar.patch` adlı bir dosyaya kaydeder.
-
-- `diff` komutunu sık sık kullanıyorsanız, `vimdiff` gibi araçlarla entegrasyon yaparak, farklılıkları daha görsel bir arayüzde inceleyebilirsiniz.
-
-- Dosyalar arasında sadece belirli bir dizin veya dosya türünü karşılaştırmak istiyorsanız, `find` komutu ile birlikte kullanarak daha hedefli karşılaştırmalar yapabilirsiniz.
+## İpuçları
+- Değişiklikleri daha iyi anlamak için `-u` seçeneğini kullanarak birleştirilmiş formatta çıktı almayı tercih edin.
+- Farklılıkları daha kolay görmek için `diff` çıktısını bir dosyaya yönlendirebilirsiniz:
+  ```bash
+  diff dosya1.txt dosya2.txt > farklar.txt
+  ```
+- `diff` çıktısını `patch` komutuyla birleştirerek dosyalar üzerinde değişiklik yapabilirsiniz.

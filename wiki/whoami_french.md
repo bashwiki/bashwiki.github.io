@@ -1,43 +1,43 @@
-# [리눅스] Bash whoami 사용법
+# [Linux] Bash whoami Utilisation : Affiche le nom de l'utilisateur actuel
 
 ## Overview
-La commande `whoami` est un utilitaire simple mais puissant dans Bash qui permet d'afficher le nom de l'utilisateur actuellement connecté au terminal. Son principal objectif est d'aider les utilisateurs à confirmer leur identité dans un environnement multi-utilisateur, en particulier lorsqu'ils travaillent sur des systèmes où plusieurs comptes peuvent être actifs simultanément.
+La commande `whoami` est utilisée pour afficher le nom de l'utilisateur actuellement connecté à la session du terminal. C'est un moyen simple de vérifier sous quel compte vous travaillez, surtout lorsqu'il y a plusieurs utilisateurs sur un système.
 
 ## Usage
-La syntaxe de base de la commande `whoami` est la suivante :
+La syntaxe de base de la commande est la suivante :
 
 ```bash
-whoami
+whoami [options] [arguments]
 ```
 
-Cette commande ne prend pas d'options ou d'arguments supplémentaires, ce qui la rend très facile à utiliser. Lorsqu'elle est exécutée, elle renvoie simplement le nom d'utilisateur de l'utilisateur en cours.
+## Common Options
+Voici quelques options courantes pour la commande `whoami` :
 
-## Examples
+- `--help` : Affiche l'aide et les options disponibles pour la commande.
+- `--version` : Affiche la version de la commande `whoami`.
+
+## Common Examples
 Voici quelques exemples pratiques de l'utilisation de la commande `whoami` :
 
-1. **Afficher le nom de l'utilisateur actuel** :
+1. **Afficher le nom de l'utilisateur actuel :**
+
    ```bash
    whoami
    ```
-   Sortie possible :
-   ```
-   utilisateur123
+
+2. **Afficher l'aide de la commande :**
+
+   ```bash
+   whoami --help
    ```
 
-2. **Utilisation dans un script** :
-   Vous pouvez également utiliser `whoami` dans un script pour effectuer des actions spécifiques en fonction de l'utilisateur. Par exemple :
+3. **Afficher la version de la commande :**
+
    ```bash
-   #!/bin/bash
-   if [ "$(whoami)" == "administrateur" ]; then
-       echo "Bienvenue, Administrateur !"
-   else
-       echo "Vous n'avez pas les droits d'accès administratifs."
-   fi
+   whoami --version
    ```
 
 ## Tips
-- **Utilisation avec d'autres commandes** : `whoami` peut être combiné avec d'autres commandes pour des scripts plus complexes. Par exemple, vous pouvez l'utiliser pour vérifier les permissions ou pour personnaliser les messages d'accueil.
-- **Vérification de l'utilisateur après un `su`** : Après avoir utilisé la commande `su` pour changer d'utilisateur, exécutez `whoami` pour confirmer que vous êtes bien connecté en tant que l'utilisateur souhaité.
-- **Utilisation dans des environnements de développement** : Dans des environnements de développement ou de test, `whoami` peut être utile pour s'assurer que vous exécutez des scripts ou des commandes avec le bon utilisateur, surtout lorsque vous travaillez avec des systèmes de contrôle d'accès.
-
-En résumé, `whoami` est un outil essentiel pour tout utilisateur de Bash souhaitant gérer efficacement son environnement de travail et s'assurer de son identité dans le système.
+- Utilisez `whoami` lorsque vous travaillez sur un serveur partagé pour vous assurer que vous exécutez des commandes sous le bon utilisateur.
+- Combinez `whoami` avec d'autres commandes pour des scripts, par exemple, pour vérifier les permissions d'un utilisateur avant d'exécuter une tâche.
+- N'oubliez pas que `whoami` ne nécessite pas d'options pour fonctionner dans sa forme la plus simple.

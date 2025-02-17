@@ -1,51 +1,50 @@
-# [리눅스] Bash true 사용법
+# [Linux] Bash true用法: Always returns a successful exit status
 
 ## Overview
-The `true` command in Bash is a simple utility that does nothing and returns a successful exit status (0). Its primary purpose is to serve as a placeholder in scripts or command lines where a command is required syntactically but no action is needed. This can be particularly useful in control structures like loops or conditional statements.
+The `true` command in Bash is a simple utility that always returns a successful exit status (0). It is often used in scripts and command lines where a successful exit is required, but no actual operation needs to be performed.
 
 ## Usage
 The basic syntax of the `true` command is straightforward:
 
 ```bash
-true
+true [options]
 ```
 
-There are no options or arguments for the `true` command; it simply executes and exits with a status code of 0, indicating success.
+Since `true` does not take any arguments or options, you can simply call it without any additional input.
 
-## Examples
+## Common Options
+The `true` command does not have any options or arguments. It is designed to perform its function without any additional parameters.
 
-### Example 1: Using `true` in a Loop
-You can use `true` in a loop where you want to create an infinite loop that does nothing:
+## Common Examples
 
-```bash
-while true; do
-    echo "This will print indefinitely."
-done
-```
+1. **Basic Usage**: Simply run `true` to see that it returns a success status.
+   ```bash
+   true
+   echo $?  # This will output 0, indicating success.
+   ```
 
-In this example, the loop will continuously print the message until it is interrupted.
+2. **Using in Conditional Statements**: You can use `true` in a conditional statement to always execute a block of code.
+   ```bash
+   if true; then
+       echo "This will always run."
+   fi
+   ```
 
-### Example 2: Placeholder in Conditional Statements
-`true` can also be used as a placeholder in scripts where a command is required but no action is desired:
+3. **As a Placeholder**: `true` can be used as a placeholder in scripts where a command is required but no action is needed.
+   ```bash
+   for i in {1..5}; do
+       true  # Placeholder for future commands
+   done
+   ```
 
-```bash
-if true; then
-    echo "This condition is always true."
-fi
-```
-
-In this case, the `if` statement will always evaluate to true, and the message will be printed.
+4. **In Loops**: You can create an infinite loop using `true`.
+   ```bash
+   while true; do
+       echo "This will run indefinitely. Press Ctrl+C to stop."
+   done
+   ```
 
 ## Tips
-- **Use in Scripts**: The `true` command is often used in scripts as a placeholder to maintain syntax without performing any operation.
-- **Combining with Other Commands**: You can combine `true` with other commands in conditional execution. For example, you can use it to ensure a command always runs regardless of the previous command's success:
-  
-  ```bash
-  command1 || true
-  ```
-
-  In this case, if `command1` fails, the script will continue executing without interruption.
-
-- **Debugging**: When debugging scripts, replacing a command with `true` can help isolate issues without affecting the flow of the script.
-
-By understanding the `true` command, you can enhance your scripting capabilities and manage control flows more effectively in your Bash scripts.
+- **Use in Scripts**: `true` is particularly useful in scripts where you need a command that does nothing but still returns a success status.
+- **Combining with Other Commands**: You can use `true` in conjunction with other commands to ensure that a script continues running even if a previous command fails.
+- **Debugging**: When debugging scripts, replacing a command with `true` can help you isolate issues without affecting the flow of the script.

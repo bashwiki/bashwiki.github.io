@@ -1,47 +1,63 @@
-# [리눅스] Bash systemctl 사용법
+# [Linux] Bash systemctl uso: Controlar servicios y unidades del sistema
 
 ## Overview
-El comando `systemctl` es una herramienta de gestión de servicios y unidades en sistemas que utilizan el sistema de inicialización `systemd`. Su propósito principal es permitir a los administradores y desarrolladores controlar el estado de los servicios, así como gestionar el inicio, parada y configuración de estos. `systemctl` también permite gestionar unidades de otros tipos, como montajes de sistemas de archivos y sockets.
+El comando `systemctl` es una herramienta de gestión de servicios y unidades en sistemas que utilizan el sistema de inicio systemd. Permite a los usuarios iniciar, detener, reiniciar y verificar el estado de los servicios del sistema, así como gestionar otras unidades como montajes y sockets.
 
 ## Usage
 La sintaxis básica del comando `systemctl` es la siguiente:
 
-```
-systemctl [opciones] [comando] [unidad]
+```bash
+systemctl [opciones] [argumentos]
 ```
 
-### Comandos Comunes
-- `start`: Inicia una unidad.
-- `stop`: Detiene una unidad.
-- `restart`: Reinicia una unidad.
-- `status`: Muestra el estado de una unidad.
+## Common Options
+- `start`: Inicia una unidad o servicio.
+- `stop`: Detiene una unidad o servicio en ejecución.
+- `restart`: Reinicia una unidad o servicio.
+- `status`: Muestra el estado de una unidad o servicio.
 - `enable`: Habilita una unidad para que se inicie automáticamente al arrancar el sistema.
 - `disable`: Deshabilita una unidad para que no se inicie automáticamente.
-- `list-units`: Lista las unidades activas.
+- `list-units`: Lista todas las unidades activas.
 
-### Opciones Comunes
-- `--now`: Aplica el comando y también afecta a las unidades que están habilitadas o deshabilitadas.
-- `--quiet`: Suprime la salida de mensajes innecesarios.
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `systemctl`:
 
-## Examples
-### Ejemplo 1: Iniciar un Servicio
-Para iniciar el servicio de `nginx`, se puede usar el siguiente comando:
+- Para iniciar un servicio, por ejemplo, el servidor web Apache:
+  ```bash
+  systemctl start apache2
+  ```
 
-```bash
-sudo systemctl start nginx
-```
+- Para detener el mismo servicio:
+  ```bash
+  systemctl stop apache2
+  ```
 
-### Ejemplo 2: Ver el Estado de un Servicio
-Para verificar el estado del servicio de `nginx`, se puede ejecutar:
+- Para reiniciar el servicio:
+  ```bash
+  systemctl restart apache2
+  ```
 
-```bash
-systemctl status nginx
-```
+- Para verificar el estado del servicio:
+  ```bash
+  systemctl status apache2
+  ```
 
-Este comando mostrará información sobre el estado actual del servicio, incluyendo si está activo o inactivo.
+- Para habilitar el servicio para que se inicie automáticamente al arrancar:
+  ```bash
+  systemctl enable apache2
+  ```
+
+- Para deshabilitar el servicio:
+  ```bash
+  systemctl disable apache2
+  ```
+
+- Para listar todas las unidades activas:
+  ```bash
+  systemctl list-units
+  ```
 
 ## Tips
-- Siempre usa `sudo` para ejecutar comandos `systemctl` que requieren privilegios de administrador.
-- Utiliza `systemctl list-units` para obtener una visión general de todos los servicios y unidades activas en el sistema.
-- Para obtener más información sobre una unidad específica, puedes usar `systemctl show [unidad]`, lo que proporciona detalles adicionales sobre la configuración y el estado de la unidad.
-- Recuerda que los cambios en la configuración de los servicios pueden requerir un reinicio del servicio o incluso del sistema para que surtan efecto.
+- Siempre verifica el estado de un servicio después de iniciarlo o detenerlo para asegurarte de que se ha ejecutado correctamente.
+- Utiliza `systemctl list-units --type=service` para filtrar y ver solo los servicios.
+- Recuerda que algunas operaciones pueden requerir privilegios de superusuario, así que puede ser necesario anteponer `sudo` al comando.

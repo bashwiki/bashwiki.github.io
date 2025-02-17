@@ -1,40 +1,51 @@
-# [리눅스] Bash iostat 사용법
+# [Linux] Bash iostat Verwendung: Überwachung der Systemleistung
 
 ## Übersicht
-Der Befehl `iostat` ist ein leistungsstarkes Tool, das in der Linux-Umgebung verwendet wird, um Informationen über die CPU-Last und die Ein-/Ausgabe (I/O) Statistiken von Speichermedien zu überwachen. Es ist Teil des Pakets `sysstat` und wird häufig von Systemadministratoren und Entwicklern verwendet, um die Leistung von Systemen zu analysieren und Engpässe zu identifizieren.
+Der Befehl `iostat` wird verwendet, um die Input/Output-Statistiken von Systemgeräten und Partitionen zu überwachen. Er hilft dabei, die Leistung von Festplatten und anderen Speichermedien zu analysieren, indem er Informationen über die Nutzung und die Auslastung bereitstellt.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls `iostat` lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-iostat [OPTIONEN] [INTERVAL] [ANZAHL]
+iostat [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-c`: Zeigt nur die CPU-Statistiken an.
-- `-d`: Zeigt nur die I/O-Statistiken für die Geräte an.
-- `-x`: Zeigt erweiterte Statistiken für die Geräte an.
-- `-m`: Gibt die Statistiken in Megabyte pro Sekunde aus.
-- `-p [DEVICE]`: Zeigt Statistiken für ein bestimmtes Gerät an.
+## Häufige Optionen
+- `-c`: Zeigt CPU-Nutzungsstatistiken an.
+- `-d`: Zeigt Geräte-Statistiken an.
+- `-x`: Zeigt erweiterte Statistiken für Geräte an.
+- `-m`: Gibt die Ausgabe in Megabyte pro Sekunde aus.
+- `-t`: Fügt einen Zeitstempel zur Ausgabe hinzu.
 
-## Beispiele
-### Beispiel 1: Grundlegende Nutzung
-Um die CPU- und I/O-Statistiken alle 2 Sekunden anzuzeigen, verwenden Sie den folgenden Befehl:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung von `iostat`:
 
-```bash
-iostat 2
-```
+1. **Einfacher Befehl zur Anzeige der CPU-Statistiken:**
+   ```bash
+   iostat -c
+   ```
 
-### Beispiel 2: Erweiterte Statistiken für ein bestimmtes Gerät
-Um erweiterte Statistiken für das Gerät `sda` anzuzeigen, können Sie den folgenden Befehl verwenden:
+2. **Geräte-Statistiken anzeigen:**
+   ```bash
+   iostat -d
+   ```
 
-```bash
-iostat -x -p sda 2 5
-```
+3. **Erweiterte Statistiken für alle Geräte anzeigen:**
+   ```bash
+   iostat -x
+   ```
 
-Dieser Befehl zeigt alle 2 Sekunden für 5 Intervalle die erweiterten Statistiken für das Gerät `sda` an.
+4. **Statistiken alle 5 Sekunden anzeigen:**
+   ```bash
+   iostat -d 5
+   ```
+
+5. **Ausgabe in Megabyte pro Sekunde:**
+   ```bash
+   iostat -m
+   ```
 
 ## Tipps
-- Verwenden Sie die Option `-m`, um die Ausgabe in Megabyte pro Sekunde zu erhalten, was die Interpretation der I/O-Statistiken erleichtert.
-- Kombinieren Sie `iostat` mit anderen Monitoring-Tools wie `top` oder `vmstat`, um ein umfassenderes Bild der Systemleistung zu erhalten.
-- Überwachen Sie die Statistiken über längere Zeiträume, um Trends zu erkennen und potenzielle Engpässe frühzeitig zu identifizieren.
+- Verwenden Sie die Option `-t`, um Zeitstempel zu Ihrer Ausgabe hinzuzufügen, was die Analyse über längere Zeiträume erleichtert.
+- Kombinieren Sie Optionen, um detailliertere Informationen zu erhalten, z.B. `iostat -c -d -x`.
+- Überwachen Sie regelmäßig die I/O-Statistiken, um Engpässe in der Systemleistung frühzeitig zu erkennen.

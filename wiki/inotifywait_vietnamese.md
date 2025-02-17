@@ -1,43 +1,45 @@
-# [리눅스] Bash inotifywait 사용법
+# [Linux] Bash inotifywait Cách sử dụng: Theo dõi thay đổi tệp tin
 
 ## Tổng quan
-`inotifywait` là một công cụ dòng lệnh trong Linux được sử dụng để theo dõi các thay đổi trong hệ thống tệp. Nó cho phép người dùng nhận thông báo khi có sự kiện xảy ra trên các tệp hoặc thư mục, chẳng hạn như tạo, xóa, hoặc thay đổi nội dung. Điều này rất hữu ích cho việc giám sát các thay đổi trong thời gian thực và tự động hóa các tác vụ dựa trên các sự kiện này.
+Lệnh `inotifywait` là một công cụ mạnh mẽ trong Bash cho phép bạn theo dõi các thay đổi trong hệ thống tệp tin. Nó sử dụng hệ thống inotify của Linux để thông báo cho người dùng về các sự kiện như tạo, xóa, hoặc sửa đổi tệp tin và thư mục.
 
 ## Cách sử dụng
-Cú pháp cơ bản của `inotifywait` như sau:
+Cú pháp cơ bản của lệnh `inotifywait` như sau:
 
 ```bash
-inotifywait [tùy chọn] [tệp hoặc thư mục]
+inotifywait [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-m` hoặc `--monitor`: Giữ cho `inotifywait` chạy liên tục và theo dõi các sự kiện.
-- `-r` hoặc `--recursive`: Theo dõi các thư mục và tất cả các thư mục con của chúng.
-- `-e` hoặc `--event`: Chỉ định loại sự kiện cần theo dõi, ví dụ: `create`, `delete`, `modify`, v.v.
-- `-q` hoặc `--quiet`: Giảm thiểu thông tin đầu ra, chỉ hiển thị các sự kiện.
+## Tùy chọn phổ biến
+- `-m`: Chế độ theo dõi liên tục, cho phép lệnh tiếp tục chạy và báo cáo các sự kiện mới.
+- `-r`: Theo dõi các thư mục một cách đệ quy, bao gồm cả các thư mục con.
+- `-e`: Chỉ định loại sự kiện cần theo dõi (ví dụ: `create`, `delete`, `modify`).
+- `-q`: Chạy trong chế độ yên lặng, không hiển thị thông tin không cần thiết.
 
-## Ví dụ
-### Ví dụ 1: Theo dõi một thư mục cụ thể
-Để theo dõi một thư mục có tên `my_folder` và nhận thông báo khi có tệp mới được tạo:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng `inotifywait`:
 
-```bash
-inotifywait -m -e create my_folder
-```
+1. Theo dõi thay đổi trong một thư mục cụ thể:
+   ```bash
+   inotifywait -m /path/to/directory
+   ```
 
-Khi có tệp mới được tạo trong `my_folder`, bạn sẽ thấy thông báo tương ứng trên màn hình.
+2. Theo dõi sự kiện tạo và xóa tệp tin trong một thư mục:
+   ```bash
+   inotifywait -m -e create -e delete /path/to/directory
+   ```
 
-### Ví dụ 2: Theo dõi nhiều sự kiện
-Để theo dõi cả sự kiện tạo và xóa trong thư mục `my_folder`:
+3. Theo dõi thay đổi trong một thư mục và tất cả các thư mục con:
+   ```bash
+   inotifywait -mr /path/to/directory
+   ```
 
-```bash
-inotifywait -m -e create -e delete my_folder
-```
-
-Điều này sẽ cho phép bạn nhận thông báo khi có tệp được tạo hoặc xóa trong thư mục.
+4. Ghi lại sự kiện vào một tệp tin:
+   ```bash
+   inotifywait -m /path/to/directory >> changes.log
+   ```
 
 ## Mẹo
-- Sử dụng tùy chọn `-r` nếu bạn cần theo dõi các thư mục con, điều này rất hữu ích trong các dự án lớn với nhiều thư mục.
-- Kết hợp `inotifywait` với các lệnh khác trong Bash để tự động hóa quy trình làm việc. Ví dụ, bạn có thể sử dụng nó để tự động biên dịch mã nguồn khi có thay đổi.
-- Đảm bảo rằng bạn có quyền truy cập vào thư mục hoặc tệp mà bạn muốn theo dõi, nếu không, `inotifywait` sẽ không hoạt động đúng cách.
-
-Hy vọng rằng bài viết này sẽ giúp bạn hiểu rõ hơn về cách sử dụng `inotifywait` trong Bash!
+- Sử dụng tùy chọn `-q` để giảm thiểu thông tin hiển thị khi bạn chỉ muốn theo dõi các sự kiện quan trọng.
+- Kết hợp `inotifywait` với các lệnh khác trong Bash để tự động hóa các tác vụ, chẳng hạn như sao lưu hoặc thông báo khi có thay đổi.
+- Hãy chắc chắn rằng bạn có quyền truy cập vào thư mục mà bạn muốn theo dõi để tránh lỗi không cần thiết.

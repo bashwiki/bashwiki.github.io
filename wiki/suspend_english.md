@@ -1,43 +1,52 @@
-# [리눅스] Bash suspend 사용법
+# [Linux] Bash suspend usage: Pause a running process
 
 ## Overview
-The `suspend` command in Bash is used to pause the execution of the current shell session. When invoked, it effectively stops the shell process, allowing the user to temporarily halt their work without terminating the session. This command is particularly useful for multitasking, as it allows users to switch to other tasks or processes without losing their current shell state.
+The `suspend` command in Bash is used to pause the execution of a currently running foreground job. This allows users to temporarily stop a process and later resume it, making it a useful tool for managing tasks without terminating them.
 
 ## Usage
-The basic syntax of the `suspend` command is simply:
+The basic syntax of the `suspend` command is as follows:
 
 ```bash
 suspend
 ```
 
-There are no additional options or arguments for this command. It is a built-in command in Bash and is primarily used in interactive shell sessions.
+Note that `suspend` is typically used within a job control context, meaning it is invoked from a shell session where a job is currently running in the foreground.
 
-## Examples
+## Common Options
+The `suspend` command does not have any options. It is a straightforward command that simply pauses the current foreground job.
 
-### Example 1: Suspending a Shell Session
-To suspend your current shell session, simply type:
+## Common Examples
 
-```bash
-suspend
-```
-
-After executing this command, the shell will be suspended, and you can return to the terminal by using the `fg` command to bring the suspended job back to the foreground.
-
-### Example 2: Suspending a Shell from a Script
-While `suspend` is typically used in interactive sessions, you can also include it in a script. However, note that it will only work if the script is run in an interactive shell. For example:
+### Example 1: Suspending a foreground job
+If you have a long-running process, such as a text editor, you can suspend it by pressing `Ctrl + Z`. This will stop the process and return you to the shell prompt.
 
 ```bash
-#!/bin/bash
-echo "This script will now suspend the shell."
-suspend
-echo "You will not see this message until the shell is resumed."
+# Running a text editor
+nano myfile.txt
+# Press Ctrl + Z to suspend
 ```
 
-When this script is executed, the shell will suspend, and the final echo statement will not be executed until the shell is resumed.
+### Example 2: Listing suspended jobs
+After suspending a job, you can list all jobs, including suspended ones, using the `jobs` command.
+
+```bash
+jobs
+```
+
+### Example 3: Resuming a suspended job
+To resume a suspended job in the foreground, use the `fg` command followed by the job number.
+
+```bash
+fg %1  # Resumes job number 1
+```
+
+To resume it in the background, use the `bg` command:
+
+```bash
+bg %1  # Resumes job number 1 in the background
+```
 
 ## Tips
-- **Resuming the Shell**: To resume a suspended shell, use the `fg` command. This will bring the suspended shell back to the foreground, allowing you to continue working where you left off.
-- **Use in Interactive Sessions**: The `suspend` command is most effective in interactive sessions. It may not behave as expected in non-interactive scripts.
-- **Check for Job Control**: Ensure that job control is enabled in your shell. You can check this by running `set -o` and looking for `monitor` in the output. If it is not enabled, you may not be able to use `suspend` effectively.
-
-By understanding and utilizing the `suspend` command, you can enhance your workflow in Bash, allowing for efficient multitasking and session management.
+- Always remember that `suspend` is typically invoked using `Ctrl + Z` rather than as a command in the terminal.
+- Use the `jobs` command to keep track of suspended and background jobs.
+- If you need to terminate a suspended job, you can use the `kill` command followed by the job's process ID (PID).

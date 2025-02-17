@@ -1,41 +1,56 @@
-# [리눅스] Bash systemctl 사용법
+# [Linux] Bash systemctl Kullanımı: Sistem hizmetlerini yönetme
 
 ## Overview
-`systemctl`, Linux sistemlerinde sistem ve hizmet yöneticisi olan `systemd` ile etkileşim kurmak için kullanılan bir komuttur. Bu komut, sistem servislerini başlatmak, durdurmak, yeniden başlatmak, durumlarını kontrol etmek ve sistemin genel durumunu yönetmek için kullanılır. `systemctl`, sistem yöneticilerine ve geliştiricilere, sistem bileşenlerini etkili bir şekilde yönetme yeteneği sağlar.
+`systemctl`, Linux sistemlerinde hizmetleri (servisleri) ve sistem durumunu yönetmek için kullanılan bir komuttur. Bu komut, sistemd tabanlı sistemlerde hizmetlerin başlatılması, durdurulması, yeniden başlatılması ve durumlarının kontrol edilmesi gibi işlemleri kolaylaştırır.
 
 ## Usage
-Temel `systemctl` komutunun sözdizimi şu şekildedir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-systemctl [OPTIONS] COMMAND [NAME]
+systemctl [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `start`: Belirtilen hizmeti başlatır.
-- `stop`: Belirtilen hizmeti durdurur.
-- `restart`: Belirtilen hizmeti yeniden başlatır.
-- `status`: Belirtilen hizmetin durumunu gösterir.
-- `enable`: Hizmeti sistem başlangıcında otomatik olarak başlatılacak şekilde ayarlar.
-- `disable`: Hizmetin otomatik olarak başlatılmasını engeller.
-- `list-units`: Yüklenmiş birimlerin listesini gösterir.
+## Common Options
+- `start`: Bir hizmeti başlatır.
+- `stop`: Bir hizmeti durdurur.
+- `restart`: Bir hizmeti yeniden başlatır.
+- `status`: Bir hizmetin durumunu gösterir.
+- `enable`: Bir hizmeti sistem başlangıcında otomatik olarak başlatılacak şekilde ayarlar.
+- `disable`: Bir hizmetin otomatik olarak başlatılmasını engeller.
 
-## Examples
-### Örnek 1: Hizmeti Başlatma
-Aşağıdaki komut, `nginx` hizmetini başlatır:
+## Common Examples
+Aşağıda `systemctl` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-sudo systemctl start nginx
-```
+- Bir hizmeti başlatmak için:
+  ```bash
+  systemctl start httpd
+  ```
 
-### Örnek 2: Hizmetin Durumunu Kontrol Etme
-Aşağıdaki komut, `nginx` hizmetinin durumunu kontrol eder:
+- Bir hizmeti durdurmak için:
+  ```bash
+  systemctl stop httpd
+  ```
 
-```bash
-sudo systemctl status nginx
-```
+- Bir hizmetin durumunu kontrol etmek için:
+  ```bash
+  systemctl status httpd
+  ```
+
+- Bir hizmeti yeniden başlatmak için:
+  ```bash
+  systemctl restart httpd
+  ```
+
+- Bir hizmeti sistem başlangıcında otomatik olarak başlatmak için:
+  ```bash
+  systemctl enable httpd
+  ```
+
+- Bir hizmetin otomatik olarak başlatılmasını engellemek için:
+  ```bash
+  systemctl disable httpd
+  ```
 
 ## Tips
-- `systemctl` komutunu çalıştırırken genellikle `sudo` kullanmanız gerekebilir, çünkü sistem hizmetlerini yönetmek için yönetici izinlerine ihtiyaç vardır.
-- Hizmetlerin otomatik olarak başlatılmasını sağlamak için `enable` komutunu kullanmayı unutmayın.
-- Hizmetlerin durumunu düzenli olarak kontrol etmek, sistemin sağlıklı çalışmasını sağlamak için iyi bir uygulamadır.
-- `systemctl` komutunun yardım sayfasını görüntülemek için `man systemctl` komutunu kullanabilirsiniz. Bu, mevcut tüm seçenekler ve komutlar hakkında daha fazla bilgi edinmenizi sağlar.
+- Hizmetlerin durumunu kontrol etmek için `status` seçeneğini kullanarak sorunları hızlıca tespit edebilirsiniz.
+- Hizmetleri otomatik olarak başlatmak için `enable` seçeneğini kullanmak, sisteminizin her zaman gerekli hizmetlerle başlamasını sağlar.
+- `systemctl` komutunu kullanırken, root yetkilerine sahip olmanız gerektiğini unutmayın; bu nedenle `sudo` ile birlikte kullanmanız gerekebilir.

@@ -1,45 +1,54 @@
-# [리눅스] Bash ethtool 사용법
+# [Linux] Bash ethtool Verwendung: Netzwerkschnittstelleninformationen anzeigen und konfigurieren
 
 ## Übersicht
-Der Befehl `ethtool` ist ein leistungsfähiges Kommandozeilenwerkzeug in Linux, das verwendet wird, um die Eigenschaften und Einstellungen von Ethernet-Netzwerkgeräten zu überprüfen und zu konfigurieren. Mit `ethtool` können Ingenieure und Entwickler Informationen über die Netzwerkverbindung abrufen, wie z.B. die Geschwindigkeit, den Duplex-Modus, die unterstützten Funktionen und vieles mehr. Es ist ein unverzichtbares Werkzeug für die Netzwerkdiagnose und -optimierung.
+Der `ethtool`-Befehl ist ein leistungsstarkes Werkzeug zur Anzeige und Konfiguration von Netzwerkschnittstellen in Linux. Er ermöglicht es Benutzern, Informationen über Ethernet-Geräte abzurufen und verschiedene Parameter wie Geschwindigkeit, Duplex-Modus und andere Einstellungen zu ändern.
 
 ## Verwendung
 Die grundlegende Syntax des `ethtool`-Befehls lautet:
 
 ```bash
-ethtool [OPTIONEN] <Schnittstelle>
+ethtool [Optionen] [Argumente]
 ```
 
-Hierbei ist `<Schnittstelle>` der Name des Netzwerkinterfaces, das Sie untersuchen oder konfigurieren möchten (z.B. `eth0`, `ens33`).
-
-### Häufige Optionen:
-- `-i`: Zeigt Treiberinformationen für das angegebene Netzwerkinterface an.
-- `-s`: Ermöglicht das Setzen von Einstellungen wie Geschwindigkeit und Duplex-Modus.
-- `-p`: Blinkt die LEDs des Netzwerkinterfaces für eine bestimmte Zeit, um das Interface physisch zu identifizieren.
+## Häufige Optionen
+- `-s`: Setzt die Parameter der Netzwerkschnittstelle.
+- `-i`: Zeigt Informationen über den Treiber der Netzwerkschnittstelle an.
+- `-p`: Blinkt die LED der angegebenen Schnittstelle für eine bestimmte Zeit.
 - `-a`: Zeigt die Auto-Negotiation-Einstellungen an.
-- `-T`: Zeigt die unterstützten Transceiver-Einstellungen an.
+- `-t`: Führt einen Selbsttest der Netzwerkschnittstelle durch.
 
-## Beispiele
-### Beispiel 1: Informationen über ein Netzwerkinterface abrufen
-Um grundlegende Informationen über das Netzwerkinterface `eth0` abzurufen, verwenden Sie den folgenden Befehl:
+## Häufige Beispiele
+Um Informationen über eine Netzwerkschnittstelle anzuzeigen, verwenden Sie:
 
 ```bash
 ethtool eth0
 ```
 
-Dieser Befehl gibt Details wie die Geschwindigkeit, den Duplex-Modus und die unterstützten Funktionen des Interfaces aus.
-
-### Beispiel 2: Treiberinformationen anzeigen
-Um die Treiberinformationen für das Interface `ens33` zu erhalten, verwenden Sie:
+Um den Treiber der Netzwerkschnittstelle anzuzeigen, verwenden Sie:
 
 ```bash
-ethtool -i ens33
+ethtool -i eth0
 ```
 
-Dieser Befehl zeigt Informationen über den verwendeten Treiber, die Version und andere relevante Details an.
+Um die LED der Schnittstelle für 10 Sekunden blinken zu lassen, verwenden Sie:
+
+```bash
+ethtool -p eth0 10
+```
+
+Um die Auto-Negotiation-Einstellungen anzuzeigen, verwenden Sie:
+
+```bash
+ethtool -a eth0
+```
+
+Um die Geschwindigkeit und den Duplex-Modus einer Schnittstelle zu ändern, verwenden Sie:
+
+```bash
+ethtool -s eth0 speed 100 duplex full
+```
 
 ## Tipps
-- Stellen Sie sicher, dass Sie über die erforderlichen Berechtigungen verfügen, um `ethtool` auszuführen. In vielen Fällen müssen Sie den Befehl als Root-Benutzer oder mit `sudo` ausführen.
-- Verwenden Sie `ethtool -p <Schnittstelle>`, um ein Netzwerkinterface schnell zu identifizieren, wenn Sie mehrere Interfaces haben.
-- Überprüfen Sie regelmäßig die Einstellungen Ihrer Netzwerkinterfaces mit `ethtool`, um sicherzustellen, dass sie optimal konfiguriert sind und keine Probleme auftreten.
-- Nutzen Sie die `man`-Seite (`man ethtool`), um eine vollständige Liste der Optionen und deren Beschreibungen zu erhalten.
+- Stellen Sie sicher, dass Sie über die erforderlichen Berechtigungen verfügen, um `ethtool` auszuführen, da einige Optionen Administratorrechte benötigen.
+- Verwenden Sie `man ethtool`, um die vollständige Dokumentation und alle verfügbaren Optionen zu lesen.
+- Testen Sie Änderungen an der Netzwerkschnittstelle in einer sicheren Umgebung, um unerwartete Verbindungsprobleme zu vermeiden.

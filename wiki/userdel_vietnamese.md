@@ -1,36 +1,44 @@
-# [리눅스] Bash userdel 사용법
+# [Linux] Bash userdel: Xóa người dùng trong hệ thống
 
-## Tổng quan
-Lệnh `userdel` trong Bash được sử dụng để xóa một tài khoản người dùng trên hệ thống Linux. Mục đích chính của lệnh này là loại bỏ người dùng và các thông tin liên quan đến tài khoản của họ, giúp quản lý người dùng trên hệ thống một cách hiệu quả hơn.
+## Overview
+Lệnh `userdel` trong Bash được sử dụng để xóa một tài khoản người dùng khỏi hệ thống. Khi một tài khoản bị xóa, tất cả các thông tin liên quan đến tài khoản đó cũng sẽ bị xóa, bao gồm cả thư mục chính và các tệp tin liên quan (nếu được chỉ định).
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `userdel` như sau:
 
 ```bash
-userdel [tùy chọn] tên_người_dùng
+userdel [options] [arguments]
 ```
 
-### Tùy chọn phổ biến:
-- `-r`: Xóa thư mục home của người dùng cùng với tài khoản của họ.
-- `-f`: Buộc xóa tài khoản người dùng ngay cả khi người dùng đang đăng nhập.
-- `-Z`: Xóa nhãn SELinux liên quan đến tài khoản người dùng.
+## Common Options
+- `-r`: Xóa thư mục chính của người dùng và các tệp tin liên quan.
+- `-f`: Buộc xóa người dùng ngay cả khi người dùng đang đăng nhập.
+- `-Z`: Xóa nhãn SELinux của người dùng.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `userdel`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `userdel`:
 
-### Ví dụ 1: Xóa tài khoản người dùng mà không xóa thư mục home
-```bash
-sudo userdel username
-```
-Lệnh này sẽ xóa tài khoản người dùng có tên là `username` nhưng giữ lại thư mục home của họ.
+1. **Xóa một người dùng mà không xóa thư mục chính**:
+   ```bash
+   userdel username
+   ```
 
-### Ví dụ 2: Xóa tài khoản người dùng và thư mục home
-```bash
-sudo userdel -r username
-```
-Lệnh này sẽ xóa tài khoản người dùng `username` và đồng thời xóa thư mục home của họ cùng với tất cả các tệp tin bên trong.
+2. **Xóa một người dùng và thư mục chính của họ**:
+   ```bash
+   userdel -r username
+   ```
 
-## Mẹo
-- Trước khi xóa một tài khoản người dùng, hãy đảm bảo rằng bạn đã sao lưu tất cả các dữ liệu quan trọng mà người dùng đó có thể đã tạo ra.
-- Sử dụng tùy chọn `-f` một cách cẩn thận, vì nó có thể dẫn đến việc xóa tài khoản người dùng đang hoạt động, có thể gây ra mất mát dữ liệu hoặc sự cố hệ thống.
-- Kiểm tra danh sách người dùng hiện tại bằng lệnh `cat /etc/passwd` trước khi thực hiện xóa để đảm bảo rằng bạn không xóa nhầm tài khoản.
+3. **Buộc xóa người dùng ngay cả khi họ đang đăng nhập**:
+   ```bash
+   userdel -f username
+   ```
+
+4. **Xóa một người dùng và xóa nhãn SELinux**:
+   ```bash
+   userdel -Z username
+   ```
+
+## Tips
+- Trước khi xóa một người dùng, hãy đảm bảo rằng bạn đã sao lưu tất cả dữ liệu quan trọng của họ.
+- Kiểm tra xem người dùng có đang đăng nhập hay không bằng cách sử dụng lệnh `who` trước khi thực hiện lệnh `userdel -f`.
+- Sử dụng tùy chọn `-r` một cách cẩn thận, vì nó sẽ xóa toàn bộ thư mục chính và không thể khôi phục lại.

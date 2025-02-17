@@ -1,54 +1,47 @@
-# [리눅스] Bash bg 사용법
+# [Linux] Bash bg Uso equivalente: Mover trabajos a segundo plano
 
 ## Overview
-El comando `bg` en Bash se utiliza para reanudar un trabajo que se ha detenido (suspendido) y ejecutarlo en segundo plano. Esto es útil cuando un proceso necesita continuar ejecutándose sin ocupar la terminal, permitiendo al usuario seguir trabajando en otras tareas en la línea de comandos.
+El comando `bg` en Bash se utiliza para reanudar trabajos detenidos y moverlos al segundo plano. Esto permite que los procesos continúen ejecutándose sin ocupar la terminal, lo que es útil para realizar múltiples tareas simultáneamente.
 
 ## Usage
 La sintaxis básica del comando `bg` es la siguiente:
 
 ```bash
-bg [job_spec]
+bg [opciones] [número de trabajo]
 ```
 
-- `job_spec`: Especifica el trabajo que se desea reanudar. Puede ser el número del trabajo (precedido por un signo de porcentaje, por ejemplo, `%1` para el primer trabajo) o el identificador del proceso.
+## Common Options
+- `-l`: Muestra la lista de trabajos en segundo plano con sus números de trabajo.
+- `-n`: No muestra mensajes de estado al mover trabajos al segundo plano.
 
-Si no se proporciona `job_spec`, `bg` reanudará el último trabajo suspendido.
+## Common Examples
 
-## Examples
+1. **Mover un trabajo detenido al segundo plano**
+   Supongamos que tienes un trabajo detenido (por ejemplo, un proceso de edición de texto). Puedes moverlo al segundo plano con:
+   ```bash
+   bg %1
+   ```
+   Aquí, `%1` representa el número del trabajo que deseas mover.
 
-### Ejemplo 1: Reanudar el último trabajo suspendido
-Supongamos que has ejecutado un comando que se ha suspendido (por ejemplo, presionando `Ctrl+Z`):
+2. **Reanudar el último trabajo detenido en segundo plano**
+   Si solo deseas reanudar el último trabajo que detuviste, puedes usar:
+   ```bash
+   bg
+   ```
 
-```bash
-$ sleep 100
-^Z
-[1]+  Stopped                 sleep 100
-```
+3. **Listar trabajos en segundo plano**
+   Para ver todos los trabajos en segundo plano, puedes usar:
+   ```bash
+   jobs
+   ```
 
-Para reanudar este trabajo en segundo plano, simplemente ejecuta:
-
-```bash
-$ bg
-[1]+ sleep 100 &
-```
-
-### Ejemplo 2: Reanudar un trabajo específico
-Si tienes múltiples trabajos suspendidos, puedes reanudar uno específico. Primero, lista los trabajos activos:
-
-```bash
-$ jobs
-[1]+  Stopped                 sleep 100
-[2]-  Stopped                 nano
-```
-
-Para reanudar el segundo trabajo (en este caso, `nano`), utiliza:
-
-```bash
-$ bg %2
-[2]- nano &
-```
+4. **Mover un trabajo específico al segundo plano**
+   Si tienes varios trabajos y deseas mover uno específico, primero verifica la lista de trabajos con `jobs`, luego usa `bg` con el número correspondiente:
+   ```bash
+   bg %2
+   ```
 
 ## Tips
-- Utiliza el comando `jobs` para ver una lista de trabajos suspendidos y sus estados antes de usar `bg`.
-- Recuerda que los trabajos en segundo plano pueden seguir ejecutándose incluso si cierras la terminal, pero si deseas que continúen ejecutándose después de cerrar la sesión, considera usar `nohup` o `disown`.
-- Puedes combinar `bg` con otros comandos como `fg` para alternar entre trabajos en primer plano y en segundo plano según sea necesario.
+- Siempre verifica el estado de tus trabajos con el comando `jobs` antes de usar `bg`.
+- Puedes combinar `bg` con `disown` para desvincular un trabajo del terminal, permitiendo que continúe ejecutándose incluso si cierras la sesión.
+- Utiliza `fg` si necesitas llevar un trabajo de nuevo al primer plano para interactuar con él.

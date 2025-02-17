@@ -1,52 +1,48 @@
-# [리눅스] Bash shopt 사용법
+# [Linux] Bash shopt Uso: Configure shell options
 
 ## Overview
-The `shopt` command in Bash is used to set and unset various shell options that affect the behavior of the shell. It allows users to enable or disable specific features of the shell, which can enhance scripting capabilities and improve user experience. By modifying these options, developers can customize how the shell interprets commands and handles certain situations.
+The `shopt` command in Bash is used to set and unset various shell options that affect the behavior of the shell. These options can enable or disable features, allowing users to customize their shell environment to better suit their needs.
 
 ## Usage
-The basic syntax for the `shopt` command is as follows:
+The basic syntax of the `shopt` command is as follows:
 
 ```bash
-shopt [OPTION] [FEATURE]
+shopt [options] [arguments]
 ```
 
-### Common Options
-- `-s` : This option is used to set a shell option (enable a feature).
-- `-u` : This option is used to unset a shell option (disable a feature).
-- `-p` : This option prints the current settings of all shell options.
+## Common Options
+- `-s`: Set the specified option(s).
+- `-u`: Unset the specified option(s).
+- `-p`: Print the current values of the specified options.
 
-### Features
-Some commonly used features include:
-- `cdable_vars` : If set, allows directory names to be replaced by variable names when using the `cd` command.
-- `nocaseglob` : If set, enables case-insensitive filename expansion.
-- `histappend` : If set, appends the history list to the history file instead of overwriting it.
+## Common Examples
 
-## Examples
+1. **Enable the `nullglob` option**: This option allows patterns that match no files to expand to nothing instead of themselves.
+   ```bash
+   shopt -s nullglob
+   ```
 
-### Example 1: Enable Case-Insensitive Filename Expansion
-To enable case-insensitive globbing, you can use the following command:
+2. **Disable the `dotglob` option**: This option controls whether filenames beginning with a dot (.) are included in pathname expansions.
+   ```bash
+   shopt -u dotglob
+   ```
 
-```bash
-shopt -s nocaseglob
-```
+3. **List all options**: To see the current state of all shell options, you can use:
+   ```bash
+   shopt
+   ```
 
-After running this command, you can use commands like `ls *.txt` to match files with extensions like `.TXT`, `.Txt`, etc.
+4. **Enable the `histappend` option**: This option allows the shell to append to the history file rather than overwriting it.
+   ```bash
+   shopt -s histappend
+   ```
 
-### Example 2: Enable Directory Variable Expansion
-To enable the use of variables as directory names when using the `cd` command, use:
-
-```bash
-shopt -s cdable_vars
-```
-
-Now, if you have a variable defined as a directory, you can change to that directory simply by using the variable name:
-
-```bash
-MYDIR="/path/to/directory"
-cd $MYDIR
-```
+5. **Check if an option is set**: To see if a specific option is enabled, you can use:
+   ```bash
+   shopt -p nullglob
+   ```
 
 ## Tips
-- Always check the current settings of shell options before modifying them using `shopt -p`. This helps you understand the default behavior of your shell and avoid unexpected changes.
-- Use `shopt -s` and `shopt -u` carefully, especially in scripts, as changing shell options can affect the behavior of commands that follow.
-- Consider documenting any changes made to shell options in scripts to ensure clarity for anyone who may read or maintain the code later.
+- Always check the current state of options before changing them, especially in scripts, to avoid unexpected behavior.
+- Use `shopt` in your `.bashrc` file to set your preferred options automatically when starting a new shell session.
+- Be cautious when enabling options that change default behaviors, as they may affect existing scripts or commands.

@@ -1,44 +1,48 @@
-# [리눅스] Bash 7z 사용법
+# [Linux] Bash 7z uso: Comprimir y descomprimir archivos
 
 ## Overview
-El comando `7z` es una herramienta de línea de comandos para la compresión y descompresión de archivos. Forma parte del software 7-Zip, que es conocido por su alta tasa de compresión y su capacidad para manejar una variedad de formatos de archivo. Su propósito principal es permitir a los usuarios crear archivos comprimidos y extraer contenido de archivos comprimidos de manera eficiente.
+El comando `7z` es una herramienta de línea de comandos utilizada para comprimir y descomprimir archivos. Forma parte del programa 7-Zip, que es conocido por su alta relación de compresión y soporte para múltiples formatos de archivo.
 
 ## Usage
 La sintaxis básica del comando `7z` es la siguiente:
 
 ```
-7z [opciones] [comando] [archivo(s)]
+7z [opciones] [argumentos]
 ```
 
-### Comandos Comunes:
+## Common Options
 - `a`: Agregar archivos a un archivo comprimido.
 - `x`: Extraer archivos de un archivo comprimido.
 - `l`: Listar el contenido de un archivo comprimido.
 - `d`: Eliminar archivos de un archivo comprimido.
+- `t`: Especificar el tipo de archivo (por ejemplo, zip, 7z, etc.).
 
-### Opciones Comunes:
-- `-p`: Establecer una contraseña para el archivo comprimido.
-- `-m`: Especificar el método de compresión.
-- `-r`: Incluir archivos en subdirectorios.
+## Common Examples
+- **Comprimir un archivo:**
+  ```bash
+  7z a archivo_comprimido.7z archivo.txt
+  ```
+  Este comando crea un archivo comprimido llamado `archivo_comprimido.7z` que contiene `archivo.txt`.
 
-## Examples
-### Ejemplo 1: Crear un archivo comprimido
-Para crear un archivo comprimido llamado `archivo.7z` que contenga todos los archivos en el directorio actual, puedes usar el siguiente comando:
+- **Descomprimir un archivo:**
+  ```bash
+  7z x archivo_comprimido.7z
+  ```
+  Este comando extrae el contenido de `archivo_comprimido.7z` en el directorio actual.
 
-```bash
-7z a archivo.7z *
-```
+- **Listar el contenido de un archivo comprimido:**
+  ```bash
+  7z l archivo_comprimido.7z
+  ```
+  Este comando muestra los archivos contenidos en `archivo_comprimido.7z`.
 
-### Ejemplo 2: Extraer un archivo comprimido
-Para extraer el contenido de `archivo.7z` en el directorio actual, utiliza el siguiente comando:
-
-```bash
-7z x archivo.7z
-```
+- **Eliminar un archivo de un archivo comprimido:**
+  ```bash
+  7z d archivo_comprimido.7z archivo.txt
+  ```
+  Este comando elimina `archivo.txt` del archivo comprimido `archivo_comprimido.7z`.
 
 ## Tips
-- Siempre verifica el contenido de un archivo comprimido utilizando el comando `7z l archivo.7z` antes de extraerlo, para asegurarte de que contiene los archivos que esperas.
-- Si trabajas con archivos sensibles, considera usar la opción `-p` para proteger tus archivos comprimidos con una contraseña.
-- Para mejorar la velocidad de compresión, puedes experimentar con diferentes métodos de compresión utilizando la opción `-m`.
-
-Con estos consejos y ejemplos, podrás utilizar el comando `7z` de manera efectiva en tus proyectos de desarrollo y administración de archivos.
+- Siempre verifica el contenido de un archivo comprimido con `7z l` antes de extraerlo para asegurarte de que contiene lo que esperas.
+- Utiliza la opción `-p` para proteger con contraseña tus archivos comprimidos, por ejemplo: `7z a -pMiContraseña archivo_comprimido.7z archivo.txt`.
+- Para mejorar la compresión, puedes experimentar con diferentes niveles de compresión usando la opción `-mx`, donde `x` puede ser un número del 0 al 9, siendo 9 el máximo.

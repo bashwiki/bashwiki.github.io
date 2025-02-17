@@ -1,46 +1,49 @@
-# [리눅스] Bash sleep 사용법
+# [Linux] Bash sleep Kullanımı: Komutları belirli bir süre bekletir
 
 ## Overview
-`sleep` komutu, belirli bir süre boyunca işlemciyi duraklatmak için kullanılır. Bu komut, genellikle bir betik içinde belirli bir süre beklemek gerektiğinde, zamanlama yapmak için veya bir işlemin tamamlanmasını beklemek için kullanılır. `sleep`, genellikle diğer komutlarla birlikte kullanılarak, belirli bir süre sonra bir işlemi başlatmak için faydalıdır.
+`sleep` komutu, bir Bash betiğinde veya terminalde belirli bir süre boyunca beklemek için kullanılır. Bu komut, genellikle diğer komutların çalıştırılmasından önce bir gecikme eklemek amacıyla kullanılır.
 
 ## Usage
-`sleep` komutunun temel sözdizimi şu şekildedir:
-
-```bash
-sleep [süre]
+Temel sözdizimi aşağıdaki gibidir:
+```
+sleep [options] [arguments]
 ```
 
-### Süre
-Süre, beklemek istediğiniz zamanı belirtir. Bu süre, aşağıdaki birimlerle ifade edilebilir:
+## Common Options
+- `-s`, `--seconds`: Bekleme süresini saniye cinsinden belirtir. Bu seçenek varsayılan olarak kullanılır.
+- `-m`, `--minutes`: Bekleme süresini dakika cinsinden belirtir.
+- `-h`, `--hours`: Bekleme süresini saat cinsinden belirtir.
+- `-d`, `--days`: Bekleme süresini gün cinsinden belirtir.
 
-- `s`: Saniye (varsayılan birim)
-- `m`: Dakika
-- `h`: Saat
-- `d`: Gün
+## Common Examples
+Aşağıda `sleep` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-Örneğin, `5m` ifadesi 5 dakika beklemek anlamına gelir.
+1. 5 saniye beklemek için:
+   ```bash
+   sleep 5
+   ```
 
-## Examples
-### Örnek 1: 10 Saniye Bekleme
-Aşağıdaki komut, 10 saniye bekledikten sonra bir mesaj yazdırır:
+2. 2 dakika beklemek için:
+   ```bash
+   sleep 2m
+   ```
 
-```bash
-echo "10 saniye bekliyorum..."
-sleep 10
-echo "Bekleme süresi sona erdi."
-```
+3. 1 saat beklemek için:
+   ```bash
+   sleep 1h
+   ```
 
-### Örnek 2: 2 Dakika Bekleme
-Bu örnekte, 2 dakika bekledikten sonra bir dosya oluşturulmaktadır:
+4. 3 gün beklemek için:
+   ```bash
+   sleep 3d
+   ```
 
-```bash
-echo "2 dakika bekliyorum..."
-sleep 2m
-touch yeni_dosya.txt
-echo "Yeni dosya oluşturuldu: yeni_dosya.txt"
-```
+5. Bir komutun çalıştırılmasından önce 10 saniye beklemek için:
+   ```bash
+   sleep 10 && echo "10 saniye geçti!"
+   ```
 
 ## Tips
-- `sleep` komutunu, uzun süreli işlemler arasında bekleme süresi eklemek için kullanarak sistem kaynaklarını daha verimli kullanabilirsiniz.
-- Betiklerinizi daha okunabilir hale getirmek için, bekleme sürelerini açıklayıcı yorumlarla destekleyin.
-- Çok kısa bekleme süreleri (örneğin, milisaniyeler) için `sleep` yerine `usleep` komutunu kullanmayı düşünebilirsiniz. Ancak, `usleep` komutu genellikle daha az yaygındır ve her sistemde mevcut olmayabilir.
+- `sleep` komutunu bir betikte kullanırken, bekleme sürelerini dikkatlice ayarlamak, betiğin performansını artırabilir.
+- Uzun bekleme süreleri kullanırken, betiğin akışını kaybetmemek için ara vermek faydalı olabilir.
+- `sleep` komutunu, zamanlama gerektiren görevlerde veya otomatikleştirilmiş işlemlerde kullanarak, belirli bir sırayı koruyabilirsiniz.

@@ -1,69 +1,52 @@
-# [리눅스] Bash shift 사용법
+# [Linux] Bash shift Verwendung: Entfernen von Positionsparametern
 
 ## Übersicht
-Der Befehl `shift` in Bash wird verwendet, um die Position der Positionsparameter in einem Skript zu verschieben. Dies bedeutet, dass der erste Parameter `$1` auf den Wert von `$2` gesetzt wird, `$2` auf `$3` und so weiter. Der Hauptzweck von `shift` besteht darin, die Argumente, die an ein Skript oder eine Funktion übergeben werden, schrittweise zu verarbeiten, indem man die bereits verarbeiteten Argumente "verschiebt".
+Der Befehl `shift` wird in Bash verwendet, um die Positionsparameter nach links zu verschieben. Das bedeutet, dass der erste Parameter ($1) entfernt wird und alle nachfolgenden Parameter um eine Position nach vorne rücken. Dies ist besonders nützlich in Skripten, um mit einer variablen Anzahl von Argumenten zu arbeiten.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls lautet:
+Die grundlegende Syntax des Befehls ist wie folgt:
 
 ```bash
 shift [n]
 ```
 
-Hierbei ist `n` eine optionale Zahl, die angibt, um wie viele Positionen die Parameter verschoben werden sollen. Wenn `n` nicht angegeben wird, wird standardmäßig um 1 verschoben.
+Hierbei ist `n` die Anzahl der Positionen, um die die Parameter verschoben werden sollen. Wenn `n` nicht angegeben ist, wird standardmäßig um eins verschoben.
 
-### Optionen
-- `n`: Gibt die Anzahl der Positionen an, um die die Parameter verschoben werden sollen. Wenn `n` größer ist als die Anzahl der übergebenen Parameter, werden alle Parameter gelöscht.
+## Häufige Optionen
+- `n`: Gibt an, um wie viele Positionen die Parameter verschoben werden sollen. Wenn `n` nicht angegeben ist, wird um eins verschoben.
 
-## Beispiele
+## Häufige Beispiele
 
-### Beispiel 1: Einfaches Verschieben der Parameter
-Angenommen, wir haben ein Skript namens `example.sh`, das mehrere Argumente akzeptiert:
-
+### Beispiel 1: Einfaches Verschieben
 ```bash
 #!/bin/bash
-echo "Vor Shift: $1 $2 $3"
+echo "Erster Parameter: $1"
 shift
-echo "Nach Shift: $1 $2 $3"
+echo "Neuer erster Parameter: $1"
 ```
-
-Wenn Sie das Skript mit den Argumenten `arg1 arg2 arg3` ausführen:
-
-```bash
-bash example.sh arg1 arg2 arg3
-```
-
-Die Ausgabe wird sein:
-
-```
-Vor Shift: arg1 arg2 arg3
-Nach Shift: arg2 arg3 
-```
+In diesem Beispiel wird der erste Parameter entfernt und der zweite Parameter rückt an die erste Position.
 
 ### Beispiel 2: Verschieben um mehrere Positionen
-Sie können auch mehrere Positionen verschieben. Hier ist ein weiteres Beispiel:
-
 ```bash
 #!/bin/bash
-echo "Vor Shift: $1 $2 $3 $4"
+echo "Erster Parameter: $1"
+echo "Zweiter Parameter: $2"
 shift 2
-echo "Nach Shift: $1 $2 $3 $4"
+echo "Neuer erster Parameter: $1"
 ```
+Hier werden zwei Positionen verschoben, sodass der dritte Parameter nun der erste ist.
 
-Wenn Sie das Skript mit den Argumenten `arg1 arg2 arg3 arg4` ausführen:
-
+### Beispiel 3: Verwendung in einer Schleife
 ```bash
-bash example.sh arg1 arg2 arg3 arg4
+#!/bin/bash
+while [ "$#" -gt 0 ]; do
+    echo "Verarbeite Parameter: $1"
+    shift
+done
 ```
-
-Die Ausgabe wird sein:
-
-```
-Vor Shift: arg1 arg2 arg3 arg4
-Nach Shift: arg3 arg4 
-```
+In diesem Beispiel werden alle übergebenen Parameter nacheinander verarbeitet, bis keine mehr vorhanden sind.
 
 ## Tipps
-- Verwenden Sie `shift` in Schleifen, um alle übergebenen Argumente nacheinander zu verarbeiten. Dies ist besonders nützlich, wenn Sie eine unbekannte Anzahl von Argumenten haben.
-- Achten Sie darauf, dass nach dem Verschieben von Parametern die nicht mehr benötigten Parameter nicht mehr zugänglich sind. Planen Sie Ihre Argumentverarbeitung entsprechend.
-- Überprüfen Sie die Anzahl der verbleibenden Argumente mit `$#`, bevor Sie `shift` verwenden, um Fehler zu vermeiden, wenn Sie versuchen, über die Anzahl der übergebenen Argumente hinaus zu verschieben.
+- Verwenden Sie `shift` in Kombination mit Schleifen, um alle Argumente in einem Skript effizient zu verarbeiten.
+- Achten Sie darauf, dass nach dem Verschieben von Parametern die Anzahl der verbleibenden Parameter überprüft wird, um Fehler zu vermeiden.
+- Nutzen Sie `shift` in Skripten, die mit einer variablen Anzahl von Eingaben arbeiten, um die Lesbarkeit und Wartbarkeit zu verbessern.

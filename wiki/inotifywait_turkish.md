@@ -1,39 +1,52 @@
-# [리눅스] Bash inotifywait 사용법
+# [Linux] Bash inotifywait Kullanımı: Dosya sistemindeki değişiklikleri izleme
 
 ## Genel Bakış
-`inotifywait`, Linux işletim sistemlerinde dosya sistemindeki değişiklikleri izlemek için kullanılan bir komuttur. Bu komut, belirli bir dosya veya dizindeki olayları (oluşturma, silme, değiştirme vb.) izleyerek, bu olaylar gerçekleştiğinde kullanıcıya bildirimde bulunur. Geliştiriciler ve sistem yöneticileri için, dosya değişikliklerini izlemek ve otomatik işlemler gerçekleştirmek için oldukça faydalıdır.
+`inotifywait`, Linux işletim sistemlerinde dosya sistemindeki değişiklikleri izlemek için kullanılan bir komut satırı aracıdır. Bu komut, belirli bir dosya veya dizin üzerinde meydana gelen olayları takip eder ve bu olaylar gerçekleştiğinde kullanıcıya bildirimde bulunur.
 
 ## Kullanım
 Temel sözdizimi şu şekildedir:
 
 ```bash
-inotifywait [seçenekler] [dosya veya dizin]
+inotifywait [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-m`: Sürekli izleme modunu etkinleştirir. Bu seçenek ile komut, belirtilen dosya veya dizin üzerindeki değişiklikleri sürekli olarak izler.
-- `-r`: Dizinleri ve alt dizinlerini rekürsif olarak izler.
-- `-e`: İzlenecek olayları belirtir. Örneğin, `modify`, `create`, `delete` gibi olaylar seçilebilir.
-- `--format`: Çıktının formatını belirler. Özel formatlar kullanarak çıktıyı özelleştirmek mümkündür.
+## Yaygın Seçenekler
+- `-m`: İzlemeyi sürekli hale getirir; olaylar meydana geldikçe bildirim yapar.
+- `-r`: Alt dizinleri de dahil ederek rekürsif olarak izler.
+- `-e`: İzlemek istediğiniz olayları belirtir (örneğin, `modify`, `create`, `delete`).
+- `--format`: Çıktının formatını özelleştirmenizi sağlar.
 
-## Örnekler
-### Örnek 1: Bir Dizin Üzerinde Değişiklikleri İzleme
-Aşağıdaki komut, `/path/to/directory` dizininde sürekli olarak dosya değişikliklerini izler ve her değişiklikte bir bildirim gösterir:
+## Yaygın Örnekler
+Aşağıda `inotifywait` komutunun bazı pratik kullanım örnekleri verilmiştir:
 
+### 1. Belirli bir dosyayı izleme
+```bash
+inotifywait /path/to/file.txt
+```
+Bu komut, `file.txt` dosyasında meydana gelen değişiklikleri izler.
+
+### 2. Bir dizini izleme
 ```bash
 inotifywait -m /path/to/directory
 ```
+Bu komut, belirtilen dizindeki tüm değişiklikleri sürekli olarak izler.
 
-### Örnek 2: Belirli Olayları İzleme
-Aşağıdaki komut, `/path/to/file.txt` dosyasında sadece değişiklikler (modify) olduğunda bildirimde bulunur:
-
+### 3. Belirli olayları izleme
 ```bash
-inotifywait -e modify /path/to/file.txt
+inotifywait -e modify,create,delete /path/to/directory
 ```
+Bu komut, belirtilen dizinde dosya değiştirme, oluşturma ve silme olaylarını izler.
+
+### 4. Rekürsif izleme
+```bash
+inotifywait -mr /path/to/directory
+```
+Bu komut, belirtilen dizin ve alt dizinlerdeki tüm değişiklikleri izler.
 
 ## İpuçları
-- `inotifywait` komutunu bir betik içinde kullanarak, dosya değişikliklerine otomatik yanıtlar verebilirsiniz. Örneğin, bir dosya güncellendiğinde otomatik olarak bir yedekleme işlemi başlatabilirsiniz.
-- İzleme işlemi sırasında çok fazla olay meydana gelebileceğinden, `--format` seçeneğini kullanarak çıktıyı daha okunabilir hale getirebilirsiniz.
-- Dizin izlerken, `-r` seçeneği ile alt dizinlerdeki değişiklikleri de izlemeyi unutmayın. Bu, daha kapsamlı bir izleme sağlar.
-
-`inotifywait`, dosya sistemindeki değişiklikleri takip etmek için güçlü bir araçtır ve doğru kullanıldığında geliştiricilere ve sistem yöneticilerine büyük kolaylık sağlar.
+- `inotifywait` komutunu bir betik içinde kullanarak otomatik bildirimler oluşturabilirsiniz.
+- İzleme işlemini daha verimli hale getirmek için yalnızca gerekli olayları belirtin.
+- Çıktıyı bir dosyaya yönlendirmek için `>` operatörünü kullanarak log dosyası oluşturabilirsiniz. Örneğin:
+  ```bash
+  inotifywait -m /path/to/directory > changes.log
+  ```

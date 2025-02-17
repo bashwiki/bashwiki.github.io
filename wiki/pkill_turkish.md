@@ -1,37 +1,50 @@
-# [리눅스] Bash pkill 사용법
+# [Linux] Bash pkill Kullanımı: Süreçleri adlarına göre sonlandırma
 
-## Genel Bakış
-`pkill`, Linux ve Unix benzeri işletim sistemlerinde çalışan bir komuttur. Bu komut, belirli bir isimle eşleşen süreçleri sonlandırmak için kullanılır. `pkill`, süreçlerin PID'lerini (Process ID) bilmeden, sadece süreç adını kullanarak bu süreçleri durdurma yeteneği sağlar. Bu, sistem yöneticileri ve geliştiriciler için süreç yönetimini kolaylaştırır.
+## Overview
+`pkill` komutu, belirli bir isimle eşleşen süreçleri sonlandırmak için kullanılır. Bu, kullanıcıların belirli bir uygulamayı veya işlemi hızlı bir şekilde kapatmalarını sağlar.
 
-## Kullanım
-`pkill` komutunun temel sözdizimi şu şekildedir:
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 
+```bash
+pkill [seçenekler] [argümanlar]
 ```
-pkill [seçenekler] <süreç_adı>
-```
 
-### Yaygın Seçenekler
-- `-f`: Süreç adının tam komut satırıyla eşleşmesini sağlar.
+## Common Options
+- `-f`: Tam komut satırıyla eşleşen süreçleri bulur.
 - `-n`: En son başlatılan süreci sonlandırır.
 - `-o`: En eski başlatılan süreci sonlandırır.
-- `-signal`: Hangi sinyalin gönderileceğini belirtir. Örneğin, `-9` sinyali, süreci zorla sonlandırmak için kullanılır.
+- `-signal`: Belirli bir sinyal göndererek süreci sonlandırır (örneğin, `-9` ile zorla kapatma).
 
-## Örnekler
-### Örnek 1: Belirli bir süreç adını kullanarak süreci sonlandırma
-Aşağıdaki komut, "firefox" adındaki tüm süreçleri sonlandırır:
+## Common Examples
+Aşağıda `pkill` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-pkill firefox
-```
+1. Belirli bir uygulamayı ad ile sonlandırma:
+   ```bash
+   pkill firefox
+   ```
 
-### Örnek 2: Tam komut satırıyla eşleşen süreçleri sonlandırma
-Aşağıdaki komut, "python script.py" komutuyla başlatılan süreçleri sonlandırır:
+2. Tüm `java` süreçlerini sonlandırma:
+   ```bash
+   pkill java
+   ```
 
-```bash
-pkill -f "python script.py"
-```
+3. Tam komut satırıyla eşleşen süreçleri sonlandırma:
+   ```bash
+   pkill -f "python my_script.py"
+   ```
 
-## İpuçları
-- `pkill` komutunu kullanmadan önce, hangi süreçlerin etkileneceğini görmek için `pgrep` komutunu kullanarak süreçleri listelemek iyi bir uygulamadır.
-- Süreçleri sonlandırırken dikkatli olun; yanlışlıkla önemli sistem süreçlerini sonlandırmak sistem kararlılığını etkileyebilir.
-- Gerekirse, `-n` veya `-o` seçeneklerini kullanarak sadece en son veya en eski süreçleri hedefleyebilirsiniz. Bu, daha kontrollü bir süreç sonlandırma sağlar.
+4. En son başlatılan `node` sürecini sonlandırma:
+   ```bash
+   pkill -n node
+   ```
+
+5. Zorla bir süreci sonlandırma:
+   ```bash
+   pkill -9 chrome
+   ```
+
+## Tips
+- `pkill` komutunu kullanmadan önce hangi süreçlerin çalıştığını görmek için `ps` veya `top` komutlarını kullanabilirsiniz.
+- Süreçleri sonlandırmadan önce, hangi süreçlerin kapatılacağını doğrulamak için `pgrep` komutunu kullanarak süreçleri listeleyebilirsiniz.
+- Dikkatli olun; yanlışlıkla önemli bir süreci sonlandırmak sistemde sorunlara yol açabilir.

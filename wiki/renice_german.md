@@ -1,37 +1,51 @@
-# [리눅스] Bash renice 사용법
+# [Linux] Bash renice Verwendung: Ändert die Priorität von Prozessen
 
 ## Übersicht
-Der Befehl `renice` wird in Unix-ähnlichen Betriebssystemen verwendet, um die Priorität eines laufenden Prozesses zu ändern. Die Priorität eines Prozesses bestimmt, wie viel CPU-Zeit er im Vergleich zu anderen Prozessen erhält. Ein niedrigerer Wert bedeutet eine höhere Priorität, während ein höherer Wert eine niedrigere Priorität anzeigt. Mit `renice` können Sie die Systemressourcen effizienter verwalten, indem Sie Prozessen, die weniger wichtig sind, eine niedrigere Priorität zuweisen.
+Der Befehl `renice` wird verwendet, um die Priorität von laufenden Prozessen in einem Linux- oder Unix-System zu ändern. Mit `renice` können Sie die CPU-Zuteilung für Prozesse anpassen, um sicherzustellen, dass wichtige Anwendungen mehr Ressourcen erhalten als weniger wichtige.
 
 ## Verwendung
-Die grundlegende Syntax des `renice`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-renice [OPTIONEN] NEUER_WERT [PID...]
+renice [Optionen] [Wert] [PID...]
 ```
 
-### Häufige Optionen:
-- `-n`, `--priority NEUER_WERT`: Gibt den neuen Prioritätswert an. Der Wert kann zwischen -20 (höchste Priorität) und 19 (niedrigste Priorität) liegen.
-- `-p`, `--pid`: Gibt die Prozess-ID (PID) des Prozesses an, dessen Priorität geändert werden soll.
-- `-g`, `--pgrp`: Ändert die Priorität aller Prozesse in einer bestimmten Prozessgruppe.
-- `-u`, `--user`: Ändert die Priorität aller Prozesse eines bestimmten Benutzers.
+Hierbei steht `[Wert]` für die neue Priorität, die Sie dem Prozess zuweisen möchten, und `[PID...]` für die Prozess-ID(en) der Prozesse, deren Priorität geändert werden soll.
 
-## Beispiele
-### Beispiel 1: Ändern der Priorität eines einzelnen Prozesses
-Um die Priorität eines Prozesses mit der PID 1234 auf 10 zu ändern, verwenden Sie den folgenden Befehl:
+## Häufige Optionen
+- `-n, --priority`: Gibt den neuen Prioritätswert an. Der Wert kann zwischen -20 (höchste Priorität) und 19 (niedrigste Priorität) liegen.
+- `-p, --pid`: Gibt die Prozess-ID an, für die die Priorität geändert werden soll.
+- `-g, --pgroup`: Ändert die Priorität aller Prozesse in einer bestimmten Prozessgruppe.
+- `-u, --user`: Ändert die Priorität aller Prozesse eines bestimmten Benutzers.
 
-```bash
-renice -n 10 -p 1234
-```
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung von `renice`:
 
-### Beispiel 2: Ändern der Priorität aller Prozesse eines Benutzers
-Um die Priorität aller Prozesse eines Benutzers mit dem Benutzernamen "benutzername" auf 5 zu setzen, verwenden Sie:
+1. Ändern der Priorität eines Prozesses mit der PID 1234 auf 10:
 
-```bash
-renice -n 5 -u benutzername
-```
+   ```bash
+   renice 10 -p 1234
+   ```
+
+2. Ändern der Priorität aller Prozesse eines bestimmten Benutzers (z. B. `username`) auf 5:
+
+   ```bash
+   renice 5 -u username
+   ```
+
+3. Ändern der Priorität aller Prozesse in einer bestimmten Prozessgruppe (z. B. Gruppe 5678) auf -5:
+
+   ```bash
+   renice -5 -g 5678
+   ```
+
+4. Überprüfen der aktuellen Priorität eines Prozesses (z. B. PID 1234) vor der Änderung:
+
+   ```bash
+   ps -o pid,ni,cmd -p 1234
+   ```
 
 ## Tipps
-- Seien Sie vorsichtig beim Ändern der Priorität von Prozessen, insbesondere wenn Sie die Priorität auf einen niedrigeren Wert setzen, da dies die Systemleistung beeinträchtigen kann.
-- Um die aktuelle Priorität eines Prozesses zu überprüfen, können Sie den Befehl `ps` verwenden, z.B. `ps -o pid,ni,cmd` zeigt die PID, die nice-Werte und den Befehl an.
-- Um die Berechtigung zum Ändern der Priorität eines Prozesses zu erhalten, müssen Sie möglicherweise Root-Rechte haben, insbesondere wenn Sie die Priorität eines Prozesses erhöhen möchten.
+- Verwenden Sie `renice` mit Bedacht, da das Setzen einer hohen Priorität für einen Prozess andere Prozesse negativ beeinflussen kann.
+- Überprüfen Sie regelmäßig die Prioritäten Ihrer Prozesse mit dem Befehl `ps`, um sicherzustellen, dass alles reibungslos läuft.
+- Um die Auswirkungen von Änderungen zu testen, können Sie die Priorität eines Prozesses vor und nach der Änderung vergleichen.

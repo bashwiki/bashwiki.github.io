@@ -1,75 +1,68 @@
-# [리눅스] Bash column 사용법
+# [Linux] Bash column uso: Formatar texto em colunas
 
 ## Overview
-O comando `column` é uma ferramenta do Bash que formata a saída de texto em colunas, facilitando a leitura e a análise de dados tabulares. Ele é especialmente útil para organizar informações que estão dispostas em linhas, permitindo que sejam exibidas de maneira mais estruturada e visualmente agradável. O `column` pode ser utilizado para formatar dados provenientes de arquivos, comandos ou qualquer saída de texto que contenha separadores.
+O comando `column` é utilizado para formatar texto em colunas, facilitando a leitura de dados tabulares no terminal. Ele organiza a saída de texto em um formato alinhado, tornando informações como listas e tabelas mais compreensíveis.
 
 ## Usage
 A sintaxe básica do comando `column` é a seguinte:
 
 ```bash
-column [opções] [arquivo]
+column [options] [arguments]
 ```
 
-### Opções Comuns:
-- `-t`: Formata a saída em uma tabela, alinhando as colunas automaticamente.
-- `-s <separador>`: Especifica um separador diferente do padrão (que é o espaço em branco). Por exemplo, você pode usar `-s,` para arquivos CSV.
+## Common Options
+- `-t`: Alinha as colunas em uma tabela, separando os dados por espaços em branco.
+- `-s`: Especifica um delimitador diferente para separar as colunas (por exemplo, uma vírgula).
 - `-n`: Não numera as linhas da saída.
-- `-x`: Alinha as colunas em formato de tabela, permitindo que as linhas sejam exibidas em várias linhas, se necessário.
+- `-x`: Preenche as colunas em ordem de linha, em vez de coluna.
 
-## Examples
-### Exemplo 1: Formatação Simples
-Suponha que você tenha um arquivo chamado `dados.txt` com o seguinte conteúdo:
+## Common Examples
 
+### Exemplo 1: Formatar uma lista simples
+```bash
+echo -e "Nome\nJoão\nMaria\nCarlos" | column
 ```
-Nome Idade Cidade
-Alice 30 São Paulo
-Bob 25 Rio de Janeiro
-Carlos 28 Belo Horizonte
+Saída:
+```
+Nome   
+João   
+Maria  
+Carlos 
 ```
 
-Você pode usar o comando `column` para formatar a saída em colunas:
+### Exemplo 2: Usar um delimitador personalizado
+```bash
+echo -e "Nome,Idade\nJoão,30\nMaria,25\nCarlos,28" | column -s, -t
+```
+Saída:
+```
+Nome    Idade
+João    30
+Maria   25
+Carlos  28
+```
 
+### Exemplo 3: Criar uma tabela a partir de um arquivo
+Supondo que você tenha um arquivo `dados.txt` com o seguinte conteúdo:
+```
+Produto Preço
+Maçã    1.00
+Banana  0.50
+Laranja 0.75
+```
+Você pode formatar este arquivo assim:
 ```bash
 column -t dados.txt
 ```
-
-A saída será:
-
+Saída:
 ```
-Nome    Idade  Cidade
-Alice   30     São Paulo
-Bob     25     Rio de Janeiro
-Carlos  28     Belo Horizonte
-```
-
-### Exemplo 2: Usando um Separador Personalizado
-Se você tiver um arquivo CSV chamado `dados.csv` com o seguinte conteúdo:
-
-```
-Nome,Idade,Cidade
-Alice,30,São Paulo
-Bob,25,Rio de Janeiro
-Carlos,28,Belo Horizonte
-```
-
-Você pode formatar a saída usando o separador de vírgula:
-
-```bash
-column -t -s, dados.csv
-```
-
-A saída será:
-
-```
-Nome    Idade  Cidade
-Alice   30     São Paulo
-Bob     25     Rio de Janeiro
-Carlos  28     Belo Horizonte
+Produto  Preço
+Maçã     1.00
+Banana   0.50
+Laranja  0.75
 ```
 
 ## Tips
-- Sempre que possível, utilize a opção `-t` para garantir que suas colunas sejam alinhadas corretamente, tornando a saída mais legível.
-- Se você estiver lidando com dados que usam um separador específico, não se esqueça de usar a opção `-s` para definir corretamente o separador.
-- Para grandes conjuntos de dados, considere redirecionar a saída do `column` para um arquivo, utilizando `>` para salvar a formatação em um novo arquivo.
-
-O comando `column` é uma ferramenta poderosa para engenheiros e desenvolvedores que desejam apresentar dados de forma clara e organizada no terminal.
+- Utilize o `-t` para garantir que suas colunas estejam sempre alinhadas, especialmente ao lidar com dados de diferentes tamanhos.
+- Se você estiver trabalhando com arquivos CSV, use a opção `-s` para definir a vírgula como delimitador.
+- Experimente o `-x` para visualizar dados em uma ordem diferente, o que pode ser útil para certas análises.

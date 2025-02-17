@@ -1,42 +1,57 @@
-# [리눅스] Bash docker 사용법
+# [Linux] Bash docker Verwendung: Container verwalten und Anwendungen bereitstellen
 
 ## Übersicht
-Der Befehl `docker` ist ein Kommandozeilenwerkzeug, das zur Verwaltung von Containern verwendet wird. Docker ermöglicht es Entwicklern und Ingenieuren, Anwendungen in Containern zu isolieren, zu paketieren und zu verteilen. Container sind leichtgewichtige, portable und in sich geschlossene Umgebungen, die alles enthalten, was zum Ausführen einer Anwendung erforderlich ist, einschließlich Code, Laufzeit, Bibliotheken und Abhängigkeiten.
+Der `docker` Befehl ist ein leistungsstarkes Tool zur Verwaltung von Containern und zur Bereitstellung von Anwendungen in einer isolierten Umgebung. Docker ermöglicht es Entwicklern, Anwendungen zusammen mit ihren Abhängigkeiten zu paketieren, sodass sie überall konsistent ausgeführt werden können.
 
 ## Verwendung
-Die grundlegende Syntax des `docker`-Befehls lautet:
+Die grundlegende Syntax des `docker` Befehls lautet:
 
 ```bash
-docker [OPTIONS] COMMAND [ARG...]
+docker [optionen] [argumente]
 ```
 
-Hier sind einige häufig verwendete Optionen und Befehle:
-
+## Häufige Optionen
 - `run`: Startet einen neuen Container.
 - `ps`: Listet alle laufenden Container auf.
+- `stop`: Stoppt einen laufenden Container.
+- `rm`: Entfernt einen Container.
 - `images`: Zeigt alle verfügbaren Images an.
-- `pull`: Lädt ein Image aus einem Docker-Repository herunter.
-- `build`: Erstellt ein neues Image aus einem Dockerfile.
+- `pull`: Lädt ein Image aus einem Repository herunter.
 
-## Beispiele
-### Beispiel 1: Einen neuen Container starten
-Um einen neuen Container mit dem offiziellen Nginx-Image zu starten, verwenden Sie den folgenden Befehl:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung des `docker` Befehls:
 
+### 1. Einen neuen Container starten
 ```bash
-docker run -d -p 80:80 nginx
+docker run -d --name mein-container nginx
 ```
-Dieser Befehl startet einen Nginx-Server im Hintergrund (`-d` für detached mode) und leitet den Port 80 des Containers auf den Port 80 des Hosts weiter.
+Dieser Befehl startet einen neuen Container mit dem Namen "mein-container" basierend auf dem Nginx-Image im Hintergrund.
 
-### Beispiel 2: Alle laufenden Container auflisten
-Um alle derzeit laufenden Container anzuzeigen, verwenden Sie:
-
+### 2. Alle laufenden Container auflisten
 ```bash
 docker ps
 ```
-Dieser Befehl zeigt eine Liste aller aktiven Container mit ihren IDs, Namen und Status an.
+Mit diesem Befehl werden alle derzeit laufenden Container angezeigt.
+
+### 3. Einen Container stoppen
+```bash
+docker stop mein-container
+```
+Dieser Befehl stoppt den Container mit dem Namen "mein-container".
+
+### 4. Einen Container entfernen
+```bash
+docker rm mein-container
+```
+Hiermit wird der Container "mein-container" entfernt, sofern er gestoppt ist.
+
+### 5. Ein Image herunterladen
+```bash
+docker pull ubuntu
+```
+Dieser Befehl lädt das Ubuntu-Image aus dem Docker Hub herunter.
 
 ## Tipps
-- Verwenden Sie `docker-compose`, um mehrere Container als Teil einer Anwendung zu verwalten. Dies erleichtert die Orchestrierung komplexer Anwendungen.
-- Nutzen Sie `docker logs [CONTAINER_ID]`, um die Protokolle eines Containers zu überprüfen, was bei der Fehlersuche hilfreich sein kann.
-- Halten Sie Ihre Docker-Images und -Container sauber, indem Sie regelmäßig nicht mehr benötigte Images und Container mit `docker system prune` entfernen.
-- Achten Sie darauf, die Docker-Dokumentation zu lesen, um die neuesten Funktionen und Best Practices zu verstehen.
+- Verwenden Sie `docker-compose`, um mehrere Container als Teil einer Anwendung zu verwalten.
+- Achten Sie darauf, Container regelmäßig zu aktualisieren, um Sicherheitslücken zu vermeiden.
+- Nutzen Sie Volumes, um Daten zwischen Containern und dem Host-System persistent zu speichern.

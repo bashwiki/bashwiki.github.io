@@ -1,41 +1,44 @@
-# [리눅스] Bash nice 사용법
+# [Linux] Bash nice Kullanımı: Süreçlerin öncelik seviyesini ayarlama
 
 ## Overview
-`nice` komutu, Unix ve Unix benzeri işletim sistemlerinde, bir işlemin CPU zaman payını ayarlamak için kullanılır. Bu komut, bir işlemin önceliğini değiştirmeye yarar; böylece daha yüksek veya daha düşük öncelikli işlemler arasında CPU kaynaklarının nasıl dağıtılacağını kontrol edebilirsiniz. `nice`, sistemin genel performansını optimize etmeye yardımcı olur, özellikle de kaynak yoğun işlemler çalıştırıldığında.
+`nice` komutu, Unix benzeri işletim sistemlerinde süreçlerin öncelik seviyesini ayarlamak için kullanılır. Bu komut, bir sürecin CPU kaynaklarını ne kadar öncelikli bir şekilde kullanacağını belirler. Düşük bir öncelik değeri, sürecin daha az CPU kaynağı alacağı anlamına gelirken, yüksek bir değer daha fazla kaynak almasını sağlar.
 
 ## Usage
-Temel `nice` komutunun sözdizimi şu şekildedir:
+Temel sözdizimi şu şekildedir:
 
 ```bash
-nice [seviye] [komut]
+nice [options] [command]
 ```
 
-- **seviye**: İşlemin önceliğini belirten bir tam sayıdır. Bu değer -20 ile 19 arasında olabilir. -20 en yüksek önceliği, 19 ise en düşük önceliği temsil eder. Varsayılan değer 0'dır.
-- **komut**: Önceliği ayarlanacak olan çalıştırılacak komuttur.
+## Common Options
+- `-n, --adjustment`: Öncelik değerini ayarlamak için kullanılır. Varsayılan olarak 10'dur.
+- `-h, --help`: Komut hakkında yardım bilgilerini görüntüler.
+- `-v, --version`: `nice` komutunun sürüm bilgilerini gösterir.
 
-### Yaygın Seçenekler
-- `-n, --adjustment`: Öncelik seviyesini ayarlamak için kullanılır. Bu seçenek ile `seviye` değerini belirtebilirsiniz.
-- `-h, --help`: `nice` komutunun kullanımına dair yardım bilgilerini gösterir.
-- `-V, --version`: `nice` komutunun sürüm bilgisini gösterir.
+## Common Examples
+Aşağıda `nice` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-## Examples
-### Örnek 1: Varsayılan öncelikle bir komut çalıştırma
-Aşağıdaki komut, varsayılan öncelikle `my_script.sh` adlı bir betiği çalıştırır:
+1. Varsayılan öncelik ile bir komut çalıştırma:
+   ```bash
+   nice my_script.sh
+   ```
 
-```bash
-nice ./my_script.sh
-```
+2. Öncelik değerini 5 olarak ayarlayarak bir komut çalıştırma:
+   ```bash
+   nice -n 5 my_script.sh
+   ```
 
-### Örnek 2: Düşük öncelikle bir komut çalıştırma
-Aşağıdaki komut, `my_script.sh` betiğini 10 öncelik seviyesinde çalıştırır:
+3. Öncelik değerini -5 olarak ayarlayarak bir komut çalıştırma (bu, daha yüksek bir öncelik anlamına gelir):
+   ```bash
+   nice -n -5 my_script.sh
+   ```
 
-```bash
-nice -n 10 ./my_script.sh
-```
-
-Bu durumda, `my_script.sh` betiği, diğer işlemlerle kıyaslandığında daha düşük bir öncelik alır ve sistem kaynaklarını daha az kullanır.
+4. Bir komutun önceliğini kontrol etme:
+   ```bash
+   ps -o pid,ni,cmd
+   ```
 
 ## Tips
-- `nice` komutunu kullanırken, yüksek öncelikli işlemlerin sistem performansını olumsuz etkileyebileceğini unutmayın. Bu nedenle, öncelik ayarlamalarını dikkatli yapmalısınız.
-- Eğer bir işlemi daha yüksek öncelikle çalıştırmak istiyorsanız, `nice` yerine `renice` komutunu kullanarak mevcut bir işlemin önceliğini değiştirebilirsiniz.
-- `nice` komutunu arka planda çalışan işlemler için kullanmak, sistemin yanıt verme süresini artırabilir. Özellikle uzun süreli çalışan işlemlerde bu yaklaşım faydalı olabilir.
+- `nice` komutunu, sistem kaynaklarını daha verimli kullanmak için arka planda çalışan süreçler için kullanın.
+- Öncelik değerini ayarlarken, sistemin genel performansını etkileyebileceğini unutmayın; bu nedenle dikkatli olun.
+- `renice` komutunu kullanarak zaten çalışan bir sürecin önceliğini değiştirebilirsiniz.

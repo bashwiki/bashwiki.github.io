@@ -1,37 +1,43 @@
-# [리눅스] Bash who 사용법
+# [Linux] Bash who Kullanımı: Kullanıcı bilgilerini görüntüleme
 
-## Overview
-`who` komutu, Linux ve Unix tabanlı işletim sistemlerinde, sistemde oturum açmış olan kullanıcıların listesini gösterir. Bu komut, kullanıcıların hangi terminalde oturum açtığını, oturum açma zamanını ve diğer bazı bilgileri görüntüleyerek sistem yöneticilerine ve kullanıcılarına oturum açma durumunu takip etme imkanı sunar.
+## Genel Bakış
+`who` komutu, sistemde oturum açmış olan kullanıcıların bilgilerini görüntülemek için kullanılır. Bu komut, kullanıcı adı, oturum açma zamanı ve terminal bilgileri gibi detayları sağlar.
 
-## Usage
-`who` komutunun temel sözdizimi aşağıdaki gibidir:
-
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 ```
-who [seçenekler]
+who [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-a`: Tüm bilgileri gösterir, kullanıcıların oturum açma durumları, terminal bilgileri ve daha fazlasını içerir.
-- `-b`: Sistemin en son yeniden başlatıldığı zamanı gösterir.
-- `-q`: Sadece kullanıcıların isimlerini ve toplam kullanıcı sayısını gösterir.
+## Yaygın Seçenekler
+- `-b`: Sistemin en son ne zaman başlatıldığını gösterir.
+- `-q`: Sadece kullanıcı adlarını ve toplam kullanıcı sayısını gösterir.
+- `-H`: Başlık satırını gösterir, yani sütun adlarını ekler.
 
-## Examples
-1. Temel kullanım:
-   ```
-   who
-   ```
-   Bu komut, sistemde oturum açmış olan tüm kullanıcıların listesini gösterir.
+## Yaygın Örnekler
+Aşağıda `who` komutunun bazı pratik örnekleri bulunmaktadır:
 
-2. Tüm bilgileri görüntüleme:
-   ```
-   who -a
-   ```
-   Bu komut, kullanıcıların oturum açma bilgileri ile birlikte daha fazla detay sunar.
+### Örnek 1: Tüm oturum açmış kullanıcıları görüntüleme
+```bash
+who
+```
 
-## Tips
-- `who` komutunu sık sık kullanarak sistemdeki aktif kullanıcıları takip edebilir, bu sayede sistem güvenliğini artırabilirsiniz.
-- `who` komutunu `grep` ile birleştirerek belirli bir kullanıcıyı aramak için kullanabilirsiniz. Örneğin:
-  ```
-  who | grep kullanıcı_adı
-  ```
-  Bu komut, belirli bir kullanıcının oturum açıp açmadığını kontrol etmenize yardımcı olur.
+### Örnek 2: Sistemin en son ne zaman başlatıldığını gösterme
+```bash
+who -b
+```
+
+### Örnek 3: Sadece kullanıcı adlarını ve toplam kullanıcı sayısını görüntüleme
+```bash
+who -q
+```
+
+### Örnek 4: Başlık satırını göstererek kullanıcı bilgilerini görüntüleme
+```bash
+who -H
+```
+
+## İpuçları
+- `who` komutunu sık sık kullanarak sistemdeki aktif kullanıcıları takip edebilirsiniz.
+- `-H` seçeneği ile çıktıyı daha okunabilir hale getirebilirsiniz.
+- Eğer belirli bir kullanıcı hakkında bilgi almak istiyorsanız, `who | grep kullanıcı_adı` komutunu kullanabilirsiniz.

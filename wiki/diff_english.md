@@ -1,49 +1,58 @@
-# [리눅스] Bash diff 사용법
+# [Linux] Bash diff uso equivalente: Compare files line by line
 
 ## Overview
-The `diff` command in Bash is a powerful tool used to compare the contents of two files line by line. Its primary purpose is to identify differences between the files, which can be particularly useful for developers and engineers when reviewing changes in source code, configuration files, or any text-based documents. The output of `diff` highlights the lines that differ, making it easier to understand what has changed.
+The `diff` command is a powerful utility in Bash that allows users to compare the contents of two files line by line. It outputs the differences between the files, making it easier to identify changes, additions, or deletions.
 
 ## Usage
 The basic syntax of the `diff` command is as follows:
 
 ```bash
-diff [options] file1 file2
+diff [options] [file1] [file2]
 ```
 
-### Common Options
-- `-u`: Produces a unified diff, which shows a few lines of context around the changes, making it easier to read.
-- `-c`: Generates a context diff, providing more context around the differences.
-- `-i`: Ignores case differences in the file contents.
-- `-w`: Ignores all white space when comparing lines.
-- `-r`: Recursively compares any subdirectories found.
+## Common Options
+- `-u`: Outputs the differences in a unified format, which is easier to read.
+- `-c`: Produces a context diff, showing a few lines of context around the changes.
+- `-i`: Ignores case differences in the files.
+- `-w`: Ignores all whitespace differences.
+- `-r`: Compares directories recursively.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Comparison
-To compare two text files, `file1.txt` and `file2.txt`, you can use the following command:
+1. **Basic Comparison**
+   Compare two text files and display the differences.
+   ```bash
+   diff file1.txt file2.txt
+   ```
 
-```bash
-diff file1.txt file2.txt
-```
+2. **Unified Format**
+   View the differences in a unified format for better readability.
+   ```bash
+   diff -u file1.txt file2.txt
+   ```
 
-This will output the lines that differ between the two files.
+3. **Context Diff**
+   Show differences with context lines for clarity.
+   ```bash
+   diff -c file1.txt file2.txt
+   ```
 
-### Example 2: Unified Diff
-If you want to see a unified diff, which provides context around the changes, you can use the `-u` option:
+4. **Ignoring Case**
+   Compare two files while ignoring case differences.
+   ```bash
+   diff -i file1.txt file2.txt
+   ```
 
-```bash
-diff -u file1.txt file2.txt
-```
-
-The output will show the differences with a few lines of context, making it easier to understand the changes.
+5. **Comparing Directories**
+   Compare all files in two directories recursively.
+   ```bash
+   diff -r dir1/ dir2/
+   ```
 
 ## Tips
-- When working with source code, consider using the `-u` option to generate patches that can be easily applied with the `patch` command.
-- Use the `-r` option when comparing directories to identify differences in multiple files at once.
-- For large files, consider using `diff` in combination with `less` to paginate the output, like so:
-
-```bash
-diff file1.txt file2.txt | less
-```
-
-This allows you to scroll through the differences more comfortably.
+- Always use the `-u` option when sharing diffs with others, as it provides a clearer view of changes.
+- For large files, consider using `less` to paginate the output: 
+  ```bash
+  diff file1.txt file2.txt | less
+  ```
+- When working with version control systems, `diff` can be used to review changes before committing.

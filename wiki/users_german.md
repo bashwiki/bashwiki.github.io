@@ -1,45 +1,39 @@
-# [리눅스] Bash users 사용법
+# [Linux] Bash-Benutzerbefehl: Benutzerinformationen anzeigen
 
 ## Übersicht
-Der Befehl `users` wird in der Bash verwendet, um die aktuell angemeldeten Benutzer im System anzuzeigen. Er gibt eine Liste der Benutzernamen zurück, die zurzeit aktiv sind, und ist besonders nützlich für Systemadministratoren und Entwickler, die einen Überblick über die Benutzeraktivität auf einem Server oder in einer Umgebung erhalten möchten.
+Der `users` Befehl zeigt die Benutzernamen der aktuell angemeldeten Benutzer auf dem System an. Dies ist nützlich, um schnell zu überprüfen, wer gerade eingeloggt ist.
 
 ## Verwendung
 Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-users
+users [Optionen] [Argumente]
 ```
 
-Es gibt keine speziellen Optionen für den Befehl `users`, da er einfach die Benutzernamen der aktuell angemeldeten Benutzer auflistet. Der Befehl gibt die Namen in einer einzigen Zeile zurück, wobei die Namen durch Leerzeichen getrennt sind.
+## Häufige Optionen
+- `-n`: Zeigt die Anzahl der angemeldeten Benutzer an.
+- `-r`: Gibt nur die Benutzernamen der Benutzer aus, die auf einer bestimmten Terminal-Sitzung angemeldet sind.
 
-## Beispiele
-Hier sind einige praktische Beispiele zur Verwendung des Befehls `users`:
+## Häufige Beispiele
 
-1. **Einfacher Aufruf**:
-   Um die aktuell angemeldeten Benutzer anzuzeigen, geben Sie einfach den Befehl ein:
+1. **Einfaches Anzeigen der angemeldeten Benutzer:**
 
    ```bash
    users
    ```
 
-   Beispielausgabe:
-   ```
-   alice bob charlie
-   ```
-
-   In diesem Beispiel sind die Benutzer `alice`, `bob` und `charlie` derzeit im System angemeldet.
-
-2. **Verwendung in einem Skript**:
-   Sie können den Befehl `users` auch in einem Bash-Skript verwenden, um die Benutzeraktivität zu protokollieren:
+2. **Anzeigen der Anzahl der angemeldeten Benutzer:**
 
    ```bash
-   #!/bin/bash
-   echo "Aktuell angemeldete Benutzer: $(users)" >> benutzerprotokoll.txt
+   users -n
    ```
 
-   Dieses Skript fügt die Liste der angemeldeten Benutzer in eine Datei namens `benutzerprotokoll.txt` ein.
+3. **Anzeigen der Benutzer auf einem bestimmten Terminal:**
+
+   ```bash
+   users -r
+   ```
 
 ## Tipps
-- Der Befehl `users` ist besonders nützlich in Kombination mit anderen Befehlen wie `who` oder `w`, die zusätzliche Informationen über die Benutzeraktivität bereitstellen.
-- Verwenden Sie `users` in Skripten, um die Benutzeraktivität zu überwachen oder zu protokollieren, was bei der Fehlersuche oder Systemüberwachung hilfreich sein kann.
-- Beachten Sie, dass der Befehl nur die Benutzer anzeigt, die aktuell angemeldet sind, und nicht die, die sich möglicherweise in der Vergangenheit angemeldet haben oder die Sitzung beendet haben.
+- Verwenden Sie `who` oder `w`, um detailliertere Informationen über die angemeldeten Benutzer zu erhalten, einschließlich ihrer Anmeldezeiten und aktiven Sitzungen.
+- Der `users` Befehl ist besonders nützlich in Skripten, um die Benutzeraktivität zu überwachen.

@@ -1,66 +1,52 @@
-# [리눅스] Bash uniq 사용법
+# [Linux] Bash uniq : Éliminer les doublons dans un fichier
 
 ## Overview
-La commande `uniq` est un utilitaire de traitement de texte dans Unix/Linux qui permet de filtrer les lignes répétées dans un fichier ou une entrée standard. Son principal objectif est de supprimer les doublons consécutifs dans un fichier, ce qui est particulièrement utile lors de l'analyse de données ou de la préparation de rapports.
+La commande `uniq` est utilisée pour filtrer les lignes répétées dans un fichier ou dans l'entrée standard. Elle affiche uniquement les lignes uniques, ce qui est particulièrement utile pour traiter des fichiers contenant des données en double.
 
 ## Usage
 La syntaxe de base de la commande `uniq` est la suivante :
 
 ```bash
-uniq [options] [input_file] [output_file]
+uniq [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
+Voici quelques options courantes pour `uniq` :
+
 - `-c` : Compte le nombre d'occurrences de chaque ligne.
-- `-d` : Affiche uniquement les lignes qui sont dupliquées.
-- `-u` : Affiche uniquement les lignes uniques, c'est-à-dire celles qui ne sont pas répétées.
+- `-d` : Affiche uniquement les lignes qui apparaissent plus d'une fois.
+- `-u` : Affiche uniquement les lignes qui apparaissent une seule fois.
 - `-i` : Ignore la casse lors de la comparaison des lignes.
-- `-w N` : Compare seulement les N premiers caractères de chaque ligne.
 
-## Examples
-### Exemple 1 : Suppression des doublons
-Supposons que vous ayez un fichier nommé `data.txt` contenant les lignes suivantes :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `uniq` :
 
-```
-apple
-apple
-banana
-orange
-banana
-```
+1. **Éliminer les doublons d'un fichier :**
+   ```bash
+   uniq fichier.txt
+   ```
 
-Pour supprimer les doublons consécutifs, vous pouvez utiliser la commande suivante :
+2. **Compter les occurrences de chaque ligne :**
+   ```bash
+   uniq -c fichier.txt
+   ```
 
-```bash
-uniq data.txt
-```
+3. **Afficher uniquement les lignes dupliquées :**
+   ```bash
+   uniq -d fichier.txt
+   ```
 
-Cela produira la sortie suivante :
+4. **Afficher uniquement les lignes uniques :**
+   ```bash
+   uniq -u fichier.txt
+   ```
 
-```
-apple
-banana
-orange
-banana
-```
-
-### Exemple 2 : Compter les occurrences
-Pour compter combien de fois chaque ligne apparaît dans le fichier, utilisez l'option `-c` :
-
-```bash
-uniq -c data.txt
-```
-
-La sortie sera :
-
-```
-      2 apple
-      1 banana
-      1 orange
-      1 banana
-```
+5. **Ignorer la casse lors de la suppression des doublons :**
+   ```bash
+   uniq -i fichier.txt
+   ```
 
 ## Tips
-- Assurez-vous que votre fichier est trié si vous souhaitez supprimer tous les doublons, pas seulement les doublons consécutifs. Vous pouvez utiliser la commande `sort` avant `uniq` pour cela.
-- Combinez `uniq` avec d'autres commandes comme `sort` pour un traitement de données plus efficace. Par exemple, `sort data.txt | uniq -c` pour trier et compter les occurrences en une seule commande.
-- Utilisez l'option `-i` si vous souhaitez que la comparaison soit insensible à la casse, ce qui peut être utile dans des contextes où la casse des lettres ne doit pas affecter le résultat.
+- Assurez-vous que le fichier d'entrée est trié avant d'utiliser `uniq`, car il ne supprime que les doublons consécutifs.
+- Vous pouvez combiner `uniq` avec d'autres commandes comme `sort` pour un traitement plus efficace des données.
+- Utilisez `uniq -c` pour obtenir un aperçu rapide des occurrences des lignes dans vos fichiers, ce qui peut être utile pour l'analyse de données.

@@ -1,55 +1,52 @@
-# [리눅스] Bash lsusb 사용법
+# [Linux] Bash lsusb Utilisation : Afficher les périphériques USB connectés
 
-## Aperçu
-La commande `lsusb` est un outil de ligne de commande utilisé sous les systèmes d'exploitation basés sur Linux pour afficher des informations sur les périphériques USB connectés à un système. Son objectif principal est de fournir une vue d'ensemble des périphériques USB, y compris leurs identifiants, leurs classes et d'autres détails pertinents. Cela est particulièrement utile pour les développeurs et les ingénieurs qui travaillent avec des dispositifs USB ou qui ont besoin de diagnostiquer des problèmes liés à ces périphériques.
+## Overview
+La commande `lsusb` est utilisée pour afficher des informations sur les périphériques USB connectés à votre système. Elle permet de lister tous les périphériques USB, d'afficher leurs identifiants et d'obtenir des détails supplémentaires sur chacun d'eux.
 
-## Utilisation
+## Usage
 La syntaxe de base de la commande `lsusb` est la suivante :
 
 ```bash
-lsusb [options]
+lsusb [options] [arguments]
 ```
 
-### Options courantes
-- `-v` : Affiche des informations détaillées sur chaque périphérique USB. Cette option peut produire beaucoup de sorties, donc elle est souvent utilisée avec `less` pour une navigation plus facile.
-- `-t` : Affiche la hiérarchie des périphériques USB sous forme d'arbre.
-- `-s [bus]:[device]` : Affiche uniquement les informations sur le périphérique spécifié par son bus et son numéro de périphérique.
-- `-d [vendor]:[product]` : Affiche uniquement les informations sur le périphérique correspondant à l'identifiant du vendeur et à l'identifiant du produit.
+## Common Options
+Voici quelques options courantes pour la commande `lsusb` :
 
-## Exemples
-Voici quelques exemples pratiques de l'utilisation de la commande `lsusb`.
+- `-v` : Affiche des informations détaillées sur chaque périphérique.
+- `-t` : Affiche la topologie des périphériques USB sous forme d'arborescence.
+- `-s <bus>:<device>` : Affiche uniquement le périphérique spécifié par son bus et son numéro de périphérique.
+- `-d <vendor>:<product>` : Affiche uniquement les périphériques correspondant à l'identifiant du vendeur et du produit.
 
-### Exemple 1 : Afficher la liste des périphériques USB
-Pour afficher tous les périphériques USB connectés, exécutez simplement :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `lsusb` :
 
-```bash
-lsusb
-```
+1. **Lister tous les périphériques USB :**
+   ```bash
+   lsusb
+   ```
 
-Cela produira une sortie similaire à :
+2. **Afficher des informations détaillées sur tous les périphériques :**
+   ```bash
+   lsusb -v
+   ```
 
-```
-Bus 002 Device 003: ID 1234:5678 Example Corp. Example Device
-Bus 002 Device 004: ID 8765:4321 Another Corp. Another Device
-```
+3. **Afficher la topologie des périphériques USB :**
+   ```bash
+   lsusb -t
+   ```
 
-### Exemple 2 : Afficher des informations détaillées sur un périphérique
-Pour obtenir des informations détaillées sur un périphérique spécifique, utilisez l'option `-v` :
+4. **Afficher un périphérique spécifique en utilisant son bus et son numéro :**
+   ```bash
+   lsusb -s 001:002
+   ```
 
-```bash
-lsusb -v -s 002:003
-```
+5. **Afficher un périphérique spécifique en utilisant l'identifiant du vendeur et du produit :**
+   ```bash
+   lsusb -d 1234:5678
+   ```
 
-Cela affichera des informations complètes sur le périphérique connecté au bus 002 et au numéro de périphérique 003.
-
-## Conseils
-- Lorsque vous utilisez l'option `-v`, il peut être utile de rediriger la sortie vers un fichier ou d'utiliser `less` pour faciliter la lecture, par exemple :
-
-```bash
-lsusb -v | less
-```
-
-- Si vous travaillez avec plusieurs périphériques USB, notez les identifiants de vendeur et de produit, car cela peut vous aider à identifier rapidement un périphérique spécifique lors du dépannage.
-- Utilisez l'option `-t` pour visualiser la structure hiérarchique des périphériques USB, ce qui peut être utile pour comprendre comment les périphériques sont connectés entre eux.
-
-En utilisant `lsusb`, vous pouvez facilement gérer et diagnostiquer les périphériques USB sur votre système Linux.
+## Tips
+- Utilisez `lsusb -v` avec précaution, car cela peut générer beaucoup d'informations, surtout si vous avez de nombreux périphériques connectés.
+- Combinez `lsusb` avec d'autres commandes comme `grep` pour filtrer les résultats et trouver rapidement un périphérique spécifique.
+- Pensez à exécuter `lsusb` avec des privilèges administratifs si vous avez besoin d'accéder à des informations plus sensibles sur les périphériques.

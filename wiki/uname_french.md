@@ -1,54 +1,54 @@
-# [리눅스] Bash uname 사용법
+# [Linux] Bash uname utilisation : Afficher les informations du système
 
 ## Overview
-La commande `uname` est utilisée dans les systèmes d'exploitation de type Unix pour afficher des informations sur le système. Son principal objectif est de fournir des détails sur le noyau du système, le nom de l'hôte, la version du système d'exploitation et d'autres informations pertinentes. Cela peut être particulièrement utile pour les développeurs et les ingénieurs qui souhaitent comprendre l'environnement dans lequel ils travaillent.
+La commande `uname` est utilisée pour afficher des informations sur le système d'exploitation et le matériel sur lequel vous travaillez. Elle peut fournir des détails tels que le nom du noyau, la version et le type de machine.
 
 ## Usage
 La syntaxe de base de la commande `uname` est la suivante :
 
 ```bash
-uname [options]
+uname [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
+Voici quelques options courantes pour la commande `uname` :
+
 - `-a` : Affiche toutes les informations disponibles sur le système.
 - `-s` : Affiche le nom du noyau.
 - `-n` : Affiche le nom de l'hôte du système.
 - `-r` : Affiche la version du noyau.
 - `-v` : Affiche des informations supplémentaires sur la version du noyau.
-- `-m` : Affiche l'architecture matérielle du système.
-- `-p` : Affiche le type de processeur (si disponible).
-- `-i` : Affiche le type d'ordinateur (si disponible).
-- `-o` : Affiche le nom du système d'exploitation.
+- `-m` : Affiche le type de machine.
 
-## Examples
+## Common Examples
 Voici quelques exemples pratiques de l'utilisation de la commande `uname` :
 
-1. Pour afficher toutes les informations sur le système :
-
+1. Afficher toutes les informations du système :
    ```bash
    uname -a
    ```
 
-   Cela pourrait produire une sortie similaire à :
-
-   ```
-   Linux hostname 5.4.0-74-generic #83-Ubuntu SMP Thu Jul 15 10:00:00 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
-   ```
-
-2. Pour afficher uniquement le nom du noyau :
-
+2. Afficher uniquement le nom du noyau :
    ```bash
    uname -s
    ```
 
-   La sortie pourrait être :
-
+3. Afficher le nom de l'hôte :
+   ```bash
+   uname -n
    ```
-   Linux
+
+4. Afficher la version du noyau :
+   ```bash
+   uname -r
+   ```
+
+5. Afficher le type de machine :
+   ```bash
+   uname -m
    ```
 
 ## Tips
-- Utilisez `uname -a` pour obtenir un aperçu complet de votre système en une seule commande, ce qui est utile pour le dépannage.
-- Si vous travaillez sur un projet qui nécessite des spécifications précises du système, notez l'architecture matérielle avec `uname -m`.
-- Pensez à utiliser `uname` dans des scripts pour automatiser la collecte d'informations sur l'environnement d'exécution. Cela peut aider à garantir que votre code fonctionne de manière cohérente sur différentes configurations système.
+- Utilisez `uname -a` pour obtenir un aperçu complet de votre système en une seule commande.
+- Combinez `uname` avec d'autres commandes comme `grep` pour filtrer les informations spécifiques que vous recherchez.
+- Pensez à utiliser `man uname` pour consulter le manuel et découvrir d'autres options disponibles.

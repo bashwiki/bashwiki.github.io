@@ -1,37 +1,49 @@
-# [리눅스] Bash watch 사용법
+# [Linux] Bash watch Kullanımı: Komutların sürekli izlenmesi
 
 ## Overview
-`watch` komutu, belirli bir komutu belirli aralıklarla çalıştırarak çıktısını sürekli olarak güncelleyerek görüntülemeye yarar. Bu, özellikle sistem durumunu izlemek veya bir komutun çıktısındaki değişiklikleri takip etmek için oldukça kullanışlıdır. Örneğin, bir dosyanın boyutunu veya bir sistem kaynağının kullanımını izlemek için kullanılabilir.
+`watch` komutu, belirli bir komutu belirli aralıklarla çalıştırarak çıktısını sürekli olarak güncelleyerek görüntülemeye yarar. Bu, sistem durumunu izlemek veya belirli bir işlemin ilerlemesini takip etmek için oldukça faydalıdır.
 
 ## Usage
-`watch` komutunun temel sözdizimi şu şekildedir:
+Temel kullanım sözdizimi aşağıdaki gibidir:
 
 ```bash
-watch [seçenekler] komut
+watch [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-n, --interval <saniye>`: Komutun ne sıklıkla (saniye cinsinden) çalıştırılacağını belirler. Varsayılan değer 2 saniyedir.
-- `-d, --differences`: Çıktıda değişiklikleri vurgular. Bu seçenek, çıktının hangi kısımlarının değiştiğini kolayca görmenizi sağlar.
-- `-t, --no-title`: Başlık satırını gizler. Bu, yalnızca komutun çıktısını görmek istediğinizde yararlıdır.
+## Common Options
+- `-n, --interval`: Komutun ne sıklıkla çalıştırılacağını belirler. Varsayılan değer 2 saniyedir.
+- `-d, --differences`: Çıktıdaki değişiklikleri vurgular.
+- `-t, --no-title`: Başlık satırını gizler.
+- `-h, --help`: Kullanım bilgilerini gösterir.
 
-## Examples
-### Örnek 1: Sistem Bellek Kullanımını İzleme
-Aşağıdaki komut, her 2 saniyede bir sistemin bellek kullanımını gösterir:
+## Common Examples
+Aşağıda `watch` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-```bash
-watch free -h
-```
+1. **Sistem kaynaklarını izlemek:**
+   ```bash
+   watch -n 1 free -h
+   ```
+   Bu komut, her saniye sistemin bellek kullanımını gösterir.
 
-### Örnek 2: Bir Dosyanın Boyutunu İzleme
-Belirli bir dosyanın boyutunu izlemek için şu komutu kullanabilirsiniz:
+2. **Disk kullanımını izlemek:**
+   ```bash
+   watch -n 5 df -h
+   ```
+   Bu komut, her 5 saniyede bir disk kullanımını güncelleyerek gösterir.
 
-```bash
-watch -n 5 ls -lh /path/to/dosya
-```
-Bu komut, her 5 saniyede bir belirtilen dosyanın boyutunu güncelleyerek gösterir.
+3. **Belirli bir dizindeki dosya değişikliklerini izlemek:**
+   ```bash
+   watch -d ls -l /path/to/directory
+   ```
+   Bu komut, belirtilen dizindeki dosyaların listesini ve değişikliklerini vurgulayarak gösterir.
+
+4. **Bir servisin durumunu izlemek:**
+   ```bash
+   watch systemctl status apache2
+   ```
+   Bu komut, Apache2 servisini sürekli olarak izler ve durumunu günceller.
 
 ## Tips
-- `watch` komutunu kullanırken, sık sık güncellenen verileri izlemek için `-d` seçeneğini kullanarak değişiklikleri vurgulamak, dikkatli olmanıza yardımcı olabilir.
-- Uzun süreli izleme işlemleri için, `-n` seçeneği ile aralık sürelerini ayarlamak, sistem kaynaklarınızı daha verimli kullanmanıza yardımcı olur.
-- `watch` komutunu, diğer komutlarla birleştirerek daha karmaşık izleme senaryoları oluşturabilirsiniz. Örneğin, `grep` ile belirli bir çıktıyı filtreleyebilirsiniz.
+- `watch` komutunu kullanırken, izlemek istediğiniz komutun çıktısının çok fazla veri üretmediğinden emin olun. Aksi takdirde, ekranınız karmaşık hale gelebilir.
+- `-d` seçeneği ile değişiklikleri vurgulamak, hangi bilgilerin güncellendiğini hızlıca görmenizi sağlar.
+- Belirli bir komutu izlerken, aralıkları ihtiyaçlarınıza göre ayarlamayı unutmayın; çok sık güncellemeler gereksiz kaynak tüketimine yol açabilir.

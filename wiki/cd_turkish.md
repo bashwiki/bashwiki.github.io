@@ -1,44 +1,52 @@
-# [리눅스] Bash cd 사용법
+# [Linux] Bash cd Kullanımı: Dizinler arasında geçiş yapma
 
 ## Genel Bakış
-`cd` (change directory) komutu, Linux ve Unix tabanlı işletim sistemlerinde kullanılan bir komuttur. Bu komut, kullanıcıların dosya sisteminde dizinler arasında geçiş yapmalarını sağlar. `cd` komutunu kullanarak, terminalde bulunduğunuz dizini değiştirebilir ve dosya veya klasörlere erişim sağlayabilirsiniz.
+`cd` (change directory) komutu, kullanıcıların dosya sisteminde dizinler arasında geçiş yapmalarını sağlar. Bu komut, terminalde çalışırken belirli bir dizine gitmek için kullanılır.
 
 ## Kullanım
-`cd` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi şu şekildedir:
 
 ```bash
-cd [seçenekler] [hedef_dizin]
+cd [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
+## Yaygın Seçenekler
 - `..`: Bir üst dizine geçiş yapar.
-- `~`: Kullanıcının ana dizinine geçiş yapar.
 - `-`: Önceki dizine geri döner.
+- `~`: Kullanıcının ana dizinine geçiş yapar.
 
-## Örnekler
-### Örnek 1: Ana Dizin
-Kullanıcının ana dizinine geçmek için:
+## Yaygın Örnekler
+Aşağıda `cd` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-```bash
-cd ~
-```
+1. Bir üst dizine geçiş yapmak:
+   ```bash
+   cd ..
+   ```
 
-### Örnek 2: Üst Dizin
-Bir üst dizine geçmek için:
+2. Önceki dizine geri dönmek:
+   ```bash
+   cd -
+   ```
 
-```bash
-cd ..
-```
+3. Kullanıcının ana dizinine geçiş yapmak:
+   ```bash
+   cd ~
+   ```
 
-### Örnek 3: Belirli Bir Dizin
-Belirli bir dizine geçmek için, dizinin tam yolunu belirtebilirsiniz:
+4. Belirli bir dizine geçiş yapmak (örneğin, `Belgeler` dizinine):
+   ```bash
+   cd Belgeler
+   ```
 
-```bash
-cd /home/kullanici/dokumanlar
-```
+5. Tam yol kullanarak bir dizine geçiş yapmak:
+   ```bash
+   cd /home/kullanici/Belgeler
+   ```
 
 ## İpuçları
-- `cd` komutunu kullanırken, dizin adlarını tam olarak yazmak yerine otomatik tamamlama özelliğini kullanmak için `Tab` tuşuna basabilirsiniz.
-- Dizin değiştirirken, dizin adlarının büyük/küçük harf duyarlı olduğunu unutmayın.
-- Uzun dizin yollarını daha kolay yönetmek için, `~` karakterini kullanarak ana dizin yolunu kısaltabilirsiniz.
-- Önceki dizine geri dönmek için `cd -` komutunu kullanarak hızlı bir geçiş yapabilirsiniz.
+- `cd` komutunu kullanırken dizin adlarını tam olarak yazmak yerine, dizin adının ilk birkaç harfini yazıp `Tab` tuşuna basarak otomatik tamamlama yapabilirsiniz.
+- Dizinler arasında hızlı geçiş yapmak için `cd -` komutunu kullanarak önceki dizine kolayca dönebilirsiniz.
+- Sık kullandığınız dizinler için bir alias tanımlayarak daha hızlı erişim sağlayabilirsiniz. Örneğin:
+  ```bash
+  alias projeler='cd /home/kullanici/projeler'
+  ```

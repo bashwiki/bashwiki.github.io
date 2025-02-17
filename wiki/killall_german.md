@@ -1,44 +1,50 @@
-# [리눅스] Bash killall 사용법
+# [Linux] Bash killall Verwendung: Beenden von Prozessen nach Namen
 
 ## Übersicht
-Der Befehl `killall` wird in der Bash verwendet, um Prozesse anhand ihres Namens zu beenden. Im Gegensatz zu anderen Befehlen wie `kill`, der eine Prozess-ID benötigt, ermöglicht `killall` das gezielte Beenden mehrerer Prozesse, die denselben Namen haben. Dies ist besonders nützlich, wenn mehrere Instanzen eines Programms ausgeführt werden und Sie alle gleichzeitig schließen möchten.
+Der Befehl `killall` wird verwendet, um Prozesse zu beenden, die einen bestimmten Namen haben. Im Gegensatz zu `kill`, das eine spezifische Prozess-ID benötigt, ermöglicht `killall` das Beenden aller Instanzen eines Programms anhand seines Namens.
 
 ## Verwendung
 Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-killall [OPTIONEN] PROZESSNAME
+killall [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-u, --user`: Beendet nur die Prozesse, die von einem bestimmten Benutzer gestartet wurden.
-- `-q, --quiet`: Unterdrückt die Ausgabe von Fehlermeldungen, wenn kein Prozess gefunden wird.
-- `-I, --ignore-case`: Ignoriert die Groß- und Kleinschreibung bei der Angabe des Prozessnamens.
-- `-s, --signal`: Gibt das Signal an, das an die Prozesse gesendet werden soll (z.B. `SIGTERM`, `SIGKILL`).
+## Häufige Optionen
+- `-u <Benutzer>`: Beendet nur die Prozesse, die von einem bestimmten Benutzer gestartet wurden.
+- `-i`: Fragt vor dem Beenden jedes Prozesses nach Bestätigung.
+- `-q`: Unterdrückt die Ausgabe von Fehlern, wenn kein Prozess gefunden wird.
+- `-s <Signal>`: Sendet ein bestimmtes Signal an die Prozesse (Standard ist `TERM`).
 
-## Beispiele
-Hier sind einige praktische Beispiele zur Verwendung des Befehls `killall`:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung von `killall`:
 
-1. Beenden aller Instanzen des Programms `firefox`:
-
+1. Beenden aller Instanzen von Firefox:
    ```bash
    killall firefox
    ```
 
-   Dieser Befehl sendet das Standard-Signal `SIGTERM` an alle laufenden `firefox`-Prozesse, um sie zu beenden.
-
-2. Beenden aller `python`-Prozesse, die von einem bestimmten Benutzer gestartet wurden:
-
+2. Beenden aller Prozesse eines bestimmten Benutzers:
    ```bash
-   killall -u benutzername python
+   killall -u benutzername
    ```
 
-   Hierbei wird nur die `python`-Instanz beendet, die vom Benutzer `benutzername` ausgeführt wird.
+3. Beenden von Prozessen mit Bestätigungsaufforderung:
+   ```bash
+   killall -i firefox
+   ```
+
+4. Senden eines bestimmten Signals (z.B. `KILL`) an alle Instanzen von `gedit`:
+   ```bash
+   killall -s KILL gedit
+   ```
+
+5. Unterdrücken von Fehlermeldungen, wenn kein Prozess gefunden wird:
+   ```bash
+   killall -q gnome-terminal
+   ```
 
 ## Tipps
-- Seien Sie vorsichtig beim Einsatz von `killall`, da es alle Prozesse mit dem angegebenen Namen beendet. Dies kann zu Datenverlust führen, wenn Sie nicht gespeicherte Arbeiten in einer Anwendung haben.
-- Verwenden Sie die Option `-q`, um die Ausgabe zu minimieren, wenn Sie nicht sicher sind, ob der Prozess läuft.
-- Testen Sie den Befehl zunächst mit einem weniger kritischen Prozess, um sich mit der Funktionsweise vertraut zu machen.
-- Nutzen Sie `killall -I`, wenn Sie nicht sicher sind, ob der Prozessname in Groß- oder Kleinschreibung eingegeben wurde.
-
-Mit diesen Informationen sind Sie gut gerüstet, um den Befehl `killall` effektiv in Ihrer Bash-Umgebung zu verwenden.
+- Verwenden Sie die Option `-i`, um versehentliche Beendigungen zu vermeiden, insbesondere bei kritischen Anwendungen.
+- Seien Sie vorsichtig beim Einsatz von `killall`, da es alle Prozesse mit dem angegebenen Namen beendet, was zu Datenverlust führen kann, wenn ungespeicherte Arbeiten vorhanden sind.
+- Nutzen Sie `killall -l`, um eine Liste der verfügbaren Signale anzuzeigen, die Sie mit der `-s` Option verwenden können.

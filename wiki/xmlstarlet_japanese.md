@@ -1,39 +1,52 @@
-# [리눅스] Bash xmlstarlet 사용법
+# [Linux] Bash xmlstarlet 使用法: XMLデータの操作
 
-## 概要
-`xmlstarlet`は、XMLデータを操作するためのコマンドラインツールです。XML文書の解析、変換、検証、編集を行うことができ、スクリプトや自動化されたプロセスでXMLデータを扱う際に非常に便利です。主に、XMLの内容を抽出したり、XMLを他の形式に変換したりするために使用されます。
+## Overview
+xmlstarletは、XMLデータを操作するためのコマンドラインツールです。XML文書の解析、変換、検証、編集など、さまざまな操作を簡単に行うことができます。
 
-## 使用法
-`xmlstarlet`の基本的な構文は以下の通りです。
-
-```bash
-xmlstarlet [オプション] [コマンド] [引数]
-```
-
-### 一般的なオプション
-- `-e` : XML文書をエスケープします。
-- `-r` : XML文書を整形します。
-- `-t` : テンプレートを指定してXMLを変換します。
-- `-v` : XPath式を使用してXMLから値を取得します。
-
-## 例
-### 例1: XMLから特定の要素を抽出する
-以下のコマンドは、XMLファイルから特定の要素の値を抽出します。
+## Usage
+基本的な構文は以下の通りです。
 
 ```bash
-xmlstarlet sel -t -m "/root/element" -v "text()" -n input.xml
+xmlstarlet [options] [arguments]
 ```
-このコマンドは、`input.xml`ファイル内の`<element>`タグのテキスト内容を出力します。
 
-### 例2: XMLを整形して表示する
-次のコマンドは、XMLファイルを整形して見やすく表示します。
+## Common Options
+- `sel`: XML文書から特定のノードを選択します。
+- `ed`: XML文書を編集します。
+- `val`: XML文書の検証を行います。
+- `tr`: XML文書の変換を行います。
+- `fo`: XML文書をフォーマットします。
+
+## Common Examples
+### 1. XMLノードの選択
+特定のノードを選択する例です。
 
 ```bash
-xmlstarlet fo input.xml
+xmlstarlet sel -t -m "//book" -v "title" -n books.xml
 ```
-このコマンドは、`input.xml`の内容を整形し、インデントを付けて出力します。
 
-## ヒント
-- XMLの構造を理解しておくと、XPath式を使ったデータ抽出が容易になります。
-- `xmlstarlet`はパイプラインで他のコマンドと組み合わせて使用することができるため、スクリプト内での利用が非常に効果的です。
-- 大きなXMLファイルを扱う場合は、`xmlstarlet`のストリーミングオプションを活用してメモリ使用量を抑えることができます。
+### 2. XML文書の編集
+特定のノードの値を変更する例です。
+
+```bash
+xmlstarlet ed -u "//book/title" -v "新しいタイトル" books.xml
+```
+
+### 3. XML文書の検証
+XML文書が正しいかどうかを検証する例です。
+
+```bash
+xmlstarlet val -e books.xml
+```
+
+### 4. XML文書のフォーマット
+XML文書を整形して表示する例です。
+
+```bash
+xmlstarlet fo books.xml
+```
+
+## Tips
+- XML文書を操作する前に、必ずバックアップを取っておくことをお勧めします。
+- 複雑な操作を行う場合は、xmlstarletのマニュアルを参照して、詳細なオプションを確認してください。
+- スクリプト内でxmlstarletを使用することで、XMLデータの自動処理を効率化できます。

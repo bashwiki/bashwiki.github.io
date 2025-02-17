@@ -1,47 +1,50 @@
-# [리눅스] Bash tput 사용법
+# [Linux] Bash tput Cách sử dụng: Điều chỉnh định dạng đầu ra trong terminal
 
 ## Tổng quan
-Lệnh `tput` trong Bash được sử dụng để truy cập các thuộc tính của terminal, cho phép người dùng điều khiển cách hiển thị văn bản trên màn hình. Lệnh này chủ yếu được sử dụng để thay đổi màu sắc, định dạng văn bản (như in đậm hoặc gạch chân) và điều chỉnh vị trí con trỏ. `tput` giúp cải thiện trải nghiệm người dùng trong các ứng dụng dòng lệnh bằng cách cung cấp các tùy chọn định dạng linh hoạt.
+Lệnh `tput` trong Bash được sử dụng để điều chỉnh định dạng đầu ra trên terminal. Nó cho phép người dùng thay đổi các thuộc tính như màu sắc, kiểu chữ và vị trí con trỏ, giúp cải thiện trải nghiệm người dùng trong môi trường dòng lệnh.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `tput` như sau:
-
-```bash
-tput [tùy chọn] [tham số]
+```
+tput [options] [arguments]
 ```
 
-Một số tùy chọn phổ biến của lệnh `tput` bao gồm:
+## Các tùy chọn phổ biến
+- `setaf [n]`: Đặt màu chữ (foreground) với mã màu `n`.
+- `setab [n]`: Đặt màu nền (background) với mã màu `n`.
+- `bold`: Bật chế độ chữ đậm.
+- `smso`: Bật chế độ in nghiêng (standout mode).
+- `rmso`: Tắt chế độ in nghiêng.
+- `clear`: Xóa màn hình terminal.
 
-- `setaf`: Đặt màu văn bản (foreground color).
-- `setab`: Đặt màu nền (background color).
-- `bold`: Đặt văn bản ở định dạng in đậm.
-- `smso`: Bật chế độ gạch chân (standout mode).
-- `clear`: Xóa màn hình.
-
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `tput`:
-
-1. **Thay đổi màu sắc văn bản**:
-   Để thay đổi màu sắc văn bản thành màu đỏ, bạn có thể sử dụng lệnh sau:
-
+## Ví dụ phổ biến
+1. **Thay đổi màu chữ**:
    ```bash
-   tput setaf 1; echo "Đây là văn bản màu đỏ"; tput sgr0
+   tput setaf 1; echo "Đây là chữ màu đỏ"
    ```
 
-   Trong đó, `setaf 1` đặt màu văn bản thành đỏ và `sgr0` sẽ đặt lại các thuộc tính về mặc định.
-
-2. **In đậm và gạch chân**:
-   Để in một dòng văn bản ở định dạng in đậm và gạch chân, bạn có thể sử dụng:
-
+2. **Thay đổi màu nền**:
    ```bash
-   tput bold; tput smso; echo "Văn bản này được in đậm và gạch chân"; tput rmso; tput sgr0
+   tput setab 4; echo "Đây là nền màu xanh dương"
    ```
 
-   Ở đây, `bold` bật chế độ in đậm và `smso` bật chế độ gạch chân. Sau khi in xong, `rmso` và `sgr0` sẽ đặt lại các thuộc tính.
+3. **Bật chế độ chữ đậm**:
+   ```bash
+   tput bold; echo "Đây là chữ đậm"
+   ```
+
+4. **Xóa màn hình**:
+   ```bash
+   tput clear
+   ```
+
+5. **Kết hợp nhiều tùy chọn**:
+   ```bash
+   tput setaf 2; tput setab 7; echo "Chữ xanh trên nền trắng"
+   tput sgr0  # Đặt lại định dạng về mặc định
+   ```
 
 ## Mẹo
-- Hãy luôn sử dụng `tput sgr0` sau khi thay đổi thuộc tính để đảm bảo rằng các thay đổi không ảnh hưởng đến các lệnh tiếp theo.
-- Kiểm tra các mã màu của terminal của bạn, vì các mã màu có thể khác nhau giữa các hệ thống.
-- Sử dụng `tput clear` để xóa màn hình trước khi hiển thị thông tin mới, giúp cải thiện tính dễ đọc của đầu ra.
-
-Với lệnh `tput`, bạn có thể tạo ra các giao diện dòng lệnh hấp dẫn và dễ sử dụng hơn cho người dùng.
+- Sử dụng `tput sgr0` để đặt lại tất cả các thuộc tính về mặc định sau khi thay đổi.
+- Bạn có thể tìm hiểu mã màu bằng cách tham khảo tài liệu hoặc thử nghiệm với các giá trị từ 0 đến 7 cho màu cơ bản.
+- Kết hợp `tput` với các lệnh khác trong Bash để tạo ra các script tương tác và thân thiện hơn với người dùng.

@@ -1,49 +1,45 @@
-# [리눅스] Bash basename 사용법
+# [Linux] Bash basename Cách sử dụng: Trả về tên tệp từ đường dẫn
 
-## Tổng quan
-Lệnh `basename` trong Bash được sử dụng để trích xuất tên tệp từ một đường dẫn đầy đủ. Mục đích chính của lệnh này là giúp người dùng dễ dàng lấy tên tệp mà không cần phải xử lý toàn bộ đường dẫn. Điều này rất hữu ích trong các kịch bản tự động hóa hoặc khi bạn cần làm việc với các tệp mà không muốn giữ lại thông tin về thư mục chứa chúng.
+## Overview
+Lệnh `basename` trong Bash được sử dụng để lấy tên tệp từ một đường dẫn đầy đủ. Nó loại bỏ phần đường dẫn và chỉ giữ lại tên tệp, giúp bạn dễ dàng làm việc với tên tệp mà không cần phải nhớ toàn bộ đường dẫn.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `basename` như sau:
-
-```bash
-basename [OPTION]... NAME [SUFFIX]...
+```
+basename [options] [arguments]
 ```
 
-Trong đó:
-- `NAME`: Đường dẫn đầy đủ của tệp mà bạn muốn lấy tên.
-- `SUFFIX`: (Tùy chọn) Một phần mở rộng mà bạn muốn loại bỏ khỏi tên tệp.
-
-### Tùy chọn phổ biến
+## Common Options
 - `-a`: Xử lý nhiều tệp và trả về tên của từng tệp.
-- `-s`: Loại bỏ phần mở rộng được chỉ định từ tên tệp.
+- `-s`: Loại bỏ phần mở rộng tệp được chỉ định.
+- `--help`: Hiển thị thông tin trợ giúp về lệnh.
 
-## Ví dụ
-Dưới đây là một vài ví dụ minh họa cách sử dụng lệnh `basename`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `basename`:
 
-### Ví dụ 1: Lấy tên tệp từ đường dẫn
-```bash
-basename /home/user/documents/file.txt
-```
-Kết quả sẽ là:
-```
-file.txt
-```
+1. Lấy tên tệp từ đường dẫn:
+   ```bash
+   basename /home/user/document.txt
+   ```
+   Kết quả: `document.txt`
 
-### Ví dụ 2: Loại bỏ phần mở rộng
-```bash
-basename /home/user/documents/file.txt .txt
-```
-Kết quả sẽ là:
-```
-file
-```
+2. Lấy tên tệp từ đường dẫn và loại bỏ phần mở rộng:
+   ```bash
+   basename /home/user/document.txt .txt
+   ```
+   Kết quả: `document`
 
-## Mẹo
-- Khi làm việc với nhiều tệp, bạn có thể sử dụng tùy chọn `-a` để lấy tên của tất cả các tệp trong một lần:
-```bash
-basename -a /home/user/documents/file1.txt /home/user/documents/file2.txt
-```
-- Hãy chú ý đến việc sử dụng đúng phần mở rộng khi loại bỏ nó, vì nếu phần mở rộng không khớp, tên tệp sẽ không bị thay đổi.
+3. Xử lý nhiều tệp cùng lúc:
+   ```bash
+   basename -a /home/user/file1.txt /home/user/file2.txt
+   ```
+   Kết quả:
+   ```
+   file1.txt
+   file2.txt
+   ```
 
-Lệnh `basename` là một công cụ đơn giản nhưng mạnh mẽ trong Bash, giúp bạn quản lý và xử lý tên tệp một cách hiệu quả.
+## Tips
+- Sử dụng tùy chọn `-s` để loại bỏ phần mở rộng tệp nếu bạn chỉ cần tên tệp mà không cần phần mở rộng.
+- Khi làm việc với nhiều tệp, hãy sử dụng tùy chọn `-a` để tiết kiệm thời gian và công sức.
+- Kết hợp `basename` với các lệnh khác như `find` để xử lý tệp một cách hiệu quả hơn.

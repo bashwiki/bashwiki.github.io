@@ -1,36 +1,48 @@
-# [리눅스] Bash csvtool 사용법
+# [Linux] Bash csvtool Kullanımı: CSV dosyalarını işlemek için bir araç
 
-## Overview
-`csvtool`, CSV (Comma-Separated Values) dosyalarını işlemek için kullanılan bir komut satırı aracıdır. Bu araç, CSV dosyalarındaki verileri kolayca okuma, yazma ve dönüştürme işlemleri yapmanıza olanak tanır. Geliştiriciler ve mühendisler için, veri analizi ve manipülasyonu süreçlerini hızlandırmak için oldukça faydalıdır.
+## Genel Bakış
+csvtool, CSV (Virgülle Ayrılmış Değerler) dosyalarını işlemek için kullanılan bir komut satırı aracıdır. Bu araç, CSV dosyalarındaki verileri düzenlemek, filtrelemek ve analiz etmek için çeşitli işlevler sunar.
 
-## Usage
-`csvtool` komutunun temel sözdizimi aşağıdaki gibidir:
-
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-csvtool [seçenekler] [işlem] [girdi_dosyası] [çıktı_dosyası]
+csvtool [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-c`: Belirtilen sütunları seçer. Örneğin, `-c 1,3` ifadesi 1. ve 3. sütunları alır.
-- `-r`: Satırları filtrelemek için kullanılır. Belirli bir koşula uyan satırları seçmek için kullanılabilir.
-- `-t`: CSV dosyasındaki ayırıcıyı belirtir. Varsayılan ayırıcı virgüldür, ancak `-t ;` ile noktalı virgül gibi farklı bir ayırıcı da kullanılabilir.
+## Yaygın Seçenekler
+- `-c`: Belirtilen sütunu seçer.
+- `-r`: Belirtilen satırı seçer.
+- `-t`: Sütun ayırıcıyı belirtir (varsayılan olarak virgül).
+- `-h`: Başlık satırını gösterir veya gizler.
 
-## Examples
-### Örnek 1: Belirli Sütunları Seçme
-Aşağıdaki komut, `data.csv` dosyasından 1. ve 3. sütunları alır ve `output.csv` dosyasına yazar:
+## Yaygın Örnekler
+Aşağıda, csvtool komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
+### 1. Sadece Belirli Sütunları Görüntüleme
+Sadece 1. ve 3. sütunları görüntülemek için:
 ```bash
-csvtool -c 1,3 data.csv output.csv
+csvtool -c 1,3 dosya.csv
 ```
 
-### Örnek 2: Satır Filtreleme
-Aşağıdaki komut, `data.csv` dosyasındaki belirli bir koşula uyan satırları filtreler. Örneğin, 2. sütundaki değeri "aktif" olan satırları alır:
-
+### 2. Belirli Bir Satırı Görüntüleme
+5. satırı görüntülemek için:
 ```bash
-csvtool -r '2 == "aktif"' data.csv output.csv
+csvtool -r 5 dosya.csv
 ```
 
-## Tips
-- CSV dosyalarınızı işlerken, dosya ayırıcılarının doğru ayarlandığından emin olun. Yanlış ayırıcı kullanımı, verilerin yanlış şekilde işlenmesine neden olabilir.
-- Büyük CSV dosyaları ile çalışıyorsanız, işlemlerinizi optimize etmek için `csvtool` komutunu `grep` veya `awk` gibi diğer araçlarla birleştirebilirsiniz.
-- CSV dosyalarınızı yedeklemeyi unutmayın; işlem öncesinde orijinal dosyaların kaybolmasını önlemek için her zaman bir kopyasını saklayın.
+### 3. Farklı Sütun Ayırıcı Kullanma
+Tab ile ayrılmış bir dosyayı işlemek için:
+```bash
+csvtool -t $'\t' -c 1,2 dosya.tsv
+```
+
+### 4. Başlık Satırını Gizleme
+Başlık satırını gizleyerek verileri görüntülemek için:
+```bash
+csvtool -h -c 1 dosya.csv
+```
+
+## İpuçları
+- CSV dosyalarınızda boşluk veya özel karakterler varsa, sütun ayırıcıyı doğru bir şekilde ayarladığınızdan emin olun.
+- Verilerinizi filtrelemek için birden fazla seçenek kullanabilirsiniz; bu, daha karmaşık sorgular oluşturmanıza yardımcı olur.
+- csvtool ile birlikte diğer komutları (örneğin, `grep` veya `sort`) kullanarak daha güçlü veri işleme senaryoları oluşturabilirsiniz.

@@ -1,41 +1,44 @@
-# [리눅스] Bash history 사용법
+# [Linux] Bash history cách sử dụng: Lưu trữ và truy xuất lệnh đã thực hiện
 
 ## Tổng quan
-Lệnh `history` trong Bash được sử dụng để hiển thị danh sách các lệnh mà người dùng đã thực hiện trong phiên làm việc hiện tại. Mục đích chính của lệnh này là giúp người dùng dễ dàng theo dõi và truy cập lại các lệnh đã sử dụng trước đó, từ đó tiết kiệm thời gian và tăng hiệu quả làm việc.
+Lệnh `history` trong Bash cho phép người dùng xem lại danh sách các lệnh đã thực hiện trong phiên làm việc của họ. Điều này rất hữu ích để tìm kiếm lại các lệnh đã sử dụng mà không cần phải gõ lại từ đầu.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `history` như sau:
 
 ```bash
-history [n]
+history [options] [arguments]
 ```
 
-Trong đó:
-- `n` là số lượng lệnh mà bạn muốn hiển thị. Nếu không chỉ định `n`, lệnh sẽ hiển thị toàn bộ lịch sử lệnh.
-
-Một số tùy chọn phổ biến của lệnh `history` bao gồm:
+## Các tùy chọn phổ biến
 - `-c`: Xóa toàn bộ lịch sử lệnh.
 - `-d offset`: Xóa lệnh tại vị trí `offset` trong lịch sử.
+- `n`: Chỉ hiển thị `n` lệnh gần nhất.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `history`:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `history`:
 
-1. Hiển thị toàn bộ lịch sử lệnh:
+1. **Hiển thị toàn bộ lịch sử lệnh:**
    ```bash
    history
    ```
 
-2. Hiển thị 5 lệnh gần đây nhất:
+2. **Hiển thị 10 lệnh gần nhất:**
    ```bash
-   history 5
+   history 10
    ```
 
-3. Xóa toàn bộ lịch sử lệnh:
+3. **Xóa lệnh tại vị trí thứ 5:**
+   ```bash
+   history -d 5
+   ```
+
+4. **Xóa toàn bộ lịch sử lệnh:**
    ```bash
    history -c
    ```
 
 ## Mẹo
-- Sử dụng phím mũi tên lên và xuống trên bàn phím để duyệt qua các lệnh đã sử dụng mà không cần phải gõ lại lệnh `history`.
-- Bạn có thể sử dụng `!n` để thực thi lại lệnh thứ `n` trong lịch sử. Ví dụ, `!100` sẽ thực thi lại lệnh thứ 100.
-- Để tìm kiếm lệnh trong lịch sử, bạn có thể sử dụng `Ctrl + r` và bắt đầu gõ một phần của lệnh mà bạn muốn tìm kiếm.
+- Sử dụng phím mũi tên lên/xuống để duyệt qua các lệnh đã thực hiện mà không cần gõ lại.
+- Bạn có thể sử dụng `!n` để thực hiện lại lệnh tại vị trí `n` trong lịch sử.
+- Để lưu lịch sử lệnh vào một tệp, bạn có thể sử dụng lệnh `history > filename.txt`.

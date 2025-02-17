@@ -1,40 +1,53 @@
-# [리눅스] Bash shopt 사용법
+# [Linux] Bash shopt : Gérer les options de shell
 
 ## Overview
-La commande `shopt` est un outil dans Bash qui permet de modifier les options de comportement du shell. Elle est principalement utilisée pour activer ou désactiver des fonctionnalités spécifiques du shell, ce qui peut influencer la manière dont les commandes sont interprétées et exécutées. Cela permet aux utilisateurs de personnaliser leur environnement de travail en fonction de leurs besoins.
+La commande `shopt` dans Bash permet de modifier les options du shell. Elle est utilisée pour activer ou désactiver des fonctionnalités spécifiques qui peuvent influencer le comportement de l'interpréteur de commandes.
 
 ## Usage
 La syntaxe de base de la commande `shopt` est la suivante :
 
 ```bash
-shopt [options] [option_name]
+shopt [options] [arguments]
 ```
 
-### Options courantes :
-- `-s` : Active une option spécifiée.
-- `-u` : Désactive une option spécifiée.
-- `-p` : Affiche les options actuellement définies avec leur état (activé ou désactivé).
+## Common Options
+Voici quelques options courantes pour `shopt` :
 
-## Examples
-### Exemple 1 : Activer l'option `cdable_vars`
-Cette option permet d'utiliser des variables dans les commandes `cd`. Par exemple, si vous avez une variable d'environnement `DIR`, vous pouvez faire :
+- `-s` : Active une option.
+- `-u` : Désactive une option.
+- `-p` : Affiche les options actuellement définies.
+
+## Common Examples
+
+### Activer une option
+Pour activer l'option `cdable_vars`, qui permet d'utiliser des variables dans les chemins de répertoire :
 
 ```bash
 shopt -s cdable_vars
-DIR="/path/to/directory"
-cd DIR  # Cela vous amènera à /path/to/directory
 ```
 
-### Exemple 2 : Afficher toutes les options
-Pour voir toutes les options disponibles et leur état actuel, vous pouvez utiliser :
+### Désactiver une option
+Pour désactiver l'option `cdable_vars` :
 
 ```bash
-shopt -p
+shopt -u cdable_vars
 ```
 
-Cela affichera une liste de toutes les options, vous permettant de vérifier lesquelles sont activées ou désactivées.
+### Afficher les options
+Pour afficher toutes les options de shell actuellement définies :
+
+```bash
+shopt
+```
+
+### Vérifier une option spécifique
+Pour vérifier si une option est activée ou désactivée, par exemple `nullglob` :
+
+```bash
+shopt nullglob
+```
 
 ## Tips
-- Utilisez `shopt -p` pour faire un audit de vos options actuelles avant de modifier quoi que ce soit. Cela vous aidera à comprendre l'impact de vos changements.
-- Gardez à l'esprit que certaines options peuvent avoir des effets significatifs sur le comportement de votre shell. Il est donc conseillé de lire la documentation ou d'expérimenter dans un environnement contrôlé avant de les activer dans vos scripts de production.
-- Vous pouvez ajouter des commandes `shopt` dans votre fichier `.bashrc` pour que vos préférences soient appliquées à chaque nouvelle session de terminal.
+- Utilisez `shopt` dans vos scripts pour garantir un comportement cohérent du shell.
+- Consultez la documentation de Bash pour découvrir d'autres options disponibles avec `shopt`.
+- Pensez à sauvegarder vos paramètres de shell dans votre fichier `.bashrc` pour les rendre persistants entre les sessions.

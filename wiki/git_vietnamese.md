@@ -1,53 +1,48 @@
-# [리눅스] Bash git 사용법
+# [Linux] Bash git cách sử dụng: Quản lý mã nguồn
 
 ## Tổng quan
-`git` là một hệ thống quản lý phiên bản phân tán, cho phép nhiều người cùng làm việc trên một dự án mà không làm mất dữ liệu của nhau. Nó giúp theo dõi thay đổi trong mã nguồn, cho phép phục hồi các phiên bản trước đó và hỗ trợ làm việc nhóm hiệu quả. Git được sử dụng rộng rãi trong phát triển phần mềm và là công cụ chính cho nhiều dự án mã nguồn mở.
+Lệnh git là một hệ thống quản lý phiên bản phân tán, cho phép người dùng theo dõi và quản lý các thay đổi trong mã nguồn. Git rất phổ biến trong phát triển phần mềm, giúp nhiều lập trình viên làm việc cùng nhau một cách hiệu quả.
 
 ## Cách sử dụng
-Cú pháp cơ bản của lệnh `git` là:
-
+Cú pháp cơ bản của lệnh git như sau:
 ```
-git [tùy chọn] [lệnh] [tham số]
+git [tùy chọn] [tham số]
 ```
 
-Một số tùy chọn và lệnh phổ biến của `git` bao gồm:
+## Các tùy chọn phổ biến
+- `clone`: Sao chép một kho lưu trữ từ xa về máy tính cục bộ.
+- `add`: Thêm tệp vào khu vực tạm thời để chuẩn bị cho việc commit.
+- `commit`: Lưu lại các thay đổi đã được thêm vào khu vực tạm thời.
+- `push`: Đẩy các thay đổi từ kho lưu trữ cục bộ lên kho lưu trữ từ xa.
+- `pull`: Tải về và hợp nhất các thay đổi từ kho lưu trữ từ xa.
 
-- `git init`: Khởi tạo một kho lưu trữ git mới.
-- `git clone [url]`: Sao chép một kho lưu trữ từ một địa chỉ URL.
-- `git add [tập tin]`: Thêm tập tin vào khu vực chuẩn bị (staging area).
-- `git commit -m "[thông điệp]"`: Lưu các thay đổi đã thêm vào kho lưu trữ với một thông điệp mô tả.
-- `git push`: Đẩy các thay đổi lên kho lưu trữ từ xa.
-- `git pull`: Tải về và hợp nhất các thay đổi từ kho lưu trữ từ xa.
+## Ví dụ thường gặp
+- **Sao chép kho lưu trữ từ xa:**
+  ```bash
+  git clone https://github.com/username/repo.git
+  ```
+  
+- **Thêm tệp vào khu vực tạm thời:**
+  ```bash
+  git add filename.txt
+  ```
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `git`:
+- **Lưu lại các thay đổi:**
+  ```bash
+  git commit -m "Thông điệp commit"
+  ```
 
-1. **Khởi tạo một kho lưu trữ mới**:
-   ```bash
-   git init my_project
-   cd my_project
-   ```
+- **Đẩy thay đổi lên kho lưu trữ từ xa:**
+  ```bash
+  git push origin main
+  ```
 
-2. **Sao chép một kho lưu trữ từ xa**:
-   ```bash
-   git clone https://github.com/username/repository.git
-   ```
-
-3. **Thêm và cam kết thay đổi**:
-   ```bash
-   git add file.txt
-   git commit -m "Thêm file.txt vào kho lưu trữ"
-   ```
-
-4. **Đẩy thay đổi lên kho lưu trữ từ xa**:
-   ```bash
-   git push origin main
-   ```
+- **Tải về và hợp nhất thay đổi từ kho lưu trữ từ xa:**
+  ```bash
+  git pull origin main
+  ```
 
 ## Mẹo
-- **Thường xuyên cam kết**: Hãy cam kết các thay đổi thường xuyên với thông điệp rõ ràng để dễ dàng theo dõi lịch sử thay đổi.
-- **Sử dụng nhánh**: Tạo và làm việc trên các nhánh để thử nghiệm tính năng mới mà không làm ảnh hưởng đến mã chính.
-- **Kiểm tra trạng thái**: Sử dụng lệnh `git status` để kiểm tra trạng thái của kho lưu trữ và các thay đổi chưa được cam kết.
-- **Học cách sử dụng `.gitignore`**: Tạo tệp `.gitignore` để chỉ định các tệp hoặc thư mục mà bạn không muốn theo dõi trong kho lưu trữ.
-
-Hy vọng bài viết này giúp bạn hiểu rõ hơn về cách sử dụng lệnh `git` trong phát triển phần mềm!
+- Luôn viết thông điệp commit rõ ràng và súc tích để dễ dàng theo dõi lịch sử thay đổi.
+- Sử dụng nhánh (branch) để phát triển các tính năng mới mà không làm ảnh hưởng đến mã nguồn chính.
+- Thường xuyên đẩy (push) các thay đổi lên kho lưu trữ từ xa để tránh mất mát dữ liệu.

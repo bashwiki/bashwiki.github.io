@@ -1,42 +1,51 @@
-# [리눅스] Bash uniq 사용법
+# [Linux] Bash uniq Kullanımı: Tekil satırları listeleme
 
 ## Overview
-`uniq` komutu, bir dosya veya standart girdi içindeki ardışık tekrar eden satırları kaldırmak için kullanılır. Temel amacı, belirli bir veri kümesindeki benzersiz satırları elde etmektir. `uniq`, genellikle sıralı verilerle birlikte kullanılır; çünkü yalnızca ardışık tekrarları kaldırır. Bu nedenle, genellikle `sort` komutuyla birlikte kullanılması önerilir.
+`uniq` komutu, bir dosyadaki veya standart girdideki ardışık tekrar eden satırları kaldırarak yalnızca benzersiz satırları listelemek için kullanılır. Genellikle, sıralı verilerle birlikte kullanıldığında en etkili sonucu verir.
 
 ## Usage
-`uniq` komutunun temel sözdizimi şu şekildedir:
-
-```bash
-uniq [seçenekler] [girdi_dosyası] [çıktı_dosyası]
+Temel sözdizimi aşağıdaki gibidir:
+```
+uniq [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-c`: Her benzersiz satırın önüne, o satırın kaç kez tekrar ettiğini gösteren bir sayı ekler.
+## Common Options
+- `-c`: Her benzersiz satırın önüne, o satırın kaç kez tekrar ettiğini yazar.
 - `-d`: Sadece tekrar eden satırları gösterir.
-- `-u`: Sadece benzersiz olan satırları gösterir.
+- `-u`: Sadece benzersiz (tekrar etmeyen) satırları gösterir.
 - `-i`: Büyük/küçük harf duyarsız olarak karşılaştırma yapar.
 
-## Examples
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, `input.txt` dosyasındaki benzersiz satırları çıkartır ve sonucu `output.txt` dosyasına yazar:
+## Common Examples
+Aşağıda `uniq` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
+### 1. Temel Kullanım
+Bir dosyadaki benzersiz satırları listelemek için:
 ```bash
-uniq input.txt output.txt
+uniq dosya.txt
 ```
 
-### Örnek 2: Tekrar Sayısını Gösterme
-Aşağıdaki komut, `input.txt` dosyasındaki her benzersiz satırın tekrar sayısını gösterir:
-
+### 2. Tekrar Sayısını Gösterme
+Her benzersiz satırın tekrar sayısını görmek için:
 ```bash
-uniq -c input.txt
+uniq -c dosya.txt
+```
+
+### 3. Sadece Tekrar Eden Satırları Gösterme
+Sadece tekrar eden satırları listelemek için:
+```bash
+uniq -d dosya.txt
+```
+
+### 4. Büyük/Küçük Harf Duyarsız Kullanım
+Büyük/küçük harf duyarsız olarak benzersiz satırları listelemek için:
+```bash
+uniq -i dosya.txt
 ```
 
 ## Tips
-- `uniq` komutunu kullanmadan önce verilerinizi sıralamak için `sort` komutunu kullanmayı unutmayın. Örneğin:
-
-```bash
-sort input.txt | uniq > output.txt
-```
-
-- Büyük/küçük harf duyarsız karşılaştırma yapmak istiyorsanız `-i` seçeneğini eklemeyi düşünün.
-- Tekrar eden satırları görmek istiyorsanız `-d` seçeneğini kullanarak yalnızca tekrar eden satırları listeleyebilirsiniz.
+- `uniq` komutunu kullanmadan önce verilerinizi sıralamak, daha doğru sonuçlar elde etmenizi sağlar. Bunu `sort` komutuyla yapabilirsiniz:
+  ```bash
+  sort dosya.txt | uniq
+  ```
+- `uniq` komutunu bir boru (pipe) ile başka komutlarla birleştirerek daha karmaşık işlemler gerçekleştirebilirsiniz.
+- Dosya içeriğini doğrudan bir komutla oluşturup `uniq` ile işlemek için `echo` veya `cat` gibi komutları kullanabilirsiniz.

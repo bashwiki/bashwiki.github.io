@@ -1,82 +1,47 @@
-# [리눅스] Bash column 사용법
+# [Linux] Bash column usage : Organiser les données en colonnes
 
 ## Overview
-La commande `column` est un utilitaire de ligne de commande en Bash qui permet de formater des données en colonnes. Son objectif principal est de rendre les données textuelles plus lisibles en les organisant en colonnes alignées, ce qui est particulièrement utile lors de l'affichage de résultats de commandes ou de fichiers contenant des données tabulaires.
+La commande `column` est utilisée pour formater les données en colonnes, ce qui facilite la lecture et l'analyse des informations affichées dans le terminal. Elle prend en entrée des données séparées par des espaces ou des tabulations et les réorganise pour les présenter de manière structurée.
 
 ## Usage
 La syntaxe de base de la commande `column` est la suivante :
 
 ```bash
-column [options] [fichier]
+column [options] [arguments]
 ```
 
-### Options courantes :
-- `-t` : Aligne les colonnes en fonction des délimiteurs, créant un tableau.
-- `-s` : Définit un délimiteur personnalisé pour séparer les colonnes (par défaut, c'est l'espace).
-- `-n` : Ne pas ajouter de nouvelles lignes pour les colonnes vides.
-- `-x` : Remplit les colonnes horizontalement avant de passer à la colonne suivante.
+## Common Options
+Voici quelques options courantes pour la commande `column` :
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `column`.
+- `-t` : Crée un tableau en alignant les colonnes.
+- `-s` : Définit un séparateur personnalisé (par défaut, c'est l'espace).
+- `-n` : Ne pas ajouter de nouvelles lignes pour les lignes vides.
+- `-x` : Remplit les colonnes de manière horizontale avant de passer à la suivante.
 
-### Exemple 1 : Formatage simple
-Supposons que vous ayez un fichier texte nommé `data.txt` contenant les éléments suivants :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `column` :
 
-```
-Nom Age Ville
-Alice 30 Paris
-Bob 25 Lyon
-Charlie 35 Marseille
-```
+1. **Aligner des données par défaut** :
+   ```bash
+   cat fichier.txt | column
+   ```
 
-Vous pouvez utiliser la commande `column` pour afficher ces données en colonnes :
+2. **Utiliser un séparateur personnalisé** :
+   ```bash
+   cat fichier.csv | column -s, -t
+   ```
 
-```bash
-column -t data.txt
-```
+3. **Créer un tableau à partir d'une liste d'éléments** :
+   ```bash
+   echo -e "Nom Âge\nAlice 30\nBob 25" | column -t
+   ```
 
-Cela produira une sortie formatée comme suit :
-
-```
-Nom      Age  Ville
-Alice    30   Paris
-Bob      25   Lyon
-Charlie  35   Marseille
-```
-
-### Exemple 2 : Utilisation d'un délimiteur personnalisé
-Si vous avez un fichier `data.csv` avec des données séparées par des virgules :
-
-```
-Nom,Age,Ville
-Alice,30,Paris
-Bob,25,Lyon
-Charlie,35,Marseille
-```
-
-Vous pouvez utiliser `column` avec l'option `-s` pour spécifier la virgule comme délimiteur :
-
-```bash
-column -t -s, data.csv
-```
-
-La sortie sera :
-
-```
-Nom      Age  Ville
-Alice    30   Paris
-Bob      25   Lyon
-Charlie  35   Marseille
-```
+4. **Remplir les colonnes horizontalement** :
+   ```bash
+   echo -e "A\nB\nC\nD\nE" | column -x
+   ```
 
 ## Tips
-- Pour une meilleure lisibilité, utilisez toujours l'option `-t` pour aligner les colonnes.
-- Si vous travaillez avec des fichiers de données volumineux, envisagez d'utiliser `column` en combinaison avec d'autres commandes comme `cat` ou `grep` pour filtrer et formater les données avant l'affichage.
-- Testez différents délimiteurs avec l'option `-s` pour voir ce qui fonctionne le mieux avec vos données spécifiques.
-- Pensez à rediriger la sortie de `column` vers un fichier si vous souhaitez conserver le formatage pour une utilisation ultérieure :
-
-```bash
-column -t data.txt > formatted_data.txt
-``` 
-
-En suivant ces conseils, vous pouvez tirer le meilleur parti de la commande `column` pour améliorer la lisibilité de vos données en ligne de commande.
+- Utilisez l'option `-t` pour toujours obtenir une sortie bien formatée, surtout lorsque vous travaillez avec des fichiers de données.
+- Si vous traitez des fichiers CSV, n'oubliez pas de spécifier le séparateur avec `-s`.
+- Pour des données très larges, envisagez de combiner `column` avec d'autres commandes comme `sort` ou `grep` pour un traitement plus efficace.

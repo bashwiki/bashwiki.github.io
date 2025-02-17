@@ -1,45 +1,54 @@
-# [리눅스] Bash du 사용법
+# [Linux] Bash du Uso: Exibir o uso de espaço em disco
 
 ## Overview
-O comando `du` (Disk Usage) é uma ferramenta do sistema operacional Linux que permite aos usuários estimar e relatar o uso de espaço em disco de arquivos e diretórios. O principal objetivo do `du` é fornecer informações sobre a quantidade de espaço em disco que cada arquivo ou diretório ocupa, ajudando os engenheiros e desenvolvedores a gerenciar melhor o armazenamento e a identificar arquivos ou diretórios que consomem muito espaço.
+O comando `du` (disk usage) é utilizado para estimar e relatar o uso de espaço em disco de arquivos e diretórios no sistema de arquivos. Ele fornece informações sobre o tamanho dos arquivos e diretórios, ajudando os usuários a entender como o espaço em disco está sendo utilizado.
 
 ## Usage
 A sintaxe básica do comando `du` é a seguinte:
 
 ```bash
-du [opções] [caminho]
+du [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-h`: Exibe os tamanhos em um formato legível para humanos (por exemplo, KB, MB, GB).
-- `-s`: Mostra apenas o total para cada argumento, sem listar os subdiretórios.
-- `-a`: Inclui arquivos além de diretórios na saída.
-- `-c`: Exibe um total cumulativo no final da saída.
-- `-d N`: Limita a profundidade da listagem a N níveis de diretórios.
+## Common Options
+Aqui estão algumas opções comuns do comando `du`:
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `du`:
+- `-h`: Exibe os tamanhos em um formato legível por humanos (por exemplo, KB, MB).
+- `-s`: Mostra apenas o total para cada argumento, em vez de listar todos os arquivos e subdiretórios.
+- `-a`: Inclui arquivos individuais na saída, além de diretórios.
+- `-c`: Fornece um total cumulativo no final da saída.
+- `--max-depth=N`: Limita a profundidade da listagem de diretórios a N níveis.
 
-1. Para exibir o uso de disco de um diretório específico de forma legível:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `du`:
 
-```bash
-du -h /caminho/para/diretorio
-```
+1. **Ver o uso de espaço em disco de um diretório:**
+   ```bash
+   du /caminho/para/diretorio
+   ```
 
-Este comando mostrará o espaço em disco usado por todos os subdiretórios e arquivos dentro do diretório especificado, utilizando unidades compreensíveis como KB, MB e GB.
+2. **Ver o uso de espaço em disco de um diretório em formato legível:**
+   ```bash
+   du -h /caminho/para/diretorio
+   ```
 
-2. Para obter apenas o total de espaço usado por um diretório, sem listar os subdiretórios:
+3. **Obter o total de espaço usado por um diretório:**
+   ```bash
+   du -sh /caminho/para/diretorio
+   ```
 
-```bash
-du -sh /caminho/para/diretorio
-```
+4. **Listar o uso de espaço de todos os arquivos e diretórios em um diretório:**
+   ```bash
+   du -ah /caminho/para/diretorio
+   ```
 
-Este comando retornará apenas o total de espaço ocupado pelo diretório, facilitando a visualização do uso de disco.
+5. **Limitar a profundidade da listagem a 1 nível:**
+   ```bash
+   du --max-depth=1 -h /caminho/para/diretorio
+   ```
 
 ## Tips
-- Utilize a opção `-h` sempre que possível para facilitar a leitura dos resultados, especialmente em diretórios grandes.
-- Combine as opções `-s` e `-c` para obter um resumo do uso de disco de múltiplos diretórios de forma rápida e eficiente.
-- Ao trabalhar com diretórios muito grandes, considere usar `du -h --max-depth=1` para limitar a profundidade da listagem e obter uma visão geral sem sobrecarregar a saída.
-- Lembre-se de que o `du` calcula o espaço em disco usado, que pode ser diferente do tamanho do arquivo devido à fragmentação e à alocação de blocos no sistema de arquivos.
-
-Com essas informações, você poderá utilizar o comando `du` de forma eficaz para monitorar e gerenciar o uso de espaço em disco em seu sistema.
+- Utilize a opção `-h` para facilitar a leitura dos tamanhos, especialmente em diretórios grandes.
+- Combine `-s` com `-c` para obter um resumo total de vários diretórios.
+- Para uma análise mais detalhada, a opção `-a` pode ser muito útil, pois inclui todos os arquivos.
+- Lembre-se de que o comando `du` pode levar algum tempo para ser executado em diretórios muito grandes ou com muitos arquivos.

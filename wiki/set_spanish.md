@@ -1,47 +1,49 @@
-# [리눅스] Bash set 사용법
+# [Linux] Bash set uso: Configurar opciones de shell
 
 ## Overview
-El comando `set` en Bash se utiliza para establecer o desactivar opciones de shell y para definir variables de entorno. Su propósito principal es modificar el comportamiento del shell y controlar cómo se ejecutan los scripts y comandos en la sesión actual. Esto incluye la activación de características como la depuración, la gestión de errores y el control de la salida.
+El comando `set` en Bash se utiliza para establecer o desactivar opciones del shell. Esto permite modificar el comportamiento del entorno de la línea de comandos, facilitando la personalización de la sesión actual.
 
 ## Usage
 La sintaxis básica del comando `set` es la siguiente:
 
-```bash
-set [opciones] [valores]
+```
+set [opciones] [argumentos]
 ```
 
-Algunas de las opciones más comunes que se pueden utilizar con el comando `set` son:
+## Common Options
+- `-e`: Termina el script si un comando falla.
+- `-u`: Trata las variables no definidas como un error.
+- `-x`: Muestra cada comando antes de ejecutarlo, útil para depuración.
+- `-o`: Permite establecer opciones específicas del shell, como `-o noclobber` para evitar sobrescribir archivos.
 
-- `-e`: Hace que el script se detenga si un comando falla.
-- `-u`: Genera un error si se intenta utilizar una variable no definida.
-- `-x`: Muestra cada comando y su argumento antes de ejecutarlo, útil para la depuración.
-- `-o`: Permite establecer opciones de shell específicas, como `errexit`, `nounset`, etc.
+## Common Examples
 
-## Examples
-### Ejemplo 1: Activar la opción de depuración
-Para activar la opción de depuración y ver los comandos que se ejecutan, puedes usar:
+1. **Activar el modo de error**:
+   ```bash
+   set -e
+   ```
 
-```bash
-set -x
-echo "Este es un mensaje de depuración"
-set +x
-```
+2. **Activar el modo de variable no definida**:
+   ```bash
+   set -u
+   ```
 
-En este ejemplo, el comando `set -x` activa la depuración, y `set +x` la desactiva. Cuando se ejecuta el script, se mostrará el comando `echo` antes de su ejecución.
+3. **Mostrar comandos en ejecución**:
+   ```bash
+   set -x
+   ```
 
-### Ejemplo 2: Detener el script en caso de error
-Si deseas que tu script se detenga al encontrar un error, puedes usar:
+4. **Desactivar una opción**:
+   ```bash
+   set +e
+   ```
 
-```bash
-set -e
-cp archivo_inexistente.txt destino/
-echo "Este mensaje no se mostrará si el comando anterior falla."
-```
-
-En este caso, si el comando `cp` falla porque el archivo no existe, el script se detendrá y no se ejecutará la línea siguiente.
+5. **Combinar opciones**:
+   ```bash
+   set -eu
+   ```
 
 ## Tips
-- Es recomendable usar `set -e` al inicio de los scripts para evitar que continúen ejecutándose en caso de errores.
-- Utiliza `set -u` para ayudar a detectar errores en el uso de variables no definidas, lo que puede prevenir comportamientos inesperados.
-- Para depurar scripts, `set -x` es una herramienta poderosa que te permite ver el flujo de ejecución y los valores de las variables en tiempo real.
-- Recuerda que las opciones establecidas con `set` solo afectan a la sesión actual del shell o al script en ejecución, por lo que no persistirán en futuras sesiones.
+- Utiliza `set -e` en scripts para evitar que continúen ejecutándose si ocurre un error.
+- Activa `set -u` para detectar errores de variables no definidas, lo que puede ayudar a prevenir comportamientos inesperados.
+- Usa `set -x` durante la depuración para ver el flujo de ejecución y los valores de las variables.

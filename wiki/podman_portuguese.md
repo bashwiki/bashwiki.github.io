@@ -1,42 +1,59 @@
-# [리눅스] Bash podman 사용법
+# [Linux] Bash podman uso: Gerenciar contêineres sem daemon
 
 ## Overview
-O `podman` é uma ferramenta de gerenciamento de contêineres que permite aos usuários criar, executar e gerenciar contêineres e imagens de contêineres. Ele é projetado para ser uma alternativa leve ao Docker, oferecendo uma interface semelhante, mas sem a necessidade de um daemon em execução. O `podman` é especialmente útil para desenvolvedores e engenheiros que trabalham com aplicações em contêineres, pois permite a execução de contêineres de forma simples e eficiente, além de suportar a criação de pods, que são grupos de um ou mais contêineres que compartilham recursos.
+O comando `podman` é uma ferramenta de gerenciamento de contêineres que permite criar, executar e gerenciar contêineres de forma semelhante ao Docker, mas sem a necessidade de um daemon em execução. Ele é projetado para ser seguro e fácil de usar, permitindo que os usuários executem contêineres em ambientes de desenvolvimento e produção.
 
 ## Usage
 A sintaxe básica do comando `podman` é a seguinte:
 
 ```bash
-podman [opções] comando [argumentos]
+podman [options] [arguments]
 ```
 
-Algumas opções comuns incluem:
+## Common Options
+Aqui estão algumas opções comuns que você pode usar com o `podman`:
 
-- `--help`: Mostra a ajuda sobre o comando.
-- `--version`: Exibe a versão do Podman instalada.
-- `-d`, `--detach`: Executa o contêiner em segundo plano.
-- `--rm`: Remove o contêiner após a sua parada.
-- `-it`: Executa o contêiner em modo interativo, permitindo acesso ao terminal.
+- `run`: Executa um novo contêiner.
+- `ps`: Lista os contêineres em execução.
+- `images`: Lista as imagens disponíveis localmente.
+- `pull`: Baixa uma imagem de um repositório remoto.
+- `rm`: Remove um ou mais contêineres.
+- `rmi`: Remove uma ou mais imagens.
 
-## Examples
-### Exemplo 1: Executando um contêiner simples
-Para executar um contêiner do Nginx em segundo plano, você pode usar o seguinte comando:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `podman`:
 
-```bash
-podman run -d --name meu-nginx -p 8080:80 nginx
-```
-Neste exemplo, o `podman` baixa a imagem do Nginx, cria um contêiner chamado "meu-nginx" e o executa em segundo plano, mapeando a porta 80 do contêiner para a porta 8080 do host.
+1. **Executar um novo contêiner:**
+   ```bash
+   podman run -d --name meu-contêiner nginx
+   ```
+   Este comando executa um contêiner em segundo plano com o nome "meu-contêiner" usando a imagem do Nginx.
 
-### Exemplo 2: Listando contêineres em execução
-Para listar todos os contêineres em execução, utilize o comando:
+2. **Listar contêineres em execução:**
+   ```bash
+   podman ps
+   ```
+   Este comando exibe todos os contêineres que estão atualmente em execução.
 
-```bash
-podman ps
-```
-Este comando exibirá uma lista de contêineres ativos, incluindo informações como ID, nome, status e portas.
+3. **Baixar uma imagem:**
+   ```bash
+   podman pull alpine
+   ```
+   Este comando baixa a imagem "alpine" do repositório padrão.
+
+4. **Remover um contêiner:**
+   ```bash
+   podman rm meu-contêiner
+   ```
+   Este comando remove o contêiner chamado "meu-contêiner".
+
+5. **Remover uma imagem:**
+   ```bash
+   podman rmi alpine
+   ```
+   Este comando remove a imagem "alpine" do sistema.
 
 ## Tips
-- Utilize `podman-compose` se você estiver trabalhando com múltiplos contêineres e quiser orquestrá-los facilmente, semelhante ao `docker-compose`.
-- Sempre verifique as imagens disponíveis localmente com `podman images` antes de tentar executar um contêiner, para evitar downloads desnecessários.
-- Para depuração, você pode usar `podman logs <nome ou ID do contêiner>` para visualizar os logs de um contêiner específico.
-- Considere usar `podman network` para gerenciar redes de contêineres, permitindo comunicação entre eles de forma mais eficiente.
+- Sempre verifique os contêineres em execução com `podman ps` antes de tentar removê-los.
+- Use `podman logs [nome ou ID do contêiner]` para visualizar os logs de um contêiner específico.
+- Considere usar `podman-compose` para gerenciar múltiplos contêineres de forma mais fácil, especialmente em ambientes de desenvolvimento.

@@ -1,7 +1,9 @@
-# [리눅스] Bash suspend 사용법
+# [Linux] Bash suspend uso equivalente: Suspender procesos en segundo plano
+
+El comando `suspend` se utiliza para pausar un proceso en ejecución en la terminal, permitiendo que el usuario lo reanude más tarde.
 
 ## Overview
-El comando `suspend` en Bash se utiliza para pausar la ejecución de un proceso en primer plano y enviar el control de vuelta al shell. Esto permite que el usuario retome el proceso más tarde. Es especialmente útil cuando se necesita realizar otras tareas en el terminal sin cerrar o terminar el proceso en ejecución.
+El comando `suspend` es una función incorporada en la mayoría de las shells de Unix y Linux que permite a los usuarios suspender (detener temporalmente) un proceso en primer plano. Esto es útil cuando se necesita liberar la terminal para realizar otras tareas sin finalizar el proceso suspendido.
 
 ## Usage
 La sintaxis básica del comando `suspend` es la siguiente:
@@ -10,29 +12,38 @@ La sintaxis básica del comando `suspend` es la siguiente:
 suspend
 ```
 
-Este comando no tiene opciones adicionales. Simplemente se ejecuta en un shell interactivo y suspende el proceso actual en primer plano.
+Este comando no requiere argumentos ni opciones adicionales, ya que su función principal es simplemente suspender el proceso actual.
 
-## Examples
-### Ejemplo 1: Suspender un proceso en ejecución
-Supongamos que tienes un proceso que está ejecutando un script de larga duración. Para suspenderlo, simplemente presiona `Ctrl + Z` en lugar de usar el comando `suspend`. Esto enviará una señal de suspensión al proceso.
+## Common Options
+El comando `suspend` no tiene opciones comunes, ya que su uso es bastante directo y no requiere parámetros adicionales.
 
-```bash
-$ ./mi_script_largo.sh
-^Z
-[1]+  Suspended        ./mi_script_largo.sh
-```
+## Common Examples
+Aquí hay algunos ejemplos prácticos de cómo usar el comando `suspend`:
 
-### Ejemplo 2: Retomar un proceso suspendido
-Una vez que has suspendido un proceso, puedes reanudarlo utilizando el comando `fg` para traerlo de vuelta al primer plano.
+1. **Suspender un proceso en primer plano**:
+   Simplemente ejecuta un comando en la terminal y luego presiona `Ctrl + Z` para suspenderlo.
+   ```bash
+   sleep 100
+   ```
+   (Presiona `Ctrl + Z` para suspender el proceso `sleep`).
 
-```bash
-$ fg
-./mi_script_largo.sh
-```
+2. **Reanudar un proceso suspendido**:
+   Después de suspender un proceso, puedes reanudarlo en segundo plano con el comando `bg` o en primer plano con `fg`.
+   ```bash
+   bg
+   ```
+   o
+   ```bash
+   fg
+   ```
+
+3. **Listar procesos suspendidos**:
+   Puedes usar el comando `jobs` para ver los procesos suspendidos.
+   ```bash
+   jobs
+   ```
 
 ## Tips
-- **Uso de Ctrl + Z**: Aunque el comando `suspend` es útil, la forma más común de suspender un proceso en Bash es utilizando `Ctrl + Z`. Esto es más práctico y rápido.
-- **Ver procesos suspendidos**: Puedes ver los procesos suspendidos utilizando el comando `jobs`. Esto te mostrará una lista de trabajos en segundo plano y suspendidos.
-- **Reanudar en segundo plano**: Si prefieres continuar ejecutando un proceso en segundo plano después de suspenderlo, puedes usar el comando `bg` en lugar de `fg`.
-
-Recuerda que el comando `suspend` es específico para el entorno de shell y no se utiliza en scripts, ya que no tiene un efecto en un entorno no interactivo.
+- **Usa `jobs`**: Después de suspender un proceso, utiliza `jobs` para ver el estado de los procesos en segundo plano.
+- **Reanuda con cuidado**: Asegúrate de saber qué proceso estás reanudando, especialmente si tienes varios procesos suspendidos.
+- **No olvides el `Ctrl + Z`**: Este atajo es fundamental para suspender procesos rápidamente en la terminal.

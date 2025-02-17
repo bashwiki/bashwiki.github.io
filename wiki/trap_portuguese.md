@@ -1,59 +1,56 @@
-# [리눅스] Bash trap 사용법
+# [Linux] Bash trap uso: Captura de sinais e execução de comandos
 
 ## Overview
-O comando `trap` no Bash é utilizado para especificar comandos que devem ser executados quando o script recebe sinais específicos ou quando ocorre uma condição de erro. Ele é especialmente útil para garantir que certos procedimentos de limpeza ou finalização sejam realizados, mesmo que o script seja interrompido de forma inesperada. Isso pode incluir a liberação de recursos, a remoção de arquivos temporários ou a exibição de mensagens de erro.
+O comando `trap` no Bash é utilizado para capturar sinais e executar comandos específicos quando esses sinais são recebidos. Isso é útil para gerenciar o comportamento de scripts em situações como interrupções ou saídas inesperadas.
 
 ## Usage
 A sintaxe básica do comando `trap` é a seguinte:
 
 ```bash
-trap COMMAND SIGNAL
+trap [comando] [sinal]
 ```
 
-- `COMMAND`: O comando ou conjunto de comandos que você deseja executar quando o sinal especificado for recebido.
-- `SIGNAL`: O sinal que deve acionar a execução do comando. Os sinais podem ser especificados pelo nome (como `SIGINT`, `SIGTERM`, etc.) ou pelo número do sinal.
+## Common Options
+Aqui estão algumas opções comuns para o comando `trap`:
 
-### Sinais Comuns
-Aqui estão alguns sinais comuns que podem ser usados com o `trap`:
+- `SIGINT`: Captura a interrupção do terminal (Ctrl+C).
+- `SIGTERM`: Captura o sinal de término.
+- `EXIT`: Executa um comando quando o script termina, independentemente do motivo.
 
-- `SIGINT`: Interrupção (geralmente gerada pelo Ctrl+C).
-- `SIGTERM`: Solicitação de término.
-- `EXIT`: Executa o comando quando o script termina, independentemente do motivo.
+## Common Examples
 
-## Examples
-### Exemplo 1: Capturando SIGINT
-Neste exemplo, vamos capturar o sinal `SIGINT` e exibir uma mensagem antes de sair do script.
+### Exemplo 1: Capturar SIGINT
+Este exemplo mostra como capturar a interrupção do terminal e executar um comando específico.
 
 ```bash
-#!/bin/bash
-
-trap 'echo "Script interrompido. Saindo..."; exit' SIGINT
-
+trap 'echo "Interrupção recebida!"' SIGINT
 while true; do
-    echo "Executando... Pressione Ctrl+C para interromper."
+    echo "Executando..."
     sleep 1
 done
 ```
 
 ### Exemplo 2: Limpeza ao sair
-Neste exemplo, utilizamos o `trap` para garantir que um arquivo temporário seja removido quando o script é encerrado.
+Neste exemplo, o comando `trap` é usado para garantir que um diretório temporário seja removido quando o script termina.
 
 ```bash
-#!/bin/bash
+trap 'rm -rf /tmp/meu_diretorio_temporario' EXIT
+mkdir /tmp/meu_diretorio_temporario
+# Outras operações...
+```
 
-temp_file="/tmp/meu_arquivo_temp.txt"
-trap 'rm -f "$temp_file"; echo "Arquivo temporário removido."' EXIT
+### Exemplo 3: Capturar SIGTERM
+Aqui, o script captura o sinal de término e executa uma mensagem antes de sair.
 
-echo "Criando arquivo temporário..."
-touch "$temp_file"
-
-# Simulando algum processamento
-sleep 5
-
-echo "Processo concluído."
+```bash
+trap 'echo "Sinal de término recebido. Saindo..."' SIGTERM
+while true; do
+    echo "Executando..."
+    sleep 1
+done
 ```
 
 ## Tips
-- Sempre que possível, use `trap` para gerenciar a limpeza de recursos, especialmente em scripts que criam arquivos temporários ou abrem conexões de rede.
-- Teste seu script para garantir que o `trap` funcione como esperado em diferentes cenários de interrupção.
-- Utilize `trap` com o sinal `EXIT` para garantir que a limpeza ocorra independentemente da forma como o script termina, seja por erro ou por finalização normal.
+- Utilize `trap` para garantir que recursos sejam liberados adequadamente ao final de um script.
+- Sempre teste seu script em um ambiente seguro antes de usá-lo em produção, especialmente ao usar `trap` com comandos que alteram o sistema.
+- Combine `trap` com outros comandos para criar scripts mais robustos e responsivos a eventos do sistema.

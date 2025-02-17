@@ -1,54 +1,42 @@
-# [리눅스] Bash uniq 사용법
+# [Linux] Bash uniq 用法: 去除重复行
 
-## 概述
-`uniq` 命令用于过滤文本文件中的重复行。它的主要目的是从已排序的输入中删除相邻的重复行，从而简化数据并提高可读性。`uniq` 通常与 `sort` 命令结合使用，以确保输入数据的排序。
+## Overview
+`uniq` 命令用于从已排序的文件或输入中去除重复的行。它通常与 `sort` 命令结合使用，以确保输入是排序的，从而有效地去除重复项。
 
-## 用法
+## Usage
 基本语法如下：
-```bash
-uniq [选项] [输入文件] [输出文件]
 ```
-常用选项包括：
-- `-c`：在输出中显示每行出现的次数。
+uniq [options] [arguments]
+```
+
+## Common Options
+- `-c`：在输出中显示每个唯一行的出现次数。
 - `-d`：仅显示重复的行。
-- `-u`：仅显示不重复的行。
-- `-i`：在比较时忽略大小写。
+- `-u`：仅显示唯一的行。
+- `-i`：忽略大小写进行比较。
 
-## 示例
-1. 基本用法：
-   假设有一个名为 `data.txt` 的文件，其内容如下：
-   ```
-   apple
-   apple
-   banana
-   orange
-   orange
-   orange
-   ```
-   使用 `uniq` 命令过滤重复行：
+## Common Examples
+1. 去除文件中的重复行：
    ```bash
-   sort data.txt | uniq
-   ```
-   输出将是：
-   ```
-   apple
-   banana
-   orange
+   sort input.txt | uniq > output.txt
    ```
 
-2. 显示每行出现的次数：
+2. 显示每个唯一行的出现次数：
    ```bash
-   sort data.txt | uniq -c
-   ```
-   输出将是：
-   ```
-       2 apple
-       1 banana
-       3 orange
+   sort input.txt | uniq -c
    ```
 
-## 提示
-- 在使用 `uniq` 之前，确保输入数据已排序，否则可能无法正确过滤重复行。
-- 可以将 `uniq` 与管道结合使用，以处理来自其他命令的输出。
-- 使用 `-i` 选项可以在处理大小写不敏感的文本时提高灵活性。
-- 为了提高性能，尽量减少输入文件的大小，尤其是在处理大型数据集时。
+3. 仅显示重复的行：
+   ```bash
+   sort input.txt | uniq -d
+   ```
+
+4. 忽略大小写去除重复行：
+   ```bash
+   sort -f input.txt | uniq -i > output.txt
+   ```
+
+## Tips
+- 确保在使用 `uniq` 之前对输入进行排序，以获得正确的结果。
+- 使用 `-c` 选项可以帮助你快速了解每个行的出现频率。
+- 在处理大文件时，可以考虑使用管道将 `sort` 和 `uniq` 结合使用，以节省内存。

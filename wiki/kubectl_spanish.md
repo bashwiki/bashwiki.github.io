@@ -1,43 +1,52 @@
-# [리눅스] Bash kubectl 사용법
+# [Linux] Bash kubectl Uso: Interactuar con clústeres de Kubernetes
 
 ## Overview
-`kubectl` es la herramienta de línea de comandos para interactuar con Kubernetes, un sistema de orquestación de contenedores. Su propósito principal es permitir a los desarrolladores y administradores gestionar aplicaciones en contenedores, así como el clúster de Kubernetes en sí. Con `kubectl`, puedes desplegar aplicaciones, inspeccionar y gestionar recursos, y ver registros, entre otras tareas.
+El comando `kubectl` es una herramienta de línea de comandos que permite a los usuarios interactuar con clústeres de Kubernetes. Con `kubectl`, puedes implementar aplicaciones, inspeccionar y gestionar recursos, y ver registros, entre otras funciones.
 
 ## Usage
-La sintaxis básica de `kubectl` es la siguiente:
+La sintaxis básica del comando `kubectl` es la siguiente:
 
 ```bash
-kubectl [opciones] [comando] [tipo] [nombre] [flags]
+kubectl [opciones] [argumentos]
 ```
 
-- **opciones**: Modificadores globales que afectan el comportamiento de `kubectl`.
-- **comando**: La acción que deseas realizar, como `get`, `create`, `delete`, etc.
-- **tipo**: El tipo de recurso que deseas gestionar, como `pod`, `service`, `deployment`, etc.
-- **nombre**: El nombre específico del recurso que deseas manipular.
-- **flags**: Opciones adicionales que pueden modificar el comportamiento del comando.
+## Common Options
+- `get`: Recupera información sobre recursos en el clúster.
+- `apply`: Aplica cambios a los recursos definidos en archivos de configuración.
+- `delete`: Elimina recursos del clúster.
+- `describe`: Muestra detalles sobre un recurso específico.
+- `logs`: Muestra los registros de un pod.
 
-### Opciones Comunes
-- `--namespace`: Especifica el espacio de nombres en el que se ejecutará el comando.
-- `-o`: Define el formato de salida, como `json` o `yaml`.
-- `--kubeconfig`: Especifica el archivo de configuración de Kubernetes que se utilizará.
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `kubectl`:
 
-## Examples
-### Ejemplo 1: Listar Pods
-Para listar todos los pods en el espacio de nombres actual, puedes usar el siguiente comando:
-
+### Obtener todos los pods en el clúster
 ```bash
 kubectl get pods
 ```
 
-### Ejemplo 2: Crear un Deployment
-Para crear un nuevo deployment llamado "mi-aplicacion" con una imagen de contenedor específica, puedes usar:
-
+### Aplicar un archivo de configuración
 ```bash
-kubectl create deployment mi-aplicacion --image=mi-imagen:latest
+kubectl apply -f archivo-configuracion.yaml
+```
+
+### Eliminar un pod específico
+```bash
+kubectl delete pod nombre-del-pod
+```
+
+### Describir un servicio
+```bash
+kubectl describe service nombre-del-servicio
+```
+
+### Ver los registros de un pod
+```bash
+kubectl logs nombre-del-pod
 ```
 
 ## Tips
-- Asegúrate de tener configurado correctamente tu contexto de Kubernetes utilizando `kubectl config use-context`.
-- Utiliza el flag `-o wide` para obtener más información sobre los recursos listados, como las direcciones IP y los nodos donde están corriendo.
-- Familiarízate con los comandos de `kubectl` utilizando `kubectl --help` para obtener una lista completa de comandos y opciones disponibles.
-- Considera el uso de alias para comandos comunes para mejorar tu eficiencia en la línea de comandos.
+- Usa `kubectl get all` para obtener un resumen de todos los recursos en el clúster.
+- Asegúrate de tener configurado el contexto correcto con `kubectl config use-context nombre-del-contexto`.
+- Utiliza `-o wide` para obtener más detalles sobre los recursos al usar `kubectl get`.
+- Familiarízate con los archivos de configuración en formato YAML para facilitar la gestión de recursos.

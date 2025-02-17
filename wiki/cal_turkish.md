@@ -1,49 +1,52 @@
-# [리눅스] Bash cal 사용법
+# [Linux] Bash cal Kullanımı: Takvim görüntüleme komutu
 
 ## Overview
-`cal` komutu, belirli bir ay veya yıl için takvim görüntülemek amacıyla kullanılan bir Bash komutudur. Kullanıcıların tarihleri hızlı bir şekilde görselleştirmesine olanak tanır. Bu komut, özellikle tarih ve zaman ile çalışan mühendisler ve geliştiriciler için faydalıdır.
+`cal` komutu, belirli bir ay veya yıl için takvim görüntülemek amacıyla kullanılan bir Bash komutudur. Kullanıcılar, bu komut sayesinde geçmiş veya gelecek tarihlere ait takvimleri kolayca görüntüleyebilir.
 
 ## Usage
-`cal` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-cal [ay] [yıl]
+cal [seçenekler] [argümanlar]
 ```
 
-### Ortak Seçenekler
-- `-m`: Ayları baştan sona kadar yan yana gösterir.
-- `-3`: Mevcut ayın yanı sıra bir önceki ve bir sonraki ayı da gösterir.
-- `-y`: Belirtilen yılı takvim olarak gösterir.
+## Common Options
+- `-m`: Ayın ilk gününü haftanın ortasında gösterir.
+- `-y`: Tüm yılı gösterir.
+- `-3`: Mevcut ay, önceki ay ve sonraki ayı aynı anda gösterir.
 - `-j`: Yılın gün numaralarını gösterir.
+- `-A [n]`: Mevcut aydan sonra `n` ayı gösterir.
+- `-B [n]`: Mevcut aydan önce `n` ayı gösterir.
 
-## Examples
-### Örnek 1: Mevcut Ayın Takvimi
-Mevcut ayın takvimini görüntülemek için sadece `cal` komutunu kullanabilirsiniz:
+## Common Examples
+Aşağıda `cal` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-cal
-```
+1. Mevcut ayın takvimini görüntülemek için:
+   ```bash
+   cal
+   ```
 
-### Örnek 2: Belirli Bir Ay ve Yılın Takvimi
-Örneğin, 2023 yılının Ekim ayının takvimini görüntülemek için:
+2. Belirli bir ay ve yıl için takvim görüntülemek için (örneğin, Eylül 2023):
+   ```bash
+   cal 09 2023
+   ```
 
-```bash
-cal 10 2023
-```
+3. Tüm yılı görüntülemek için:
+   ```bash
+   cal -y 2023
+   ```
 
-### Örnek 3: Üç Aylık Görüntüleme
-Mevcut ayın yanı sıra bir önceki ve bir sonraki ayı göstermek için:
+4. Mevcut ay ile birlikte önceki ve sonraki ayları görüntülemek için:
+   ```bash
+   cal -3
+   ```
 
-```bash
-cal -3
-```
+5. Yılın gün numaralarını gösteren takvim için:
+   ```bash
+   cal -j
+   ```
 
 ## Tips
-- `cal` komutunu sık kullananlar için, belirli bir ay veya yıl için takvim görüntülemek üzere bir alias oluşturmak faydalı olabilir.
-- Takvim çıktısını daha iyi görmek için çıktıyı bir dosyaya yönlendirebilir veya `less` gibi bir sayfalayıcı ile görüntüleyebilirsiniz. Örneğin:
-
-```bash
-cal | less
-```
-
-- `cal` komutunu, tarih hesaplamaları veya zaman yönetimi uygulamalarında kullanarak, belirli tarihler arasındaki gün sayısını bulmak için bir temel olarak kullanabilirsiniz.
+- `cal` komutunu sıkça kullanıyorsanız, belirli bir ay veya yıl için takvim görüntülemek için bir alias oluşturabilirsiniz.
+- Takvimdeki günleri daha iyi anlamak için `-m` seçeneğini kullanarak haftanın ortasında başlayabilirsiniz.
+- Eğer birden fazla ayı aynı anda görmek istiyorsanız, `-A` ve `-B` seçeneklerini kullanarak geçmiş ve gelecek ayları kolayca görüntüleyebilirsiniz.

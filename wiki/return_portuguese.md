@@ -1,44 +1,53 @@
-# [리눅스] Bash return 사용법
+# [Linux] Bash return uso equivalente: Retornar o status de um comando
 
 ## Overview
-O comando `return` no Bash é utilizado para sair de uma função e retornar um valor de status. O valor de status é um número inteiro que pode ser usado para indicar o sucesso ou a falha da execução de uma função. Por padrão, o `return` retorna 0, que geralmente indica sucesso, mas você pode especificar um valor diferente para indicar diferentes estados de saída.
+O comando `return` no Bash é utilizado para encerrar uma função e retornar um código de status para o chamador. Esse código pode ser usado para indicar se a função foi executada com sucesso ou se ocorreu algum erro.
 
 ## Usage
 A sintaxe básica do comando `return` é a seguinte:
 
 ```bash
-return [n]
+return [número]
 ```
 
-Onde `n` é um número inteiro que representa o valor de status que você deseja retornar. Se `n` não for especificado, o `return` usará o valor de status da última execução de um comando dentro da função.
+Onde `número` é o código de status que você deseja retornar. Se não for especificado, o retorno será o código de status da última execução.
 
-## Examples
+## Common Options
+O comando `return` não possui opções específicas, mas você pode usar os seguintes códigos de status comuns:
+- `0`: Indica sucesso.
+- `1`: Indica um erro genérico.
+- Outros números podem ser usados para indicar diferentes tipos de erros ou estados.
 
-### Exemplo 1: Retornando um valor de sucesso
+## Common Examples
+
+### Exemplo 1: Retornar sucesso
 ```bash
 minha_funcao() {
-    echo "Executando a função..."
+    echo "Executando a função"
     return 0
 }
-
 minha_funcao
-echo "Valor de retorno: $?"
 ```
-Neste exemplo, a função `minha_funcao` é definida e chamada. O comando `return 0` indica que a função foi executada com sucesso. O valor de retorno pode ser verificado usando `$?`, que mostrará `0`.
 
-### Exemplo 2: Retornando um valor de erro
+### Exemplo 2: Retornar erro
 ```bash
 minha_funcao() {
-    echo "Ocorreu um erro!"
+    echo "Ocorreu um erro"
     return 1
 }
-
 minha_funcao
-echo "Valor de retorno: $?"
 ```
-Aqui, a função `minha_funcao` retorna `1`, indicando que ocorreu um erro. O valor de retorno também pode ser verificado com `$?`, que mostrará `1`.
+
+### Exemplo 3: Retornar o status da última execução
+```bash
+minha_funcao() {
+    ls /diretorio_inexistente
+    return $?  # Retorna o status da última execução do comando ls
+}
+minha_funcao
+```
 
 ## Tips
-- Utilize o `return` para indicar claramente o resultado da execução de suas funções, facilitando a depuração e o controle de fluxo em scripts mais complexos.
-- É uma boa prática retornar valores diferentes para diferentes tipos de erro, o que pode ajudar na identificação de problemas.
-- Lembre-se de que o valor de retorno deve ser um número inteiro entre 0 e 255, pois valores fora desse intervalo podem resultar em comportamentos inesperados.
+- Sempre use códigos de status significativos para facilitar a depuração.
+- Utilize `return` dentro de funções para controlar o fluxo do seu script.
+- Lembre-se de que o `return` só pode ser usado dentro de funções e não em scripts de nível superior.

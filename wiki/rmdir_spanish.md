@@ -1,39 +1,42 @@
-# [리눅스] Bash rmdir 사용법
+# [Linux] Bash rmdir Uso: Eliminar directorios vacíos
 
 ## Overview
-El comando `rmdir` se utiliza en Bash para eliminar directorios vacíos. Su propósito principal es permitir a los usuarios gestionar la estructura de directorios en un sistema de archivos, eliminando aquellos directorios que no contienen archivos ni otros directorios. Es importante notar que `rmdir` solo puede eliminar directorios que estén completamente vacíos; si un directorio contiene archivos o subdirectorios, el comando fallará.
+El comando `rmdir` se utiliza en Bash para eliminar directorios que están vacíos. Si intentas eliminar un directorio que contiene archivos o subdirectorios, el comando fallará y no realizará ninguna acción.
 
 ## Usage
-La sintaxis básica del comando `rmdir` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-rmdir [opciones] directorio
+rmdir [opciones] [argumentos]
 ```
 
-### Opciones Comunes
-- `-p`: Elimina el directorio especificado y sus directorios padres si están vacíos.
-- `--ignore-fail-on-non-empty`: Ignora el error si el directorio no está vacío.
+## Common Options
+- `--ignore-fail-on-non-empty`: Ignora los errores si el directorio no está vacío.
+- `--parents`: Elimina directorios de forma recursiva, eliminando también los directorios padres si están vacíos.
+- `-p`: Sinónimo de `--parents`.
 
-## Examples
-### Ejemplo 1: Eliminar un directorio vacío
-Para eliminar un directorio vacío llamado `mi_directorio`, puedes usar el siguiente comando:
+## Common Examples
+1. **Eliminar un directorio vacío:**
+   ```bash
+   rmdir mi_directorio
+   ```
 
-```bash
-rmdir mi_directorio
-```
+2. **Eliminar varios directorios vacíos a la vez:**
+   ```bash
+   rmdir directorio1 directorio2 directorio3
+   ```
 
-Si `mi_directorio` está vacío, se eliminará sin problemas. Si no lo está, recibirás un mensaje de error.
+3. **Eliminar un directorio y sus padres vacíos:**
+   ```bash
+   rmdir -p padre/hijo
+   ```
 
-### Ejemplo 2: Eliminar un directorio y sus padres vacíos
-Si deseas eliminar un directorio llamado `subdirectorio` y también su directorio padre `mi_directorio` (si ambos están vacíos), puedes usar la opción `-p` de la siguiente manera:
-
-```bash
-rmdir -p mi_directorio/subdirectorio
-```
-
-Este comando eliminará `subdirectorio` y, si `mi_directorio` queda vacío después de esa operación, también lo eliminará.
+4. **Ignorar errores si el directorio no está vacío:**
+   ```bash
+   rmdir --ignore-fail-on-non-empty directorio_no_vacio
+   ```
 
 ## Tips
-- Asegúrate de que el directorio que deseas eliminar esté completamente vacío antes de usar `rmdir`, ya que de lo contrario el comando fallará.
-- Utiliza `ls` para verificar el contenido de un directorio antes de intentar eliminarlo.
-- Si necesitas eliminar un directorio que contiene archivos o subdirectorios, considera usar el comando `rm -r` en su lugar, pero ten cuidado, ya que este comando eliminará todo el contenido de manera recursiva.
+- Asegúrate de que el directorio esté vacío antes de usar `rmdir`, ya que de lo contrario, el comando no funcionará.
+- Usa `ls` para verificar el contenido del directorio antes de intentar eliminarlo.
+- Si necesitas eliminar un directorio que no está vacío, considera usar el comando `rm -r` en su lugar, pero ten cuidado, ya que este comando eliminará todo el contenido del directorio de forma irreversible.

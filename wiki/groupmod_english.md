@@ -1,39 +1,48 @@
-# [리눅스] Bash groupmod 사용법
+# [Linux] Bash groupmod Usage: Modify existing groups
 
 ## Overview
-The `groupmod` command in Bash is used to modify existing groups on a Linux system. Its primary purpose is to change the attributes of a group, such as its name or the group ID (GID). This command is essential for system administrators who need to manage user permissions and group memberships effectively.
+The `groupmod` command in Bash is used to modify existing groups on a Linux system. It allows administrators to change the group name, group ID, and other attributes of a specified group.
 
 ## Usage
 The basic syntax of the `groupmod` command is as follows:
 
 ```bash
-groupmod [options] GROUP
+groupmod [options] [arguments]
 ```
 
-### Common Options
+## Common Options
 - `-n, --new-name NEW_GROUP`: Change the name of the group to `NEW_GROUP`.
-- `-g, --gid NEW_GID`: Change the group ID to `NEW_GID`.
-- `--help`: Display help information about the command.
-- `--version`: Show the version information of the command.
+- `-g, --gid GID`: Change the group ID to `GID`.
+- `-h, --help`: Display help information about the command.
+- `-o, --non-unique`: Allow the group ID to be non-unique (not recommended).
 
-## Examples
+## Common Examples
 
-### Example 1: Changing the Group Name
-To change the name of a group from `oldgroup` to `newgroup`, you would use the following command:
+1. **Change the name of a group:**
+   To rename a group from `oldgroup` to `newgroup`, use:
+   ```bash
+   groupmod -n newgroup oldgroup
+   ```
 
-```bash
-sudo groupmod -n newgroup oldgroup
-```
+2. **Change the group ID:**
+   To change the group ID of `mygroup` to `1001`, use:
+   ```bash
+   groupmod -g 1001 mygroup
+   ```
 
-### Example 2: Changing the Group ID
-If you want to change the GID of a group called `mygroup` to `1050`, you can execute:
+3. **Change both the name and ID of a group:**
+   To rename `examplegroup` to `newexample` and change its ID to `2002`, use:
+   ```bash
+   groupmod -n newexample -g 2002 examplegroup
+   ```
 
-```bash
-sudo groupmod -g 1050 mygroup
-```
+4. **Display help information:**
+   To see the help information for `groupmod`, simply run:
+   ```bash
+   groupmod --help
+   ```
 
 ## Tips
-- Always ensure that no users are currently logged in with the group you are modifying to avoid potential permission issues.
-- Use the `getent group` command to check the current group settings before making changes.
-- Be cautious when changing group IDs, as it can affect file permissions and access for users associated with that group.
-- It's a good practice to back up your `/etc/group` file before making modifications, in case you need to revert changes.
+- Always ensure that no users are currently using the group you want to modify, as this may cause issues.
+- Use the `-o` option with caution, as allowing non-unique group IDs can lead to conflicts.
+- After modifying a group, verify the changes by checking the `/etc/group` file or using the `getent group` command.

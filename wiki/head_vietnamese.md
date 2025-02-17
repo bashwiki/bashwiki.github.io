@@ -1,41 +1,42 @@
-# [리눅스] Bash head 사용법
+# [Linux] Bash head cách sử dụng: Lấy dòng đầu tiên của tệp
 
-## Tổng quan
-Lệnh `head` trong Bash được sử dụng để hiển thị một số dòng đầu tiên của một tệp tin. Lệnh này rất hữu ích khi bạn chỉ muốn xem một phần nhỏ của nội dung tệp mà không cần mở toàn bộ tệp, giúp tiết kiệm thời gian và tài nguyên.
+## Overview
+Lệnh `head` trong Bash được sử dụng để hiển thị một số dòng đầu tiên của một tệp. Mặc định, nó sẽ hiển thị 10 dòng đầu tiên, nhưng bạn có thể tùy chỉnh số lượng dòng muốn hiển thị.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `head` như sau:
-
-```bash
-head [tùy chọn] [tệp tin]
+```
+head [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến
-- `-n [số]`: Chỉ định số dòng bạn muốn hiển thị. Mặc định, `head` sẽ hiển thị 10 dòng đầu tiên.
-- `-c [số]`: Hiển thị số byte đầu tiên thay vì số dòng.
-- `-q`: Không hiển thị tên tệp tin khi hiển thị nhiều tệp.
-- `-v`: Luôn hiển thị tên tệp tin trước khi hiển thị nội dung.
+## Common Options
+- `-n [number]`: Chỉ định số dòng muốn hiển thị. Ví dụ: `-n 5` sẽ hiển thị 5 dòng đầu tiên.
+- `-c [number]`: Hiển thị số byte đầu tiên thay vì số dòng.
+- `-q`: Không hiển thị tên tệp khi có nhiều tệp được chỉ định.
+- `-v`: Luôn hiển thị tên tệp ngay cả khi chỉ có một tệp.
 
-## Ví dụ
-### Ví dụ 1: Hiển thị 10 dòng đầu tiên của một tệp
-```bash
-head myfile.txt
-```
-Lệnh trên sẽ hiển thị 10 dòng đầu tiên của tệp `myfile.txt`.
+## Common Examples
+- Hiển thị 10 dòng đầu tiên của tệp `file.txt`:
+  ```bash
+  head file.txt
+  ```
 
-### Ví dụ 2: Hiển thị 5 dòng đầu tiên của một tệp
-```bash
-head -n 5 myfile.txt
-```
-Lệnh này sẽ hiển thị 5 dòng đầu tiên của tệp `myfile.txt`.
+- Hiển thị 5 dòng đầu tiên của tệp `file.txt`:
+  ```bash
+  head -n 5 file.txt
+  ```
 
-### Ví dụ 3: Hiển thị 20 byte đầu tiên của một tệp
-```bash
-head -c 20 myfile.txt
-```
-Lệnh này sẽ hiển thị 20 byte đầu tiên của tệp `myfile.txt`.
+- Hiển thị 100 byte đầu tiên của tệp `file.txt`:
+  ```bash
+  head -c 100 file.txt
+  ```
 
-## Mẹo
-- Sử dụng `head` kết hợp với các lệnh khác như `grep` hoặc `less` để lọc và xem nội dung tệp một cách hiệu quả hơn.
-- Nếu bạn làm việc với nhiều tệp, bạn có thể chỉ định nhiều tệp trong cùng một lệnh `head` để xem nội dung của từng tệp một cách nhanh chóng.
-- Để dễ dàng theo dõi và kiểm tra các tệp log lớn, bạn có thể sử dụng `head` để xem các dòng đầu tiên mà không cần mở toàn bộ tệp.
+- Hiển thị 10 dòng đầu tiên của nhiều tệp và không hiển thị tên tệp:
+  ```bash
+  head -q file1.txt file2.txt
+  ```
+
+## Tips
+- Sử dụng `head` kết hợp với các lệnh khác như `grep` hoặc `sort` để lọc và hiển thị dữ liệu một cách hiệu quả.
+- Nếu bạn muốn xem các dòng cuối cùng của tệp, hãy sử dụng lệnh `tail` thay vì `head`.
+- Lệnh `head` rất hữu ích khi bạn chỉ cần xem nhanh nội dung của tệp lớn mà không cần mở toàn bộ tệp.

@@ -1,22 +1,23 @@
-# [리눅스] Bash break 사용법
+# [Linux] Bash break Kullanımı: Döngüden çıkma
 
-## Overview
-`break` komutu, bir döngüden çıkmak için kullanılan bir Bash komutudur. Genellikle `for`, `while` veya `until` döngülerinin içinde kullanılır ve döngünün hemen sonlanmasını sağlar. Bu, belirli bir koşul gerçekleştiğinde döngüyü sonlandırmak için oldukça yararlıdır.
+## Genel Bakış
+`break` komutu, bir döngüden çıkmak için kullanılan bir Bash komutudur. Genellikle `for`, `while` veya `until` döngülerinde kullanılır ve döngünün çalışmasını durdurur.
 
-## Usage
-`break` komutunun temel kullanımı oldukça basittir. Aşağıda temel sözdizimi verilmiştir:
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
 break [n]
 ```
 
-- `n`: (isteğe bağlı) Çıkmak istediğiniz döngü seviyesini belirtir. Eğer belirtilmezse, en içteki döngüden çıkılır. Eğer birden fazla döngü iç içe geçmişse, `n` değeri kullanılarak hangi döngüden çıkılacağı belirlenebilir.
+Burada `n`, döngüden çıkmak istediğiniz katman sayısını belirtir. Eğer `n` belirtilmezse, en içteki döngüden çıkılır.
 
-## Examples
+## Yaygın Seçenekler
+- `n`: Çıkmak istediğiniz döngü katmanının sayısını belirtir. Varsayılan olarak 1'dir.
 
-### Örnek 1: Basit bir döngüden çıkma
-Aşağıdaki örnekte, bir `for` döngüsü 5'e kadar sayar ve 3'e ulaştığında döngüyü sonlandırır:
+## Yaygın Örnekler
 
+### Örnek 1: Basit bir for döngüsünde break kullanımı
 ```bash
 for i in {1..5}; do
     if [ $i -eq 3 ]; then
@@ -25,24 +26,35 @@ for i in {1..5}; do
     echo $i
 done
 ```
-Bu komut çalıştırıldığında, çıktı olarak `1` ve `2` yazdırılır, ardından döngü `3` değerine ulaştığında sonlanır.
+Bu örnekte, `i` değişkeni 3 olduğunda döngüden çıkılır ve çıktıda sadece 1 ve 2 yazdırılır.
 
-### Örnek 2: İç içe döngülerde çıkma
-Aşağıdaki örnekte, iç içe geçmiş iki döngüde `break` komutunun nasıl kullanılacağını gösterir:
+### Örnek 2: While döngüsünde break kullanımı
+```bash
+count=1
+while [ $count -le 5 ]; do
+    if [ $count -eq 4 ]; then
+        break
+    fi
+    echo $count
+    ((count++))
+done
+```
+Bu örnekte, `count` 4 olduğunda döngü durur ve 1, 2, 3 yazdırılır.
 
+### Örnek 3: Birden fazla katmandan çıkma
 ```bash
 for i in {1..3}; do
     for j in {1..3}; do
         if [ $j -eq 2 ]; then
             break 2
         fi
-        echo "i: $i, j: $j"
+        echo "$i, $j"
     done
 done
 ```
-Bu komut çalıştırıldığında, `j` değeri `2` olduğunda dıştaki döngü de dahil olmak üzere tüm döngüler sonlanır.
+Bu örnekte, içteki döngü 2'ye ulaştığında her iki döngüden de çıkılır.
 
-## Tips
-- `break` komutunu kullanırken, döngülerin iç içe olup olmadığını dikkate almak önemlidir. `n` parametresi ile hangi döngüden çıkacağınızı belirleyebilirsiniz.
-- Döngülerinizi daha okunabilir hale getirmek için, `break` komutunu kullanmadan önce koşul ifadelerinizi net bir şekilde tanımlayın.
-- `break` komutunu kullanırken, döngülerin sonlanma koşullarını dikkatlice düşünün; gereksiz yere döngüleri sonlandırmak, programınızın beklenmedik şekilde çalışmasına neden olabilir.
+## İpuçları
+- `break` komutunu kullanırken, hangi döngüden çıkmak istediğinizi net bir şekilde belirtmek için `n` parametresini kullanın.
+- Karmaşık döngülerde `break` kullanırken, kodun okunabilirliğini artırmak için açıklayıcı yorumlar eklemeyi unutmayın.
+- Döngüden çıkma koşulunu dikkatlice belirleyin; aksi takdirde beklenmeyen sonuçlar elde edebilirsiniz.

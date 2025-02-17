@@ -1,44 +1,46 @@
-# [리눅스] Bash mpstat 사용법
+# [Linux] Bash mpstat Kullanımı: CPU istatistiklerini görüntüleme
 
-## Genel Bakış
-`mpstat`, çoklu işlemci sistemlerinde CPU kullanım istatistiklerini görüntülemek için kullanılan bir komuttur. Bu komut, her bir işlemcinin veya çekirdeğin yükünü izlemek ve analiz etmek için yararlıdır. Sistem yöneticileri ve geliştiriciler, sistem performansını değerlendirmek ve darboğazları tespit etmek amacıyla bu komutu kullanabilirler.
+## Overview
+`mpstat` komutu, sistemdeki CPU kullanım istatistiklerini görüntülemek için kullanılır. Bu komut, çok çekirdekli sistemlerde her bir çekirdek için ayrı ayrı bilgi sağlar ve CPU'nun performansını analiz etmek için faydalıdır.
 
-## Kullanım
-`mpstat` komutunun temel sözdizimi aşağıdaki gibidir:
-
+## Usage
+Temel sözdizimi şu şekildedir:
 ```bash
-mpstat [seçenekler] [interval] [count]
+mpstat [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-P ALL`: Tüm işlemcilerin istatistiklerini gösterir.
-- `-u`: CPU kullanım yüzdelerini gösterir (varsayılan olarak gösterilir).
-- `-h`: Çıktıyı daha okunabilir hale getirir (kısa biçim).
-- `interval`: İstatistiklerin gösterileceği süre (saniye cinsinden).
-- `count`: İstatistiklerin kaç kez gösterileceği.
+## Common Options
+- `-P ALL`: Tüm CPU'lar için istatistikleri gösterir.
+- `-u`: Kullanıcı ve sistem CPU kullanım yüzdelerini gösterir.
+- `-r`: Bellek istatistiklerini gösterir.
+- `-h`: İnsan tarafından okunabilir biçimde çıktı verir.
+- `-o`: Çıktıyı belirtilen dosyaya kaydeder.
 
-## Örnekler
-### Örnek 1: Tüm İşlemcilerin İstatistiklerini Görüntüleme
-Aşağıdaki komut, her 2 saniyede bir tüm işlemcilerin istatistiklerini gösterir:
+## Common Examples
+Aşağıda `mpstat` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
+### Tüm CPU'lar için istatistikleri görüntüleme
 ```bash
-mpstat -P ALL 2
+mpstat -P ALL
 ```
 
-### Örnek 2: Belirli Bir İşlemcinin Kullanımını İzleme
-Sadece 0 numaralı işlemcinin kullanım istatistiklerini görüntülemek için şu komutu kullanabilirsiniz:
-
+### Kullanıcı ve sistem CPU kullanım yüzdelerini gösterme
 ```bash
-mpstat -P 0 1 5
+mpstat -u 1
 ```
-Bu komut, 1 saniye aralıklarla 5 kez 0 numaralı işlemcinin istatistiklerini gösterir.
+Bu komut, her saniyede bir CPU kullanım yüzdelerini güncelleyerek gösterir.
 
-## İpuçları
-- `mpstat` çıktısını daha iyi analiz edebilmek için, verileri bir dosyaya yönlendirebilir ve daha sonra bu dosyayı inceleyebilirsiniz. Örneğin:
-
+### Bellek istatistiklerini görüntüleme
 ```bash
-mpstat -P ALL 2 > cpu_usage.txt
+mpstat -r
 ```
 
-- Uzun süreli izleme yapıyorsanız, `interval` ve `count` değerlerini dikkatlice seçin. Çok sık aralıklarla veri toplamak, sistem kaynaklarını tüketebilir.
-- `mpstat` çıktısında yer alan "idle" yüzdesi, işlemcinin ne kadar süreyle boşta kaldığını gösterir. Bu değer, sistemin genel performansı hakkında önemli bilgiler sunar.
+### Çıktıyı dosyaya kaydetme
+```bash
+mpstat -P ALL -o output.txt
+```
+
+## Tips
+- `mpstat` komutunu düzenli olarak çalıştırarak sistem performansını izleyin.
+- Uzun süreli izleme için çıktıyı bir dosyaya kaydedin ve zamanla analiz edin.
+- CPU kullanımını etkileyen uygulamaları belirlemek için `mpstat` çıktısını diğer sistem izleme araçlarıyla birleştirin.

@@ -1,39 +1,43 @@
-# [리눅스] Bash umask 사용법
+# [Linux] Bash umask uso: Controla los permisos predeterminados de archivos y directorios
 
 ## Overview
-El comando `umask` en Bash se utiliza para establecer la máscara de creación de archivos, que determina los permisos predeterminados para los nuevos archivos y directorios creados en el sistema. Su propósito principal es controlar el acceso a los archivos, limitando los permisos que se otorgan a los usuarios y grupos al momento de crear nuevos archivos.
+El comando `umask` se utiliza en sistemas Unix y Linux para establecer los permisos predeterminados de los archivos y directorios que se crean en el sistema. Específicamente, define una "máscara" que determina qué permisos no se otorgarán a los nuevos archivos y directorios.
 
 ## Usage
 La sintaxis básica del comando `umask` es la siguiente:
 
 ```bash
-umask [opciones] [máscara]
+umask [opciones] [argumentos]
 ```
 
-### Opciones Comunes
-- **Sin argumentos**: Al ejecutar `umask` sin argumentos, muestra la máscara actual.
-- **Máscara**: Se puede especificar una máscara en formato octal (por ejemplo, `022`, `077`), donde cada dígito representa los permisos que se deben denegar a los usuarios (propietario, grupo, otros).
+## Common Options
+- `-S`: Muestra la máscara de permisos en formato simbólico.
+- `-p`: Muestra la máscara de permisos actual en formato octal.
 
-## Examples
-### Ejemplo 1: Ver la máscara actual
-Para ver la máscara de creación de archivos actual, simplemente ejecuta:
+## Common Examples
+1. **Ver la máscara de permisos actual:**
+   ```bash
+   umask
+   ```
 
-```bash
-umask
-```
+2. **Establecer una nueva máscara de permisos:**
+   ```bash
+   umask 027
+   ```
+   Esto establece que los nuevos archivos tendrán permisos de lectura y escritura para el propietario, y solo permisos de lectura para el grupo.
 
-Esto devolverá un valor en formato octal, como `0022`, que indica los permisos que se deniegan.
+3. **Mostrar la máscara en formato simbólico:**
+   ```bash
+   umask -S
+   ```
 
-### Ejemplo 2: Establecer una nueva máscara
-Para establecer una nueva máscara que deniegue permisos de escritura a otros usuarios, puedes usar:
-
-```bash
-umask 0022
-```
-
-Con esta configuración, los nuevos archivos tendrán permisos `rw-r--r--` y los nuevos directorios tendrán permisos `rwxr-xr-x`.
+4. **Restablecer a la máscara por defecto:**
+   ```bash
+   umask 0022
+   ```
+   Esto permite que los archivos sean legibles por todos, pero solo el propietario puede escribir en ellos.
 
 ## Tips
-- Es recomendable establecer la máscara de creación de archivos en un valor que minimice el riesgo de acceso no autorizado, especialmente en entornos de producción.
-- Puedes agregar el comando `umask` a tu archivo de inicio de sesión (como `.bashrc` o `.bash_profile`) para que se aplique automáticamente cada vez que inicies una nueva sesión de terminal.
-- Recuerda que la máscara de umask se aplica solo a los archivos y directorios creados después de que se establece; no afecta a los archivos ya existentes.
+- Recuerda que la máscara se aplica a los archivos y directorios creados después de que se establece. Para aplicar cambios, es posible que necesites reiniciar la sesión o ejecutar el comando en el contexto adecuado.
+- Es recomendable establecer la máscara en archivos de configuración como `.bashrc` o `.profile` para que se aplique automáticamente en cada sesión.
+- Ten cuidado al establecer una máscara demasiado permisiva, ya que puede comprometer la seguridad de tu sistema.

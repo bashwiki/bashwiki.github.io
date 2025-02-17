@@ -1,57 +1,45 @@
-# [리눅스] Bash cut 사용법
+# [Linux] Bash cut uso equivalente: Extraer secciones de líneas de texto
 
 ## Overview
-El comando `cut` en Bash se utiliza para extraer secciones de líneas de un archivo o de la entrada estándar. Su propósito principal es permitir a los usuarios seleccionar y mostrar partes específicas de datos, lo que es especialmente útil para procesar archivos de texto estructurados, como CSV o TSV.
+El comando `cut` se utiliza en Bash para extraer secciones específicas de líneas de texto. Es especialmente útil para procesar archivos de texto y datos delimitados, permitiendo seleccionar columnas o partes de líneas basadas en delimitadores.
 
 ## Usage
 La sintaxis básica del comando `cut` es la siguiente:
 
 ```bash
-cut [opciones] [archivo]
+cut [opciones] [argumentos]
 ```
 
-### Opciones Comunes:
-- `-f`: Especifica los campos que se desean extraer. Se utiliza junto con la opción `-d`.
-- `-d`: Define el delimitador que se utiliza para separar los campos. Por defecto, el delimitador es una tabulación.
-- `-c`: Permite seleccionar caracteres específicos en lugar de campos.
-- `-s`: Suprime las líneas que no contienen el delimitador especificado.
+## Common Options
+- `-f`: Especifica los campos que se desean extraer, separados por un delimitador.
+- `-d`: Define el delimitador que se utiliza para separar los campos (por defecto es la tabulación).
+- `-c`: Selecciona caracteres específicos de cada línea.
+- `--complement`: Devuelve todo menos los campos especificados.
 
-## Examples
-### Ejemplo 1: Extraer campos de un archivo CSV
-Supongamos que tenemos un archivo llamado `datos.csv` con el siguiente contenido:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `cut`:
 
-```
-nombre,edad,ciudad
-Juan,30,Madrid
-Ana,25,Barcelona
-Luis,28,Valencia
-```
+1. **Extraer el primer campo de un archivo CSV**:
+   ```bash
+   cut -d ',' -f 1 archivo.csv
+   ```
 
-Para extraer solo los nombres y las edades, podemos usar:
+2. **Extraer múltiples campos de un archivo de texto**:
+   ```bash
+   cut -d ' ' -f 1,3 archivo.txt
+   ```
 
-```bash
-cut -d ',' -f 1,2 datos.csv
-```
+3. **Extraer caracteres específicos de una línea**:
+   ```bash
+   echo "Hola Mundo" | cut -c 1-4
+   ```
 
-Esto devolverá:
-
-```
-nombre,edad
-Juan,30
-Ana,25
-Luis,28
-```
-
-### Ejemplo 2: Extraer caracteres específicos
-Si queremos extraer los primeros 5 caracteres de cada línea de un archivo de texto llamado `texto.txt`, podemos usar:
-
-```bash
-cut -c 1-5 texto.txt
-```
-
-Esto mostrará los primeros 5 caracteres de cada línea en `texto.txt`.
+4. **Invertir la selección de campos**:
+   ```bash
+   cut -d ':' -f 1 --complement /etc/passwd
+   ```
 
 ## Tips
-- Siempre verifica el delimitador de tus archivos. Si no es una tabulación, asegúrate de usar la opción `-d` para especificar el delimitador correcto.
-- Puedes combinar `cut` con otros comandos como `grep` o `sort` para realizar análisis más complejos de los datos.
-- Utiliza la opción `-s` si deseas evitar líneas vacías en la salida, lo que puede ser útil al procesar archivos grandes.
+- Siempre verifica el delimitador de tus archivos antes de usar `cut`, ya que el comportamiento por defecto es la tabulación.
+- Usa `-n` junto con `-f` para evitar que `cut` omita líneas que no contienen el delimitador especificado.
+- Combina `cut` con otros comandos como `grep` o `sort` para un procesamiento de texto más avanzado.

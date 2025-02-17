@@ -1,43 +1,45 @@
-# [리눅스] Bash ethtool 사용법
+# [Linux] Bash ethtool Kullanımı: Ağ arayüzü bilgilerini görüntüleme ve yönetme
 
 ## Genel Bakış
-`ethtool`, Linux tabanlı işletim sistemlerinde ağ arayüzlerinin özelliklerini görüntülemek ve yapılandırmak için kullanılan bir komuttur. Bu araç, ağ kartlarının durumunu kontrol etmek, hız ve duplex ayarlarını değiştirmek, hata istatistiklerini görüntülemek ve daha fazlasını yapmak için kullanılır. Genellikle ağ yöneticileri ve sistem yöneticileri tarafından ağ bağlantılarının performansını optimize etmek amacıyla tercih edilir.
+`ethtool`, Linux tabanlı sistemlerde ağ arayüzlerinin özelliklerini ve durumunu görüntülemek ve yönetmek için kullanılan bir komuttur. Bu komut, ağ kartlarının yapılandırmasını ve performansını analiz etmek için oldukça faydalıdır.
 
 ## Kullanım
-`ethtool` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-ethtool [seçenekler] [ağ arayüzü]
+Temel sözdizimi aşağıdaki gibidir:
+```
+ethtool [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-s`: Ağ arayüzünü yapılandırmak için kullanılır. Örneğin, hız ve duplex ayarlarını değiştirmek için.
-- `-i`: Ağ arayüzü hakkında bilgi görüntüler (sürücü adı, sürüm, vb.).
-- `-p`: Ağ arayüzünü geçici olarak yanıp söndürerek tanımlamak için kullanılır.
-- `-d`: Ağ arayüzünün hata ayıklama bilgilerini görüntüler.
-- `-a`: Ağ arayüzünün tüm özelliklerini ve ayarlarını listeler.
+## Yaygın Seçenekler
+- `-h`, `--help`: Yardım bilgilerini gösterir.
+- `-s`, `--set-priv-flags`: Ağ arayüzünün özel bayraklarını ayarlamak için kullanılır.
+- `-i`, `--driver`: Ağ arayüzü için sürücü bilgilerini gösterir.
+- `-p`, `--identify`: Ağ arayüzünü tanımlamak için LED'i yakar.
+- `-S`, `--statistics`: Ağ arayüzü istatistiklerini görüntüler.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `ethtool` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-### Örnek 1: Ağ Arayüzü Bilgilerini Görüntüleme
-Ağ arayüzünüz hakkında bilgi almak için aşağıdaki komutu kullanabilirsiniz:
+1. Ağ arayüzü bilgilerini görüntüleme:
+   ```bash
+   ethtool eth0
+   ```
 
-```bash
-ethtool -i eth0
-```
+2. Ağ arayüzü sürücüsü bilgilerini gösterme:
+   ```bash
+   ethtool -i eth0
+   ```
 
-Bu komut, `eth0` arayüzü için sürücü adı, sürüm ve diğer ilgili bilgileri görüntüler.
+3. Ağ arayüzü istatistiklerini görüntüleme:
+   ```bash
+   ethtool -S eth0
+   ```
 
-### Örnek 2: Ağ Arayüzü Hızını ve Duplex Ayarını Değiştirme
-Ağ arayüzünüzün hızını 1000 Mbps ve duplex modunu tam olarak ayarlamak için şu komutu kullanabilirsiniz:
-
-```bash
-ethtool -s eth0 speed 1000 duplex full
-```
-
-Bu komut, `eth0` arayüzünün hızını 1000 Mbps olarak ayarlayacak ve tam duplex modunu etkinleştirecektir.
+4. Ağ arayüzünü tanımlamak için LED'i yakma:
+   ```bash
+   ethtool -p eth0
+   ```
 
 ## İpuçları
-- `ethtool` komutunu kullanmadan önce, ağ arayüzünüzün adını doğru bir şekilde bildiğinizden emin olun. Ağ arayüzü adlarını görüntülemek için `ip link` veya `ifconfig` komutlarını kullanabilirsiniz.
-- Ağ ayarlarını değiştirmeden önce mevcut ayarları yedeklemek iyi bir uygulamadır. Böylece, istenmeyen bir durumla karşılaşırsanız kolayca geri dönebilirsiniz.
-- Ağ arayüzü üzerinde yapılan değişikliklerin kalıcı olması için, ilgili yapılandırma dosyalarını güncellemeyi unutmayın. Aksi takdirde, sistem yeniden başlatıldığında ayarlar kaybolabilir.
+- `ethtool` komutunu kullanmadan önce, hangi ağ arayüzlerinin mevcut olduğunu görmek için `ip link show` komutunu kullanabilirsiniz.
+- Ağ kartı ayarlarını değiştirmeden önce mevcut ayarları yedeklemek iyi bir uygulamadır.
+- Ağ bağlantı sorunlarını gidermek için `ethtool` ile istatistikleri kontrol etmek, sorunun kaynağını bulmanıza yardımcı olabilir.

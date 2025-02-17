@@ -1,46 +1,57 @@
-# [리눅스] Bash complete 사용법
+# [Linux] Bash complete usage: Complete command-line arguments
 
 ## Overview
-The `complete` command in Bash is used to specify how command-line arguments should be auto-completed for a specific command. This is particularly useful for developers and engineers who want to enhance their command-line experience by providing custom tab completions for their scripts or commands. By defining completion behavior, users can streamline their workflow and reduce the likelihood of errors when typing commands.
+The `complete` command in Bash is used to specify how command-line arguments should be auto-completed. It allows users to define custom completion behavior for specific commands, enhancing the efficiency of command-line operations.
 
 ## Usage
 The basic syntax of the `complete` command is as follows:
 
 ```bash
-complete [options] [command]
+complete [options] [arguments]
 ```
 
-### Common Options
-- `-o`: This option allows you to specify completion options. For example, `-o nospace` prevents a space from being added after the completion.
-- `-F`: This option allows you to specify a function that generates the completions for the command.
-- `-A`: This option specifies the type of arguments to complete, such as `file`, `directory`, or `command`.
+## Common Options
+- `-A`: Specify the type of completion (e.g., `-A command` for commands).
+- `-o`: Add options for completion behavior (e.g., `-o nospace` to prevent a space after completion).
+- `-F`: Specify a function to be used for generating completions.
+- `-p`: Display the current completion settings for a command.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Command Completion
-Suppose you have a custom script named `my_script`. You can use the `complete` command to enable auto-completion for it based on a predefined list of options.
+1. **Basic Command Completion**
+   To enable completion for a custom command `mycmd`:
+   ```bash
+   complete mycmd
+   ```
 
-```bash
-complete -W "start stop restart" my_script
-```
+2. **Completion for File Names**
+   To complete file names for the command `edit`:
+   ```bash
+   complete -f edit
+   ```
 
-In this example, when you type `my_script` followed by a space and press the Tab key, it will suggest `start`, `stop`, or `restart`.
+3. **Using a Function for Completion**
+   Create a function that provides custom completions for `mycmd`:
+   ```bash
+   _mycmd_completions() {
+       COMPREPLY=( $(compgen -W "option1 option2 option3" -- "${COMP_WORDS[1]}") )
+   }
+   complete -F _mycmd_completions mycmd
+   ```
 
-### Example 2: Using a Function for Completion
-You can also create a function that generates dynamic completions. Here’s an example where we create a function that completes filenames in the current directory:
+4. **Preventing Space After Completion**
+   To prevent a space after completing options for `mycmd`:
+   ```bash
+   complete -o nospace mycmd
+   ```
 
-```bash
-_my_script_completion() {
-    COMPREPLY=($(compgen -f -- "$1"))
-}
-
-complete -F _my_script_completion my_script
-```
-
-In this example, when you type `my_script ` followed by a partial filename and press Tab, it will suggest matching filenames from the current directory.
+5. **Display Current Completion Settings**
+   To view the current completion settings for `mycmd`:
+   ```bash
+   complete -p mycmd
+   ```
 
 ## Tips
-- Always test your completions to ensure they work as expected. You can do this by running your command and pressing Tab to see the suggestions.
-- Use the `compgen` command within your completion functions to generate possible completions based on various criteria, such as files, directories, or commands.
-- Consider using `complete -p <command>` to see the current completion settings for a command, which can help you debug or modify existing completions.
-- Keep your completion functions efficient to avoid slowdowns in the command line, especially when dealing with a large number of files or options.
+- Always test your custom completions to ensure they work as expected.
+- Use functions for complex completions to keep your scripts organized.
+- Remember to reload your shell or source your configuration file after making changes to completions to see the effects.

@@ -1,7 +1,7 @@
-# [리눅스] Bash exit 사용법
+# [Linux] Bash exit command: Terminate a shell session
 
 ## Overview
-The `exit` command in Bash is used to terminate a shell session or a script. Its primary purpose is to provide an exit status to the calling process, which can be useful for error handling and debugging. When a script or a shell session ends, the exit status can indicate whether it completed successfully or encountered an error.
+The `exit` command in Bash is used to terminate a shell session. It can be used to exit from a script or to close the terminal window. When you exit, you can also return an exit status code, which can be useful for indicating success or failure of a script.
 
 ## Usage
 The basic syntax of the `exit` command is as follows:
@@ -10,30 +10,52 @@ The basic syntax of the `exit` command is as follows:
 exit [n]
 ```
 
-Where `n` is an optional integer that represents the exit status. If no status is provided, the exit status of the last executed command is used. By convention, an exit status of `0` indicates success, while any non-zero value indicates an error.
+Where `n` is an optional exit status code. If no status code is provided, the exit status of the last executed command is used.
 
-### Common Options
-- `n`: An integer value between 0 and 255. This value is returned to the parent process as the exit status.
-  
-## Examples
+## Common Options
+- `n`: An optional numeric argument that specifies the exit status. By convention, a status of `0` indicates success, while any non-zero value indicates an error.
 
-### Example 1: Exiting a Script with a Success Status
+## Common Examples
+
+### Example 1: Exit a shell session
+To simply exit a shell session, you can use:
+
 ```bash
-#!/bin/bash
-echo "This script will exit with a success status."
-exit 0
+exit
 ```
-In this example, the script prints a message and then exits with a status of `0`, indicating successful completion.
 
-### Example 2: Exiting a Script with an Error Status
+### Example 2: Exit a shell session with a specific status code
+To exit with a status code of `1`, indicating an error, you can use:
+
 ```bash
-#!/bin/bash
-echo "An error occurred."
 exit 1
 ```
-Here, the script indicates an error has occurred and exits with a status of `1`. This can be useful for signaling to other scripts or processes that something went wrong.
+
+### Example 3: Using exit in a script
+In a Bash script, you can use `exit` to indicate the success or failure of the script:
+
+```bash
+#!/bin/bash
+# A simple script example
+echo "Running script..."
+# Simulate an error
+if [ ! -f "important_file.txt" ]; then
+    echo "Error: important_file.txt not found!"
+    exit 1
+fi
+echo "Script completed successfully."
+exit 0
+```
+
+### Example 4: Exiting from a subshell
+If you are in a subshell and want to exit back to the parent shell, you can use:
+
+```bash
+(subshell_command)
+exit
+```
 
 ## Tips
-- Always use meaningful exit status codes in your scripts. For example, use `1` for general errors, `2` for misuse of shell builtins, and other codes for specific error conditions.
-- You can check the exit status of the last command executed using the special variable `$?`. This can help in debugging and controlling the flow of your scripts.
-- When writing scripts that may be sourced (using `source` or `.`), be cautious with the `exit` command, as it will terminate the entire shell session if executed in that context. Use `return` instead if you want to exit from a function or sourced script without terminating the shell.
+- Always use `exit 0` at the end of your scripts to indicate successful completion.
+- Use meaningful exit codes (e.g., `1` for general errors, `2` for command not found) to make debugging easier.
+- Remember that exiting a subshell will not affect the parent shell; it only terminates the current subshell session.

@@ -1,53 +1,50 @@
-# [리눅스] Bash unset 사용법
+# [Linux] Bash unset Kullanımı: Değişkenleri Silme
 
 ## Overview
-`unset` komutu, Bash kabuğunda bir değişkeni veya bir fonksiyonu tanımsız hale getirmek için kullanılır. Bu komut, bir değişkenin veya fonksiyonun bellekteki yerini serbest bırakır ve böylece bu değişken veya fonksiyon artık kullanılabilir olmaz. `unset`, genellikle gereksiz veya geçersiz hale gelmiş değişkenleri temizlemek için kullanılır.
+`unset` komutu, Bash kabuğunda tanımlı olan değişkenleri veya fonksiyonları silmek için kullanılır. Bu komut, belirli bir değişkenin veya fonksiyonun bellekte yer kaplamasını önler.
 
 ## Usage
-Temel sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-unset [değişken_adı]
+unset [options] [arguments]
 ```
 
-veya
+## Common Options
+- `-f`: Bu seçenek, belirtilen fonksiyonu silmek için kullanılır.
+- `-v`: Bu seçenek, belirtilen değişkeni silmek için kullanılır.
+
+## Common Examples
+Aşağıda `unset` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
+
+### 1. Değişken Silme
+Bir değişkeni silmek için:
 
 ```bash
-unset -f [fonksiyon_adı]
+my_var="Hello, World!"
+unset my_var
 ```
 
-### Ortak Seçenekler
-- `-f`: Bu seçenek, bir fonksiyonu tanımsız hale getirmek için kullanılır. Eğer bu seçenek kullanılmazsa, `unset` yalnızca değişkenleri etkiler.
-
-## Examples
-### Örnek 1: Değişkeni Tanımsız Hale Getirme
-Aşağıdaki komut, `MY_VAR` adlı bir değişkeni tanımsız hale getirir:
-
-```bash
-MY_VAR="Merhaba Dünya"
-echo $MY_VAR  # Çıktı: Merhaba Dünya
-unset MY_VAR
-echo $MY_VAR  # Çıktı: (boş)
-```
-
-### Örnek 2: Fonksiyonu Tanımsız Hale Getirme
-Aşağıdaki komut, `my_function` adlı bir fonksiyonu tanımsız hale getirir:
+### 2. Fonksiyon Silme
+Bir fonksiyonu silmek için:
 
 ```bash
 my_function() {
-    echo "Bu bir fonksiyon."
+    echo "This is my function."
 }
-my_function  # Çıktı: Bu bir fonksiyon.
 unset -f my_function
-my_function  # Çıktı: bash: my_function: command not found
+```
+
+### 3. Birden Fazla Değişken Silme
+Birden fazla değişkeni silmek için:
+
+```bash
+var1="First"
+var2="Second"
+unset var1 var2
 ```
 
 ## Tips
-- Değişkenleri veya fonksiyonları tanımsız hale getirmeden önce, bunların gerçekten kullanılmadığından emin olun. Yanlışlıkla önemli bir değişkeni veya fonksiyonu silmek, beklenmedik hatalara yol açabilir.
-- `unset` komutunu kullanırken, birden fazla değişkeni veya fonksiyonu aynı anda tanımsız hale getirmek için isimlerini boşlukla ayırarak yazabilirsiniz:
-
-```bash
-unset VAR1 VAR2 VAR3
-```
-
-Bu, kodunuzu daha temiz ve düzenli tutmanıza yardımcı olabilir.
+- `unset` komutunu kullanmadan önce, silmek istediğiniz değişkenin veya fonksiyonun gerçekten silinmesini istediğinizden emin olun.
+- Silinen değişken veya fonksiyon geri alınamaz, bu nedenle dikkatli kullanın.
+- Değişkenlerinizi yönetmek için `declare` komutunu kullanarak hangi değişkenlerin tanımlı olduğunu kontrol edebilirsiniz.

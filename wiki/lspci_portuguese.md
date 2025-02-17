@@ -1,51 +1,53 @@
-# [리눅스] Bash lspci 사용법
+# [Linux] Bash lspci Uso: Exibir informações sobre dispositivos PCI
 
 ## Overview
-O comando `lspci` é uma ferramenta de linha de comando no Linux que lista todos os dispositivos PCI (Peripheral Component Interconnect) conectados ao sistema. Ele fornece informações detalhadas sobre cada dispositivo, incluindo o fabricante, o modelo e o tipo de dispositivo. O principal objetivo do `lspci` é ajudar engenheiros e desenvolvedores a diagnosticar e entender a configuração de hardware de um sistema.
+O comando `lspci` é utilizado para listar todos os dispositivos conectados ao barramento PCI (Peripheral Component Interconnect) do sistema. Ele fornece informações detalhadas sobre cada dispositivo, incluindo o fabricante, o modelo e o tipo de dispositivo.
 
 ## Usage
 A sintaxe básica do comando `lspci` é a seguinte:
 
 ```bash
-lspci [opções]
+lspci [opções] [argumentos]
 ```
 
-Algumas opções comuns incluem:
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com o `lspci`:
 
-- `-v`: Mostra informações detalhadas sobre cada dispositivo.
-- `-vv`: Fornece ainda mais detalhes, útil para depuração.
-- `-k`: Exibe informações sobre os drivers associados a cada dispositivo.
-- `-n`: Mostra os IDs de vendor e device em formato numérico, ao invés de nomes.
-- `-t`: Exibe a árvore de dispositivos PCI, mostrando a hierarquia de conexão.
+- `-v`: Exibe informações detalhadas sobre cada dispositivo.
+- `-vv`: Fornece ainda mais detalhes do que a opção `-v`.
+- `-k`: Mostra os módulos do kernel associados a cada dispositivo.
+- `-n`: Exibe os IDs de fornecedor e dispositivo em formato numérico.
+- `-s <slot>`: Filtra a saída para mostrar apenas o dispositivo no slot especificado.
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `lspci`:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `lspci`:
 
-1. Para listar todos os dispositivos PCI com informações detalhadas:
+1. **Listar todos os dispositivos PCI:**
+   ```bash
+   lspci
+   ```
 
+2. **Listar dispositivos com informações detalhadas:**
    ```bash
    lspci -v
    ```
 
-2. Para visualizar a árvore de dispositivos PCI:
-
-   ```bash
-   lspci -t
-   ```
-
-3. Para listar dispositivos PCI com seus respectivos drivers:
-
+3. **Listar dispositivos com módulos do kernel associados:**
    ```bash
    lspci -k
    ```
 
+4. **Listar dispositivos em formato numérico:**
+   ```bash
+   lspci -n
+   ```
+
+5. **Filtrar para um dispositivo específico:**
+   ```bash
+   lspci -s 00:1f.0
+   ```
+
 ## Tips
-- Utilize a opção `-v` para obter informações mais detalhadas sobre os dispositivos, especialmente se você estiver tentando resolver problemas de hardware.
-- Combine opções para personalizar a saída. Por exemplo, `lspci -v -k` pode ser útil para ver tanto as informações detalhadas quanto os drivers associados.
-- Se você estiver procurando por um dispositivo específico, pode usar o comando `grep` para filtrar a saída. Por exemplo:
-
-  ```bash
-  lspci | grep -i network
-  ```
-
-Isso irá listar apenas os dispositivos relacionados à rede, facilitando a localização de informações relevantes.
+- Use a opção `-v` para obter mais informações sobre os dispositivos, especialmente se você estiver solucionando problemas de hardware.
+- Combine opções, como `lspci -vv -k`, para obter uma visão abrangente dos dispositivos e seus módulos do kernel.
+- Se você estiver procurando por um dispositivo específico, use a opção `-s` para filtrar a saída e facilitar a localização.

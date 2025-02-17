@@ -1,43 +1,52 @@
-# [리눅스] Bash w 사용법
+# [Linux] Bash w: Exibir informações sobre usuários logados
 
 ## Overview
-O comando `w` no Bash é utilizado para exibir informações sobre os usuários que estão atualmente logados no sistema, bem como suas atividades. Ele fornece uma visão geral do que cada usuário está fazendo, incluindo o tempo de atividade, o terminal que estão usando e a carga do sistema. O principal objetivo do comando `w` é permitir que administradores e usuários monitorem a atividade do sistema e identifiquem usuários ativos.
+O comando `w` é utilizado para mostrar quem está logado no sistema e o que estão fazendo. Ele fornece informações detalhadas sobre os usuários, como o tempo de atividade, o terminal em que estão logados e a carga do sistema.
 
 ## Usage
 A sintaxe básica do comando `w` é a seguinte:
 
 ```bash
-w [opções] [usuário]
+w [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-h`: Exclui o cabeçalho da saída.
-- `-s`: Exibe uma saída mais compacta, omitindo informações menos relevantes.
-- `-f`: Exibe o nome do host do usuário.
-- `-u`: Mostra o tempo de inatividade do usuário.
+## Common Options
+Aqui estão algumas opções comuns do comando `w`:
 
-## Examples
-### Exemplo 1: Uso Básico
-Para visualizar a lista de usuários logados e suas atividades, basta executar o comando:
+- `-h`: Remove o cabeçalho da saída.
+- `-s`: Exibe a saída em um formato mais curto, omitindo informações como o tempo de inatividade.
+- `-u`: Mostra o tempo de inatividade dos usuários.
+- `-f`: Exibe informações sobre o terminal de cada usuário.
 
-```bash
-w
-```
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `w`:
 
-A saída mostrará uma tabela com informações como o nome do usuário, o terminal, o tempo de login, o tempo de inatividade e o comando que está sendo executado.
+1. **Exibir informações padrão sobre usuários logados:**
+   ```bash
+   w
+   ```
 
-### Exemplo 2: Saída Compacta
-Se você deseja uma saída mais simples, pode usar a opção `-s`:
+2. **Exibir informações sem o cabeçalho:**
+   ```bash
+   w -h
+   ```
 
-```bash
-w -s
-```
+3. **Exibir informações em formato curto:**
+   ```bash
+   w -s
+   ```
 
-Isso fornecerá uma visão geral mais limpa, omitindo informações adicionais que podem não ser necessárias.
+4. **Exibir informações com tempo de inatividade:**
+   ```bash
+   w -u
+   ```
+
+5. **Exibir informações detalhadas sobre o terminal:**
+   ```bash
+   w -f
+   ```
 
 ## Tips
-- Utilize o comando `w` regularmente para monitorar a atividade do sistema, especialmente em ambientes multiusuário.
-- Combine o `w` com outros comandos, como `grep`, para filtrar informações específicas sobre usuários ou processos.
-- Lembre-se de que a saída do `w` pode variar dependendo das permissões do usuário que está executando o comando; usuários sem privilégios de administrador podem não ver todos os detalhes de outros usuários.
-
-Com essas informações, você pode utilizar o comando `w` de maneira eficaz para monitorar a atividade dos usuários em seu sistema Linux.
+- Utilize `w` regularmente para monitorar a atividade dos usuários em sistemas multiusuário.
+- Combine `w` com outros comandos, como `grep`, para filtrar informações específicas sobre usuários.
+- Lembre-se de que a saída do `w` pode ser útil para identificar usuários inativos ou para auditorias de segurança.

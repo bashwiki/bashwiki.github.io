@@ -1,37 +1,51 @@
-# [리눅스] Bash id 사용법
+# [Linux] Bash id Kullanımı: Kullanıcı kimliğini gösterir
 
 ## Genel Bakış
-`id` komutu, bir kullanıcının kimlik bilgilerini görüntülemek için kullanılan bir Bash komutudur. Bu komut, kullanıcının UID (Kullanıcı Kimliği), GID (Grup Kimliği) ve kullanıcının ait olduğu gruplar hakkında bilgi sağlar. Sistem yöneticileri ve geliştiriciler için, kullanıcı haklarını ve erişim izinlerini anlamak açısından oldukça faydalıdır.
+`id` komutu, Linux ve Unix tabanlı sistemlerde mevcut kullanıcının veya belirtilen bir kullanıcının kimlik bilgilerini gösterir. Bu bilgiler arasında kullanıcı kimliği (UID), grup kimliği (GID) ve kullanıcının ait olduğu gruplar yer alır.
 
 ## Kullanım
-Temel `id` komutunun sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-id [seçenekler] [kullanıcı]
+id [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-u`: Kullanıcının UID'sini gösterir.
-- `-g`: Kullanıcının GID'sini gösterir.
+## Yaygın Seçenekler
+- `-u`: Sadece kullanıcı kimliğini (UID) gösterir.
+- `-g`: Sadece grup kimliğini (GID) gösterir.
 - `-G`: Kullanıcının ait olduğu tüm grup kimliklerini gösterir.
-- `-n`: Kullanıcı adını veya grup adını gösterir.
+- `-n`: Kullanıcı veya grup adını gösterir.
+- `-r`: Gerçek GID veya UID'yi gösterir (eğer bir geçici GID veya UID varsa).
 
-## Örnekler
-1. **Temel Kullanım**
-   Kullanıcının UID, GID ve gruplarını görüntülemek için sadece `id` komutunu çalıştırabilirsiniz:
+## Yaygın Örnekler
+Aşağıda `id` komutunun bazı pratik örnekleri bulunmaktadır:
+
+1. Mevcut kullanıcının kimlik bilgilerini görüntülemek için:
    ```bash
    id
    ```
-   Çıktı, mevcut kullanıcının kimlik bilgilerini gösterecektir.
 
-2. **Belirli Bir Kullanıcının Bilgilerini Görüntüleme**
-   Belirli bir kullanıcının bilgilerini görmek için kullanıcı adını belirtebilirsiniz:
+2. Belirli bir kullanıcının kimlik bilgilerini görüntülemek için (örneğin, "ali" kullanıcısı):
    ```bash
-   id username
+   id ali
    ```
-   Bu komut, "username" adlı kullanıcının UID'sini, GID'sini ve gruplarını gösterir.
+
+3. Sadece mevcut kullanıcının UID'sini görüntülemek için:
+   ```bash
+   id -u
+   ```
+
+4. Mevcut kullanıcının GID'sini görüntülemek için:
+   ```bash
+   id -g
+   ```
+
+5. Mevcut kullanıcının ait olduğu grup kimliklerini görüntülemek için:
+   ```bash
+   id -G
+   ```
 
 ## İpuçları
-- `id` komutunu, kullanıcıların hangi gruplara ait olduğunu hızlıca kontrol etmek için kullanabilirsiniz. Bu, erişim izinlerini yönetirken oldukça faydalıdır.
-- Eğer bir kullanıcının sadece UID'sini veya GID'sini öğrenmek istiyorsanız, `-u` veya `-g` seçeneklerini kullanarak daha temiz bir çıktı alabilirsiniz.
-- `id` komutunu bir betik içinde kullanarak, kullanıcıların kimlik bilgilerini otomatik olarak kontrol edebilir ve buna göre işlem yapabilirsiniz.
+- `id` komutunu kullanarak bir kullanıcının hangi gruplara ait olduğunu hızlıca öğrenebilirsiniz.
+- Eğer bir kullanıcı adı yerine UID kullanıyorsanız, `id` komutunu UID ile birlikte kullanarak o kullanıcıya ait bilgileri alabilirsiniz.
+- `id` komutunu sık sık kullanıyorsanız, çıktıyı daha okunabilir hale getirmek için `grep` veya `awk` gibi diğer komutlarla birleştirebilirsiniz.

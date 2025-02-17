@@ -1,41 +1,51 @@
-# [리눅스] Bash column 사용법
+# [Linux] Bash column Kullanımı: Verileri sütunlar halinde düzenleme
 
 ## Genel Bakış
-`column` komutu, metin verilerini düzenli bir şekilde sütunlar halinde görüntülemek için kullanılır. Genellikle, düz metin dosyalarındaki verileri daha okunabilir hale getirmek amacıyla kullanılır. Bu komut, verileri belirli bir ayırıcıya göre ayırarak, her bir öğeyi sütunlar halinde hizalar ve kullanıcıların verileri daha kolay analiz etmesini sağlar.
+`column` komutu, metin verilerini sütunlar halinde düzenlemek için kullanılır. Bu komut, özellikle verileri daha okunabilir hale getirmek için boşluk veya belirli bir ayırıcı ile ayrılmış verileri hizalamada oldukça faydalıdır.
 
 ## Kullanım
-`column` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-column [seçenekler] [dosya]
+column [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-t`: Verileri sütunlar halinde hizalar. Bu seçenek, verilerin her bir sütununun genişliğini otomatik olarak ayarlayarak daha düzenli bir görünüm sağlar.
-- `-s`: Sütunları ayıran karakteri belirtir. Varsayılan ayırıcı boşluktur, ancak farklı bir karakter kullanmak isterseniz bu seçeneği kullanabilirsiniz.
-- `-n`: Sütunları hizalamadan önce, her bir sütunun içeriğini olduğu gibi bırakır; yani, boşlukları korur.
+## Yaygın Seçenekler
+- `-t`: Verileri tabular formatta hizalar.
+- `-s`: Belirtilen ayırıcıyı kullanarak verileri ayırır. Varsayılan ayırıcı boşluktur.
+- `-n`: Sütunları hizalarken, sayıları ve metinleri ayrı tutar.
+- `-o`: Sütunlar arasında kullanılacak özel bir ayırıcı belirtir.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `column` komutunun bazı pratik örnekleri verilmiştir:
 
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, bir dosyadaki verileri sütunlar halinde hizalar. Dosya içeriği boşluklarla ayrılmıştır.
-
+### Örnek 1: Basit Sütun Düzeni
+Bir metin dosyasındaki verileri sütunlar halinde düzenlemek için:
 ```bash
-cat data.txt | column -t
+cat dosya.txt | column
 ```
 
-Bu komut, `data.txt` dosyasındaki verileri alır ve her bir öğeyi hizalayarak daha okunabilir bir formatta görüntüler.
-
-### Örnek 2: Özel Ayırıcı Kullanımı
-Eğer verileriniz virgülle ayrılmışsa, aşağıdaki gibi bir komut kullanabilirsiniz:
-
+### Örnek 2: Belirli Bir Ayırıcı Kullanma
+Virgülle ayrılmış verileri düzenlemek için:
 ```bash
-cat data.csv | column -t -s ","
+cat veri.csv | column -s, -t
 ```
 
-Bu komut, `data.csv` dosyasındaki verileri virgül ile ayırarak hizalar.
+### Örnek 3: Özel Ayırıcı ile Çıktı
+Sütunlar arasında bir tire (-) kullanarak düzenleme:
+```bash
+cat veri.txt | column -s" " -o "-"
+```
+
+### Örnek 4: Sayıları ve Metinleri Ayrı Tutma
+Verileri hizalarken sayıları ve metinleri ayrı tutmak için:
+```bash
+cat dosya.txt | column -n
+```
 
 ## İpuçları
-- `column` komutunu kullanırken, verilerinizi mümkün olduğunca düzenli tutmaya çalışın. Boşluk veya ayırıcı hataları, hizalamayı bozabilir.
-- Büyük veri setleri ile çalışıyorsanız, `column` komutunu bir dosya ile kullanmak, terminaldeki çıktıyı daha yönetilebilir hale getirebilir.
-- Verilerinizi daha iyi analiz etmek için `column` komutunu diğer komutlarla birleştirerek kullanabilirsiniz. Örneğin, `grep` veya `sort` komutları ile birlikte kullanarak belirli verileri filtreleyebilir ve ardından hizalayabilirsiniz.
+- Verilerinizi daha iyi görüntülemek için `-t` seçeneğini kullanarak tabular formatta hizalayın.
+- Ayırıcıları doğru ayarlamak, verilerin düzgün görünmesi için önemlidir; bu nedenle `-s` seçeneğini kullanarak uygun ayırıcıyı belirleyin.
+- Büyük veri setleri ile çalışırken, çıktıyı bir dosyaya yönlendirmek için `>` operatörünü kullanabilirsiniz. Örneğin:
+```bash
+cat veri.txt | column -t > hizalanmis_veri.txt
+```

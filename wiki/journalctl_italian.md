@@ -1,47 +1,53 @@
-# [리눅스] Bash journalctl 사용법
+# [Linux] Bash journalctl uso: Visualizzare i log di sistema
 
 ## Overview
-Il comando `journalctl` è uno strumento utilizzato per visualizzare i log del sistema gestiti dal sistema di logging di sistema `systemd`. La sua principale funzione è quella di fornire un'interfaccia per accedere e filtrare i messaggi di log, permettendo agli ingegneri e agli sviluppatori di diagnosticare problemi e monitorare il comportamento delle applicazioni e dei servizi in esecuzione su un sistema Linux.
+Il comando `journalctl` è utilizzato per visualizzare i log del sistema registrati dal sistema di logging `systemd`. Permette di accedere a informazioni dettagliate sui messaggi di log, facilitando il monitoraggio e la risoluzione dei problemi.
 
 ## Usage
-La sintassi di base del comando `journalctl` è la seguente:
+La sintassi di base del comando è la seguente:
 
 ```bash
-journalctl [opzioni]
+journalctl [options] [arguments]
 ```
 
-Alcune delle opzioni più comuni includono:
+## Common Options
+Ecco alcune opzioni comuni per `journalctl`:
 
-- `-b`: Mostra i log dell'ultima avvio del sistema.
-- `-f`: Segue i log in tempo reale, simile a `tail -f`.
-- `--since "data"`: Mostra i log a partire da una data specificata.
-- `--until "data"`: Mostra i log fino a una data specificata.
-- `-u nome_servizio`: Filtra i log per un'unità di servizio specifica.
+- `-b` : Mostra i log dell'ultimo avvio del sistema.
+- `-f` : Segue i log in tempo reale, simile a `tail -f`.
+- `--since` : Filtra i log a partire da una data specificata.
+- `--until` : Filtra i log fino a una data specificata.
+- `-u <unit>` : Mostra i log per una specifica unità di sistema (ad esempio, un servizio).
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare `journalctl`:
+## Common Examples
+Ecco alcuni esempi pratici di utilizzo di `journalctl`:
 
-1. **Visualizzare i log dell'ultima avvio del sistema**:
+1. Visualizzare tutti i log:
+   ```bash
+   journalctl
+   ```
+
+2. Visualizzare i log dell'ultimo avvio:
    ```bash
    journalctl -b
    ```
 
-2. **Seguire i log in tempo reale**:
+3. Seguire i log in tempo reale:
    ```bash
    journalctl -f
    ```
 
-3. **Filtrare i log per un'unità di servizio specifica**:
+4. Visualizzare i log di un servizio specifico (ad esempio, `nginx`):
    ```bash
-   journalctl -u ssh.service
+   journalctl -u nginx
    ```
 
-4. **Visualizzare i log a partire da una data specifica**:
+5. Filtrare i log da una data specifica:
    ```bash
-   journalctl --since "2023-10-01"
+   journalctl --since "2023-10-01" --until "2023-10-10"
    ```
 
 ## Tips
-- Utilizza `-p` seguito dal livello di priorità (ad esempio, `err`, `warning`, `info`) per filtrare i log in base alla gravità.
-- Combinare le opzioni per ottenere risultati più specifici, ad esempio `journalctl -u nome_servizio -b` per visualizzare i log di un servizio specifico dall'ultimo avvio.
-- Ricorda che i log possono occupare molto spazio; considera di utilizzare `journalctl --vacuum-time=10d` per rimuovere i log più vecchi di 10 giorni e liberare spazio su disco.
+- Utilizza `-p` seguito da un livello di priorità (come `err` o `warning`) per filtrare i log in base alla gravità.
+- Puoi combinare più opzioni per ottenere risultati più specifici, ad esempio `journalctl -u nginx -b -f` per seguire i log di `nginx` dall'ultimo avvio.
+- Ricorda che i log possono occupare molto spazio; considera di utilizzare `journalctl --vacuum-time=2weeks` per rimuovere i log più vecchi di due settimane.

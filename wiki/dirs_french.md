@@ -1,35 +1,50 @@
-# [리눅스] Bash dirs 사용법
+# [Linux] Bash dirs usage : Afficher les répertoires de la pile
 
 ## Overview
-La commande `dirs` est utilisée dans les environnements de shell Bash pour afficher la liste des répertoires dans la pile de répertoires. Cette commande est particulièrement utile pour les développeurs et les ingénieurs qui naviguent fréquemment entre plusieurs répertoires, car elle permet de garder une trace des répertoires visités récemment.
+La commande `dirs` est utilisée pour afficher la liste des répertoires dans la pile de répertoires de l'environnement de shell. Cela permet aux utilisateurs de visualiser facilement les répertoires qu'ils ont visités récemment et de naviguer rapidement entre eux.
 
 ## Usage
 La syntaxe de base de la commande `dirs` est la suivante :
 
 ```bash
-dirs [options]
+dirs [options] [arguments]
 ```
 
-### Options courantes
-- `-p` : Affiche les répertoires dans un format de chemin complet.
-- `-l` : Affiche les répertoires dans un format lisible, en utilisant des symboles pour représenter les répertoires parents.
+## Common Options
+Voici quelques options courantes pour la commande `dirs` :
 
-## Examples
+- `-l` : Affiche les répertoires en utilisant des chemins longs.
+- `-p` : Affiche les répertoires dans un format de liste, un par ligne.
+- `-c` : Efface la pile de répertoires.
+
+## Common Examples
 Voici quelques exemples pratiques de l'utilisation de la commande `dirs` :
 
-1. **Afficher la pile de répertoires actuelle** :
+1. **Afficher la pile de répertoires actuelle :**
+
    ```bash
    dirs
    ```
-   Cela affichera la liste des répertoires actuellement dans la pile.
 
-2. **Afficher la pile de répertoires avec des chemins complets** :
+2. **Afficher la pile de répertoires avec des chemins longs :**
+
+   ```bash
+   dirs -l
+   ```
+
+3. **Afficher la pile de répertoires un par ligne :**
+
    ```bash
    dirs -p
    ```
-   Cette commande affichera les chemins complets des répertoires dans la pile, ce qui peut être utile pour une meilleure visualisation.
+
+4. **Effacer la pile de répertoires :**
+
+   ```bash
+   dirs -c
+   ```
 
 ## Tips
-- Utilisez `pushd` et `popd` en conjonction avec `dirs` pour gérer efficacement votre pile de répertoires. `pushd` ajoute un répertoire à la pile, tandis que `popd` en retire un.
-- Pensez à utiliser `dirs -l` pour obtenir une vue plus claire des répertoires, surtout si vous travaillez dans des structures de répertoires complexes.
-- Familiarisez-vous avec l'ordre de la pile de répertoires, car `dirs` affiche les répertoires dans l'ordre où ils ont été ajoutés, ce qui peut vous aider à naviguer plus rapidement.
+- Utilisez `pushd` et `popd` en conjonction avec `dirs` pour gérer efficacement votre pile de répertoires.
+- Vérifiez régulièrement votre pile de répertoires pour éviter de vous perdre dans une navigation complexe.
+- Combinez `dirs` avec d'autres commandes comme `cd` pour une navigation plus fluide dans votre terminal.

@@ -1,42 +1,49 @@
-# [리눅스] Bash cd 사용법
+# [Linux] Bash cd Utilisation : Changer de répertoire
 
 ## Overview
-La commande `cd`, qui signifie "change directory" (changer de répertoire), est utilisée dans le shell Bash pour naviguer entre les répertoires du système de fichiers. Son objectif principal est de modifier le répertoire de travail actuel, ce qui permet aux utilisateurs d'accéder à différents fichiers et sous-répertoires sans avoir à spécifier des chemins complets à chaque fois.
+La commande `cd` (change directory) est utilisée pour naviguer entre les répertoires dans un système de fichiers. Elle permet à l'utilisateur de se déplacer vers un répertoire spécifique afin d'exécuter des commandes ou d'accéder à des fichiers.
 
 ## Usage
 La syntaxe de base de la commande `cd` est la suivante :
 
 ```bash
-cd [options] [répertoire]
+cd [options] [arguments]
 ```
 
-### Options courantes
-- `..` : Permet de remonter d'un niveau dans l'arborescence des répertoires.
-- `-` : Permet de revenir au dernier répertoire visité.
-- `~` : Représente le répertoire personnel de l'utilisateur.
+## Common Options
+- `-`: Retourne au dernier répertoire visité.
+- `..`: Permet de remonter d'un niveau dans l'arborescence des répertoires.
+- `~`: Représente le répertoire personnel de l'utilisateur.
 
-## Examples
+## Common Examples
 Voici quelques exemples pratiques de l'utilisation de la commande `cd` :
 
-1. **Naviguer vers un répertoire spécifique** :
+1. **Accéder à un répertoire spécifique :**
    ```bash
-   cd /home/utilisateur/Documents
+   cd /chemin/vers/le/répertoire
    ```
-   Cette commande vous amène directement au répertoire "Documents" de l'utilisateur.
 
-2. **Revenir au répertoire parent** :
+2. **Revenir au répertoire parent :**
    ```bash
    cd ..
    ```
-   Cela vous fera remonter d'un niveau dans l'arborescence des répertoires.
 
-3. **Revenir au dernier répertoire** :
+3. **Accéder au répertoire personnel :**
+   ```bash
+   cd ~
+   ```
+
+4. **Retourner au dernier répertoire visité :**
    ```bash
    cd -
    ```
-   Cette commande vous ramène au dernier répertoire que vous avez visité.
+
+5. **Accéder à un répertoire relatif :**
+   ```bash
+   cd dossier/sous-dossier
+   ```
 
 ## Tips
-- Utilisez `cd ~` pour accéder rapidement à votre répertoire personnel.
-- Vous pouvez utiliser la touche `Tab` pour l'auto-complétion des noms de répertoires, ce qui peut vous faire gagner du temps et éviter les erreurs de frappe.
-- Pour voir votre répertoire de travail actuel, utilisez la commande `pwd` (print working directory) après avoir changé de répertoire.
+- Utilisez `cd -` pour naviguer rapidement entre deux répertoires.
+- Vous pouvez utiliser la touche `Tab` pour l'auto-complétion des noms de répertoires.
+- Pour afficher le répertoire courant, utilisez la commande `pwd` après avoir changé de répertoire.

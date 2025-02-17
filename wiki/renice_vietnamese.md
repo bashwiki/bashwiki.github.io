@@ -1,39 +1,43 @@
-# [리눅스] Bash renice 사용법
+# [Linux] Bash renice: Thay đổi ưu tiên tiến trình
 
-## Tổng quan
-Lệnh `renice` trong Bash được sử dụng để thay đổi mức độ ưu tiên của một hoặc nhiều tiến trình đang chạy trên hệ thống. Mức độ ưu tiên này quyết định cách thức và tốc độ mà hệ điều hành phân bổ tài nguyên cho các tiến trình. Việc điều chỉnh mức độ ưu tiên có thể giúp cải thiện hiệu suất của các tiến trình quan trọng hoặc giảm thiểu ảnh hưởng của các tiến trình không quan trọng.
+## Overview
+Lệnh `renice` được sử dụng để thay đổi mức độ ưu tiên của một hoặc nhiều tiến trình đang chạy trên hệ thống. Mức độ ưu tiên này ảnh hưởng đến cách mà hệ điều hành phân bổ tài nguyên CPU cho các tiến trình.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `renice` như sau:
 
 ```bash
-renice [n] -p [pid]
+renice [options] [arguments]
 ```
 
-Trong đó:
-- `[n]`: Mức độ ưu tiên mới mà bạn muốn thiết lập cho tiến trình. Giá trị có thể từ -20 (ưu tiên cao nhất) đến 19 (ưu tiên thấp nhất).
-- `-p`: Tùy chọn này chỉ định rằng bạn đang thay đổi mức độ ưu tiên cho một tiến trình cụ thể, được xác định bởi `[pid]`, là ID của tiến trình.
+## Common Options
+- `-n, --priority`: Xác định mức độ ưu tiên mới cho tiến trình. Giá trị có thể là số nguyên từ -20 (ưu tiên cao nhất) đến 19 (ưu tiên thấp nhất).
+- `-p, --pid`: Chỉ định ID tiến trình (PID) mà bạn muốn thay đổi mức độ ưu tiên.
+- `-g, --pgrp`: Thay đổi mức độ ưu tiên cho tất cả các tiến trình trong nhóm tiến trình có ID được chỉ định.
+- `-u, --user`: Thay đổi mức độ ưu tiên cho tất cả các tiến trình của người dùng được chỉ định.
 
-### Tùy chọn phổ biến
-- `-g [pgid]`: Thay đổi mức độ ưu tiên cho tất cả các tiến trình trong nhóm tiến trình có ID là `[pgid]`.
-- `-u [user]`: Thay đổi mức độ ưu tiên cho tất cả các tiến trình của người dùng có tên là `[user]`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `renice`:
 
-## Ví dụ
-### Ví dụ 1: Thay đổi mức độ ưu tiên cho một tiến trình cụ thể
-Giả sử bạn có một tiến trình với ID là 1234 và bạn muốn tăng mức độ ưu tiên của nó lên 10:
+1. Thay đổi mức độ ưu tiên của một tiến trình cụ thể:
+   ```bash
+   renice -n 10 -p 1234
+   ```
+   (Thay đổi mức độ ưu tiên của tiến trình có PID 1234 thành 10.)
 
-```bash
-renice 10 -p 1234
-```
+2. Thay đổi mức độ ưu tiên cho tất cả các tiến trình của một người dùng:
+   ```bash
+   renice -n 5 -u username
+   ```
+   (Thay đổi mức độ ưu tiên của tất cả các tiến trình của người dùng "username" thành 5.)
 
-### Ví dụ 2: Thay đổi mức độ ưu tiên cho tất cả các tiến trình của một người dùng
-Nếu bạn muốn giảm mức độ ưu tiên của tất cả các tiến trình của người dùng "john" xuống 5:
+3. Thay đổi mức độ ưu tiên cho một nhóm tiến trình:
+   ```bash
+   renice -n -5 -g 5678
+   ```
+   (Thay đổi mức độ ưu tiên cho tất cả các tiến trình trong nhóm có ID 5678 thành -5.)
 
-```bash
-renice 5 -u john
-```
-
-## Mẹo
-- Hãy cẩn thận khi thay đổi mức độ ưu tiên của các tiến trình quan trọng, vì việc giảm mức độ ưu tiên của chúng có thể làm chậm hiệu suất của hệ thống.
-- Bạn cần quyền truy cập thích hợp để thay đổi mức độ ưu tiên của các tiến trình do người dùng khác sở hữu. Thường thì bạn sẽ cần chạy lệnh với quyền `sudo` nếu bạn muốn thay đổi mức độ ưu tiên của tiến trình không phải của bạn.
-- Kiểm tra mức độ ưu tiên hiện tại của các tiến trình bằng lệnh `ps` hoặc `top` trước khi thực hiện thay đổi để có cái nhìn tổng quan về tình trạng hệ thống.
+## Tips
+- Hãy cẩn thận khi thay đổi mức độ ưu tiên của các tiến trình quan trọng, vì điều này có thể ảnh hưởng đến hiệu suất hệ thống.
+- Sử dụng lệnh `top` hoặc `htop` để theo dõi các tiến trình và mức độ ưu tiên của chúng trước khi thực hiện thay đổi.
+- Chỉ thay đổi mức độ ưu tiên cho các tiến trình mà bạn có quyền truy cập, nếu không bạn sẽ nhận được thông báo lỗi.

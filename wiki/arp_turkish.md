@@ -1,41 +1,44 @@
-# [리눅스] Bash arp 사용법
+# [Linux] Bash arp Kullanımı: Ağdaki IP adreslerini ve MAC adreslerini görüntüleme
 
 ## Genel Bakış
-`arp` komutu, bir ağda bulunan cihazların IP adresleri ile MAC adresleri arasındaki ilişkiyi yönetmek için kullanılır. Bu komut, özellikle yerel ağlarda, cihazların fiziksel adreslerini (MAC) öğrenmek ve bu adresleri IP adresleri ile eşleştirmek için önemlidir. `arp`, ağdaki cihazların iletişim kurmasını sağlamak için gerekli olan adres çözümleme işlemlerini gerçekleştirir.
+`arp` komutu, bir ağdaki IP adresleri ile MAC adresleri arasındaki ilişkiyi görüntülemek ve yönetmek için kullanılır. Bu komut, özellikle yerel ağda cihazların iletişim kurmasını sağlamak için önemlidir.
 
 ## Kullanım
-`arp` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-arp [seçenekler] [IP_adresi]
+arp [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-a`: Tüm ARP girişlerini listele.
-- `-d`: Belirtilen IP adresine ait ARP girişini sil.
-- `-s`: Belirtilen IP adresine MAC adresi ekle.
+## Yaygın Seçenekler
+- `-a`: Tüm ARP girişlerini görüntüler.
+- `-d`: Belirtilen IP adresine ait ARP girişini siler.
+- `-s`: Belirtilen IP adresi için yeni bir ARP girişi ekler.
+- `-n`: IP adreslerini çözümlemeden gösterir.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `arp` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-### Tüm ARP Girişlerini Listeleme
-Ağınızdaki tüm ARP girişlerini görüntülemek için aşağıdaki komutu kullanabilirsiniz:
-
+### Tüm ARP Girişlerini Görüntüleme
 ```bash
 arp -a
 ```
 
-Bu komut, ağınızdaki cihazların IP ve MAC adreslerini listeleyecektir.
-
-### ARP Girişini Silme
-Belirli bir IP adresine ait ARP girişini silmek için şu komutu kullanabilirsiniz:
-
+### Belirli Bir IP Adresinin ARP Girişini Silme
 ```bash
 arp -d 192.168.1.10
 ```
 
-Bu komut, `192.168.1.10` IP adresine ait ARP girişini ağdan kaldıracaktır.
+### Yeni Bir ARP Girişi Ekleme
+```bash
+arp -s 192.168.1.20 00:11:22:33:44:55
+```
+
+### IP Adreslerini Çözümlemeden Görüntüleme
+```bash
+arp -n
+```
 
 ## İpuçları
-- ARP önbelleğini düzenli olarak kontrol etmek, ağınızdaki cihazların doğru şekilde iletişim kurmasını sağlamak için önemlidir.
-- Ağda değişiklikler olduğunda (örneğin, yeni cihazlar eklendiğinde), ARP önbelleğini güncellemek için `arp -a` komutunu kullanarak mevcut durumu kontrol edin.
-- Eğer bir cihazın MAC adresini değiştirdiyseniz, eski ARP girişinin silinmesi gerekebilir. Bu durumda `arp -d` komutunu kullanarak eski girişi kaldırın ve yeni MAC adresini ekleyin.
+- ARP tablosunu düzenli olarak kontrol etmek, ağdaki cihazların durumunu anlamanıza yardımcı olabilir.
+- Ağda sorun giderirken, ARP girişlerini silmek bazen bağlantı problemlerini çözebilir.
+- Güvenlik nedeniyle, yalnızca güvenilir cihazların ARP girişlerini eklemeye dikkat edin.

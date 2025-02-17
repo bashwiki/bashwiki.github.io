@@ -1,45 +1,52 @@
-# [리눅스] Bash complete 사용법
+# [Linux] Bash complete utilizzo completo: Completare i comandi in Bash
 
 ## Overview
-Il comando `complete` in Bash è utilizzato per definire o modificare il completamento automatico dei comandi. Questo strumento consente agli utenti di personalizzare il modo in cui il completamento delle parole funziona per i comandi specifici, migliorando l'efficienza e la produttività durante l'uso della shell. Grazie a `complete`, gli sviluppatori possono specificare quali opzioni o argomenti devono essere suggeriti quando si utilizza il completamento automatico.
+Il comando `complete` in Bash è utilizzato per definire o modificare le regole di completamento automatico per i comandi. Questo permette di personalizzare come il terminale suggerisce le opzioni e i file quando si digita un comando.
 
 ## Usage
-La sintassi di base del comando `complete` è la seguente:
+La sintassi di base del comando è la seguente:
 
 ```bash
-complete [opzioni] [comando]
+complete [options] [arguments]
 ```
 
-### Opzioni comuni:
-- `-o`: Specifica un'opzione di completamento. Ad esempio, `-o nospace` impedisce l'aggiunta di uno spazio dopo il completamento.
-- `-A`: Specifica il tipo di argomento da completare. Ad esempio, `-A command` completerà solo i nomi dei comandi.
-- `-F`: Indica una funzione di completamento personalizzata da utilizzare per il completamento.
-- `-r`: Rimuove le regole di completamento esistenti per il comando specificato.
+## Common Options
+- `-o`: Specifica un'opzione di completamento.
+- `-F`: Indica una funzione di completamento personalizzata.
+- `-A`: Definisce il tipo di argomento da completare (ad esempio, file, directory).
+- `-D`: Completa solo le directory.
 
-## Examples
-### Esempio 1: Completamento di una funzione personalizzata
-Supponiamo di avere una funzione di completamento personalizzata chiamata `my_custom_completion`. Possiamo associarla a un comando chiamato `mycmd` come segue:
+## Common Examples
+
+### Esempio 1: Completamento di un comando personalizzato
+Per aggiungere il completamento automatico per un comando personalizzato chiamato `mycmd`, puoi usare:
 
 ```bash
-_my_custom_completion() {
-    local options="option1 option2 option3"
-    COMPREPLY=($(compgen -W "${options}" -- "${COMP_WORDS[1]}"))
-}
-complete -F _my_custom_completion mycmd
+complete -F _mycmd_complete mycmd
 ```
 
-In questo esempio, quando si digita `mycmd` seguito da uno spazio e si preme il tasto Tab, verranno suggerite le opzioni `option1`, `option2` e `option3`.
-
-### Esempio 2: Completamento di file
-Se vogliamo che un comando chiamato `edit` completi solo i nomi dei file, possiamo utilizzare il seguente comando:
+### Esempio 2: Completamento per file
+Per completare i nomi dei file per un comando chiamato `copy`, puoi utilizzare:
 
 ```bash
-complete -f edit
+complete -A file copy
 ```
 
-In questo caso, quando si digita `edit` seguito da uno spazio e si preme Tab, verranno elencati i file presenti nella directory corrente.
+### Esempio 3: Completamento per directory
+Se desideri completare solo le directory per un comando chiamato `cd`, puoi fare:
+
+```bash
+complete -D cd
+```
+
+### Esempio 4: Completamento con opzioni
+Per completare le opzioni di un comando, come `git`, puoi impostare:
+
+```bash
+complete -o nospace git
+```
 
 ## Tips
-- È buona pratica testare le funzioni di completamento personalizzate per assicurarsi che funzionino come previsto prima di utilizzarle in un ambiente di produzione.
-- Utilizzare `compopt` per modificare il comportamento del completamento in modo più dettagliato, ad esempio per attivare o disattivare determinate opzioni di completamento.
-- Documentare le proprie funzioni di completamento personalizzate per facilitare la manutenzione e l'uso da parte di altri membri del team.
+- Assicurati di testare le tue regole di completamento per garantire che funzionino come previsto.
+- Usa funzioni di completamento personalizzate per gestire casi complessi o specifici.
+- Ricorda che il completamento automatico può migliorare notevolmente la tua efficienza nella riga di comando.

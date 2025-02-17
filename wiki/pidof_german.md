@@ -1,43 +1,44 @@
-# [리눅스] Bash pidof 사용법
+# [Linux] Bash pidof Verwendung: Prozesse anhand ihres Namens finden
 
 ## Übersicht
-Der Befehl `pidof` wird in der Bash verwendet, um die Prozess-IDs (PIDs) von laufenden Prozessen zu ermitteln, die mit einem bestimmten Programmnamen übereinstimmen. Dies ist besonders nützlich für Systemadministratoren und Entwickler, die Prozesse überwachen oder steuern möchten. `pidof` gibt eine Liste der PIDs zurück, die dem angegebenen Programm entsprechen.
+Der Befehl `pidof` wird verwendet, um die Prozess-IDs (PIDs) von laufenden Prozessen zu ermitteln, die einem bestimmten Programm oder Skript zugeordnet sind. Dies ist besonders nützlich, um herauszufinden, ob ein Programm aktiv ist und um seine PID für weitere Operationen zu verwenden.
 
 ## Verwendung
 Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-pidof [OPTIONEN] PROGRAMMNAME
+pidof [Optionen] [Argumente]
 ```
 
-### Häufige Optionen
-- `-o, --exclude`: Schließt bestimmte PIDs von der Ausgabe aus.
-- `-s, --single`: Gibt nur die erste PID zurück, die gefunden wird.
-- `-h, --help`: Zeigt eine Hilfenachricht an und beendet den Befehl.
-- `-V, --version`: Gibt die Versionsnummer des Befehls aus.
+## Häufige Optionen
+- `-o`: Schließt die angegebenen PIDs von der Ausgabe aus.
+- `-s`: Gibt nur die erste gefundene PID aus, anstatt alle.
+- `-c`: Gibt die PID aller Prozesse aus, die dem angegebenen Namen entsprechen, einschließlich der Kinderprozesse.
 
-## Beispiele
-### Beispiel 1: Ermitteln der PID eines laufenden Programms
-Um die PID des Programms `bash` zu finden, können Sie den folgenden Befehl verwenden:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele zur Verwendung von `pidof`:
 
-```bash
-pidof bash
-```
+1. **Ermitteln der PID eines Programms:**
+   ```bash
+   pidof firefox
+   ```
 
-Die Ausgabe könnte eine oder mehrere PIDs sein, die dem laufenden `bash`-Prozess entsprechen.
+2. **Ermitteln der PID eines Programms und nur die erste PID ausgeben:**
+   ```bash
+   pidof -s firefox
+   ```
 
-### Beispiel 2: Ermitteln der PID und Ausschließen einer bestimmten PID
-Wenn Sie die PID des Programms `nginx` ermitteln und gleichzeitig die PID `1234` ausschließen möchten, verwenden Sie:
+3. **Ermitteln der PIDs mehrerer Programme:**
+   ```bash
+   pidof firefox chrome
+   ```
 
-```bash
-pidof -o 1234 nginx
-```
-
-Dieser Befehl gibt alle PIDs von `nginx` zurück, mit Ausnahme der PID `1234`.
+4. **Ausschließen einer bestimmten PID von der Ausgabe:**
+   ```bash
+   pidof -o 1234 firefox
+   ```
 
 ## Tipps
-- Verwenden Sie `pidof` in Kombination mit anderen Befehlen wie `kill`, um Prozesse gezielt zu beenden. Zum Beispiel: `kill $(pidof programmname)`.
-- Achten Sie darauf, dass `pidof` nur die PIDs von laufenden Prozessen zurückgibt. Wenn das Programm nicht läuft, wird keine Ausgabe erzeugt.
-- Nutzen Sie die Option `-s`, wenn Sie nur die erste PID benötigen, um die Ausgabe zu vereinfachen und die Verarbeitung zu beschleunigen.
-
-Mit diesen Informationen sind Sie gut gerüstet, um den `pidof`-Befehl effektiv in Ihren Bash-Skripten und Systemverwaltungsaufgaben zu verwenden.
+- Verwenden Sie `pidof` in Kombination mit anderen Befehlen wie `kill`, um Prozesse gezielt zu beenden. Beispiel: `kill $(pidof firefox)`.
+- Überprüfen Sie regelmäßig, ob ein wichtiger Dienst läuft, indem Sie `pidof` in Skripten verwenden.
+- Nutzen Sie die Option `-s`, wenn Sie nur an der ersten PID interessiert sind, um die Ausgabe zu vereinfachen.

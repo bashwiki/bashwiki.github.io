@@ -1,62 +1,51 @@
-# [리눅스] Bash wait 사용법
+# [Linux] Bash wait Verwendung: Warten auf den Abschluss von Hintergrundprozessen
 
 ## Übersicht
-Der `wait` Befehl in Bash wird verwendet, um auf die Beendigung eines oder mehrerer Hintergrundprozesse zu warten. Der Hauptzweck des Befehls besteht darin, sicherzustellen, dass ein Skript oder ein Befehl erst dann fortgesetzt wird, wenn die angegebenen Prozesse abgeschlossen sind. Dies ist besonders nützlich in Skripten, die mehrere Prozesse gleichzeitig ausführen und auf deren Ergebnisse angewiesen sind.
+Der `wait` Befehl in Bash wird verwendet, um auf den Abschluss von Hintergrundprozessen zu warten. Er ermöglicht es einem Skript oder einer Shell, die Ausführung anzuhalten, bis ein oder mehrere Hintergrundjobs beendet sind.
 
 ## Verwendung
 Die grundlegende Syntax des `wait` Befehls lautet:
 
 ```bash
-wait [PID...]
+wait [Optionen] [Argumente]
 ```
 
-- **PID**: Die Prozess-ID eines oder mehrerer Hintergrundprozesse, auf die gewartet werden soll. Wenn keine PID angegeben wird, wartet `wait` auf alle Hintergrundprozesse, die im aktuellen Shell-Skript oder in der aktuellen Shell-Session ausgeführt werden.
+## Häufige Optionen
+- `PID`: Gibt die Prozess-ID eines spezifischen Hintergrundprozesses an, auf den gewartet werden soll. Wenn keine PID angegeben wird, wartet `wait` auf alle Hintergrundprozesse der aktuellen Shell.
+- `-n`: Wartet auf den Abschluss des nächsten beendeten Hintergrundprozesses.
 
-## Beispiele
+## Häufige Beispiele
 
-### Beispiel 1: Warten auf einen spezifischen Prozess
-In diesem Beispiel starten wir einen Hintergrundprozess und verwenden `wait`, um auf dessen Beendigung zu warten.
-
+### Beispiel 1: Warten auf alle Hintergrundprozesse
 ```bash
-#!/bin/bash
-
-# Starte einen Hintergrundprozess
 sleep 5 &
-
-# Speichere die PID des Hintergrundprozesses
-PID=$!
-
-echo "Warte auf den Prozess mit PID $PID..."
-
-# Warte auf den Hintergrundprozess
-wait $PID
-
-echo "Der Prozess mit PID $PID ist beendet."
+sleep 10 &
+wait
+echo "Alle Hintergrundprozesse sind abgeschlossen."
 ```
+In diesem Beispiel werden zwei `sleep` Befehle im Hintergrund ausgeführt, und das Skript wartet, bis beide abgeschlossen sind, bevor es die Nachricht ausgibt.
 
-### Beispiel 2: Warten auf mehrere Prozesse
-In diesem Beispiel starten wir mehrere Hintergrundprozesse und warten, bis alle abgeschlossen sind.
-
+### Beispiel 2: Warten auf einen spezifischen Prozess
 ```bash
-#!/bin/bash
-
-# Starte mehrere Hintergrundprozesse
-sleep 3 &
-PID1=$!
-sleep 4 &
-PID2=$!
-
-echo "Warte auf die Prozesse mit PIDs $PID1 und $PID2..."
-
-# Warte auf alle Hintergrundprozesse
-wait $PID1
-wait $PID2
-
-echo "Alle Prozesse sind beendet."
+sleep 5 &
+PID=$!
+echo "Warte auf Prozess mit PID $PID..."
+wait $PID
+echo "Prozess $PID ist abgeschlossen."
 ```
+Hier wird die PID des ersten `sleep` Befehls gespeichert, und das Skript wartet nur auf diesen spezifischen Prozess.
+
+### Beispiel 3: Verwenden der `-n` Option
+```bash
+for i in {1..3}; do
+    sleep $i &
+done
+wait -n
+echo "Ein Hintergrundprozess ist abgeschlossen."
+```
+In diesem Beispiel wird mit der `-n` Option gewartet, bis der nächste Hintergrundprozess beendet ist, bevor die Nachricht ausgegeben wird.
 
 ## Tipps
-- Verwenden Sie `wait` in Skripten, um sicherzustellen, dass alle Hintergrundprozesse abgeschlossen sind, bevor das Skript fortfährt oder beendet wird.
-- Wenn Sie `wait` ohne Argumente verwenden, wartet es auf alle Hintergrundprozesse, was nützlich sein kann, wenn Sie mehrere Prozesse gleichzeitig ausführen.
-- Achten Sie darauf, die Prozess-IDs (PIDs) zu speichern, wenn Sie mehrere Prozesse starten, um gezielt auf bestimmte Prozesse warten zu können.
-- Der `wait` Befehl gibt den Exit-Status des Prozesses zurück, auf den gewartet wurde. Dies kann nützlich sein, um den Erfolg oder Misserfolg eines Prozesses zu überprüfen.
+- Verwenden Sie `wait` in Skripten, um sicherzustellen, dass alle Hintergrundprozesse abgeschlossen sind, bevor das Skript fortfährt.
+- Speichern Sie die PID von Prozessen, die Sie überwachen möchten, um gezielt auf deren Abschluss zu warten.
+- Nutzen Sie die `-n` Option, wenn Sie nur an dem Abschluss des nächsten beendeten Prozesses interessiert sind, um die Effizienz zu steigern.

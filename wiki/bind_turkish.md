@@ -1,40 +1,48 @@
-# [리눅스] Bash bind 사용법
+# [Linux] Bash bind Kullanımı: Klavye kısayollarını ayarlama
 
 ## Overview
-`bind` komutu, Bash kabuğunda tuş atamalarını ve komut geçmişini yönetmek için kullanılır. Bu komut, kullanıcıların belirli tuş kombinasyonlarına özel komutlar atamasına olanak tanır. Özellikle, kullanıcıların kendi çalışma ortamlarını özelleştirmelerine ve verimliliklerini artırmalarına yardımcı olur.
+`bind` komutu, Bash kabuğunda klavye kısayollarını tanımlamak ve düzenlemek için kullanılır. Bu komut, kullanıcıların belirli tuş kombinasyonlarını belirli komutlarla ilişkilendirmesine olanak tanır, böylece komut satırında daha hızlı ve verimli çalışabilirler.
 
 ## Usage
-`bind` komutunun temel sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-bind [OPTION] [STRING]
+bind [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-P`: Mevcut tuş atamalarını listelemek için kullanılır.
-- `-q`: Belirli bir tuş atamasının var olup olmadığını kontrol etmek için kullanılır.
-- `-x`: Belirli bir tuş kombinasyonuna bir komut atamak için kullanılır. Örneğin, `bind -x '"\C-x": komut'` şeklinde kullanılabilir.
+## Common Options
+- `-p`: Mevcut tuş bağlamalarını listelemek için kullanılır.
+- `-q`: Belirli bir tuş bağlamasının neye karşılık geldiğini sorgulamak için kullanılır.
+- `-f`: Bir dosyadan tuş bağlamalarını yüklemek için kullanılır.
+- `-x`: Belirli bir tuş kombinasyonunu bir komutla ilişkilendirmek için kullanılır.
 
-## Examples
-### Örnek 1: Tuş Atamalarını Listeleme
-Mevcut tuş atamalarını görmek için aşağıdaki komutu kullanabilirsiniz:
+## Common Examples
+Aşağıda `bind` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
+### 1. Mevcut tuş bağlamalarını listeleme
 ```bash
-bind -P
+bind -p
 ```
 
-Bu komut, mevcut tüm tuş atamalarını ve bunların hangi komutlara karşılık geldiğini listeleyecektir.
-
-### Örnek 2: Tuş Kombinasyonuna Komut Atama
-Belirli bir tuş kombinasyonuna bir komut atamak için aşağıdaki örneği inceleyebilirsiniz:
-
+### 2. Belirli bir tuş kombinasyonunu bir komutla ilişkilendirme
 ```bash
-bind '"\C-x": "echo Hello, World!"'
+bind '"\C-x": "exit\n"'
 ```
+Bu örnek, `Ctrl+x` tuş kombinasyonuna `exit` komutunu atar.
 
-Bu komut, `Ctrl+x` tuş kombinasyonuna "Hello, World!" mesajını yazdıran bir komut atar. `Ctrl+x` tuşlarına basıldığında bu mesaj terminalde görünecektir.
+### 3. Tuş bağlamasını sorgulama
+```bash
+bind -q "\C-x"
+```
+Bu komut, `Ctrl+x` tuş kombinasyonunun neye karşılık geldiğini gösterir.
+
+### 4. Bir dosyadan tuş bağlamalarını yükleme
+```bash
+bind -f ~/.inputrc
+```
+Bu komut, kullanıcının ev dizinindeki `.inputrc` dosyasındaki tuş bağlamalarını yükler.
 
 ## Tips
-- Tuş atamalarınızı özelleştirirken, sık kullandığınız komutları düşünün. Bu, iş akışınızı hızlandırabilir.
-- `bind` komutunu kullanarak atadığınız tuş kombinasyonlarını kaydedip, `.bashrc` dosyanıza ekleyerek her oturumda kullanılabilir hale getirebilirsiniz.
-- Tuş atamalarınızı test etmek için terminalde denemeler yapın. Yanlış bir atama, terminalde beklenmedik davranışlara yol açabilir, bu yüzden dikkatli olun.
+- Tuş bağlamalarını düzenlerken dikkatli olun; yanlış bir atama, istenmeyen sonuçlara yol açabilir.
+- `~/.inputrc` dosyasını kullanarak kalıcı tuş bağlamaları oluşturabilirsiniz.
+- Kısayolları tanımlarken, sık kullandığınız komutları düşünerek atamalar yapın; bu, iş akışınızı hızlandırır.

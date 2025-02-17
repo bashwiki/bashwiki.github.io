@@ -1,51 +1,55 @@
-# [리눅스] Bash local 사용법
+# [Linux] Bash yerel komut: Yerel değişkenler tanımlama
 
-## Overview
-`local` komutu, Bash betiklerinde yerel değişkenler tanımlamak için kullanılır. Bu değişkenler, yalnızca tanımlandıkları fonksiyonun kapsamı içinde geçerlidir ve fonksiyon dışında erişilemezler. Bu özellik, değişken adlarının çakışmasını önlemeye yardımcı olur ve kodun daha okunabilir olmasını sağlar.
+## Genel Bakış
+`local` komutu, bir fonksiyon içinde yerel değişkenler tanımlamak için kullanılır. Bu değişkenler, yalnızca tanımlandıkları fonksiyonun kapsamı içinde geçerlidir ve fonksiyon dışında erişilemezler. Bu, değişkenlerin çakışmasını önler ve kodun daha düzenli olmasına yardımcı olur.
 
-## Usage
-`local` komutunun temel sözdizimi aşağıdaki gibidir:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-local VARIABLE_NAME=VALUE
+local [seçenekler] [argümanlar]
 ```
 
-Burada `VARIABLE_NAME`, tanımlamak istediğiniz yerel değişkenin adıdır ve `VALUE`, bu değişkene atamak istediğiniz değerdir. `local` komutu, yalnızca bir fonksiyon içinde kullanılmalıdır.
+## Yaygın Seçenekler
+- `-n`: Değişkenin değerini okur, ancak değişkeni tanımlamaz.
+- `-p`: Mevcut yerel değişkenlerin listesini yazdırır.
 
-### Örnek Seçenekler
-- `local VAR`: Sadece bir değişken tanımlamak için.
-- `local VAR=VALUE`: Değişkeni bir değerle başlatmak için.
-
-## Examples
+## Yaygın Örnekler
 
 ### Örnek 1: Basit Yerel Değişken Tanımlama
-Aşağıdaki örnekte, bir fonksiyon içinde yerel bir değişken tanımlanmıştır:
-
 ```bash
 my_function() {
     local my_var="Hello, World!"
     echo $my_var
 }
 
-my_function  # Çıktı: Hello, World!
-echo $my_var # Çıktı: (boş, çünkü my_var yerel bir değişkendir)
+my_function
+# Çıktı: Hello, World!
 ```
 
-### Örnek 2: Yerel Değişkenlerle Hesaplama
-Bu örnekte, yerel değişkenler kullanılarak basit bir hesaplama yapılmaktadır:
-
+### Örnek 2: Yerel Değişkenin Kapsamı
 ```bash
-calculate() {
-    local a=5
-    local b=10
-    local sum=$((a + b))
-    echo "Sum: $sum"
+my_function() {
+    local my_var="Inside Function"
+    echo $my_var
 }
 
-calculate  # Çıktı: Sum: 15
+my_function
+echo $my_var  # Bu satır hata verecektir çünkü my_var yerel bir değişkendir.
 ```
 
-## Tips
-- `local` komutunu yalnızca fonksiyonlar içinde kullanın; aksi takdirde hata alırsınız.
-- Yerel değişkenlerin adlarını, global değişkenlerle çakışmaması için dikkatlice seçin.
-- Fonksiyonlarınızda `local` kullanmak, kodunuzu daha modüler ve hatasız hale getirir.
+### Örnek 3: Yerel Değişken ile Hesaplama
+```bash
+calculate() {
+    local result=$(( $1 + $2 ))
+    echo $result
+}
+
+calculate 5 10
+# Çıktı: 15
+```
+
+## İpuçları
+- `local` komutunu kullanarak, fonksiyonlarınızda değişkenlerin çakışmasını önleyebilirsiniz.
+- Fonksiyonlarınızda kullandığınız değişkenlerin kapsamını sınırlamak, kodunuzu daha okunabilir ve yönetilebilir hale getirir.
+- Yerel değişkenlerinizi tanımlarken anlamlı isimler kullanmaya özen gösterin, bu sayede kodunuzu okuyanlar için daha anlaşılır olur.

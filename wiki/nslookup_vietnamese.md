@@ -1,35 +1,41 @@
-# [리눅스] Bash nslookup 사용법
+# [Linux] Bash nslookup Cách sử dụng: Tra cứu thông tin DNS
 
-## Tổng quan
-`nslookup` là một công cụ dòng lệnh được sử dụng để truy vấn các máy chủ DNS (Domain Name System) nhằm lấy thông tin về tên miền và địa chỉ IP. Lệnh này rất hữu ích cho các kỹ sư và nhà phát triển trong việc kiểm tra cấu hình DNS, xác định địa chỉ IP của tên miền hoặc ngược lại.
+## Overview
+Lệnh `nslookup` được sử dụng để truy vấn thông tin về tên miền và địa chỉ IP từ hệ thống DNS. Nó giúp người dùng xác định địa chỉ IP tương ứng với tên miền hoặc ngược lại.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `nslookup` như sau:
-
 ```
-nslookup [tùy chọn] [tên miền | địa chỉ IP]
+nslookup [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-type=TYPE`: Chỉ định loại bản ghi DNS mà bạn muốn truy vấn (ví dụ: A, AAAA, MX, CNAME).
-- `-debug`: Hiển thị thông tin chi tiết về quá trình truy vấn.
-- `-timeout=SECONDS`: Thiết lập thời gian chờ cho mỗi truy vấn.
-- `-port=PORT`: Chỉ định cổng mà máy chủ DNS sẽ sử dụng.
+## Common Options
+- `-type=TYPE`: Chỉ định loại bản ghi DNS cần truy vấn (ví dụ: A, AAAA, MX, CNAME).
+- `-timeout=SECONDS`: Thay đổi thời gian chờ cho mỗi truy vấn.
+- `-retry=COUNT`: Đặt số lần thử lại khi không nhận được phản hồi.
 
-## Ví dụ
-### Ví dụ 1: Truy vấn địa chỉ IP của một tên miền
-```bash
-nslookup www.example.com
-```
-Kết quả sẽ hiển thị địa chỉ IP tương ứng với tên miền `www.example.com`.
+## Common Examples
+- Tra cứu địa chỉ IP của một tên miền:
+  ```bash
+  nslookup example.com
+  ```
 
-### Ví dụ 2: Truy vấn bản ghi MX của một tên miền
-```bash
-nslookup -type=MX example.com
-```
-Kết quả sẽ hiển thị các bản ghi MX (Mail Exchange) cho tên miền `example.com`, cho phép bạn biết máy chủ nào xử lý email cho tên miền đó.
+- Tra cứu tên miền từ một địa chỉ IP:
+  ```bash
+  nslookup 93.184.216.34
+  ```
 
-## Mẹo
-- Sử dụng tùy chọn `-debug` để theo dõi quá trình truy vấn và tìm hiểu thêm về cách mà `nslookup` hoạt động.
-- Kiểm tra nhiều máy chủ DNS khác nhau bằng cách chỉ định máy chủ DNS trong lệnh, ví dụ: `nslookup www.example.com 8.8.8.8` (sử dụng máy chủ DNS của Google).
-- Hãy chắc chắn rằng bạn có quyền truy cập vào mạng để thực hiện các truy vấn DNS, vì một số mạng có thể hạn chế truy cập đến các máy chủ DNS bên ngoài.
+- Tra cứu bản ghi MX của một tên miền:
+  ```bash
+  nslookup -type=MX example.com
+  ```
+
+- Thay đổi máy chủ DNS để thực hiện truy vấn:
+  ```bash
+  nslookup example.com 8.8.8.8
+  ```
+
+## Tips
+- Sử dụng `nslookup` để kiểm tra xem một tên miền có tồn tại hay không trước khi thực hiện các thao tác khác.
+- Kiểm tra các bản ghi DNS khác nhau để đảm bảo cấu hình DNS chính xác cho tên miền của bạn.
+- Nếu bạn gặp vấn đề với DNS, hãy thử sử dụng một máy chủ DNS khác như Google DNS (8.8.8.8) để xem có sự khác biệt nào không.

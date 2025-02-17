@@ -1,62 +1,65 @@
-# [리눅스] Bash test 사용법
+# [Linux] Bash test usage: Evaluate expressions
 
 ## Overview
-The `test` command in Bash is a built-in command used to evaluate conditional expressions. Its primary purpose is to return a status code based on the evaluation of the given expressions, which can be used in control flow statements like `if`, `while`, or `until`. The `test` command allows users to check file types, compare strings, and evaluate numeric expressions.
+The `test` command in Bash is used to evaluate conditional expressions. It checks file types and compares values, returning a status code that indicates whether the expression is true or false. This command is often used in scripts to control the flow of execution based on certain conditions.
 
 ## Usage
 The basic syntax of the `test` command is as follows:
 
 ```bash
-test EXPRESSION
+test [options] [arguments]
 ```
 
-Alternatively, it can be invoked using square brackets, which is a more common and user-friendly syntax:
+Alternatively, you can use the `[` command, which is a synonym for `test`:
 
 ```bash
-[ EXPRESSION ]
+[ expression ]
 ```
 
-### Common Options
-- **-e FILE**: Returns true if the file exists.
-- **-f FILE**: Returns true if the file exists and is a regular file.
-- **-d FILE**: Returns true if the file exists and is a directory.
-- **-s FILE**: Returns true if the file exists and has a size greater than zero.
-- **STRING1 = STRING2**: Returns true if the two strings are equal.
-- **STRING1 != STRING2**: Returns true if the two strings are not equal.
-- **NUM1 -eq NUM2**: Returns true if the two numbers are equal.
-- **NUM1 -ne NUM2**: Returns true if the two numbers are not equal.
-- **NUM1 -lt NUM2**: Returns true if NUM1 is less than NUM2.
-- **NUM1 -le NUM2**: Returns true if NUM1 is less than or equal to NUM2.
-- **NUM1 -gt NUM2**: Returns true if NUM1 is greater than NUM2.
-- **NUM1 -ge NUM2**: Returns true if NUM1 is greater than or equal to NUM2.
+## Common Options
+- `-e FILE`: Returns true if the file exists.
+- `-f FILE`: Returns true if the file exists and is a regular file.
+- `-d FILE`: Returns true if the file exists and is a directory.
+- `-r FILE`: Returns true if the file exists and is readable.
+- `-w FILE`: Returns true if the file exists and is writable.
+- `-x FILE`: Returns true if the file exists and is executable.
+- `STRING1 = STRING2`: Returns true if the two strings are equal.
+- `STRING1 != STRING2`: Returns true if the two strings are not equal.
+- `NUM1 -eq NUM2`: Returns true if the two numbers are equal.
+- `NUM1 -ne NUM2`: Returns true if the two numbers are not equal.
 
-## Examples
+## Common Examples
+Here are some practical examples of using the `test` command:
 
-### Example 1: Checking if a file exists
+### Check if a file exists
 ```bash
-filename="example.txt"
-
-if test -e "$filename"; then
-    echo "$filename exists."
-else
-    echo "$filename does not exist."
-fi
+test -e myfile.txt && echo "File exists."
 ```
 
-### Example 2: Comparing two strings
+### Check if a directory exists
 ```bash
-string1="hello"
-string2="world"
+test -d /path/to/directory && echo "Directory exists."
+```
 
-if test "$string1" != "$string2"; then
-    echo "The strings are not equal."
-else
-    echo "The strings are equal."
-fi
+### Compare two strings
+```bash
+test "hello" = "hello" && echo "Strings are equal."
+```
+
+### Check if a number is greater than another
+```bash
+NUM1=10
+NUM2=5
+test $NUM1 -gt $NUM2 && echo "$NUM1 is greater than $NUM2."
+```
+
+### Check if a file is readable
+```bash
+test -r myfile.txt && echo "File is readable."
 ```
 
 ## Tips
-- Use the `[` syntax for better readability, especially for those who may not be familiar with the `test` command.
-- Always quote variables to prevent issues with spaces or special characters.
-- Combine multiple conditions using logical operators like `-a` (and) and `-o` (or) for more complex evaluations.
-- Remember that the `test` command returns a status code of `0` for true and `1` for false, which can be useful for debugging and scripting.
+- Use `[` as a shorthand for `test` to make your scripts more readable.
+- Always quote your string variables to prevent issues with spaces or special characters.
+- Combine multiple tests using `&&` (logical AND) or `||` (logical OR) for more complex conditions.
+- Remember that `test` returns a status code: 0 for true and 1 for false, which can be useful in scripting for flow control.

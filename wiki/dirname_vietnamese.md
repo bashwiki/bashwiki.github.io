@@ -1,38 +1,51 @@
-# [리눅스] Bash dirname 사용법
+# [Linux] Bash dirname Cách sử dụng: Lấy đường dẫn thư mục của tệp
 
-## Tổng quan
-Lệnh `dirname` trong Bash được sử dụng để trích xuất phần thư mục của một đường dẫn tệp. Mục đích chính của lệnh này là giúp người dùng lấy được đường dẫn thư mục mà không cần phải xử lý thủ công. Điều này rất hữu ích khi bạn cần làm việc với các tệp và thư mục trong các kịch bản tự động hóa hoặc khi lập trình.
+## Overview
+Lệnh `dirname` trong Bash được sử dụng để trích xuất đường dẫn thư mục của một tệp hoặc thư mục. Nó giúp bạn lấy phần đường dẫn mà không bao gồm tên tệp, rất hữu ích trong các kịch bản tự động hóa hoặc khi bạn cần làm việc với đường dẫn.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `dirname` như sau:
-
-```bash
-dirname [đường_dẫn_tệp]
+```
+dirname [options] [arguments]
 ```
 
-Trong đó, `[đường_dẫn_tệp]` là đường dẫn đầy đủ đến tệp mà bạn muốn lấy phần thư mục. Lệnh này không có nhiều tùy chọn, nhưng bạn có thể sử dụng nó trong các kịch bản khác nhau để xử lý nhiều đường dẫn cùng một lúc.
+## Common Options
+- `-z`: Xuất kết quả với ký tự phân cách null, hữu ích cho việc xử lý đường dẫn có khoảng trắng.
+- `--help`: Hiển thị thông tin trợ giúp về lệnh `dirname`.
+- `--version`: Hiển thị phiên bản của lệnh `dirname`.
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `dirname`.
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `dirname`:
 
-### Ví dụ 1: Lấy thư mục từ đường dẫn tệp
-```bash
-$ dirname /home/user/documents/file.txt
-/home/user/documents
-```
-Trong ví dụ này, lệnh `dirname` trả về `/home/user/documents`, đó là phần thư mục của đường dẫn tệp đã cho.
+1. **Lấy đường dẫn thư mục của một tệp:**
+   ```bash
+   dirname /home/user/documents/file.txt
+   ```
+   Kết quả: `/home/user/documents`
 
-### Ví dụ 2: Sử dụng với biến
-```bash
-$ FILE_PATH="/home/user/pictures/photo.jpg"
-$ dirname "$FILE_PATH"
-/home/user/pictures
-```
-Ở đây, chúng ta sử dụng biến `FILE_PATH` để chứa đường dẫn tệp và sau đó sử dụng `dirname` để lấy phần thư mục.
+2. **Lấy đường dẫn thư mục của một tệp có khoảng trắng trong tên:**
+   ```bash
+   dirname "/home/user/my documents/file.txt"
+   ```
+   Kết quả: `/home/user/my documents`
 
-## Mẹo
-- Khi làm việc với nhiều đường dẫn, bạn có thể sử dụng vòng lặp để áp dụng lệnh `dirname` cho từng đường dẫn trong một danh sách.
-- Hãy nhớ rằng `dirname` sẽ trả về một chuỗi trống nếu đường dẫn tệp không chứa thư mục (ví dụ: nếu bạn chỉ cung cấp tên tệp mà không có đường dẫn).
-- Nếu bạn cần làm việc với các tệp trong một thư mục cụ thể, hãy kết hợp `dirname` với các lệnh khác như `find` hoặc `xargs` để xử lý hàng loạt.
+3. **Sử dụng với nhiều tệp:**
+   ```bash
+   dirname /home/user/documents/file1.txt /home/user/documents/file2.txt
+   ```
+   Kết quả: 
+   ```
+   /home/user/documents
+   /home/user/documents
+   ```
 
-Lệnh `dirname` là một công cụ đơn giản nhưng mạnh mẽ trong Bash, giúp bạn dễ dàng quản lý và xử lý các đường dẫn tệp.
+4. **Kết hợp với lệnh khác:**
+   ```bash
+   dirname $(pwd)/file.txt
+   ```
+   Kết quả: `/home/user/current_directory` (giả sử bạn đang ở thư mục `current_directory`).
+
+## Tips
+- Sử dụng `dirname` trong các kịch bản để tự động hóa việc xử lý đường dẫn.
+- Kết hợp với `basename` để có được cả đường dẫn và tên tệp trong cùng một kịch bản.
+- Hãy nhớ sử dụng dấu nháy kép khi đường dẫn có khoảng trắng để tránh lỗi.

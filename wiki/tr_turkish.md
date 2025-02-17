@@ -1,51 +1,49 @@
-# [리눅스] Bash tr 사용법
+# [Linux] Bash tr Kullanımı: Karakterleri Dönüştürme
 
-## Genel Bakış
-`tr` (translate) komutu, bir karakter dizisini başka bir karakter dizisi ile değiştirmek için kullanılan bir Unix/Linux komutudur. Genellikle metin dosyalarında belirli karakterleri değiştirmek, silmek veya dönüştürmek için kullanılır. `tr`, standart girdi (stdin) ile çalışır ve çıktıyı standart çıkışa (stdout) yönlendirir.
+## Overview
+`tr` komutu, bir dosyadaki veya standart girdi akışındaki karakterleri dönüştürmek veya silmek için kullanılır. Genellikle metin işleme görevlerinde, belirli karakterleri değiştirmek veya belirli karakterleri kaldırmak için tercih edilir.
 
-## Kullanım
+## Usage
 Temel sözdizimi şu şekildedir:
-
 ```bash
-tr [seçenekler] [arama_karakterleri] [değiştirme_karakterleri]
+tr [options] [arguments]
 ```
 
-### Yaygın Seçenekler
+## Common Options
 - `-d`: Belirtilen karakterleri siler.
-- `-s`: Ardışık aynı karakterleri birleştirir (sıkıştırır).
+- `-s`: Ardışık aynı karakterleri birleştirir.
 - `-c`: Belirtilen karakterler dışındaki tüm karakterleri işler.
+- `-t`: Belirtilen karakterlerin yalnızca ilkini işler.
 
-## Örnekler
+## Common Examples
+Aşağıda `tr` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-### Örnek 1: Karakter Değiştirme
-Aşağıdaki komut, "hello" kelimesindeki 'e' harfini 'a' harfi ile değiştirir:
+1. **Karakter Dönüşümü**: Küçük harfleri büyük harflere dönüştürme.
+   ```bash
+   echo "merhaba dünya" | tr 'a-z' 'A-Z'
+   ```
 
-```bash
-echo "hello" | tr 'e' 'a'
-```
-Çıktı:
-```
-hallo
-```
+2. **Karakter Silme**: Belirli bir karakteri silme.
+   ```bash
+   echo "merhaba dünya" | tr -d 'a'
+   ```
 
-### Örnek 2: Karakter Silme
-Aşağıdaki komut, "hello world" ifadesinden 'l' harflerini siler:
+3. **Ardışık Karakterleri Birleştirme**: Birden fazla boşluğu tek bir boşlukla değiştirme.
+   ```bash
+   echo "merhaba    dünya" | tr -s ' '
+   ```
 
-```bash
-echo "hello world" | tr -d 'l'
-```
-Çıktı:
-```
-heo word
-```
+4. **Karakter Değiştirme**: Belirli karakterleri başka karakterlerle değiştirme.
+   ```bash
+   echo "merhaba dünya" | tr 'a' 'e'
+   ```
 
-## İpuçları
-- `tr` komutunu kullanırken, girdi verisinin bir dosyadan okunması gerekiyorsa, `cat` komutuyla birlikte kullanabilirsiniz:
-  ```bash
-  cat dosya.txt | tr 'a-z' 'A-Z'
-  ```
-- `tr` komutunun çıktısını bir dosyaya yönlendirmek için `>` operatörünü kullanabilirsiniz:
-  ```bash
-  echo "hello" | tr 'e' 'a' > yeni_dosya.txt
-  ```
-- Karakter setlerini belirtirken, birden fazla karakteri aynı anda değiştirmek için eşit sayıda karakter belirtmeyi unutmayın. Örneğin, `tr 'abc' 'xyz'` komutu 'a' harfini 'x', 'b' harfini 'y' ve 'c' harfini 'z' ile değiştirir.
+5. **Karakter Seti Tersi**: Belirtilen karakterler dışındaki tüm karakterleri dönüştürme.
+   ```bash
+   echo "merhaba dünya" | tr -c 'a-zA-Z' ' '
+   ```
+
+## Tips
+- `tr` komutunu kullanırken, girdi akışını yönlendirmek için `echo` veya dosya isimleri kullanabilirsiniz.
+- Komutları birleştirerek daha karmaşık metin işleme görevleri gerçekleştirebilirsiniz.
+- `tr` komutunun büyük-küçük harf duyarlı olduğunu unutmayın; bu nedenle dönüşüm yaparken dikkatli olun.

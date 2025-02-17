@@ -1,36 +1,50 @@
-# [리눅스] Bash time 사용법
+# [Linux] Bash time utilisation : mesurer le temps d'exécution des commandes
 
 ## Overview
-La commande `time` est un outil utilisé dans les environnements Bash pour mesurer le temps d'exécution d'un programme ou d'une commande. Son objectif principal est de fournir des informations sur la durée nécessaire pour exécuter une commande, ainsi que des détails sur l'utilisation du processeur, la mémoire et d'autres ressources système.
+La commande `time` permet de mesurer le temps d'exécution d'une commande ou d'un programme dans un terminal. Elle fournit des informations sur le temps écoulé, le temps CPU utilisé et d'autres statistiques utiles.
 
 ## Usage
 La syntaxe de base de la commande `time` est la suivante :
 
 ```bash
-time [options] commande
+time [options] [arguments]
 ```
 
-### Options courantes :
-- `-p` : Affiche le temps d'exécution au format POSIX.
-- `-o fichier` : Redirige la sortie vers un fichier spécifié.
-- `-v` : Affiche des informations détaillées sur l'exécution, y compris l'utilisation de la mémoire et du processeur.
+## Common Options
+Voici quelques options courantes pour la commande `time` :
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `time`.
+- `-p` : Affiche le temps au format POSIX.
+- `-o <file>` : Enregistre la sortie dans un fichier spécifié.
+- `-v` : Affiche des informations détaillées sur l'exécution.
 
-### Exemple 1 : Mesurer le temps d'exécution d'une commande simple
-```bash
-time ls -l
-```
-Cet exemple mesure le temps nécessaire pour exécuter la commande `ls -l`, qui liste les fichiers dans le répertoire courant avec des détails.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `time` :
 
-### Exemple 2 : Utiliser l'option `-v` pour des informations détaillées
-```bash
-time -v sleep 2
-```
-Dans cet exemple, la commande `sleep 2` est exécutée, et `time` fournit des informations détaillées sur le temps d'exécution, y compris le temps réel, le temps utilisateur et le temps système.
+1. Mesurer le temps d'exécution d'une commande simple :
+
+    ```bash
+    time ls -l
+    ```
+
+2. Mesurer le temps d'exécution d'un script :
+
+    ```bash
+    time ./mon_script.sh
+    ```
+
+3. Enregistrer la sortie dans un fichier :
+
+    ```bash
+    time -o temps.txt ./mon_programme
+    ```
+
+4. Afficher des informations détaillées sur l'exécution :
+
+    ```bash
+    time -v ./mon_autre_programme
+    ```
 
 ## Tips
-- Utilisez l'option `-o` pour enregistrer les résultats de `time` dans un fichier, ce qui peut être utile pour l'analyse ultérieure.
-- Pour des mesures précises, exécutez la commande plusieurs fois et calculez la moyenne des temps d'exécution.
-- Soyez conscient que le temps mesuré peut varier en fonction de la charge du système et d'autres processus en cours d'exécution.
+- Utilisez l'option `-o` pour conserver les résultats dans un fichier pour une analyse ultérieure.
+- Combinez `time` avec des commandes complexes pour optimiser les performances.
+- N'oubliez pas que `time` mesure uniquement le temps d'exécution de la commande spécifiée, pas celui des sous-commandes.

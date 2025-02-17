@@ -1,42 +1,48 @@
-# [리눅스] Bash htop 사용법
+# [Linux] Bash htop Uso equivalente: Monitor system processes interactively
 
 ## Overview
-`htop` is an interactive process viewer for Unix systems. It provides a real-time, user-friendly interface for monitoring system processes, resource usage, and system performance. Unlike the traditional `top` command, `htop` allows users to scroll through the list of processes, sort them by various criteria, and send signals to processes directly from the interface. Its colorful display and intuitive controls make it a popular choice among engineers and developers for system monitoring and management.
+The `htop` command is an interactive process viewer for Unix systems. It provides a dynamic real-time view of system processes, allowing users to monitor resource usage and manage processes easily. Unlike the traditional `top` command, `htop` offers a more user-friendly interface with color-coded output and the ability to scroll through the list of processes.
 
 ## Usage
-The basic syntax for launching `htop` is simply:
+The basic syntax of the `htop` command is as follows:
 
 ```bash
-htop
+htop [options] [arguments]
 ```
 
-### Common Options
+## Common Options
 - `-h`, `--help`: Display help information and exit.
 - `-v`, `--version`: Show version information and exit.
-- `-C`, `--no-color`: Run `htop` without color.
-- `-s`, `--sort`: Specify a sorting criterion (e.g., `PID`, `MEM`, `CPU`).
-- `-p`, `--pid`: Monitor specific process IDs.
+- `-C`, `--no-color`: Run `htop` without color support.
+- `-s`, `--sort`: Specify the sorting order of processes (e.g., `-s MEM` to sort by memory usage).
 
-## Examples
-### Example 1: Launching htop
-To start `htop`, simply enter the following command in your terminal:
+## Common Examples
+1. **Launch htop**:
+   ```bash
+   htop
+   ```
 
-```bash
-htop
-```
-This will open the `htop` interface, displaying a list of currently running processes along with CPU and memory usage statistics.
+2. **Run htop without color**:
+   ```bash
+   htop -C
+   ```
 
-### Example 2: Sorting by Memory Usage
-If you want to sort the processes by memory usage, you can do this directly within the `htop` interface by pressing `F6` (or using the mouse to click on the "MEM%" column). Alternatively, you can start `htop` with sorting by memory usage by using the command:
+3. **Display help information**:
+   ```bash
+   htop -h
+   ```
 
-```bash
-htop -s MEM
-```
+4. **Sort processes by memory usage**:
+   ```bash
+   htop -s MEM
+   ```
+
+5. **Filter processes by a specific user**:
+   ```bash
+   htop -u username
+   ```
 
 ## Tips
-- Use the arrow keys to navigate through the process list and the `F9` key to kill a selected process.
-- Press `F2` to access the setup menu, where you can customize the display options and settings to suit your preferences.
-- To search for a specific process, press `F3` and type the name or part of the name of the process you are looking for.
-- Regularly monitor your system's performance using `htop` to identify resource-intensive processes that may need attention.
-
-By utilizing `htop`, you can effectively manage and monitor your system's processes, making it an essential tool for developers and engineers working in a Unix environment.
+- Use the arrow keys to navigate through the list of processes and the function keys (F1 to F10) for various actions like killing a process (F9) or changing the sorting order (F6).
+- Press `F2` to access the setup menu, where you can customize the display options to suit your preferences.
+- To quickly search for a process, press `F3` and type the name of the process you are looking for.

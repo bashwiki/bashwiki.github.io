@@ -1,42 +1,52 @@
-# [리눅스] Bash export 사용법
+# [Linux] Bash export uso: Define variáveis de ambiente
 
 ## Overview
-O comando `export` no Bash é utilizado para definir variáveis de ambiente que estarão disponíveis para processos filhos. Isso significa que, ao usar `export`, você pode tornar uma variável acessível para qualquer programa ou script que seja executado a partir do shell atual. O principal propósito do `export` é facilitar a comunicação de informações entre diferentes processos.
+O comando `export` no Bash é utilizado para definir variáveis de ambiente, tornando-as disponíveis para processos filhos. Isso é útil quando você deseja que uma variável seja acessível em diferentes partes de um script ou em outros programas que você executa a partir do terminal.
 
 ## Usage
 A sintaxe básica do comando `export` é a seguinte:
 
 ```bash
-export NOME_VARIAVEL=valor
+export [opções] [variável=valor]
 ```
 
-- `NOME_VARIAVEL`: O nome da variável que você deseja criar ou modificar.
-- `valor`: O valor que você deseja atribuir à variável.
+## Common Options
+- `-n`: Remove a variável do ambiente exportado.
+- `-p`: Exibe todas as variáveis de ambiente exportadas.
 
-Você também pode usar `export` sem argumentos para listar todas as variáveis de ambiente atualmente exportadas:
+## Common Examples
 
-```bash
-export
-```
-
-## Examples
 ### Exemplo 1: Definindo uma variável de ambiente
 ```bash
-export MEU_CAMINHO="/usr/local/bin"
+export MY_VAR="Hello, World!"
 ```
-Neste exemplo, a variável `MEU_CAMINHO` é criada e exportada, tornando-se disponível para qualquer processo filho que seja iniciado a partir deste shell.
+Neste exemplo, a variável `MY_VAR` é definida e exportada, tornando-se acessível em processos filhos.
 
-### Exemplo 2: Usando uma variável de ambiente em um comando
+### Exemplo 2: Verificando uma variável de ambiente
 ```bash
-export NOME="João"
-echo "Olá, $NOME!"
+echo $MY_VAR
 ```
-Aqui, a variável `NOME` é definida e, em seguida, utilizada no comando `echo`, que imprime "Olá, João!" no terminal.
+Isso exibirá `Hello, World!`, mostrando que a variável foi definida corretamente.
+
+### Exemplo 3: Removendo uma variável do ambiente exportado
+```bash
+export -n MY_VAR
+```
+Este comando remove `MY_VAR` do ambiente exportado, tornando-a inacessível para processos filhos.
+
+### Exemplo 4: Exportando múltiplas variáveis
+```bash
+export VAR1="Value1" VAR2="Value2"
+```
+Aqui, ambas as variáveis `VAR1` e `VAR2` são definidas e exportadas ao mesmo tempo.
+
+### Exemplo 5: Listando variáveis de ambiente exportadas
+```bash
+export -p
+```
+Este comando lista todas as variáveis de ambiente que foram exportadas.
 
 ## Tips
-- Sempre use letras maiúsculas para nomes de variáveis de ambiente, pois é uma convenção comum e ajuda a distinguir variáveis de ambiente de variáveis locais.
-- Para remover uma variável de ambiente exportada, você pode usar o comando `unset`:
-  ```bash
-  unset NOME_VARIAVEL
-  ```
-- Lembre-se de que as variáveis definidas com `export` só estarão disponíveis para processos filhos que são iniciados após a definição da variável. Se você precisar que uma variável esteja disponível em sessões futuras, considere adicioná-la ao seu arquivo de configuração do shell, como `~/.bashrc` ou `~/.bash_profile`.
+- Sempre use aspas ao definir variáveis que contêm espaços para evitar erros.
+- Lembre-se de que as variáveis exportadas só estão disponíveis para processos filhos, e não para o shell atual.
+- Para tornar as variáveis permanentes, você pode adicioná-las ao seu arquivo de configuração do shell, como `~/.bashrc` ou `~/.bash_profile`.

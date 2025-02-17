@@ -1,41 +1,35 @@
-# [리눅스] Bash selinuxenabled 사용법
+# [Linux] Bash selinuxenabled 用法: 检查 SELinux 状态
 
 ## 概述
-`selinuxenabled` 是一个用于检查系统中 SELinux（安全增强 Linux）状态的 Bash 命令。它的主要目的是确定 SELinux 是否已启用。如果 SELinux 被启用，命令将返回 0（成功），否则返回 1（失败）。这个命令在开发和运维中非常有用，尤其是在需要确保系统安全性和合规性时。
+`selinuxenabled` 命令用于检查系统中 SELinux（安全增强 Linux）的状态。它可以快速判断 SELinux 是否启用，返回相应的状态码。
 
 ## 用法
 基本语法如下：
 ```bash
-selinuxenabled
+selinuxenabled [options] [arguments]
 ```
-该命令没有选项或参数，直接运行即可。
 
-## 示例
-以下是一些使用 `selinuxenabled` 的实际示例：
+## 常用选项
+- `-h`, `--help`：显示帮助信息。
+- `-V`, `--version`：显示版本信息。
 
-1. 检查 SELinux 状态：
+## 常见示例
+1. 检查 SELinux 是否启用：
    ```bash
-   if selinuxenabled; then
-       echo "SELinux is enabled."
-   else
-       echo "SELinux is disabled."
-   fi
+   selinuxenabled
    ```
-   在这个示例中，脚本检查 SELinux 是否启用，并根据结果输出相应的消息。
+   如果返回值为 0，表示 SELinux 启用；如果返回值为 1，表示未启用。
 
-2. 在脚本中使用：
+2. 查看帮助信息：
    ```bash
-   #!/bin/bash
-   if selinuxenabled; then
-       echo "Proceeding with SELinux enabled settings."
-       # 这里可以添加与 SELinux 相关的操作
-   else
-       echo "Warning: SELinux is not enabled. Some features may not work as expected."
-   fi
+   selinuxenabled --help
    ```
-   这个脚本在执行与 SELinux 相关的操作之前，首先检查 SELinux 的状态。
+
+3. 查看版本信息：
+   ```bash
+   selinuxenabled --version
+   ```
 
 ## 提示
-- 在编写脚本时，建议始终检查 SELinux 状态，以确保脚本在不同环境下的兼容性。
-- 了解 SELinux 的工作原理和配置选项，可以帮助你更好地利用这个命令，确保系统的安全性。
-- 如果在开发过程中遇到权限问题，检查 SELinux 状态可能会提供有用的信息，帮助你快速定位问题。
+- 在进行系统安全配置时，确保了解 SELinux 的状态，以便做出相应的调整。
+- 使用 `selinuxenabled` 命令时，可以结合其他命令进行脚本编写，以自动化安全检查过程。

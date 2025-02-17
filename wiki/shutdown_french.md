@@ -1,40 +1,52 @@
-# [리눅스] Bash shutdown 사용법
+# [Linux] Bash shutdown utilisation : Arrêter ou redémarrer le système
 
 ## Overview
-La commande `shutdown` est utilisée dans les systèmes d'exploitation basés sur Unix pour arrêter ou redémarrer le système. Son principal objectif est de permettre aux administrateurs système de planifier un arrêt contrôlé de la machine, en s'assurant que tous les processus en cours sont terminés proprement et que les données sont sauvegardées avant l'arrêt.
+La commande `shutdown` est utilisée pour arrêter ou redémarrer un système Linux de manière contrôlée. Elle permet aux utilisateurs d'éteindre ou de redémarrer leur machine, en informant les utilisateurs connectés et en fermant les services en cours.
 
 ## Usage
-La syntaxe de base de la commande `shutdown` est la suivante :
+La syntaxe de base de la commande est la suivante :
 
 ```bash
-shutdown [OPTION] [TIME] [MESSAGE]
+shutdown [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
+Voici quelques options courantes pour la commande `shutdown` :
+
 - `-h` : Arrête le système.
 - `-r` : Redémarre le système.
-- `-P` : Éteint le système (équivalent à `-h`).
-- `now` : Indique que l'arrêt doit être effectué immédiatement.
-- `+m` : Indique que l'arrêt doit être effectué après `m` minutes.
-- `hh:mm` : Indique l'heure à laquelle l'arrêt doit être effectué (au format 24 heures).
-- `MESSAGE` : Un message optionnel qui sera envoyé à tous les utilisateurs connectés.
+- `-t` : Définit le délai avant l'arrêt (en secondes).
+- `now` : Indique que l'arrêt doit se faire immédiatement.
+- `+m` : Indique que l'arrêt doit se faire après `m` minutes.
 
-## Examples
-### Exemple 1 : Arrêter le système immédiatement
-Pour arrêter le système immédiatement, vous pouvez utiliser la commande suivante :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `shutdown` :
+
+- Pour arrêter le système immédiatement :
 
 ```bash
 shutdown -h now
 ```
 
-### Exemple 2 : Redémarrer le système dans 10 minutes
-Pour redémarrer le système après 10 minutes, utilisez la commande suivante :
+- Pour redémarrer le système après 5 minutes :
 
 ```bash
-shutdown -r +10 "Le système va redémarrer dans 10 minutes."
+shutdown -r +5
+```
+
+- Pour arrêter le système à une heure précise (par exemple, 22h30) :
+
+```bash
+shutdown -h 22:30
+```
+
+- Pour annuler un arrêt programmé :
+
+```bash
+shutdown -c
 ```
 
 ## Tips
-- Assurez-vous d'informer les utilisateurs connectés avant d'exécuter un arrêt ou un redémarrage, surtout dans un environnement de production.
-- Utilisez l'option `-c` pour annuler un arrêt programmé si nécessaire.
-- Il est recommandé de sauvegarder toutes les données importantes avant d'utiliser la commande `shutdown`, surtout si vous utilisez l'option d'arrêt.
+- Assurez-vous d'informer les utilisateurs connectés avant d'arrêter ou de redémarrer le système pour éviter toute perte de données.
+- Utilisez l'option `-t` pour donner un délai suffisant aux services et utilisateurs pour se préparer à l'arrêt.
+- Pensez à vérifier les processus en cours avant d'arrêter le système afin de ne pas interrompre des tâches importantes.

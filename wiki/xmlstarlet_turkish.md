@@ -1,40 +1,61 @@
-# [리눅스] Bash xmlstarlet 사용법
+# [Linux] Bash xmlstarlet Kullanımı: XML verilerini işlemek için bir araç
 
 ## Genel Bakış
-`xmlstarlet`, XML belgeleri üzerinde işlem yapmayı sağlayan bir komut satırı aracıdır. Bu araç, XML verilerini sorgulama, dönüştürme, doğrulama ve düzenleme gibi işlemleri gerçekleştirmek için kullanılır. `xmlstarlet`, XML ile çalışırken geliştiricilere ve mühendislere büyük kolaylık sağlar, çünkü karmaşık XML yapılarını basit ve etkili bir şekilde yönetmelerine olanak tanır.
+xmlstarlet, XML belgelerini işlemek için kullanılan güçlü bir komut satırı aracıdır. XML verilerini sorgulamak, dönüştürmek ve düzenlemek için çeşitli işlevler sunar. Bu, özellikle otomatikleştirilmiş görevlerde ve veri işleme senaryolarında oldukça faydalıdır.
 
 ## Kullanım
-`xmlstarlet` komutunun temel sözdizimi aşağıdaki gibidir:
+xmlstarlet komutunun temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-xmlstarlet [seçenekler] [işlem] [belge]
+xmlstarlet [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `xmlstarlet sel`: XML belgesinden veri seçmek için kullanılır.
-- `xmlstarlet ed`: XML belgesini düzenlemek için kullanılır.
-- `xmlstarlet val`: XML belgesinin geçerliliğini kontrol etmek için kullanılır.
-- `xmlstarlet tr`: XML belgesini dönüştürmek için kullanılır.
+## Yaygın Seçenekler
+- `sel`: XML belgesinden belirli düğümleri seçmek için kullanılır.
+- `val`: XML belgesinin geçerliliğini kontrol eder.
+- `ed`: XML belgesini düzenlemek için kullanılır.
+- `tr`: XML belgesini dönüştürmek için kullanılır.
+- `format`: XML belgesini biçimlendirmek için kullanılır.
 
-## Örnekler
+## Yaygın Örnekler
 
-### Örnek 1: XML Belgesinden Veri Seçme
-Aşağıdaki komut, `example.xml` dosyasındaki tüm `<title>` etiketlerini seçer ve çıktısını verir:
+### 1. XML Belgesinden Düğüm Seçme
+Belirli bir düğümü seçmek için `sel` seçeneğini kullanabilirsiniz:
 
 ```bash
-xmlstarlet sel -t -m "//title" -v "." -n example.xml
+xmlstarlet sel -t -m "/kitaplar/kitap" -v "başlık" -n kitaplar.xml
 ```
 
-### Örnek 2: XML Belgesini Düzenleme
-Aşağıdaki komut, `example.xml` dosyasındaki `<author>` etiketinin içeriğini "Yeni Yazar" olarak değiştirir:
+### 2. XML Belgesinin Geçerliliğini Kontrol Etme
+Bir XML belgesinin geçerliliğini kontrol etmek için `val` seçeneğini kullanın:
 
 ```bash
-xmlstarlet ed -u "//author" -v "Yeni Yazar" example.xml
+xmlstarlet val -e kitaplar.xml
+```
+
+### 3. XML Belgesini Düzenleme
+Belirli bir düğümün değerini değiştirmek için `ed` seçeneğini kullanabilirsiniz:
+
+```bash
+xmlstarlet ed -u "/kitaplar/kitap[1]/başlık" -v "Yeni Başlık" kitaplar.xml
+```
+
+### 4. XML Belgesini Dönüştürme
+XML belgesini başka bir formatta dönüştürmek için `tr` seçeneğini kullanabilirsiniz:
+
+```bash
+xmlstarlet tr dönüşüm.xsl kitaplar.xml
+```
+
+### 5. XML Belgesini Biçimlendirme
+XML belgesini daha okunabilir hale getirmek için `format` seçeneğini kullanın:
+
+```bash
+xmlstarlet fo kitaplar.xml
 ```
 
 ## İpuçları
-- XML belgeleri üzerinde işlem yapmadan önce, belgenin yedeğini almak iyi bir uygulamadır. Bu, istenmeyen değişikliklerden kaçınmanıza yardımcı olur.
-- `xmlstarlet` ile çalışırken, belgenizin yapısını anlamak için `xmlstarlet fo` komutunu kullanarak XML belgenizi biçimlendirebilirsiniz. Bu, okunabilirliği artırır.
-- Komutları test etmeden önce, `--dry-run` seçeneğini kullanarak değişikliklerinizi önizleyebilirsiniz. Bu, hatalı işlemlerden kaçınmanıza yardımcı olur.
-
-`xmlstarlet`, XML ile çalışırken güçlü bir araçtır ve yukarıdaki bilgilerle, bu komutun temel işlevlerini etkili bir şekilde kullanabilirsiniz.
+- XML belgeleriyle çalışırken, her zaman yedeklerinizi alın; düzenlemeler geri alınamaz.
+- XML belgelerinizin yapısını anlamak için `sel` seçeneğini kullanarak düğümleri inceleyin.
+- Dönüşüm işlemleri için XSLT dosyalarını kullanarak daha karmaşık işlemler gerçekleştirebilirsiniz.
+- Komutları test etmek için küçük örnek XML dosyaları oluşturun ve üzerinde denemeler yapın.

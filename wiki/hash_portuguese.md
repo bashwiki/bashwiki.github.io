@@ -1,39 +1,51 @@
-# [리눅스] Bash hash 사용법
+# [Linux] Bash hash uso: Armazenar e exibir comandos
 
 ## Overview
-O comando `hash` no Bash é utilizado para gerenciar o cache de comandos executados. Ele armazena o caminho completo dos comandos que foram executados, permitindo que o shell encontre esses comandos mais rapidamente em execuções futuras. O principal propósito do comando `hash` é otimizar o desempenho do shell, evitando a necessidade de procurar o caminho de um comando toda vez que ele é chamado.
+O comando `hash` no Bash é utilizado para gerenciar o cache de comandos executados. Ele armazena o caminho dos comandos que foram executados, permitindo que o shell os encontre mais rapidamente em execuções futuras.
 
 ## Usage
 A sintaxe básica do comando `hash` é a seguinte:
 
 ```bash
-hash [opções] [comando]
+hash [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-r`: Limpa o cache de comandos armazenados. Isso é útil se você instalou novos programas e deseja que o Bash reconheça os novos caminhos.
-- `-l`: Lista todos os comandos armazenados no cache, mostrando os caminhos completos.
+## Common Options
+- `-r`: Limpa o cache de comandos armazenados.
+- `-l`: Lista todos os comandos armazenados no cache.
+- `-p`: Especifica um caminho para um comando, permitindo que você o adicione ao cache.
 
-## Examples
-### Exemplo 1: Listar comandos armazenados
-Para ver quais comandos estão atualmente armazenados no cache, você pode usar:
+## Common Examples
+
+### 1. Listar comandos armazenados
+Para visualizar todos os comandos que estão atualmente no cache, você pode usar:
 
 ```bash
 hash -l
 ```
 
-Este comando exibirá uma lista de todos os comandos que foram executados e seus respectivos caminhos.
-
-### Exemplo 2: Limpar o cache
-Se você deseja limpar o cache de comandos, pode usar:
+### 2. Limpar o cache
+Se você deseja remover todos os comandos armazenados no cache, execute:
 
 ```bash
 hash -r
 ```
 
-Após executar este comando, o Bash não terá mais informações sobre os comandos armazenados anteriormente, e precisará procurar novamente os caminhos na próxima vez que um comando for chamado.
+### 3. Adicionar um comando ao cache
+Para adicionar um comando específico ao cache, você pode usar:
+
+```bash
+hash -p /usr/local/bin/meu_comando meu_comando
+```
+
+### 4. Verificar o caminho de um comando
+Para verificar o caminho de um comando que já foi armazenado, você pode simplesmente usar:
+
+```bash
+hash meu_comando
+```
 
 ## Tips
-- Utilize `hash -r` após instalar novos programas ou fazer alterações no PATH para garantir que o Bash reconheça as novas localizações dos comandos.
-- Lembre-se de que o cache é específico para a sessão do shell. Se você abrir um novo terminal, o cache será reiniciado.
-- O uso do comando `hash` é especialmente útil em scripts ou em ambientes onde a eficiência é crucial, pois reduz o tempo de busca por comandos frequentemente utilizados.
+- Utilize `hash -r` após instalar novos programas para garantir que o cache esteja atualizado.
+- O comando `hash` é especialmente útil em scripts onde a eficiência na execução de comandos é importante.
+- Lembre-se de que o cache é específico para a sessão do shell; ao abrir um novo terminal, o cache será redefinido.

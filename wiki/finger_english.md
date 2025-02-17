@@ -1,45 +1,51 @@
-# [리눅스] Bash finger 사용법
+# [Linux] Bash finger Usage: Display User Information
 
 ## Overview
-The `finger` command is a utility in Unix-like operating systems that provides information about users on the system. Its primary purpose is to display details such as the user's login name, real name, terminal name, idle time, login time, and other related information. This command is particularly useful for system administrators and developers who need to monitor user activity and system usage.
+The `finger` command is a utility that displays information about users on a system. It provides details such as the user's login name, real name, terminal, idle time, and more. This command is particularly useful for system administrators and users who want to see who is logged into the system and their status.
 
 ## Usage
 The basic syntax of the `finger` command is as follows:
 
-```
-finger [options] [user...]
-```
-
-### Common Options
-- `-l`: Displays a longer format of user information, including the user's home directory and shell.
-- `-m`: Matches the user name case-insensitively.
-- `-s`: Displays a short format of user information, showing only the login name, real name, and idle time.
-- `user`: Specifies the username(s) for which you want to retrieve information. If no user is specified, `finger` will display information for all logged-in users.
-
-## Examples
-### Example 1: Display Information for All Users
-To display information about all users currently logged into the system, simply run:
-
 ```bash
-finger
+finger [options] [arguments]
 ```
 
-### Example 2: Display Detailed Information for a Specific User
-To get detailed information about a specific user, such as `john`, use the `-l` option:
+## Common Options
+- `-l`: Displays the information in a long format, providing more details about each user.
+- `-m`: Matches the username case-insensitively.
+- `-s`: Displays a short format, showing only the essential information.
+- `-p`: Prevents the display of the user's plan file.
+- `-h`: Suppresses the display of the user's home directory.
 
-```bash
-finger -l john
-```
+## Common Examples
+Here are some practical examples of how to use the `finger` command:
 
-This command will provide a comprehensive overview of the user's account, including their real name, home directory, and last login time.
+1. **Display information about all users:**
+   ```bash
+   finger
+   ```
+
+2. **Display detailed information about a specific user:**
+   ```bash
+   finger username
+   ```
+
+3. **Display information in long format:**
+   ```bash
+   finger -l username
+   ```
+
+4. **Display information in short format:**
+   ```bash
+   finger -s
+   ```
+
+5. **Case-insensitive search for a user:**
+   ```bash
+   finger -m UserName
+   ```
 
 ## Tips
-- Use the `-s` option for a quick overview of logged-in users without overwhelming detail.
-- Combine `finger` with other commands like `grep` to filter user information based on specific criteria. For example:
-
-```bash
-finger | grep 'john'
-```
-
-- Be aware that the `finger` command may not be installed by default on all systems. You can usually install it via your package manager (e.g., `apt`, `yum`, or `brew`).
-- Consider the privacy implications of using `finger`, as it reveals user information that some may prefer to keep private. Always ensure that you have the appropriate permissions to view user details.
+- Use the `-l` option for a comprehensive view of user details, especially when troubleshooting or managing users.
+- Combine options for more tailored results, such as `finger -ls` to get a short summary with long format details.
+- Regularly check user status with `finger` to monitor system activity, especially in multi-user environments.

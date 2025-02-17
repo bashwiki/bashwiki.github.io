@@ -1,37 +1,44 @@
-# [리눅스] Bash rmdir 사용법
+# [Linux] Bash rmdir : Supprimer des répertoires vides
 
 ## Overview
-La commande `rmdir` est utilisée dans les systèmes Unix et Linux pour supprimer des répertoires vides. Son principal objectif est de permettre aux utilisateurs de gérer la structure de fichiers en supprimant les répertoires qui ne contiennent aucun fichier ou sous-répertoire. Si le répertoire n'est pas vide, la commande échouera et affichera un message d'erreur.
+La commande `rmdir` est utilisée pour supprimer des répertoires vides dans un système de fichiers. Si le répertoire contient des fichiers ou d'autres répertoires, la commande échouera et ne supprimera rien.
 
 ## Usage
-La syntaxe de base de la commande `rmdir` est la suivante :
+La syntaxe de base de la commande est la suivante :
 
 ```bash
-rmdir [options] répertoire
+rmdir [options] [arguments]
 ```
 
-### Options courantes
-- `-p` : Supprime le répertoire spécifié ainsi que tous ses répertoires parents vides.
+## Common Options
+- `-p` : Supprime le répertoire spécifié ainsi que ses parents vides.
 - `--ignore-fail-on-non-empty` : Ignore les erreurs si le répertoire n'est pas vide.
+- `--verbose` : Affiche un message pour chaque répertoire supprimé.
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `rmdir`.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `rmdir` :
 
-### Exemple 1 : Supprimer un répertoire vide
-Pour supprimer un répertoire vide nommé `mon_dossier`, vous pouvez utiliser la commande suivante :
+1. Supprimer un répertoire vide :
+   ```bash
+   rmdir mon_repertoire
+   ```
 
-```bash
-rmdir mon_dossier
-```
+2. Supprimer un répertoire vide et ses parents vides :
+   ```bash
+   rmdir -p parent/enfant
+   ```
 
-### Exemple 2 : Supprimer un répertoire et ses parents vides
-Si vous avez un répertoire `parent` qui contient un sous-répertoire `enfant`, et que vous souhaitez supprimer `enfant` ainsi que `parent` si celui-ci est également vide, utilisez :
+3. Supprimer plusieurs répertoires vides à la fois :
+   ```bash
+   rmdir repertoire1 repertoire2
+   ```
 
-```bash
-rmdir -p parent/enfant
-```
+4. Utiliser l'option verbose pour voir les répertoires supprimés :
+   ```bash
+   rmdir --verbose mon_repertoire
+   ```
 
 ## Tips
-- Assurez-vous que le répertoire que vous souhaitez supprimer est bien vide avant d'utiliser `rmdir`, car la commande échouera si des fichiers ou des sous-répertoires sont présents.
-- Utilisez l'option `-p` avec précaution, car elle supprimera tous les répertoires parents vides, ce qui pourrait entraîner la suppression de plusieurs répertoires en une seule commande.
-- Pour vérifier le contenu d'un répertoire avant de le supprimer, utilisez la commande `ls` pour éviter des erreurs potentielles.
+- Assurez-vous que le répertoire est vide avant d'utiliser `rmdir`, sinon la commande échouera.
+- Utilisez l'option `-p` pour nettoyer les répertoires parents vides en une seule commande.
+- Pour vérifier le contenu d'un répertoire avant de le supprimer, utilisez `ls` pour éviter des erreurs.

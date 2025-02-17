@@ -1,35 +1,45 @@
-# [리눅스] Bash reboot 사용법
+# [Linux] Bash reboot Kullanımı: Sistemi yeniden başlatma
 
-## Overview
-`reboot` komutu, bir Linux sistemini yeniden başlatmak için kullanılır. Bu komut, sistemin tüm çalışan süreçlerini durdurur ve ardından işletim sistemini yeniden yükler. Genellikle sistem güncellemeleri sonrası veya sistemin düzgün çalışmadığı durumlarda kullanılır.
+## Genel Bakış
+`reboot` komutu, bir Linux sistemini güvenli bir şekilde yeniden başlatmak için kullanılır. Bu komut, sistemin tüm işlemlerini durdurur ve ardından işletim sistemini yeniden başlatır.
 
-## Usage
-Temel `reboot` komutunun sözdizimi aşağıdaki gibidir:
-
-```bash
-reboot [seçenekler]
+## Kullanım
+Temel sözdizimi şu şekildedir:
+```
+reboot [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-f` veya `--force`: Sistemi zorla yeniden başlatır. Bu seçenek, normal kapanma işlemlerini atlar ve tüm süreçleri hemen sonlandırır.
-- `-p` veya `--poweroff`: Sistemi kapatır ve ardından güç kaynağını kapatır. Bu seçenek, `reboot` komutunun bir alternatifi olarak kullanılabilir.
+## Yaygın Seçenekler
+- `-f`: Sistemi zorla yeniden başlatır, bu seçenek ile tüm işlemler kapatılmadan yeniden başlatma yapılır.
+- `-h`: Sistemi kapatır, ancak yeniden başlatmaz.
+- `now`: Anında yeniden başlatma işlemi yapar.
 
-## Examples
-### Örnek 1: Basit Yeniden Başlatma
-Aşağıdaki komut, sistemi normal bir şekilde yeniden başlatır:
+## Yaygın Örnekler
+Aşağıda `reboot` komutunun bazı pratik örnekleri verilmiştir:
 
+### 1. Sistemi hemen yeniden başlatma
 ```bash
-sudo reboot
+reboot
 ```
 
-### Örnek 2: Zorla Yeniden Başlatma
-Eğer sistem yanıt vermiyorsa ve normal yeniden başlatma işlemi çalışmıyorsa, aşağıdaki komut kullanılabilir:
-
+### 2. Sistemi zorla yeniden başlatma
 ```bash
-sudo reboot -f
+reboot -f
 ```
 
-## Tips
-- `reboot` komutunu kullanmadan önce, sistemdeki tüm önemli verilerin kaydedildiğinden emin olun. Yeniden başlatma işlemi sırasında açık olan dosyalar kaybolabilir.
-- Sistem güncellemeleri sonrası yeniden başlatma yaparken, güncellemelerin tamamlandığından emin olun.
-- Eğer sunucu ortamında çalışıyorsanız, yeniden başlatma işlemini planlı bir bakım süresi içinde gerçekleştirmek en iyi uygulamadır.
+### 3. Sistemi belirli bir süre sonra yeniden başlatma
+```bash
+shutdown -r +5
+```
+Bu komut, 5 dakika sonra sistemi yeniden başlatır.
+
+### 4. Sistemi kapatıp yeniden başlatma
+```bash
+reboot -h
+```
+Bu komut, sistemi kapatır ve ardından yeniden başlatır.
+
+## İpuçları
+- `reboot` komutunu kullanmadan önce, açık olan dosyalarınızı kaydetmeyi unutmayın.
+- Sistemi yeniden başlatmadan önce, kritik işlemlerin tamamlandığından emin olun.
+- Zorla yeniden başlatma (`-f`) seçeneğini kullanırken dikkatli olun, çünkü bu açık olan işlemleri kaybetmenize neden olabilir.

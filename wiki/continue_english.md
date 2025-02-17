@@ -1,7 +1,7 @@
-# [리눅스] Bash continue 사용법
+# [Linux] Bash continue Usage equivalent in English: Resume the next iteration of a loop
 
 ## Overview
-The `continue` command in Bash is used within loops to skip the current iteration and proceed to the next one. It is primarily employed in `for`, `while`, and `until` loops. When `continue` is executed, the remaining commands in the loop body for the current iteration are ignored, and control is transferred to the loop's next iteration.
+The `continue` command in Bash is used within loops to skip the remaining commands in the current iteration and proceed to the next iteration of the loop. This is particularly useful when you want to bypass certain conditions without exiting the loop entirely.
 
 ## Usage
 The basic syntax of the `continue` command is as follows:
@@ -10,60 +10,74 @@ The basic syntax of the `continue` command is as follows:
 continue [n]
 ```
 
-- `n`: This optional argument specifies how many levels of enclosing loops to skip. If not provided, it defaults to `1`, meaning it will skip to the next iteration of the innermost loop.
+Here, `n` is an optional argument that specifies how many levels of nested loops to skip. If `n` is omitted, it defaults to 1, meaning it will skip to the next iteration of the innermost loop.
 
-## Examples
+## Common Options
+- `n`: An optional integer that specifies the number of nested loops to continue. For example, `continue 2` would skip to the next iteration of the second outer loop.
 
-### Example 1: Basic Usage in a For Loop
-In this example, we will iterate through a list of numbers and skip even numbers.
+## Common Examples
 
+### Example 1: Basic usage in a `for` loop
 ```bash
-for i in {1..10}; do
-    if (( i % 2 == 0 )); then
+for i in {1..5}; do
+    if [ $i -eq 3 ]; then
         continue
     fi
-    echo "Odd number: $i"
+    echo "Number: $i"
 done
 ```
-
-**Output:**
+*Output:*
 ```
-Odd number: 1
-Odd number: 3
-Odd number: 5
-Odd number: 7
-Odd number: 9
+Number: 1
+Number: 2
+Number: 4
+Number: 5
 ```
+In this example, when `i` equals 3, the `continue` command skips the `echo` statement, resulting in 3 not being printed.
 
-### Example 2: Using `continue` in a While Loop
-Here’s an example using `continue` in a while loop to skip processing when a specific condition is met.
-
+### Example 2: Using `continue` in a `while` loop
 ```bash
-count=1
-while [ $count -le 10 ]; do
-    if [ $count -eq 5 ]; then
-        count=$((count + 1))
+count=0
+while [ $count -lt 5 ]; do
+    count=$((count + 1))
+    if [ $count -eq 2 ]; then
         continue
     fi
     echo "Count: $count"
-    count=$((count + 1))
 done
 ```
-
-**Output:**
+*Output:*
 ```
 Count: 1
-Count: 2
 Count: 3
 Count: 4
-Count: 6
-Count: 7
-Count: 8
-Count: 9
-Count: 10
+Count: 5
 ```
+Here, the loop skips the output when `count` is 2.
+
+### Example 3: Skipping multiple levels of nested loops
+```bash
+for i in {1..3}; do
+    for j in {1..3}; do
+        if [ $j -eq 2 ]; then
+            continue 2
+        fi
+        echo "i: $i, j: $j"
+    done
+done
+```
+*Output:*
+```
+i: 1, j: 1
+i: 1, j: 3
+i: 2, j: 1
+i: 2, j: 3
+i: 3, j: 1
+i: 3, j: 3
+```
+In this case, when `j` equals 2, the command skips to the next iteration of the outer loop as well.
 
 ## Tips
-- Use `continue` to improve the readability of your loop logic by avoiding deeply nested conditional statements.
-- Be cautious when using `continue` in nested loops. If you specify a number with `continue`, ensure it matches the intended loop level to avoid skipping iterations unintentionally.
-- Consider adding comments in your code to clarify the purpose of using `continue`, especially in complex loops, to aid future maintenance and understanding.
+- Use `continue` to improve the readability of your loops by avoiding deeply nested `if` statements.
+- Be cautious when using `continue` in nested loops; ensure you specify the correct level to avoid skipping unintended iterations.
+- Always test your loops to confirm that the `continue` command behaves as expected, especially in complex scripts.

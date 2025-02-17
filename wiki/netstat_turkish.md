@@ -1,46 +1,65 @@
-# [리눅스] Bash netstat 사용법
+# [Linux] Bash netstat Kullanımı: Ağ bağlantılarını görüntüleme
 
 ## Genel Bakış
-`netstat`, ağ bağlantılarını, yönlendirme tablolarını, arayüz istatistiklerini ve daha fazlasını görüntülemek için kullanılan bir komut satırı aracıdır. Sistem yöneticileri ve geliştiriciler, ağ durumu hakkında bilgi edinmek ve sorunları teşhis etmek için bu komutu sıklıkla kullanır. `netstat`, aktif bağlantılar, dinleme portları ve ağ istatistikleri hakkında kapsamlı bilgiler sunar.
+`netstat` komutu, ağ bağlantılarını, yönlendirme tablolarını, arayüz istatistiklerini ve diğer ağ ile ilgili bilgileri görüntülemek için kullanılır. Bu komut, sistem yöneticileri ve ağ uzmanları için ağ durumu hakkında bilgi edinmek amacıyla oldukça faydalıdır.
 
 ## Kullanım
-`netstat` komutunun temel sözdizimi şu şekildedir:
+Temel sözdizimi şu şekildedir:
 
-```bash
-netstat [seçenekler]
+```
+netstat [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-a`: Tüm bağlantıları ve dinleme portlarını gösterir.
+## Yaygın Seçenekler
+- `-a`: Tüm bağlantıları ve dinleme soketlerini gösterir.
 - `-t`: TCP bağlantılarını gösterir.
 - `-u`: UDP bağlantılarını gösterir.
 - `-n`: Adresleri ve port numaralarını sayısal olarak gösterir.
-- `-l`: Sadece dinleyen portları gösterir.
-- `-p`: Hangi programın hangi bağlantıyı kullandığını gösterir.
+- `-l`: Sadece dinleme durumundaki soketleri gösterir.
+- `-p`: Bağlantıların hangi süreç tarafından kullanıldığını gösterir.
 
-## Örnekler
-### Örnek 1: Tüm Aktif Bağlantıları Görüntüleme
-Aşağıdaki komut, sistemdeki tüm aktif bağlantıları ve dinleme portlarını listeleyecektir:
+## Yaygın Örnekler
+Aşağıda `netstat` komutunun bazı pratik kullanımları verilmiştir:
 
-```bash
+### Tüm Ağ Bağlantılarını Gösterme
+```
 netstat -a
 ```
 
-### Örnek 2: TCP Bağlantılarını Görüntüleme
-Sadece TCP bağlantılarını görmek için şu komutu kullanabilirsiniz:
-
-```bash
+### Sadece TCP Bağlantılarını Görüntüleme
+```
 netstat -t
 ```
 
-## İpuçları
-- `netstat` çıktısını daha okunabilir hale getirmek için `grep` komutunu kullanabilirsiniz. Örneğin, belirli bir portu kontrol etmek için:
-
-```bash
-netstat -tuln | grep ':80'
+### UDP Bağlantılarını Listeleme
+```
+netstat -u
 ```
 
-- Ağ sorunlarını teşhis ederken, `netstat` çıktısını düzenli olarak kontrol etmek, bağlantı sorunlarını hızlı bir şekilde tespit etmenize yardımcı olabilir.
-- `-p` seçeneği ile hangi uygulamanın hangi bağlantıyı kullandığını görmek, güvenlik ve performans sorunlarını analiz etmek için faydalıdır.
+### Dinleme Durumundaki Soketleri Gösterme
+```
+netstat -l
+```
 
-`netstat`, ağ durumu hakkında derinlemesine bilgi sağladığı için sistem yöneticileri ve geliştiriciler için vazgeçilmez bir araçtır.
+### Bağlantıları Sayısal Olarak Gösterme
+```
+netstat -n
+```
+
+### Belirli Bir Süreçle İlişkili Bağlantıları Görüntüleme
+```
+netstat -p
+```
+
+## İpuçları
+- `netstat` komutunu `grep` ile birleştirerek belirli bir port veya IP adresi için filtreleme yapabilirsiniz. Örneğin: 
+  ```
+  netstat -an | grep 80
+  ```
+- Ağ sorunlarını teşhis etmek için `netstat` çıktısını düzenli olarak kontrol edin.
+- `netstat` komutunun çıktısını daha okunabilir hale getirmek için `column` komutunu kullanabilirsiniz:
+  ```
+  netstat -tuln | column -t
+  ``` 
+
+Bu bilgilerle `netstat` komutunu etkili bir şekilde kullanarak ağ bağlantılarınızı izleyebilir ve yönetebilirsiniz.

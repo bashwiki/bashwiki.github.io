@@ -1,41 +1,52 @@
-# [리눅스] Bash traceroute 사용법
+# [Linux] Bash traceroute uso: Rastrear o caminho de pacotes de rede
 
 ## Overview
-O comando `traceroute` é uma ferramenta de rede utilizada para rastrear a rota que os pacotes de dados percorrem de um host de origem até um host de destino. Ele fornece informações sobre cada salto (ou "hop") que os pacotes fazem através da rede, incluindo o tempo que leva para chegar a cada ponto. O principal propósito do `traceroute` é ajudar a diagnosticar problemas de conectividade e desempenho em redes IP, permitindo que engenheiros e desenvolvedores identifiquem onde ocorrem atrasos ou falhas na comunicação.
+O comando `traceroute` é utilizado para rastrear a rota que os pacotes de dados percorrem até um destino específico na rede. Ele fornece informações sobre cada salto (hop) que os pacotes fazem, incluindo o tempo que leva para chegar a cada um deles, o que pode ser útil para diagnosticar problemas de conectividade.
 
 ## Usage
 A sintaxe básica do comando `traceroute` é a seguinte:
 
 ```bash
-traceroute [opções] destino
+traceroute [opções] [destino]
 ```
 
-### Opções Comuns:
-- `-m <número>`: Define o número máximo de saltos a serem realizados. O padrão é 30.
-- `-p <porta>`: Especifica a porta UDP a ser usada. O padrão é 33434.
-- `-n`: Faz com que o `traceroute` não resolva os endereços IP em nomes de host, exibindo apenas endereços numéricos.
-- `-w <segundos>`: Define o tempo de espera para cada resposta. O padrão é 5 segundos.
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com o comando `traceroute`:
 
-## Examples
-### Exemplo 1: Rastreando um domínio
-Para rastrear a rota até o domínio `example.com`, você pode usar o seguinte comando:
+- `-m <máx_hops>`: Define o número máximo de saltos a serem rastreados.
+- `-w <tempo>`: Define o tempo de espera em segundos para cada resposta.
+- `-q <número>`: Define o número de consultas por salto.
+- `-n`: Não resolve os endereços IP para nomes de host, mostrando apenas os endereços.
 
-```bash
-traceroute example.com
-```
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `traceroute`:
 
-Este comando mostrará cada salto que os pacotes fazem até chegar ao `example.com`, juntamente com os tempos de resposta.
+1. Rastrear a rota até um site específico:
+   ```bash
+   traceroute www.exemplo.com
+   ```
 
-### Exemplo 2: Rastreando com um número máximo de saltos
-Se você quiser limitar o número de saltos a 15, pode usar a opção `-m`:
+2. Definir um número máximo de saltos:
+   ```bash
+   traceroute -m 15 www.exemplo.com
+   ```
 
-```bash
-traceroute -m 15 example.com
-```
+3. Usar o modo sem resolução de nomes:
+   ```bash
+   traceroute -n 8.8.8.8
+   ```
 
-Isso fará com que o `traceroute` pare após 15 saltos, mesmo que o destino não tenha sido alcançado.
+4. Definir o tempo de espera para respostas:
+   ```bash
+   traceroute -w 2 www.exemplo.com
+   ```
+
+5. Rastrear com um número específico de consultas por salto:
+   ```bash
+   traceroute -q 3 www.exemplo.com
+   ```
 
 ## Tips
-- Utilize a opção `-n` se você deseja acelerar o processo de rastreamento, evitando a resolução de nomes de host.
-- Combine o `traceroute` com outras ferramentas de rede, como `ping`, para obter uma visão mais completa da conectividade e desempenho da rede.
-- Lembre-se de que alguns roteadores podem estar configurados para não responder a pacotes de `traceroute`, resultando em saltos que não aparecem na saída do comando.
+- Sempre verifique se você tem permissões adequadas para executar o `traceroute`, pois algumas redes podem bloquear esse tipo de tráfego.
+- Use a opção `-n` se você deseja uma saída mais rápida, evitando a resolução de nomes de host.
+- Combine o `traceroute` com outras ferramentas de rede, como `ping`, para um diagnóstico mais completo de problemas de conectividade.

@@ -1,25 +1,25 @@
-# [리눅스] Bash bc 사용법
+# [Linux] Bash bc Uso: Calculadora de precisão arbitrária
 
 ## Overview
-O comando `bc` (Basic Calculator) é uma calculadora de precisão arbitrária que permite realizar operações matemáticas em um ambiente de linha de comando. Ele é especialmente útil para engenheiros e desenvolvedores que precisam realizar cálculos complexos ou que exigem uma precisão maior do que a oferecida pelas calculadoras padrão do shell. O `bc` suporta operações aritméticas, funções matemáticas, variáveis e até mesmo expressões condicionais.
+O comando `bc` é uma calculadora de precisão arbitrária que permite realizar cálculos matemáticos diretamente no terminal. Ele suporta operações aritméticas básicas, funções matemáticas e pode ser utilizado em scripts para automatizar cálculos complexos.
 
 ## Usage
 A sintaxe básica do comando `bc` é a seguinte:
 
 ```bash
-bc [opções] [arquivo]
+bc [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-l`: Carrega a biblioteca matemática padrão, que inclui funções como seno, cosseno, logaritmo, etc.
-- `-q`: Inicia o `bc` em modo silencioso, suprimindo a mensagem de boas-vindas.
-- `-e`: Executa um comando específico e sai.
+## Common Options
+- `-l`: Carrega a biblioteca matemática padrão, que inclui funções como seno, cosseno e logaritmo.
+- `-q`: Executa o `bc` em modo silencioso, sem mostrar a mensagem de boas-vindas.
+- `-e`: Permite a execução de expressões diretamente na linha de comando.
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o `bc`:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `bc`:
 
-### Exemplo 1: Cálculo Simples
-Para realizar uma operação simples, como a adição de dois números, você pode usar o seguinte comando:
+### Exemplo 1: Cálculo simples
+Para realizar uma soma simples:
 
 ```bash
 echo "5 + 3" | bc
@@ -29,24 +29,40 @@ Saída:
 8
 ```
 
-### Exemplo 2: Cálculo com Precisão
-Se você quiser calcular a divisão com uma precisão específica, pode usar a opção `-l`:
+### Exemplo 2: Cálculo com precisão
+Para calcular a divisão com precisão de duas casas decimais:
 
 ```bash
-echo "scale=4; 10 / 3" | bc -l
+echo "scale=2; 10 / 3" | bc
 ```
 Saída:
 ```
-3.3333
+3.33
+```
+
+### Exemplo 3: Usando a biblioteca matemática
+Para calcular o seno de um ângulo em radianos:
+
+```bash
+echo "scale=4; s(1)" | bc -l
+```
+Saída:
+```
+0.8415
+```
+
+### Exemplo 4: Executando expressões diretamente
+Para calcular uma expressão diretamente no terminal:
+
+```bash
+bc -e "5 * (2 + 3)"
+```
+Saída:
+```
+25
 ```
 
 ## Tips
 - Sempre defina a variável `scale` para controlar a precisão dos resultados em operações de divisão.
-- Utilize a opção `-l` se você precisar de funções matemáticas avançadas.
-- Você pode armazenar expressões em variáveis para reutilizá-las, por exemplo:
-
-```bash
-echo "x=5; y=10; x + y" | bc
-```
-
-Essas dicas e exemplos devem ajudar a maximizar o uso do comando `bc` em suas tarefas diárias de programação e engenharia.
+- Utilize `bc -l` para acessar funções matemáticas avançadas que não estão disponíveis na versão padrão.
+- Para scripts, redirecione a entrada do `bc` a partir de um arquivo para realizar cálculos mais complexos sem precisar digitar no terminal.

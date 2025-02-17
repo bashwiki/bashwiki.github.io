@@ -1,49 +1,62 @@
-# [리눅스] Bash return 사용법
+# [Linux] Bash return usage équivalent : Retourner le statut d'un processus
 
 ## Overview
-La commande `return` en Bash est utilisée pour terminer l'exécution d'une fonction et renvoyer un code de sortie à l'environnement appelant. Ce code de sortie est un entier qui indique le succès ou l'échec de l'exécution de la fonction. Par défaut, si aucune valeur n'est spécifiée, `return` renvoie le code de sortie de la dernière commande exécutée dans la fonction.
+La commande `return` dans Bash est utilisée pour terminer une fonction et renvoyer un code de statut à l'environnement appelant. Ce code de statut peut être utilisé pour indiquer si la fonction a réussi ou échoué.
 
 ## Usage
 La syntaxe de base de la commande `return` est la suivante :
 
 ```bash
-return [n]
+return [options] [n]
 ```
 
-- `n` : un entier qui représente le code de sortie que vous souhaitez renvoyer. Par convention, un code de sortie de `0` indique un succès, tandis qu'un code différent de `0` indique une erreur ou un échec.
+Ici, `n` est un entier qui représente le code de statut que vous souhaitez renvoyer.
 
-## Examples
-Voici quelques exemples pratiques pour illustrer l'utilisation de la commande `return`.
+## Common Options
+- `n` : Un entier entre 0 et 255 qui représente le code de statut à renvoyer. Par convention, 0 indique le succès, tandis que toute autre valeur indique une erreur.
 
-### Exemple 1 : Fonction simple avec return
+## Common Examples
+
+### Exemple 1 : Retourner un statut de succès
 ```bash
-function test_function {
-    echo "Exécution de la fonction."
+function test_success {
+    echo "Cette fonction a réussi."
     return 0
 }
 
-test_function
-echo "Code de sortie : $?"  # Affiche 0
+test_success
+echo "Statut de retour : $?"
 ```
-Dans cet exemple, la fonction `test_function` exécute une commande et renvoie un code de sortie de `0`, indiquant que l'exécution a réussi.
 
-### Exemple 2 : Gestion des erreurs
+### Exemple 2 : Retourner un statut d'erreur
 ```bash
-function check_file {
-    if [[ ! -f "$1" ]]; then
-        echo "Fichier non trouvé."
-        return 1
+function test_failure {
+    echo "Cette fonction a échoué."
+    return 1
+}
+
+test_failure
+echo "Statut de retour : $?"
+```
+
+### Exemple 3 : Utiliser `return` dans une condition
+```bash
+function check_value {
+    if [ "$1" -lt 10 ]; then
+        return 0  # Succès
+    else
+        return 1  # Échec
     fi
-    echo "Fichier trouvé."
-    return 0
 }
 
-check_file "inexistant.txt"
-echo "Code de sortie : $?"  # Affiche 1
+check_value 5
+echo "Statut de retour : $?"  # Affiche 0
+
+check_value 15
+echo "Statut de retour : $?"  # Affiche 1
 ```
-Ici, la fonction `check_file` vérifie si un fichier existe. Si le fichier n'est pas trouvé, elle renvoie `1`, indiquant une erreur.
 
 ## Tips
-- Utilisez `return` dans vos fonctions pour gérer les erreurs de manière efficace. Cela permet de signaler à l'appelant si une opération a réussi ou échoué.
-- N'oubliez pas que `return` ne peut être utilisé que dans le contexte d'une fonction. Si vous essayez de l'utiliser en dehors d'une fonction, vous obtiendrez une erreur.
-- Pour des scripts plus complexes, envisagez d'utiliser des codes de sortie significatifs pour faciliter le débogage et la maintenance de votre code.
+- Utilisez `return` uniquement à l'intérieur des fonctions. En dehors des fonctions, `return` ne fonctionnera pas et générera une erreur.
+- Vérifiez toujours le code de statut après l'appel d'une fonction pour gérer les erreurs de manière appropriée.
+- Gardez à l'esprit que le code de statut est limité à une plage de 0 à 255.

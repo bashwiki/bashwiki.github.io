@@ -1,44 +1,51 @@
-# [리눅스] Bash hostname 사용법
+# [Linux] Bash hostname Kullanımı: Bilgisayarın ağ adını görüntüleme ve ayarlama
 
 ## Overview
-`hostname` komutu, bir sistemin ağdaki adını görüntülemek veya değiştirmek için kullanılır. Bu komut, özellikle sunucular ve ağ cihazları için kritik öneme sahiptir, çünkü sistemin kimliğini belirler ve ağ üzerinde diğer cihazlarla iletişim kurarken kullanılır. `hostname`, hem geçici olarak (sistem yeniden başlatıldığında kaybolur) hem de kalıcı olarak (sistem yapılandırma dosyalarında değişiklik yaparak) ayarlanabilir.
+`hostname` komutu, bir bilgisayarın ağ üzerindeki adını görüntülemek veya değiştirmek için kullanılır. Bu ad, ağda diğer cihazlar tarafından tanınmasını sağlar.
 
 ## Usage
-`hostname` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-hostname [seçenekler] [yeni_hostname]
+hostname [options] [arguments]
 ```
 
-### Yaygın Seçenekler:
-- `-a`, `--alias`: Sistem için tanımlı olan takma adı gösterir.
-- `-d`, `--domain`: Sistem alan adını gösterir.
-- `-f`, `--fqdn`: Tam nitelikli alan adını (FQDN) gösterir.
-- `-i`, `--ip-address`: Sistem IP adresini gösterir.
-- `-s`, `--short`: Kısa hostname'i gösterir.
-- `--help`: Komut hakkında yardım bilgisi gösterir.
+## Common Options
+- `-a`, `--alias`: Bilgisayarın takma adını görüntüler.
+- `-d`, `--domain`: Bilgisayarın alan adını görüntüler.
+- `-f`, `--fqdn`: Tam nitelikli alan adını (FQDN) görüntüler.
+- `-i`, `--ip-address`: Bilgisayarın IP adresini görüntüler.
+- `-s`, `--short`: Bilgisayarın kısa adını görüntüler.
+- `--help`: Kullanım hakkında yardım bilgisi gösterir.
 - `--version`: Komutun sürüm bilgilerini gösterir.
 
-## Examples
-### Örnek 1: Mevcut hostname'i görüntüleme
-Mevcut hostname'i görmek için aşağıdaki komutu kullanabilirsiniz:
+## Common Examples
 
+### 1. Bilgisayarın adını görüntüleme
 ```bash
 hostname
 ```
+Bu komut, mevcut bilgisayarın ağ adını gösterir.
 
-Bu komut, sistemin mevcut ağ adını terminalde gösterecektir.
-
-### Örnek 2: Yeni bir hostname ayarlama
-Sistemin hostname'ini değiştirmek için aşağıdaki komutu kullanabilirsiniz:
-
+### 2. Tam nitelikli alan adını görüntüleme
 ```bash
-sudo hostname yeni_hostname
+hostname -f
 ```
+Bu komut, bilgisayarın tam nitelikli alan adını görüntüler.
 
-Bu komut, sistemin hostname'ini "yeni_hostname" olarak ayarlayacaktır. Ancak, bu değişiklik geçici olacak ve sistem yeniden başlatıldığında kaybolacaktır.
+### 3. Bilgisayarın IP adresini görüntüleme
+```bash
+hostname -i
+```
+Bu komut, bilgisayarın IP adresini gösterir.
+
+### 4. Bilgisayar adını değiştirme
+```bash
+sudo hostname yeni-ad
+```
+Bu komut, bilgisayarın ağ adını "yeni-ad" olarak değiştirir. Değişikliğin kalıcı olması için `/etc/hostname` dosyasını da güncellemek gerekebilir.
 
 ## Tips
-- Kalıcı bir değişiklik yapmak istiyorsanız, `/etc/hostname` dosyasını düzenlemeniz ve yeni hostname'i buraya eklemeniz gerekmektedir. Ardından, sistemi yeniden başlatmalısınız.
-- Ağ üzerindeki diğer cihazlarla uyumlu olabilmesi için hostname'iniz kısa ve anlamlı olmalıdır.
-- `hostname` komutunu kullanmadan önce, sistemdeki mevcut hostname'i kontrol etmek iyi bir uygulamadır, böylece gereksiz değişikliklerden kaçınabilirsiniz.
+- Bilgisayar adını değiştirdikten sonra, değişikliğin etkili olması için bilgisayarı yeniden başlatmak iyi bir uygulamadır.
+- `hostname` komutunu sık sık kullanıyorsanız, çıktıyı daha okunabilir hale getirmek için `-s` veya `-f` seçeneklerini kullanabilirsiniz.
+- Ağda birden fazla cihaz varsa, her cihazın benzersiz bir adı olduğundan emin olun; bu, ağ yönetimini kolaylaştırır.

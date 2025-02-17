@@ -1,48 +1,44 @@
-# [리눅스] Bash fg 사용법
+# [Linux] Bash fg Uso equivalente: Traer un proceso al primer plano
 
 ## Overview
-El comando `fg` en Bash se utiliza para reanudar un trabajo que se está ejecutando en segundo plano y llevarlo al primer plano. Esto es especialmente útil cuando se ha suspendido un proceso o se ha enviado a segundo plano y se desea interactuar con él nuevamente. El comando permite a los usuarios gestionar sus trabajos en la terminal de manera más eficiente.
+El comando `fg` en Bash se utiliza para llevar un proceso que se está ejecutando en segundo plano al primer plano. Esto es útil cuando deseas interactuar con un proceso que previamente has suspendido o enviado a segundo plano.
 
 ## Usage
 La sintaxis básica del comando `fg` es la siguiente:
 
 ```bash
-fg [job_spec]
+fg [opciones] [número de trabajo]
 ```
 
-- `job_spec`: Este argumento es opcional y se utiliza para especificar el trabajo que se desea traer al primer plano. Puede ser el número de trabajo (precedido por un signo de porcentaje, por ejemplo, `%1`) o el nombre del proceso.
+## Common Options
+- **%n**: Especifica el trabajo que deseas llevar al primer plano, donde `n` es el número del trabajo.
+- **+**: Lleva el trabajo más reciente al primer plano.
+- **-**: Lleva el trabajo anterior al más reciente al primer plano.
 
-Si no se proporciona `job_spec`, `fg` reanuda el último trabajo que se ejecutó en segundo plano.
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `fg`:
 
-## Examples
-### Ejemplo 1: Traer el último trabajo al primer plano
-Supongamos que has ejecutado un comando que se está ejecutando en segundo plano, como un script de Python. Para llevarlo al primer plano, simplemente puedes usar:
+1. **Llevar el trabajo más reciente al primer plano**:
+   ```bash
+   fg
+   ```
 
-```bash
-fg
-```
+2. **Llevar un trabajo específico al primer plano** (por ejemplo, el trabajo número 1):
+   ```bash
+   fg %1
+   ```
 
-### Ejemplo 2: Traer un trabajo específico al primer plano
-Si tienes varios trabajos en segundo plano y deseas reanudar uno específico, primero puedes listar los trabajos con el comando `jobs`:
+3. **Llevar el trabajo anterior al más reciente al primer plano**:
+   ```bash
+   fg -
+   ```
 
-```bash
-jobs
-```
-
-Esto podría mostrar algo como:
-
-```
-[1]+  12345 Stopped    python script.py
-[2]-  12346 Stopped    sleep 100
-```
-
-Para llevar el primer trabajo al primer plano, usarías:
-
-```bash
-fg %1
-```
+4. **Llevar un trabajo específico utilizando su nombre** (si el trabajo se llama `my_script.sh`):
+   ```bash
+   fg %my_script.sh
+   ```
 
 ## Tips
-- Utiliza el comando `jobs` para ver todos los trabajos en segundo plano y sus estados antes de usar `fg`. Esto te ayudará a identificar cuál trabajo deseas reanudar.
-- Si un trabajo se ha suspendido (por ejemplo, presionando `Ctrl+Z`), puedes usar `fg` para reanudarlo sin perder su estado.
-- Recuerda que `fg` solo funciona con trabajos que han sido iniciados en la misma sesión de terminal. Si cierras la terminal, los trabajos en segundo plano se perderán.
+- Asegúrate de que el proceso que deseas llevar al primer plano esté en segundo plano; de lo contrario, el comando `fg` no tendrá efecto.
+- Puedes ver la lista de trabajos en segundo plano utilizando el comando `jobs`, lo que te ayudará a identificar qué trabajos puedes traer al primer plano.
+- Si necesitas detener un proceso en primer plano, puedes usar `Ctrl + Z` para suspenderlo y luego usar `fg` para reanudarlo cuando lo necesites.

@@ -1,41 +1,50 @@
-# [리눅스] Bash w 사용법
+# [Linux] Bash w: Muestra quién está conectado y qué están haciendo
 
 ## Overview
-El comando `w` en Bash se utiliza para mostrar información sobre los usuarios que están actualmente conectados al sistema y lo que están haciendo. Proporciona un resumen de la actividad de los usuarios, incluyendo el tiempo de conexión, el tiempo de inactividad y el comando que están ejecutando. Este comando es útil para administradores de sistemas y desarrolladores que necesitan monitorear la actividad del sistema y los usuarios.
+El comando `w` en Bash se utiliza para mostrar información sobre los usuarios que están actualmente conectados al sistema y las actividades que están realizando. Proporciona detalles como el nombre de usuario, la terminal, el tiempo de actividad y el comando que se está ejecutando.
 
 ## Usage
 La sintaxis básica del comando `w` es la siguiente:
 
 ```bash
-w [opciones] [usuario]
+w [opciones] [argumentos]
 ```
 
-### Opciones Comunes:
+## Common Options
 - `-h`: Omite la línea de encabezado.
-- `-s`: Muestra la salida en un formato más corto.
-- `-u`: Muestra el tiempo de inactividad de cada usuario.
-- `-f`: Muestra información adicional sobre el proceso de cada usuario.
+- `-s`: Muestra una salida más corta, omitiendo información adicional.
+- `-f`: Muestra el nombre completo del host.
+- `-u`: Muestra el tiempo de inactividad de los usuarios.
 
-## Examples
-### Ejemplo 1: Uso básico
-Para ver la lista de usuarios conectados y su actividad, simplemente ejecuta:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `w`:
 
-```bash
-w
-```
+1. **Mostrar todos los usuarios conectados:**
+   ```bash
+   w
+   ```
 
-Este comando mostrará una tabla con la información de los usuarios, incluyendo su nombre, terminal, tiempo de conexión, y el comando que están ejecutando.
+2. **Mostrar información sin la línea de encabezado:**
+   ```bash
+   w -h
+   ```
 
-### Ejemplo 2: Uso con opciones
-Si deseas ver la información sin la línea de encabezado, puedes usar la opción `-h`:
+3. **Mostrar una salida más corta:**
+   ```bash
+   w -s
+   ```
 
-```bash
-w -h
-```
+4. **Incluir el nombre completo del host:**
+   ```bash
+   w -f
+   ```
 
-Esto mostrará la misma información, pero sin la línea de encabezado que normalmente aparece en la parte superior.
+5. **Mostrar usuarios con tiempo de inactividad:**
+   ```bash
+   w -u
+   ```
 
 ## Tips
-- Utiliza `w` regularmente para monitorear la actividad de los usuarios en sistemas compartidos, especialmente en entornos de desarrollo colaborativo.
-- Combina `w` con otros comandos como `grep` para filtrar la salida y encontrar información específica sobre un usuario particular.
-- Recuerda que la información mostrada por `w` puede ser útil para identificar procesos que consumen muchos recursos o para detectar usuarios inactivos que podrían ser desconectados si es necesario.
+- Utiliza `w` para monitorear la actividad de los usuarios en sistemas compartidos, especialmente en servidores.
+- Combina `w` con otros comandos como `grep` para filtrar usuarios específicos.
+- Revisa la información de tiempo de inactividad para identificar sesiones que podrían cerrarse.

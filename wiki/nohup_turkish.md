@@ -1,41 +1,40 @@
-# [리눅스] Bash nohup 사용법
+# [Linux] Bash nohup Kullanımı: Arka planda komut çalıştırma
 
-## Genel Bakış
-`nohup` (no hang up) komutu, bir komutun veya programın terminalden bağımsız olarak çalışmasını sağlar. Terminal oturumu kapatılsa bile, `nohup` ile başlatılan süreçler arka planda çalışmaya devam eder. Bu, özellikle uzun süren işlemleri başlatırken ve terminal oturumunu kapatmayı planlarken faydalıdır.
+## Overview
+`nohup` komutu, bir komutun terminal oturumu kapatılsa bile çalışmaya devam etmesini sağlar. Bu, özellikle uzun süren işlemleri başlatırken kullanışlıdır; böylece oturum kapandığında işlem sonlanmaz.
 
-## Kullanım
-Temel `nohup` komutunun sözdizimi şu şekildedir:
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-nohup [komut] [argümanlar] &
+nohup [options] [arguments]
 ```
 
-- `komut`: Çalıştırmak istediğiniz komut veya program.
-- `argümanlar`: Komutun alacağı opsiyonel argümanlar.
-- `&`: Komutun arka planda çalışmasını sağlar.
-
-### Yaygın Seçenekler
-- `-o [dosya]`: Çıktının yönlendirileceği dosya. Varsayılan olarak `nohup.out` dosyasına yönlendirilir.
+## Common Options
+- `&`: Komutu arka planda çalıştırır.
 - `-h`: Yardım bilgilerini gösterir.
+- `-n`: Çıktıyı `nohup.out` dosyasına yönlendirmeden çalıştırır.
 
-## Örnekler
+## Common Examples
+1. Basit bir komut çalıştırma:
+   ```bash
+   nohup sleep 60 &
+   ```
+   Bu komut, 60 saniye boyunca uykuya dalan bir işlemi arka planda başlatır.
 
-### Örnek 1: Basit bir komut çalıştırma
-Aşağıdaki komut, `my_script.sh` adlı bir betiği arka planda çalıştırır ve çıktısını `nohup.out` dosyasına kaydeder:
+2. Bir Python betiğini çalıştırma:
+   ```bash
+   nohup python my_script.py &
+   ```
+   Bu komut, `my_script.py` adlı Python betiğini arka planda çalıştırır.
 
-```bash
-nohup bash my_script.sh &
-```
+3. Çıktıyı özel bir dosyaya yönlendirme:
+   ```bash
+   nohup my_command > output.log &
+   ```
+   Bu komut, `my_command` çalıştırıldığında çıktıyı `output.log` dosyasına yönlendirir.
 
-### Örnek 2: Çıktıyı özel bir dosyaya yönlendirme
-Aşağıdaki komut, `long_running_process` adlı bir programı çalıştırır ve çıktısını `output.log` dosyasına yönlendirir:
-
-```bash
-nohup long_running_process > output.log 2>&1 &
-```
-Burada `2>&1`, hata çıktısını da aynı dosyaya yönlendirmek için kullanılır.
-
-## İpuçları
-- `nohup` kullanırken, çıktıyı yönlendirmek için `>` operatörünü kullanmayı unutmayın. Aksi takdirde, varsayılan olarak `nohup.out` dosyasına yazılır.
-- Uzun süren işlemler için `nohup` kullanmak, terminal oturumunu kapatmanıza olanak tanır. Ancak, işlemin durumunu kontrol etmek için arka planda çalışan süreçlerinizi takip etmeyi unutmayın.
-- `jobs` komutu ile arka planda çalışan işlemlerinizi listeleyebilir ve `fg` komutu ile bunları ön plana alabilirsiniz.
+## Tips
+- `nohup` komutunu kullanırken, çıktıyı yönlendirmek için `>` operatörünü kullanmayı unutmayın, aksi takdirde varsayılan olarak `nohup.out` dosyasına yazılır.
+- Uzun süren işlemler için `nohup` kullanmak, terminal oturumunu kapatmanıza rağmen işlemin devam etmesini sağlar.
+- İşleminizin durumu hakkında bilgi almak için `jobs` komutunu kullanabilirsiniz.

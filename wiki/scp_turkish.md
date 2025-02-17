@@ -1,39 +1,43 @@
-# [리눅스] Bash scp 사용법
+# [Linux] Bash scp Kullanımı: Dosya transferi için güvenli bir yöntem
 
-## Overview
-`scp` (Secure Copy Protocol), dosya transferi için kullanılan bir komuttur. SSH (Secure Shell) protokolünü temel alarak, ağ üzerinden güvenli bir şekilde dosya kopyalamak için kullanılır. `scp`, hem yerel hem de uzaktaki sistemler arasında dosya transferi yapma imkanı sunar ve bu transfer sırasında verilerin şifrelenmesini sağlar.
+## Genel Bakış
+`scp` (Secure Copy Protocol), dosyaları bir ağ üzerinden güvenli bir şekilde kopyalamak için kullanılan bir komut satırı aracıdır. SSH (Secure Shell) protokolünü kullanarak, yerel ve uzak sistemler arasında dosya transferi gerçekleştirir.
 
-## Usage
-`scp` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-scp [seçenekler] kaynak hedef
-```
-
-### Yaygın Seçenekler
-- `-r`: Klasörleri ve içindeki tüm dosyaları kopyalamak için kullanılır.
-- `-P [port]`: Hedef sunucunun SSH portunu belirtmek için kullanılır (büyük "P" harfi ile).
-- `-i [anahtar dosyası]`: Belirtilen özel anahtar dosyasını kullanarak kimlik doğrulaması yapmak için kullanılır.
-- `-v`: Komutun çalıştırılması sırasında daha fazla bilgi vermek için "verbose" modunu etkinleştirir.
-
-## Examples
-### Örnek 1: Yerel bir dosyayı uzak bir sunucuya kopyalama
-Aşağıdaki komut, `dosya.txt` adlı dosyayı `kullanici@sunucu_ip:/hedef/klasor/` adresine kopyalar:
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
-scp dosya.txt kullanici@sunucu_ip:/hedef/klasor/
+scp [seçenekler] [kaynak] [hedef]
 ```
 
-### Örnek 2: Uzak bir sunucudan yerel bir dizine dosya kopyalama
-Aşağıdaki komut, `kullanici@sunucu_ip:/uzak_dosya.txt` dosyasını yerel makinedeki `./yerel_klasor/` dizinine kopyalar:
+## Yaygın Seçenekler
+- `-r`: Dizini ve içindeki tüm dosyaları kopyalamak için kullanılır.
+- `-P`: Uzak sunucunun SSH bağlantı portunu belirtir (büyük "P" ile).
+- `-i`: Belirtilen özel anahtar dosyasını kullanarak kimlik doğrulaması yapar.
+- `-v`: Ayrıntılı çıktı almak için kullanılır, hata ayıklama için faydalıdır.
 
-```bash
-scp kullanici@sunucu_ip:/uzak_dosya.txt ./yerel_klasor/
-```
+## Yaygın Örnekler
+1. **Yerel bir dosyayı uzak bir sunucuya kopyalama:**
+   ```bash
+   scp dosya.txt kullanıcı@sunucu:/hedef/klasör/
+   ```
 
-## Tips
-- **Anahtar Tabanlı Kimlik Doğrulama**: `scp` kullanırken, şifre yerine anahtar tabanlı kimlik doğrulama kullanmak, güvenliği artırır ve her seferinde şifre girme zorunluluğunu ortadan kaldırır.
-- **Hızlı Transfer için `-C` Seçeneği**: Verilerin sıkıştırılmasını sağlamak için `-C` seçeneğini kullanabilirsiniz. Bu, büyük dosyaların transferinde hız kazandırabilir.
-- **Kopyalama İşlemini Kontrol Etmek**: `-v` seçeneğini kullanarak, kopyalama işlemi sırasında daha fazla bilgi alabilir ve olası hataları daha kolay tespit edebilirsiniz.
+2. **Uzak bir dosyayı yerel bir makineye kopyalama:**
+   ```bash
+   scp kullanıcı@sunucu:/uzak/dosya.txt /yerel/klasör/
+   ```
 
-Bu bilgilerle, `scp` komutunu etkili bir şekilde kullanarak dosya transferlerinizi güvenli bir şekilde gerçekleştirebilirsiniz.
+3. **Bir dizini ve içindeki tüm dosyaları kopyalama:**
+   ```bash
+   scp -r /yerel/dizin/ kullanıcı@sunucu:/hedef/dizin/
+   ```
+
+4. **Belirli bir port ile kopyalama:**
+   ```bash
+   scp -P 2222 dosya.txt kullanıcı@sunucu:/hedef/klasör/
+   ```
+
+## İpuçları
+- `-v` seçeneğini kullanarak, bağlantı sırasında oluşabilecek sorunları daha iyi anlayabilirsiniz.
+- Kopyalama işlemi sırasında dosya boyutunu kontrol etmek için `-C` seçeneğini ekleyerek sıkıştırma yapabilirsiniz.
+- Eğer sık sık aynı sunucuya bağlanıyorsanız, SSH anahtarları kullanarak şifre girmeden bağlanmayı kolaylaştırabilirsiniz.

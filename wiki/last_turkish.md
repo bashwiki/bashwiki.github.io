@@ -1,48 +1,50 @@
-# [리눅스] Bash last 사용법
+# [Linux] Bash last komutu: Kullanıcı oturum geçmişini görüntüleme
 
-## Overview
-`last` komutu, sistemdeki kullanıcıların oturum açma ve kapama bilgilerini görüntülemek için kullanılır. Bu komut, sistem günlüklerinden (log) yararlanarak, kullanıcıların ne zaman giriş yaptığını, ne kadar süreyle oturum açtığını ve hangi terminal üzerinden bağlandığını gösterir. Genellikle sistem yöneticileri tarafından, kullanıcı aktivitelerini izlemek ve güvenlik denetimleri yapmak amacıyla kullanılır.
+## Genel Bakış
+`last` komutu, sistemdeki kullanıcıların oturum açma ve kapama geçmişini görüntülemek için kullanılır. Bu komut, kullanıcıların ne zaman giriş yaptığını ve ne zaman sistemden çıktığını gösterir. Ayrıca, sistemin yeniden başlatıldığı zamanları da listeler.
 
-## Usage
-Temel `last` komutunun sözdizimi şu şekildedir:
-
-```bash
-last [options] [username]
+## Kullanım
+Temel sözdizimi şu şekildedir:
+```
+last [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-a`: Kullanıcıların bağlandığı uzak ana bilgisayar adını gösterir.
-- `-n [number]`: Belirtilen sayıda giriş kaydını gösterir. Örneğin, `-n 5` son 5 oturumu gösterir.
-- `-x`: Sistem kapanma ve yeniden başlatma bilgilerini de dahil eder.
-- `-R`: Uzak ana bilgisayar adını göstermez.
+## Yaygın Seçenekler
+- `-a`: Kullanıcıların bağlantı kurduğu uzak ana bilgisayar adını gösterir.
+- `-n [sayı]`: Son [sayı] kadar oturumu gösterir.
+- `-x`: Sistem yeniden başlatmalarını ve kapanmalarını da gösterir.
+- `-R`: Uzak ana bilgisayar adını gizler.
 
-## Examples
-### Örnek 1: Tüm kullanıcı oturumlarını görüntüleme
-Aşağıdaki komut, sistemdeki tüm kullanıcıların oturum açma ve kapama bilgilerini gösterir:
+## Yaygın Örnekler
+1. Tüm kullanıcı oturum geçmişini görüntüleme:
+   ```bash
+   last
+   ```
 
-```bash
-last
-```
+2. Son 5 oturumu görüntüleme:
+   ```bash
+   last -n 5
+   ```
 
-### Örnek 2: Son 3 oturumu görüntüleme
-Aşağıdaki komut, yalnızca son 3 oturumu görüntüler:
+3. Kullanıcı adı "ali" olan kişinin oturum geçmişini görüntüleme:
+   ```bash
+   last ali
+   ```
 
-```bash
-last -n 3
-```
+4. Sistem yeniden başlatmalarını ve kapanmalarını gösterme:
+   ```bash
+   last -x
+   ```
 
-## Tips
-- `last` komutunu kullanırken, çıktının daha okunabilir olması için `less` komutuyla birleştirebilirsiniz. Örneğin:
+5. Uzak ana bilgisayar adlarını gizleyerek oturum geçmişini görüntüleme:
+   ```bash
+   last -R
+   ```
 
-```bash
-last | less
-```
-
-- Kullanıcı aktivitelerini izlemek için düzenli olarak `last` komutunu çalıştırmak, sistem güvenliğini artırabilir.
-- Eğer belirli bir kullanıcıya ait oturum bilgilerini görmek istiyorsanız, kullanıcı adını komutun sonuna ekleyebilirsiniz. Örneğin:
-
-```bash
-last username
-```
-
-Bu şekilde, belirli bir kullanıcının oturum geçmişini inceleyebilirsiniz.
+## İpuçları
+- `last` komutunu düzenli olarak kullanarak sistemdeki kullanıcı etkinliklerini takip edebilir ve güvenlik denetimleri yapabilirsiniz.
+- Eğer uzun bir oturum geçmişine sahipseniz, `-n` seçeneği ile belirli bir sayıda oturumu görüntülemek, çıktıyı daha yönetilebilir hale getirebilir.
+- `last` çıktısını bir dosyaya yönlendirmek için `>` operatörünü kullanarak, geçmişi kaydedebilir ve daha sonra inceleyebilirsiniz. Örneğin:
+  ```bash
+  last > oturum_gecmisi.txt
+  ```

@@ -1,42 +1,47 @@
-# [리눅스] Bash readarray 사용법
+# [Linux] Bash readarray uso: Leer líneas en un array
 
 ## Overview
-El comando `readarray` en Bash se utiliza para leer líneas de un archivo o de la entrada estándar y almacenarlas en un array. Este comando es especialmente útil cuando se trabaja con datos en formato de texto, ya que permite manipular fácilmente cada línea como un elemento del array. `readarray` es una forma eficiente de manejar múltiples líneas de texto sin necesidad de bucles adicionales.
+El comando `readarray` en Bash se utiliza para leer líneas de un archivo o de la entrada estándar y almacenarlas en un array. Es especialmente útil para manejar datos en formato de texto donde cada línea representa un elemento.
 
 ## Usage
-La sintaxis básica del comando `readarray` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-readarray [opciones] array_name
+readarray [opciones] [nombre_del_array]
 ```
 
-### Opciones Comunes:
-- `-t`: Esta opción elimina el carácter de nueva línea al final de cada línea leída, lo que es útil para evitar que los elementos del array contengan saltos de línea.
-- `-n`: Permite especificar el número de líneas a leer. Por ejemplo, `-n 5` leerá solo las primeras 5 líneas.
-- `-s`: Esta opción permite omitir un número específico de líneas al inicio del archivo o de la entrada.
+## Common Options
+- `-n N`: Lee solo las primeras N líneas.
+- `-s N`: Omite las primeras N líneas al leer.
+- `-t`: Elimina el carácter de nueva línea al final de cada línea.
 
-## Examples
+## Common Examples
+
 ### Ejemplo 1: Leer un archivo en un array
-Supongamos que tenemos un archivo llamado `datos.txt` que contiene varias líneas de texto. Podemos leer este archivo en un array de la siguiente manera:
-
 ```bash
-readarray -t lineas < datos.txt
+readarray lineas < archivo.txt
 ```
+Este comando lee todas las líneas del archivo `archivo.txt` y las almacena en el array `lineas`.
 
-En este ejemplo, cada línea del archivo `datos.txt` se almacenará como un elemento en el array `lineas`, sin los caracteres de nueva línea.
-
-### Ejemplo 2: Leer solo algunas líneas
-Si solo queremos leer las primeras 3 líneas de un archivo, podemos usar la opción `-n`:
-
+### Ejemplo 2: Leer solo las primeras 3 líneas
 ```bash
-readarray -t lineas < <(head -n 3 datos.txt)
+readarray -n 3 lineas < archivo.txt
 ```
+Aquí, solo se leen las primeras 3 líneas del archivo `archivo.txt`.
 
-Aquí, estamos utilizando `head` para limitar la entrada a las primeras 3 líneas antes de pasarlas a `readarray`.
+### Ejemplo 3: Ignorar las primeras 2 líneas
+```bash
+readarray -s 2 lineas < archivo.txt
+```
+Este comando omite las primeras 2 líneas del archivo y lee el resto en el array `lineas`.
+
+### Ejemplo 4: Eliminar los caracteres de nueva línea
+```bash
+readarray -t lineas < archivo.txt
+```
+Con esta opción, las líneas leídas se almacenan en el array `lineas` sin los caracteres de nueva línea al final.
 
 ## Tips
-- Siempre que sea posible, utiliza la opción `-t` para evitar problemas con los caracteres de nueva línea en los elementos del array.
-- Si estás leyendo grandes archivos, considera utilizar `-n` y `-s` para optimizar el rendimiento y evitar cargar más datos de los necesarios.
-- Puedes acceder a los elementos del array utilizando la sintaxis `${array_name[index]}`. Por ejemplo, `${lineas[0]}` te dará la primera línea leída.
-
-Con estos consejos y ejemplos, deberías estar bien preparado para utilizar el comando `readarray` en tus scripts de Bash.
+- Asegúrate de que el archivo que estás leyendo tenga el formato correcto, ya que `readarray` separa las líneas basándose en los saltos de línea.
+- Puedes acceder a los elementos del array utilizando la sintaxis `${lineas[i]}`, donde `i` es el índice del elemento.
+- Si necesitas procesar cada línea individualmente, considera usar un bucle `for` para iterar sobre el array después de haberlo leído.

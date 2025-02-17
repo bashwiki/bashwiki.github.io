@@ -1,38 +1,49 @@
-# [리눅스] Bash traceroute 사용법
+# [Linux] Bash traceroute Kullanımı: Ağ yolunu izleme aracı
 
-## Genel Bakış
-`traceroute`, bir ağ üzerindeki veri paketlerinin bir hedefe ulaşırken geçtiği yolları izlemek için kullanılan bir komuttur. Bu komut, bir IP adresine veya alan adına giden yol üzerindeki her bir yönlendiriciyi (router) gösterir. Ağ bağlantı sorunlarını teşhis etmek ve ağın performansını analiz etmek için oldukça yararlıdır.
+## Overview
+`traceroute` komutu, bir ağ üzerindeki veri paketlerinin bir hedefe ulaşana kadar geçtiği yolları izlemek için kullanılır. Bu komut, ağ bağlantı sorunlarını teşhis etmek ve ağın performansını değerlendirmek için oldukça faydalıdır.
 
-## Kullanım
-Temel `traceroute` komutunun sözdizimi şu şekildedir:
-
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-traceroute [seçenekler] hedef
+traceroute [seçenekler] [hedef]
 ```
 
-### Yaygın Seçenekler
-- `-m <sayı>`: Maksimum sıçrama sayısını belirler. Varsayılan değer genellikle 30'dur.
-- `-p <port>`: Hedefe ulaşmak için kullanılacak UDP portunu belirtir. Varsayılan olarak 33434 portu kullanılır.
-- `-n`: IP adreslerini çözümlemeden doğrudan kullanır. Bu, sorgu süresini kısaltabilir.
-- `-w <saniye>`: Her bir sıçrama için zaman aşımını ayarlar. Varsayılan değer genellikle 5 saniyedir.
+## Common Options
+- `-m <sayı>`: Maksimum sıçrama sayısını belirler.
+- `-n`: IP adreslerini çözümlemeden doğrudan gösterir.
+- `-p <port>`: Hedefe gönderilecek UDP paketinin portunu belirtir.
+- `-w <süre>`: Her bir yanıt için bekleme süresini ayarlar.
 
-## Örnekler
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, `example.com` adresine giden yol üzerindeki yönlendiricileri gösterir:
+## Common Examples
+Aşağıda `traceroute` komutunun bazı pratik örnekleri verilmiştir:
 
-```bash
-traceroute example.com
-```
+1. Basit bir traceroute:
+   ```bash
+   traceroute example.com
+   ```
 
-### Örnek 2: Maksimum Sıçrama Sayısını Belirleme
-Aşağıdaki komut, `example.com` adresine giden yol üzerindeki maksimum 15 sıçramayı gösterir:
+2. Maksimum 15 sıçrama ile traceroute:
+   ```bash
+   traceroute -m 15 example.com
+   ```
 
-```bash
-traceroute -m 15 example.com
-```
+3. IP adreslerini çözümlemeden gösterme:
+   ```bash
+   traceroute -n example.com
+   ```
 
-## İpuçları
-- `traceroute` komutunu kullanmadan önce, ağ bağlantınızın aktif olduğundan emin olun.
-- Ağ sorunlarını teşhis ederken, `-n` seçeneğini kullanarak IP adreslerini doğrudan görmek, zaman kazandırabilir.
-- Farklı portlar kullanarak (örneğin, `-p 80` ile) belirli hizmetlerin (HTTP gibi) durumunu kontrol edebilirsiniz.
-- Eğer `traceroute` komutu sisteminizde yüklü değilse, genellikle `traceroute` paketini yükleyerek erişebilirsiniz. Örneğin, Debian tabanlı sistemlerde `sudo apt install traceroute` komutunu kullanabilirsiniz.
+4. Belirli bir port üzerinden traceroute:
+   ```bash
+   traceroute -p 80 example.com
+   ```
+
+5. Yanıt süresi için 2 saniye bekleme:
+   ```bash
+   traceroute -w 2 example.com
+   ```
+
+## Tips
+- `traceroute` komutunu çalıştırmadan önce, ağ bağlantınızın aktif olduğundan emin olun.
+- Hedefin IP adresini kullanarak daha hızlı sonuçlar alabilirsiniz.
+- Ağ sorunlarını teşhis etmek için, `traceroute` çıktısını dikkatlice inceleyin; kaybolan paketler veya yüksek gecikme süreleri sorunları gösterebilir.

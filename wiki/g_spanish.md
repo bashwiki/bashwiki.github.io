@@ -1,40 +1,54 @@
-# [리눅스] Bash g++ 사용법
+# [Linux] Bash g++ Uso: Compilar programas en C++
 
 ## Overview
-El comando `g++` es el compilador de C++ que forma parte del proyecto GNU Compiler Collection (GCC). Su propósito principal es compilar programas escritos en el lenguaje de programación C++. `g++` convierte el código fuente en archivos ejecutables, permitiendo a los desarrolladores ejecutar sus aplicaciones en sistemas operativos compatibles.
+El comando `g++` es el compilador de C++ de GNU. Se utiliza para compilar archivos de código fuente escritos en C++ y generar archivos ejecutables. Es una herramienta fundamental para desarrolladores que trabajan en proyectos de software en este lenguaje.
 
 ## Usage
 La sintaxis básica del comando `g++` es la siguiente:
 
 ```bash
-g++ [opciones] archivo1.cpp archivo2.cpp -o nombre_ejecutable
+g++ [opciones] [archivos]
 ```
 
-### Opciones Comunes
-- `-o nombre_ejecutable`: Especifica el nombre del archivo ejecutable que se generará. Si no se proporciona, el ejecutable se llamará `a.out` por defecto.
-- `-Wall`: Activa todas las advertencias recomendadas, lo que ayuda a identificar problemas potenciales en el código.
-- `-g`: Incluye información de depuración en el ejecutable, útil para el uso con depuradores como `gdb`.
-- `-std=c++11`: Especifica la versión del estándar de C++ que se utilizará. Puedes cambiar `c++11` por `c++14`, `c++17`, etc., según sea necesario.
+## Common Options
+A continuación se presentan algunas opciones comunes que se pueden utilizar con `g++`:
 
-## Examples
-### Ejemplo 1: Compilar un solo archivo
-Para compilar un archivo llamado `programa.cpp` y generar un ejecutable llamado `programa`, puedes usar el siguiente comando:
+- `-o <archivo>`: Especifica el nombre del archivo ejecutable de salida.
+- `-Wall`: Activa todas las advertencias recomendadas.
+- `-g`: Genera información de depuración para usar con un depurador.
+- `-std=<estándar>`: Especifica el estándar de C++ a utilizar (por ejemplo, `-std=c++11`).
+- `-I<directorio>`: Agrega un directorio a la lista de directorios de búsqueda para archivos de encabezado.
 
-```bash
-g++ programa.cpp -o programa
-```
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `g++`:
 
-### Ejemplo 2: Compilar múltiples archivos
-Si tienes varios archivos de código fuente, como `main.cpp` y `funciones.cpp`, puedes compilarlos juntos de la siguiente manera:
+1. Compilar un archivo fuente simple:
+   ```bash
+   g++ programa.cpp
+   ```
 
-```bash
-g++ main.cpp funciones.cpp -o mi_programa -Wall
-```
+2. Compilar y especificar un nombre para el archivo ejecutable:
+   ```bash
+   g++ programa.cpp -o mi_programa
+   ```
 
-Este comando generará un ejecutable llamado `mi_programa` y activará las advertencias recomendadas.
+3. Compilar con advertencias activadas:
+   ```bash
+   g++ -Wall programa.cpp
+   ```
+
+4. Compilar con información de depuración:
+   ```bash
+   g++ -g programa.cpp -o mi_programa
+   ```
+
+5. Compilar utilizando un estándar específico de C++:
+   ```bash
+   g++ -std=c++17 programa.cpp -o mi_programa
+   ```
 
 ## Tips
-- Siempre utiliza la opción `-Wall` para asegurarte de que estás al tanto de posibles problemas en tu código.
-- Si estás trabajando en un proyecto grande, considera usar un sistema de construcción como `Makefile` para gestionar la compilación de múltiples archivos de manera más eficiente.
-- Aprovecha la opción `-g` durante el desarrollo para facilitar la depuración de tu código.
-- Mantén tu código bien organizado y documentado para facilitar la identificación de errores y la colaboración con otros desarrolladores.
+- Siempre utiliza la opción `-Wall` para detectar posibles problemas en tu código.
+- Si trabajas en un proyecto grande, considera dividir tu código en múltiples archivos y compílalos juntos.
+- Usa la opción `-g` durante el desarrollo para facilitar la depuración.
+- Familiarízate con los estándares de C++ y utiliza la opción `-std` para asegurarte de que tu código sea compatible con el estándar deseado.

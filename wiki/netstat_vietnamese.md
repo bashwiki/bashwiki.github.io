@@ -1,50 +1,59 @@
-# [리눅스] Bash netstat 사용법
+# [Linux] Bash netstat Cách sử dụng: Kiểm tra kết nối mạng
 
 ## Tổng quan
-Lệnh `netstat` (network statistics) là một công cụ dòng lệnh trong hệ điều hành Unix/Linux dùng để hiển thị thông tin về các kết nối mạng, bảng định tuyến, thống kê giao thức và các thông tin khác liên quan đến mạng. Lệnh này rất hữu ích cho các kỹ sư và lập trình viên để theo dõi trạng thái mạng và chẩn đoán sự cố kết nối.
+Lệnh `netstat` là một công cụ mạnh mẽ trong Bash, được sử dụng để hiển thị thông tin về các kết nối mạng, bảng định tuyến, và các giao thức mạng đang hoạt động trên hệ thống. Nó giúp người dùng theo dõi và quản lý các kết nối mạng một cách hiệu quả.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `netstat` như sau:
-
-```bash
-netstat [tùy chọn]
+```
+netstat [tùy chọn] [tham số]
 ```
 
-Một số tùy chọn phổ biến của lệnh `netstat` bao gồm:
-
+## Các tùy chọn phổ biến
 - `-a`: Hiển thị tất cả các kết nối và cổng đang lắng nghe.
 - `-t`: Hiển thị các kết nối TCP.
 - `-u`: Hiển thị các kết nối UDP.
-- `-n`: Hiển thị địa chỉ và số cổng dưới dạng số, không chuyển đổi thành tên.
+- `-n`: Hiển thị địa chỉ IP và số cổng thay vì tên miền và tên dịch vụ.
 - `-l`: Hiển thị các cổng đang lắng nghe.
-- `-p`: Hiển thị PID và tên của chương trình sử dụng kết nối.
+- `-p`: Hiển thị PID và tên của chương trình đang sử dụng kết nối.
 
-## Ví dụ
+## Ví dụ thường gặp
 Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `netstat`:
 
 1. Hiển thị tất cả các kết nối và cổng đang lắng nghe:
+   ```bash
+   netstat -a
+   ```
 
-```bash
-netstat -a
-```
+2. Hiển thị các kết nối TCP:
+   ```bash
+   netstat -t
+   ```
 
-2. Hiển thị các kết nối TCP đang hoạt động:
+3. Hiển thị các kết nối UDP:
+   ```bash
+   netstat -u
+   ```
 
-```bash
-netstat -t
-```
+4. Hiển thị thông tin kết nối với địa chỉ IP và số cổng:
+   ```bash
+   netstat -n
+   ```
 
-3. Hiển thị các cổng đang lắng nghe cùng với PID của chương trình:
+5. Hiển thị các cổng đang lắng nghe:
+   ```bash
+   netstat -l
+   ```
 
-```bash
-netstat -l -p
-```
+6. Hiển thị thông tin kết nối cùng với PID và tên chương trình:
+   ```bash
+   netstat -p
+   ```
 
 ## Mẹo
-- Sử dụng tùy chọn `-n` để tăng tốc độ hiển thị thông tin, vì lệnh sẽ không cố gắng chuyển đổi địa chỉ IP thành tên miền.
-- Kết hợp `netstat` với lệnh `grep` để lọc thông tin cụ thể. Ví dụ, để tìm kiếm các kết nối đến một địa chỉ IP cụ thể:
-
-```bash
-netstat -an | grep 192.168.1.1
-```
-- Thường xuyên kiểm tra các kết nối mạng để phát hiện các hoạt động bất thường hoặc không mong muốn, giúp bảo mật hệ thống tốt hơn.
+- Sử dụng tùy chọn `-tuln` để nhanh chóng xem các kết nối TCP và UDP đang lắng nghe mà không cần tên miền.
+- Kết hợp `netstat` với `grep` để lọc ra thông tin cụ thể. Ví dụ:
+  ```bash
+  netstat -tuln | grep 80
+  ```
+- Để có cái nhìn tổng quan hơn về tình trạng mạng, bạn có thể sử dụng `netstat` cùng với các lệnh khác như `top` hoặc `htop` để theo dõi hiệu suất hệ thống.

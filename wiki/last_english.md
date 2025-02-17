@@ -1,7 +1,7 @@
-# [리눅스] Bash last 사용법
+# [Linux] Bash last command: Display login history
 
 ## Overview
-The `last` command in Bash is used to display a list of the most recent login sessions for users on the system. It reads from the `/var/log/wtmp` file, which records all logins and logouts, providing a historical record of user activity. This command is particularly useful for system administrators and developers who need to monitor user access and troubleshoot login issues.
+The `last` command in Bash is used to display a list of the most recent logins to the system. It reads from the `/var/log/wtmp` file, which records all logins and logouts, allowing users to track who accessed the system and when.
 
 ## Usage
 The basic syntax of the `last` command is as follows:
@@ -10,26 +10,46 @@ The basic syntax of the `last` command is as follows:
 last [options] [username]
 ```
 
-### Common Options
-- `-n [number]`: Limits the output to the specified number of entries. For example, `last -n 5` will show the last 5 login sessions.
-- `-R`: Suppresses the display of the hostname in the output.
-- `-F`: Displays the full login and logout times, including the year.
-- `-x`: Shows system shutdown entries and run level changes in addition to user logins.
+## Common Options
+- `-a`: Show the hostname on the last line.
+- `-n [number]`: Limit the output to the specified number of entries.
+- `-x`: Show system shutdown entries and run level changes.
+- `-R`: Suppress the display of the hostname.
+- `-F`: Display the full login and logout times.
 
-## Examples
-1. **Display the last 10 login sessions:**
+## Common Examples
+
+1. **Display all login history:**
    ```bash
-   last -n 10
+   last
    ```
-   This command will show the last 10 users who logged into the system, along with their login times and durations.
 
-2. **Show login sessions for a specific user:**
+2. **Limit the output to the last 5 logins:**
+   ```bash
+   last -n 5
+   ```
+
+3. **Show login history for a specific user:**
    ```bash
    last username
    ```
-   Replace `username` with the actual username to see the login history for that specific user.
+
+4. **Include hostname in the output:**
+   ```bash
+   last -a
+   ```
+
+5. **Display full login and logout times:**
+   ```bash
+   last -F
+   ```
+
+6. **Show login history including system shutdowns:**
+   ```bash
+   last -x
+   ```
 
 ## Tips
-- Use the `-F` option to get a more detailed view of login times, which can be helpful for auditing purposes.
-- Combine the `-n` option with `-x` to get a concise view of both user logins and system events, which can aid in understanding system usage patterns.
-- Regularly check the output of `last` to monitor unauthorized access attempts or unusual login times, which can indicate potential security issues.
+- Use `last -n 10` to quickly check the last 10 login attempts, which is useful for a quick security review.
+- Combine options for more tailored output, such as `last -a -n 5` to see the last 5 logins with hostnames.
+- Regularly check the login history to monitor for any unauthorized access attempts to the system.

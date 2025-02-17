@@ -1,39 +1,45 @@
-# [리눅스] Bash umask 사용법
+# [Linux] Bash umask utilizzo: Imposta i permessi predefiniti per i file e le directory
 
-## Panoramica
-Il comando `umask` in Bash è utilizzato per impostare il valore di maschera dei permessi predefiniti per i nuovi file e directory creati nel sistema. La maschera dei permessi determina quali permessi (lettura, scrittura, esecuzione) vengono negati ai file e alle directory appena creati. In sostanza, `umask` controlla i permessi di accesso iniziali per gli utenti e i gruppi.
+## Overview
+Il comando `umask` in Bash è utilizzato per impostare i permessi predefiniti per i nuovi file e directory creati. La maschera dei permessi determina quali permessi saranno negati ai file e alle directory appena creati.
 
-## Utilizzo
+## Usage
 La sintassi di base del comando `umask` è la seguente:
 
 ```bash
-umask [opzioni] [maschera]
+umask [options] [arguments]
 ```
 
-### Opzioni comuni
-- **-S**: Mostra la maschera dei permessi in forma simbolica.
-- **-p**: Mostra la maschera dei permessi corrente in forma simbolica, utile per visualizzare i permessi senza modificarli.
+## Common Options
+- `-S`: Mostra la maschera dei permessi in formato simbolico.
+- `-p`: Mostra la maschera dei permessi corrente in formato simbolico, utile per visualizzare i permessi senza modificarli.
 
-## Esempi
-### Esempio 1: Visualizzare la maschera corrente
-Per visualizzare la maschera dei permessi attuale, puoi semplicemente eseguire:
+## Common Examples
+Ecco alcuni esempi pratici di utilizzo del comando `umask`:
 
-```bash
-umask
-```
+1. **Visualizzare la maschera dei permessi corrente**:
+   ```bash
+   umask
+   ```
 
-Questo comando restituirà un valore numerico che rappresenta la maschera dei permessi attuale.
+2. **Impostare una nuova maschera dei permessi**:
+   Impostiamo la maschera per negare i permessi di scrittura per il gruppo e gli altri:
+   ```bash
+   umask 022
+   ```
 
-### Esempio 2: Impostare una nuova maschera
-Se desideri impostare una nuova maschera, ad esempio per negare i permessi di scrittura per il gruppo e altri utenti, puoi utilizzare:
+3. **Visualizzare la maschera dei permessi in formato simbolico**:
+   ```bash
+   umask -S
+   ```
 
-```bash
-umask 022
-```
+4. **Ripristinare la maschera predefinita**:
+   Per ripristinare la maschera predefinita (077), puoi eseguire:
+   ```bash
+   umask 077
+   ```
 
-In questo caso, i nuovi file creati avranno permessi di `rw-r--r--`, mentre le nuove directory avranno permessi di `rwxr-xr-x`.
-
-## Suggerimenti
-- È buona pratica controllare la maschera dei permessi prima di creare file o directory, specialmente in ambienti condivisi, per garantire che i permessi siano configurati correttamente.
-- Ricorda che la maschera dei permessi è applicata solo ai nuovi file e directory; non modifica i permessi di file o directory esistenti.
+## Tips
+- È buona pratica controllare la maschera dei permessi prima di creare file sensibili, per garantire che i permessi siano impostati correttamente.
+- Ricorda che la maschera `umask` è applicata solo ai file e alle directory creati dopo la sua impostazione. Non influisce sui file già esistenti.
 - Puoi aggiungere il comando `umask` nel tuo file di configurazione della shell (come `.bashrc` o `.bash_profile`) per impostare automaticamente la maschera desiderata all'avvio della sessione.

@@ -1,39 +1,45 @@
-# [리눅스] Bash umask 사용법
+# [Linux] Bash umask: [quản lý quyền truy cập tệp]
 
-## Tổng quan
-Lệnh `umask` trong Bash được sử dụng để thiết lập quyền truy cập mặc định cho các tệp và thư mục mới được tạo. Nó xác định các quyền mà người dùng không muốn cấp cho các tệp và thư mục mới. Mặc định, khi một tệp hoặc thư mục mới được tạo, quyền truy cập sẽ được tính toán dựa trên giá trị `umask` đã được thiết lập.
+## Overview
+Lệnh `umask` trong Bash được sử dụng để thiết lập quyền truy cập mặc định cho các tệp và thư mục mới được tạo ra. Nó xác định các quyền nào sẽ bị từ chối khi một tệp hoặc thư mục mới được tạo, giúp quản lý bảo mật cho hệ thống.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `umask` như sau:
 
 ```bash
-umask [options] [mask]
+umask [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-S`: Hiển thị giá trị `umask` hiện tại dưới dạng ký hiệu quyền (ví dụ: `u=rwx,g=rx,o=rx`).
-- `-p`: Hiển thị giá trị `umask` hiện tại mà không thay đổi nó.
+## Common Options
+- `-S`: Hiển thị umask dưới dạng ký hiệu.
+- `-p`: Hiển thị umask hiện tại của shell hiện tại.
 
-## Ví dụ
-### Ví dụ 1: Kiểm tra giá trị umask hiện tại
-Để xem giá trị `umask` hiện tại, bạn có thể sử dụng lệnh sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `umask`:
 
-```bash
-umask
-```
+1. **Xem umask hiện tại**:
+   ```bash
+   umask
+   ```
 
-Kết quả có thể là một giá trị như `0022`, điều này có nghĩa là quyền truy cập cho nhóm và người khác sẽ bị hạn chế.
+2. **Thiết lập umask mới**:
+   ```bash
+   umask 027
+   ```
+   Lệnh này sẽ thiết lập umask để các tệp mới sẽ có quyền 640 và thư mục mới sẽ có quyền 750.
 
-### Ví dụ 2: Thiết lập umask mới
-Để thiết lập giá trị `umask` mới, bạn có thể sử dụng lệnh sau:
+3. **Hiển thị umask dưới dạng ký hiệu**:
+   ```bash
+   umask -S
+   ```
 
-```bash
-umask 007
-```
+4. **Thiết lập umask cho phiên làm việc hiện tại**:
+   ```bash
+   umask 002
+   ```
+   Điều này cho phép nhóm có quyền ghi vào các tệp mới.
 
-Giá trị này có nghĩa là quyền truy cập cho nhóm và người khác sẽ bị từ chối hoàn toàn cho các tệp mới được tạo.
-
-## Mẹo
-- Hãy nhớ rằng giá trị `umask` là một giá trị bit, vì vậy bạn có thể tính toán các quyền truy cập bằng cách sử dụng các số nhị phân.
-- Để đảm bảo rằng các quyền truy cập được thiết lập đúng, hãy kiểm tra giá trị `umask` trước khi tạo tệp hoặc thư mục mới.
-- Nếu bạn muốn thiết lập `umask` cho một phiên làm việc cụ thể, hãy thêm lệnh `umask` vào tệp cấu hình shell của bạn (như `.bashrc` hoặc `.bash_profile`) để tự động áp dụng mỗi khi bạn mở một phiên làm việc mới.
+## Tips
+- Hãy chắc chắn kiểm tra umask hiện tại trước khi tạo tệp hoặc thư mục quan trọng.
+- Sử dụng umask 007 để cho phép quyền truy cập đầy đủ cho người dùng và nhóm, nhưng không cho phép quyền truy cập cho người khác.
+- Đặt umask trong tệp cấu hình shell của bạn (như `.bashrc` hoặc `.bash_profile`) để đảm bảo các thiết lập umask được áp dụng mỗi khi bạn đăng nhập.

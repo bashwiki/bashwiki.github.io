@@ -1,47 +1,45 @@
-# [리눅스] Bash diff 사용법
+# [Linux] Bash diff cách sử dụng: So sánh sự khác biệt giữa hai tệp
 
-## Tổng quan
-Lệnh `diff` trong Bash được sử dụng để so sánh nội dung của hai tệp tin hoặc hai thư mục. Mục đích chính của lệnh này là xác định sự khác biệt giữa hai tệp, giúp người dùng dễ dàng nhận diện các thay đổi, bổ sung hoặc xóa bỏ trong nội dung của chúng. Lệnh `diff` thường được sử dụng trong phát triển phần mềm để theo dõi các thay đổi trong mã nguồn.
+## Overview
+Lệnh `diff` trong Bash được sử dụng để so sánh nội dung của hai tệp hoặc hai thư mục. Nó hiển thị những khác biệt giữa chúng, giúp người dùng dễ dàng nhận biết các thay đổi.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `diff` như sau:
 
 ```bash
-diff [tùy chọn] tệp1 tệp2
+diff [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-u`: Hiển thị sự khác biệt theo định dạng "unified", giúp dễ đọc hơn.
+## Common Options
+- `-u`: Hiển thị kết quả theo định dạng "unified", giúp dễ đọc hơn.
 - `-i`: Bỏ qua sự khác biệt về chữ hoa và chữ thường.
-- `-w`: Bỏ qua sự khác biệt về khoảng trắng.
-- `-r`: So sánh hai thư mục và hiển thị sự khác biệt giữa các tệp trong thư mục đó.
+- `-w`: Bỏ qua tất cả các khoảng trắng khi so sánh.
+- `-r`: So sánh các thư mục một cách đệ quy.
 
-## Ví dụ
-### Ví dụ 1: So sánh hai tệp tin
-Giả sử bạn có hai tệp tin `file1.txt` và `file2.txt`, bạn có thể sử dụng lệnh sau để so sánh chúng:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `diff`:
 
-```bash
-diff file1.txt file2.txt
-```
+1. So sánh hai tệp văn bản:
+   ```bash
+   diff file1.txt file2.txt
+   ```
 
-Kết quả sẽ hiển thị các dòng khác nhau giữa hai tệp tin.
+2. So sánh hai tệp với định dạng unified:
+   ```bash
+   diff -u file1.txt file2.txt
+   ```
 
-### Ví dụ 2: So sánh hai thư mục
-Nếu bạn muốn so sánh nội dung của hai thư mục `dir1` và `dir2`, bạn có thể sử dụng:
+3. So sánh hai thư mục:
+   ```bash
+   diff -r dir1/ dir2/
+   ```
 
-```bash
-diff -r dir1 dir2
-```
+4. So sánh hai tệp mà không phân biệt chữ hoa và chữ thường:
+   ```bash
+   diff -i file1.txt file2.txt
+   ```
 
-Lệnh này sẽ hiển thị tất cả các sự khác biệt giữa các tệp trong hai thư mục.
-
-## Mẹo
-- Khi làm việc với các tệp lớn, hãy sử dụng tùy chọn `-u` để có cái nhìn tổng quát hơn về sự khác biệt.
-- Nếu bạn chỉ quan tâm đến sự khác biệt về nội dung mà không cần quan tâm đến khoảng trắng hoặc chữ hoa, hãy sử dụng các tùy chọn `-w` và `-i`.
-- Để lưu kết quả của lệnh `diff` vào một tệp tin, bạn có thể sử dụng dấu chuyển hướng `>`:
-
-```bash
-diff file1.txt file2.txt > differences.txt
-```
-
-Điều này sẽ giúp bạn lưu lại các khác biệt để tham khảo sau này.
+## Tips
+- Sử dụng tùy chọn `-u` để có kết quả dễ đọc hơn, đặc biệt khi xem xét các thay đổi lớn.
+- Khi so sánh thư mục, hãy luôn sử dụng tùy chọn `-r` để đảm bảo rằng tất cả các tệp con cũng được so sánh.
+- Kiểm tra các tệp tạm thời hoặc bản sao lưu trước khi thực hiện các thay đổi lớn để tránh mất dữ liệu.

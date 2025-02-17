@@ -1,53 +1,48 @@
-# [리눅스] Bash curl 사용법
+# [Linux] Bash curl cách sử dụng: Gửi và nhận dữ liệu qua giao thức HTTP
 
 ## Tổng quan
-`curl` là một công cụ dòng lệnh mạnh mẽ được sử dụng để truyền tải dữ liệu từ hoặc đến một máy chủ thông qua các giao thức khác nhau như HTTP, HTTPS, FTP và nhiều hơn nữa. Mục đích chính của `curl` là giúp người dùng thực hiện các yêu cầu mạng một cách dễ dàng và linh hoạt, cho phép kiểm tra và tương tác với các API, tải xuống tệp tin, và nhiều tác vụ khác liên quan đến mạng.
+Lệnh `curl` là một công cụ dòng lệnh mạnh mẽ được sử dụng để gửi và nhận dữ liệu qua các giao thức mạng như HTTP, HTTPS, FTP, và nhiều giao thức khác. Nó cho phép người dùng tương tác với các API và tải xuống hoặc tải lên tệp tin một cách dễ dàng.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `curl` như sau:
-
-```bash
-curl [options] [URL]
+```
+curl [options] [arguments]
 ```
 
-Trong đó:
-- `[options]`: Các tùy chọn để điều chỉnh hành vi của `curl`.
-- `[URL]`: Địa chỉ của tài nguyên mà bạn muốn truy cập.
+## Các tùy chọn phổ biến
+- `-X, --request <method>`: Chỉ định phương thức HTTP (GET, POST, PUT, DELETE, v.v.).
+- `-d, --data <data>`: Gửi dữ liệu trong yêu cầu POST.
+- `-H, --header <header>`: Thêm tiêu đề HTTP vào yêu cầu.
+- `-o, --output <file>`: Ghi dữ liệu nhận được vào tệp tin.
+- `-I, --head`: Chỉ lấy tiêu đề HTTP mà không tải nội dung.
 
-Một số tùy chọn phổ biến của `curl` bao gồm:
-- `-X`: Chỉ định phương thức HTTP (GET, POST, PUT, DELETE, v.v.).
-- `-d`: Gửi dữ liệu trong yêu cầu POST.
-- `-H`: Thêm tiêu đề HTTP vào yêu cầu.
-- `-o`: Lưu kết quả vào tệp tin thay vì hiển thị trên màn hình.
-- `-I`: Chỉ lấy tiêu đề của phản hồi.
+## Ví dụ phổ biến
+- **Gửi yêu cầu GET đơn giản**:
+```bash
+curl http://example.com
+```
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng `curl`:
+- **Gửi yêu cầu POST với dữ liệu**:
+```bash
+curl -X POST -d "name=John&age=30" http://example.com/api
+```
 
-1. **Gửi yêu cầu GET đến một URL**:
-   ```bash
-   curl https://api.example.com/data
-   ```
-   Lệnh này sẽ gửi một yêu cầu GET đến URL và hiển thị phản hồi trên màn hình.
+- **Thêm tiêu đề vào yêu cầu**:
+```bash
+curl -H "Authorization: Bearer token" http://example.com/protected
+```
 
-2. **Gửi yêu cầu POST với dữ liệu**:
-   ```bash
-   curl -X POST -d "name=John&age=30" https://api.example.com/users
-   ```
-   Lệnh này sẽ gửi một yêu cầu POST đến URL với dữ liệu tên và tuổi, thường được sử dụng để tạo một người dùng mới trong API.
+- **Tải xuống tệp tin**:
+```bash
+curl -o myfile.txt http://example.com/file.txt
+```
+
+- **Lấy chỉ tiêu đề HTTP**:
+```bash
+curl -I http://example.com
+```
 
 ## Mẹo
-- Sử dụng tùy chọn `-o` để lưu phản hồi vào tệp tin, giúp bạn dễ dàng quản lý dữ liệu:
-  ```bash
-  curl -o response.json https://api.example.com/data
-  ```
-- Khi làm việc với API, hãy sử dụng tùy chọn `-H` để thêm các tiêu đề cần thiết như token xác thực:
-  ```bash
-  curl -H "Authorization: Bearer YOUR_TOKEN" https://api.example.com/protected
-  ```
-- Để theo dõi quá trình tải xuống, bạn có thể thêm tùy chọn `-#` để hiển thị thanh tiến trình:
-  ```bash
-  curl -# -O https://example.com/largefile.zip
-  ```
-
-Với những thông tin trên, bạn đã có cái nhìn tổng quan và cách sử dụng cơ bản của lệnh `curl` trong Bash.
+- Sử dụng `-v` để xem thông tin chi tiết về yêu cầu và phản hồi, hữu ích cho việc gỡ lỗi.
+- Nếu bạn cần gửi dữ liệu JSON, hãy sử dụng `-H "Content-Type: application/json"` cùng với `-d`.
+- Để lưu lại lịch sử yêu cầu, bạn có thể sử dụng `-o` để ghi vào tệp tin và kiểm tra sau này.

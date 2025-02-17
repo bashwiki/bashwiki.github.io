@@ -1,52 +1,55 @@
-# [리눅스] Bash ps 사용법
+# [Linux] Bash ps Kullanımı: Çalışan süreçleri görüntüleme
 
-## Genel Bakış
-`ps` komutu, Unix ve Linux işletim sistemlerinde çalışan süreçlerin (process) durumunu görüntülemek için kullanılır. Bu komut, sistemdeki aktif süreçlerin bir listesini sağlar ve her bir sürecin kimliği, durumu, CPU ve bellek kullanımı gibi bilgileri içerir. Geliştiriciler ve sistem yöneticileri için, sistemin performansını izlemek ve sorunları teşhis etmek açısından önemli bir araçtır.
+## Overview
+`ps` komutu, sistemde çalışan süreçlerin durumunu görüntülemek için kullanılır. Bu komut, kullanıcıların hangi işlemlerin çalıştığını, bu işlemlerin PID'lerini (Process ID), CPU ve bellek kullanımını ve daha fazlasını görmelerine olanak tanır.
 
-## Kullanım
-Temel `ps` komutunun sözdizimi aşağıdaki gibidir:
-
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-ps [seçenekler]
+ps [options] [arguments]
 ```
 
-En yaygın kullanılan seçenekler şunlardır:
+## Common Options
+- `-e`: Tüm süreçleri gösterir.
+- `-f`: Tam formatta süreç bilgilerini gösterir.
+- `-u [kullanıcı]`: Belirtilen kullanıcıya ait süreçleri listeler.
+- `-aux`: Tüm kullanıcıların süreçlerini ayrıntılı bir şekilde gösterir.
+- `--sort`: Çıktıyı belirtilen kritere göre sıralar.
 
-- `-e` veya `-A`: Tüm süreçleri gösterir.
-- `-f`: Süreçlerin tam formatta (daha fazla bilgiyle) gösterilmesini sağlar.
-- `-u [kullanıcı]`: Belirli bir kullanıcıya ait süreçleri görüntüler.
-- `-aux`: Tüm süreçleri, kullanıcı bilgileriyle birlikte gösterir.
+## Common Examples
+Aşağıda `ps` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-## Örnekler
-1. Tüm süreçleri listelemek için:
+- Tüm süreçleri görüntülemek için:
+    ```bash
+    ps -e
+    ```
 
-```bash
-ps -e
-```
+- Ayrıntılı süreç bilgilerini görmek için:
+    ```bash
+    ps -ef
+    ```
 
-Bu komut, sistemdeki tüm aktif süreçlerin bir listesini verir.
+- Belirli bir kullanıcıya ait süreçleri listelemek için:
+    ```bash
+    ps -u username
+    ```
 
-2. Belirli bir kullanıcıya ait süreçleri görüntülemek için:
+- Tüm kullanıcıların süreçlerini ayrıntılı olarak görüntülemek için:
+    ```bash
+    ps aux
+    ```
 
-```bash
-ps -u username
-```
+- Çıktıyı CPU kullanımına göre sıralamak için:
+    ```bash
+    ps aux --sort=-%cpu
+    ```
 
-Burada `username` kısmını ilgilendiğiniz kullanıcının adıyla değiştirerek o kullanıcıya ait süreçleri görebilirsiniz.
+## Tips
+- `ps` komutunu `grep` ile birleştirerek belirli bir süreci bulabilirsiniz. Örneğin:
+    ```bash
+    ps aux | grep process_name
+    ```
 
-## İpuçları
-- `ps` komutunu `grep` ile birleştirerek belirli bir süreci bulabilirsiniz. Örneğin, `nginx` sürecini bulmak için:
+- `top` komutunu kullanarak gerçek zamanlı süreç izleme yapabilirsiniz. `ps` komutu, anlık bir görüntü sağlarken, `top` sürekli güncellenen bir görünüm sunar.
 
-```bash
-ps -e | grep nginx
-```
-
-- `ps` komutunun çıktısını daha okunabilir hale getirmek için `less` komutunu kullanabilirsiniz:
-
-```bash
-ps -aux | less
-```
-
-- Süreçlerin sürekli olarak izlenmesi için `top` veya `htop` gibi araçları kullanmayı düşünebilirsiniz. Bu araçlar, süreçlerin anlık durumunu daha dinamik bir şekilde görüntüler. 
-
-Bu bilgilerle, `ps` komutunu etkili bir şekilde kullanarak sistem süreçlerinizi izleyebilir ve yönetebilirsiniz.
+- `man ps` komutunu kullanarak `ps` komutunun tüm seçenekleri ve kullanımı hakkında daha fazla bilgi alabilirsiniz.

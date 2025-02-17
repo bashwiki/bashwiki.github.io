@@ -1,37 +1,47 @@
-# [리눅스] Bash mv 사용법
+# [Linux] Bash mv Uso: Mover o renombrar archivos y directorios
 
 ## Overview
-El comando `mv` en Bash se utiliza para mover archivos y directorios de una ubicación a otra. Además de su función principal de mover, también se puede utilizar para renombrar archivos y directorios. Es una herramienta esencial para la gestión de archivos en sistemas Unix y Linux.
+El comando `mv` se utiliza en Bash para mover o renombrar archivos y directorios. Es una herramienta esencial para la gestión de archivos en sistemas Unix y Linux.
 
 ## Usage
 La sintaxis básica del comando `mv` es la siguiente:
 
 ```bash
-mv [opciones] origen destino
+mv [opciones] [origen] [destino]
 ```
 
-### Opciones Comunes:
+## Common Options
 - `-i`: Pregunta antes de sobrescribir un archivo existente.
 - `-u`: Mueve solo si el archivo de origen es más nuevo que el archivo de destino o si el archivo de destino no existe.
-- `-v`: Muestra el progreso de la operación, indicando qué archivos se están moviendo.
-- `-n`: No sobrescribe archivos existentes.
+- `-v`: Muestra el proceso de movimiento de archivos, proporcionando información detallada sobre lo que se está haciendo.
 
-## Examples
-### Ejemplo 1: Mover un archivo
-Para mover un archivo llamado `documento.txt` a un directorio llamado `documentos`, se puede usar el siguiente comando:
+## Common Examples
+1. **Mover un archivo a un directorio:**
+   ```bash
+   mv archivo.txt /ruta/al/directorio/
+   ```
 
-```bash
-mv documento.txt documentos/
-```
+2. **Renombrar un archivo:**
+   ```bash
+   mv archivo.txt nuevo_nombre.txt
+   ```
 
-### Ejemplo 2: Renombrar un archivo
-Para renombrar un archivo de `viejo_nombre.txt` a `nuevo_nombre.txt`, se utiliza el siguiente comando:
+3. **Mover y renombrar un archivo al mismo tiempo:**
+   ```bash
+   mv archivo.txt /ruta/al/directorio/nuevo_nombre.txt
+   ```
 
-```bash
-mv viejo_nombre.txt nuevo_nombre.txt
-```
+4. **Mover un directorio:**
+   ```bash
+   mv /ruta/al/directorio1 /ruta/al/directorio2/
+   ```
+
+5. **Mover un archivo y preguntar antes de sobrescribir:**
+   ```bash
+   mv -i archivo.txt /ruta/al/directorio/
+   ```
 
 ## Tips
-- Siempre es recomendable usar la opción `-i` si no estás seguro de sobrescribir archivos existentes, ya que esto te dará una advertencia antes de realizar la acción.
-- Utiliza la opción `-v` para tener un registro visual de los archivos que se están moviendo, lo que puede ser útil en operaciones con múltiples archivos.
-- Asegúrate de tener los permisos necesarios para mover o renombrar archivos, especialmente cuando trabajas en directorios del sistema o en archivos de otros usuarios.
+- Siempre verifica la ruta de destino antes de mover archivos para evitar pérdidas accidentales.
+- Utiliza la opción `-v` para tener un registro claro de las operaciones realizadas, especialmente cuando trabajas con múltiples archivos.
+- Considera usar la opción `-u` para evitar sobrescribir archivos más recientes sin querer.

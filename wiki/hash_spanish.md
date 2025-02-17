@@ -1,41 +1,51 @@
-# [리눅스] Bash hash 사용법
+# [Linux] Bash hash uso: [gestiona el almacenamiento en caché de comandos]
 
 ## Overview
-El comando `hash` en Bash se utiliza para gestionar la tabla de búsqueda de comandos. Su propósito principal es almacenar la ubicación de los comandos ejecutados para acelerar su búsqueda en futuras invocaciones. Cuando ejecutas un comando, Bash lo busca en los directorios especificados en la variable de entorno `PATH`. Al usar `hash`, puedes evitar que Bash vuelva a buscar la ubicación de un comando si ya ha sido ejecutado anteriormente, lo que mejora la eficiencia.
+El comando `hash` en Bash se utiliza para gestionar el almacenamiento en caché de las ubicaciones de los comandos ejecutados. Esto permite que el intérprete de comandos recuerde las rutas de los comandos, mejorando así la velocidad de búsqueda al evitar búsquedas repetidas en el sistema de archivos.
 
 ## Usage
 La sintaxis básica del comando `hash` es la siguiente:
 
 ```bash
-hash [opciones] [comando]
+hash [opciones] [argumentos]
 ```
 
-### Opciones comunes:
-- `-r`: Borra la tabla de hash, lo que obliga a Bash a volver a buscar la ubicación de todos los comandos la próxima vez que se ejecuten.
-- `-p`: Permite especificar una ruta para un comando. Esto agrega o actualiza la entrada en la tabla de hash con la ruta proporcionada.
-- `-l`: Muestra la tabla de hash actual, listando los comandos y sus ubicaciones.
+## Common Options
+- `-r`: Borra el caché de comandos, forzando a Bash a buscar de nuevo las ubicaciones de los comandos.
+- `-p`: Permite especificar una ruta para un comando en particular, actualizando su ubicación en el caché.
+- `-l`: Muestra la lista de comandos en caché junto con sus ubicaciones.
 
-## Examples
+## Common Examples
 
-### Ejemplo 1: Mostrar la tabla de hash
-Para ver la tabla de hash actual, simplemente ejecuta:
+### Verificar la caché de comandos
+Para ver los comandos almacenados en caché, simplemente ejecuta:
 
 ```bash
-hash -l
+hash
 ```
 
-Este comando mostrará todos los comandos que han sido almacenados en la tabla de hash junto con sus rutas.
-
-### Ejemplo 2: Limpiar la tabla de hash
-Si deseas limpiar la tabla de hash para que Bash vuelva a buscar los comandos, utiliza:
+### Borrar la caché de comandos
+Si deseas limpiar el caché y forzar a Bash a buscar de nuevo, utiliza:
 
 ```bash
 hash -r
 ```
 
-Este comando eliminará todas las entradas de la tabla de hash, lo que puede ser útil si has cambiado la ubicación de un comando o si deseas asegurarte de que estás utilizando la versión más reciente de un comando.
+### Añadir un comando específico a la caché
+Si quieres añadir un comando específico a la caché con su ruta, puedes hacerlo así:
+
+```bash
+hash -p /usr/local/bin/mi_comando mi_comando
+```
+
+### Listar comandos en caché
+Para listar todos los comandos que están en caché junto con sus rutas, usa:
+
+```bash
+hash -l
+```
 
 ## Tips
-- Utiliza `hash -l` regularmente para verificar qué comandos están almacenados en la tabla de hash, especialmente si trabajas con múltiples versiones de herramientas.
-- Si cambias la ubicación de un comando o instalas una nueva versión, recuerda ejecutar `hash -r` para asegurarte de que estás utilizando la versión correcta.
-- La gestión de la tabla de hash puede ser especialmente útil en entornos de desarrollo donde se instalan y desinstalan frecuentemente herramientas y comandos.
+- Utiliza `hash -r` después de instalar nuevos programas para asegurarte de que Bash reconozca los nuevos comandos.
+- Si trabajas con scripts que cambian frecuentemente, considera limpiar la caché regularmente para evitar conflictos.
+- Recuerda que el comando `hash` solo afecta a la sesión actual de Bash; si abres una nueva terminal, se restablecerá el caché.

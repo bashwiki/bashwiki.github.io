@@ -1,44 +1,54 @@
-# [리눅스] Bash rsync 사용법
+# [Linux] Bash rsync Kullanımı: Dosya senkronizasyonu ve aktarımı
 
-## Overview
-`rsync`, dosya ve dizinleri yerel veya uzak sistemler arasında senkronize etmek için kullanılan bir komut satırı aracıdır. Özellikle büyük dosya transferlerinde verimlilik sağlamak için tasarlanmıştır. `rsync`, yalnızca değişen veya yeni dosyaları kopyalayarak zaman ve bant genişliği tasarrufu sağlar. Ayrıca, dosya izinleri, zaman damgaları ve sembolik bağlantılar gibi dosya özelliklerini de korur.
+## Genel Bakış
+`rsync`, dosyaları ve dizinleri yerel veya uzak sistemler arasında senkronize etmek ve aktarmak için kullanılan güçlü bir komut satırı aracıdır. Hızlı ve verimli bir şekilde çalışır, çünkü yalnızca değişen dosya parçalarını aktarır.
 
-## Usage
-Temel `rsync` komutunun sözdizimi şu şekildedir:
-
-```bash
-rsync [seçenekler] kaynak hedef
-```
-
-### Yaygın Seçenekler
-- `-a`: Arşiv modu; dosya izinleri, zaman damgaları ve sembolik bağlantılar dahil olmak üzere tüm dosya özelliklerini korur.
-- `-v`: Ayrıntılı çıktı; işlem sırasında hangi dosyaların kopyalandığını gösterir.
-- `-z`: Verileri sıkıştırarak transfer eder; bu, ağ üzerinden transfer edilen dosyaların boyutunu azaltır.
-- `-r`: Alt dizinleri de kopyalar; bu seçenek, dizinleri ve alt dizinlerini kopyalamak için kullanılır.
-- `--delete`: Hedef dizinde, kaynak dizinde olmayan dosyaları siler; bu, iki dizinin tam olarak senkronize olmasını sağlar.
-
-## Examples
-### Örnek 1: Yerel Dosyaları Senkronize Etme
-Aşağıdaki komut, `kaynak_dizin` içindeki tüm dosyaları `hedef_dizin`e senkronize eder:
+## Kullanım
+Temel kullanım şekli aşağıdaki gibidir:
 
 ```bash
-rsync -av kaynak_dizin/ hedef_dizin/
+rsync [seçenekler] [kaynak] [hedef]
 ```
 
-### Örnek 2: Uzak Sunucuya Dosya Gönderme
-Aşağıdaki komut, yerel `dosya.txt` dosyasını `kullanici@sunucu:/hedef_dizin/` adresine kopyalar:
+## Yaygın Seçenekler
+- `-a`: Arşiv modunu etkinleştirir; dosya izinlerini, zaman damgalarını ve sembolik bağlantıları korur.
+- `-v`: Ayrıntılı çıktı sağlar; hangi dosyaların aktarıldığını gösterir.
+- `-z`: Aktarım sırasında dosyaları sıkıştırır, bu da ağ üzerinden daha hızlı aktarım sağlar.
+- `-r`: Alt dizinler dahil olmak üzere dizinleri kopyalar.
+- `--delete`: Hedef dizindeki, kaynakta bulunmayan dosyaları siler.
 
-```bash
-rsync -avz dosya.txt kullanici@sunucu:/hedef_dizin/
-```
+## Yaygın Örnekler
+1. **Yerel dosyaları senkronize etme:**
+   ```bash
+   rsync -av /kaynak/dizin/ /hedef/dizin/
+   ```
 
-## Tips
-- `rsync` kullanırken, kaynak ve hedef dizinlerin sonuna `/` eklemeyi unutmayın. Bu, `rsync`'in yalnızca içeriği kopyalamasını sağlar.
-- Büyük dosya transferleri yaparken, `-z` seçeneğini kullanarak veri sıkıştırmasını etkinleştirmek, bant genişliği tasarrufu sağlar.
-- `--dry-run` seçeneği ile işlemin ne olacağını önceden görebilir, bu sayede yanlışlık yapma riskini azaltabilirsiniz. Örneğin:
+2. **Uzak bir sunucuya dosya kopyalama:**
+   ```bash
+   rsync -av /yerel/dosya.txt kullanıcı@sunucu:/uzak/dizin/
+   ```
 
-```bash
-rsync -av --dry-run kaynak_dizin/ hedef_dizin/
-```
+3. **Uzak sunucudan yerel bir dizine dosya çekme:**
+   ```bash
+   rsync -av kullanıcı@sunucu:/uzak/dizin/ /yerel/dizin/
+   ```
 
-Bu komut, dosyaların hangi dosyaların kopyalanacağını gösterir, ancak gerçek bir transfer gerçekleştirmez.
+4. **Sıkıştırarak dosya aktarımı:**
+   ```bash
+   rsync -avz /kaynak/dizin/ kullanıcı@sunucu:/uzak/dizin/
+   ```
+
+5. **Hedefteki dosyaları silerek senkronize etme:**
+   ```bash
+   rsync -av --delete /kaynak/dizin/ /hedef/dizin/
+   ```
+
+## İpuçları
+- **Yedekleme için kullanın:** `rsync`, dosyalarınızı yedeklemek için mükemmel bir araçtır. Değişiklikleri yalnızca bir kez aktararak zaman kazanabilirsiniz.
+- **Test edin:** `--dry-run` seçeneği ile komutu test edebilir ve ne olacağını görebilirsiniz. Bu, yanlışlıkla dosya silme riskini azaltır.
+- **SSH ile güvenli aktarım:** Uzak sunucularla güvenli bir bağlantı için `-e ssh` seçeneğini kullanabilirsiniz. Örneğin:
+  ```bash
+  rsync -av -e ssh /yerel/dosya.txt kullanıcı@sunucu:/uzak/dizin/
+  ``` 
+
+`rsync`, dosya aktarımında esneklik ve hız sunarak sıkça tercih edilen bir araçtır. Yukarıdaki örnekler ve ipuçları ile kullanımını kolaylaştırabilirsiniz.

@@ -1,46 +1,57 @@
-# [리눅스] Bash df 사용법
+# [Linux] Bash df Utilisation : Afficher l'espace disque disponible
 
 ## Overview
-La commande `df` (disk free) est utilisée dans les systèmes Unix et Linux pour afficher des informations sur l'espace disque utilisé et disponible sur les systèmes de fichiers. Son objectif principal est de fournir un aperçu de l'utilisation de l'espace disque, ce qui est essentiel pour la gestion des ressources et le dépannage des problèmes de stockage.
+La commande `df` (disk free) est utilisée pour afficher des informations sur l'espace disque utilisé et disponible sur les systèmes de fichiers montés. Elle permet aux utilisateurs de surveiller l'utilisation de l'espace disque et d'identifier les partitions qui pourraient être pleines.
 
 ## Usage
 La syntaxe de base de la commande `df` est la suivante :
 
 ```bash
-df [options] [fichiers]
+df [options] [arguments]
 ```
 
-### Options courantes :
+## Common Options
+Voici quelques options courantes pour la commande `df` :
+
 - `-h` : Affiche les tailles dans un format lisible par l'homme (par exemple, Ko, Mo, Go).
 - `-T` : Affiche le type de système de fichiers.
-- `-a` : Inclut les systèmes de fichiers avec une taille de 0.
+- `-a` : Inclut les systèmes de fichiers qui ne sont pas montés.
 - `-i` : Affiche l'utilisation des inodes au lieu de l'espace disque.
 
-## Examples
+## Common Examples
 Voici quelques exemples pratiques de l'utilisation de la commande `df` :
 
-1. Pour afficher l'utilisation de l'espace disque de manière lisible par l'homme :
+1. Afficher l'espace disque disponible sur tous les systèmes de fichiers montés :
 
-```bash
-df -h
-```
+   ```bash
+   df
+   ```
 
-Cette commande affichera une liste de tous les systèmes de fichiers montés avec leur taille totale, l'espace utilisé, l'espace disponible et le point de montage.
+2. Afficher l'espace disque dans un format lisible par l'homme :
 
-2. Pour afficher les informations sur un système de fichiers spécifique, par exemple `/dev/sda1` :
+   ```bash
+   df -h
+   ```
 
-```bash
-df -h /dev/sda1
-```
+3. Afficher les informations de tous les systèmes de fichiers, y compris ceux qui ne sont pas montés :
 
-Cela fournira des détails uniquement pour le système de fichiers spécifié.
+   ```bash
+   df -a
+   ```
+
+4. Afficher le type de système de fichiers avec les informations d'espace :
+
+   ```bash
+   df -T
+   ```
+
+5. Afficher l'utilisation des inodes :
+
+   ```bash
+   df -i
+   ```
 
 ## Tips
-- Utilisez l'option `-T` pour obtenir des informations supplémentaires sur le type de système de fichiers, ce qui peut être utile pour le dépannage.
-- Combinez `df` avec d'autres commandes comme `grep` pour filtrer les résultats, par exemple :
-
-```bash
-df -h | grep '/dev/sda'
-```
-
-Cela affichera uniquement les informations concernant les systèmes de fichiers qui contiennent `/dev/sda`, facilitant ainsi la recherche d'informations spécifiques.
+- Utilisez l'option `-h` pour rendre les résultats plus faciles à lire, surtout si vous travaillez avec de grandes quantités de données.
+- Combinez plusieurs options pour obtenir des informations plus détaillées, par exemple `df -hT` pour afficher à la fois la taille lisible par l'homme et le type de système de fichiers.
+- Vérifiez régulièrement l'utilisation de l'espace disque pour éviter de remplir vos partitions, ce qui pourrait entraîner des problèmes de performance ou de fonctionnement.

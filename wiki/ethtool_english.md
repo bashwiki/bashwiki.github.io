@@ -1,47 +1,52 @@
-# [리눅스] Bash ethtool 사용법
+# [Linux] Bash ethtool Uso: Manage network device parameters
 
 ## Overview
-The `ethtool` command is a Linux utility used for querying and controlling network device driver and hardware settings. Its primary purpose is to provide information about Ethernet devices, such as link status, speed, duplex settings, and other parameters. Additionally, `ethtool` allows users to configure various aspects of network interfaces, making it a vital tool for network administrators and engineers.
+The `ethtool` command is a powerful utility in Linux used to query and control network device driver and hardware settings. It allows users to retrieve information about network interfaces, configure settings, and diagnose network issues.
 
 ## Usage
 The basic syntax of the `ethtool` command is as follows:
 
 ```bash
-ethtool [options] <interface>
+ethtool [options] [arguments]
 ```
 
-Where `<interface>` is the name of the network interface you want to query or configure (e.g., `eth0`, `enp3s0`, etc.).
+## Common Options
+- `-s, --set-priv-flags`: Set private flags for the device.
+- `-i, --driver`: Display driver information for the specified device.
+- `-p, --identify`: Blink the LED on the specified device for identification.
+- `-t, --test`: Run self-tests on the specified device.
+- `-a, --show-pause`: Show pause frame settings.
+- `-S, --statistics`: Display statistics for the specified device.
 
-### Common Options
-- `-i`, `--driver`: Display driver information for the specified interface.
-- `-s`, `--set`: Set various parameters for the specified interface. This option requires additional arguments.
-- `-p`, `--identify`: Blink the LED on the specified interface for a specified duration.
-- `-S`, `--statistics`: Display statistics for the specified interface.
-- `-a`, `--show-advertised`: Show the advertised link modes for the specified interface.
-- `-d`, `--show-diagnostics`: Show diagnostic information for the specified interface.
+## Common Examples
+Here are some practical examples of using the `ethtool` command:
 
-## Examples
+1. **Display information about a network interface:**
+   ```bash
+   ethtool eth0
+   ```
 
-### Example 1: Displaying Interface Information
-To display detailed information about a network interface, you can use the following command:
+2. **Show driver information for a specific device:**
+   ```bash
+   ethtool -i eth0
+   ```
 
-```bash
-ethtool eth0
-```
+3. **Blink the LED on a network interface for identification:**
+   ```bash
+   ethtool -p eth0
+   ```
 
-This command will provide information such as speed, duplex mode, link status, and supported features of the `eth0` interface.
+4. **Display statistics for a network interface:**
+   ```bash
+   ethtool -S eth0
+   ```
 
-### Example 2: Changing Speed and Duplex Settings
-To change the speed and duplex settings of a network interface, you can use the `-s` option. For example, to set the `eth0` interface to 100 Mbps full duplex, you would run:
-
-```bash
-ethtool -s eth0 speed 100 duplex full
-```
-
-This command configures the `eth0` interface to operate at 100 Mbps with full duplex communication.
+5. **Run self-tests on a network interface:**
+   ```bash
+   ethtool -t eth0
+   ```
 
 ## Tips
-- Always check the current settings of your network interface before making changes to avoid misconfiguration.
-- Use the `-S` option to monitor statistics for troubleshooting network issues.
-- When changing settings, ensure that the network device supports the desired configurations to prevent connectivity problems.
-- For persistent changes, consider modifying network configuration files or using network management tools, as changes made with `ethtool` may not survive a reboot.
+- Always run `ethtool` with root privileges for full access to all features.
+- Use `man ethtool` to access the manual and explore more options and detailed usage.
+- Combine `ethtool` with other network diagnostic tools like `ping` or `traceroute` for comprehensive network troubleshooting.

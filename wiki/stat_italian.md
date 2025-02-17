@@ -1,44 +1,47 @@
-# [리눅스] Bash stat 사용법
+# [Linux] Bash stat Utilizzo: Mostra informazioni sui file
 
 ## Overview
-Il comando `stat` in Bash è utilizzato per visualizzare informazioni dettagliate su file e directory nel filesystem. Fornisce dati come dimensioni, permessi, timestamp di accesso, modifica e cambiamento, oltre ad altre informazioni utili. Questo comando è fondamentale per gli ingegneri e gli sviluppatori che necessitano di monitorare e gestire file e directory in modo efficiente.
+Il comando `stat` in Bash è utilizzato per visualizzare informazioni dettagliate sui file e le directory. Fornisce dati come la dimensione del file, le date di accesso e modifica, i permessi e altro ancora.
 
 ## Usage
 La sintassi di base del comando `stat` è la seguente:
 
 ```bash
-stat [opzioni] [file]
+stat [opzioni] [argomenti]
 ```
 
-### Opzioni comuni:
-- `-c` o `--format`: consente di specificare un formato personalizzato per l'output.
-- `-f` o `--file-system`: mostra informazioni sul filesystem contenente il file.
-- `-L` o `--dereference`: segue i link simbolici per mostrare le informazioni sul file a cui puntano.
-- `--help`: mostra un messaggio di aiuto con le opzioni disponibili.
-- `--version`: mostra la versione del comando `stat`.
+## Common Options
+Ecco alcune opzioni comuni per il comando `stat`:
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `stat`.
+- `-c` : Specifica un formato personalizzato per l'output.
+- `--format` : Permette di definire un formato specifico per visualizzare le informazioni.
+- `-f` : Mostra informazioni sul file system piuttosto che sul file stesso.
+- `-L` : Segue i link simbolici e mostra informazioni sul file di destinazione.
 
-### Esempio 1: Visualizzare informazioni di base su un file
-Per ottenere informazioni dettagliate su un file chiamato `esempio.txt`, puoi utilizzare il seguente comando:
+## Common Examples
+Ecco alcuni esempi pratici dell'uso del comando `stat`:
 
-```bash
-stat esempio.txt
-```
+1. Visualizzare informazioni di base su un file:
+   ```bash
+   stat nomefile.txt
+   ```
 
-L'output mostrerà informazioni come dimensione, permessi, e timestamp.
+2. Usare un formato personalizzato per visualizzare solo la dimensione e la data di modifica:
+   ```bash
+   stat -c "Dimensione: %s bytes, Ultima modifica: %y" nomefile.txt
+   ```
 
-### Esempio 2: Usare un formato personalizzato
-Se desideri visualizzare solo la dimensione e la data di modifica del file, puoi utilizzare l'opzione `-c`:
+3. Visualizzare informazioni su un link simbolico:
+   ```bash
+   stat -L link_simbolico
+   ```
 
-```bash
-stat -c "Dimensione: %s bytes, Ultima modifica: %y" esempio.txt
-```
-
-Questo comando restituirà un output formattato che mostra solo le informazioni richieste.
+4. Ottenere informazioni sul file system:
+   ```bash
+   stat -f /
+   ```
 
 ## Tips
-- Utilizza l'opzione `-f` per ottenere informazioni sul filesystem se stai lavorando con file su diversi filesystem.
-- Quando lavori con link simbolici, ricorda di usare l'opzione `-L` per ottenere informazioni sul file reale piuttosto che sul link stesso.
-- Sperimenta con l'opzione `-c` per personalizzare l'output secondo le tue necessità, facilitando l'integrazione con script o report.
+- Utilizza l'opzione `-c` per ottenere un output più leggibile e personalizzato, specialmente quando hai bisogno solo di informazioni specifiche.
+- Ricorda che `stat` può essere molto utile per script di automazione, dove è necessario monitorare le proprietà dei file.
+- Se stai lavorando con link simbolici, l'opzione `-L` è fondamentale per ottenere informazioni sul file di destinazione piuttosto che sul link stesso.

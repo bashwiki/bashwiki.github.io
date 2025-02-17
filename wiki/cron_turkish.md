@@ -1,52 +1,59 @@
-# [리눅스] Bash cron 사용법
+# [Linux] Bash cron Kullanımı: Zamanlanmış görevleri yönetme
 
-## Overview
-`cron`, Unix tabanlı sistemlerde zamanlanmış görevleri otomatik olarak çalıştırmak için kullanılan bir arka plan hizmetidir. Kullanıcılar, belirli zaman dilimlerinde veya belirli aralıklarla belirli komutları veya betikleri çalıştırmak için `cron`'u kullanabilirler. Bu, sistem bakım görevleri, yedekleme işlemleri veya belirli zamanlarda rapor oluşturma gibi işlemler için oldukça yararlıdır.
+## Genel Bakış
+`cron`, Unix benzeri işletim sistemlerinde zamanlanmış görevleri otomatik olarak çalıştırmak için kullanılan bir komut ve zamanlayıcıdır. Kullanıcılar, belirli zaman dilimlerinde veya belirli aralıklarla komutlar veya scriptler çalıştırmak için `cron` kullanabilirler.
 
-## Usage
-`cron`, genellikle bir kullanıcı tarafından `crontab` dosyası aracılığıyla yapılandırılır. Temel sözdizimi şu şekildedir:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
-```
-* * * * * komut
-```
-
-Burada, yıldız işaretleri ( `*` ) zamanlama ayarlarını temsil eder ve her bir yıldızın anlamı şudur:
-
-- **Dakika** (0-59)
-- **Saat** (0-23)
-- **Gün** (1-31)
-- **Ay** (1-12)
-- **Hafta Günü** (0-7) (0 ve 7 Pazar'ı temsil eder)
-
-### Yaygın Seçenekler
-- `*`: Herhangi bir değer (her zaman)
-- `,`: Birden fazla değer belirtmek için (örneğin, `1,2,3` her birini temsil eder)
-- `-`: Bir aralık belirtmek için (örneğin, `1-5` 1'den 5'e kadar olan günleri temsil eder)
-- `/`: Belirli bir sıklık belirtmek için (örneğin, `*/5` her 5 dakikada bir anlamına gelir)
-
-## Examples
-### Örnek 1: Her gün saat 2'de bir yedekleme komutu çalıştırma
-Aşağıdaki `crontab` girişi, her gün saat 2:00'de `backup.sh` betiğini çalıştıracaktır.
-
-```
-0 2 * * * /path/to/backup.sh
+```bash
+cron [seçenekler] [argümanlar]
 ```
 
-### Örnek 2: Her 15 dakikada bir bir güncelleme komutu çalıştırma
-Aşağıdaki `crontab` girişi, her 15 dakikada bir `update.sh` betiğini çalıştıracaktır.
+## Yaygın Seçenekler
+- `-l`: Kullanıcının mevcut cron görevlerini listelemek için kullanılır.
+- `-e`: Kullanıcının mevcut cron görevlerini düzenlemek için kullanılır.
+- `-r`: Kullanıcının cron görevlerini kaldırmak için kullanılır.
 
-```
-*/15 * * * * /path/to/update.sh
+## Yaygın Örnekler
+Aşağıda `cron` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
+
+### 1. Cron Görevini Listeleme
+Mevcut cron görevlerinizi listelemek için:
+
+```bash
+crontab -l
 ```
 
-## Tips
-- `crontab -e` komutunu kullanarak mevcut `crontab` dosyanızı düzenleyebilirsiniz.
-- `crontab -l` komutu ile mevcut zamanlanmış görevlerinizi listeleyebilirsiniz.
-- Görevlerin çıktısını bir dosyaya yönlendirmek için `>> /path/to/logfile.log` ekleyebilirsiniz. Örneğin:
+### 2. Cron Görevünü Düzenleme
+Mevcut cron görevlerinizi düzenlemek için:
 
-```
-0 2 * * * /path/to/backup.sh >> /path/to/backup.log 2>&1
+```bash
+crontab -e
 ```
 
-- Zamanlama ayarlarınızı dikkatlice kontrol edin; yanlış ayarlar, istenmeyen sonuçlara yol açabilir.
-- `cron` ile ilgili hata ayıklama yapmak için, genellikle `/var/log/syslog` dosyasını kontrol edebilirsiniz.
+### 3. Her Gün Saat 2'de Bir Script Çalıştırma
+Her gün saat 2'de belirli bir scripti çalıştırmak için cron dosyasına şu satırı ekleyebilirsiniz:
+
+```bash
+0 2 * * * /path/to/script.sh
+```
+
+### 4. Her 15 Dakikada Bir Komut Çalıştırma
+Her 15 dakikada bir belirli bir komutu çalıştırmak için:
+
+```bash
+*/15 * * * * /path/to/command
+```
+
+### 5. Her Pazartesi Saat 10'da Yedekleme Yapma
+Her pazartesi saat 10'da yedekleme yapmak için:
+
+```bash
+0 10 * * 1 /path/to/backup.sh
+```
+
+## İpuçları
+- Cron görevlerinizi düzenlerken dikkatli olun; yanlış bir zamanlama, istenmeyen sonuçlara yol açabilir.
+- Görevlerin çıktısını bir dosyaya yönlendirmek için `>> /path/to/logfile.log` ekleyebilirsiniz.
+- Zamanlama ifadelerini doğru bir şekilde kullanmak için cron zamanlama formatını iyi öğrenin.

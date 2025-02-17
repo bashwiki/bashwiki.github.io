@@ -1,7 +1,7 @@
-# [리눅스] Bash break 사용법
+# [Linux] Bash break uso: Interrompe i cicli
 
 ## Overview
-Il comando `break` in Bash è utilizzato per terminare un ciclo anticipatamente. La sua funzione principale è quella di uscire da un ciclo `for`, `while` o `until` quando viene soddisfatta una certa condizione. Questo è utile quando si desidera interrompere l'esecuzione di un ciclo senza dover attendere che tutte le iterazioni siano completate.
+Il comando `break` in Bash viene utilizzato per interrompere l'esecuzione di un ciclo. Quando viene eseguito, `break` termina il ciclo più interno e il controllo passa alla riga di codice successiva dopo il ciclo.
 
 ## Usage
 La sintassi di base del comando `break` è la seguente:
@@ -10,49 +10,51 @@ La sintassi di base del comando `break` è la seguente:
 break [n]
 ```
 
-Dove `n` è un numero opzionale che indica il numero di cicli da interrompere. Se non viene specificato, `break` interrompe solo il ciclo più interno.
+Dove `n` è un numero opzionale che indica quanti livelli di ciclo devono essere interrotti. Se non specificato, `break` interrompe solo il ciclo più interno.
 
-## Examples
+## Common Options
+- `n`: Specifica il numero di cicli da interrompere. Se `n` è omesso, viene interrotto solo il ciclo più interno.
 
-### Esempio 1: Uscita da un ciclo `for`
+## Common Examples
+
+### Esempio 1: Interrompere un ciclo `for`
 ```bash
-for i in {1..10}; do
-    if [ $i -eq 5 ]; then
-        break
-    fi
-    echo "Numero: $i"
+for i in {1..5}; do
+  if [ $i -eq 3 ]; then
+    break
+  fi
+  echo $i
 done
 ```
-In questo esempio, il ciclo `for` stampa i numeri da 1 a 10, ma si interrompe quando `i` è uguale a 5. L'output sarà:
-```
-Numero: 1
-Numero: 2
-Numero: 3
-Numero: 4
-```
+In questo esempio, il ciclo `for` stampa i numeri da 1 a 5, ma si interrompe quando `i` è uguale a 3.
 
-### Esempio 2: Uscita da un ciclo `while`
+### Esempio 2: Interrompere un ciclo `while`
 ```bash
 count=1
-while [ $count -le 10 ]; do
-    if [ $count -eq 7 ]; then
-        break
-    fi
-    echo "Conteggio: $count"
-    ((count++))
+while [ $count -le 5 ]; do
+  if [ $count -eq 4 ]; then
+    break
+  fi
+  echo $count
+  ((count++))
 done
 ```
-In questo caso, il ciclo `while` continua fino a che `count` non è maggiore di 10, ma si interrompe quando `count` è uguale a 7. L'output sarà:
+Qui, il ciclo `while` stampa i numeri da 1 a 5, ma si interrompe quando `count` è uguale a 4.
+
+### Esempio 3: Interrompere cicli annidati
+```bash
+for i in {1..3}; do
+  for j in {1..3}; do
+    if [ $j -eq 2 ]; then
+      break 2
+    fi
+    echo "i: $i, j: $j"
+  done
+done
 ```
-Conteggio: 1
-Conteggio: 2
-Conteggio: 3
-Conteggio: 4
-Conteggio: 5
-Conteggio: 6
-```
+In questo caso, il comando `break 2` interrompe entrambi i cicli annidati quando `j` è uguale a 2.
 
 ## Tips
-- Utilizza `break` quando hai bisogno di interrompere un ciclo in base a una condizione specifica, per migliorare l'efficienza del tuo script.
-- Se hai più cicli annidati e desideri uscire da uno specifico ciclo esterno, puoi utilizzare `break n`, dove `n` è il numero di cicli da interrompere.
-- Fai attenzione all'uso di `break` in cicli complessi, poiché può rendere il flusso del programma meno chiaro. Assicurati che la logica sia ben documentata per facilitare la comprensione futura.
+- Utilizza `break` quando hai bisogno di uscire da un ciclo in base a una condizione specifica.
+- Ricorda che `break` interrompe solo il ciclo più interno a meno che non venga specificato un numero.
+- Per una migliore leggibilità, commenta il tuo codice per spiegare perché stai utilizzando `break`, specialmente in cicli complessi.

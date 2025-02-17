@@ -1,41 +1,50 @@
-# [리눅스] Bash stat 사용법
+# [Linux] Bash stat Verwendung: Zeigt Dateiinformationen an
 
 ## Übersicht
-Der Befehl `stat` wird in der Bash verwendet, um detaillierte Informationen über Dateien und Verzeichnisse anzuzeigen. Er liefert eine Vielzahl von Metadaten, einschließlich Dateigröße, Zugriffsrechte, Erstellungsdatum und Änderungsdatum. Der Hauptzweck von `stat` ist es, Entwicklern und Ingenieuren eine schnelle und präzise Möglichkeit zu bieten, die Eigenschaften von Dateien im Dateisystem zu überprüfen.
+Der Befehl `stat` wird verwendet, um detaillierte Informationen über Dateien und Verzeichnisse im Dateisystem anzuzeigen. Dazu gehören Angaben wie Größe, Berechtigungen, Zeitstempel und mehr.
 
 ## Verwendung
-Die grundlegende Syntax des `stat`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-stat [OPTIONEN] DATEI
+stat [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-c, --format=FORMAT`: Gibt die Ausgabe in einem benutzerdefinierten Format an. Sie können Platzhalter wie `%s` für die Dateigröße oder `%y` für das Änderungsdatum verwenden.
-- `-f, --file-system`: Zeigt Informationen über das Dateisystem an, in dem die Datei gespeichert ist.
-- `--help`: Zeigt eine Hilfeseite mit Informationen zur Verwendung des Befehls an.
-- `--version`: Gibt die Versionsnummer des `stat`-Befehls aus.
+## Häufige Optionen
+- `-c` : Gibt die Ausgabe in einem benutzerdefinierten Format an.
+- `-f` : Zeigt Informationen über das Dateisystem an, in dem die Datei gespeichert ist.
+- `--format` : Ermöglicht die Angabe eines spezifischen Formats für die Ausgabe.
+- `-t` : Gibt die Informationen in einer kompakten, tabellarischen Form aus.
 
-## Beispiele
-### Beispiel 1: Grundlegende Verwendung
-Um die Standardinformationen über eine Datei anzuzeigen, verwenden Sie einfach:
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung des `stat`-Befehls:
 
-```bash
-stat meine_datei.txt
-```
+1. **Allgemeine Informationen über eine Datei anzeigen:**
+   ```bash
+   stat datei.txt
+   ```
 
-Die Ausgabe könnte Informationen wie Dateigröße, Zugriffsrechte und Zeitstempel enthalten.
+2. **Nur die Größe der Datei anzeigen:**
+   ```bash
+   stat -c %s datei.txt
+   ```
 
-### Beispiel 2: Benutzerdefinierte Formatierung
-Um nur die Dateigröße und das Änderungsdatum anzuzeigen, können Sie den `-c`-Parameter verwenden:
+3. **Informationen über das Dateisystem einer Datei anzeigen:**
+   ```bash
+   stat -f datei.txt
+   ```
 
-```bash
-stat -c "Größe: %s Bytes, Geändert: %y" meine_datei.txt
-```
+4. **Detaillierte Informationen in einem benutzerdefinierten Format anzeigen:**
+   ```bash
+   stat --format="Datei: %n, Größe: %s Bytes, Letzte Änderung: %y" datei.txt
+   ```
 
-Diese Ausgabe zeigt nur die gewünschten Informationen in einem klaren Format an.
+5. **Kompakte Ausgabe der Dateiinformationen:**
+   ```bash
+   stat -t datei.txt
+   ```
 
 ## Tipps
-- Nutzen Sie die benutzerdefinierte Formatierung mit `-c`, um die Ausgabe an Ihre spezifischen Bedürfnisse anzupassen. Dies kann besonders nützlich sein, wenn Sie Skripte schreiben, die bestimmte Dateiinformationen benötigen.
-- Kombinieren Sie `stat` mit anderen Befehlen wie `grep` oder `awk`, um die Ausgabe weiter zu filtern oder zu verarbeiten.
-- Überprüfen Sie regelmäßig die Berechtigungen und Zeitstempel von Dateien, insbesondere in Umgebungen, in denen mehrere Benutzer auf dieselben Dateien zugreifen.
+- Verwenden Sie die `--format`-Option, um die Ausgabe an Ihre Bedürfnisse anzupassen.
+- Nutzen Sie die `-f`-Option, um schnell Informationen über das Dateisystem zu erhalten, ohne die Datei selbst zu betrachten.
+- Kombinieren Sie `stat` mit anderen Befehlen in einer Pipeline, um die Informationen weiter zu verarbeiten oder zu filtern.

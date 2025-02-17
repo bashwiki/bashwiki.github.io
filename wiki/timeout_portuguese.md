@@ -1,39 +1,48 @@
-# [리눅스] Bash timeout 사용법
+# [Linux] Bash timeout uso: Limitar a duração de um comando
 
-## Visão Geral
-O comando `timeout` é utilizado no Bash para executar um comando e limitar o tempo de execução desse comando. Se o comando não for concluído dentro do tempo especificado, o `timeout` irá interrompê-lo. Isso é especialmente útil em scripts onde é necessário evitar que um comando fique em execução indefinidamente, o que pode causar bloqueios ou consumo excessivo de recursos.
+## Overview
+O comando `timeout` é utilizado para executar um comando e limitar o tempo que ele pode ser executado. Se o comando não terminar dentro do período especificado, o `timeout` o encerra automaticamente.
 
-## Uso
-A sintaxe básica do comando `timeout` é a seguinte:
-
-```bash
-timeout [DURAÇÃO] [COMANDO] [ARGUMENTOS...]
-```
-
-### Opções Comuns
-- `DURAÇÃO`: Especifica o tempo máximo que o comando pode ser executado. O formato pode ser em segundos (s), minutos (m), horas (h) ou dias (d). Por exemplo, `5s` para 5 segundos, `2m` para 2 minutos.
-- `COMANDO`: O comando que você deseja executar.
-- `ARGUMENTOS`: Qualquer argumento adicional que o comando possa precisar.
-
-## Exemplos
-### Exemplo 1: Limitar a execução de um comando simples
-Se você deseja executar um script que pode levar muito tempo, mas quer garantir que ele não exceda 10 segundos, você pode usar:
+## Usage
+A sintaxe básica do comando é a seguinte:
 
 ```bash
-timeout 10s ./meu_script.sh
+timeout [opções] DURAÇÃO COMANDO [argumentos]
 ```
 
-### Exemplo 2: Interromper um comando que não responde
-Caso você esteja executando um comando que pode travar, como um download, e deseja limitá-lo a 30 segundos, você pode fazer:
+## Common Options
+- `-s, --signal SIGNAL`: Especifica o sinal a ser enviado ao comando quando o tempo expira. O padrão é `SIGTERM`.
+- `-k, --kill-after DURAÇÃO`: Após o tempo limite, espera a duração especificada antes de enviar um sinal de término forçado.
+- `--preserve-status`: Mantém o código de saída do comando original em vez de retornar o código de saída do `timeout`.
 
-```bash
-timeout 30s wget http://exemplo.com/arquivo.zip
-```
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `timeout`:
 
-## Dicas
-- Sempre teste seus comandos com `timeout` em um ambiente controlado antes de usá-los em produção para garantir que o tempo limite esteja configurado corretamente.
-- Utilize um valor de tempo que seja razoável para o comando que você está executando. Um tempo muito curto pode resultar em interrupções desnecessárias.
-- O `timeout` pode ser combinado com outros comandos e ferramentas, como `grep` ou `find`, para limitar a execução de operações que podem demorar.
-- Lembre-se de que o `timeout` pode enviar um sinal de término padrão (SIGTERM) para o comando. Se o comando não responder a esse sinal, você pode usar a opção `-s` para especificar um sinal diferente, como SIGKILL, para forçar a interrupção.
+1. **Executar um comando com limite de tempo de 5 segundos:**
+   ```bash
+   timeout 5s sleep 10
+   ```
+   Neste exemplo, o comando `sleep 10` será interrompido após 5 segundos.
 
-Com essas informações, você está pronto para usar o comando `timeout` de forma eficaz em seus scripts e tarefas no Bash!
+2. **Usar um sinal específico ao expirar o tempo:**
+   ```bash
+   timeout -s SIGKILL 3s sleep 10
+   ```
+   Aqui, o comando `sleep 10` será forçado a terminar com o sinal `SIGKILL` após 3 segundos.
+
+3. **Manter o código de saída do comando original:**
+   ```bash
+   timeout --preserve-status 2s ls /nonexistent
+   ```
+   Neste caso, o comando `ls` será executado, mas como não existe o diretório, o código de saída será mantido mesmo que o `timeout` expire.
+
+4. **Usar o `kill-after` para dar um tempo extra antes de forçar a finalização:**
+   ```bash
+   timeout -k 2s 5s sleep 10
+   ```
+   O comando `sleep 10` será interrompido após 5 segundos, mas o `timeout` aguardará mais 2 segundos antes de enviar um sinal de término forçado.
+
+## Tips
+- Sempre teste seus comandos com `timeout` em um ambiente seguro para evitar a perda de dados.
+- Use a opção `--preserve-status` se precisar capturar o resultado do comando original.
+- Combine `timeout` com outros comandos em scripts para garantir que processos longos não travem o sistema.

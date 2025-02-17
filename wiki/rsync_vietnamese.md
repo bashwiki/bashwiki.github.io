@@ -1,46 +1,44 @@
-# [리눅스] Bash rsync 사용법
+# [Linux] Bash rsync cách sử dụng: Đồng bộ hóa tệp và thư mục
 
 ## Tổng quan
-`rsync` là một công cụ mạnh mẽ trong Bash được sử dụng để sao chép và đồng bộ hóa tệp và thư mục giữa hai vị trí. Nó có khả năng làm việc trên cùng một máy tính hoặc qua mạng, giúp tiết kiệm băng thông bằng cách chỉ sao chép các phần đã thay đổi của tệp. `rsync` thường được sử dụng để sao lưu dữ liệu, đồng bộ hóa tệp giữa các máy chủ và quản lý các bản sao lưu.
+Lệnh `rsync` là một công cụ mạnh mẽ dùng để đồng bộ hóa và sao chép tệp và thư mục giữa hai vị trí, có thể là trên cùng một máy tính hoặc giữa các máy tính khác nhau qua mạng. Nó chỉ sao chép những thay đổi, giúp tiết kiệm băng thông và thời gian.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `rsync` như sau:
 
 ```bash
-rsync [OPTIONS] SOURCE DESTINATION
+rsync [options] [arguments]
 ```
 
-Trong đó:
-- `SOURCE`: Đường dẫn đến tệp hoặc thư mục nguồn mà bạn muốn sao chép.
-- `DESTINATION`: Đường dẫn đến tệp hoặc thư mục đích nơi bạn muốn sao chép dữ liệu.
-
-Một số tùy chọn phổ biến của `rsync` bao gồm:
-- `-a`: Chế độ lưu trữ, sao chép tệp và thư mục cùng với các thuộc tính của chúng.
-- `-v`: Chế độ chi tiết, hiển thị thông tin chi tiết về quá trình sao chép.
-- `-z`: Nén dữ liệu trong quá trình truyền tải, giúp tiết kiệm băng thông.
-- `-r`: Sao chép thư mục và tất cả các tệp con bên trong.
+## Các tùy chọn phổ biến
+- `-a`: Chế độ lưu trữ, bao gồm các thuộc tính như quyền truy cập và thời gian sửa đổi.
+- `-v`: Hiển thị thông tin chi tiết về quá trình sao chép.
+- `-z`: Nén dữ liệu trong quá trình truyền tải để tiết kiệm băng thông.
+- `-r`: Sao chép thư mục một cách đệ quy.
 - `--delete`: Xóa các tệp trong thư mục đích mà không còn tồn tại trong thư mục nguồn.
 
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `rsync`.
+## Ví dụ thường gặp
+1. **Sao chép tệp từ thư mục này sang thư mục khác:**
+   ```bash
+   rsync -av /path/to/source/file.txt /path/to/destination/
+   ```
 
-### Ví dụ 1: Sao chép thư mục
-Sao chép thư mục `my_folder` từ máy tính cục bộ đến một máy chủ từ xa:
+2. **Đồng bộ hóa thư mục giữa hai máy tính qua SSH:**
+   ```bash
+   rsync -avz -e ssh /path/to/local/dir/ user@remote:/path/to/remote/dir/
+   ```
 
-```bash
-rsync -avz my_folder/ user@remote_host:/path/to/destination/
-```
+3. **Sao chép và xóa các tệp không còn tồn tại trong thư mục nguồn:**
+   ```bash
+   rsync -av --delete /path/to/source/ /path/to/destination/
+   ```
 
-### Ví dụ 2: Đồng bộ hóa thư mục
-Đồng bộ hóa thư mục giữa hai vị trí, xóa các tệp không còn tồn tại trong thư mục nguồn:
-
-```bash
-rsync -av --delete /local/folder/ user@remote_host:/remote/folder/
-```
+4. **Sao chép tệp và nén dữ liệu:**
+   ```bash
+   rsync -avz /path/to/source/file.txt user@remote:/path/to/destination/
+   ```
 
 ## Mẹo
-- Sử dụng tùy chọn `-n` (hoặc `--dry-run`) để kiểm tra những gì sẽ xảy ra mà không thực sự thực hiện sao chép. Điều này rất hữu ích để đảm bảo rằng bạn không xóa nhầm tệp.
-- Thêm tùy chọn `-e ssh` để sử dụng SSH cho việc truyền tải an toàn khi sao chép tệp qua mạng.
-- Thường xuyên kiểm tra các tệp sao lưu của bạn để đảm bảo rằng chúng được đồng bộ hóa chính xác và không có tệp nào bị thiếu.
-
-Với những thông tin trên, bạn có thể bắt đầu sử dụng `rsync` để quản lý và đồng bộ hóa tệp một cách hiệu quả.
+- Luôn kiểm tra lệnh với tùy chọn `-n` (dry run) trước khi thực hiện để xem những gì sẽ xảy ra mà không thực sự sao chép tệp.
+- Sử dụng `--progress` để theo dõi tiến trình sao chép, đặc biệt là khi làm việc với các tệp lớn.
+- Đảm bảo rằng bạn có quyền truy cập cần thiết vào cả thư mục nguồn và thư mục đích để tránh lỗi trong quá trình sao chép.

@@ -1,41 +1,45 @@
-# [리눅스] Bash mpstat 사용법
+# [Linux] Bash mpstat Verwendung: Überwachung der CPU-Auslastung
 
 ## Übersicht
-Der Befehl `mpstat` ist ein Tool zur Überwachung der CPU-Nutzung in Linux-Systemen. Es gehört zum Paket `sysstat` und bietet detaillierte Statistiken über die CPU-Auslastung, die es Entwicklern und Systemadministratoren ermöglicht, die Leistung von Prozessoren in Mehrkernsystemen zu analysieren. Mit `mpstat` können Sie Informationen über die CPU-Auslastung in Echtzeit abrufen und historische Daten analysieren.
+Der Befehl `mpstat` wird verwendet, um die CPU-Auslastung in einem Linux-System zu überwachen. Er zeigt Statistiken für jede CPU oder für alle CPUs zusammen an und hilft dabei, die Leistung des Systems zu analysieren.
 
 ## Verwendung
-Die grundlegende Syntax des Befehls `mpstat` lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-mpstat [OPTIONEN] [INTERVAL] [ANZAHL]
+mpstat [Optionen] [Argumente]
 ```
 
-### Häufige Optionen:
-- `-P ALL`: Zeigt die Statistiken für alle CPUs an.
+## Häufige Optionen
+- `-P ALL`: Zeigt Statistiken für alle CPUs an.
 - `-u`: Zeigt die CPU-Auslastung in Prozent an.
-- `-h`: Gibt die Ausgabe in einem menschenlesbaren Format aus.
-- `-V`: Zeigt die Versionsnummer von `mpstat` an.
+- `-o JSON`: Gibt die Ausgabe im JSON-Format aus.
+- `-h`: Zeigt die Hilfe und die verfügbaren Optionen an.
 
-### Parameter:
-- `INTERVAL`: Gibt die Zeitspanne in Sekunden an, in der die Statistiken aktualisiert werden sollen.
-- `ANZAHL`: Gibt die Anzahl der gewünschten Aktualisierungen an.
+## Häufige Beispiele
+Hier sind einige praktische Beispiele für die Verwendung von `mpstat`:
 
-## Beispiele
-### Beispiel 1: CPU-Auslastung für alle CPUs anzeigen
-Um die CPU-Auslastung für alle verfügbaren CPUs alle 2 Sekunden anzuzeigen, verwenden Sie den folgenden Befehl:
+1. **CPU-Auslastung für alle CPUs anzeigen:**
+   ```bash
+   mpstat -P ALL
+   ```
 
-```bash
-mpstat -P ALL 2
-```
+2. **CPU-Auslastung alle 5 Sekunden aktualisieren:**
+   ```bash
+   mpstat 5
+   ```
 
-### Beispiel 2: CPU-Auslastung über einen bestimmten Zeitraum erfassen
-Um die CPU-Auslastung alle 5 Sekunden für insgesamt 3 Intervalle zu überwachen, können Sie diesen Befehl verwenden:
+3. **CPU-Auslastung im JSON-Format ausgeben:**
+   ```bash
+   mpstat -o JSON
+   ```
 
-```bash
-mpstat 5 3
-```
+4. **Nur die Auslastung der ersten CPU anzeigen:**
+   ```bash
+   mpstat -P 0
+   ```
 
 ## Tipps
-- Verwenden Sie die Option `-h`, um die Ausgabe leserlicher zu gestalten, insbesondere wenn Sie die Statistiken in Skripten oder Berichten verwenden möchten.
-- Kombinieren Sie `mpstat` mit anderen Überwachungstools wie `top` oder `htop`, um eine umfassendere Analyse der Systemleistung zu erhalten.
-- Überwachen Sie die CPU-Auslastung regelmäßig, um Engpässe oder unerwartete Lastspitzen frühzeitig zu erkennen und zu beheben.
+- Verwenden Sie `mpstat` in Kombination mit anderen Überwachungstools wie `top` oder `htop`, um ein umfassenderes Bild der Systemleistung zu erhalten.
+- Überwachen Sie die CPU-Auslastung regelmäßig, um Engpässe frühzeitig zu erkennen und zu beheben.
+- Nutzen Sie die JSON-Ausgabe, wenn Sie die Daten in eine Anwendung oder ein Skript integrieren möchten.

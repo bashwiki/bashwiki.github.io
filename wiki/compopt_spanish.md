@@ -1,49 +1,50 @@
-# [리눅스] Bash compopt 사용법
+# [Linux] Bash compopt Uso: Configurar opciones de completado
 
 ## Overview
-El comando `compopt` en Bash se utiliza para modificar las opciones de completado de comandos. Su propósito principal es permitir a los desarrolladores y a los ingenieros ajustar el comportamiento del completado automático en la línea de comandos, mejorando así la experiencia del usuario al interactuar con scripts y programas personalizados.
+El comando `compopt` se utiliza en Bash para modificar las opciones de completado de comandos. Permite a los desarrolladores personalizar cómo se comporta el completado automático en la línea de comandos, ajustando las opciones según las necesidades específicas de sus scripts o funciones.
 
 ## Usage
 La sintaxis básica del comando `compopt` es la siguiente:
 
 ```bash
-compopt [-o|--option] [-o|--option] ...
+compopt [options] [arguments]
 ```
 
-### Opciones Comunes
-- `-o` o `--option`: Esta opción se utiliza para habilitar una opción específica de completado. Por ejemplo, `-o nospace` evita que se añada un espacio después del completado.
-- `-d` o `--disable`: Deshabilita una opción de completado previamente habilitada.
+## Common Options
+- `-o`: Activa una opción de completado específica.
+- `-D`: Desactiva una opción de completado.
+- `--help`: Muestra la ayuda sobre el uso de compopt.
 
-## Examples
-### Ejemplo 1: Habilitar la opción `nospace`
-Supongamos que tienes un script que se completa con nombres de archivos y deseas que no se añada un espacio después del nombre del archivo completado. Puedes usar `compopt` de la siguiente manera:
+## Common Examples
+
+### Activar una opción de completado
+Para activar la opción de completado que permite completar nombres de archivos:
 
 ```bash
-_complete_my_script() {
-    COMPREPLY=( $(compgen -f -- "$1") )
-    compopt -o nospace
-}
-complete -F _complete_my_script myscript
+compopt -o filenames
 ```
 
-En este ejemplo, cuando el usuario completa un nombre de archivo para `myscript`, no se añadirá un espacio después del nombre del archivo.
-
-### Ejemplo 2: Deshabilitar la opción `nospace`
-Si en algún momento decides que quieres que se añada un espacio después del completado, puedes deshabilitar la opción `nospace` así:
+### Desactivar una opción de completado
+Para desactivar el completado de nombres de archivos:
 
 ```bash
-_complete_my_script() {
-    COMPREPLY=( $(compgen -f -- "$1") )
-    compopt -d nospace
-}
-complete -F _complete_my_script myscript
+compopt -D filenames
 ```
 
-Aquí, al usar `compopt -d nospace`, se restablece el comportamiento predeterminado de completado.
+### Usar compopt en una función de completado
+Si tienes una función de completado personalizada, puedes usar `compopt` para ajustar las opciones:
+
+```bash
+_my_custom_completion() {
+    local cur
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    COMPREPLY=( $(compgen -f -- "$cur") )
+    compopt -o filenames
+}
+complete -F _my_custom_completion mycommand
+```
 
 ## Tips
-- **Prueba tus configuraciones**: Siempre prueba tus configuraciones de completado en un entorno de desarrollo antes de implementarlas en producción para asegurarte de que funcionan como se espera.
-- **Documenta tus opciones**: Si estás creando scripts que serán utilizados por otros, considera documentar las opciones de completado que has habilitado o deshabilitado para facilitar su uso.
-- **Combina con otras funciones de completado**: `compopt` puede ser utilizado junto con otras funciones de completado para crear una experiencia de usuario más rica y personalizada.
-
-Utilizando `compopt`, puedes mejorar significativamente la funcionalidad de completado en tus scripts de Bash, haciendo que sean más intuitivos y fáciles de usar.
+- Asegúrate de usar `compopt` dentro de funciones de completado para que tenga efecto solo en el contexto deseado.
+- Revisa las opciones disponibles con `complete -p` para entender mejor cómo afectan el comportamiento del completado.
+- Utiliza `compopt` para mejorar la experiencia del usuario al proporcionar opciones de completado más relevantes y útiles.

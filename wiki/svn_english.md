@@ -1,52 +1,78 @@
-# [리눅스] Bash svn 사용법
+# [Linux] Bash svn Uso: Version control for files and directories
 
 ## Overview
-The `svn` command is a part of Subversion, a version control system that allows developers to manage changes to source code over time. It is primarily used for tracking changes in files and directories, enabling multiple users to collaborate on projects efficiently. With `svn`, users can commit changes, revert to previous versions, and manage branches and tags, making it an essential tool for software development and project management.
+The `svn` command is a part of Subversion, a version control system that allows users to manage changes to files and directories over time. It helps in tracking revisions, collaborating with others, and maintaining a history of changes.
 
 ## Usage
 The basic syntax of the `svn` command is as follows:
 
+```bash
+svn [options] [arguments]
 ```
-svn [options] <subcommand> [args]
-```
 
-### Common Options
-- `--help`: Displays help information about the command and its options.
-- `-m <message>`: Provides a commit message for the changes.
-- `-q`: Runs the command in quiet mode, suppressing output.
-- `--username <username>`: Specifies the username for authentication.
-- `--password <password>`: Specifies the password for authentication.
+## Common Options
+- `checkout`: Download a working copy from a repository.
+- `commit`: Send changes from the working copy to the repository.
+- `update`: Synchronize the working copy with the repository.
+- `add`: Schedule files or directories for addition to the repository.
+- `delete`: Remove files or directories from the repository.
+- `status`: Show the status of files in the working copy.
+- `log`: Display the commit history for a repository.
 
-### Subcommands
-Some common subcommands include:
-- `checkout`: Downloads a working copy from a repository.
-- `commit`: Sends changes from the working copy to the repository.
-- `update`: Updates the working copy with changes from the repository.
-- `add`: Adds new files or directories to version control.
-- `delete`: Removes files or directories from version control.
+## Common Examples
+Here are some practical examples of using the `svn` command:
 
-## Examples
-
-### Example 1: Checking Out a Repository
-To create a local working copy of a repository, use the `checkout` subcommand:
+### Checking Out a Repository
+To create a local copy of a repository, use the `checkout` command:
 
 ```bash
-svn checkout https://example.com/svn/myproject/trunk myproject
+svn checkout https://example.com/svn/myproject/trunk
 ```
 
-This command downloads the contents of the `trunk` directory from the specified repository URL into a local directory named `myproject`.
-
-### Example 2: Committing Changes
-After making changes to files in your working copy, you can commit those changes back to the repository:
+### Committing Changes
+After making changes to your files, you can commit them to the repository:
 
 ```bash
-svn commit -m "Fixed bug in the login feature"
+svn commit -m "Fixed a bug in the application"
 ```
 
-This command commits all modified files in the working copy with the provided commit message.
+### Updating Your Working Copy
+To update your local copy with the latest changes from the repository, use:
+
+```bash
+svn update
+```
+
+### Adding a New File
+To add a new file to the repository, first create the file, then use:
+
+```bash
+svn add newfile.txt
+```
+
+### Deleting a File
+To remove a file from the repository, use the `delete` command:
+
+```bash
+svn delete oldfile.txt
+```
+
+### Checking the Status
+To see which files have been modified, added, or deleted, run:
+
+```bash
+svn status
+```
+
+### Viewing Commit History
+To view the commit history of the repository, use:
+
+```bash
+svn log
+```
 
 ## Tips
-- Always update your working copy with `svn update` before starting new changes to ensure you are working with the latest version.
-- Use meaningful commit messages to document the changes you make, as this helps collaborators understand the history of the project.
-- Consider using `svn status` to check the status of your working copy before committing, as it shows which files have been modified, added, or deleted.
-- Familiarize yourself with branching and tagging in Subversion to manage different versions of your project effectively.
+- Always update your working copy before making changes to avoid conflicts.
+- Use meaningful commit messages to describe your changes clearly.
+- Regularly check the status of your working copy to keep track of modifications.
+- Consider branching for significant changes to avoid disrupting the main project.

@@ -1,7 +1,7 @@
-# [리눅스] Bash w 사용법
+# [Linux] Bash w: Display who is logged on and what they are doing
 
 ## Overview
-The `w` command in Bash is a utility that displays information about the users currently logged into the system and their activity. It provides a summary of who is logged in, what they are doing, and how long they have been idle. This command is particularly useful for system administrators and developers who need to monitor user activity on a multi-user system.
+The `w` command in Bash is used to display information about users currently logged into the system and their activities. It provides details such as the username, the terminal they are using, their login time, idle time, and the command they are currently executing.
 
 ## Usage
 The basic syntax of the `w` command is as follows:
@@ -10,36 +10,45 @@ The basic syntax of the `w` command is as follows:
 w [options] [user]
 ```
 
-### Common Options
-- `-h`: Suppresses the header line that normally appears at the top of the output.
-- `-s`: Displays the output in a short format, omitting the idle time and other details.
-- `-u`: Displays the user name of the logged-in users (this is the default behavior).
-- `-f`: Displays the full login name of the users.
+## Common Options
+- `-h`: Suppresses the header line.
+- `-s`: Displays the output in a shorter format.
+- `-f`: Shows the full login name of the users.
+- `-u`: Displays the user’s idle time in a more human-readable format.
 
-## Examples
-### Example 1: Basic Usage
-To display a list of currently logged-in users along with their activity, simply run:
+## Common Examples
 
-```bash
-w
-```
+1. **Basic Usage**
+   To display a list of currently logged-in users and their activities:
+   ```bash
+   w
+   ```
 
-This command will output details such as the username, terminal, login time, idle time, JCPU (time used by all processes attached to the terminal), PCPU (time used by the current process), and the command being executed.
+2. **Suppressing the Header**
+   To view the information without the header line:
+   ```bash
+   w -h
+   ```
 
-### Example 2: Using Options
-To view the logged-in users without the header and in a short format, you can use:
+3. **Short Format**
+   To show the output in a shorter format:
+   ```bash
+   w -s
+   ```
 
-```bash
-w -hs
-```
+4. **Full User Names**
+   To display the full login names of the users:
+   ```bash
+   w -f
+   ```
 
-This will provide a cleaner output, focusing on the essential information about the users currently logged in.
+5. **Checking a Specific User**
+   To check the activity of a specific user (e.g., `john`):
+   ```bash
+   w john
+   ```
 
 ## Tips
-- Use the `w` command regularly to monitor user activity, especially on shared systems, to ensure that resources are being used efficiently.
-- Combine `w` with other commands like `grep` to filter results for specific users. For example, to check if a user named "alice" is logged in, you can run:
-
-```bash
-w | grep alice
-```
-- Familiarize yourself with the output format of `w` to quickly interpret user activity and system load, which can help in troubleshooting performance issues.
+- Use `w` regularly to monitor system usage and identify active users.
+- Combine `w` with other commands like `grep` to filter results for specific users or activities.
+- Remember that the output can change rapidly, so consider running the command multiple times for a better overview of user activity.

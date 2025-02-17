@@ -1,54 +1,49 @@
-# [리눅스] Bash make 사용법
+# [Linux] Bash make: Tạo và quản lý dự án
 
-## Tổng quan
-Lệnh `make` là một công cụ tự động hóa được sử dụng chủ yếu để biên dịch và xây dựng các dự án phần mềm. Nó đọc một tệp có tên là `Makefile`, nơi định nghĩa các quy tắc và phụ thuộc giữa các tệp nguồn và tệp nhị phân. Mục đích chính của `make` là giúp quản lý quá trình biên dịch, giảm thiểu thời gian cần thiết để xây dựng lại các tệp không thay đổi và tự động hóa các tác vụ phức tạp.
+## Overview
+Lệnh `make` là một công cụ tự động hóa quá trình biên dịch và xây dựng các dự án phần mềm. Nó giúp quản lý các tệp nguồn và tự động hóa việc biên dịch chúng thành các tệp thực thi hoặc thư viện, giúp tiết kiệm thời gian cho lập trình viên.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `make` như sau:
-
-```bash
-make [tùy chọn] [mục tiêu]
+```
+make [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-f <tên_tệp>`: Chỉ định tệp Makefile khác với tệp mặc định (Makefile hoặc makefile).
-- `-j <số>`: Chạy nhiều tác vụ song song, giúp tăng tốc độ biên dịch.
-- `-B`: Buộc biên dịch lại tất cả các mục tiêu, bất kể chúng có thay đổi hay không.
-- `-n`: Hiển thị các lệnh mà `make` sẽ thực hiện mà không thực sự thực hiện chúng.
+## Common Options
+- `-f FILE`: Sử dụng tệp Makefile cụ thể thay vì tệp mặc định.
+- `-j N`: Chạy N tác vụ song song để tăng tốc độ biên dịch.
+- `-k`: Tiếp tục biên dịch các mục khác ngay cả khi có lỗi xảy ra.
+- `-s`: Chạy lệnh mà không hiển thị thông tin chi tiết.
 
-## Ví dụ
-### Ví dụ 1: Biên dịch một dự án đơn giản
-Giả sử bạn có một tệp `Makefile` như sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `make`:
 
-```makefile
-all: program
+1. **Chạy make với tệp Makefile mặc định**:
+   ```bash
+   make
+   ```
 
-program: main.o utils.o
-    gcc -o program main.o utils.o
+2. **Chạy make với tệp Makefile cụ thể**:
+   ```bash
+   make -f MyMakefile
+   ```
 
-main.o: main.c
-    gcc -c main.c
+3. **Chạy make với tác vụ song song**:
+   ```bash
+   make -j4
+   ```
 
-utils.o: utils.c
-    gcc -c utils.c
-```
+4. **Chạy make và tiếp tục ngay cả khi có lỗi**:
+   ```bash
+   make -k
+   ```
 
-Bạn có thể chạy lệnh sau để biên dịch dự án:
+5. **Chạy make mà không hiển thị thông tin chi tiết**:
+   ```bash
+   make -s
+   ```
 
-```bash
-make
-```
-
-### Ví dụ 2: Chạy biên dịch song song
-Nếu bạn muốn tăng tốc độ biên dịch bằng cách sử dụng 4 luồng, bạn có thể sử dụng tùy chọn `-j`:
-
-```bash
-make -j4
-```
-
-## Mẹo
-- **Sử dụng Makefile rõ ràng**: Đảm bảo rằng Makefile của bạn được tổ chức tốt và dễ hiểu. Sử dụng các biến để giảm thiểu sự lặp lại.
-- **Kiểm tra phụ thuộc**: Đảm bảo rằng tất cả các phụ thuộc được định nghĩa chính xác trong Makefile để tránh lỗi biên dịch.
-- **Sử dụng lệnh `make clean`**: Thêm một mục tiêu `clean` trong Makefile để xóa các tệp nhị phân và tệp tạm thời, giúp giữ cho thư mục làm việc của bạn gọn gàng.
-
-Bằng cách sử dụng lệnh `make`, bạn có thể tự động hóa quá trình biên dịch và tiết kiệm thời gian trong việc phát triển phần mềm.
+## Tips
+- Luôn kiểm tra tệp Makefile để hiểu cấu trúc và các mục tiêu được định nghĩa.
+- Sử dụng tùy chọn `-j` để tăng tốc độ biên dịch, nhưng hãy cẩn thận với các phụ thuộc giữa các mục tiêu.
+- Đảm bảo rằng tất cả các tệp nguồn và thư viện cần thiết đều có sẵn trước khi chạy lệnh `make`.

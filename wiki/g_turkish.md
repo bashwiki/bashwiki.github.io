@@ -1,48 +1,52 @@
-# [리눅스] Bash g++ 사용법
+# [Linux] Bash g++ Kullanımı: C++ programlarını derlemek için kullanılan bir araç
 
-## Overview
-`g++`, GNU Compiler Collection'ın (GCC) C++ derleyicisidir. C++ programlarını derlemek ve çalıştırmak için kullanılır. Geliştiriciler, `g++` komutunu kullanarak kaynak kod dosyalarını makine diline çevirerek çalıştırılabilir programlar oluştururlar. Bu komut, C++ dilinin standartlarına uygun olarak yazılmış kodları derlemek için yaygın olarak tercih edilmektedir.
+## Genel Bakış
+g++ komutu, C++ programlarını derlemek için kullanılan bir derleyicidir. GNU Compiler Collection (GCC) içinde yer alır ve C++ kodunu makine diline çevirerek çalıştırılabilir dosyalar oluşturur.
 
-## Usage
-`g++` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-g++ [seçenekler] [kaynak_dosyaları] -o [çıkış_dosyası]
-```
-
-### Yaygın Seçenekler:
-- `-o [çıkış_dosyası]`: Derleme sonucunda oluşturulacak çalıştırılabilir dosyanın adını belirtir.
-- `-Wall`: Tüm uyarıları etkinleştirir, bu sayede kodunuzda olası hataları daha kolay tespit edebilirsiniz.
-- `-g`: Hata ayıklama bilgilerini derleme dosyasına ekler, bu da `gdb` gibi hata ayıklayıcılarla daha iyi çalışmanıza olanak tanır.
-- `-std=c++11`: C++11 standardını kullanarak derleme yapar. Farklı C++ standartları için `c++14`, `c++17` gibi seçenekler de mevcuttur.
-
-## Examples
-### Örnek 1: Basit Bir C++ Programını Derlemek
-Aşağıdaki örnekte, `hello.cpp` adlı bir dosyayı derleyerek `hello` adlı çalıştırılabilir bir dosya oluşturacağız.
+## Kullanım
+g++ komutunun temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-g++ hello.cpp -o hello
+g++ [seçenekler] [argümanlar]
 ```
 
-Bu komut, `hello.cpp` dosyasını derler ve `hello` adlı çalıştırılabilir dosyayı oluşturur. Ardından, programı çalıştırmak için:
+## Yaygın Seçenekler
+- `-o <dosya_adı>`: Oluşturulan çıktının adını belirler.
+- `-Wall`: Tüm uyarıları etkinleştirir.
+- `-g`: Hata ayıklama bilgilerini ekler.
+- `-std=<standart>`: Kullanılacak C++ standartını belirtir (örneğin, `-std=c++11`).
+- `-I<klasör>`: Ek başlık dosyalarının bulunduğu dizini belirtir.
 
-```bash
-./hello
-```
+## Yaygın Örnekler
+Aşağıda g++ komutunun bazı pratik kullanımları verilmiştir:
 
-### Örnek 2: Uyarıları Etkinleştirerek Derlemek
-Aşağıdaki komut, `program.cpp` dosyasını derlerken tüm uyarıları etkinleştirir ve hata ayıklama bilgilerini ekler:
+1. Basit bir C++ dosyasını derlemek:
+   ```bash
+   g++ program.cpp
+   ```
 
-```bash
-g++ -Wall -g program.cpp -o program
-```
+2. Çıktı dosyasının adını belirlemek:
+   ```bash
+   g++ program.cpp -o program
+   ```
 
-Bu komut, `program.cpp` dosyasını derlerken olası hataları ve uyarıları gösterir, ayrıca hata ayıklama için gerekli bilgileri de ekler.
+3. Hata ayıklama bilgileri ile derlemek:
+   ```bash
+   g++ -g program.cpp -o program
+   ```
 
-## Tips
-- Derleme sırasında uyarıları görmek, kodunuzun kalitesini artırmak için önemlidir. Bu nedenle `-Wall` seçeneğini kullanmayı unutmayın.
-- Hata ayıklama yapacaksanız, `-g` seçeneğini kullanarak derleyin. Bu, hata ayıklama sürecini kolaylaştırır.
-- Farklı C++ standartlarını kullanmak için uygun `-std` seçeneğini eklemeyi unutmayın. Bu, kodunuzun uyumluluğunu artırır.
-- Projelerinizde birden fazla kaynak dosyası varsa, tüm dosyaları tek bir komutla derlemek için dosya adlarını boşlukla ayırarak ekleyebilirsiniz.
+4. Belirli bir C++ standardı kullanarak derlemek:
+   ```bash
+   g++ -std=c++11 program.cpp -o program
+   ```
 
-Bu bilgilerle `g++` komutunu etkili bir şekilde kullanabilir ve C++ projelerinizi başarıyla derleyebilirsiniz.
+5. Birden fazla dosyayı derlemek:
+   ```bash
+   g++ dosya1.cpp dosya2.cpp -o program
+   ```
+
+## İpuçları
+- Derleme sırasında uyarıları görmek için `-Wall` seçeneğini kullanmayı unutmayın.
+- Hata ayıklama yapacaksanız `-g` seçeneğini ekleyin.
+- Projelerinizde başlık dosyalarını düzenli tutmak için `-I` seçeneği ile dizinleri belirtin.
+- Derleme işlemi sırasında performansı artırmak için optimizasyon seçeneklerini kullanabilirsiniz, örneğin `-O2`.

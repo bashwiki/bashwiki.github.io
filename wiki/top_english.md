@@ -1,41 +1,52 @@
-# [리눅스] Bash top 사용법
+# [Linux] Bash top Usage: Monitor system processes in real-time
 
 ## Overview
-The `top` command is a powerful utility in Linux that provides a real-time view of the system's resource usage. It displays a dynamic, real-time summary of system processes, including CPU and memory usage, allowing engineers and developers to monitor system performance and identify resource-intensive processes. This command is particularly useful for diagnosing performance issues and managing system resources effectively.
+The `top` command is a powerful utility in Linux that provides a dynamic, real-time view of the system's running processes. It displays information about CPU usage, memory consumption, and the processes that are currently active, allowing users to monitor system performance and resource utilization effectively.
 
 ## Usage
-The basic syntax of the `top` command is simply:
+The basic syntax of the `top` command is as follows:
 
 ```bash
-top
+top [options] [arguments]
 ```
 
-When executed, `top` will display a continuously updating list of processes. Here are some common options you can use with the `top` command:
+## Common Options
+Here are some common options you can use with the `top` command:
 
-- `-d <seconds>`: Set the delay between updates. For example, `top -d 5` will refresh every 5 seconds.
-- `-p <pid>`: Monitor a specific process by its PID. For example, `top -p 1234` will only show the process with PID 1234.
-- `-u <username>`: Display processes for a specific user. For example, `top -u john` will show processes owned by the user "john".
+- `-d <seconds>`: Set the delay between updates (default is 3 seconds).
+- `-n <number>`: Specify the number of iterations to display before exiting.
+- `-p <pid>`: Monitor a specific process by its process ID (PID).
+- `-u <user>`: Show processes for a specific user.
 
-## Examples
+## Common Examples
 
-1. **Basic Usage**:
-   To start monitoring system processes, simply run:
+1. **Start the top command:**
    ```bash
    top
    ```
-   This will open the `top` interface, where you can see a list of processes along with their CPU and memory usage.
 
-2. **Monitor a Specific Process**:
-   If you want to monitor a process with PID 1234, you can use:
+2. **Set a custom update interval of 5 seconds:**
+   ```bash
+   top -d 5
+   ```
+
+3. **Display processes for a specific user:**
+   ```bash
+   top -u username
+   ```
+
+4. **Monitor a specific process by PID (e.g., PID 1234):**
    ```bash
    top -p 1234
    ```
-   This will filter the output to show only the specified process, allowing you to focus on its resource consumption.
+
+5. **Limit the output to 10 iterations:**
+   ```bash
+   top -n 10
+   ```
 
 ## Tips
-- **Interactive Commands**: While `top` is running, you can use various interactive commands to sort and manage processes. For example, pressing `M` will sort processes by memory usage, while pressing `P` will sort by CPU usage.
-- **Killing Processes**: You can kill a process directly from the `top` interface by pressing `k`, then entering the PID of the process you want to terminate.
-- **Customizing Display**: You can customize the display by pressing `f` to add or remove fields from the output, allowing you to tailor the information to your needs.
-- **Exiting**: To exit the `top` command, simply press `q`.
-
-Using `top` effectively can greatly enhance your ability to monitor and manage system performance in real-time.
+- To sort processes by CPU usage while `top` is running, press `Shift + P`.
+- To sort by memory usage, press `Shift + M`.
+- You can kill a process directly from the `top` interface by pressing `k` and entering the PID of the process you want to terminate.
+- Use the `h` key while in `top` to access help and see more options and commands available within the interface.

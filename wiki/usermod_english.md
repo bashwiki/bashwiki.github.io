@@ -1,42 +1,62 @@
-# [리눅스] Bash usermod 사용법
+# [Linux] Bash usermod Usage: Modify user account information
 
 ## Overview
-The `usermod` command in Linux is a powerful utility used to modify user accounts. Its primary purpose is to change user attributes such as username, home directory, group memberships, and user permissions. This command is typically used by system administrators to manage user accounts effectively.
+The `usermod` command in Bash is used to modify existing user accounts on a Linux system. It allows administrators to change various attributes of user accounts, such as group memberships, home directories, and user names.
 
 ## Usage
-The basic syntax for the `usermod` command is as follows:
+The basic syntax of the `usermod` command is as follows:
 
 ```bash
-usermod [options] username
+usermod [options] [username]
 ```
 
-### Common Options
-- `-l new_username`: Change the username of the specified user.
-- `-d new_home`: Change the user's home directory to `new_home`.
-- `-m`: Move the contents of the user's home directory to the new location when changing the home directory.
-- `-G group1[,group2,...]`: Add the user to the specified supplementary groups.
-- `-a`: Append the user to the supplementary groups specified with the `-G` option (without this, the user will be removed from other groups).
-- `-s shell`: Change the user's login shell to `shell`.
-- `-e expire_date`: Set the date on which the user account will expire.
+## Common Options
+- `-aG`: Append the user to the supplementary groups.
+- `-d`: Change the user's home directory.
+- `-l`: Change the user's login name.
+- `-g`: Change the user's primary group.
+- `-s`: Change the user's login shell.
+- `-u`: Change the user's UID.
 
-## Examples
+## Common Examples
 
-### Example 1: Changing a Username
-To change a user's username from `olduser` to `newuser`, you would use the following command:
-
-```bash
-usermod -l newuser olduser
-```
-
-### Example 2: Adding a User to a Group
-To add the user `john` to the supplementary group `developers`, you can use:
+### 1. Add a user to a supplementary group
+To add a user named `john` to the `developers` group:
 
 ```bash
 usermod -aG developers john
 ```
 
+### 2. Change a user's home directory
+To change the home directory of user `alice` to `/home/alice_new`:
+
+```bash
+usermod -d /home/alice_new alice
+```
+
+### 3. Change a user's login name
+To change the login name of user `bob` to `robert`:
+
+```bash
+usermod -l robert bob
+```
+
+### 4. Change a user's primary group
+To change the primary group of user `charlie` to `staff`:
+
+```bash
+usermod -g staff charlie
+```
+
+### 5. Change a user's login shell
+To change the login shell of user `dave` to `/bin/zsh`:
+
+```bash
+usermod -s /bin/zsh dave
+```
+
 ## Tips
-- Always ensure that you have the necessary administrative privileges to execute the `usermod` command, as it typically requires root access.
-- Be cautious when changing usernames or home directories, as this can affect user permissions and access to files.
-- Use the `-m` option when changing the home directory to ensure that the user's files are moved to the new location, preventing potential data loss.
-- After making changes with `usermod`, it is often a good practice to inform the user of the changes, especially if their username or home directory has been altered.
+- Always ensure you have the necessary permissions (usually root) to modify user accounts.
+- Use the `-aG` option carefully to avoid removing the user from other groups.
+- After changing a user's home directory, consider moving their existing files to the new location.
+- Check the current user attributes using the `id` command before making changes.

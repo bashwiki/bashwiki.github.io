@@ -1,36 +1,46 @@
-# [리눅스] Bash tail 사용법
+# [Linux] Bash tail Kullanımı: Dosyanın son satırlarını görüntüleme
 
-## Overview
-`tail` komutu, bir dosyanın son kısmını görüntülemek için kullanılan bir Bash komutudur. Genellikle log dosyalarını izlemek veya büyük metin dosyalarının son kısımlarını hızlıca kontrol etmek için kullanılır. Varsayılan olarak, `tail` komutu bir dosyanın son 10 satırını gösterir, ancak bu sayı kullanıcı tarafından değiştirilebilir.
+## Genel Bakış
+`tail` komutu, bir dosyanın son kısımlarını görüntülemek için kullanılır. Genellikle log dosyalarını izlemek veya büyük dosyaların sonundaki verileri hızlıca kontrol etmek için tercih edilir.
 
-## Usage
-`tail` komutunun temel sözdizimi şu şekildedir:
-
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-tail [seçenekler] [dosya_adı]
+tail [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-n [sayı]`: Gösterilecek satır sayısını belirtir. Örneğin, `-n 20` son 20 satırı gösterir.
-- `-f`: Dosya sürekli olarak izlenir ve yeni eklenen satırlar anında görüntülenir. Bu, log dosyalarını gerçek zamanlı olarak takip etmek için kullanışlıdır.
-- `-c [sayı]`: Dosyanın sonundan itibaren belirtilen byte sayısını gösterir.
+## Yaygın Seçenekler
+- `-n [sayı]`: Görüntülenecek satır sayısını belirtir. Örneğin, `-n 10` son 10 satırı gösterir.
+- `-f`: Dosya sonuna eklenen yeni satırları sürekli izler. Log dosyalarını takip etmek için kullanışlıdır.
+- `-c [sayı]`: Görüntülenecek bayt sayısını belirtir. Örneğin, `-c 100` son 100 baytı gösterir.
 
-## Examples
-### Örnek 1: Son 10 Satırı Görüntüleme
-Aşağıdaki komut, `example.log` dosyasının son 10 satırını görüntüler:
+## Yaygın Örnekler
+Aşağıda `tail` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-```bash
-tail example.log
-```
+1. Son 10 satırı görüntüleme:
+   ```bash
+   tail -n 10 dosya.txt
+   ```
 
-### Örnek 2: Log Dosyasını Gerçek Zamanlı İzleme
-Aşağıdaki komut, `server.log` dosyasını izler ve dosyaya yeni eklenen satırları anında gösterir:
+2. Bir log dosyasını sürekli izleme:
+   ```bash
+   tail -f log.txt
+   ```
 
-```bash
-tail -f server.log
-```
+3. Son 50 baytı görüntüleme:
+   ```bash
+   tail -c 50 dosya.txt
+   ```
 
-## Tips
-- Log dosyalarını izlerken `-f` seçeneğini kullanarak, dosyaya yeni satırlar eklendikçe anında güncellemeleri görebilirsiniz.
-- `-n` seçeneği ile belirli bir satır sayısını görüntülemek, büyük dosyalarla çalışırken zaman kazandırabilir.
-- `tail` komutunu diğer komutlarla birleştirerek daha karmaşık işlemler gerçekleştirebilirsiniz. Örneğin, `tail -n 50 example.log | grep "ERROR"` komutu, son 50 satırda "ERROR" kelimesini arar.
+4. Belirli bir dosyanın son 20 satırını görüntüleme:
+   ```bash
+   tail -n 20 başka_dosya.log
+   ```
+
+## İpuçları
+- Log dosyalarını izlerken `-f` seçeneğini kullanarak gerçek zamanlı güncellemeleri takip edebilirsiniz.
+- `tail` komutunu diğer komutlarla birleştirerek daha karmaşık işlemler gerçekleştirebilirsiniz. Örneğin, `grep` ile belirli bir kelimeyi aramak için:
+  ```bash
+  tail -f log.txt | grep "hata"
+  ```
+- Büyük dosyalarla çalışırken, `-n` seçeneği ile sadece ihtiyaç duyduğunuz kadar satırı görüntüleyerek zaman kazanabilirsiniz.

@@ -1,35 +1,45 @@
-# [리눅스] Bash man 사용법
+# [Linux] Bash man Kullanımı: Komutların belgelerini görüntüleme
 
-## Overview
-`man` komutu, Linux ve Unix benzeri işletim sistemlerinde kullanılan bir komuttur. Bu komut, kullanıcıların sistemdeki komutlar, sistem çağrıları, dosya formatları ve diğer önemli konular hakkında bilgi almasını sağlar. `man`, "manual" kelimesinin kısaltmasıdır ve genellikle bir komutun nasıl kullanılacağına dair detaylı belgeleri görüntülemek için kullanılır.
+## Genel Bakış
+`man` komutu, Linux ve Unix tabanlı işletim sistemlerinde komutların, sistem çağrılarının ve dosyaların belgelerini görüntülemek için kullanılır. Kullanıcılar, belirli bir komut hakkında ayrıntılı bilgi almak için `man` komutunu kullanarak, o komutun nasıl çalıştığını ve hangi seçeneklerin mevcut olduğunu öğrenebilirler.
 
-## Usage
-`man` komutunun temel kullanımı oldukça basittir. Aşağıda temel sözdizimi ve yaygın seçenekler verilmiştir:
+## Kullanım
+`man` komutunun temel sözdizimi aşağıdaki gibidir:
 
-### Temel Sözdizimi
-```
-man [seçenekler] [komut]
-```
-
-### Yaygın Seçenekler
-- `-k`: Anahtar kelime ile arama yapar. Belirtilen anahtar kelime ile ilgili tüm `man` sayfalarını listeler.
-- `-f`: Belirtilen komutun kısa bir açıklamasını gösterir.
-- `-a`: Belirtilen komut için tüm `man` sayfalarını sırayla görüntüler.
-
-## Examples
-### Örnek 1: Bir Komutun Manuel Sayfasını Görüntüleme
-Aşağıdaki komut, `ls` komutunun manuel sayfasını görüntüler:
 ```bash
-man ls
+man [seçenekler] [argümanlar]
 ```
 
-### Örnek 2: Anahtar Kelime ile Arama
-Aşağıdaki komut, "copy" anahtar kelimesi ile ilgili tüm `man` sayfalarını listeler:
-```bash
-man -k copy
-```
+## Yaygın Seçenekler
+- `-k`: Belirtilen anahtar kelime ile ilgili komutları ve açıklamaları listeleyin.
+- `-f`: Belirtilen komutun kısa bir açıklamasını gösterin.
+- `-a`: Belirtilen komutun tüm belgelerini sırayla gösterin.
+- `-l`: Yerel bir dosyadan man sayfası yükleyin.
 
-## Tips
-- `man` sayfalarını gezmek için yön tuşlarını kullanabilir veya `Space` tuşu ile sayfayı aşağı kaydırabilirsiniz. `q` tuşuna basarak çıkabilirsiniz.
-- `man` sayfalarında daha fazla bilgi bulmak için, sayfanın üst kısmında genellikle "SEE ALSO" bölümü bulunur. Bu bölümde ilgili diğer komutlar hakkında bilgi alabilirsiniz.
-- `man` sayfalarını daha iyi anlamak için, belirli bir komutun argümanları ve seçenekleri hakkında bilgi almayı unutmayın. Bu, komutları etkili bir şekilde kullanmanıza yardımcı olacaktır.
+## Yaygın Örnekler
+Aşağıda `man` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
+
+1. **Bir komutun belgelerini görüntüleme:**
+   ```bash
+   man ls
+   ```
+
+2. **Bir anahtar kelime ile ilgili belgeleri listeleme:**
+   ```bash
+   man -k copy
+   ```
+
+3. **Bir komutun kısa açıklamasını gösterme:**
+   ```bash
+   man -f cp
+   ```
+
+4. **Tüm belgeleri sırayla görüntüleme:**
+   ```bash
+   man -a printf
+   ```
+
+## İpuçları
+- `man` sayfalarında gezinmek için ok tuşlarını veya `Page Up` ve `Page Down` tuşlarını kullanabilirsiniz.
+- `q` tuşuna basarak `man` sayfasından çıkabilirsiniz.
+- Belirli bir bölümdeki belgeleri görüntülemek için, bölüm numarasını ekleyebilirsiniz. Örneğin, `man 5 passwd` komutu, `passwd` komutunun 5. bölümünü gösterir.

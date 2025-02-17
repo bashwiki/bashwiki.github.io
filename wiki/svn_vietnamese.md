@@ -1,44 +1,57 @@
-# [리눅스] Bash svn 사용법
+# [Linux] Bash svn cách sử dụng: Quản lý phiên bản mã nguồn
 
-## Tổng quan
-`svn` (Subversion) là một hệ thống quản lý phiên bản mã nguồn mở, cho phép các nhà phát triển theo dõi và quản lý các thay đổi trong mã nguồn của họ. Command `svn` được sử dụng để thực hiện các thao tác như kiểm tra mã nguồn, cập nhật, và cam kết các thay đổi lên kho lưu trữ.
+## Overview
+Lệnh `svn` (Subversion) là một hệ thống quản lý phiên bản mã nguồn, cho phép người dùng theo dõi các thay đổi trong mã nguồn và hợp tác với nhau trong các dự án phát triển phần mềm. Nó giúp quản lý các phiên bản khác nhau của tệp tin và thư mục, cho phép khôi phục lại phiên bản trước đó khi cần thiết.
 
-## Cách sử dụng
-Cú pháp cơ bản của command `svn` như sau:
-
-```
-svn [tùy chọn] [lệnh] [đối tượng]
-```
-
-### Các tùy chọn phổ biến:
-- `checkout`: Tải mã nguồn từ kho lưu trữ về máy cục bộ.
-- `commit`: Gửi các thay đổi từ máy cục bộ lên kho lưu trữ.
-- `update`: Cập nhật mã nguồn cục bộ với các thay đổi mới nhất từ kho lưu trữ.
-- `add`: Thêm tệp hoặc thư mục mới vào kho lưu trữ.
-- `delete`: Xóa tệp hoặc thư mục khỏi kho lưu trữ.
-
-## Ví dụ
-### Ví dụ 1: Kiểm tra mã nguồn
-Để tải mã nguồn từ kho lưu trữ, bạn có thể sử dụng lệnh sau:
+## Usage
+Cú pháp cơ bản của lệnh `svn` như sau:
 
 ```bash
-svn checkout https://example.com/svn/myproject/trunk
+svn [options] [arguments]
 ```
 
-Lệnh này sẽ tải mã nguồn từ đường dẫn đã chỉ định về thư mục cục bộ.
+## Common Options
+- `checkout`: Tải xuống một bản sao của kho lưu trữ từ máy chủ.
+- `commit`: Gửi các thay đổi từ bản sao cục bộ lên kho lưu trữ.
+- `update`: Cập nhật bản sao cục bộ với các thay đổi mới nhất từ kho lưu trữ.
+- `add`: Thêm tệp tin hoặc thư mục mới vào kho lưu trữ.
+- `delete`: Xóa tệp tin hoặc thư mục khỏi kho lưu trữ.
+- `status`: Hiển thị trạng thái của các tệp tin trong bản sao cục bộ.
 
-### Ví dụ 2: Cam kết thay đổi
-Sau khi thực hiện các thay đổi trong mã nguồn, bạn có thể cam kết chúng bằng lệnh:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `svn`:
 
-```bash
-svn commit -m "Cập nhật tài liệu hướng dẫn"
-```
+1. **Tải xuống kho lưu trữ**:
+   ```bash
+   svn checkout https://example.com/svn/myproject
+   ```
 
-Thay thế `"Cập nhật tài liệu hướng dẫn"` bằng thông điệp mô tả các thay đổi của bạn.
+2. **Gửi thay đổi lên kho lưu trữ**:
+   ```bash
+   svn commit -m "Cập nhật tài liệu"
+   ```
 
-## Mẹo
-- **Thường xuyên cập nhật**: Hãy sử dụng lệnh `svn update` thường xuyên để đảm bảo rằng bạn luôn làm việc với phiên bản mới nhất của mã nguồn.
-- **Sử dụng thông điệp cam kết rõ ràng**: Khi cam kết thay đổi, hãy viết thông điệp rõ ràng và cụ thể để giúp người khác hiểu được mục đích của các thay đổi.
-- **Kiểm tra trạng thái**: Sử dụng lệnh `svn status` để xem trạng thái của các tệp trong thư mục làm việc của bạn, giúp bạn theo dõi các thay đổi chưa được cam kết.
+3. **Cập nhật bản sao cục bộ**:
+   ```bash
+   svn update
+   ```
 
-Hy vọng bài viết này sẽ giúp bạn hiểu rõ hơn về cách sử dụng command `svn` trong quản lý mã nguồn!
+4. **Thêm tệp tin mới**:
+   ```bash
+   svn add newfile.txt
+   ```
+
+5. **Xóa tệp tin**:
+   ```bash
+   svn delete oldfile.txt
+   ```
+
+6. **Kiểm tra trạng thái**:
+   ```bash
+   svn status
+   ```
+
+## Tips
+- Luôn ghi chú rõ ràng khi sử dụng lệnh `commit` để giúp người khác hiểu rõ về những thay đổi bạn đã thực hiện.
+- Thường xuyên cập nhật bản sao cục bộ của bạn để tránh xung đột khi gửi thay đổi.
+- Sử dụng lệnh `status` để kiểm tra trạng thái của các tệp tin trước khi thực hiện các thao tác khác.

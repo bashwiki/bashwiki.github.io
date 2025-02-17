@@ -1,40 +1,43 @@
-# [리눅스] Bash paste 사용법
+# [Linux] Bash paste Kullanımı: Dosyaları yan yana birleştirme
 
-## Overview
-`paste` komutu, bir veya daha fazla dosyadaki satırları yan yana birleştirerek bir çıktı oluşturur. Genellikle metin dosyalarını birleştirmek ve verileri düzenlemek için kullanılır. Her bir dosyanın satırları, varsayılan olarak tab ile ayrılarak birleştirilir. Bu, özellikle verileri sütunlar halinde düzenlemek isteyen mühendisler ve geliştiriciler için faydalıdır.
+## Genel Bakış
+`paste` komutu, birden fazla dosyadaki satırları yan yana birleştirerek yeni bir çıktı oluşturur. Bu komut, özellikle metin dosyalarını birleştirirken veya verileri düzenlerken kullanışlıdır.
 
-## Usage
-Temel `paste` komutunun sözdizimi şu şekildedir:
-
-```bash
-paste [seçenekler] [dosya1] [dosya2] ...
-```
-
-### Yaygın Seçenekler
-- `-d, --delimiters=SEPERATOR`: Satırları birleştirirken kullanılacak ayırıcıyı belirtir. Varsayılan ayırıcı tab karakteridir.
-- `-s, --serial`: Girdi dosyalarındaki satırları ardışık olarak birleştirir. Yani, her dosyanın tüm satırları birleştirilir ve ardından bir sonraki dosyaya geçilir.
-- `-z, --zero-terminated`: Girdi satırlarının sonunu null karakter (`\0`) ile belirler.
-
-## Examples
-### Örnek 1: Temel Kullanım
-İki dosyadaki satırları yan yana birleştirmek için aşağıdaki komutu kullanabilirsiniz:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-paste dosya1.txt dosya2.txt
+paste [seçenekler] [argümanlar]
 ```
 
-Bu komut, `dosya1.txt` ve `dosya2.txt` dosyalarındaki satırları tab ile ayırarak birleştirir.
+## Yaygın Seçenekler
+- `-d`: Birleştirme sırasında kullanılacak ayırıcıyı belirtir. Varsayılan ayırıcı, tab karakteridir.
+- `-s`: Her dosyadaki satırları ardışık olarak birleştirir, yani her dosyanın satırları tek bir satırda yer alır.
+- `-z`: Null karakterini ayırıcı olarak kullanır.
 
-### Örnek 2: Özel Ayırıcı Kullanma
-Eğer farklı bir ayırıcı kullanmak isterseniz, `-d` seçeneğini kullanabilirsiniz:
+## Yaygın Örnekler
 
-```bash
-paste -d ',' dosya1.txt dosya2.txt
-```
+1. İki dosyayı yan yana birleştirme:
+   ```bash
+   paste dosya1.txt dosya2.txt
+   ```
 
-Bu komut, `dosya1.txt` ve `dosya2.txt` dosyalarındaki satırları virgül ile ayırarak birleştirir.
+2. Belirli bir ayırıcı ile birleştirme (örneğin, virgül):
+   ```bash
+   paste -d ',' dosya1.txt dosya2.txt
+   ```
 
-## Tips
-- `paste` komutunu kullanmadan önce dosyalarınızın satır sayılarının eşit olduğundan emin olun. Farklı satır sayıları, beklenmedik sonuçlara yol açabilir.
-- `-s` seçeneği ile dosyaları ardışık olarak birleştirirken, her dosyanın tüm satırlarını birleştirdiğinizden emin olun. Bu, verilerinizi daha düzenli hale getirebilir.
-- Büyük veri setleri ile çalışıyorsanız, `paste` komutunu bir boru (pipe) ile diğer komutlarla birleştirerek daha karmaşık veri işleme işlemleri gerçekleştirebilirsiniz.
+3. Her dosyanın satırlarını ardışık olarak birleştirme:
+   ```bash
+   paste -s dosya1.txt
+   ```
+
+4. Birden fazla dosyayı birleştirip çıktıyı bir dosyaya yönlendirme:
+   ```bash
+   paste dosya1.txt dosya2.txt > birlesik_dosya.txt
+   ```
+
+## İpuçları
+- `paste` komutunu kullanmadan önce dosyaların doğru formatta olduğundan emin olun.
+- Farklı ayırıcılar kullanarak çıktıyı daha okunabilir hale getirebilirsiniz.
+- `man paste` komutunu kullanarak daha fazla bilgi ve seçenekler hakkında detaylı bilgi alabilirsiniz.

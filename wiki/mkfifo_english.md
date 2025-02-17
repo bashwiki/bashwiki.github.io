@@ -1,56 +1,60 @@
-# [리눅스] Bash mkfifo 사용법
+# [Linux] Bash mkfifo Usage: Create named pipes for inter-process communication
 
 ## Overview
-The `mkfifo` command in Bash is used to create named pipes, also known as FIFOs (First In, First Out). Named pipes allow for inter-process communication (IPC) by enabling data to be passed between processes in a unidirectional manner. When one process writes to the named pipe, another process can read from it, facilitating a synchronized data flow without the need for temporary files.
+The `mkfifo` command in Bash is used to create named pipes, also known as FIFOs (First In, First Out). These special files allow for inter-process communication, enabling different processes to communicate with each other by reading from and writing to the same pipe.
 
 ## Usage
-The basic syntax for the `mkfifo` command is as follows:
+The basic syntax of the `mkfifo` command is as follows:
 
 ```bash
-mkfifo [OPTION]... NAME...
+mkfifo [options] [arguments]
 ```
 
-### Common Options
-- `-m, --mode=MODE`: Set the file mode (permissions) of the created FIFO. The mode can be specified in octal format (e.g., `0666`).
-- `--help`: Display help information about the command and its options.
-- `--version`: Show the version information of the `mkfifo` command.
+## Common Options
+- `-m, --mode=MODE`: Set the file mode (permissions) for the created FIFO.
+- `-Z, --context=CONTEXT`: Set the SELinux security context for the created FIFO.
 
-## Examples
+## Common Examples
 
-### Example 1: Creating a Simple Named Pipe
+### Create a Simple Named Pipe
 To create a named pipe called `myfifo`, you can use the following command:
 
 ```bash
 mkfifo myfifo
 ```
 
-After executing this command, you can use `myfifo` in other processes to read from or write to it.
+### Create a Named Pipe with Specific Permissions
+If you want to create a named pipe with specific permissions, you can use the `-m` option. For example, to create a pipe with read and write permissions for the owner and read permissions for others:
 
-### Example 2: Using a Named Pipe for Communication
-Here’s an example of how to use a named pipe for communication between two terminal sessions.
+```bash
+mkfifo -m 644 myfifo
+```
 
-1. In the first terminal, create a named pipe:
+### Using a Named Pipe
+You can use named pipes to facilitate communication between processes. For example, in one terminal, you can write to the pipe:
 
-   ```bash
-   mkfifo myfifo
-   ```
+```bash
+echo "Hello, World!" > myfifo
+```
 
-2. In the first terminal, use the `cat` command to read from the pipe:
+In another terminal, you can read from the pipe:
 
-   ```bash
-   cat myfifo
-   ```
+```bash
+cat myfifo
+```
 
-3. In the second terminal, write to the named pipe:
+### Create Multiple Named Pipes
+You can create multiple named pipes at once by specifying multiple names:
 
-   ```bash
-   echo "Hello, World!" > myfifo
-   ```
-
-4. The first terminal will display the message "Hello, World!" as it is read from the named pipe.
+```bash
+mkfifo pipe1 pipe2 pipe3
+```
 
 ## Tips
-- **Permissions**: When creating a FIFO, consider setting appropriate permissions using the `-m` option to control who can read from or write to the pipe.
-- **Cleanup**: Remember to remove the named pipe using the `rm` command when it is no longer needed to avoid clutter in your filesystem.
-- **Blocking Behavior**: Be aware that reading from a FIFO will block until there is data to read, and writing to a FIFO will block until there is a reader. This behavior can be useful for synchronizing processes.
-- **Debugging**: If you encounter issues with processes not communicating as expected, check if the named pipe exists and if the permissions are set correctly.
+- Always ensure that the named pipe is created in a directory where you have the necessary permissions.
+- Remember that reading from a named pipe will block until there is data to read, and writing to a named pipe will block until there is a reader.
+- Clean up your named pipes after use to avoid cluttering your filesystem with unused files. You can remove them using the `rm` command:
+
+```bash
+rm myfifo
+```

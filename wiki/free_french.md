@@ -1,41 +1,63 @@
-# [리눅스] Bash free 사용법
+# [Linux] Bash free : Afficher l'utilisation de la mémoire
 
 ## Overview
-La commande `free` est un outil essentiel dans les systèmes d'exploitation basés sur Linux qui permet aux utilisateurs de surveiller l'utilisation de la mémoire du système. Elle fournit des informations sur la mémoire totale, utilisée, libre, ainsi que sur la mémoire tampon et le cache. L'objectif principal de cette commande est d'aider les ingénieurs et développeurs à évaluer la performance de la mémoire et à diagnostiquer d'éventuels problèmes liés à la mémoire.
+La commande `free` est utilisée pour afficher la quantité de mémoire libre et utilisée sur un système Linux. Elle fournit des informations sur la mémoire physique, la mémoire d'échange et les buffers utilisés par le noyau.
 
 ## Usage
 La syntaxe de base de la commande `free` est la suivante :
 
-```
-free [options]
-```
-
-### Options courantes :
-- `-h` : Affiche les valeurs dans un format lisible par l'homme (par exemple, en utilisant des unités comme Ko, Mo, Go).
-- `-m` : Affiche les valeurs en mégaoctets.
-- `-g` : Affiche les valeurs en gigaoctets.
-- `-s <seconds>` : Met à jour les informations à intervalles réguliers spécifiés en secondes.
-- `-t` : Affiche une ligne supplémentaire avec les totaux de la mémoire.
-
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `free`.
-
-### Exemple 1 : Afficher l'utilisation de la mémoire en format lisible
 ```bash
-free -h
+free [options] [arguments]
 ```
-Cet exemple affiche l'utilisation de la mémoire avec des unités compréhensibles, facilitant ainsi la lecture des données.
 
-### Exemple 2 : Afficher l'utilisation de la mémoire toutes les 5 secondes
-```bash
-free -h -s 5
-```
-Cette commande met à jour et affiche l'utilisation de la mémoire toutes les 5 secondes, ce qui est utile pour surveiller les changements en temps réel.
+## Common Options
+Voici quelques options courantes pour la commande `free` :
+
+- `-h` : Affiche les valeurs en format lisible par l'homme (Ko, Mo, Go).
+- `-m` : Affiche la mémoire en mégaoctets.
+- `-g` : Affiche la mémoire en gigaoctets.
+- `-s <seconds>` : Met à jour l'affichage toutes les `<seconds>` secondes.
+- `-t` : Affiche un total de la mémoire utilisée et libre.
+
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `free` :
+
+1. Afficher l'utilisation de la mémoire en format lisible par l'homme :
+
+   ```bash
+   free -h
+   ```
+
+2. Afficher la mémoire en mégaoctets :
+
+   ```bash
+   free -m
+   ```
+
+3. Afficher la mémoire en gigaoctets :
+
+   ```bash
+   free -g
+   ```
+
+4. Mettre à jour l'affichage toutes les 5 secondes :
+
+   ```bash
+   free -s 5
+   ```
+
+5. Afficher un total de la mémoire :
+
+   ```bash
+   free -t -h
+   ```
 
 ## Tips
-- Utilisez l'option `-h` pour rendre les résultats plus faciles à interpréter, surtout si vous travaillez avec de grandes quantités de mémoire.
-- Combinez `free` avec d'autres commandes comme `watch` pour surveiller l'utilisation de la mémoire en continu :
+- Utilisez l'option `-h` pour faciliter la lecture des résultats, surtout sur les systèmes avec beaucoup de mémoire.
+- Combinez `free` avec d'autres commandes comme `watch` pour surveiller l'utilisation de la mémoire en temps réel :
+
   ```bash
   watch free -h
   ```
-- Pensez à vérifier régulièrement l'utilisation de la mémoire, surtout lors de l'exécution d'applications gourmandes en ressources, afin d'anticiper les problèmes de performance.
+
+- Pensez à utiliser `vmstat` pour obtenir des informations plus détaillées sur la mémoire et d'autres ressources système.

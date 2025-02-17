@@ -1,41 +1,52 @@
-# [리눅스] Bash su 사용법
+# [Linux] Bash su: Cambiar de usuario en la terminal
 
 ## Overview
-El comando `su` (substitute user) en Bash se utiliza para cambiar de usuario en un entorno de terminal. Su propósito principal es permitir que un usuario se convierta en otro usuario, lo que es especialmente útil para obtener privilegios de administrador o para ejecutar comandos como un usuario diferente. Por defecto, al ejecutar `su` sin argumentos, se cambia al usuario root, que tiene acceso completo al sistema.
+El comando `su` (substitute user) se utiliza en sistemas Unix y Linux para cambiar de usuario en la terminal. Permite a un usuario autenticarse como otro usuario, lo que es especialmente útil para realizar tareas administrativas o acceder a cuentas con diferentes permisos.
 
 ## Usage
 La sintaxis básica del comando `su` es la siguiente:
 
-```bash
+```
 su [opciones] [usuario]
 ```
 
-### Opciones Comunes:
-- `-`: Inicia una sesión de inicio de sesión del usuario especificado, cargando su entorno.
+Si se omite el nombre de usuario, `su` cambiará al usuario root de forma predeterminada.
+
+## Common Options
+- `-l` o `--login`: Inicia una sesión de inicio de sesión como el usuario especificado.
 - `-c`: Permite ejecutar un comando específico como el usuario indicado.
-- `-l` o `--login`: Similar a `-`, inicia una sesión de inicio de sesión del usuario especificado.
-- `-s`: Permite especificar un shell diferente para la sesión.
+- `-s`: Especifica un shell diferente para la sesión.
+- `-m` o `-p`: Mantiene el entorno del usuario actual en lugar de cambiarlo al del nuevo usuario.
 
-## Examples
-### Ejemplo 1: Cambiar al usuario root
-Para cambiar al usuario root y obtener acceso completo al sistema, simplemente se puede ejecutar:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `su`:
 
-```bash
-su -
-```
+1. **Cambiar al usuario root:**
+   ```bash
+   su
+   ```
 
-Después de ingresar la contraseña de root, se tendrá acceso al entorno del usuario root.
+2. **Cambiar a un usuario específico:**
+   ```bash
+   su juan
+   ```
 
-### Ejemplo 2: Ejecutar un comando como otro usuario
-Si se desea ejecutar un comando específico como un usuario diferente, se puede usar la opción `-c`. Por ejemplo, para listar los archivos en el directorio home del usuario "usuario1":
+3. **Ejecutar un comando como otro usuario:**
+   ```bash
+   su -c "apt update" juan
+   ```
 
-```bash
-su -c "ls -la" usuario1
-```
+4. **Iniciar una sesión de inicio de sesión como un usuario:**
+   ```bash
+   su - juan
+   ```
 
-Esto ejecutará el comando `ls -la` como el usuario "usuario1".
+5. **Cambiar a un usuario con un shell diferente:**
+   ```bash
+   su -s /bin/bash juan
+   ```
 
 ## Tips
-- **Usar `sudo` cuando sea posible**: En muchos sistemas, es preferible usar `sudo` en lugar de `su`, ya que `sudo` permite ejecutar comandos con privilegios elevados sin necesidad de cambiar de usuario por completo.
-- **Evitar el uso de `su` sin el guion**: Al usar `su` sin el guion, no se cargará el entorno del usuario, lo que puede llevar a confusiones si se necesitan variables de entorno específicas.
-- **Seguridad**: Siempre asegúrate de tener cuidado al usar `su`, especialmente al cambiar a root, ya que puedes realizar cambios críticos en el sistema.
+- Siempre usa `su` con cuidado, especialmente al cambiar a root, ya que puedes realizar cambios críticos en el sistema.
+- Considera usar `sudo` en lugar de `su` para ejecutar comandos específicos con permisos elevados, ya que proporciona un registro de las acciones realizadas.
+- Recuerda que necesitarás la contraseña del usuario al que intentas cambiar.

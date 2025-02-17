@@ -1,44 +1,51 @@
-# [리눅스] Bash fgrep 사용법
+# [Linux] Bash fgrep Kullanımı: Belirli bir metni içeren dosya satırlarını bulma
 
 ## Genel Bakış
-`fgrep`, belirli bir metin parçasını bir dosya içinde aramak için kullanılan bir komuttur. `fgrep`, "fixed grep" anlamına gelir ve arama işlemini sabit bir dize ile gerçekleştirir. Bu, arama sırasında özel karakterlerin yorumlanmadığı anlamına gelir; dolayısıyla, aradığınız metin tam olarak belirtilen biçimde bulunur. `fgrep`, genellikle büyük metin dosyalarında belirli bir kelime veya ifadeyi hızlı bir şekilde bulmak için kullanılır.
+`fgrep`, belirli bir metni içeren dosya satırlarını aramak için kullanılan bir komuttur. `grep` komutunun bir varyasyonu olan `fgrep`, yalnızca tam eşleşmeler arar ve düzenli ifadeleri desteklemez. Bu, metin aramalarını daha hızlı hale getirir.
 
 ## Kullanım
-Temel sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
-```bash
-fgrep [seçenekler] "arama_dizesi" dosya_adı
+```
+fgrep [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
+## Yaygın Seçenekler
 - `-i`: Büyük/küçük harf duyarsız arama yapar.
-- `-v`: Belirtilen dizeyi içermeyen satırları gösterir.
+- `-v`: Eşleşmeyen satırları gösterir.
 - `-c`: Eşleşen satırların sayısını gösterir.
 - `-n`: Eşleşen satırların numaralarını gösterir.
-- `-r`: Alt dizinlerdeki dosyalar dahil olmak üzere, belirtilen dizindeki tüm dosyalarda arama yapar.
+- `-r`: Alt dizinlerdeki dosyaları da arar.
 
-## Örnekler
-### Örnek 1: Basit Arama
-Aşağıdaki komut, `metin.txt` dosyasında "örnek" kelimesini arar:
+## Yaygın Örnekler
+Aşağıda `fgrep` komutunun bazı pratik kullanımları bulunmaktadır:
 
-```bash
-fgrep "örnek" metin.txt
-```
+1. Belirli bir kelimeyi içeren satırları bulma:
+   ```bash
+   fgrep "örnek" dosya.txt
+   ```
 
-### Örnek 2: Büyük/Küçük Harf Duyarsız Arama
-Aşağıdaki komut, "örnek" kelimesini büyük/küçük harf duyarsız olarak arar:
+2. Büyük/küçük harf duyarsız arama yapma:
+   ```bash
+   fgrep -i "örnek" dosya.txt
+   ```
 
-```bash
-fgrep -i "örnek" metin.txt
-```
+3. Eşleşmeyen satırları gösterme:
+   ```bash
+   fgrep -v "örnek" dosya.txt
+   ```
+
+4. Eşleşen satırların sayısını gösterme:
+   ```bash
+   fgrep -c "örnek" dosya.txt
+   ```
+
+5. Alt dizinlerdeki dosyaları arama:
+   ```bash
+   fgrep -r "örnek" /path/to/dizin
+   ```
 
 ## İpuçları
-- `fgrep` kullanırken, aradığınız dizeyi tırnak içinde belirtmek, boşluk veya özel karakter içeren dizelerin doğru bir şekilde işlenmesini sağlar.
-- Büyük metin dosyalarında arama yaparken, `-c` seçeneğini kullanarak eşleşen satır sayısını hızlıca öğrenebilirsiniz.
-- Eğer birden fazla dosyada arama yapıyorsanız, dosya adlarını boşlukla ayırarak belirtebilirsiniz:
-
-```bash
-fgrep "örnek" dosya1.txt dosya2.txt
-```
-
-Bu bilgilerle `fgrep` komutunu etkili bir şekilde kullanabilir ve metin dosyalarınızda arama işlemlerinizi hızlandırabilirsiniz.
+- `fgrep` kullanırken, aradığınız metni tırnak içinde belirtmek, boşluk veya özel karakter içeren metinler için önemlidir.
+- Performansı artırmak için, `fgrep` ile büyük dosyalarda arama yaparken, arama yapacağınız dosyaların sayısını sınırlamak iyi bir uygulamadır.
+- `fgrep` komutunu sık sık kullananlar için, sık kullanılan arama terimlerini bir dosyada saklamak ve bu dosyayı komut satırında kullanmak pratik olabilir.

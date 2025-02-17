@@ -1,61 +1,47 @@
-# [리눅스] Bash awk 사용법
+# [Linux] Bash awk cách sử dụng: Trình xử lý văn bản mạnh mẽ
 
 ## Tổng quan
-`awk` là một ngôn ngữ lập trình mạnh mẽ được sử dụng chủ yếu để xử lý và phân tích dữ liệu văn bản. Nó cho phép người dùng thực hiện các tác vụ như lọc, định dạng và tính toán trên các dòng văn bản. `awk` rất hữu ích trong việc xử lý các tệp văn bản có cấu trúc, chẳng hạn như tệp CSV hoặc tệp log, giúp trích xuất thông tin cần thiết một cách nhanh chóng và hiệu quả.
+`awk` là một công cụ mạnh mẽ trong Bash dùng để xử lý và phân tích văn bản. Nó cho phép người dùng thực hiện các thao tác trên các dòng văn bản, như lọc, định dạng và tính toán, dựa trên các mẫu và điều kiện đã chỉ định.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `awk` như sau:
-
 ```bash
-awk 'pattern { action }' file
+awk [options] [arguments]
 ```
 
-- `pattern`: Điều kiện để xác định các dòng nào sẽ được xử lý. Nếu không có điều kiện, tất cả các dòng sẽ được xử lý.
-- `action`: Các hành động sẽ được thực hiện trên các dòng khớp với điều kiện. Nếu không có hành động, `awk` sẽ in ra các dòng khớp.
+## Các tùy chọn phổ biến
+- `-F`: Chỉ định ký tự phân cách (delimiter) giữa các trường.
+- `-v`: Đặt giá trị cho biến trước khi thực thi.
+- `-f`: Chạy một tập tin chứa mã `awk`.
+- `-e`: Chạy mã `awk` từ dòng lệnh.
 
-### Tùy chọn phổ biến
-- `-F`: Xác định ký tự phân cách (delimiter) cho các trường. Ví dụ: `-F,` để sử dụng dấu phẩy.
-- `-v`: Gán giá trị cho biến trong `awk`. Ví dụ: `-v var=value`.
-- `-f`: Chỉ định tệp chứa mã `awk` để thực thi.
+## Ví dụ phổ biến
+1. **In toàn bộ nội dung của một tệp:**
+   ```bash
+   awk '{print}' filename.txt
+   ```
 
-## Ví dụ
-### Ví dụ 1: In ra cột thứ hai của tệp
-Giả sử bạn có một tệp `data.txt` với nội dung như sau:
+2. **Lọc các dòng chứa từ khóa cụ thể:**
+   ```bash
+   awk '/keyword/' filename.txt
+   ```
 
-```
-John,25
-Jane,30
-Doe,22
-```
+3. **Tính tổng của một cột số:**
+   ```bash
+   awk '{sum += $1} END {print sum}' filename.txt
+   ```
 
-Bạn có thể sử dụng lệnh sau để in ra cột thứ hai:
+4. **Chỉ định ký tự phân cách và in cột thứ hai:**
+   ```bash
+   awk -F, '{print $2}' filename.csv
+   ```
 
-```bash
-awk -F, '{ print $2 }' data.txt
-```
-
-Kết quả sẽ là:
-
-```
-25
-30
-22
-```
-
-### Ví dụ 2: Tính tổng giá trị trong cột thứ hai
-Nếu bạn muốn tính tổng giá trị trong cột thứ hai, bạn có thể sử dụng lệnh sau:
-
-```bash
-awk -F, '{ sum += $2 } END { print sum }' data.txt
-```
-
-Kết quả sẽ là:
-
-```
-77
-```
+5. **Sử dụng biến để đếm số dòng:**
+   ```bash
+   awk -v count=0 '{count++} END {print count}' filename.txt
+   ```
 
 ## Mẹo
-- Sử dụng `-F` để chỉ định ký tự phân cách phù hợp với định dạng tệp của bạn, điều này sẽ giúp `awk` phân tích dữ liệu chính xác hơn.
-- Khi làm việc với các tệp lớn, hãy cân nhắc sử dụng `awk` trong các ống (pipes) để xử lý dữ liệu theo từng bước, giúp tiết kiệm bộ nhớ.
-- Tận dụng khả năng của `awk` để viết các script phức tạp hơn cho các tác vụ tự động hóa, giúp tiết kiệm thời gian và công sức trong công việc hàng ngày.
+- Sử dụng `-F` để dễ dàng làm việc với các tệp CSV hoặc TSV.
+- Kết hợp `awk` với các lệnh khác như `grep` hoặc `sort` để tăng cường khả năng xử lý dữ liệu.
+- Thực hành viết các đoạn mã `awk` trong tệp riêng để dễ dàng quản lý và tái sử dụng.

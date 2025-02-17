@@ -1,53 +1,62 @@
-# [리눅스] Bash caller 사용법
+# [Linux] Bash caller 用法等价: 调用其他命令或脚本
 
 ## 概述
-`caller` 命令用于显示当前函数调用的上下文信息。它主要用于调试脚本，帮助开发人员了解函数是如何被调用的，以及调用的源位置。通过使用 `caller`，用户可以获取调用函数的行号和文件名，这对于追踪错误和理解代码流非常有用。
+`caller` 命令用于在 Bash 脚本中获取当前函数的调用信息。它可以帮助开发者调试脚本，通过显示调用函数的行号和文件名，提供上下文信息。
 
 ## 用法
-`caller` 命令的基本语法如下：
-
+基本语法如下：
 ```bash
-caller [N]
+caller [n]
 ```
+其中 `n` 是可选参数，表示要获取的调用栈的深度。
 
-- `N`：可选参数，表示要显示的调用栈的层级。如果不指定，默认显示最近的调用。
+## 常用选项
+- `n`：指定要返回的调用栈深度，默认为 1，表示返回最近的调用信息。
 
-## 示例
-以下是两个使用 `caller` 命令的实际示例：
+## 常见示例
+1. 获取最近一次调用的函数信息：
+   ```bash
+   function example {
+       caller
+   }
+   example
+   ```
+   输出示例：
+   ```
+   3  ./script.sh
+   ```
 
-### 示例 1：基本用法
-```bash
-function foo {
-    echo "In function foo"
-    caller
-}
+2. 获取更深层次的调用信息：
+   ```bash
+   function inner {
+       caller 2
+   }
+   function outer {
+       inner
+   }
+   outer
+   ```
+   输出示例：
+   ```
+   6  ./script.sh
+   ```
 
-function bar {
-    foo
-}
-
-bar
-```
-输出将显示 `foo` 函数的调用信息，包括文件名和行号。
-
-### 示例 2：指定调用层级
-```bash
-function baz {
-    echo "In function baz"
-    caller 1
-}
-
-function qux {
-    baz
-}
-
-qux
-```
-在这个例子中，`caller 1` 将返回 `baz` 函数的调用信息，提供更深层次的调用上下文。
+3. 在调试时使用 `caller` 输出详细信息：
+   ```bash
+   function debug {
+       echo "Called from: $(caller)"
+   }
+   function test {
+       debug
+   }
+   test
+   ```
+   输出示例：
+   ```
+   Called from: 4  ./script.sh
+   ```
 
 ## 提示
-- 在调试复杂的 Bash 脚本时，使用 `caller` 可以帮助您快速定位问题。
-- 结合使用 `set -x` 命令，可以更清晰地看到脚本的执行过程和函数调用。
-- `caller` 只在函数内部有效，确保在函数中调用它以获取有用的信息。
-
-通过使用 `caller` 命令，您可以更好地理解和调试您的 Bash 脚本，提升开发效率。
+- 在调试复杂的脚本时，使用 `caller` 可以帮助你快速定位问题。
+- 结合 `set -x` 命令，可以更清晰地看到脚本的执行过程和调用信息。
+- 使用 `caller` 时，确保在函数内部调用，以便获取准确的调用信息。

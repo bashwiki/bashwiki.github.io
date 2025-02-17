@@ -1,7 +1,7 @@
-# [리눅스] Bash set 사용법
+# [Linux] Bash set : Modifier les options de shell
 
 ## Overview
-La commande `set` dans Bash est utilisée pour définir ou afficher les variables d'environnement et les options du shell. Elle permet de modifier le comportement du shell en activant ou désactivant certaines fonctionnalités. Par exemple, vous pouvez utiliser `set` pour activer le mode de débogage, ce qui vous aide à diagnostiquer des problèmes dans vos scripts.
+La commande `set` dans Bash est utilisée pour modifier les options du shell et définir des variables d'environnement. Elle permet de contrôler le comportement du shell et d'ajuster son fonctionnement selon les besoins de l'utilisateur.
 
 ## Usage
 La syntaxe de base de la commande `set` est la suivante :
@@ -10,34 +10,38 @@ La syntaxe de base de la commande `set` est la suivante :
 set [options] [arguments]
 ```
 
-### Options communes :
-- `-e` : Arrête l'exécution du script si une commande échoue.
+## Common Options
+Voici quelques options courantes de la commande `set` :
+
+- `-e` : Arrête l'exécution si une commande échoue.
 - `-u` : Traite les variables non définies comme une erreur.
-- `-x` : Affiche chaque commande avant de l'exécuter, utile pour le débogage.
-- `-o` : Permet de définir des options de shell spécifiques, comme `-o noclobber` pour empêcher l'écrasement des fichiers.
+- `-x` : Affiche les commandes et leurs arguments lors de leur exécution.
+- `-o` : Active ou désactive des options spécifiques du shell.
 
-## Examples
-### Exemple 1 : Activer le mode de débogage
-Pour activer le mode de débogage, vous pouvez utiliser l'option `-x` comme suit :
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `set` :
 
-```bash
-set -x
-echo "Ceci est un test"
-set +x
-```
-Dans cet exemple, chaque commande entre `set -x` et `set +x` sera affichée avant son exécution.
+1. Activer l'arrêt sur erreur :
+   ```bash
+   set -e
+   ```
 
-### Exemple 2 : Arrêter l'exécution en cas d'erreur
-Pour faire en sorte que le script s'arrête dès qu'une commande échoue, utilisez l'option `-e` :
+2. Afficher les commandes exécutées :
+   ```bash
+   set -x
+   ```
 
-```bash
-set -e
-cp fichier_inexistant.txt destination/
-echo "Cette ligne ne sera pas exécutée si la commande précédente échoue."
-```
-Ici, si la commande `cp` échoue, le script s'arrêtera et la ligne suivante ne sera pas exécutée.
+3. Traiter les variables non définies comme une erreur :
+   ```bash
+   set -u
+   ```
+
+4. Désactiver l'affichage des commandes :
+   ```bash
+   set +x
+   ```
 
 ## Tips
-- Utilisez `set -u` pour éviter les erreurs dues à des variables non définies, ce qui peut aider à rendre vos scripts plus robustes.
-- Combinez plusieurs options dans une seule commande, par exemple : `set -eux` pour activer le mode de débogage, arrêter l'exécution en cas d'erreur et traiter les variables non définies comme des erreurs.
-- N'oubliez pas de réinitialiser les options avec `set +e`, `set +u`, ou `set +x` si vous ne souhaitez plus utiliser ces comportements dans certaines parties de votre script.
+- Utilisez `set -e` pour éviter que des erreurs passent inaperçues dans vos scripts.
+- Combinez `set -u` avec `set -e` pour une gestion stricte des erreurs et des variables.
+- Pensez à utiliser `set +` pour désactiver une option si vous n'en avez plus besoin dans votre script.

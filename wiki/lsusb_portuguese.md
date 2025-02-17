@@ -1,41 +1,54 @@
-# [리눅스] Bash lsusb 사용법
+# [Linux] Bash lsusb Uso: Exibir informações sobre dispositivos USB conectados
 
 ## Overview
-O comando `lsusb` é uma ferramenta de linha de comando utilizada em sistemas Linux para listar todos os dispositivos USB conectados ao sistema. Ele fornece informações detalhadas sobre cada dispositivo, como o ID do fabricante, ID do produto e a classe do dispositivo. O principal propósito do `lsusb` é ajudar engenheiros e desenvolvedores a diagnosticar problemas relacionados a dispositivos USB e a obter informações sobre a configuração do hardware.
+O comando `lsusb` é utilizado para listar todos os dispositivos USB conectados ao sistema. Ele fornece informações detalhadas sobre cada dispositivo, como o fabricante, o produto e o ID do dispositivo, permitindo que os usuários identifiquem e gerenciem dispositivos USB de forma eficiente.
 
 ## Usage
 A sintaxe básica do comando `lsusb` é a seguinte:
 
 ```bash
-lsusb [opções]
+lsusb [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-v`: Modo verbose. Exibe informações detalhadas sobre cada dispositivo USB.
-- `-t`: Exibe a árvore de dispositivos USB, mostrando a hierarquia de conexão.
-- `-s <bus>:<device>`: Lista apenas o dispositivo especificado pelo número do barramento e do dispositivo.
-- `-d <vendor>:<product>`: Filtra a lista para mostrar apenas o dispositivo com o ID do fabricante e do produto especificados.
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com o comando `lsusb`:
 
-## Examples
-### Exemplo 1: Listar todos os dispositivos USB
-Para listar todos os dispositivos USB conectados ao sistema, basta executar o comando:
+- `-v`: Exibe informações detalhadas sobre os dispositivos USB.
+- `-t`: Mostra a árvore de dispositivos USB, permitindo visualizar a hierarquia dos dispositivos conectados.
+- `-s [bus]:[device]`: Filtra a saída para mostrar apenas o dispositivo especificado pelo número do barramento e do dispositivo.
+- `-d [idVendor]:[idProduct]`: Filtra a saída para mostrar apenas os dispositivos que correspondem ao ID do fabricante e do produto.
 
-```bash
-lsusb
-```
+## Common Examples
 
-A saída mostrará uma lista de dispositivos, incluindo informações como o ID do fabricante e do produto.
+1. **Listar todos os dispositivos USB conectados:**
+   ```bash
+   lsusb
+   ```
 
-### Exemplo 2: Exibir informações detalhadas sobre um dispositivo específico
-Para obter informações detalhadas sobre um dispositivo USB, você pode usar a opção `-v`. Por exemplo:
+2. **Exibir informações detalhadas sobre todos os dispositivos USB:**
+   ```bash
+   lsusb -v
+   ```
 
-```bash
-lsusb -v -s 001:002
-```
+3. **Mostrar a árvore de dispositivos USB:**
+   ```bash
+   lsusb -t
+   ```
 
-Neste exemplo, `001:002` representa o número do barramento e do dispositivo que você deseja inspecionar.
+4. **Filtrar para mostrar um dispositivo específico:**
+   ```bash
+   lsusb -s 001:002
+   ```
+
+5. **Filtrar por ID do fabricante e do produto:**
+   ```bash
+   lsusb -d 1234:5678
+   ```
 
 ## Tips
-- Utilize o comando `lsusb` em conjunto com outras ferramentas, como `dmesg`, para obter uma visão mais completa sobre o funcionamento dos dispositivos USB.
-- Quando estiver depurando problemas com dispositivos USB, o modo verbose (`-v`) pode fornecer informações valiosas que ajudam a identificar falhas ou configurações incorretas.
-- Familiarize-se com os IDs de fabricante e produto, pois eles são úteis para pesquisar drivers ou suporte para dispositivos específicos.
+- Utilize a opção `-v` com cautela, pois a saída pode ser extensa e difícil de interpretar. Considere redirecionar a saída para um arquivo para análise posterior.
+- Combine `lsusb` com outros comandos, como `grep`, para filtrar informações específicas. Por exemplo:
+  ```bash
+  lsusb | grep "Logitech"
+  ```
+- Familiarize-se com os IDs dos dispositivos USB, pois eles podem ser úteis para resolver problemas de compatibilidade ou para identificar dispositivos desconhecidos.

@@ -1,43 +1,52 @@
-# [리눅스] Bash watch 사용법
+# [Linux] Bash watch uso: Execute a command periodically
 
 ## Overview
-The `watch` command in Bash is a utility that allows users to execute a specified command at regular intervals, displaying the output in the terminal. Its primary purpose is to monitor the output of commands that change over time, making it particularly useful for observing system performance, file changes, or any other dynamic data.
+The `watch` command in Bash is a useful utility that allows you to execute a specified command at regular intervals. This is particularly helpful for monitoring changes in the output of commands, such as system resource usage or file changes.
 
 ## Usage
 The basic syntax of the `watch` command is as follows:
 
 ```bash
-watch [options] command
+watch [options] [arguments]
 ```
 
-### Common Options
-- `-n, --interval`: Specify the interval (in seconds) between command executions. The default is 2 seconds.
-- `-d, --differences`: Highlight the differences between successive updates. This option makes it easier to spot changes in the output.
-- `-t, --no-title`: Suppress the header showing the command being executed and the interval.
-- `-x, --exec`: Execute the command with arguments, allowing for more complex command structures.
+## Common Options
+- `-n, --interval <seconds>`: Specify the interval in seconds between command executions. The default is 2 seconds.
+- `-d, --differences`: Highlight the differences between successive outputs.
+- `-t, --no-title`: Disable the display of the header showing the command being executed and the interval.
+- `-x, --exec`: Execute the command with the specified arguments.
 
-## Examples
+## Common Examples
 
-### Example 1: Monitoring Disk Usage
-To monitor the disk usage of the `/home` directory every 5 seconds, you can use the following command:
+### Example 1: Monitor Disk Usage
+To monitor the disk usage of the root directory every 5 seconds, you can use:
 
 ```bash
-watch -n 5 du -sh /home
+watch -n 5 df -h /
 ```
 
-This command will execute `du -sh /home` every 5 seconds, providing a real-time view of the disk usage.
-
-### Example 2: Checking System Load
-To observe the system load average every 2 seconds and highlight any changes, use:
+### Example 2: Check Running Processes
+To see the list of running processes and update it every 2 seconds:
 
 ```bash
-watch -d uptime
+watch ps aux
 ```
 
-This command will run `uptime` every 2 seconds and highlight any differences in the load averages, making it easy to see how the load changes over time.
+### Example 3: Monitor a Log File
+To monitor the last 10 lines of a log file and see updates:
+
+```bash
+watch tail -n 10 /var/log/syslog
+```
+
+### Example 4: Highlight Changes
+To highlight changes in the output of a command, such as checking the contents of a directory:
+
+```bash
+watch -d ls -l /path/to/directory
+```
 
 ## Tips
-- Use the `-d` option to quickly identify changes in the output, especially when monitoring outputs that can vary frequently.
-- Adjust the interval with `-n` to suit your needs; shorter intervals provide more real-time data but can be overwhelming, while longer intervals may miss quick changes.
-- Combine `watch` with commands that generate concise outputs to keep the terminal output manageable and readable.
-- If you want to stop the `watch` command, simply press `Ctrl + C` to terminate it.
+- Use the `-n` option to adjust the refresh rate according to your needs; a shorter interval can provide real-time monitoring.
+- Combine `watch` with commands that generate dynamic output to effectively track changes.
+- Use the `-t` option if you want a cleaner output without the header, which can be useful for scripts or logging.

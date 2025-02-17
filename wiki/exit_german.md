@@ -1,52 +1,46 @@
-# [리눅스] Bash exit 사용법
+# [Linux] Bash exit Gebrauch: Beenden von Shell-Sitzungen
 
 ## Übersicht
-Der Befehl `exit` wird in Bash-Skripten und interaktiven Shell-Sitzungen verwendet, um die aktuelle Shell oder das Skript zu beenden. Der Hauptzweck des `exit`-Befehls besteht darin, einen Exit-Status zurückzugeben, der angibt, ob das Skript erfolgreich ausgeführt wurde oder ob ein Fehler aufgetreten ist. Ein Exit-Status von `0` bedeutet in der Regel Erfolg, während ein Wert ungleich `0` auf einen Fehler hinweist.
+Der Befehl `exit` wird in Bash verwendet, um eine Shell-Sitzung zu beenden. Er kann sowohl in interaktiven Shells als auch in Skripten eingesetzt werden, um den Exit-Status zurückzugeben, der angibt, ob die Sitzung erfolgreich war oder ob ein Fehler aufgetreten ist.
 
 ## Verwendung
 Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-exit [N]
+exit [options] [status]
 ```
 
-Hierbei ist `N` eine optionale Ganzzahl, die den Exit-Status angibt. Wenn kein Wert angegeben wird, wird der Exit-Status des letzten ausgeführten Befehls verwendet.
+## Häufige Optionen
+- `status`: Ein ganzzahliger Wert, der den Exit-Status angibt. Ein Wert von `0` bedeutet in der Regel Erfolg, während jeder andere Wert einen Fehler darstellt.
 
-### Gemeinsame Optionen
-- `N`: Ein ganzzahliger Wert, der den Exit-Status angibt. Der Wert sollte im Bereich von `0` bis `255` liegen.
+## Häufige Beispiele
+1. **Einfaches Beenden der Shell:**
+   ```bash
+   exit
+   ```
 
-## Beispiele
-### Beispiel 1: Einfaches Skript beenden
-In einem Bash-Skript können Sie den `exit`-Befehl verwenden, um das Skript mit einem bestimmten Exit-Status zu beenden.
+2. **Beenden mit einem spezifischen Status:**
+   ```bash
+   exit 1
+   ```
 
-```bash
-#!/bin/bash
+3. **Beenden eines Bash-Skripts:**
+   ```bash
+   #!/bin/bash
+   echo "Das Skript wird beendet."
+   exit 0
+   ```
 
-echo "Das Skript wird jetzt beendet."
-exit 0
-```
-
-In diesem Beispiel wird das Skript mit dem Exit-Status `0` beendet, was Erfolg bedeutet.
-
-### Beispiel 2: Fehlerbehandlung
-Sie können den `exit`-Befehl auch verwenden, um bei einem Fehler einen anderen Exit-Status zurückzugeben.
-
-```bash
-#!/bin/bash
-
-if [ ! -f "meine_datei.txt" ]; then
-    echo "Fehler: Datei nicht gefunden!"
-    exit 1
-fi
-
-echo "Datei gefunden."
-exit 0
-```
-
-In diesem Beispiel wird das Skript mit dem Exit-Status `1` beendet, wenn die Datei nicht gefunden wird.
+4. **Verwendung in einer Funktion:**
+   ```bash
+   meine_funktion() {
+       echo "Fehler aufgetreten!"
+       exit 1
+   }
+   meine_funktion
+   ```
 
 ## Tipps
-- Verwenden Sie `exit 0`, um anzuzeigen, dass Ihr Skript erfolgreich abgeschlossen wurde.
-- Verwenden Sie nicht nullbasierte Exit-Codes (z.B. `exit 1`, `exit 2`), um verschiedene Fehlerarten zu kennzeichnen. Dies kann bei der Fehlersuche hilfreich sein.
-- Achten Sie darauf, dass der Exit-Status im Bereich von `0` bis `255` bleibt, da Werte außerhalb dieses Bereichs möglicherweise unerwartete Ergebnisse liefern.
-- In interaktiven Shell-Sitzungen können Sie `exit` einfach eingeben, um die Sitzung zu beenden.
+- Verwenden Sie `exit 0`, um anzuzeigen, dass ein Skript oder eine Funktion erfolgreich abgeschlossen wurde.
+- Nutzen Sie spezifische Exit-Codes, um verschiedene Fehlerarten zu kennzeichnen, was die Fehlersuche erleichtert.
+- In interaktiven Shells kann `exit` ohne Argumente verwendet werden, um die aktuelle Sitzung zu beenden.

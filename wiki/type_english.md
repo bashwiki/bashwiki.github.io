@@ -1,48 +1,48 @@
-# [리눅스] Bash type 사용법
+# [Linux] Bash type comando: [determinar tipo de comando]
 
 ## Overview
-The `type` command in Bash is used to determine how a command name is interpreted by the shell. It provides information about the command type, whether it is a built-in shell command, an alias, a function, or an external executable file. This command is particularly useful for debugging and understanding the behavior of commands in scripts or interactive sessions.
+The `type` command in Bash is used to determine the type of a command, whether it is a built-in shell command, an alias, a function, or an external executable. This can be particularly useful for understanding how a command will behave when executed.
 
 ## Usage
 The basic syntax of the `type` command is as follows:
 
 ```bash
-type [OPTION] COMMAND_NAME
+type [options] [arguments]
 ```
 
-### Common Options
-- `-t`: This option returns a single word indicating the command type (e.g., "alias", "function", "builtin", "file").
-- `-a`: This option displays all locations of the command, including aliases and functions, if they exist.
-- `-p`: This option shows the path of the command if it is an external executable.
+## Common Options
+- `-t`: Outputs a single word describing the type of the command (e.g., alias, function, builtin, file).
+- `-a`: Displays all locations of the command, including aliases and functions, not just the first one found.
+- `-p`: Shows the path of the command if it is an external executable.
 
-## Examples
+## Common Examples
 
-### Example 1: Basic Usage
-To check the type of a command, you can simply use:
-
+### Example 1: Determine the type of a command
 ```bash
 type ls
 ```
-Output:
-```
-ls is aliased to `ls --color=auto'
-```
-In this example, the output indicates that `ls` is an alias with specific options.
+This will output something like `ls is /bin/ls`, indicating that `ls` is an external command located in `/bin`.
 
-### Example 2: Using Options
-To find out all the locations of the `echo` command, you can use the `-a` option:
-
+### Example 2: Check if a command is built-in
 ```bash
-type -a echo
+type echo
 ```
-Output:
+The output will be `echo is a shell builtin`, showing that `echo` is a built-in command.
+
+### Example 3: List all locations of a command
+```bash
+type -a ls
 ```
-echo is a shell builtin
-echo is /bin/echo
+This will return all instances of `ls`, including any aliases or functions that may exist.
+
+### Example 4: Get the type of an alias
+```bash
+alias ll='ls -l'
+type ll
 ```
-This output shows that `echo` is both a shell built-in command and an external executable located at `/bin/echo`.
+The output will be `ll is aliased to 'ls -l'`, indicating that `ll` is an alias for `ls -l`.
 
 ## Tips
-- Use `type` to quickly verify if a command is a built-in function or an external executable, which can help in troubleshooting script issues.
-- Combine `type` with other commands like `which` or `command -v` for more comprehensive command resolution.
-- Remember that aliases may override built-in commands, so always check with `type` if you are unsure about a command's behavior in your scripts.
+- Use `type` to troubleshoot command issues by verifying if a command is being overridden by an alias or function.
+- Combine `type` with other commands in scripts to ensure the correct command type is being used.
+- Remember that `type` does not execute the command; it only provides information about it.

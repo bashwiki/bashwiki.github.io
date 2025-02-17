@@ -1,44 +1,44 @@
-# [리눅스] Bash firewalld 사용법
+# [Linux] Bash firewalld Cách sử dụng: Quản lý tường lửa
 
 ## Tổng quan
-`firewalld` là một công cụ quản lý tường lửa trên hệ điều hành Linux, cho phép người dùng cấu hình và quản lý các quy tắc tường lửa một cách dễ dàng và linh hoạt. Nó cung cấp một giao diện để kiểm soát lưu lượng mạng vào và ra, giúp bảo vệ hệ thống khỏi các mối đe dọa từ bên ngoài. `firewalld` sử dụng các khu vực (zones) để xác định mức độ bảo mật cho các kết nối mạng khác nhau.
+Lệnh `firewalld` là một công cụ quản lý tường lửa trên các hệ thống Linux, cho phép người dùng cấu hình và quản lý các quy tắc tường lửa một cách dễ dàng và linh hoạt. Nó hỗ trợ việc quản lý các vùng (zones) và dịch vụ, giúp bảo vệ hệ thống khỏi các mối đe dọa từ mạng.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `firewalld` như sau:
 
-```bash
-firewall-cmd [OPTIONS]
+```
+firewalld [options] [arguments]
 ```
 
-Một số tùy chọn phổ biến của `firewalld` bao gồm:
+## Các tùy chọn phổ biến
+- `--zone`: Chỉ định vùng mà quy tắc sẽ áp dụng.
+- `--add-service`: Thêm một dịch vụ vào vùng.
+- `--remove-service`: Xóa một dịch vụ khỏi vùng.
+- `--list-all`: Liệt kê tất cả các quy tắc và dịch vụ trong một vùng cụ thể.
+- `--reload`: Tải lại cấu hình tường lửa.
 
-- `--state`: Kiểm tra trạng thái hiện tại của `firewalld`.
-- `--zone`: Chỉ định khu vực mà bạn muốn cấu hình.
-- `--add-service`: Thêm một dịch vụ vào khu vực.
-- `--remove-service`: Xóa một dịch vụ khỏi khu vực.
-- `--list-all`: Liệt kê tất cả các quy tắc và dịch vụ trong khu vực hiện tại.
-
-## Ví dụ
-Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `firewalld`:
-
-1. **Kiểm tra trạng thái của firewalld**:
+## Ví dụ thường gặp
+1. **Thêm dịch vụ HTTP vào vùng công cộng:**
    ```bash
-   firewall-cmd --state
+   firewall-cmd --zone=public --add-service=http
    ```
-   Lệnh này sẽ trả về trạng thái hiện tại của `firewalld`, cho biết nó đang chạy hay không.
 
-2. **Thêm dịch vụ HTTP vào khu vực public**:
+2. **Xóa dịch vụ FTP khỏi vùng nội bộ:**
    ```bash
-   firewall-cmd --zone=public --add-service=http --permanent
+   firewall-cmd --zone=internal --remove-service=ftp
    ```
-   Lệnh này sẽ thêm dịch vụ HTTP vào khu vực public và lưu lại thay đổi. Để áp dụng thay đổi, bạn cần khởi động lại `firewalld` bằng lệnh:
+
+3. **Liệt kê tất cả các quy tắc trong vùng công cộng:**
+   ```bash
+   firewall-cmd --zone=public --list-all
+   ```
+
+4. **Tải lại cấu hình tường lửa:**
    ```bash
    firewall-cmd --reload
    ```
 
 ## Mẹo
-- **Sử dụng khu vực**: Hãy tận dụng các khu vực để phân loại các kết nối mạng khác nhau. Điều này giúp bạn dễ dàng quản lý và kiểm soát lưu lượng mạng.
-- **Kiểm tra cấu hình**: Sau khi thực hiện thay đổi, hãy sử dụng `--list-all` để kiểm tra lại cấu hình tường lửa và đảm bảo rằng các quy tắc đã được áp dụng đúng cách.
-- **Sao lưu cấu hình**: Trước khi thực hiện các thay đổi lớn, hãy sao lưu cấu hình hiện tại của `firewalld` để có thể khôi phục lại nếu cần thiết.
-
-Với những thông tin trên, bạn đã có cái nhìn tổng quan về cách sử dụng lệnh `firewalld` trong Bash. Hãy áp dụng các kiến thức này để bảo vệ hệ thống của bạn một cách hiệu quả!
+- Luôn kiểm tra cấu hình tường lửa sau khi thực hiện thay đổi bằng cách sử dụng `--list-all` để đảm bảo rằng các quy tắc đã được áp dụng chính xác.
+- Sử dụng `--permanent` để áp dụng các thay đổi vĩnh viễn, nếu không, các thay đổi sẽ chỉ có hiệu lực cho phiên làm việc hiện tại.
+- Để tránh mất kết nối, hãy cẩn thận khi thay đổi các quy tắc liên quan đến SSH, đặc biệt là khi làm việc trên máy chủ từ xa.

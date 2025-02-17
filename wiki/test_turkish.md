@@ -1,59 +1,58 @@
-# [리눅스] Bash test 사용법
+# [Linux] Bash test Kullanımı: Koşul testleri yapma aracı
 
-## Genel Bakış
-`test` komutu, bir koşulun doğruluğunu kontrol etmek için kullanılan bir Bash komutudur. Bu komut, belirli bir ifadenin doğru olup olmadığını belirlemek için kullanılır ve genellikle koşullu ifadelerde, özellikle `if` yapılarında kullanılır. `test` komutu, dosya varlığı, sayı karşılaştırmaları ve metin karşılaştırmaları gibi çeşitli koşulları değerlendirmek için kullanılabilir.
+## Overview
+`test` komutu, belirli koşulları kontrol etmek için kullanılan bir Bash komutudur. Dosyaların varlığı, karşılaştırmalar ve diğer mantıksal işlemler gibi çeşitli testler yaparak, bir koşulun doğru veya yanlış olduğunu belirlemeye yardımcı olur.
 
-## Kullanım
-`test` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-test [koşul]
-```
-
-Ya da alternatif olarak:
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-[ koşul ]
+test [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-e dosya`: Dosyanın var olup olmadığını kontrol eder.
-- `-f dosya`: Belirtilen dosyanın bir dosya olup olmadığını kontrol eder.
-- `-d dizin`: Belirtilen dizinin bir dizin olup olmadığını kontrol eder.
-- `-z dize`: Belirtilen dizenin boş olup olmadığını kontrol eder.
-- `-n dize`: Belirtilen dizenin boş olmadığını kontrol eder.
-- `a -eq b`: İki sayının eşit olup olmadığını kontrol eder.
-- `a -ne b`: İki sayının eşit olmadığını kontrol eder.
+## Common Options
+- `-e`: Belirtilen dosyanın var olup olmadığını kontrol eder.
+- `-f`: Belirtilen yolun bir dosya olup olmadığını kontrol eder.
+- `-d`: Belirtilen yolun bir dizin olup olmadığını kontrol eder.
+- `-z`: Belirtilen stringin boş olup olmadığını kontrol eder.
+- `-n`: Belirtilen stringin boş olmadığını kontrol eder.
+- `=`: İki stringin eşit olup olmadığını kontrol eder.
+- `-eq`: İki sayının eşit olup olmadığını kontrol eder.
 
-## Örnekler
+## Common Examples
+Aşağıda `test` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-### Örnek 1: Dosya Varlığını Kontrol Etme
-Aşağıdaki komut, `myfile.txt` dosyasının var olup olmadığını kontrol eder:
-
+### 1. Dosyanın varlığını kontrol etme
 ```bash
-if test -e myfile.txt; then
-    echo "Dosya mevcut."
-else
-    echo "Dosya mevcut değil."
-fi
+test -e dosya.txt && echo "Dosya mevcut."
 ```
 
-### Örnek 2: Sayı Karşılaştırması
-Aşağıdaki komut, iki sayının eşit olup olmadığını kontrol eder:
-
+### 2. Bir dizinin varlığını kontrol etme
 ```bash
-a=5
-b=10
-
-if test $a -eq $b; then
-    echo "Sayilar eşit."
-else
-    echo "Sayilar eşit değil."
-fi
+test -d /home/kullanici && echo "Dizin mevcut."
 ```
 
-## İpuçları
-- `test` komutunu kullanırken, koşul ifadelerini yazarken dikkatli olun. Parantezler (`[ ]`) kullanarak daha okunabilir hale getirebilirsiniz.
-- `test` komutunun yerine `[` ve `]` kullanarak daha kısa bir yazım yapabilirsiniz. Örneğin, `test -e myfile.txt` yerine `[ -e myfile.txt ]` yazabilirsiniz.
-- Koşul ifadelerinde boşluklara dikkat edin; boşluklar, komutun doğru çalışması için gereklidir.
-- `test` komutunu kullanırken, koşul ifadelerini karmaşık hale getirmekten kaçının. Daha okunabilir ve anlaşılır kod yazmak için basit koşullar kullanmaya özen gösterin.
+### 3. Bir stringin boş olup olmadığını kontrol etme
+```bash
+string=""
+test -z "$string" && echo "String boş."
+```
+
+### 4. İki sayının eşitliğini kontrol etme
+```bash
+sayi1=5
+sayi2=5
+test $sayi1 -eq $sayi2 && echo "Sayilar eşit."
+```
+
+### 5. İki stringin eşitliğini kontrol etme
+```bash
+string1="merhaba"
+string2="merhaba"
+test "$string1" = "$string2" && echo "Stringler eşit."
+```
+
+## Tips
+- `test` komutunun yerine `[` ve `]` kullanarak daha okunabilir bir sözdizimi elde edebilirsiniz. Örneğin: `[ -e dosya.txt ]`.
+- Koşul testlerini `if` yapıları içinde kullanarak daha karmaşık mantıklar oluşturabilirsiniz.
+- `test` komutunu kullanırken, argümanlarınızı tırnak içine almayı unutmayın; bu, boşluk veya özel karakter içeren stringler için önemlidir.

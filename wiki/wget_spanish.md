@@ -1,42 +1,53 @@
-# [리눅스] Bash wget 사용법
+# [Linux] Bash wget Uso: Descarga archivos desde la web
 
 ## Overview
-`wget` es una herramienta de línea de comandos utilizada para descargar archivos desde la web. Su principal propósito es facilitar la descarga de contenido a través de protocolos como HTTP, HTTPS y FTP. `wget` es especialmente útil para descargar archivos grandes o múltiples archivos a la vez, y puede funcionar en segundo plano, lo que permite continuar con otras tareas mientras se realiza la descarga.
+El comando `wget` es una herramienta de línea de comandos utilizada para descargar archivos de la web. Es especialmente útil para obtener contenido de sitios web, archivos y recursos de manera no interactiva, lo que significa que puede ejecutarse en segundo plano y continuar la descarga incluso si se cierra la sesión.
 
 ## Usage
 La sintaxis básica del comando `wget` es la siguiente:
 
-```bash
+```
 wget [opciones] [URL]
 ```
 
-### Opciones Comunes:
+## Common Options
+A continuación se presentan algunas de las opciones más comunes que se pueden utilizar con `wget`:
+
 - `-O [archivo]`: Especifica el nombre del archivo de salida.
 - `-c`: Continúa una descarga interrumpida.
-- `-q`: Modo silencioso; no muestra mensajes de progreso.
+- `-q`: Ejecuta el comando en modo silencioso, sin mostrar información en la consola.
+- `--limit-rate=[velocidad]`: Limita la velocidad de descarga a la cantidad especificada.
 - `-r`: Descarga recursivamente todos los archivos de un directorio.
-- `--limit-rate=[tasa]`: Limita la velocidad de descarga a la tasa especificada (por ejemplo, 200k para 200 kilobytes por segundo).
 
-## Examples
-### Ejemplo 1: Descargar un archivo simple
-Para descargar un archivo desde una URL, puedes usar el siguiente comando:
+## Common Examples
+Aquí hay algunos ejemplos prácticos de cómo usar `wget`:
 
-```bash
-wget https://example.com/archivo.zip
-```
+1. **Descargar un archivo simple:**
+   ```bash
+   wget https://ejemplo.com/archivo.zip
+   ```
 
-Este comando descargará `archivo.zip` en el directorio actual.
+2. **Descargar un archivo y renombrarlo:**
+   ```bash
+   wget -O nuevo_nombre.zip https://ejemplo.com/archivo.zip
+   ```
 
-### Ejemplo 2: Continuar una descarga interrumpida
-Si una descarga se interrumpe, puedes reanudarla con la opción `-c`:
+3. **Continuar una descarga interrumpida:**
+   ```bash
+   wget -c https://ejemplo.com/archivo.zip
+   ```
 
-```bash
-wget -c https://example.com/archivo.zip
-```
+4. **Descargar un sitio web de forma recursiva:**
+   ```bash
+   wget -r https://ejemplo.com
+   ```
 
-Esto reanudará la descarga desde donde se detuvo.
+5. **Limitar la velocidad de descarga:**
+   ```bash
+   wget --limit-rate=200k https://ejemplo.com/archivo.zip
+   ```
 
 ## Tips
-- Utiliza la opción `-q` si deseas que `wget` funcione en segundo plano sin mostrar mensajes, lo cual es útil para scripts automatizados.
-- Si descargas múltiples archivos, considera usar la opción `-r` para descargar todo un sitio web o un directorio completo.
-- Asegúrate de tener suficiente espacio en disco antes de iniciar descargas grandes o múltiples para evitar errores de espacio insuficiente.
+- Utiliza la opción `-q` para evitar la salida de información si estás descargando múltiples archivos y deseas mantener la consola limpia.
+- Si necesitas descargar un sitio web completo, asegúrate de usar la opción `-r` junto con `-np` (no parent) para evitar descargar archivos de directorios superiores.
+- Considera usar `-N` para descargar solo archivos que han cambiado desde la última descarga, lo que puede ahorrar tiempo y ancho de banda.

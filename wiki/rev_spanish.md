@@ -1,55 +1,51 @@
-# [리눅스] Bash rev 사용법
+# [Linux] Bash rev: Invertir líneas de texto
 
 ## Overview
-El comando `rev` en Bash se utiliza para invertir el orden de los caracteres en cada línea de un archivo o de la entrada estándar. Su propósito principal es facilitar la manipulación de cadenas de texto al permitir que los desarrolladores y ingenieros puedan ver o procesar datos en un formato invertido, lo que puede ser útil en diversas aplicaciones, como la depuración o el análisis de datos.
+El comando `rev` se utiliza para invertir el orden de los caracteres en cada línea de un archivo o entrada estándar. Es útil para manipular texto de manera sencilla y rápida.
 
 ## Usage
-La sintaxis básica del comando `rev` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
 rev [opciones] [archivo]
 ```
 
-### Opciones Comunes
-- `-` o `--`: Si no se especifica un archivo, `rev` lee desde la entrada estándar.
-- `archivo`: Especifica el archivo del cual se desea invertir el contenido línea por línea.
+## Common Options
+- `-o, --output=archivo`: Especifica un archivo de salida en lugar de mostrar el resultado en la salida estándar.
+- `-h, --help`: Muestra la ayuda del comando y sale.
+- `-V, --version`: Muestra la versión del comando.
 
-## Examples
-### Ejemplo 1: Invertir texto desde un archivo
-Supongamos que tenemos un archivo llamado `texto.txt` con el siguiente contenido:
+## Common Examples
 
-```
-Hola
-Mundo
-```
+1. **Invertir texto de un archivo:**
+   Para invertir el contenido de un archivo llamado `texto.txt`:
+   ```bash
+   rev texto.txt
+   ```
 
-Para invertir el contenido de este archivo, se puede usar el siguiente comando:
+2. **Invertir texto desde la entrada estándar:**
+   Puedes usar `rev` para invertir texto que ingreses directamente:
+   ```bash
+   echo "Hola Mundo" | rev
+   ```
 
-```bash
-rev texto.txt
-```
+3. **Guardar la salida invertida en un nuevo archivo:**
+   Para guardar el resultado en un archivo llamado `invertido.txt`:
+   ```bash
+   rev texto.txt > invertido.txt
+   ```
 
-La salida será:
-
-```
-aloH
-odnuM
-```
-
-### Ejemplo 2: Invertir texto desde la entrada estándar
-También se puede utilizar `rev` para invertir texto ingresado directamente en la terminal. Por ejemplo:
-
-```bash
-echo "Ingeniería" | rev
-```
-
-La salida será:
-
-```
-airénegnI
-```
+4. **Invertir múltiples líneas:**
+   Si deseas invertir varias líneas de texto:
+   ```bash
+   cat <<EOF | rev
+   Línea uno
+   Línea dos
+   Línea tres
+   EOF
+   ```
 
 ## Tips
-- `rev` es especialmente útil en scripts donde se necesita manipular cadenas de texto de manera rápida y sencilla.
-- Combina `rev` con otros comandos de Unix, como `sort` o `uniq`, para realizar análisis más complejos. Por ejemplo, puedes invertir líneas y luego ordenarlas.
-- Recuerda que `rev` invierte los caracteres en cada línea de forma independiente, por lo que el resultado puede no ser lo que esperas si no se considera la estructura del texto original.
+- Asegúrate de redirigir la salida a un archivo si deseas conservar el texto invertido.
+- Puedes combinar `rev` con otros comandos de Unix para realizar tareas más complejas, como usarlo con `sort` o `grep`.
+- Recuerda que `rev` solo invierte los caracteres en cada línea, no afecta el orden de las líneas en el archivo original.

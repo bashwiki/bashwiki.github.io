@@ -1,42 +1,60 @@
-# [리눅스] Bash arp 사용법
+# [Linux] Bash arp Uso: Manage ARP cache entries
 
 ## Overview
-The `arp` command is a utility in Unix-like operating systems that is used to manipulate the Address Resolution Protocol (ARP) cache. The primary purpose of this command is to display, add, or delete entries in the ARP table, which maps IP addresses to MAC (Media Access Control) addresses. This mapping is crucial for network communication within a local area network (LAN), as it allows devices to locate each other using their hardware addresses.
+The `arp` command is used to manipulate the Address Resolution Protocol (ARP) cache on a networked device. It allows users to view, add, or delete ARP entries, which map IP addresses to MAC addresses. This is essential for network communication, as it helps devices locate each other on a local network.
 
 ## Usage
 The basic syntax of the `arp` command is as follows:
 
 ```bash
-arp [options] [hostname]
+arp [options] [arguments]
 ```
 
-### Common Options
-- `-a`: Displays the current ARP entries in a human-readable format.
-- `-d hostname`: Deletes the ARP entry for the specified hostname or IP address.
-- `-s hostname ether_addr`: Adds a static ARP entry for the specified hostname, mapping it to the given Ethernet address (MAC address).
-- `-n`: Displays the ARP entries without resolving hostnames, showing only IP addresses.
+## Common Options
+- `-a`: Display the current ARP entries in a human-readable format.
+- `-d`: Delete an entry from the ARP cache.
+- `-s`: Add a static ARP entry.
+- `-n`: Show numerical addresses instead of resolving hostnames.
+- `-i <interface>`: Specify the network interface to operate on.
 
-## Examples
+## Common Examples
 
-### Example 1: Displaying ARP Entries
-To view the current ARP table, you can use the following command:
+### Display ARP Cache
+To view the current ARP entries:
 
 ```bash
 arp -a
 ```
 
-This will list all the ARP entries, showing the IP addresses and their corresponding MAC addresses.
-
-### Example 2: Adding a Static ARP Entry
-If you want to add a static ARP entry for a device, you can use:
+### Delete an ARP Entry
+To remove a specific ARP entry (replace `192.168.1.1` with the target IP):
 
 ```bash
-arp -s 192.168.1.10 00:1A:2B:3C:4D:5E
+arp -d 192.168.1.1
 ```
 
-This command associates the IP address `192.168.1.10` with the MAC address `00:1A:2B:3C:4D:5E`, ensuring that the system will always resolve this IP to the specified MAC address.
+### Add a Static ARP Entry
+To add a static ARP entry mapping an IP address to a MAC address:
+
+```bash
+arp -s 192.168.1.10 00:11:22:33:44:55
+```
+
+### Display ARP Cache Without Hostnames
+To show ARP entries using numerical addresses only:
+
+```bash
+arp -n
+```
+
+### Specify Network Interface
+To view ARP entries for a specific network interface (e.g., `eth0`):
+
+```bash
+arp -i eth0 -a
+```
 
 ## Tips
-- Use the `-n` option when displaying ARP entries if you want to avoid DNS lookups, which can speed up the output and reduce network traffic.
-- Regularly check your ARP table, especially in environments with frequent device changes, to ensure that the mappings are accurate and up-to-date.
-- Be cautious when adding static ARP entries, as incorrect entries can lead to network communication issues. Always verify the MAC address before adding it to the ARP table.
+- Use `arp -a` regularly to monitor your ARP cache and ensure there are no stale entries.
+- Be cautious when adding static entries; incorrect MAC addresses can lead to network issues.
+- Deleting entries can help resolve connectivity problems, especially if a device has changed its IP address.

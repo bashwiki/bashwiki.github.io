@@ -1,48 +1,51 @@
-# [리눅스] Bash dirname 사용법
+# [Linux] Bash dirname Kullanımı: Dosya yolundan dizin adını almak
 
-## Overview
-`dirname` komutu, bir dosya yolunun dizin kısmını ayıklamak için kullanılır. Temel amacı, verilen bir dosya yolunun dizin adını döndürmektir. Bu, özellikle dosya yolları ile çalışırken, dosyanın bulunduğu dizini belirlemek için faydalıdır.
+## Genel Bakış
+`dirname` komutu, bir dosya yolundan dizin adını çıkarmak için kullanılır. Bu komut, dosya yolunun sonundaki dosya adını kaldırarak yalnızca dizin yolunu döndürür.
 
-## Usage
-`dirname` komutunun temel sözdizimi şu şekildedir:
-
-```bash
-dirname [yol]
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
+```
+dirname [seçenekler] [argümanlar]
 ```
 
-### Ortak Seçenekler
-`dirname` komutunun kendine özgü bir seçeneği yoktur; yalnızca bir dosya yolu alır ve bu yolun dizin kısmını döndürür.
+## Yaygın Seçenekler
+- `-z`: Boş dizin adlarını döndürür.
+- `--help`: Komutun kullanımını gösterir.
+- `--version`: Komutun sürüm bilgilerini gösterir.
 
-## Examples
-Aşağıda `dirname` komutunun nasıl kullanılacağına dair iki pratik örnek bulunmaktadır:
+## Yaygın Örnekler
+Aşağıda `dirname` komutunun bazı pratik kullanımları bulunmaktadır:
 
-### Örnek 1: Basit Kullanım
-Bir dosya yolunun dizinini almak için:
+1. Basit bir dosya yolu için dizin adını almak:
+   ```bash
+   dirname /home/kullanici/dosya.txt
+   ```
+   Çıktı:
+   ```
+   /home/kullanici
+   ```
 
-```bash
-$ dirname /home/kullanici/dosya.txt
-/home/kullanici
-```
+2. Bir başka dosya yolu için dizin adını almak:
+   ```bash
+   dirname /var/log/syslog
+   ```
+   Çıktı:
+   ```
+   /var/log
+   ```
 
-Bu komut, `/home/kullanici/dosya.txt` dosyasının bulunduğu dizini döndürür.
+3. Birden fazla dosya yolu için dizin adlarını almak:
+   ```bash
+   dirname /usr/local/bin/script.sh /etc/hosts
+   ```
+   Çıktı:
+   ```
+   /usr/local/bin
+   /etc
+   ```
 
-### Örnek 2: Göreli Yol Kullanımı
-Göreli bir yol verildiğinde de `dirname` kullanılabilir:
-
-```bash
-$ dirname ./belgeler/rapor.pdf
-./belgeler
-```
-
-Bu komut, `./belgeler/rapor.pdf` dosyasının bulunduğu dizini döndürür.
-
-## Tips
-- `dirname` komutunu, dosya yollarını işlerken diğer komutlarla birleştirerek kullanabilirsiniz. Örneğin, bir dosyanın dizinini almak ve ardından o dizinde başka bir işlem yapmak için:
-  
-  ```bash
-  cd $(dirname /home/kullanici/dosya.txt)
-  ```
-
-- Dosya yolunu kontrol etmek ve geçerli bir yol olup olmadığını doğrulamak için `test` veya `if` yapıları ile birlikte kullanabilirsiniz.
-
-Bu bilgilerle `dirname` komutunu etkili bir şekilde kullanabilir ve dosya yolları ile çalışırken daha verimli olabilirsiniz.
+## İpuçları
+- `dirname` komutunu, dosya yollarını işleyen betikler yazarken kullanmak, kodunuzu daha okunabilir hale getirebilir.
+- Bir dosya yolunun dizinini almak için `basename` komutuyla birlikte kullanarak, dosya adını ve dizinini ayrı ayrı elde edebilirsiniz.
+- Komutun çıktısını başka komutlarla birleştirerek daha karmaşık işlemler gerçekleştirebilirsiniz. Örneğin, dizin yolunu bir değişkene atayarak daha sonra kullanabilirsiniz.

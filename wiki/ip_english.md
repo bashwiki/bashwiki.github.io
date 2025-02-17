@@ -1,51 +1,61 @@
-# [리눅스] Bash ip 사용법
+# [Linux] Bash ip uso equivalente: Manage network interfaces and routing
 
 ## Overview
-The `ip` command is a powerful utility used in Linux for managing network interfaces, routing, and various networking configurations. It is part of the `iproute2` package and serves as a modern replacement for older commands like `ifconfig`, `route`, and `arp`. The primary purpose of the `ip` command is to provide a unified interface for network management tasks, allowing users to view and manipulate network settings efficiently.
+The `ip` command is a powerful utility in Linux used for managing network interfaces, routing, and network configurations. It allows users to view and manipulate various aspects of the network stack, including IP addresses, routes, and link settings.
 
 ## Usage
 The basic syntax of the `ip` command is as follows:
 
+```bash
+ip [options] [arguments]
 ```
-ip [ OPTIONS ] OBJECT { COMMAND | help }
-```
 
-- **OPTIONS**: Various options that modify the behavior of the command.
-- **OBJECT**: The type of networking object to manage (e.g., `link`, `addr`, `route`, etc.).
-- **COMMAND**: The specific action to perform on the object.
+## Common Options
+- `link`: Manage network interfaces (e.g., enable, disable).
+- `addr`: Display or manipulate IP addresses.
+- `route`: Manage the routing table.
+- `neigh`: Manage the ARP table.
+- `maddr`: Manage multicast addresses.
 
-### Common Options
-- `-h`, `--help`: Display help information.
-- `-V`, `--version`: Show version information.
-- `-s`, `--statistics`: Display statistics for the specified object.
+## Common Examples
 
-### Common Objects
-- `link`: Manage network interfaces.
-- `addr`: Manage IP addresses.
-- `route`: Manage routing tables.
-
-## Examples
-
-### Example 1: Displaying Network Interfaces
-To list all network interfaces and their statuses, you can use the following command:
-
+### Show all network interfaces
+To display all network interfaces and their statuses, use:
 ```bash
 ip link show
 ```
 
-This command will output a list of all network interfaces, showing their state (up or down) and other relevant information.
-
-### Example 2: Adding an IP Address
-To assign an IP address to a network interface (e.g., `eth0`), you can use the following command:
-
+### Add an IP address to an interface
+To assign an IP address to a specific interface, use:
 ```bash
-sudo ip addr add 192.168.1.10/24 dev eth0
+ip addr add 192.168.1.10/24 dev eth0
 ```
 
-This command adds the IP address `192.168.1.10` with a subnet mask of `24` to the `eth0` interface.
+### Delete an IP address from an interface
+To remove an IP address from an interface, use:
+```bash
+ip addr del 192.168.1.10/24 dev eth0
+```
+
+### Show the routing table
+To view the current routing table, use:
+```bash
+ip route show
+```
+
+### Add a new route
+To add a new route to a specific network, use:
+```bash
+ip route add 10.0.0.0/24 via 192.168.1.1
+```
+
+### Delete a route
+To remove a route from the routing table, use:
+```bash
+ip route del 10.0.0.0/24
+```
 
 ## Tips
-- Always use `sudo` when performing operations that require administrative privileges, such as adding or removing IP addresses.
-- Use `ip addr` to quickly check the current IP addresses assigned to all interfaces.
-- Familiarize yourself with the various objects and commands available with `ip` by using `ip help` or `man ip` for more detailed documentation.
-- Consider using `ip -s` to get statistics along with the standard output, which can be helpful for troubleshooting network issues.
+- Use `ip -h` to display help and see all available options and commands.
+- Always ensure you have the necessary permissions (often root) to modify network settings.
+- When troubleshooting network issues, use `ip addr` and `ip route` to quickly gather information about interfaces and routing.

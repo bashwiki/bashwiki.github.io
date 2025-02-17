@@ -1,42 +1,53 @@
-# [리눅스] Bash cmake 사용법
+# [Linux] Bash cmake 用法: 构建和管理项目
 
 ## 概述
-`cmake` 是一个跨平台的开源构建系统工具，主要用于管理软件的构建过程。它使用简单的文本文件（CMakeLists.txt）来描述项目的构建过程，并生成适合于特定平台的本地构建环境（如 Makefile 或 Visual Studio 项目文件）。`cmake` 的主要目的是简化和自动化软件构建过程，使得开发者能够更高效地管理项目的编译和链接。
+`cmake` 是一个跨平台的开源构建系统工具，主要用于管理软件的编译过程。它使用简单的配置文件来生成标准的构建文件（如 Makefile 或 Visual Studio 项目文件），使得软件开发过程更加高效和灵活。
 
 ## 用法
-`cmake` 的基本语法如下：
-```
-cmake [选项] <源目录>
-```
-### 常见选项：
-- `-B <构建目录>`: 指定构建输出目录。
-- `-S <源目录>`: 指定源代码目录。
-- `-G <生成器>`: 指定生成的构建系统类型（如 Makefile、Ninja 等）。
-- `-D <变量名>=<值>`: 定义 CMake 变量，通常用于配置构建选项。
-
-## 示例
-### 示例 1: 基本用法
-假设你有一个项目的源代码在 `src` 目录中，你想在 `build` 目录中构建它。你可以使用以下命令：
+基本语法如下：
 ```bash
-mkdir build
-cd build
-cmake -S ../src -B .
-make
+cmake [options] [arguments]
 ```
-这个命令会在 `build` 目录中生成 Makefile，并使用 `make` 命令进行编译。
 
-### 示例 2: 使用特定生成器
-如果你想使用 Ninja 作为构建系统，可以使用以下命令：
-```bash
-mkdir build
-cd build
-cmake -S ../src -B . -G Ninja
-ninja
-```
-这将使用 Ninja 生成构建文件，并通过 `ninja` 命令进行构建。
+## 常用选项
+- `-S <path>`: 指定源代码目录。
+- `-B <path>`: 指定构建目录。
+- `-D <var>=<value>`: 设置 CMake 变量。
+- `-G <generator>`: 指定生成器类型（如 Makefile、Ninja 等）。
+- `--build <dir>`: 构建指定目录中的项目。
+
+## 常见示例
+1. **基本构建**
+   ```bash
+   cmake -S . -B build
+   ```
+   在当前目录生成构建文件到 `build` 目录。
+
+2. **指定构建类型**
+   ```bash
+   cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+   ```
+   在构建时指定为 Release 模式。
+
+3. **使用特定生成器**
+   ```bash
+   cmake -S . -B build -G "Ninja"
+   ```
+   使用 Ninja 作为构建系统生成器。
+
+4. **构建项目**
+   ```bash
+   cmake --build build
+   ```
+   在 `build` 目录中执行构建。
+
+5. **清理构建**
+   ```bash
+   cmake --build build --target clean
+   ```
+   清理构建目录中的生成文件。
 
 ## 提示
-- 在进行多次构建时，建议使用单独的构建目录，这样可以避免源代码目录的混乱。
-- 使用 `-D` 选项可以轻松地配置构建选项，例如开启或关闭特性。
-- 定期检查 CMakeLists.txt 文件，确保其与项目需求保持一致，特别是在添加新源文件或库时。
-- 如果遇到构建错误，使用 `cmake --build . --verbose` 可以帮助你查看详细的构建过程，便于排查问题。
+- 在使用 `cmake` 时，建议保持源代码和构建目录分离，以便于管理和清理。
+- 使用 `-D` 选项可以方便地传递自定义参数，帮助配置项目。
+- 定期查看 CMake 的文档和更新，以利用新功能和最佳实践。

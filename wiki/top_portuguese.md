@@ -1,44 +1,47 @@
-# [리눅스] Bash top 사용법
+# [Linux] Bash top uso: Monitore o desempenho do sistema
 
 ## Overview
-O comando `top` é uma ferramenta de monitoramento de sistema em tempo real que exibe informações sobre os processos em execução no sistema. Ele fornece uma visão dinâmica do uso da CPU, memória e outras métricas importantes, permitindo que engenheiros e desenvolvedores identifiquem processos que consomem muitos recursos e monitorem o desempenho geral do sistema.
+O comando `top` é uma ferramenta de monitoramento em tempo real que exibe informações sobre os processos em execução no sistema. Ele fornece uma visão geral do uso de CPU, memória e outros recursos, permitindo que os usuários identifiquem quais processos estão consumindo mais recursos.
 
 ## Usage
-A sintaxe básica do comando `top` é simples:
+A sintaxe básica do comando `top` é a seguinte:
 
 ```bash
 top [opções]
 ```
 
-Algumas das opções mais comuns incluem:
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com o comando `top`:
 
-- `-d <segundos>`: Define o intervalo de atualização em segundos. Por exemplo, `-d 2` atualiza a saída a cada 2 segundos.
-- `-n <número>`: Especifica o número de iterações a serem exibidas antes de sair. Por exemplo, `-n 5` executa o `top` por 5 atualizações e depois termina.
-- `-u <usuário>`: Filtra a exibição para mostrar apenas os processos pertencentes a um usuário específico.
+- `-d <tempo>`: Define o intervalo de atualização em segundos.
+- `-n <número>`: Especifica o número de iterações a serem exibidas antes de sair.
+- `-u <usuário>`: Filtra os processos para mostrar apenas os pertencentes ao usuário especificado.
+- `-p <PID>`: Monitora apenas o processo com o ID especificado.
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `top`:
+## Common Examples
 
-1. Para iniciar o `top` com a atualização padrão (a cada 3 segundos):
-
+1. **Executar o top com atualização a cada 2 segundos:**
    ```bash
-   top
+   top -d 2
    ```
 
-2. Para executar o `top` com um intervalo de atualização de 2 segundos e limitar a 10 iterações:
-
+2. **Mostrar apenas os processos de um usuário específico:**
    ```bash
-   top -d 2 -n 10
+   top -u nome_do_usuario
    ```
 
-3. Para visualizar apenas os processos de um usuário específico, por exemplo, "joao":
-
+3. **Monitorar um processo específico pelo seu PID:**
    ```bash
-   top -u joao
+   top -p 1234
+   ```
+
+4. **Executar o top por um número específico de iterações:**
+   ```bash
+   top -n 5
    ```
 
 ## Tips
-- Utilize a tecla `h` enquanto o `top` está em execução para acessar a ajuda interativa, que fornece uma lista de comandos e opções disponíveis.
-- Para ordenar os processos por uso de CPU, pressione a tecla `P`. Para ordenar por uso de memória, pressione a tecla `M`.
-- Você pode sair do `top` a qualquer momento pressionando a tecla `q`.
-- Considere usar o comando `htop`, que é uma versão melhorada do `top`, com uma interface mais amigável e recursos adicionais, se estiver disponível no seu sistema.
+- Use a tecla `h` enquanto o `top` está em execução para acessar a ajuda e ver os comandos de atalho disponíveis.
+- Para sair do `top`, pressione `q`.
+- Você pode ordenar os processos por diferentes critérios, como uso de CPU ou memória, pressionando as teclas correspondentes enquanto o `top` está em execução (por exemplo, `P` para CPU e `M` para memória).
+- Considere usar o comando `htop` como uma alternativa mais visual e interativa ao `top`, se estiver disponível no seu sistema.

@@ -1,41 +1,43 @@
-# [리눅스] Bash dirs 사용법
+# [Linux] Bash dirs uso: Muestra el contenido del directorio de pila
 
 ## Overview
-El comando `dirs` en Bash se utiliza para mostrar la lista de directorios en la pila de directorios actual. Esta pila permite a los usuarios navegar fácilmente entre diferentes directorios sin tener que escribir la ruta completa cada vez. `dirs` es especialmente útil para desarrolladores e ingenieros que trabajan en múltiples directorios y necesitan cambiar entre ellos de manera eficiente.
+El comando `dirs` en Bash se utiliza para mostrar el contenido del directorio de pila. Este comando es útil para gestionar y visualizar los directorios que has visitado en tu sesión actual de terminal, permitiéndote navegar de manera más eficiente entre ellos.
 
 ## Usage
 La sintaxis básica del comando `dirs` es la siguiente:
 
 ```bash
-dirs [opciones]
+dirs [options] [arguments]
 ```
 
-### Opciones Comunes
-- `-l`: Muestra la lista de directorios en formato largo, que incluye información adicional.
+## Common Options
+- `-l`: Muestra la lista de directorios en formato largo.
 - `-p`: Muestra los directorios en una sola línea, separados por espacios.
-- `+n`: Muestra el directorio en la posición `n` de la pila.
-- `-n`: Muestra el directorio en la posición `-n` desde el final de la pila.
+- `-c`: Limpia el contenido del directorio de pila.
 
-## Examples
-### Ejemplo 1: Mostrar la Pila de Directorios
-Para ver la lista actual de directorios en la pila, simplemente usa el comando:
+## Common Examples
 
-```bash
-dirs
-```
-Esto mostrará los directorios que has visitado y que están almacenados en la pila.
+1. **Mostrar el directorio de pila actual:**
+   ```bash
+   dirs
+   ```
 
-### Ejemplo 2: Usar Opciones
-Si deseas ver la pila de directorios en formato largo, puedes usar la opción `-l`:
+2. **Mostrar el directorio de pila en formato largo:**
+   ```bash
+   dirs -l
+   ```
 
-```bash
-dirs -l
-```
-Esto proporcionará una vista más detallada de los directorios en la pila.
+3. **Limpiar el directorio de pila:**
+   ```bash
+   dirs -c
+   ```
+
+4. **Mostrar el directorio de pila en una sola línea:**
+   ```bash
+   dirs -p
+   ```
 
 ## Tips
-- Utiliza `pushd` y `popd` junto con `dirs` para gestionar tu pila de directorios de manera más efectiva. `pushd` agrega un directorio a la pila y cambia a él, mientras que `popd` elimina el directorio superior de la pila y regresa al anterior.
-- Recuerda que la pila de directorios se mantiene durante la sesión de terminal, por lo que puedes cambiar entre directorios de manera rápida y eficiente sin perder el rastro de dónde has estado.
-- Para ver la posición de un directorio específico en la pila, puedes usar `dirs +n` o `dirs -n` para acceder a posiciones relativas.
-
-Con estos consejos y ejemplos, podrás utilizar el comando `dirs` de manera efectiva en tus tareas diarias de desarrollo y administración de sistemas.
+- Utiliza `pushd` y `popd` junto con `dirs` para gestionar tu directorio de pila de manera efectiva.
+- Recuerda que el orden de los directorios en la pila es importante; el último directorio añadido será el primero en salir.
+- Puedes combinar `dirs` con otros comandos para automatizar tareas de navegación en la terminal.

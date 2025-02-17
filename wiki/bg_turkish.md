@@ -1,47 +1,38 @@
-# [리눅스] Bash bg 사용법
+# [Linux] Bash bg Kullanımı: Arka planda çalışan işlemleri devam ettirir
 
 ## Overview
-`bg` komutu, Bash kabuğunda arka planda çalışan bir işlemi başlatmak için kullanılır. Bu komut, bir işlemi duraklatıp (suspend) arka planda çalıştırarak, terminalde başka komutlar girmenize olanak tanır. Genellikle, bir işlemi durdurduktan sonra (örneğin `Ctrl + Z` ile) bu işlemi arka plana almak için kullanılır.
+`bg` komutu, terminalde duraklatılmış bir işlemi arka planda çalıştırmak için kullanılır. Bu, kullanıcıların terminali kullanmaya devam ederken işlemlerin arka planda sürdürülmesine olanak tanır.
 
 ## Usage
 Temel sözdizimi şu şekildedir:
-
 ```bash
-bg [job_spec]
+bg [options] [job_spec]
 ```
 
-- `job_spec`: Arka plana almak istediğiniz işin tanımıdır. Bu, işin numarası veya işin adı olabilir. Eğer belirtilmezse, en son duraklatılan iş arka plana alınır.
+## Common Options
+- `job_spec`: Arka planda çalıştırılacak işlemi belirtir. Bu, iş numarası veya iş adı olabilir.
+- `-n`: İşin arka planda çalıştırılmasını sağlarken, çıktısını terminale yönlendirmeden yapar.
 
-### Ortak Seçenekler
-- `job_spec`: İş numarasını belirtirken, `%` sembolü ile işin numarasını kullanabilirsiniz. Örneğin, `%1` ilk iş anlamına gelir.
+## Common Examples
+1. Duraklatılmış bir işlemi arka planda çalıştırmak:
+   ```bash
+   bg %1
+   ```
+   Bu komut, iş numarası 1 olan duraklatılmış işlemi arka planda devam ettirir.
 
-## Examples
+2. Tüm duraklatılmış işlemleri arka planda çalıştırmak:
+   ```bash
+   bg
+   ```
+   Bu komut, mevcut tüm duraklatılmış işlemleri arka planda çalıştırır.
 
-### Örnek 1: Bir işlemi duraklatıp arka plana almak
-Bir işlemi başlatın ve duraklatın:
-
-```bash
-sleep 100
-```
-
-Bu komutu duraklatmak için `Ctrl + Z` tuşlarına basın. Ardından, işlemi arka plana almak için:
-
-```bash
-bg
-```
-
-Bu komut, duraklatılan `sleep` işlemini arka planda çalıştırmaya başlar.
-
-### Örnek 2: Belirli bir işlemi arka plana almak
-Eğer birden fazla işiniz varsa ve belirli bir iş numarasını arka plana almak istiyorsanız:
-
-```bash
-bg %1
-```
-
-Bu komut, birinci iş numarasına sahip duraklatılmış işlemi arka plana alır.
+3. Belirli bir işlemi arka planda çalıştırırken çıktı yönlendirmesi yapmak:
+   ```bash
+   bg -n %2
+   ```
+   Bu komut, iş numarası 2 olan duraklatılmış işlemi arka planda çalıştırır ve çıktısını terminale yönlendirmez.
 
 ## Tips
-- `jobs` komutunu kullanarak mevcut işlerinizi listeleyebilir ve hangi işlerin duraklatıldığını görebilirsiniz.
-- Arka planda çalışan bir işlemi durdurmak için `fg` komutunu kullanarak işlemi ön plana alabilirsiniz.
-- `bg` komutunu kullanmadan önce işlemin duraklatıldığından emin olun; aksi takdirde, hata alabilirsiniz.
+- İşlerinizi yönetmek için `jobs` komutunu kullanarak hangi işlemlerin duraklatıldığını görebilirsiniz.
+- `fg` komutunu kullanarak arka planda çalışan bir işlemi tekrar ön plana alabilirsiniz.
+- İş numaralarını kullanarak belirli bir işlemi hedeflemek, yönetimi kolaylaştırır.

@@ -1,42 +1,47 @@
-# [리눅스] Bash dig 사용법
+# [Linux] Bash dig 使用说明：查询DNS信息
 
 ## 概述
-`dig`（Domain Information Groper）是一个用于查询DNS（域名系统）信息的命令行工具。它的主要目的是帮助用户获取域名的解析记录，包括A记录、MX记录、CNAME记录等。`dig`通常用于网络故障排除、DNS配置验证以及域名信息的查询。
+`dig`（Domain Information Groper）是一个用于查询DNS（域名系统）信息的命令行工具。它可以帮助用户获取域名的解析记录，包括A记录、MX记录、CNAME记录等。
 
 ## 用法
-`dig`的基本语法如下：
+基本语法如下：
 ```
-dig [@server] [name] [type] [options]
+dig [选项] [参数]
 ```
-- `@server`：可选参数，指定要查询的DNS服务器。如果不指定，`dig`会使用系统默认的DNS服务器。
-- `name`：要查询的域名。
-- `type`：可选参数，指定要查询的记录类型（如A、AAAA、MX、CNAME等）。如果不指定，默认为A记录。
-- `options`：可选参数，提供额外的查询选项。
 
-常见选项包括：
-- `+short`：以简短格式输出结果。
-- `+trace`：追踪DNS解析过程，显示每一步的查询。
-- `+noall +answer`：只显示答案部分，忽略其他信息。
+## 常用选项
+- `@server`：指定要查询的DNS服务器。
+- `-t type`：指定查询的记录类型（例如：A、MX、CNAME等）。
+- `+short`：以简短格式显示结果。
+- `+trace`：追踪DNS解析过程。
 
-## 示例
-以下是一些使用`dig`的实际示例：
-
-1. 查询一个域名的A记录：
+## 常见示例
+1. 查询某个域名的A记录：
    ```bash
    dig example.com
    ```
 
-2. 查询特定DNS服务器的MX记录：
+2. 查询特定DNS服务器的A记录：
    ```bash
-   dig @8.8.8.8 example.com MX
+   dig @8.8.8.8 example.com
    ```
 
-3. 使用短格式输出查询结果：
+3. 查询域名的MX记录：
    ```bash
-   dig +short example.com
+   dig example.com -t MX
+   ```
+
+4. 使用简短格式查询CNAME记录：
+   ```bash
+   dig example.com -t CNAME +short
+   ```
+
+5. 追踪DNS解析过程：
+   ```bash
+   dig example.com +trace
    ```
 
 ## 提示
-- 在进行DNS故障排除时，使用`+trace`选项可以帮助你了解DNS解析的每一步，便于定位问题。
-- 如果你频繁查询某个域名，可以考虑将结果缓存，以减少对DNS服务器的请求。
-- 了解不同类型的DNS记录及其用途，有助于更有效地使用`dig`进行查询。
+- 使用`+short`选项可以使输出结果更加简洁，便于快速查看。
+- 如果你经常查询某个域名，可以考虑将其放入别名中，以便快速访问。
+- 了解不同的记录类型可以帮助你更好地使用`dig`命令，确保获取所需的信息。

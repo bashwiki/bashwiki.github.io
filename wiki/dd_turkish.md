@@ -1,50 +1,47 @@
-# [리눅스] Bash dd 사용법
+# [Linux] Bash dd Kullanımı: Verileri kopyalamak ve dönüştürmek
 
-## Genel Bakış
-`dd` komutu, Unix ve Unix benzeri işletim sistemlerinde kullanılan bir komuttur. Temel amacı, dosyaları ve disk bölümlerini düşük seviyede kopyalamak ve dönüştürmektir. `dd`, genellikle disk imajları oluşturmak, verileri yedeklemek veya taşımak ve veri dönüşümleri yapmak için kullanılır. Bu komut, özellikle sistem yöneticileri ve geliştiriciler için güçlü bir araçtır.
+## Overview
+`dd` komutu, Unix benzeri işletim sistemlerinde verileri kopyalamak ve dönüştürmek için kullanılan güçlü bir araçtır. Genellikle disk imajları oluşturmak, verileri yedeklemek veya belirli bir biçimde dönüştürmek için kullanılır.
 
-## Kullanım
-`dd` komutunun temel sözdizimi aşağıdaki gibidir:
-
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-dd if=<girdi_dosyası> of=<çıktı_dosyası> [opsiyonlar]
+dd [options] [arguments]
 ```
 
-Burada:
-- `if` (input file): Kopyalanacak giriş dosyasını belirtir.
-- `of` (output file): Kopyalanacak çıkış dosyasını belirtir.
+## Common Options
+- `if=`: Giriş dosyasını belirtir. (Input file)
+- `of=`: Çıkış dosyasını belirtir. (Output file)
+- `bs=`: Blok boyutunu belirtir. (Block size)
+- `count=`: Kopyalanacak blok sayısını belirtir.
+- `skip=`: Giriş dosyasından atlanacak blok sayısını belirtir.
+- `seek=`: Çıkış dosyasına atlanacak blok sayısını belirtir.
 
-### Yaygın Seçenekler
-- `bs=<boyut>`: Blok boyutunu belirtir. Varsayılan blok boyutu 512 bayttır.
-- `count=<adet>`: Kopyalanacak blok sayısını belirtir.
-- `skip=<adet>`: Giriş dosyasından atlanacak blok sayısını belirtir.
-- `seek=<adet>`: Çıkış dosyasına atlanacak blok sayısını belirtir.
-
-## Örnekler
-
-### Örnek 1: Disk İmajı Oluşturma
-Bir disk bölümünün imajını oluşturmak için aşağıdaki komutu kullanabilirsiniz:
-
+## Common Examples
+- Bir dosyayı başka bir dosyaya kopyalamak:
 ```bash
-dd if=/dev/sda of=/path/to/disk_image.img bs=4M
+dd if=source.txt of=destination.txt
 ```
-Bu komut, `/dev/sda` disk bölümünün imajını `disk_image.img` dosyasına 4 MB'lık bloklarla kopyalar.
 
-### Örnek 2: Disk İmajını Geri Yükleme
-Daha önce oluşturduğunuz bir disk imajını geri yüklemek için şu komutu kullanabilirsiniz:
-
+- Bir disk imajı oluşturmak:
 ```bash
-dd if=/path/to/disk_image.img of=/dev/sda bs=4M
+dd if=/dev/sda of=/path/to/disk.img bs=4M
 ```
-Bu komut, `disk_image.img` dosyasını `/dev/sda` diskine geri yükler.
 
-## İpuçları
-- `dd` komutunu kullanmadan önce, özellikle disk işlemleri yaparken dikkatli olun. Yanlış bir `of` parametresi, verilerinizi kaybetmenize neden olabilir.
-- İşlemin ilerlemesini görmek için `status=progress` seçeneğini ekleyebilirsiniz. Örneğin:
-
+- Disk imajını geri yüklemek:
 ```bash
-dd if=/dev/sda of=/path/to/disk_image.img bs=4M status=progress
+dd if=/path/to/disk.img of=/dev/sda bs=4M
 ```
-- Büyük dosyalarla çalışırken, `conv=sync` seçeneğini kullanarak, eksik blokları sıfırlarla doldurabilirsiniz.
 
-`dd` komutu, güçlü ve esnek bir araçtır, ancak dikkatli kullanılmalıdır. Doğru seçenekleri ve parametreleri kullanarak, veri yönetimini etkili bir şekilde gerçekleştirebilirsiniz.
+- Belirli bir boyutta veri kopyalamak (örneğin, ilk 100 blok):
+```bash
+dd if=source.txt of=destination.txt count=100
+```
+
+## Tips
+- `dd` komutunu kullanmadan önce, özellikle disklerle çalışırken dikkatli olun; yanlış bir hedef belirlemek veri kaybına neden olabilir.
+- İşlemin ilerlemesini görmek için `status=progress` seçeneğini ekleyebilirsiniz:
+```bash
+dd if=/dev/sda of=/path/to/disk.img bs=4M status=progress
+```
+- Blok boyutunu ayarlamak, performansı artırabilir; genellikle 4M veya 1M gibi daha büyük değerler kullanmak daha hızlı sonuçlar verebilir.

@@ -1,36 +1,44 @@
-# [리눅스] Bash watch 사용법
+# [Linux] Bash watch Verwendung: Aktualisieren von Befehlsausgaben in Echtzeit
 
 ## Übersicht
-Der Befehl `watch` in Bash ist ein nützliches Werkzeug, das es ermöglicht, einen bestimmten Befehl in regelmäßigen Abständen auszuführen und die Ausgabe in einem Terminalfenster zu aktualisieren. Dies ist besonders hilfreich für Ingenieure und Entwickler, die den Status von Systemressourcen, Dateien oder Prozessen überwachen möchten, ohne ständig manuell Befehle eingeben zu müssen.
+Der Befehl `watch` wird verwendet, um die Ausgabe eines bestimmten Befehls in regelmäßigen Abständen zu aktualisieren. Dies ist besonders nützlich, um Änderungen in der Ausgabe eines Befehls zu überwachen, ohne den Befehl manuell erneut eingeben zu müssen.
 
 ## Verwendung
-Die grundlegende Syntax des `watch`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-watch [Optionen] Befehl
+watch [Optionen] [Befehl]
 ```
 
-### Häufige Optionen:
-- `-n, --interval <Sekunden>`: Legt das Intervall in Sekunden fest, in dem der Befehl ausgeführt werden soll. Der Standardwert ist 2 Sekunden.
-- `-d, --differences`: Hebt die Unterschiede in der Ausgabe hervor. Dies ist nützlich, um schnell zu erkennen, was sich zwischen den Aktualisierungen geändert hat.
-- `-t, --no-title`: Unterdrückt die Anzeige der Titelzeile, die Informationen über den ausgeführten Befehl und das Intervall enthält.
+## Häufige Optionen
+- `-n <Sekunden>`: Legt das Intervall in Sekunden fest, in dem der Befehl aktualisiert wird. Standardmäßig ist es 2 Sekunden.
+- `-d`: Hebt die Unterschiede zwischen den aufeinanderfolgenden Ausgaben hervor.
+- `-t`: Entfernt den Titel und die Zeitstempel aus der Anzeige, um eine sauberere Ausgabe zu erhalten.
 
-## Beispiele
+## Häufige Beispiele
 Hier sind einige praktische Beispiele zur Verwendung des `watch`-Befehls:
 
-1. Überwachen des freien Speicherplatzes auf dem Dateisystem alle 5 Sekunden:
-
+1. **Überwachung des freien Speicherplatzes:**
    ```bash
-   watch -n 5 df -h
+   watch df -h
    ```
 
-2. Überwachen der laufenden Prozesse, die den Namen "nginx" enthalten, und Unterschiede hervorheben:
-
+2. **Überwachung von Prozessen:**
    ```bash
-   watch -d ps aux | grep nginx
+   watch -n 1 ps aux
+   ```
+
+3. **Überwachung von Änderungen in einem Verzeichnis:**
+   ```bash
+   watch -d ls -l /path/to/directory
+   ```
+
+4. **Überwachung der CPU-Auslastung:**
+   ```bash
+   watch -n 5 mpstat
    ```
 
 ## Tipps
-- Verwenden Sie die `-d`-Option, um Änderungen in der Ausgabe hervorzuheben, besonders wenn Sie nach spezifischen Änderungen suchen.
-- Passen Sie das Intervall mit der `-n`-Option an, um die Aktualisierungsrate zu erhöhen oder zu verringern, je nach Ihren Überwachungsbedürfnissen.
-- Nutzen Sie `watch` in Kombination mit anderen Befehlen, um eine Vielzahl von Systeminformationen in Echtzeit zu überwachen, wie z.B. `top`, `uptime` oder benutzerdefinierte Skripte.
+- Verwenden Sie die `-d`-Option, um schnell Änderungen in der Ausgabe zu erkennen.
+- Passen Sie das Aktualisierungsintervall mit der `-n`-Option an, um die Systemressourcen zu schonen oder um schnellere Updates zu erhalten.
+- Kombinieren Sie `watch` mit anderen Befehlen, um spezifische Informationen zu überwachen, z.B. `watch -n 2 'grep ERROR /var/log/syslog'`, um Fehlerprotokolle in Echtzeit zu beobachten.

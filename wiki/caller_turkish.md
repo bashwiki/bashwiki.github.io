@@ -1,56 +1,41 @@
-# [리눅스] Bash caller 사용법
+# [Linux] Bash çağrısı kullanım: Komutları çalıştırma
 
-## Overview
-`caller` komutu, bir Bash betiği içinde çağrılan bir fonksiyonun veya bir komutun çağrıldığı yerin bilgilerini gösterir. Bu komut, hata ayıklama süreçlerinde ve betiklerin içindeki fonksiyonların nereden çağrıldığını anlamada oldukça yararlıdır. `caller`, özellikle karmaşık betiklerde hangi fonksiyonun hangi satırdan çağrıldığını izlemek için kullanılır.
+## Genel Bakış
+Bash çağrısı, başka bir komutu çalıştırmak için kullanılan bir mekanizmadır. Bu komut, bir komut dosyası veya terminalde başka bir komutun çıktısını almak için kullanılabilir. Genellikle, bir komutun sonucunu başka bir komutla işlemek için kullanılır.
 
-## Usage
-Temel kullanım şekli aşağıdaki gibidir:
-
-```bash
-caller [n]
-```
-
-- `n`: İsteğe bağlı bir argümandır. Bu argüman, geri dönen çağrının hangi seviyeden alınacağını belirtir. Varsayılan olarak `0` kullanılır, bu da mevcut fonksiyonu ifade eder. Eğer `1` verilirse, bir üst seviyedeki çağrıyı gösterir.
-
-## Examples
-Aşağıda `caller` komutunun nasıl kullanılacağına dair iki örnek verilmiştir:
-
-### Örnek 1: Basit Kullanım
-Aşağıdaki betik, bir fonksiyon tanımlar ve bu fonksiyonu çağırarak `caller` komutunu kullanır.
+## Kullanım
+Temel sözdizimi şu şekildedir:
 
 ```bash
-#!/bin/bash
-
-function my_function {
-    caller
-}
-
-my_function
+caller [options] [arguments]
 ```
 
-Bu betik çalıştırıldığında, `my_function` fonksiyonunun hangi satırdan çağrıldığını gösteren bir çıktı alırsınız.
+## Yaygın Seçenekler
+- `-p`: Çağrılan komutun parametrelerini gösterir.
+- `-n`: Çağrılan komutun adını gösterir.
 
-### Örnek 2: N Seçeneği ile Kullanım
-Aşağıdaki örnekte, birden fazla fonksiyon tanımlanmış ve `caller` komutu ile farklı seviyelerden çağrılar kontrol edilmiştir.
+## Yaygın Örnekler
+Aşağıda, Bash çağrısının nasıl kullanılacağına dair bazı pratik örnekler bulunmaktadır:
 
+### Örnek 1: Temel kullanım
 ```bash
-#!/bin/bash
-
-function first_function {
-    second_function
-}
-
-function second_function {
-    caller 0  # Mevcut fonksiyonun çağrıldığı yeri gösterir
-    caller 1  # Bir üst fonksiyonun çağrıldığı yeri gösterir
-}
-
-first_function
+caller
 ```
+Bu komut, mevcut çağrılan komutun adını ve parametrelerini gösterir.
 
-Bu betik çalıştırıldığında, `second_function` içindeki `caller` komutu, hem kendi çağrıldığı yeri hem de `first_function`'dan çağrıldığını gösterir.
+### Örnek 2: Parametreleri görüntüleme
+```bash
+caller -p
+```
+Bu komut, çağrılan komutun parametrelerini gösterir.
 
-## Tips
-- `caller` komutunu kullanırken, hata ayıklama sürecinde hangi fonksiyonun nereden çağrıldığını anlamak için `n` argümanını kullanarak farklı seviyeleri kontrol edebilirsiniz.
-- Karmaşık betikler yazarken, `caller` komutunu kullanarak fonksiyonlarınızın çağrılma sırasını ve yerlerini izlemek, sorunları daha hızlı çözmenize yardımcı olabilir.
-- `caller` komutunun çıktısını, hata mesajları ile birleştirerek daha anlamlı hata ayıklama bilgileri elde edebilirsiniz.
+### Örnek 3: Komut adını görüntüleme
+```bash
+caller -n
+```
+Bu komut, çağrılan komutun adını gösterir.
+
+## İpuçları
+- Komutları birleştirirken, çıktıyı daha iyi yönetmek için `|` (pipe) operatörünü kullanabilirsiniz.
+- Hata ayıklama sırasında, `caller` komutunu kullanarak hangi komutun çalıştığını ve hangi parametrelerin kullanıldığını kontrol edebilirsiniz.
+- `caller` komutunu, karmaşık komut dosyalarında hangi komutların çağrıldığını izlemek için faydalı bir araç olarak kullanabilirsiniz.

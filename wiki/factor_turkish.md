@@ -1,45 +1,54 @@
-# [리눅스] Bash factor 사용법
+# [Linux] Bash faktör kullanımı: Sayıları asal çarpanlarına ayırma
 
 ## Overview
-`factor` komutu, bir veya daha fazla tamsayıyı alarak bu sayıların asal çarpanlarını hesaplamak için kullanılır. Bu komut, özellikle sayılar üzerinde matematiksel analiz yapmak isteyen mühendisler ve geliştiriciler için faydalıdır. `factor`, verilen sayının asal çarpanlarını belirleyerek, sayının asal çarpanlarının çarpımına dayalı olarak daha karmaşık matematiksel işlemlerin temelini oluşturur.
+`factor` komutu, verilen sayıların asal çarpanlarını bulmak için kullanılır. Bu komut, bir veya daha fazla sayıyı alır ve her bir sayının asal çarpanlarını gösterir.
 
 ## Usage
-Temel kullanım şekli aşağıdaki gibidir:
-
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-factor [sayı1 sayı2 ...]
+factor [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- **sayı1, sayı2, ...**: Asal çarpanlarını bulmak istediğiniz bir veya daha fazla tamsayı. Birden fazla sayı girdiğinizde, her bir sayının asal çarpanları ayrı satırlarda gösterilecektir.
+## Common Options
+- `-h`, `--help`: Yardım mesajını gösterir.
+- `-V`, `--version`: Versiyon bilgilerini gösterir.
 
-## Examples
-### Örnek 1: Tek bir sayının asal çarpanlarını bulma
-Aşağıdaki komut, 12 sayısının asal çarpanlarını gösterir:
+## Common Examples
+Aşağıda `factor` komutunun bazı pratik örnekleri bulunmaktadır:
 
-```bash
-factor 12
-```
-Çıktı:
-```
-12: 2 2 3
-```
-Bu çıktı, 12'nin asal çarpanlarının 2, 2 ve 3 olduğunu belirtir.
+1. Tek bir sayının asal çarpanlarını bulma:
+   ```bash
+   factor 28
+   ```
+   Çıktı:
+   ```
+   28: 2 2 7
+   ```
 
-### Örnek 2: Birden fazla sayının asal çarpanlarını bulma
-Aşağıdaki komut, 15 ve 28 sayılarının asal çarpanlarını gösterir:
+2. Birden fazla sayının asal çarpanlarını bulma:
+   ```bash
+   factor 15 21 42
+   ```
+   Çıktı:
+   ```
+   15: 3 5
+   21: 3 7
+   42: 2 3 7
+   ```
 
-```bash
-factor 15 28
-```
-Çıktı:
-```
-15: 3 5
-28: 2 2 7
-```
-Bu çıktı, 15'in asal çarpanlarının 3 ve 5, 28'in asal çarpanlarının ise 2, 2 ve 7 olduğunu belirtir.
+3. Asal çarpanları bulma için bir dosyadan sayı okuma:
+   ```bash
+   echo -e "10\n15\n20" > sayilar.txt
+   factor $(cat sayilar.txt)
+   ```
+   Çıktı:
+   ```
+   10: 2 5
+   15: 3 5
+   20: 2 2 5
+   ```
 
 ## Tips
-- `factor` komutunu kullanırken, girdiğiniz sayıların pozitif tamsayılar olmasına dikkat edin. Negatif sayılar veya ondalıklı sayılar için geçerli bir çıktı almazsınız.
-- Birden fazla sayı girdiğinizde, sonuçları daha kolay analiz edebilmek için çıktıların her birini ayrı satırlarda görmek faydalı olabilir.
-- `factor` komutunu diğer matematiksel işlemlerle birleştirerek daha karmaşık hesaplamalar yapabilirsiniz. Örneğin, bir dosyadan sayı okuyarak bu sayıların asal çarpanlarını topluca bulmak için bir döngü kullanabilirsiniz.
+- `factor` komutunu kullanırken, sayıları boşlukla ayırarak birden fazla sayı girebilirsiniz.
+- Büyük sayılarla çalışırken, `factor` komutunun performansını göz önünde bulundurun; çok büyük sayılar için işlem süresi uzayabilir.
+- Asal çarpanları bulmak için `factor` komutunu sık sık kullanıyorsanız, bir betik yazarak işlemlerinizi otomatikleştirebilirsiniz.

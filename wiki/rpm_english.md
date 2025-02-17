@@ -1,48 +1,65 @@
-# [리눅스] Bash rpm 사용법
+# [Linux] Bash rpm Uso equivalente: Manage RPM packages
 
 ## Overview
-The `rpm` command stands for Red Hat Package Manager. It is a powerful tool used primarily in Red Hat-based Linux distributions (like Fedora, CentOS, and RHEL) for managing software packages. The primary purpose of `rpm` is to install, uninstall, query, and verify software packages in the RPM format. It allows users to manage software installations efficiently and ensures that all dependencies are met.
+The `rpm` command is a powerful tool used in Linux systems for managing RPM (Red Hat Package Manager) packages. It allows users to install, uninstall, query, and verify software packages that are distributed in the RPM format.
 
 ## Usage
-The basic syntax for the `rpm` command is as follows:
-
-```
-rpm [OPTION] [PACKAGE]
-```
-
-### Common Options
-- `-i` : Install a package.
-- `-e` : Erase (uninstall) a package.
-- `-q` : Query a package.
-- `-v` : Verbose output.
-- `-h` : Print hash marks as the package installs (progress indicator).
-- `--nodeps` : Ignore dependency checks when installing or uninstalling.
-- `-U` : Upgrade a package, installing it if it is not already installed.
-
-## Examples
-
-### Example 1: Installing a Package
-To install a package named `example.rpm`, you would use the following command:
+The basic syntax of the `rpm` command is as follows:
 
 ```bash
-rpm -i example.rpm
+rpm [options] [arguments]
 ```
 
-This command installs the specified RPM package. If there are any missing dependencies, the installation will fail unless you use the `--nodeps` option.
+## Common Options
+Here are some common options you can use with the `rpm` command:
 
-### Example 2: Querying a Package
-To check if a package named `example` is installed and to retrieve its version information, you can use:
+- `-i`: Install a package.
+- `-e`: Erase (uninstall) a package.
+- `-q`: Query a package.
+- `-v`: Verbose mode; provides more detailed output.
+- `-h`: Display hash marks as the package installs.
+- `--force`: Force the installation or removal of a package.
+- `--nodeps`: Ignore dependency checks.
+
+## Common Examples
+
+### Installing a Package
+To install an RPM package, use the `-i` option:
 
 ```bash
-rpm -q example
+rpm -i package-name.rpm
 ```
 
-This command will return the version of the installed package or indicate that the package is not installed.
+### Uninstalling a Package
+To remove an installed package, use the `-e` option:
+
+```bash
+rpm -e package-name
+```
+
+### Querying a Package
+To check if a package is installed and get its details, use the `-q` option:
+
+```bash
+rpm -q package-name
+```
+
+### Listing All Installed Packages
+To list all installed RPM packages on the system, use:
+
+```bash
+rpm -qa
+```
+
+### Verifying a Package
+To verify the integrity of an installed package, use the `-V` option:
+
+```bash
+rpm -V package-name
+```
 
 ## Tips
-- Always check for dependencies before installing a package. You can use the `yum` or `dnf` package managers for automatic dependency resolution.
-- Use the `-v` option for more detailed output when installing or uninstalling packages, which can help in troubleshooting.
-- Regularly verify installed packages with the command `rpm -V package_name` to ensure that they have not been altered or corrupted.
-- When upgrading packages, consider using the `-U` option, which will upgrade the package if it exists or install it if it does not.
-
-By mastering the `rpm` command, you can effectively manage software packages on Red Hat-based systems, ensuring a smooth and efficient development environment.
+- Always check for dependencies before installing a package to avoid issues.
+- Use the `-v` option for more detailed output during installations or removals.
+- When uninstalling packages, be cautious with the `--nodeps` option, as it may leave orphaned dependencies.
+- Regularly query installed packages to keep track of what is on your system.

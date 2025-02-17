@@ -1,73 +1,79 @@
-# [리눅스] Bash jq 사용법
+# [Linux] Bash jq Uso: A powerful tool for processing JSON data
 
 ## Overview
-`jq` is a powerful command-line tool for processing and manipulating JSON (JavaScript Object Notation) data. It allows users to parse, filter, and transform JSON data structures in a simple and efficient way. With `jq`, engineers and developers can easily extract specific data from JSON files, format the output, and perform complex queries, making it an essential tool for working with APIs and configuration files that use JSON.
+The `jq` command is a lightweight and flexible command-line JSON processor. It allows users to parse, filter, and transform JSON data easily. With `jq`, you can extract specific values, modify JSON structures, and format the output in a readable way.
 
 ## Usage
 The basic syntax of the `jq` command is as follows:
 
 ```bash
-jq [options] 'filter' [file...]
+jq [options] [arguments]
 ```
 
-### Common Options:
+## Common Options
 - `-c`: Compact output instead of pretty-printed.
 - `-r`: Output raw strings, not JSON-encoded strings.
-- `-f <file>`: Read the filter from a file instead of the command line.
-- `-s`: Read all inputs into an array and apply the filter to that array.
-- `--arg name value`: Pass a variable into the filter.
+- `-s`: Read the entire input stream into a single array.
+- `-f <file>`: Read the filter from the specified file.
+- `--arg <name> <value>`: Set a variable to use in the filter.
 
-## Examples
+## Common Examples
 
-### Example 1: Simple JSON Parsing
-Suppose you have a JSON file named `data.json` with the following content:
-
-```json
-{
-  "name": "Alice",
-  "age": 30,
-  "city": "Wonderland"
-}
-```
-
-To extract the `name` field from this JSON file, you can use the following command:
+### Example 1: Basic JSON Parsing
+To extract a specific field from a JSON object:
 
 ```bash
-jq '.name' data.json
+echo '{"name": "Alice", "age": 30}' | jq '.name'
 ```
-
-**Output:**
+Output:
 ```
 "Alice"
 ```
 
 ### Example 2: Filtering an Array
-Consider a JSON array in a file named `users.json`:
-
-```json
-[
-  { "name": "Alice", "age": 30 },
-  { "name": "Bob", "age": 25 },
-  { "name": "Charlie", "age": 35 }
-]
-```
-
-To filter users who are older than 30, you can use:
+To filter an array of objects based on a condition:
 
 ```bash
-jq '.[] | select(.age > 30)' users.json
+echo '[{"name": "Alice", "age": 30}, {"name": "Bob", "age": 25}]' | jq '.[] | select(.age > 28)'
+```
+Output:
+```
+{
+  "name": "Alice",
+  "age": 30
+}
 ```
 
-**Output:**
+### Example 3: Modifying JSON Data
+To change a value in a JSON object:
+
+```bash
+echo '{"name": "Alice", "age": 30}' | jq '.age = 31'
+```
+Output:
+```
+{
+  "name": "Alice",
+  "age": 31
+}
+```
+
+### Example 4: Pretty Printing JSON
+To format JSON output for better readability:
+
+```bash
+echo '{"name":"Alice","age":30}' | jq '.'
+```
+Output:
 ```json
 {
-  "name": "Charlie",
-  "age": 35
+  "name": "Alice",
+  "age": 30
 }
 ```
 
 ## Tips
-- Use the `-r` option when you want to output raw strings instead of JSON-encoded strings. This is particularly useful when you want to use the output in shell scripts.
-- For complex queries, consider writing your filters in a separate file and using the `-f` option to keep your command line clean and manageable.
-- Familiarize yourself with the `jq` filter syntax, as it allows for powerful data manipulation capabilities, including mapping, reducing, and grouping data.
-- Test your `jq` commands with smaller JSON samples to ensure your filters work as expected before applying them to larger datasets.
+- Use the `-r` option when you want to output raw strings, especially when working with text data.
+- Combine filters using the pipe (`|`) to create complex queries.
+- Always validate your JSON data before processing it with `jq` to avoid errors.
+- Explore the `man jq` documentation for advanced features and functions.

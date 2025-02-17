@@ -1,39 +1,52 @@
-# [리눅스] Bash timeout 사용법
+# [Linux] Bash timeout Uso: Limit command execution time
 
 ## Overview
-The `timeout` command in Bash is used to run a command with a time limit. If the command does not complete within the specified duration, `timeout` will terminate it. This is particularly useful for preventing processes from running indefinitely and for managing system resources effectively.
+The `timeout` command in Bash is used to run a command with a time limit. If the command does not complete within the specified duration, `timeout` will terminate it. This is particularly useful for preventing long-running processes from hanging indefinitely.
 
 ## Usage
 The basic syntax of the `timeout` command is as follows:
 
 ```bash
-timeout [OPTION] DURATION COMMAND [ARGUMENTS...]
+timeout [options] duration command [arguments]
 ```
 
-### Common Options:
-- `DURATION`: Specifies the time limit for the command to run. It can be specified in seconds (s), minutes (m), hours (h), or days (d). For example, `5s` for 5 seconds, `2m` for 2 minutes.
-- `-k, --kill-after=DURATION`: This option allows you to specify a grace period after which the command will be forcibly killed. For example, if you set `-k 5s`, the command will be sent a termination signal after the initial timeout, and if it does not exit within 5 seconds, it will be killed.
-- `-s, --signal=SIGNAL`: This option allows you to specify the signal to send to the command when the timeout expires. By default, it sends `SIGTERM`, but you can change it to any valid signal (e.g., `SIGKILL`).
+- `duration`: The time limit for the command to run, specified in seconds (or with suffixes like `m` for minutes, `h` for hours, etc.).
+- `command`: The command you want to run with a time limit.
+- `arguments`: Any arguments that the command may require.
 
-## Examples
+## Common Options
+- `-k, --kill-after=DURATION`: After the initial timeout, this option allows you to specify a duration to wait before forcibly killing the command.
+- `-s, --signal=SIGNAL`: Specify the signal to send to the command when the timeout occurs. The default is `SIGTERM`.
+- `--preserve-status`: Exit with the status of the command instead of the timeout status.
 
-### Example 1: Basic Usage
-To run a command with a timeout of 10 seconds, you can use:
+## Common Examples
 
-```bash
-timeout 10s sleep 20
-```
-In this example, the `sleep 20` command is intended to sleep for 20 seconds, but `timeout` will terminate it after 10 seconds.
+1. **Basic usage with a timeout of 5 seconds:**
+   ```bash
+   timeout 5s sleep 10
+   ```
+   This command attempts to run `sleep 10`, but it will be terminated after 5 seconds.
 
-### Example 2: Using a Kill After Option
-To run a command with a timeout and a kill after grace period, you can use:
+2. **Using a different signal:**
+   ```bash
+   timeout -s SIGKILL 3s sleep 10
+   ```
+   Here, `sleep 10` will be killed with `SIGKILL` after 3 seconds if it is still running.
 
-```bash
-timeout -k 5s 10s sleep 20
-```
-Here, the `sleep 20` command will be terminated after 10 seconds, and if it does not exit within an additional 5 seconds, it will be forcibly killed.
+3. **Preserving the exit status of the command:**
+   ```bash
+   timeout --preserve-status 2s false
+   echo $?
+   ```
+   This will run `false` with a timeout of 2 seconds and print the exit status of `false`, which is `1`.
+
+4. **Killing after a timeout with a grace period:**
+   ```bash
+   timeout -k 5s 10s sleep 20
+   ```
+   This command will allow `sleep 20` to run for 10 seconds, then send a `SIGTERM`. If it does not terminate within 5 seconds, it will be forcibly killed.
 
 ## Tips
-- Always test your timeout settings in a safe environment to ensure that the command behaves as expected.
-- Use the `-s` option to customize the termination signal based on the behavior of the command you are running. For instance, some commands may handle `SIGTERM` gracefully, while others may require `SIGKILL`.
-- Consider using `timeout` in scripts to prevent long-running processes from hanging indefinitely, especially in automated tasks or cron jobs.
+- Always specify a reasonable duration to avoid unintentionally terminating important processes.
+- Use `--preserve-status` when you need to check the exit status of the command after it runs.
+- Consider using the `-k` option if you want to give the command a chance to clean up before being forcibly terminated.

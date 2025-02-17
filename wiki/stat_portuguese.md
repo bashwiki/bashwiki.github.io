@@ -1,39 +1,54 @@
-# [리눅스] Bash stat 사용법
+# [Linux] Bash stat Uso: Exibe informações sobre arquivos e sistemas de arquivos
 
 ## Overview
-O comando `stat` é uma ferramenta do Bash utilizada para exibir informações detalhadas sobre arquivos e diretórios no sistema de arquivos. Ele fornece dados como o tamanho do arquivo, permissões, proprietário, grupo, data de criação, data de modificação e data de acesso, entre outras informações. O `stat` é especialmente útil para desenvolvedores e engenheiros que precisam verificar atributos de arquivos de forma rápida e eficiente.
+O comando `stat` é utilizado para exibir informações detalhadas sobre arquivos e diretórios no sistema de arquivos. Ele fornece dados como tamanho, permissões, data de modificação e acesso, entre outros.
 
 ## Usage
 A sintaxe básica do comando `stat` é a seguinte:
 
 ```bash
-stat [opções] [arquivo]
+stat [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-c` ou `--format`: Permite especificar um formato de saída personalizado.
-- `-f` ou `--file-system`: Exibe informações sobre o sistema de arquivos em vez de um arquivo específico.
-- `--help`: Mostra uma mensagem de ajuda com informações sobre o uso do comando.
-- `--version`: Exibe a versão do comando `stat`.
+## Common Options
+Aqui estão algumas opções comuns do comando `stat`:
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `stat`:
+- `-c` : Formato de saída personalizado.
+- `-f` : Exibe informações sobre o sistema de arquivos.
+- `--format` : Permite especificar um formato de saída.
+- `-L` : Seguir links simbólicos.
 
-1. **Exibir informações padrão de um arquivo**:
-   ```bash
-   stat arquivo.txt
-   ```
-   Este comando mostrará informações detalhadas sobre `arquivo.txt`, incluindo tamanho, permissões e datas.
+## Common Examples
 
-2. **Usar formato personalizado**:
-   ```bash
-   stat -c 'Tamanho: %s bytes, Modificado em: %y' arquivo.txt
-   ```
-   Neste exemplo, o comando exibe apenas o tamanho do arquivo em bytes e a data da última modificação, utilizando um formato personalizado.
+### Exibir informações básicas de um arquivo
+Para obter informações detalhadas sobre um arquivo específico, você pode usar:
+
+```bash
+stat arquivo.txt
+```
+
+### Usar formato personalizado
+Para exibir apenas o tamanho do arquivo em bytes, utilize:
+
+```bash
+stat -c %s arquivo.txt
+```
+
+### Informações sobre o sistema de arquivos
+Para visualizar informações sobre o sistema de arquivos onde um arquivo está localizado, use:
+
+```bash
+stat -f arquivo.txt
+```
+
+### Seguir links simbólicos
+Para obter informações sobre o arquivo que um link simbólico aponta, utilize:
+
+```bash
+stat -L link_simbólico
+```
 
 ## Tips
-- Utilize a opção `-c` para personalizar a saída do `stat` e facilitar a leitura das informações que você precisa.
-- Combine o `stat` com outros comandos, como `grep`, para filtrar informações específicas.
-- Sempre verifique as permissões do arquivo, especialmente ao trabalhar em ambientes de desenvolvimento colaborativos, para evitar problemas de acesso.
-
-Com essas informações, você pode utilizar o comando `stat` de forma eficaz para obter detalhes sobre arquivos e diretórios no seu sistema.
+- Utilize a opção `-c` para personalizar a saída e obter apenas as informações que você precisa.
+- Combine o comando `stat` com outros comandos, como `grep`, para filtrar informações específicas.
+- Lembre-se de que `stat` pode ser útil para scripts de automação, onde você precisa verificar propriedades de arquivos antes de realizar operações.

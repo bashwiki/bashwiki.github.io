@@ -1,44 +1,54 @@
-# [리눅스] Bash firewalld 사용법
+# [Linux] Bash firewalld Kullanımı: Güvenlik duvarı yönetimi
 
 ## Genel Bakış
-`firewalld`, Linux sistemlerinde güvenlik duvarı yönetimi için kullanılan bir komut ve hizmettir. Dinamik bir güvenlik duvarı çözümü sunarak, ağ trafiğini kontrol etmenizi sağlar. `firewalld`, farklı ağ bölgeleri ve hizmetler için kural setleri oluşturmanıza olanak tanır ve bu sayede sisteminize gelen ve giden trafiği yönetebilirsiniz.
+firewalld, Linux sistemlerinde güvenlik duvarı yapılandırmasını yönetmek için kullanılan bir komut satırı aracıdır. Dinamik bir güvenlik duvarı yönetimi sağlar ve ağ trafiğini kontrol etmek için bölge tabanlı bir yaklaşım kullanır.
 
 ## Kullanım
-`firewalld` komutunun temel sözdizimi aşağıdaki gibidir:
+firewalld komutunun temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-firewalld [seçenekler]
+firewalld [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `--zone`: Belirli bir bölgeyi belirtir. Örneğin, `--zone=public`.
-- `--add-service`: Belirli bir hizmeti ekler. Örneğin, `--add-service=http`.
-- `--remove-service`: Belirli bir hizmeti kaldırır. Örneğin, `--remove-service=ftp`.
+## Yaygın Seçenekler
+- `--zone`: Belirli bir bölgeyi tanımlar.
+- `--add-service`: Belirli bir hizmeti güvenlik duvarına ekler.
+- `--remove-service`: Belirli bir hizmeti güvenlik duvarından kaldırır.
 - `--list-all`: Mevcut bölgenin tüm ayarlarını listeler.
-- `--reload`: Yapılandırmayı yeniden yükler.
+- `--permanent`: Değişikliklerin kalıcı olmasını sağlar.
 
-## Örnekler
-### Örnek 1: HTTP Hizmetini Ekleme
-Aşağıdaki komut, `public` bölgesine HTTP hizmetini ekler:
+## Yaygın Örnekler
+Aşağıda firewalld komutunun bazı pratik örnekleri bulunmaktadır:
 
-```bash
-firewall-cmd --zone=public --add-service=http --permanent
-```
-
-Bu komut, HTTP trafiğine izin verir ve değişikliklerin kalıcı olmasını sağlar.
-
-### Örnek 2: Tüm Ayarları Listeleme
-Mevcut `public` bölgesinin tüm ayarlarını görüntülemek için şu komutu kullanabilirsiniz:
+### 1. Belirli Bir Hizmeti Ekleme
+HTTP hizmetini güvenlik duvarına eklemek için:
 
 ```bash
-firewall-cmd --zone=public --list-all
+firewalld --add-service=http
 ```
 
-Bu komut, `public` bölgesindeki tüm hizmetleri ve kural setlerini gösterir.
+### 2. Belirli Bir Hizmeti Kaldırma
+SSH hizmetini güvenlik duvarından kaldırmak için:
+
+```bash
+firewalld --remove-service=ssh
+```
+
+### 3. Mevcut Bölge Ayarlarını Görüntüleme
+Aktif bölgenin tüm ayarlarını listelemek için:
+
+```bash
+firewalld --list-all
+```
+
+### 4. Kalıcı Değişiklik Yapma
+HTTP hizmetini kalıcı olarak eklemek için:
+
+```bash
+firewalld --permanent --add-service=http
+```
 
 ## İpuçları
-- `--permanent` seçeneğini kullanarak yaptığınız değişikliklerin kalıcı olmasını sağlayabilirsiniz. Aksi takdirde, sistem yeniden başlatıldığında değişiklikler kaybolur.
-- Değişikliklerinizi uyguladıktan sonra `--reload` komutunu kullanarak yapılandırmayı yeniden yüklemeyi unutmayın.
-- `firewalld` ile çalışırken, hangi bölgelerin ve hizmetlerin aktif olduğunu kontrol etmek için `firewall-cmd --get-active-zones` komutunu kullanabilirsiniz.
-
-Bu bilgilerle, `firewalld` komutunu etkili bir şekilde kullanarak sisteminizin güvenliğini artırabilirsiniz.
+- Değişiklik yapmadan önce mevcut ayarların bir yedeğini almak iyi bir uygulamadır.
+- Güvenlik duvarı kurallarını test etmek için `--dry-run` seçeneğini kullanarak etkilerini önceden görebilirsiniz.
+- Belirli bir bölgeyi yönetmek için `--zone` seçeneğini kullanarak daha hassas kontrol sağlayabilirsiniz.

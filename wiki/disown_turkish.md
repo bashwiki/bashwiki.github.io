@@ -1,38 +1,46 @@
-# [리눅스] Bash disown 사용법
+# [Linux] Bash disown Kullanımı: Arka planda çalışan işlemleri terminalden ayırma
 
 ## Genel Bakış
-`disown` komutu, bir arka plan işlemini (background job) terminalden ayırmak için kullanılır. Bu, kullanıcı terminalden çıkarken veya oturumu kapatırken arka planda çalışan işlemlerin sonlanmamasını sağlar. `disown` komutu, özellikle uzun süren işlemleri terminalden bağımsız hale getirmek isteyen geliştiriciler ve mühendisler için yararlıdır.
+`disown` komutu, bir terminal oturumunda çalışan arka plan işlemlerini terminalden ayırarak, bu işlemlerin terminal kapandığında sonlanmasını engeller. Bu, kullanıcıların terminal oturumlarını kapatırken arka planda çalışan işlemlerinin devam etmesini sağlar.
 
 ## Kullanım
-Temel sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-disown [işlem_numarası]
+disown [seçenekler] [argümanlar]
 ```
 
-- `işlem_numarası`: (isteğe bağlı) Terminaldeki arka plan işleminin numarasıdır. Eğer belirtilmezse, en son arka plan işlemi disown edilir.
+## Yaygın Seçenekler
+- `-h`: Belirtilen işlemi terminalden ayırır, ancak işlemi durdurmaz.
+- `-a`: Tüm arka plan işlemlerini terminalden ayırır.
+- `-r`: Sadece çalışmakta olan arka plan işlemlerini terminalden ayırır.
 
-### Yaygın Seçenekler
-- `-h`: Bu seçenek, belirtilen işlemi yalnızca terminalden ayırır, ancak işlemin durumu üzerinde herhangi bir değişiklik yapmaz. Yani, işlem hala terminal tarafından izlenir.
+## Yaygın Örnekler
+Aşağıda `disown` komutunun bazı pratik kullanımları yer almaktadır:
 
-## Örnekler
-
-### Örnek 1: Arka Planda Bir İşlem Başlatma ve Disown Etme
+### Örnek 1: Bir işlemi arka planda çalıştırmak ve ayırmak
 ```bash
-sleep 300 &
-disown %1
-```
-Bu örnekte, `sleep 300` komutu arka planda başlatılır ve ardından `disown` komutu ile terminalden ayrılır. Böylece, terminal kapatılsa bile `sleep` işlemi devam eder.
-
-### Örnek 2: Tüm Arka Plan İşlemlerini Disown Etme
-```bash
+sleep 100 &
 disown
 ```
-Bu komut, terminaldeki en son arka plan işlemini disown eder. Eğer birden fazla arka plan işlemi varsa, en son başlatılan işlem disown edilir.
+Bu komut, `sleep 100` işlemini arka planda çalıştırır ve ardından terminalden ayırır.
+
+### Örnek 2: Belirli bir işlemi ayırmak
+```bash
+sleep 200 &
+disown %1
+```
+Bu komut, `sleep 200` işlemini arka planda çalıştırır ve `%1` ile belirtilen ilk arka plan işlemini terminalden ayırır.
+
+### Örnek 3: Tüm arka plan işlemlerini ayırmak
+```bash
+sleep 300 &
+sleep 400 &
+disown -a
+```
+Bu komut, iki `sleep` işlemini arka planda çalıştırır ve ardından tüm arka plan işlemlerini terminalden ayırır.
 
 ## İpuçları
-- `jobs` komutunu kullanarak mevcut arka plan işlemlerinin listesini görebilirsiniz. Bu, hangi işlemleri disown etmek istediğinizi belirlemenize yardımcı olur.
-- `disown` komutunu kullanmadan önce işleminizin arka planda çalıştığından emin olun. Aksi takdirde, disown işlemi bir etkisi olmayacaktır.
-- Eğer bir işlemi disown ettikten sonra tekrar terminalden izlemek isterseniz, bu mümkün değildir. Bu nedenle, disown işlemini dikkatli bir şekilde yapmanız önemlidir.
-
-`disown` komutu, terminalden bağımsız olarak uzun süre çalışan işlemlerle çalışırken oldukça kullanışlıdır. Bu komut sayesinde, terminal oturumunuz kapansa bile işlemlerinizin devam etmesini sağlayabilirsiniz.
+- `disown` komutunu kullanmadan önce işleminizin arka planda çalıştığından emin olun. Bunu `&` ile işlemi sonlandırarak yapabilirsiniz.
+- `jobs` komutunu kullanarak arka planda çalışan işlemlerinizi kontrol edebilirsiniz.
+- `disown` komutunu kullanmak, terminal oturumunuzu kapatırken önemli işlemlerinizin kaybolmamasını sağlar.

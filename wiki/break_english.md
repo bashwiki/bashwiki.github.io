@@ -1,7 +1,7 @@
-# [리눅스] Bash break 사용법
+# [Linux] Bash break用法: Exit a loop early
 
 ## Overview
-The `break` command in Bash is used to exit from a loop prematurely. It is primarily utilized within `for`, `while`, and `until` loops to terminate the loop's execution when a specific condition is met. This can be particularly useful when you want to stop processing further iterations based on certain criteria, thereby improving efficiency and control in your scripts.
+The `break` command in Bash is used to exit from a loop prematurely. When executed within a loop, it immediately terminates that loop and continues with the next command following the loop. This is particularly useful when a certain condition is met, and you want to stop the iteration without waiting for the loop to finish.
 
 ## Usage
 The basic syntax of the `break` command is as follows:
@@ -10,58 +10,66 @@ The basic syntax of the `break` command is as follows:
 break [n]
 ```
 
-- `n`: This optional argument specifies the number of nested loops to break out of. If `n` is not provided, `break` will exit from the innermost loop.
+Here, `n` is an optional argument that specifies how many levels of loops to break out of. If `n` is not provided, it defaults to breaking out of the innermost loop.
 
-## Examples
+## Common Options
+- `n`: An optional integer that specifies the number of nested loops to exit. If omitted, it breaks from the innermost loop.
 
-### Example 1: Basic Usage in a Loop
-Here’s a simple example demonstrating the use of `break` to exit a `while` loop when a condition is met:
+## Common Examples
 
+### Example 1: Basic break in a loop
 ```bash
-count=1
-while [ $count -le 10 ]; do
-  echo "Count is: $count"
-  if [ $count -eq 5 ]; then
+for i in {1..5}; do
+  if [ $i -eq 3 ]; then
     break
   fi
-  ((count++))
+  echo $i
 done
 ```
-*Output:*
+**Output:**
 ```
-Count is: 1
-Count is: 2
-Count is: 3
-Count is: 4
-Count is: 5
+1
+2
 ```
-In this example, the loop will print the count until it reaches 5, at which point the `break` command is executed, terminating the loop.
+In this example, the loop will terminate when `i` equals 3, so it only prints 1 and 2.
 
-### Example 2: Breaking Out of Nested Loops
-You can also use `break` to exit from nested loops. Here’s an example:
-
+### Example 2: Breaking out of nested loops
 ```bash
 for i in {1..3}; do
   for j in {1..3}; do
-    if [ $i -eq 2 ] && [ $j -eq 2 ]; then
+    if [ $j -eq 2 ]; then
       break 2
     fi
     echo "i: $i, j: $j"
   done
 done
 ```
-*Output:*
+**Output:**
 ```
 i: 1, j: 1
-i: 1, j: 2
-i: 1, j: 3
-i: 2, j: 1
 ```
-In this case, the `break 2` command exits both the inner and outer loops when `i` is 2 and `j` is 2.
+Here, the `break 2` command exits both the inner and outer loops when `j` equals 2.
+
+### Example 3: Using break with while loop
+```bash
+count=1
+while [ $count -le 5 ]; do
+  if [ $count -eq 4 ]; then
+    break
+  fi
+  echo $count
+  ((count++))
+done
+```
+**Output:**
+```
+1
+2
+3
+```
+In this while loop, it stops printing when `count` reaches 4.
 
 ## Tips
-- Use `break` judiciously to avoid making your loops difficult to understand. Clear conditions for breaking out of loops can enhance the readability of your scripts.
-- When using `break` in nested loops, always specify the number of levels to break out of if you want to exit more than one loop. This helps in maintaining clarity in your code.
-- Consider using `continue` in conjunction with `break` for more complex loop control, allowing you to skip to the next iteration or exit based on different conditions.
-
-By understanding and effectively using the `break` command, you can gain greater control over loop execution in your Bash scripts, leading to more efficient and manageable code.
+- Use `break` judiciously to avoid confusion in complex nested loops.
+- Consider using `continue` if you want to skip the current iteration instead of breaking out of the loop.
+- Always ensure that your break conditions are clear to maintain readability and prevent infinite loops.

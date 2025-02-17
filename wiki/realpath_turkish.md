@@ -1,42 +1,47 @@
-# [리눅스] Bash realpath 사용법
+# [Linux] Bash realpath Kullanımı: Dosya yollarını normalize etme
 
-## Genel Bakış
-`realpath` komutu, bir dosya veya dizinin gerçek yolunu (absolute path) belirlemek için kullanılır. Özellikle, sembolik bağlantılar (symlinks) içeren dosya yollarını çözümlemek ve mevcut çalışma dizinine göre tam yollar oluşturmak için yararlıdır. Bu komut, dosya sistemindeki dosyaların kesin konumlarını belirlemek isteyen geliştiriciler ve mühendisler için oldukça faydalıdır.
+## Overview
+`realpath` komutu, verilen bir dosya veya dizin yolunu normalize ederek, mutlak yolunu döndürür. Bu, sembolik bağlantıları takip eder ve yolun en güncel halini sağlar.
 
-## Kullanım
-`realpath` komutunun temel sözdizimi aşağıdaki gibidir:
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-realpath [seçenekler] dosya_yolu
+realpath [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-m`, `--canonicalize-missing`: Dosya mevcut olmasa bile, belirtilen yolu çözümleyerek döndürür.
+## Common Options
+- `-m`, `--canonicalize-missing`: Eksik dosya veya dizin yollarını da normalize eder.
 - `-q`, `--quiet`: Hata mesajlarını bastırır.
-- `-s`, `--strip`: Yolu, yalnızca dosya adıyla döndürür, dizin bilgilerini içermez.
+- `-s`, `--strip`: Yolda bulunan sembolik bağlantıları kaldırır.
 
-## Örnekler
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, `myfile.txt` adlı dosyanın gerçek yolunu döndürür:
+## Common Examples
 
+### 1. Basit bir dosya yolunu normalize etme
 ```bash
 realpath myfile.txt
 ```
+Bu komut, `myfile.txt` dosyasının mutlak yolunu döndürür.
 
-Eğer `myfile.txt` dosyası mevcutsa, komut dosyanın tam yolunu (örneğin `/home/kullanici/myfile.txt`) gösterecektir.
-
-### Örnek 2: Sembolik Bağlantıları Çözümleme
-Eğer bir sembolik bağlantınız varsa, `realpath` komutu bu bağlantının gösterdiği gerçek dosya yolunu bulmanıza yardımcı olur:
-
+### 2. Sembolik bağlantıları takip etme
 ```bash
 realpath /path/to/symlink
 ```
+Bu komut, `/path/to/symlink` sembolik bağlantısının gösterdiği gerçek dosyanın yolunu verir.
 
-Bu komut, `/path/to/symlink` bağlantısının gösterdiği gerçek dosyanın yolunu döndürecektir.
+### 3. Eksik dosya yollarını normalize etme
+```bash
+realpath -m /path/to/missing/file
+```
+Bu komut, belirtilen eksik dosya yolunu normalize eder ve mevcut dizin yapısına göre bir yol döndürür.
 
-## İpuçları
-- `realpath` komutunu kullanmadan önce dosyanın mevcut olup olmadığını kontrol etmek için `ls` veya `test` komutlarını kullanabilirsiniz.
-- Sembolik bağlantılarla çalışırken, `realpath` komutunun çıktısını başka komutlarla birleştirerek daha karmaşık dosya işlemleri gerçekleştirebilirsiniz.
-- Hata mesajlarını gizlemek için `-q` seçeneğini kullanarak daha temiz bir çıktı elde edebilirsiniz. 
+### 4. Hata mesajlarını bastırma
+```bash
+realpath -q /path/to/nonexistent/file
+```
+Bu komut, mevcut olmayan bir dosya için hata mesajı vermeden çalışır.
 
-`realpath`, dosya sistemindeki yolları yönetmek için güçlü bir araçtır ve doğru kullanıldığında, dosya ve dizinlerle çalışmayı büyük ölçüde kolaylaştırır.
+## Tips
+- `realpath` komutunu, dosya yollarını kontrol etmek ve doğrulamak için sıkça kullanabilirsiniz.
+- Sembolik bağlantılarla çalışıyorsanız, `realpath` komutunu kullanarak gerçek dosya yollarını kolayca bulabilirsiniz.
+- Hata mesajlarını bastırmak için `-q` seçeneğini kullanarak daha temiz bir çıktı elde edebilirsiniz.

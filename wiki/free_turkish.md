@@ -1,44 +1,48 @@
-# [리눅스] Bash free 사용법
+# [Linux] Bash free Kullanımı: Bellek durumu hakkında bilgi verir
 
 ## Overview
-`free` komutu, Linux sistemlerde bellek (RAM) kullanımını görüntülemek için kullanılan bir araçtır. Bu komut, sistemdeki toplam bellek, kullanılan bellek, boş bellek ve tampon/bellek önbelleği gibi bilgileri sağlar. Geliştiriciler ve sistem yöneticileri, bellek kullanımını izlemek ve sistem performansını değerlendirmek için bu komutu sıklıkla kullanır.
+`free` komutu, sistemdeki bellek kullanımını gösterir. Bu komut, RAM ve swap alanının ne kadarının kullanıldığını ve ne kadarının boş olduğunu hızlı bir şekilde görüntülemenizi sağlar.
 
 ## Usage
-`free` komutunun temel sözdizimi aşağıdaki gibidir:
-
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-free [seçenekler]
+free [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-h`: Bellek değerlerini insan tarafından okunabilir formatta (KB, MB, GB) gösterir.
-- `-m`: Bellek değerlerini megabayt cinsinden gösterir.
-- `-g`: Bellek değerlerini gigabayt cinsinden gösterir.
-- `-s [saniye]`: Belirtilen saniye aralıklarıyla sürekli olarak bellek bilgilerini günceller.
+## Common Options
+- `-h`: Bellek miktarlarını insan tarafından okunabilir formatta gösterir (örneğin, KB, MB, GB).
+- `-m`: Bellek miktarlarını megabayt cinsinden gösterir.
+- `-g`: Bellek miktarlarını gigabayt cinsinden gösterir.
+- `-s <saniye>`: Belirtilen saniye aralıklarıyla sürekli güncellemeler yapar.
 - `-t`: Toplam bellek kullanımını gösterir.
 
-## Examples
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, sistemdeki bellek kullanımını varsayılan formatta gösterir:
+## Common Examples
+1. Bellek durumunu varsayılan formatta görüntülemek için:
+   ```bash
+   free
+   ```
 
-```bash
-free
-```
+2. Bellek durumunu insan tarafından okunabilir formatta görüntülemek için:
+   ```bash
+   free -h
+   ```
 
-### Örnek 2: İnsan Tarafından Okunabilir Format
-Aşağıdaki komut, bellek kullanımını insan tarafından okunabilir formatta görüntüler:
+3. Bellek durumunu megabayt cinsinden görüntülemek için:
+   ```bash
+   free -m
+   ```
 
-```bash
-free -h
-```
+4. Her 5 saniyede bir bellek durumunu güncellemek için:
+   ```bash
+   free -s 5
+   ```
+
+5. Toplam bellek kullanımını görüntülemek için:
+   ```bash
+   free -t
+   ```
 
 ## Tips
-- `free` komutunu sık sık kullanarak bellek kullanımını izlemek, sistem performansını optimize etmek için faydalıdır.
-- `free -s 5` komutunu kullanarak her 5 saniyede bir bellek kullanımını güncelleyebilirsiniz. Bu, bellek kullanımındaki değişiklikleri anlık olarak takip etmenize yardımcı olur.
-- `free` komutunu `watch` komutuyla birleştirerek sürekli güncellenen bir bellek durumu görüntüleyebilirsiniz:
-
-```bash
-watch free -h
-```
-
-Bu, bellek kullanımını gerçek zamanlı olarak izlemenizi sağlar.
+- `free` komutunu, sisteminizin bellek kullanımını izlemek için bir zamanlayıcı ile kullanarak, bellek tüketiminin zaman içindeki değişimini gözlemleyebilirsiniz.
+- `free -h` seçeneği, bellek miktarlarını daha anlaşılır bir şekilde gösterdiği için genellikle tercih edilir.
+- Bellek kullanımını analiz etmek için `vmstat` veya `top` gibi diğer komutlarla birlikte kullanabilirsiniz.

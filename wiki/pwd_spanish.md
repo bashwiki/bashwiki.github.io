@@ -1,47 +1,44 @@
-# [리눅스] Bash pwd 사용법
+# [Linux] Bash pwd uso equivalente: Muestra el directorio de trabajo actual
 
 ## Overview
-El comando `pwd` (Print Working Directory) se utiliza en Bash para mostrar la ruta completa del directorio de trabajo actual en el que se encuentra el usuario. Su propósito principal es ayudar a los usuarios a identificar su ubicación dentro del sistema de archivos, lo que es especialmente útil cuando se navega a través de múltiples directorios.
+El comando `pwd` (print working directory) se utiliza en Bash para mostrar la ruta del directorio de trabajo actual en el que se encuentra el usuario. Es una herramienta fundamental para navegar por el sistema de archivos, ya que permite saber en qué ubicación se está trabajando en un momento dado.
 
 ## Usage
-La sintaxis básica del comando `pwd` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-pwd [opciones]
+pwd [opciones] [argumentos]
 ```
 
-### Opciones Comunes
-- `-L`: Muestra la ruta lógica del directorio de trabajo actual. Esto es útil si se han utilizado enlaces simbólicos.
-- `-P`: Muestra la ruta física del directorio de trabajo actual, resolviendo cualquier enlace simbólico.
+## Common Options
+- `-L`: Muestra la ruta lógica del directorio de trabajo actual, que puede incluir enlaces simbólicos.
+- `-P`: Muestra la ruta física del directorio de trabajo actual, resolviendo todos los enlaces simbólicos.
 
-Por defecto, `pwd` se ejecuta sin opciones y muestra la ruta lógica.
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso del comando `pwd`:
 
-## Examples
-### Ejemplo 1: Uso básico de pwd
-Para mostrar la ruta del directorio actual, simplemente ejecuta:
+1. **Mostrar el directorio actual**:
+   ```bash
+   pwd
+   ```
 
-```bash
-pwd
-```
+2. **Mostrar la ruta lógica**:
+   ```bash
+   pwd -L
+   ```
 
-**Salida esperada:**
-```
-/home/usuario/proyecto
-```
+3. **Mostrar la ruta física**:
+   ```bash
+   pwd -P
+   ```
 
-### Ejemplo 2: Uso de opciones
-Si deseas ver la ruta física del directorio actual, puedes usar la opción `-P`:
-
-```bash
-pwd -P
-```
-
-**Salida esperada (dependiendo de la estructura de directorios):**
-```
-/home/usuario/proyecto
-```
+4. **Usar pwd en un script**:
+   ```bash
+   #!/bin/bash
+   echo "El directorio de trabajo actual es: $(pwd)"
+   ```
 
 ## Tips
-- Utiliza `pwd` antes de ejecutar comandos que dependan de la ubicación del directorio para asegurarte de que estás en el lugar correcto.
-- Combina `pwd` con otros comandos, como `cd`, para verificar tu ubicación después de cambiar de directorio.
-- Recuerda que el uso de `pwd -L` es útil cuando trabajas con enlaces simbólicos, ya que te permite ver la ruta que se presenta al usuario, mientras que `pwd -P` te muestra la ruta real en el sistema de archivos.
+- Utiliza `pwd` frecuentemente para confirmar tu ubicación en el sistema de archivos, especialmente antes de ejecutar comandos que afectan archivos o directorios.
+- Combina `pwd` con otros comandos, como `cd`, para verificar que has cambiado correctamente de directorio.
+- Recuerda que `pwd` es útil en scripts para obtener la ubicación actual y usarla en operaciones posteriores.

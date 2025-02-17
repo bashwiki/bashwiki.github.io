@@ -1,47 +1,47 @@
-# [리눅스] Bash tee 사용법
+# [Linux] Bash tee Uso: Redirigir la salida a archivos y a la consola
 
 ## Overview
-El comando `tee` en Bash se utiliza para leer desde la entrada estándar y escribir simultáneamente en la salida estándar y en uno o más archivos. Su propósito principal es permitir que los datos fluyan a través de una tubería mientras se guardan en un archivo, lo que es especialmente útil para registrar la salida de otros comandos sin interrumpir el flujo de datos.
+El comando `tee` en Bash se utiliza para leer de la entrada estándar y escribir simultáneamente en la salida estándar y en uno o más archivos. Esto es útil cuando deseas ver la salida de un comando en la consola mientras también la guardas en un archivo.
 
 ## Usage
 La sintaxis básica del comando `tee` es la siguiente:
 
 ```bash
-tee [opciones] [archivo...]
+tee [opciones] [archivos]
 ```
 
-### Opciones comunes:
+## Common Options
 - `-a`, `--append`: Añade la salida al final del archivo en lugar de sobrescribirlo.
 - `-i`, `--ignore-interrupts`: Ignora las señales de interrupción.
-- `--help`: Muestra la ayuda sobre el uso del comando.
-- `--version`: Muestra la versión del comando `tee`.
+- `-p`, `--output-error`: Controla cómo se manejan los errores de escritura en los archivos de salida.
 
-## Examples
-### Ejemplo 1: Guardar la salida de un comando en un archivo
-Supongamos que deseas listar los archivos en un directorio y guardar esa lista en un archivo llamado `lista.txt`. Puedes hacerlo de la siguiente manera:
+## Common Examples
 
-```bash
-ls -l | tee lista.txt
-```
+1. **Guardar la salida de un comando en un archivo:**
+   ```bash
+   ls -l | tee listado.txt
+   ```
+   Este comando lista los archivos en el directorio actual y guarda la salida en `listado.txt`.
 
-Este comando ejecuta `ls -l`, muestra la salida en la terminal y también la guarda en `lista.txt`.
+2. **Añadir la salida a un archivo existente:**
+   ```bash
+   echo "Nueva entrada" | tee -a listado.txt
+   ```
+   Aquí, se añade "Nueva entrada" al final de `listado.txt` sin borrar su contenido anterior.
 
-### Ejemplo 2: Añadir salida a un archivo existente
-Si deseas agregar la salida de un comando a un archivo existente en lugar de sobrescribirlo, puedes usar la opción `-a`. Por ejemplo:
+3. **Ver la salida en la consola y en múltiples archivos:**
+   ```bash
+   echo "Hola, mundo" | tee archivo1.txt archivo2.txt
+   ```
+   Este comando muestra "Hola, mundo" en la consola y lo guarda en `archivo1.txt` y `archivo2.txt`.
 
-```bash
-echo "Nueva entrada" | tee -a lista.txt
-```
-
-Este comando añade "Nueva entrada" al final de `lista.txt` y también muestra el texto en la terminal.
+4. **Ignorar interrupciones mientras se escribe en un archivo:**
+   ```bash
+   cat archivo.txt | tee -i salida.txt
+   ```
+   Este comando lee `archivo.txt` y escribe en `salida.txt`, ignorando cualquier señal de interrupción.
 
 ## Tips
-- Utiliza `tee` en combinación con otros comandos en una tubería para registrar la salida mientras continúas procesando los datos.
-- Si trabajas con scripts, considera usar `tee` para guardar registros de depuración sin perder la salida en la consola.
-- Recuerda que `tee` puede escribir en múltiples archivos al mismo tiempo. Por ejemplo:
-
-```bash
-echo "Mensaje importante" | tee archivo1.txt archivo2.txt
-```
-
-Esto escribirá "Mensaje importante" tanto en `archivo1.txt` como en `archivo2.txt`.
+- Utiliza la opción `-a` si deseas conservar el contenido previo de un archivo y agregarle nueva información.
+- Recuerda que `tee` puede ser útil en scripts para registrar la salida de comandos mientras se ejecutan.
+- Puedes combinar `tee` con otros comandos para crear flujos de trabajo más complejos, como redirigir la salida de un script a un archivo mientras lo visualizas en tiempo real.

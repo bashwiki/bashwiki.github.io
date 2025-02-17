@@ -1,49 +1,54 @@
-# [리눅스] Bash ip 사용법
+# [Linux] Bash ip Kullanımı: Ağ yapılandırmalarını yönetme
 
 ## Genel Bakış
-`ip` komutu, Linux işletim sistemlerinde ağ yapılandırmasını yönetmek için kullanılan güçlü bir araçtır. Ağ arayüzlerini, yönlendirme tablolarını, tünelleri ve diğer ağ bileşenlerini görüntülemek ve yönetmek için kullanılır. `ip` komutu, `ifconfig` ve `route` gibi eski komutların yerini almış ve daha kapsamlı bir ağ yönetimi deneyimi sunmaktadır.
+`ip` komutu, Linux tabanlı işletim sistemlerinde ağ yapılandırmalarını yönetmek için kullanılan bir araçtır. Ağ arayüzlerini, yönlendirme tablolarını ve diğer ağ parametrelerini görüntülemek ve değiştirmek için kullanılır.
 
 ## Kullanım
-Temel sözdizimi şu şekildedir:
-
+Temel sözdizimi aşağıdaki gibidir:
+```bash
+ip [seçenekler] [argümanlar]
 ```
-ip [seçenekler] [nesne] [eylem] [parametreler]
-```
 
-Burada:
-- **seçenekler**: Komutun davranışını değiştiren opsiyonlardır.
-- **nesne**: Yönetmek istediğiniz ağ bileşenidir (örneğin, `link`, `addr`, `route`, vb.).
-- **eylem**: Gerçekleştirmek istediğiniz işlemdir (örneğin, `show`, `add`, `del`, vb.).
-- **parametreler**: Eylem için gerekli olan ek bilgilerdir.
-
-### Yaygın Seçenekler
+## Yaygın Seçenekler
 - `link`: Ağ arayüzlerini yönetmek için kullanılır.
-- `addr`: IP adreslerini yönetmek için kullanılır.
+- `addr`: IP adreslerini görüntülemek veya ayarlamak için kullanılır.
 - `route`: Yönlendirme tablolarını görüntülemek veya değiştirmek için kullanılır.
+- `neigh`: Yakınlık tablosunu yönetmek için kullanılır.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda `ip` komutunun bazı pratik kullanım örnekleri bulunmaktadır:
 
-### Örnek 1: Ağ Arayüzlerini Görüntüleme
-Ağ arayüzlerinin durumunu görmek için aşağıdaki komutu kullanabilirsiniz:
-
+### 1. Ağ Arayüzlerini Listeleme
+Ağ arayüzlerinin durumunu görüntülemek için:
 ```bash
 ip link show
 ```
 
-Bu komut, sistemdeki tüm ağ arayüzlerini ve durumlarını listeleyecektir.
-
-### Örnek 2: IP Adresi Ekleme
-Bir ağ arayüzüne yeni bir IP adresi eklemek için şu komutu kullanabilirsiniz:
-
+### 2. IP Adresi Ekleme
+Bir ağ arayüzüne IP adresi eklemek için:
 ```bash
-ip addr add 192.168.1.100/24 dev eth0
+ip addr add 192.168.1.10/24 dev eth0
 ```
 
-Bu komut, `eth0` arayüzüne `192.168.1.100` IP adresini ekleyecektir.
+### 3. IP Adresi Silme
+Bir ağ arayüzünden IP adresini silmek için:
+```bash
+ip addr del 192.168.1.10/24 dev eth0
+```
+
+### 4. Yönlendirme Tablosunu Görüntüleme
+Yönlendirme tablosunu görüntülemek için:
+```bash
+ip route show
+```
+
+### 5. Yeni Bir Yönlendirme Eklemek
+Yeni bir yönlendirme eklemek için:
+```bash
+ip route add 10.0.0.0/8 via 192.168.1.1
+```
 
 ## İpuçları
-- `ip` komutunu kullanmadan önce, hangi ağ arayüzlerinin mevcut olduğunu görmek için `ip link show` komutunu çalıştırarak başlayabilirsiniz.
-- `ip` komutunun sunduğu geniş seçenek yelpazesini keşfetmek için `man ip` komutunu kullanarak kılavuz sayfalarını inceleyebilirsiniz.
-- Ağ yapılandırmalarınızı değiştirmeden önce mevcut yapılandırmanızı yedeklemek iyi bir uygulamadır. Bu, yanlış bir yapılandırma durumunda geri dönmenizi kolaylaştırır.
-
-`ip` komutu, ağ yönetimi için vazgeçilmez bir araçtır ve doğru kullanıldığında sistem yöneticileri ve geliştiriciler için büyük kolaylık sağlar.
+- `ip` komutunu kullanmadan önce, ağ arayüzlerinizin ve IP adreslerinizin doğru olduğundan emin olun.
+- Değişiklik yapmadan önce mevcut ayarları yedeklemek iyi bir uygulamadır.
+- `ip` komutunu kullanırken, genellikle `sudo` ile çalıştırmak gerekebilir, çünkü ağ ayarlarını değiştirmek için yönetici yetkileri gereklidir.

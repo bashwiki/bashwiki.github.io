@@ -1,43 +1,50 @@
-# [리눅스] Bash du 사용법
+# [Linux] Bash du Kullanımı: Disk kullanımını gösterir
 
 ## Genel Bakış
-`du` (disk usage) komutu, bir dosya veya dizinin disk alanını ne kadar kullandığını gösteren bir araçtır. Bu komut, sistem yöneticileri ve geliştiriciler için disk alanı yönetimi ve analizinde önemli bir rol oynar. `du`, belirli bir dizin altındaki dosyaların ve alt dizinlerin boyutlarını hesaplayarak, kullanıcıların disk alanını daha verimli bir şekilde yönetmelerine yardımcı olur.
+`du` (disk usage) komutu, bir dosya veya dizinin disk alanını ne kadar kullandığını gösterir. Bu komut, sistem yöneticileri ve kullanıcılar için disk alanı yönetimi açısından oldukça faydalıdır.
 
 ## Kullanım
-`du` komutunun temel sözdizimi şu şekildedir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-du [seçenekler] [dosya/dizin]
+du [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-h`: Boyutları insan tarafından okunabilir formatta gösterir (örneğin, KB, MB, GB).
+## Yaygın Seçenekler
+- `-h`: İnsan tarafından okunabilir formatta çıktı verir (örneğin, KB, MB).
 - `-s`: Sadece toplam boyutu gösterir, alt dizinleri listelemez.
-- `-a`: Tüm dosyaların boyutlarını gösterir, yalnızca dizinleri değil.
-- `-c`: Toplam boyutu da dahil ederek, tüm dosya ve dizinlerin toplamını gösterir.
+- `-a`: Tüm dosyaların ve dizinlerin boyutlarını gösterir.
+- `-c`: Toplam boyutu da içeren bir özet verir.
 
-## Örnekler
-### Örnek 1: Dizin Boyutunu Görüntüleme
-Aşağıdaki komut, mevcut dizinin altındaki tüm dosya ve dizinlerin boyutlarını insan tarafından okunabilir formatta gösterir:
+## Yaygın Örnekler
+1. Belirli bir dizinin disk kullanımını gösterme:
+   ```bash
+   du /home/kullanici
+   ```
 
-```bash
-du -h
-```
+2. İnsan tarafından okunabilir formatta çıktı almak:
+   ```bash
+   du -h /home/kullanici
+   ```
 
-### Örnek 2: Belirli Bir Dizin İçin Toplam Boyutu Görüntüleme
-Aşağıdaki komut, `/var/log` dizininin toplam boyutunu gösterir:
+3. Sadece toplam boyutu gösterme:
+   ```bash
+   du -sh /home/kullanici
+   ```
 
-```bash
-du -sh /var/log
-```
+4. Tüm dosyaların boyutlarını gösterme:
+   ```bash
+   du -ah /home/kullanici
+   ```
+
+5. Bir dizindeki tüm alt dizinlerin boyutlarını listeleme:
+   ```bash
+   du -h --max-depth=1 /home/kullanici
+   ```
 
 ## İpuçları
-- `du` komutunu kullanarak hangi dosyaların veya dizinlerin en fazla disk alanını kullandığını belirlemek için `du -h --max-depth=1` komutunu kullanabilirsiniz. Bu, yalnızca birinci seviye alt dizinlerin boyutlarını gösterir.
-- Disk alanı kullanımını izlemek için `du` komutunu düzenli olarak çalıştırmak, gereksiz dosyaları temizlemenize ve disk alanınızı optimize etmenize yardımcı olabilir.
-- `du` komutunu `sort` ile birleştirerek, en fazla alan kullanan dosya ve dizinleri sıralayabilirsiniz. Örneğin:
-
-```bash
-du -h | sort -hr
-```
-
-Bu komut, disk kullanımını en yüksekten en düşüğe doğru sıralar.
+- `du` komutunu `sort` ile birleştirerek en fazla yer kaplayan dosyaları bulabilirsiniz:
+  ```bash
+  du -ah /home/kullanici | sort -hr | head -n 10
+  ```
+- Disk kullanımını düzenli olarak kontrol etmek, gereksiz dosyaları temizlemek için faydalıdır.
+- `du` komutunu kullanırken, büyük dizinlerde işlem süresinin uzayabileceğini unutmayın; bu nedenle belirli bir derinlikte sınırlama yapmayı düşünebilirsiniz.

@@ -1,48 +1,55 @@
-# [리눅스] Bash ulimit 사용법
+# [Linux] Bash ulimit Kullanımı: Sistem kaynaklarını yönetme
 
-## Overview
-`ulimit` komutu, bir shell oturumu için sistem kaynaklarının sınırlarını belirlemeye yarar. Bu sınırlar, bir kullanıcı veya bir süreç tarafından kullanılabilecek kaynak miktarını kontrol eder. `ulimit`, özellikle sistem performansını optimize etmek ve kaynak tüketimini yönetmek için kullanılır. Bu komut, bellek kullanımı, dosya boyutları ve işlem sayısı gibi çeşitli kaynakları sınırlamak için kullanılabilir.
+## Genel Bakış
+`ulimit` komutu, bir shell oturumu için sistem kaynaklarını sınırlandırmak amacıyla kullanılır. Bu komut, kullanıcıların belirli kaynakların (örneğin, açık dosya sayısı, bellek kullanımı) kullanımını kontrol etmelerine olanak tanır.
 
-## Usage
-`ulimit` komutunun temel sözdizimi aşağıdaki gibidir:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-ulimit [option] [limit]
+ulimit [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-a`: Tüm mevcut sınırları gösterir.
+## Yaygın Seçenekler
+- `-a`: Tüm mevcut sınırlamaları gösterir.
 - `-c`: Çekirdek dosyası boyutunu ayarlar.
 - `-d`: Veri segmenti boyutunu ayarlar.
 - `-f`: Dosya boyutu sınırını ayarlar.
 - `-l`: Kilitlenmiş bellek boyutunu ayarlar.
-- `-m`: Fiziksel bellek boyutunu ayarlar.
-- `-n`: Açık dosya sayısını ayarlar.
+- `-n`: Açık dosya sayısı sınırını ayarlar.
 - `-s`: Yığın boyutunu ayarlar.
-- `-t`: İşlem süresi sınırını ayarlar.
-- `-u`: Kullanıcı başına maksimum işlem sayısını ayarlar.
+- `-t`: CPU zamanını ayarlar.
 - `-v`: Sanal bellek boyutunu ayarlar.
 
-## Examples
-### Örnek 1: Açık Dosya Sayısını Görüntüleme
-Açık dosya sayısını görüntülemek için aşağıdaki komutu kullanabilirsiniz:
+## Yaygın Örnekler
+Aşağıda `ulimit` komutunun bazı pratik kullanımları verilmiştir:
 
-```bash
-ulimit -n
-```
+1. **Tüm sınırlamaları görüntüleme:**
+   ```bash
+   ulimit -a
+   ```
 
-Bu komut, mevcut shell oturumu için izin verilen maksimum açık dosya sayısını gösterir.
+2. **Açık dosya sayısını 1024 olarak ayarlama:**
+   ```bash
+   ulimit -n 1024
+   ```
 
-### Örnek 2: Maksimum Açık Dosya Sayısını Ayarlama
-Maksimum açık dosya sayısını 1024 olarak ayarlamak için şu komutu kullanabilirsiniz:
+3. **Çekirdek dosyası boyutunu sınırsız yapma:**
+   ```bash
+   ulimit -c unlimited
+   ```
 
-```bash
-ulimit -n 1024
-```
+4. **Veri segmenti boyutunu 512 MB olarak ayarlama:**
+   ```bash
+   ulimit -d 524288
+   ```
 
-Bu komut, mevcut shell oturumu için açık dosya sayısını 1024 ile sınırlar.
+5. **CPU zamanını 60 saniye ile sınırlama:**
+   ```bash
+   ulimit -t 60
+   ```
 
-## Tips
-- `ulimit` ayarları, yalnızca mevcut shell oturumu için geçerlidir. Shell kapatıldığında ayarlar kaybolur. Kalıcı değişiklikler yapmak için, genellikle `~/.bashrc` veya `~/.bash_profile` dosyasına eklemeler yapmanız gerekir.
-- Sınırları artırmadan önce, sistem kaynaklarınızı göz önünde bulundurun. Aşırı kaynak kullanımı, sistemin dengesiz çalışmasına neden olabilir.
-- `ulimit -a` komutunu kullanarak mevcut tüm sınırları kontrol etmek, hangi kaynakların sınırlandırıldığını anlamanıza yardımcı olabilir.
+## İpuçları
+- `ulimit` ayarlarını kalıcı hale getirmek için, genellikle `~/.bashrc` veya `~/.bash_profile` dosyasına ekleyebilirsiniz.
+- Sınırlamaları ayarlarken dikkatli olun; yanlış ayarlar, uygulamalarınızın düzgün çalışmamasına neden olabilir.
+- `ulimit` komutunu kullanmadan önce mevcut sınırlamaları kontrol etmek iyi bir uygulamadır, böylece gereksiz kısıtlamalar getirmemiş olursunuz.

@@ -1,39 +1,45 @@
-# [리눅스] Bash logrotate 사용법
+# [Linux] Bash logrotate Kullanımı: Log dosyalarını döndürme aracı
 
-## Genel Bakış
-`logrotate`, Linux sistemlerinde günlük dosyalarını yönetmek için kullanılan bir komut ve yapılandırma aracıdır. Temel amacı, sistemdeki günlük dosyalarının boyutunu ve sayısını kontrol altında tutarak disk alanını verimli bir şekilde kullanmaktır. `logrotate`, günlük dosyalarını belirli bir zaman diliminde döndürme, sıkıştırma, silme veya yeniden adlandırma gibi işlemleri otomatikleştirir.
+## Overview
+`logrotate`, sistemdeki log dosyalarını yönetmek ve döndürmek için kullanılan bir araçtır. Bu komut, log dosyalarının boyutunu kontrol altında tutarak, belirli bir süre veya boyut sınırına ulaştığında eski log dosyalarını arşivler veya siler. Böylece disk alanı tasarrufu sağlanır ve log dosyalarının yönetimi kolaylaşır.
 
-## Kullanım
-`logrotate` komutunun temel sözdizimi aşağıdaki gibidir:
-
-```bash
-logrotate [seçenekler] [yapılandırma dosyası]
-```
-
-### Yaygın Seçenekler
-- `-f`: Yapılandırma dosyasındaki ayarları zorla uygular. Normalde, günlük dosyaları döndürülmezse bile bu seçenekle işlem yapılır.
-- `-s`: Durum dosyasının yolunu belirtir. Bu dosya, hangi günlük dosyalarının döndürüldüğünü takip eder.
-- `-v`: Ayrıntılı modda çalışır ve işlem sırasında daha fazla bilgi gösterir.
-
-## Örnekler
-
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, varsayılan yapılandırma dosyasını kullanarak günlük dosyalarını döndürür:
+## Usage
+Temel kullanım şekli aşağıdaki gibidir:
 
 ```bash
-logrotate /etc/logrotate.conf
+logrotate [options] [arguments]
 ```
 
-### Örnek 2: Zorla Günlük Döndürme
-Eğer günlük dosyalarını zorla döndürmek istiyorsanız, aşağıdaki komutu kullanabilirsiniz:
+## Common Options
+- `-f`: Zorla döndürme işlemi yapar, yapılandırma dosyasında belirtilen zamanlamaya bakmaz.
+- `-s`: Durum dosyasının yolunu belirtir. Bu dosya, logrotate'ın hangi log dosyalarının döndürüldüğünü takip etmesine yardımcı olur.
+- `-v`: Ayrıntılı çıktı verir, hangi dosyaların döndürüldüğünü gösterir.
+- `-d`: Simülasyon modu, gerçek döndürme işlemi yapmadan ne olacağını gösterir.
 
-```bash
-logrotate -f /etc/logrotate.conf
-```
+## Common Examples
+Aşağıda `logrotate` komutunun bazı pratik örnekleri verilmiştir:
 
-## İpuçları
-- `logrotate` yapılandırma dosyalarınızı düzenlerken, her günlük dosyası için ayrı bir yapılandırma dosyası oluşturmak, yönetimi kolaylaştırır.
-- Günlük dosyalarının ne sıklıkla döndürüleceğini belirlemek için `daily`, `weekly`, `monthly` gibi zamanlama seçeneklerini kullanabilirsiniz.
-- Disk alanı tasarrufu sağlamak için, döndürülen günlük dosyalarını sıkıştırmak için `compress` seçeneğini eklemeyi unutmayın.
+1. **Varsayılan yapılandırma dosyasını kullanarak log dosyalarını döndürme:**
+   ```bash
+   logrotate /etc/logrotate.conf
+   ```
 
-Bu bilgilerle, `logrotate` komutunu etkili bir şekilde kullanarak sistem günlüklerinizi yönetebilirsiniz.
+2. **Belirli bir yapılandırma dosyası ile döndürme:**
+   ```bash
+   logrotate -f /path/to/custom_logrotate.conf
+   ```
+
+3. **Ayrıntılı çıktı ile döndürme:**
+   ```bash
+   logrotate -v /etc/logrotate.conf
+   ```
+
+4. **Simülasyon modunda çalıştırma:**
+   ```bash
+   logrotate -d /etc/logrotate.conf
+   ```
+
+## Tips
+- Logrotate yapılandırma dosyalarınızı düzenli olarak kontrol edin ve güncel tutun.
+- Log dosyalarınızın boyutunu ve döndürme sıklığını belirlerken sistem ihtiyaçlarınızı göz önünde bulundurun.
+- Logrotate'ın düzgün çalıştığını doğrulamak için düzenli aralıklarla `-d` seçeneği ile simülasyon yapın.

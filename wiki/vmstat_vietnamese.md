@@ -1,40 +1,50 @@
-# [리눅스] Bash vmstat 사용법
+# [Linux] Bash vmstat Cách sử dụng: Theo dõi hiệu suất hệ thống
 
-## Tổng quan
-Lệnh `vmstat` (Virtual Memory Statistics) là một công cụ hữu ích trong Bash để theo dõi và báo cáo về tình trạng bộ nhớ ảo, CPU, và các hoạt động I/O trên hệ thống. Lệnh này giúp các kỹ sư và nhà phát triển nắm bắt được hiệu suất của hệ thống, từ đó có thể tối ưu hóa và khắc phục sự cố khi cần thiết.
+## Overview
+Lệnh `vmstat` (Virtual Memory Statistics) được sử dụng để theo dõi hiệu suất hệ thống, cung cấp thông tin về bộ nhớ, quy trình, và các hoạt động I/O. Nó giúp người dùng hiểu rõ hơn về tình trạng tài nguyên hệ thống và phát hiện các vấn đề tiềm ẩn.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `vmstat` như sau:
-
-```bash
-vmstat [options] [delay] [count]
+```
+vmstat [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-a`: Hiển thị thông tin về bộ nhớ đang sử dụng và bộ nhớ có thể sử dụng.
-- `-m`: Hiển thị thông tin về bộ nhớ vật lý và bộ nhớ ảo.
-- `-s`: Hiển thị thống kê bộ nhớ chi tiết.
-- `delay`: Thời gian (tính bằng giây) giữa các lần cập nhật thông tin.
-- `count`: Số lần cập nhật thông tin sẽ được thực hiện.
+## Common Options
+- `-a`: Hiển thị thông tin bộ nhớ ảo.
+- `-m`: Hiển thị thông tin về bộ nhớ đã sử dụng và bộ nhớ còn lại.
+- `-s`: Hiển thị thống kê bộ nhớ tổng quát.
+- `-t`: Thêm dấu thời gian vào đầu mỗi dòng đầu ra.
+- `interval`: Thời gian (tính bằng giây) giữa các lần cập nhật thông tin.
 
-## Ví dụ
-### Ví dụ 1: Theo dõi tình trạng bộ nhớ và CPU
-Để theo dõi tình trạng bộ nhớ và CPU mỗi 2 giây trong 5 lần, bạn có thể sử dụng lệnh sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `vmstat`:
 
-```bash
-vmstat 2 5
-```
+1. **Hiển thị thông tin hệ thống cơ bản:**
+   ```bash
+   vmstat
+   ```
 
-### Ví dụ 2: Hiển thị thông tin chi tiết về bộ nhớ
-Để xem thông tin chi tiết về bộ nhớ, bạn có thể sử dụng tùy chọn `-s`:
+2. **Theo dõi thông tin mỗi 2 giây:**
+   ```bash
+   vmstat 2
+   ```
 
-```bash
-vmstat -s
-```
+3. **Hiển thị thông tin bộ nhớ ảo:**
+   ```bash
+   vmstat -a
+   ```
 
-## Mẹo
-- Sử dụng `vmstat` cùng với các công cụ khác như `grep` hoặc `awk` để lọc và phân tích dữ liệu dễ dàng hơn.
-- Theo dõi thường xuyên tình trạng hệ thống bằng cách thiết lập một cron job để ghi lại thông tin từ `vmstat` vào một tệp log.
-- Kết hợp `vmstat` với các lệnh khác như `iostat` và `mpstat` để có cái nhìn tổng quát hơn về hiệu suất hệ thống.
+4. **Hiển thị thống kê bộ nhớ tổng quát:**
+   ```bash
+   vmstat -s
+   ```
 
-Hy vọng bài viết này giúp bạn hiểu rõ hơn về cách sử dụng lệnh `vmstat` trong Bash!
+5. **Theo dõi thông tin với dấu thời gian:**
+   ```bash
+   vmstat -t 1
+   ```
+
+## Tips
+- Sử dụng `vmstat` cùng với các lệnh khác như `top` hoặc `htop` để có cái nhìn tổng quan hơn về hiệu suất hệ thống.
+- Theo dõi thường xuyên để phát hiện các vấn đề về hiệu suất trước khi chúng trở thành sự cố nghiêm trọng.
+- Kết hợp `vmstat` với các công cụ giám sát khác để có dữ liệu chi tiết hơn về hiệu suất hệ thống.

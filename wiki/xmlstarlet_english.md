@@ -1,49 +1,60 @@
-# [리눅스] Bash xmlstarlet 사용법
+# [Linux] Bash xmlstarlet uso: A command-line XML toolkit
 
 ## Overview
-`xmlstarlet` is a command-line utility designed for parsing, transforming, and querying XML documents. It provides a suite of tools for working with XML data, allowing users to perform various operations such as validation, transformation, and extraction of information. Its primary purpose is to facilitate the manipulation of XML files in a straightforward and scriptable manner, making it an essential tool for developers and engineers who work with XML data.
+The `xmlstarlet` command is a versatile command-line utility for parsing, transforming, and querying XML documents. It allows users to manipulate XML data easily, making it a valuable tool for developers and system administrators working with XML files.
 
 ## Usage
-The basic syntax for using `xmlstarlet` is as follows:
+The basic syntax of the `xmlstarlet` command is as follows:
 
 ```bash
-xmlstarlet [command] [options] [file]
+xmlstarlet [options] [arguments]
 ```
 
-### Common Commands and Options:
-- `xmlstarlet val`: Validate an XML document against a DTD or XML Schema.
-- `xmlstarlet sel`: Select and extract data from an XML document using XPath expressions.
-- `xmlstarlet ed`: Edit an XML document, allowing for the addition, modification, or deletion of nodes.
-- `xmlstarlet tr`: Transform an XML document using XSLT.
-- `xmlstarlet fo`: Format an XML document for better readability.
+## Common Options
+- `xmlstarlet sel`: Selects nodes from an XML document.
+- `xmlstarlet ed`: Edits an XML document.
+- `xmlstarlet tr`: Transforms an XML document using XSLT.
+- `xmlstarlet val`: Validates an XML document against a schema.
+- `xmlstarlet fo`: Formats an XML document for readability.
 
-### Common Options:
-- `-u`: Update the XML document in place.
-- `-o`: Output the result to standard output.
-- `-n`: Suppress the output of the XML declaration.
+## Common Examples
 
-## Examples
-
-### Example 1: Validating an XML Document
-To validate an XML file against a DTD, you can use the following command:
-
-```bash
-xmlstarlet val -d myfile.dtd myfile.xml
-```
-
-This command checks `myfile.xml` against the DTD defined in `myfile.dtd` and returns any validation errors.
-
-### Example 2: Extracting Data with XPath
-To select specific nodes from an XML file, you can use the `sel` command. For example, to extract all the titles from a book list XML:
+### Selecting Nodes
+To select specific nodes from an XML file, you can use the `sel` option. For example, to select all `book` elements from a `books.xml` file:
 
 ```bash
 xmlstarlet sel -t -m "//book" -v "title" -n books.xml
 ```
 
-This command will output the titles of all books found in `books.xml`, each on a new line.
+### Editing XML
+To add a new element to an existing XML document, use the `ed` option. For instance, to add a new `author` to a `book`:
+
+```bash
+xmlstarlet ed -s "//book" -t elem -n "author" -v "New Author" books.xml
+```
+
+### Transforming XML
+To transform an XML document using an XSLT stylesheet, use the `tr` option. Here’s an example:
+
+```bash
+xmlstarlet tr stylesheet.xsl input.xml > output.xml
+```
+
+### Validating XML
+To validate an XML file against a schema, use the `val` option. For example:
+
+```bash
+xmlstarlet val -e schema.xsd input.xml
+```
+
+### Formatting XML
+To format an XML file for better readability, use the `fo` option:
+
+```bash
+xmlstarlet fo input.xml
+```
 
 ## Tips
-- When working with large XML files, consider using `xmlstarlet` in combination with other command-line tools like `grep` or `awk` for more complex data processing.
-- Always validate your XML documents after editing to ensure they conform to the expected structure.
-- Familiarize yourself with XPath syntax, as it is crucial for effectively using the `sel` command to extract data from XML files.
-- Use the `-o` option to redirect output to a new file if you want to save the results of your operations without modifying the original XML file.
+- Always back up your XML files before performing edits, as changes can be irreversible.
+- Use the `-n` option with `sel` to suppress the output of the selected nodes if you only need to check the existence of nodes.
+- Combine multiple options in a single command for more complex operations, such as selecting and transforming XML data in one go.

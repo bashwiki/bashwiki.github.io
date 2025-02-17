@@ -1,49 +1,56 @@
-# [리눅스] Bash compgen 사용법
+# [Linux] Bash compgen Uso: Geração de sugestões de autocompletar
 
 ## Overview
-O comando `compgen` é uma ferramenta poderosa no Bash que gera possíveis completions de palavras com base em um conjunto de critérios. Ele é frequentemente utilizado em scripts para facilitar a autocompletação de comandos, variáveis e arquivos, permitindo que os desenvolvedores e engenheiros criem interfaces de linha de comando mais interativas e amigáveis.
+O comando `compgen` é utilizado no Bash para gerar uma lista de possíveis completions (sugestões de autocompletar) com base em argumentos fornecidos. Ele é especialmente útil para criar scripts que necessitam de autocompletar ou para explorar opções disponíveis no shell.
 
 ## Usage
-A sintaxe básica do comando `compgen` é a seguinte:
+A sintaxe básica do comando é a seguinte:
 
 ```bash
-compgen [opções] [palavra]
+compgen [opções] [argumentos]
 ```
 
-### Opções Comuns:
-- `-A`: Especifica o tipo de completions a serem gerados. Os tipos podem incluir:
-  - `alias`: Para completar aliases.
-  - `function`: Para completar funções definidas pelo usuário.
-  - `command`: Para completar comandos disponíveis.
-  - `file`: Para completar nomes de arquivos.
+## Common Options
+Aqui estão algumas opções comuns que podem ser usadas com o `compgen`:
+
+- `-A`: Especifica o tipo de completions a serem geradas (por exemplo, `-A command` para comandos).
 - `-a`: Gera uma lista de todos os aliases definidos.
-- `-b`: Gera uma lista de todos os comandos internos do Bash.
-- `-c`: Gera uma lista de todos os comandos disponíveis no sistema.
-- `-d`: Gera uma lista de diretórios.
-- `-f`: Gera uma lista de arquivos.
+- `-b`: Gera uma lista de todos os comandos internos do shell.
+- `-k`: Gera uma lista de todas as palavras-chave do shell.
+- `-c`: Gera uma lista de todos os comandos disponíveis no PATH.
 
-## Examples
-### Exemplo 1: Completar comandos disponíveis
-Para listar todos os comandos disponíveis no seu sistema, você pode usar:
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do `compgen`:
 
-```bash
-compgen -c
-```
+1. **Listar todos os comandos disponíveis no PATH:**
+   ```bash
+   compgen -c
+   ```
 
-Este comando retornará uma lista de todos os comandos que podem ser executados no terminal.
+2. **Listar todos os aliases definidos:**
+   ```bash
+   compgen -a
+   ```
 
-### Exemplo 2: Completar nomes de arquivos
-Se você deseja listar todos os arquivos em um diretório específico, pode usar:
+3. **Listar todas as palavras-chave do shell:**
+   ```bash
+   compgen -k
+   ```
 
-```bash
-compgen -f /caminho/para/diretorio/
-```
+4. **Gerar sugestões de comandos que começam com 'git':**
+   ```bash
+   compgen -c git
+   ```
 
-Isso retornará todos os arquivos presentes no diretório especificado.
+5. **Listar todos os comandos internos do shell:**
+   ```bash
+   compgen -b
+   ```
 
 ## Tips
-- Utilize `compgen` em scripts para melhorar a experiência do usuário, permitindo que eles vejam opções disponíveis enquanto digitam.
-- Combine `compgen` com outros comandos, como `grep`, para filtrar resultados e tornar a busca mais eficiente.
-- Lembre-se de que `compgen` não executa comandos, mas apenas gera uma lista de opções. Para executar um comando, você precisará chamá-lo separadamente após a seleção.
-
-Com essas informações, você pode começar a utilizar o comando `compgen` para melhorar a interatividade e a eficiência dos seus scripts Bash.
+- Utilize `compgen` em scripts para melhorar a experiência do usuário, permitindo que eles vejam as opções disponíveis ao digitar comandos.
+- Combine `compgen` com outros comandos, como `grep`, para filtrar resultados. Por exemplo:
+  ```bash
+  compgen -c | grep 'git'
+  ```
+- Explore diferentes opções do `compgen` para descobrir novas funcionalidades e melhorar sua eficiência no uso do shell.

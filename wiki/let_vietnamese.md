@@ -1,52 +1,55 @@
-# [리눅스] Bash let 사용법
+# [Linux] Bash let: Thực hiện phép toán số học
 
-## Tổng quan
-Lệnh `let` trong Bash được sử dụng để thực hiện các phép toán số học. Nó cho phép người dùng thực hiện các phép tính như cộng, trừ, nhân, chia và các phép toán khác trên các biến mà không cần phải sử dụng dấu `$` trước tên biến. Lệnh này rất hữu ích trong việc xử lý các phép toán trong các script Bash, giúp cho việc lập trình trở nên dễ dàng và hiệu quả hơn.
+## Overview
+Lệnh `let` trong Bash được sử dụng để thực hiện các phép toán số học đơn giản. Nó cho phép bạn tính toán và gán giá trị cho các biến mà không cần phải sử dụng dấu `$` trước tên biến.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `let` như sau:
 
 ```bash
-let "biến = biểu_thức"
+let [options] [arguments]
 ```
 
-Trong đó:
-- `biến` là tên biến mà bạn muốn gán giá trị.
-- `biểu_thức` là phép toán mà bạn muốn thực hiện.
+## Common Options
+- `-n`: Không in ra giá trị của biểu thức.
+- `-e`: Kích hoạt chế độ lỗi, dừng thực thi nếu có lỗi xảy ra trong phép toán.
 
-Một số phép toán phổ biến mà bạn có thể sử dụng với lệnh `let` bao gồm:
-- Cộng: `+`
-- Trừ: `-`
-- Nhân: `*`
-- Chia: `/`
-- Phép chia lấy dư: `%`
-
-## Ví dụ
-Dưới đây là một vài ví dụ minh họa cách sử dụng lệnh `let`:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `let`:
 
 ### Ví dụ 1: Cộng hai số
 ```bash
-let "a = 5"
-let "b = 10"
-let "c = a + b"
-echo $c  # Kết quả sẽ là 15
+let "a = 5 + 3"
+echo $a  # Kết quả: 8
 ```
 
-### Ví dụ 2: Tính toán với nhiều phép toán
+### Ví dụ 2: Trừ hai số
 ```bash
-let "x = 20"
-let "y = 5"
-let "result = (x + y) * 2"
-echo $result  # Kết quả sẽ là 50
+let "b = 10 - 4"
+echo $b  # Kết quả: 6
 ```
 
-## Mẹo
-- Khi sử dụng lệnh `let`, bạn có thể bỏ qua dấu `$` trước tên biến, điều này giúp mã của bạn trở nên ngắn gọn hơn.
-- Nếu bạn muốn thực hiện phép toán mà không cần sử dụng dấu ngoặc kép, bạn có thể viết như sau:
-  ```bash
-  let a=5
-  let b=10
-  let c=a+b
-  ```
-- Hãy cẩn thận với các phép toán có thể gây ra lỗi, như chia cho 0, vì điều này sẽ dẫn đến lỗi trong script của bạn.
-- Sử dụng lệnh `let` trong vòng lặp hoặc các cấu trúc điều kiện có thể giúp bạn dễ dàng thực hiện các phép toán phức tạp hơn.
+### Ví dụ 3: Nhân hai số
+```bash
+let "c = 7 * 6"
+echo $c  # Kết quả: 42
+```
+
+### Ví dụ 4: Chia hai số
+```bash
+let "d = 20 / 5"
+echo $d  # Kết quả: 4
+```
+
+### Ví dụ 5: Sử dụng biến
+```bash
+x=10
+y=5
+let "result = x + y"
+echo $result  # Kết quả: 15
+```
+
+## Tips
+- Sử dụng dấu ngoặc kép để bao quanh biểu thức phức tạp để tránh lỗi cú pháp.
+- Bạn có thể sử dụng `let` để thực hiện nhiều phép toán trong cùng một lệnh bằng cách phân tách chúng bằng dấu phẩy.
+- Hãy nhớ rằng `let` không in ra kết quả, vì vậy bạn cần sử dụng `echo` để xem giá trị của biến sau khi thực hiện phép toán.

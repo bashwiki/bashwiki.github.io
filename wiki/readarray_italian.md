@@ -1,47 +1,47 @@
-# [리눅스] Bash readarray 사용법
+# [Linux] Bash readarray utilizzo: Leggere righe in un array
 
 ## Overview
-Il comando `readarray` in Bash è utilizzato per leggere le righe da un file o da un input standard e memorizzarle in un array. Questo comando è particolarmente utile quando si desidera gestire una serie di dati riga per riga, consentendo di accedere facilmente a ciascuna riga tramite l'indice dell'array. È stato introdotto in Bash 4.0 e offre un modo semplice e diretto per lavorare con dati multilinea.
+Il comando `readarray` in Bash è utilizzato per leggere righe da un input e memorizzarle in un array. È particolarmente utile quando si desidera gestire più righe di dati in modo strutturato.
 
 ## Usage
-La sintassi di base del comando `readarray` è la seguente:
+La sintassi di base del comando è la seguente:
 
 ```bash
-readarray [opzioni] nome_array
+readarray [options] [array_name]
 ```
 
-### Opzioni comuni:
-- `-t`: Rimuove i caratteri di nuova linea alla fine di ogni riga letta. Questa opzione è utile per evitare che le righe contengano caratteri di fine riga indesiderati.
-- `-n NUM`: Legge solo le prime NUM righe dall'input.
-- `-O NUM`: Specifica l'indice iniziale per l'array, utile se si desidera iniziare a riempire l'array da un indice diverso da zero.
+## Common Options
+- `-n N`: Legge solo le prime N righe.
+- `-s N`: Salta le prime N righe dell'input.
+- `-t`: Rimuove il carattere di nuova linea finale da ogni riga letta.
 
-## Examples
-### Esempio 1: Lettura da un file
-Supponiamo di avere un file chiamato `file.txt` con il seguente contenuto:
+## Common Examples
 
-```
-Linea 1
-Linea 2
-Linea 3
-```
-
-Possiamo utilizzare `readarray` per leggere queste righe in un array:
-
+### Esempio 1: Leggere un file in un array
 ```bash
-readarray righe < file.txt
-echo "${righe[0]}"  # Output: Linea 1
-echo "${righe[1]}"  # Output: Linea 2
+readarray lines < file.txt
 ```
+Questo comando legge tutte le righe di `file.txt` e le memorizza nell'array `lines`.
 
-### Esempio 2: Lettura da input standard
-Possiamo anche utilizzare `readarray` per leggere l'input standard, ad esempio da un comando:
-
+### Esempio 2: Leggere solo le prime 3 righe
 ```bash
-readarray -t righe < <(echo -e "Riga A\nRiga B\nRiga C")
-echo "${righe[2]}"  # Output: Riga C
+readarray -n 3 lines < file.txt
 ```
+In questo caso, solo le prime 3 righe di `file.txt` vengono lette nell'array `lines`.
+
+### Esempio 3: Saltare le prime 2 righe
+```bash
+readarray -s 2 lines < file.txt
+```
+Questo comando salta le prime 2 righe di `file.txt` e legge il resto nell'array `lines`.
+
+### Esempio 4: Rimuovere i caratteri di nuova linea
+```bash
+readarray -t lines < file.txt
+```
+Qui, il comando legge tutte le righe da `file.txt` e rimuove i caratteri di nuova linea finali.
 
 ## Tips
-- Utilizza l'opzione `-t` per evitare di avere caratteri di nuova linea nei tuoi dati, rendendo più semplice la manipolazione delle righe.
-- Se stai leggendo un grande file, considera di utilizzare l'opzione `-n` per limitare il numero di righe lette, migliorando l'efficienza del tuo script.
-- Ricorda che gli array in Bash sono indicizzati a partire da zero, quindi il primo elemento è accessibile con l'indice `0`.
+- Utilizza l'opzione `-t` se desideri evitare di avere caratteri di nuova linea nei tuoi array.
+- Ricorda che gli array in Bash sono indicizzati a partire da zero, quindi il primo elemento sarà `lines[0]`.
+- Puoi combinare più opzioni per ottenere il comportamento desiderato, ad esempio `readarray -n 5 -t lines < file.txt` per leggere solo le prime 5 righe senza caratteri di nuova linea.

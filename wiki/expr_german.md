@@ -1,54 +1,78 @@
-# [리눅스] Bash expr 사용법
+# [Linux] Bash expr Verwendung: Berechnungen und String-Manipulationen
 
 ## Übersicht
-Der Befehl `expr` ist ein Unix-Befehl, der zur Auswertung von Ausdrücken verwendet wird. Er wird häufig in Shell-Skripten eingesetzt, um mathematische Berechnungen durchzuführen, Zeichenfolgen zu verarbeiten oder logische Vergleiche anzustellen. `expr` kann einfache arithmetische Operationen, String-Manipulationen und logische Vergleiche durchführen und gibt das Ergebnis auf der Standardausgabe aus.
+Der Befehl `expr` wird in Bash verwendet, um einfache mathematische Berechnungen durchzuführen und mit Zeichenfolgen zu arbeiten. Er kann sowohl arithmetische Operationen als auch logische Vergleiche und String-Operationen ausführen.
 
 ## Verwendung
-Die grundlegende Syntax des `expr`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
 ```bash
-expr [Optionen] Ausdruck
+expr [Optionen] [Argumente]
 ```
 
-Einige häufig verwendete Optionen sind:
+## Häufige Optionen
+- `+` : Addition von zwei Zahlen.
+- `-` : Subtraktion von zwei Zahlen.
+- `*` : Multiplikation von zwei Zahlen (muss mit Escape-Zeichen `\` verwendet werden).
+- `/` : Division von zwei Zahlen.
+- `%` : Modulo-Operation (Rest der Division).
+- `=` : Vergleich, ob zwei Werte gleich sind.
+- `!=` : Vergleich, ob zwei Werte ungleich sind.
 
-- `+` : Addition
-- `-` : Subtraktion
-- `*` : Multiplikation (muss mit Escape-Zeichen `\` verwendet werden oder in Anführungszeichen gesetzt werden)
-- `/` : Division
-- `%` : Modulo
-- `=` : Vergleich auf Gleichheit
-- `!=` : Vergleich auf Ungleichheit
-- `>` : Größer als
-- `<` : Kleiner als
+## Häufige Beispiele
 
-Beachten Sie, dass bei der Verwendung von `expr` Leerzeichen um die Operatoren erforderlich sind.
-
-## Beispiele
-
-### Beispiel 1: Einfache mathematische Berechnung
-Um die Summe von zwei Zahlen zu berechnen, können Sie den folgenden Befehl verwenden:
+### 1. Einfache Addition
+Um zwei Zahlen zu addieren, verwenden Sie:
 
 ```bash
-result=$(expr 5 + 3)
-echo "Das Ergebnis ist: $result"
+expr 5 + 3
 ```
 
-Dieser Befehl gibt aus: `Das Ergebnis ist: 8`.
-
-### Beispiel 2: String-Längenbestimmung
-Um die Länge einer Zeichenfolge zu ermitteln, können Sie `expr` wie folgt verwenden:
+### 2. Subtraktion
+Um eine Zahl von einer anderen zu subtrahieren:
 
 ```bash
-string="Hallo Welt"
-length=$(expr length "$string")
-echo "Die Länge der Zeichenfolge ist: $length"
+expr 10 - 4
 ```
 
-Dieser Befehl gibt aus: `Die Länge der Zeichenfolge ist: 11`.
+### 3. Multiplikation
+Um zwei Zahlen zu multiplizieren:
+
+```bash
+expr 6 \* 7
+```
+
+### 4. Division
+Um eine Zahl durch eine andere zu dividieren:
+
+```bash
+expr 20 / 4
+```
+
+### 5. Modulo
+Um den Rest einer Division zu erhalten:
+
+```bash
+expr 10 % 3
+```
+
+### 6. String-Länge
+Um die Länge einer Zeichenfolge zu ermitteln:
+
+```bash
+expr length "Hallo Welt"
+```
+
+### 7. String-Vergleich
+Um zu überprüfen, ob zwei Zeichenfolgen gleich sind:
+
+```bash
+expr "abc" = "abc"
+```
 
 ## Tipps
-- Achten Sie darauf, Leerzeichen um die Operatoren zu setzen, da `expr` diese benötigt, um die Ausdrücke korrekt zu interpretieren.
-- Verwenden Sie `$(...)` oder `` `...` `` zur Befehlsausführung, um das Ergebnis von `expr` in einer Variablen zu speichern.
-- Für komplexere Berechnungen oder wenn Sie mit großen Zahlen arbeiten, sollten Sie in Betracht ziehen, `bc` oder `awk` zu verwenden, da diese leistungsfähiger sind.
-- `expr` kann in Kombination mit anderen Shell-Befehlen verwendet werden, um Skripte dynamischer und flexibler zu gestalten.
+- Verwenden Sie Escape-Zeichen (`\`) für Operatoren wie `*`, um Missverständnisse mit Shell-Globbing zu vermeiden.
+- `expr` gibt nur Ganzzahlen zurück; für Fließkommazahlen sollten Sie andere Werkzeuge wie `bc` verwenden.
+- Nutzen Sie Klammern, um die Reihenfolge der Operationen zu steuern, z.B. `expr \( 2 + 3 \) \* 4`.
+
+Mit diesen Informationen sind Sie gut gerüstet, um den `expr`-Befehl effektiv in Ihren Bash-Skripten zu verwenden!

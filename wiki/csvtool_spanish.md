@@ -1,42 +1,53 @@
-# [리눅스] Bash csvtool 사용법
+# [Linux] Bash csvtool Uso: Herramienta para manipular archivos CSV
 
 ## Overview
-`csvtool` es una herramienta de línea de comandos diseñada para manipular archivos CSV (Comma-Separated Values). Su propósito principal es facilitar la lectura, escritura y transformación de datos en formato CSV, permitiendo a los ingenieros y desarrolladores trabajar de manera eficiente con grandes volúmenes de datos tabulares.
+El comando `csvtool` es una herramienta útil para manipular y procesar archivos en formato CSV (Comma-Separated Values). Permite realizar diversas operaciones como la selección de columnas, la conversión de formatos y la manipulación de datos de manera sencilla y eficiente.
 
 ## Usage
 La sintaxis básica del comando `csvtool` es la siguiente:
 
-```
-csvtool [opciones] [comando] [archivo.csv]
-```
-
-### Comandos Comunes
-- `cat`: Muestra el contenido del archivo CSV.
-- `cut`: Extrae columnas específicas del archivo CSV.
-- `paste`: Combina múltiples archivos CSV en uno solo.
-- `transpose`: Transpone filas y columnas del archivo CSV.
-
-### Opciones Comunes
-- `-d`: Especifica el delimitador de campo (por defecto es una coma).
-- `-h`: Muestra la ayuda y la lista de comandos disponibles.
-
-## Examples
-
-### Ejemplo 1: Mostrar el contenido de un archivo CSV
-Para mostrar el contenido de un archivo CSV llamado `datos.csv`, puedes usar el siguiente comando:
-
 ```bash
-csvtool cat datos.csv
+csvtool [opciones] [argumentos]
 ```
 
-### Ejemplo 2: Extraer columnas específicas
-Si deseas extraer la primera y la tercera columna de un archivo CSV, puedes utilizar el comando `cut` de la siguiente manera:
+## Common Options
+- `cut`: Selecciona columnas específicas de un archivo CSV.
+- `paste`: Combina varias columnas de diferentes archivos CSV.
+- `cat`: Muestra el contenido de un archivo CSV.
+- `format`: Cambia el formato de salida de los datos CSV.
+
+## Common Examples
+Aquí hay algunos ejemplos prácticos de cómo usar `csvtool`:
+
+### Seleccionar columnas
+Para seleccionar las columnas 1 y 3 de un archivo llamado `datos.csv`, puedes usar:
 
 ```bash
 csvtool cut -c 1,3 datos.csv
 ```
 
+### Combinar columnas de archivos
+Si tienes dos archivos `archivo1.csv` y `archivo2.csv` y deseas combinar la primera columna de ambos, puedes hacer:
+
+```bash
+csvtool paste -c 1 archivo1.csv archivo2.csv
+```
+
+### Mostrar el contenido de un archivo
+Para ver el contenido de `datos.csv`, simplemente ejecuta:
+
+```bash
+csvtool cat datos.csv
+```
+
+### Cambiar el formato de salida
+Si deseas cambiar el formato de salida a tabulaciones en lugar de comas, puedes usar:
+
+```bash
+csvtool format -t datos.csv
+```
+
 ## Tips
-- Asegúrate de que el archivo CSV esté bien formado, ya que `csvtool` puede no manejar errores de formato adecuadamente.
-- Utiliza la opción `-d` si trabajas con archivos CSV que utilizan un delimitador diferente a la coma, como punto y coma (`;`).
-- Familiarízate con los diferentes comandos de `csvtool` para aprovechar al máximo sus capacidades en la manipulación de datos CSV.
+- Asegúrate de que tus archivos CSV estén bien formateados para evitar errores al procesarlos.
+- Utiliza la opción `--help` para obtener más información sobre las opciones disponibles en `csvtool`.
+- Considera redirigir la salida a un nuevo archivo para guardar los resultados de tus operaciones.

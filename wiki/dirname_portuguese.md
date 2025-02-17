@@ -1,48 +1,61 @@
-# [리눅스] Bash dirname 사용법
+# [Linux] Bash dirname Uso: Extrai o diretório de um caminho
 
 ## Overview
-O comando `dirname` é uma ferramenta do Bash que extrai o diretório de um caminho de arquivo fornecido. Seu principal propósito é simplificar a manipulação de caminhos, permitindo que os usuários obtenham facilmente a parte do diretório de um caminho completo, sem a necessidade de scripts complexos.
+O comando `dirname` é utilizado para extrair o diretório de um caminho de arquivo. Ele remove o nome do arquivo e retorna apenas o caminho do diretório que contém esse arquivo.
 
 ## Usage
 A sintaxe básica do comando `dirname` é a seguinte:
 
 ```bash
-dirname [caminho]
+dirname [opções] [argumentos]
 ```
 
-### Opções Comuns
-O `dirname` não possui muitas opções, mas aqui estão algumas que podem ser úteis:
+## Common Options
+- `-z`: Trata os argumentos como uma lista separada por nulos.
+- `--help`: Mostra a ajuda sobre o comando.
+- `--version`: Exibe a versão do comando.
 
-- `-z`: Trata o caminho como uma string nula, útil em scripts que lidam com variáveis que podem estar vazias.
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `dirname`:
 
-## Examples
-Aqui estão alguns exemplos práticos de como usar o comando `dirname`.
+1. **Extraindo o diretório de um caminho absoluto:**
+   ```bash
+   dirname /home/usuario/documentos/arquivo.txt
+   ```
+   Saída:
+   ```
+   /home/usuario/documentos
+   ```
 
-### Exemplo 1: Extraindo o diretório de um caminho de arquivo
-Suponha que você tenha um caminho de arquivo completo e queira obter apenas o diretório:
+2. **Usando com um caminho relativo:**
+   ```bash
+   dirname ./imagens/foto.jpg
+   ```
+   Saída:
+   ```
+   ./imagens
+   ```
 
-```bash
-$ dirname /home/usuario/documentos/arquivo.txt
-/home/usuario/documentos
-```
+3. **Extraindo o diretório de um caminho com múltiplos níveis:**
+   ```bash
+   dirname /var/log/syslog
+   ```
+   Saída:
+   ```
+   /var/log
+   ```
 
-Neste exemplo, o comando retorna `/home/usuario/documentos`, que é o diretório que contém o arquivo `arquivo.txt`.
-
-### Exemplo 2: Usando com variáveis
-Você também pode usar `dirname` em conjunto com variáveis:
-
-```bash
-$ CAMINHO="/var/log/syslog"
-$ DIR=$(dirname $CAMINHO)
-$ echo $DIR
-/var/log
-```
-
-Aqui, a variável `DIR` armazenará o diretório `/var/log`, extraído do caminho completo armazenado na variável `CAMINHO`.
+4. **Tratando uma lista de caminhos:**
+   ```bash
+   dirname /usr/local/bin/script.sh /home/user/arquivo.txt
+   ```
+   Saída:
+   ```
+   /usr/local/bin
+   /home/user
+   ```
 
 ## Tips
-- Sempre verifique se o caminho fornecido ao `dirname` é válido, pois caminhos inexistentes podem levar a resultados inesperados.
-- O `dirname` é útil em scripts de automação, onde você pode precisar manipular caminhos de arquivos frequentemente.
-- Combine `dirname` com outros comandos como `basename` para obter tanto o diretório quanto o nome do arquivo em um único script.
-
-Com essas informações, você deve estar pronto para usar o comando `dirname` de forma eficaz em suas tarefas diárias de desenvolvimento e engenharia.
+- Utilize `dirname` em scripts para manipular caminhos de arquivos de forma eficiente.
+- Combine `dirname` com outros comandos, como `basename`, para obter tanto o diretório quanto o nome do arquivo em uma única linha de comando.
+- Lembre-se de que `dirname` não verifica se o caminho existe; ele apenas manipula a string fornecida.

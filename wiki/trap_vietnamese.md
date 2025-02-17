@@ -1,52 +1,46 @@
-# [리눅스] Bash trap 사용법
+# [Linux] Bash trap cách sử dụng: Quản lý tín hiệu trong Bash
 
-## Tổng quan
-Lệnh `trap` trong Bash được sử dụng để xử lý các tín hiệu và sự kiện trong quá trình thực thi của một script. Mục đích chính của lệnh này là cho phép người dùng xác định các hành động cụ thể mà script sẽ thực hiện khi nhận được một tín hiệu nhất định, chẳng hạn như khi người dùng nhấn Ctrl+C (tín hiệu SIGINT) hoặc khi script kết thúc một cách bất ngờ.
+## Overview
+Lệnh `trap` trong Bash được sử dụng để xử lý tín hiệu và sự kiện trong các script. Nó cho phép bạn chỉ định các hành động cụ thể khi một tín hiệu nhất định được nhận, giúp quản lý các tình huống như dừng hoặc thoát khỏi script một cách an toàn.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `trap` như sau:
-
 ```bash
-trap 'command' SIGNAL
+trap [options] [arguments]
 ```
 
-Trong đó:
-- `command`: là lệnh hoặc tập hợp các lệnh mà bạn muốn thực hiện khi nhận được tín hiệu.
-- `SIGNAL`: là tín hiệu mà bạn muốn theo dõi. Một số tín hiệu phổ biến bao gồm:
-  - `SIGINT`: Tín hiệu ngắt (Ctrl+C).
-  - `SIGTERM`: Tín hiệu yêu cầu dừng.
-  - `EXIT`: Tín hiệu khi script kết thúc.
+## Common Options
+- `SIGINT`: Tín hiệu ngắt (Ctrl+C).
+- `SIGTERM`: Tín hiệu yêu cầu dừng chương trình.
+- `EXIT`: Hành động sẽ được thực hiện khi script kết thúc.
+- `ERR`: Hành động sẽ được thực hiện khi có lỗi xảy ra.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `trap`.
+## Common Examples
+1. **Bắt tín hiệu ngắt (Ctrl+C)**:
+   ```bash
+   trap 'echo "Script bị ngắt"; exit' SIGINT
+   ```
+   Trong ví dụ này, khi người dùng nhấn Ctrl+C, thông báo sẽ được in ra và script sẽ thoát.
 
-### Ví dụ 1: Xử lý tín hiệu SIGINT
-```bash
-#!/bin/bash
+2. **Thực hiện hành động khi script kết thúc**:
+   ```bash
+   trap 'echo "Script đã kết thúc"' EXIT
+   ```
+   Hành động này sẽ in ra thông báo khi script hoàn tất.
 
-trap 'echo "Script đã bị ngắt"; exit' SIGINT
+3. **Xử lý lỗi**:
+   ```bash
+   trap 'echo "Có lỗi xảy ra"; exit 1' ERR
+   ```
+   Nếu có lỗi xảy ra trong script, thông báo sẽ được in ra và script sẽ thoát với mã lỗi 1.
 
-while true; do
-    echo "Đang chạy... Nhấn Ctrl+C để ngắt."
-    sleep 1
-done
-```
-Trong ví dụ này, khi người dùng nhấn Ctrl+C, thông báo "Script đã bị ngắt" sẽ được in ra và script sẽ kết thúc.
+4. **Bắt nhiều tín hiệu**:
+   ```bash
+   trap 'echo "Đang thoát"; exit' SIGINT SIGTERM
+   ```
+   Trong trường hợp này, cả hai tín hiệu ngắt và yêu cầu dừng sẽ kích hoạt cùng một hành động.
 
-### Ví dụ 2: Dọn dẹp tài nguyên khi kết thúc script
-```bash
-#!/bin/bash
-
-trap 'echo "Đang dọn dẹp..."; rm -f temp_file.txt; exit' EXIT
-
-echo "Đang thực hiện một số công việc..."
-touch temp_file.txt
-sleep 5
-echo "Công việc hoàn tất."
-```
-Trong ví dụ này, khi script kết thúc (dù là do tín hiệu hay do hoàn thành), lệnh dọn dẹp sẽ được thực hiện để xóa tệp tạm thời.
-
-## Mẹo
-- Hãy sử dụng `trap` để đảm bảo rằng các tài nguyên được dọn dẹp đúng cách khi script kết thúc, đặc biệt là khi làm việc với tệp hoặc kết nối mạng.
-- Kiểm tra các tín hiệu mà script của bạn có thể nhận được và quyết định hành động phù hợp cho từng tín hiệu.
-- Đặt lệnh `trap` ở đầu script để đảm bảo rằng nó luôn sẵn sàng xử lý các tín hiệu ngay từ khi bắt đầu thực thi.
+## Tips
+- Sử dụng `trap` để đảm bảo rằng tài nguyên được giải phóng đúng cách khi script kết thúc.
+- Đặt lệnh `trap` ở đầu script để đảm bảo rằng các tín hiệu được xử lý ngay từ đầu.
+- Kiểm tra các tín hiệu mà script của bạn có thể nhận để xử lý chúng một cách hiệu quả.

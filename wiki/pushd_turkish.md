@@ -1,38 +1,43 @@
-# [리눅스] Bash pushd 사용법
+# [Linux] Bash pushd Kullanımı: Dizin yığınını yönetme
 
 ## Overview
-`pushd` komutu, kullanıcıların dizinler arasında geçiş yapmasını sağlayan bir Bash komutudur. Bu komut, mevcut dizini bir yığın (stack) yapısında saklayarak, kullanıcıların daha sonra bu dizine kolayca geri dönmelerine olanak tanır. `pushd`, genellikle dizinler arasında hızlı bir şekilde geçiş yapmak isteyen geliştiriciler ve mühendisler için kullanışlıdır.
+`pushd` komutu, dizin yığınını yönetmek için kullanılan bir Bash komutudur. Bu komut, mevcut dizini yığın listesine ekler ve belirtilen dizine geçiş yapar. Böylece, dizinler arasında kolayca geçiş yapabilir ve geri dönmek için yığın yapısını kullanabilirsiniz.
 
 ## Usage
-`pushd` komutunun temel sözdizimi şu şekildedir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-pushd [dizin]
+pushd [options] [arguments]
 ```
 
-- `dizin`: Geçiş yapmak istediğiniz hedef dizinin yolunu belirtir. Bu parametre isteğe bağlıdır; eğer belirtilmezse, `pushd` mevcut dizin ile yığın üzerindeki en üstteki dizin arasında geçiş yapar.
+## Common Options
+- `+n`: Yığındaki n'inci dizine geçiş yapar.
+- `-n`: Yığındaki dizinlerin sırasını tersine çevirir.
+- `h`: Yığın durumunu gösterir.
 
-### Ortak Seçenekler
-`pushd` komutunun kendine özgü seçenekleri yoktur; ancak, dizin yolunu belirtirken mutlak veya göreli yollar kullanabilirsiniz.
+## Common Examples
+Aşağıda `pushd` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-## Examples
-### Örnek 1: Belirli Bir Dizinle Geçiş Yapma
-Aşağıdaki komut, `/home/kullanici/proje` dizinine geçiş yapar ve mevcut dizini yığının üstüne ekler:
+1. Belirli bir dizine geçiş yapma:
+   ```bash
+   pushd /home/kullanici/dizin
+   ```
 
-```bash
-pushd /home/kullanici/proje
-```
+2. Yığındaki dizinlerin listesini görüntüleme:
+   ```bash
+   pushd
+   ```
 
-### Örnek 2: Yığın Üzerindeki Dizinler Arasında Geçiş Yapma
-Eğer daha önce bir dizine geçiş yaptıysanız, `pushd` komutunu kullanarak yığın üzerindeki dizinler arasında geçiş yapabilirsiniz:
+3. Yığındaki dizinlerden birine geçiş yapma (örneğin, ikinci dizine):
+   ```bash
+   pushd +1
+   ```
 
-```bash
-pushd
-```
-
-Bu komut, mevcut dizini yığının üstüne ekler ve yığındaki bir sonraki dizine geçiş yapar.
+4. Yığındaki dizinlerin sırasını tersine çevirme:
+   ```bash
+   pushd -n
+   ```
 
 ## Tips
-- `dirs` komutunu kullanarak yığındaki dizinleri görüntüleyebilirsiniz. Bu, hangi dizinlerde olduğunuzu ve hangi dizinlerin yığında saklandığını kontrol etmenize yardımcı olur.
-- `popd` komutunu kullanarak yığından en üstteki dizini çıkarabilir ve bu dizine geri dönebilirsiniz.
-- `pushd` ve `popd` komutlarını birlikte kullanarak dizinler arasında hızlı bir şekilde geçiş yapabilir ve çalışma ortamınızı daha verimli hale getirebilirsiniz.
+- `pushd` komutunu kullanmadan önce mevcut dizininizi kontrol etmek için `pwd` komutunu kullanabilirsiniz.
+- Dizin yığınınızı yönetmek için `popd` komutunu kullanarak en son eklediğiniz dizine geri dönebilirsiniz.
+- Dizin yığınını düzenli tutmak için gereksiz dizinleri temizlemek amacıyla `popd` komutunu sıkça kullanın.

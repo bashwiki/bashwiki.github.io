@@ -1,46 +1,49 @@
-# [리눅스] Bash df 사용법
+# [Linux] Bash df Cách sử dụng: Hiển thị thông tin về dung lượng ổ đĩa
 
-## Tổng quan
-Lệnh `df` (disk free) trong Bash được sử dụng để hiển thị thông tin về dung lượng ổ đĩa và không gian trống trên các hệ thống tệp. Lệnh này giúp người dùng theo dõi tình trạng sử dụng dung lượng ổ đĩa, từ đó có thể quản lý tài nguyên lưu trữ một cách hiệu quả hơn.
+## Overview
+Lệnh `df` trong Bash được sử dụng để hiển thị thông tin về dung lượng ổ đĩa, bao gồm tổng dung lượng, dung lượng đã sử dụng, dung lượng còn trống và điểm gắn kết của các hệ thống tệp. Đây là một công cụ hữu ích để theo dõi tình trạng ổ đĩa của hệ thống.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `df` như sau:
-
 ```bash
-df [tùy chọn] [tệp hoặc thư mục]
+df [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
-- `-h`: Hiển thị dung lượng ổ đĩa theo định dạng dễ đọc (human-readable), sử dụng các đơn vị như KB, MB, GB.
-- `-T`: Hiển thị loại hệ thống tệp cho mỗi hệ thống tệp được liệt kê.
-- `-a`: Hiển thị tất cả các hệ thống tệp, bao gồm cả các hệ thống tệp có dung lượng 0.
+## Common Options
+- `-h`: Hiển thị dung lượng theo định dạng dễ đọc (KB, MB, GB).
+- `-T`: Hiển thị loại hệ thống tệp.
+- `-a`: Hiển thị tất cả các hệ thống tệp, bao gồm cả những hệ thống tệp có dung lượng 0.
 - `-i`: Hiển thị thông tin về số lượng inode thay vì dung lượng ổ đĩa.
 
-## Ví dụ
-### Ví dụ 1: Kiểm tra dung lượng ổ đĩa
-Để kiểm tra dung lượng ổ đĩa và không gian trống trên hệ thống của bạn, bạn có thể sử dụng lệnh sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `df`:
 
-```bash
-df -h
-```
+1. Hiển thị thông tin dung lượng ổ đĩa:
+   ```bash
+   df
+   ```
 
-Kết quả sẽ hiển thị thông tin về tất cả các hệ thống tệp, bao gồm tổng dung lượng, dung lượng đã sử dụng, dung lượng còn trống và điểm gắn kết.
+2. Hiển thị thông tin với định dạng dễ đọc:
+   ```bash
+   df -h
+   ```
 
-### Ví dụ 2: Kiểm tra loại hệ thống tệp
-Nếu bạn muốn xem loại hệ thống tệp cho mỗi ổ đĩa, bạn có thể sử dụng lệnh:
+3. Hiển thị loại hệ thống tệp:
+   ```bash
+   df -T
+   ```
 
-```bash
-df -T
-```
+4. Hiển thị thông tin cho tất cả các hệ thống tệp:
+   ```bash
+   df -a
+   ```
 
-Lệnh này sẽ cung cấp thông tin về loại hệ thống tệp bên cạnh dung lượng ổ đĩa.
+5. Hiển thị thông tin về inode:
+   ```bash
+   df -i
+   ```
 
-## Mẹo
-- Sử dụng tùy chọn `-h` để dễ dàng đọc thông tin về dung lượng ổ đĩa, đặc biệt khi làm việc với các ổ đĩa lớn.
-- Kết hợp lệnh `df` với lệnh `grep` để lọc thông tin cho một hệ thống tệp cụ thể. Ví dụ:
-
-```bash
-df -h | grep /dev/sda1
-```
-
-Điều này sẽ giúp bạn nhanh chóng tìm thấy thông tin về ổ đĩa mà bạn quan tâm.
+## Tips
+- Sử dụng tùy chọn `-h` để dễ dàng đọc và hiểu thông tin dung lượng ổ đĩa.
+- Kết hợp `df` với lệnh `grep` để tìm kiếm thông tin về một hệ thống tệp cụ thể.
+- Thường xuyên kiểm tra dung lượng ổ đĩa để tránh tình trạng đầy ổ đĩa, có thể gây ra sự cố cho hệ thống.

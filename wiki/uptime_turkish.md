@@ -1,47 +1,48 @@
-# [리눅스] Bash uptime 사용법
+# [Linux] Bash uptime Kullanımı: Sistemin çalışma süresini gösterir
 
 ## Genel Bakış
-`uptime` komutu, bir Linux veya Unix sisteminin ne kadar süredir çalıştığını gösterir. Bu komut, sistemin çalışma süresini, yük ortalamasını ve en son kullanıcı girişlerini hızlı bir şekilde görüntülemek için kullanılır. Sistem yöneticileri ve geliştiriciler, sistemin performansını değerlendirmek ve potansiyel sorunları tespit etmek için bu bilgileri kullanabilir.
+`uptime` komutu, bir Linux veya Unix tabanlı sistemin ne kadar süredir çalıştığını gösterir. Ayrıca, sistemin yük ortalamasını ve kullanıcı sayısını da sağlar. Bu bilgi, sistem yöneticileri için sistemin performansını değerlendirmek açısından oldukça önemlidir.
 
 ## Kullanım
-`uptime` komutunun temel sözdizimi aşağıdaki gibidir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-uptime [seçenekler]
+uptime [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-`uptime` komutunun genellikle ek bir seçeneğe ihtiyacı yoktur, ancak bazı sistemlerde aşağıdaki gibi seçenekler kullanılabilir:
+## Yaygın Seçenekler
+- `-p`, `--pretty`: Çalışma süresini daha okunabilir bir formatta gösterir.
+- `-s`, `--since`: Sistemin en son ne zaman başlatıldığını gösterir.
 
-- `-p` veya `--pretty`: Sistem çalışma süresini daha okunabilir bir formatta gösterir.
-- `-h` veya `--help`: Komutun kullanımına dair yardım bilgilerini gösterir.
+## Yaygın Örnekler
+Aşağıda `uptime` komutunun bazı pratik örnekleri bulunmaktadır:
 
-## Örnekler
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, sistemin çalışma süresi, yük ortalaması ve kullanıcı bilgilerini gösterir:
+### Temel Kullanım
+Sadece sistemin çalışma süresini ve yük ortalamasını görmek için:
 
 ```bash
 uptime
 ```
 
-Çıktı örneği:
-```
- 14:34:23 up 10 days,  3:12,  2 users,  load average: 0.10, 0.15, 0.20
-```
-
-### Örnek 2: Okunabilir Format
-Sistemin çalışma süresini daha okunabilir bir formatta görüntülemek için `-p` seçeneğini kullanabilirsiniz:
+### Okunabilir Format
+Çalışma süresini daha okunabilir bir formatta görmek için:
 
 ```bash
 uptime -p
 ```
 
-Çıktı örneği:
-```
-up 10 days, 3 hours, 12 minutes
+### Sistem Başlangıç Zamanı
+Sistemin en son ne zaman başlatıldığını öğrenmek için:
+
+```bash
+uptime -s
 ```
 
 ## İpuçları
-- `uptime` komutunu düzenli olarak çalıştırarak sisteminizin performansını izleyebilirsiniz. Özellikle yoğun kullanım dönemlerinde yük ortalamasını takip etmek, potansiyel sorunları önceden tespit etmenize yardımcı olabilir.
-- Çıktıdaki yük ortalaması değerlerini (1, 5 ve 15 dakikalık ortalamalar) dikkate alarak sisteminizin ne kadar yoğun çalıştığını değerlendirebilirsiniz. Yük ortalaması, sistemin kapasitesinin üzerinde bir yük altında olup olmadığını anlamanıza yardımcı olur.
-- Eğer sisteminizde birden fazla kullanıcı varsa, `uptime` komutu ile kullanıcı sayısını takip ederek sistem kaynaklarınızı daha verimli bir şekilde yönetebilirsiniz.
+- `uptime` komutunu düzenli olarak kontrol ederek sisteminizin performansını izleyebilirsiniz.
+- Yük ortalamasını takip etmek, sistemin aşırı yüklü olup olmadığını anlamanıza yardımcı olabilir.
+- `uptime` komutunu `watch` komutuyla birleştirerek belirli aralıklarla güncel bilgileri görüntüleyebilirsiniz:
+
+```bash
+watch uptime
+```

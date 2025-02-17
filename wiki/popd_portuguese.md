@@ -1,46 +1,45 @@
-# [리눅스] Bash popd 사용법
+# [Linux] Bash popd Uso: Remove o diretório do topo da pilha
 
 ## Overview
-O comando `popd` é utilizado no Bash para remover diretórios do topo da pilha de diretórios. Ele é frequentemente utilizado em conjunto com o comando `pushd`, que adiciona diretórios à pilha. O principal propósito do `popd` é facilitar a navegação entre diretórios, permitindo que os usuários retornem rapidamente ao diretório anterior que foi armazenado na pilha.
+O comando `popd` é utilizado para remover o diretório do topo da pilha de diretórios, permitindo que você retorne rapidamente ao diretório anterior que foi armazenado com o comando `pushd`. É uma maneira eficiente de navegar entre diretórios sem precisar digitar o caminho completo.
 
 ## Usage
 A sintaxe básica do comando `popd` é a seguinte:
 
 ```bash
-popd [opções]
+popd [opções] [argumentos]
 ```
 
-### Opções Comuns
-- `+N`: Remove o diretório na posição N da pilha, onde N é um número que representa a posição do diretório na pilha (começando de 0).
-- `-N`: Remove o diretório na posição N a partir do final da pilha.
+## Common Options
+- `+n`: Remove o diretório na posição `n` da pilha, onde `n` é um número que representa a posição do diretório.
+- `-n`: Remove o diretório na posição `n` da pilha, mas conta de trás para frente.
 
-Se nenhuma opção for fornecida, o `popd` remove o diretório que está no topo da pilha.
+## Common Examples
+Aqui estão alguns exemplos práticos do uso do comando `popd`:
 
-## Examples
-### Exemplo 1: Usando popd sem opções
-```bash
-# Adicionando diretórios à pilha
-pushd /home/usuario/projetos
-pushd /home/usuario/documentos
+1. **Remover o diretório do topo da pilha:**
+   ```bash
+   popd
+   ```
 
-# Retornando ao diretório anterior
-popd
-```
-Neste exemplo, após executar `popd`, o diretório `/home/usuario/projetos` será o diretório atual, pois o diretório `/home/usuario/documentos` foi removido da pilha.
+2. **Remover o segundo diretório da pilha:**
+   ```bash
+   popd +1
+   ```
 
-### Exemplo 2: Usando popd com a opção +
-```bash
-# Adicionando diretórios à pilha
-pushd /home/usuario/projetos
-pushd /home/usuario/documentos
-pushd /home/usuario/imagens
+3. **Remover o diretório na posição 0 da pilha (primeiro diretório adicionado):**
+   ```bash
+   popd -0
+   ```
 
-# Removendo o segundo diretório da pilha
-popd +1
-```
-Aqui, o diretório `/home/usuario/documentos` é removido da pilha, e o diretório `/home/usuario/imagens` se torna o diretório atual.
+4. **Usando `pushd` e `popd` juntos:**
+   ```bash
+   pushd /home/usuario
+   pushd /var/log
+   popd  # Retorna para /home/usuario
+   ```
 
 ## Tips
-- Utilize `dirs` para visualizar a pilha de diretórios antes de usar `popd`, isso pode ajudar a entender melhor a estrutura atual da pilha.
-- Combine `pushd` e `popd` para criar scripts que navegam entre múltiplos diretórios de forma eficiente.
-- Lembre-se de que a pilha de diretórios é uma estrutura LIFO (Last In, First Out), então o último diretório adicionado será o primeiro a ser removido com `popd`.
+- Utilize `pushd` antes de `popd` para maximizar a eficiência na navegação entre diretórios.
+- Verifique a pilha de diretórios atual com o comando `dirs` antes de usar `popd`, para saber quais diretórios estão disponíveis.
+- Lembre-se de que `popd` só funcionará se houver diretórios na pilha; caso contrário, você receberá uma mensagem de erro.

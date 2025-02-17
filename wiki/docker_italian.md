@@ -1,39 +1,64 @@
-# [리눅스] Bash docker 사용법
+# [Linux] Bash docker utilizzo: Gestire contenitori e immagini
 
 ## Overview
-Il comando `docker` è uno strumento fondamentale per la gestione dei container. Docker consente agli sviluppatori di creare, distribuire e gestire applicazioni all'interno di container leggeri e portabili. Questi container possono essere eseguiti su qualsiasi sistema che supporti Docker, garantendo coerenza tra gli ambienti di sviluppo, test e produzione. L'obiettivo principale di Docker è semplificare il processo di sviluppo e distribuzione delle applicazioni, migliorando l'efficienza e la scalabilità.
+Il comando `docker` è uno strumento potente per gestire contenitori e immagini Docker. Permette agli utenti di creare, eseguire e gestire applicazioni in ambienti isolati, garantendo coerenza e portabilità tra i vari sistemi.
 
 ## Usage
 La sintassi di base del comando `docker` è la seguente:
 
+```bash
+docker [opzioni] [argomenti]
 ```
-docker [OPZIONI] COMANDO [ARGOMENTI...]
-```
 
-Dove `COMANDO` può essere uno dei vari comandi disponibili come `run`, `build`, `pull`, `push`, ecc. Alcune opzioni comuni includono:
+## Common Options
+Ecco alcune opzioni comuni utilizzate con il comando `docker`:
 
-- `-d` o `--detach`: Esegue il container in background.
-- `--name`: Assegna un nome specifico al container.
-- `-p`: Mappa le porte del container a quelle dell'host.
-- `-v`: Monta un volume dal filesystem dell'host nel container.
+- `run`: Esegue un nuovo contenitore.
+- `ps`: Mostra i contenitori in esecuzione.
+- `images`: Elenca le immagini disponibili localmente.
+- `pull`: Scarica un'immagine dal Docker Hub.
+- `build`: Crea un'immagine a partire da un Dockerfile.
 
-## Examples
-### Esempio 1: Eseguire un container Nginx
-Per eseguire un container Nginx in background e mappare la porta 80 del container alla porta 8080 dell'host, puoi usare il seguente comando:
+## Common Examples
+Di seguito sono riportati alcuni esempi pratici dell'uso del comando `docker`:
+
+### Eseguire un contenitore
+Per eseguire un contenitore di Ubuntu, puoi utilizzare il seguente comando:
 
 ```bash
-docker run -d --name my-nginx -p 8080:80 nginx
+docker run -it ubuntu
 ```
 
-### Esempio 2: Costruire un'immagine Docker
-Se hai un `Dockerfile` nella tua directory corrente e vuoi costruire un'immagine chiamata `my-app`, puoi usare il comando:
+### Visualizzare i contenitori in esecuzione
+Per visualizzare i contenitori attualmente in esecuzione, utilizza:
 
 ```bash
-docker build -t my-app .
+docker ps
+```
+
+### Elencare le immagini disponibili
+Per vedere tutte le immagini Docker disponibili nel tuo sistema, esegui:
+
+```bash
+docker images
+```
+
+### Scaricare un'immagine
+Per scaricare un'immagine da Docker Hub, ad esempio l'immagine di Nginx, usa:
+
+```bash
+docker pull nginx
+```
+
+### Costruire un'immagine
+Per costruire un'immagine a partire da un Dockerfile, utilizza:
+
+```bash
+docker build -t nome-immagine .
 ```
 
 ## Tips
-- Utilizza sempre nomi significativi per i tuoi container e immagini per facilitare la gestione.
-- Pulisci regolarmente le immagini e i container non utilizzati con `docker system prune` per liberare spazio.
-- Sfrutta i volumi per la persistenza dei dati, in modo che i dati non vengano persi quando il container viene rimosso.
-- Familiarizza con i comandi di base come `docker ps`, `docker images`, e `docker logs` per monitorare e gestire i tuoi container in modo efficace.
+- Assicurati di avere Docker installato e in esecuzione prima di utilizzare i comandi.
+- Utilizza i tag per le immagini per tenere traccia delle versioni specifiche.
+- Pulisci regolarmente le immagini e i contenitori non utilizzati per liberare spazio sul disco.
+- Familiarizza con i comandi di base per migliorare la tua efficienza nella gestione dei contenitori.

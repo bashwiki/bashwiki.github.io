@@ -1,45 +1,62 @@
-# [리눅스] Bash git 사용법
+# [Linux] Bash git Kullanımı: Versiyon kontrol sistemi
 
 ## Genel Bakış
-`git`, dağıtık bir versiyon kontrol sistemi olarak, yazılım geliştirme süreçlerinde kaynak kodunu yönetmek için kullanılır. Geliştiricilerin projeleri üzerinde işbirliği yapmalarını, değişiklikleri takip etmelerini ve geçmişe dönük sürümlere erişim sağlamalarını mümkün kılar. `git`, hem bireysel projelerde hem de ekip projelerinde etkin bir şekilde kullanılabilir.
+Git, yazılım geliştirme süreçlerinde kaynak kodunu yönetmek için kullanılan bir versiyon kontrol sistemidir. Geliştiricilerin projelerini takip etmelerine, değişiklikleri kaydetmelerine ve ekip içinde işbirliği yapmalarına olanak tanır.
 
 ## Kullanım
-`git` komutunun temel sözdizimi aşağıdaki gibidir:
+Git komutunun temel sözdizimi aşağıdaki gibidir:
 
-```
-git [komut] [seçenekler]
+```bash
+git [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `init`: Yeni bir git deposu oluşturur.
-- `clone`: Var olan bir git deposunu kopyalar.
-- `add`: Değişiklikleri sahneye ekler.
-- `commit`: Sahneye alınan değişiklikleri kaydeder.
-- `push`: Yerel değişiklikleri uzak bir depoya gönderir.
+## Yaygın Seçenekler
+- `clone`: Uzak bir depoyu yerel bir kopyasını oluşturur.
+- `commit`: Değişiklikleri kaydeder.
+- `push`: Yerel değişiklikleri uzak depoya gönderir.
 - `pull`: Uzak depodaki değişiklikleri yerel depoya alır.
 - `status`: Depodaki dosyaların durumunu gösterir.
 
-## Örnekler
+## Yaygın Örnekler
+Aşağıda git komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-### Örnek 1: Yeni Bir Git Deposu Oluşturma
-Yeni bir proje için git deposu oluşturmak için aşağıdaki komutu kullanabilirsiniz:
+### Depo Klonlama
+Uzak bir depoyu yerel bilgisayarınıza klonlamak için:
 
 ```bash
-git init my_project
+git clone https://github.com/kullanici/depoadi.git
 ```
-Bu komut, `my_project` adında yeni bir klasör oluşturur ve içinde bir git deposu başlatır.
 
-### Örnek 2: Değişiklikleri Kaydetme
-Mevcut bir git deposunda dosyalar üzerinde değişiklik yaptıktan sonra bu değişiklikleri kaydetmek için:
+### Değişiklikleri Kaydetme
+Yapılan değişiklikleri kaydetmek için:
 
 ```bash
 git add .
-git commit -m "İlk değişiklikler"
+git commit -m "Değişiklik mesajı"
 ```
-İlk komut, tüm değişiklikleri sahneye eklerken, ikinci komut bu değişiklikleri "İlk değişiklikler" mesajıyla kaydeder.
+
+### Değişiklikleri Gönderme
+Yerel değişikliklerinizi uzak depoya göndermek için:
+
+```bash
+git push origin ana
+```
+
+### Uzak Depodan Güncelleme Alma
+Uzak depodaki değişiklikleri yerel deponuza almak için:
+
+```bash
+git pull origin ana
+```
+
+### Depo Durumunu Kontrol Etme
+Depodaki dosyaların durumunu kontrol etmek için:
+
+```bash
+git status
+```
 
 ## İpuçları
-- Değişikliklerinizi sık sık kaydedin ve anlamlı commit mesajları yazın. Bu, geçmişteki değişiklikleri anlamayı kolaylaştırır.
-- `git status` komutunu düzenli olarak kullanarak dosyalarınızın durumunu kontrol edin.
-- Uzak bir depoya gönderim yapmadan önce `git pull` komutunu kullanarak en son değişiklikleri yerel deponuza alın. Bu, çakışmaları önlemeye yardımcı olur.
-- Branch (dal) kullanarak farklı özellikler üzerinde çalışın. Bu, projelerinizi daha düzenli ve yönetilebilir hale getirir.
+- Değişikliklerinizi sık sık kaydedin ve anlamlı commit mesajları yazın.
+- Uzak depoya gönderim yapmadan önce `git pull` komutunu kullanarak güncel olduğunuzdan emin olun.
+- Branch (dal) kullanarak farklı özellikler üzerinde çalışın ve ana dalı koruyun.

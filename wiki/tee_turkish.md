@@ -1,42 +1,42 @@
-# [리눅스] Bash tee 사용법
+# [Linux] Bash tee Kullanımı: Çıktıyı dosyaya yönlendirme
 
 ## Genel Bakış
-`tee` komutu, standart girdi akışını (stdin) hem ekrana (standart çıktı) hem de bir veya daha fazla dosyaya yönlendirmek için kullanılır. Bu komut, bir komutun çıktısını hem görüntülemek hem de kaydetmek isteyen mühendisler ve geliştiriciler için oldukça faydalıdır. `tee`, genellikle bir komutun çıktısını bir dosyaya kaydederken aynı zamanda bu çıktıyı terminalde görüntülemek için kullanılır.
+`tee` komutu, standart çıktıyı hem ekrana yazdırmak hem de bir dosyaya kaydetmek için kullanılır. Bu, bir komutun çıktısını hem görüntülemek hem de daha sonra kullanılmak üzere saklamak için oldukça faydalıdır.
 
 ## Kullanım
-Temel `tee` komutunun sözdizimi şu şekildedir:
-
+Temel sözdizimi şu şekildedir:
 ```bash
-tee [seçenekler] [dosya...]
+tee [seçenekler] [argümanlar]
 ```
 
-### Yaygın Seçenekler
-- `-a`, `--append`: Çıktıyı belirtilen dosyaya ekler. Varsayılan olarak, `tee` dosyayı her çalıştırıldığında üzerine yazar.
-- `-i`, `--ignore-interrupts`: Kesme sinyallerini yok sayar. Bu, komutun kesintisiz çalışmasını sağlar.
+## Yaygın Seçenekler
+- `-a`, `--append`: Çıktıyı dosyaya ekler, dosyayı silmeden.
+- `-i`, `--ignore-interrupts`: Kesme sinyallerini yok sayar.
+- `--help`: Kullanım hakkında yardım bilgisi gösterir.
+- `--version`: `tee` komutunun sürüm bilgilerini gösterir.
 
-## Örnekler
+## Yaygın Örnekler
+1. **Temel Kullanım**: Bir komutun çıktısını dosyaya kaydetme.
+   ```bash
+   echo "Merhaba Dünya" | tee dosya.txt
+   ```
 
-### Örnek 1: Basit Kullanım
-Aşağıdaki komut, `echo` komutunun çıktısını hem ekrana yazdırır hem de `output.txt` dosyasına kaydeder:
+2. **Çıktıyı Ekleme**: Var olan bir dosyaya çıktı ekleme.
+   ```bash
+   echo "Yeni Satır" | tee -a dosya.txt
+   ```
 
-```bash
-echo "Merhaba, Dünya!" | tee output.txt
-```
+3. **Birden Fazla Dosyaya Yazma**: Çıktıyı birden fazla dosyaya yönlendirme.
+   ```bash
+   echo "Bu bir deneme" | tee dosya1.txt dosya2.txt
+   ```
 
-Bu komut çalıştırıldığında, "Merhaba, Dünya!" ifadesi terminalde görüntülenir ve aynı zamanda `output.txt` dosyasına kaydedilir.
-
-### Örnek 2: Dosyaya Ekleme
-Aşağıdaki komut, `output.txt` dosyasına yeni bir satır ekler:
-
-```bash
-echo "Yeni bir satır" | tee -a output.txt
-```
-
-Bu komut, `output.txt` dosyasının sonuna "Yeni bir satır" ifadesini eklerken, aynı zamanda bu ifadeyi terminalde de görüntüler.
+4. **Hata Çıktısını Yönlendirme**: Hata çıktısını da dosyaya yazma.
+   ```bash
+   komut 2>&1 | tee hata.txt
+   ```
 
 ## İpuçları
-- `tee` komutunu kullanırken, dosya adlarını belirtirken tam yol kullanmak, dosyanın doğru yerde oluşturulmasını sağlar.
-- Birden fazla dosyaya yazmak için dosya adlarını boşlukla ayırarak belirtebilirsiniz. Örneğin: `tee dosya1.txt dosya2.txt`.
-- Çıktıyı bir dosyaya kaydetmeden önce, `cat` veya `less` gibi komutlarla çıktıyı inceleyerek doğru veriyi kaydettiğinizden emin olun.
-
-`tee` komutu, çıktıyı hem görüntülemek hem de kaydetmek isteyenler için oldukça kullanışlı bir araçtır. Bu komut sayesinde, komut satırında çalışırken verilerinizi kolayca yönetebilirsiniz.
+- `tee` komutunu, uzun komutların çıktısını kaydetmek için kullanarak, çıktıyı daha sonra incelemek üzere saklayabilirsiniz.
+- `-a` seçeneği ile mevcut dosyaya ekleme yaparak, dosyanın içeriğini kaybetmeden yeni veriler ekleyebilirsiniz.
+- Çıktıyı bir dosyaya kaydederken, aynı zamanda terminalde de görmek istiyorsanız `tee` komutunu kullanmayı unutmayın.

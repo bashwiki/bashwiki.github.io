@@ -1,47 +1,44 @@
-# [리눅스] Bash builtin 사용법
+# [Linux] Bash builtin comando: [esegui comandi interni]
 
 ## Overview
-Il comando `builtin` in Bash è utilizzato per invocare una funzione incorporata (builtin) di Bash, bypassando eventuali comandi esterni che potrebbero avere lo stesso nome. Questo è particolarmente utile quando si desidera garantire che venga eseguita la versione incorporata di un comando, evitando conflitti con comandi esterni o script. Le funzioni incorporate di Bash sono ottimizzate per l'uso all'interno della shell e possono fornire prestazioni migliori rispetto ai loro omonimi esterni.
+Il comando `builtin` in Bash permette di eseguire comandi interni della shell, bypassando eventuali funzioni o comandi esterni con lo stesso nome. Questo è utile quando si desidera garantire che venga eseguito il comando interno di Bash, piuttosto che una versione esterna.
 
 ## Usage
 La sintassi di base del comando `builtin` è la seguente:
 
 ```bash
-builtin [comando [argomento...]]
+builtin [opzioni] [argomenti]
 ```
 
-### Opzioni comuni
-- `comando`: il nome del comando incorporato che si desidera eseguire.
-- `argomento`: uno o più argomenti da passare al comando.
+## Common Options
+- `-p`: Usa la versione predefinita del comando, ignorando eventuali funzioni sovrascritte.
+- `-f`: Disabilita l'uso di funzioni durante l'esecuzione del comando.
 
-## Examples
-Ecco alcuni esempi pratici su come utilizzare il comando `builtin`.
+## Common Examples
+Ecco alcuni esempi pratici dell'uso del comando `builtin`:
 
-### Esempio 1: Usare `builtin` con `echo`
-Supponiamo di avere un alias per il comando `echo` e vogliamo utilizzare la versione incorporata di Bash:
+### Eseguire un comando interno
+Per eseguire il comando `echo` come comando interno:
 
 ```bash
-alias echo='echo "Questo è un alias"'
-builtin echo "Questo è un comando incorporato"
+builtin echo "Questo è un comando interno."
 ```
 
-In questo caso, l'output sarà:
-```
-Questo è un comando incorporato
-```
-
-### Esempio 2: Usare `builtin` con `type`
-Se si desidera verificare il tipo di un comando e assicurarsi di utilizzare la versione incorporata, si può fare così:
+### Usare l'opzione -p
+Se hai una funzione chiamata `cd` e vuoi eseguire il comando interno `cd`:
 
 ```bash
-builtin type -a echo
+builtin -p cd /home
 ```
 
-Questo mostrerà la posizione del comando `echo`, sia incorporato che esterno.
+### Disabilitare le funzioni
+Se hai una funzione chiamata `pwd` e desideri eseguire il comando interno `pwd`:
+
+```bash
+builtin -f pwd
+```
 
 ## Tips
-- Utilizzare `builtin` quando si sospetta che un comando esterno possa sovrascrivere una funzione incorporata.
-- È utile in script complessi dove la chiarezza e la previsione del comportamento del comando sono cruciali.
-- Ricordare che non tutti i comandi hanno una versione incorporata; pertanto, è sempre bene verificare la documentazione di Bash.
-
-Utilizzando il comando `builtin`, gli sviluppatori possono garantire che le loro chiamate ai comandi siano eseguite come previsto, migliorando l'affidabilità e la prevedibilità degli script Bash.
+- Utilizza `builtin` quando hai bisogno di garantire che un comando interno venga eseguito, specialmente se hai definito funzioni con lo stesso nome.
+- Ricorda che non tutti i comandi hanno una versione interna; verifica sempre se il comando che intendi utilizzare è supportato.
+- Usa l'opzione `-p` per evitare conflitti con funzioni personalizzate, specialmente in script complessi.

@@ -1,53 +1,60 @@
-# [리눅스] Bash sed 사용법
+# [Linux] Bash sed Utilizzo: Modifica di testo in stream
 
 ## Overview
-Il comando `sed`, abbreviazione di "stream editor", è uno strumento potente utilizzato per modificare e trasformare il testo in flussi di dati. È particolarmente utile per l'elaborazione di file di testo e per l'automazione di modifiche ripetitive. `sed` permette di eseguire operazioni come la sostituzione di stringhe, l'eliminazione di righe e l'inserimento di nuovi contenuti, tutto in modo non interattivo e in tempo reale.
+Il comando `sed` (stream editor) è uno strumento potente utilizzato per modificare e trasformare il testo in stream. Permette di eseguire operazioni come la sostituzione, l'eliminazione e l'inserimento di testo in file o flussi di dati.
 
 ## Usage
 La sintassi di base del comando `sed` è la seguente:
 
 ```bash
-sed [opzioni] 'comando' file
+sed [opzioni] [espressione] [file]
 ```
 
-### Opzioni comuni:
-- `-e`: Permette di specificare più comandi `sed` da eseguire.
-- `-i`: Modifica il file in loco, senza creare un file di output separato.
-- `-n`: Sopprime l'output predefinito, permettendo di visualizzare solo le righe specificate con il comando `p`.
-- `-f`: Permette di leggere i comandi `sed` da un file.
+## Common Options
+- `-e`: Permette di specificare un'espressione da eseguire.
+- `-i`: Modifica i file in loco, senza creare un file di output separato.
+- `-n`: Sopprime l'output predefinito, mostrando solo le righe specificate.
+- `s`: Utilizzato per la sostituzione di testo (es. `s/vecchio/nuovo/`).
 
-## Examples
-### Esempio 1: Sostituzione di una stringa
-Supponiamo di avere un file chiamato `testo.txt` con il seguente contenuto:
+## Common Examples
+Ecco alcuni esempi pratici dell'uso di `sed`:
 
-```
-Ciao mondo
-Ciao a tutti
-```
-
-Per sostituire "Ciao" con "Salve", puoi utilizzare il seguente comando:
+### Sostituzione di testo
+Sostituire "apple" con "orange" in un file:
 
 ```bash
-sed 's/Ciao/Salve/g' testo.txt
+sed 's/apple/orange/' file.txt
 ```
 
-L'opzione `g` indica che la sostituzione deve avvenire globalmente in ogni riga.
-
-### Esempio 2: Eliminazione di righe
-Se desideri eliminare tutte le righe che contengono la parola "tutti", puoi usare:
+### Modifica in loco
+Sostituire "apple" con "orange" direttamente nel file:
 
 ```bash
-sed '/tutti/d' testo.txt
+sed -i 's/apple/orange/' file.txt
 ```
 
-In questo caso, `d` indica di eliminare le righe che corrispondono al pattern specificato.
+### Eliminazione di righe
+Eliminare la seconda riga di un file:
+
+```bash
+sed '2d' file.txt
+```
+
+### Visualizzazione di righe specifiche
+Mostrare solo le righe che contengono "error":
+
+```bash
+sed -n '/error/p' file.txt
+```
+
+### Aggiunta di testo
+Aggiungere "Hello World" all'inizio di ogni riga:
+
+```bash
+sed 's/^/Hello World /' file.txt
+```
 
 ## Tips
-- Quando utilizzi l'opzione `-i` per modificare i file in loco, è consigliabile fare una copia di backup del file originale per evitare perdite di dati.
-- Puoi combinare più comandi `sed` utilizzando l'opzione `-e`. Ad esempio:
-
-```bash
-sed -e 's/Ciao/Salve/g' -e '/tutti/d' testo.txt
-```
-
-- Ricorda che `sed` utilizza espressioni regolari, quindi è utile familiarizzare con la sintassi delle regex per sfruttare al meglio le potenzialità di `sed`.
+- Fai sempre una copia di backup dei file prima di utilizzare l'opzione `-i` per evitare perdite di dati.
+- Usa l'opzione `-n` insieme a `p` per visualizzare solo le righe che ti interessano.
+- Sperimenta con le espressioni regolari per ottenere risultati più complessi e specifici.

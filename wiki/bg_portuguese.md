@@ -1,50 +1,46 @@
-# [리눅스] Bash bg 사용법
+# [Linux] Bash bg Uso equivalente: Colocar processos em segundo plano
 
 ## Overview
-O comando `bg` no Bash é utilizado para retomar a execução de um processo que foi suspenso, enviando-o para o segundo plano. Isso é especialmente útil quando você deseja continuar usando o terminal enquanto um processo ainda está em execução, permitindo que você execute outros comandos simultaneamente.
+O comando `bg` é utilizado no Bash para retomar a execução de processos que estão em estado de suspensão (suspended) e colocá-los em segundo plano. Isso permite que você continue utilizando o terminal enquanto o processo é executado.
 
 ## Usage
 A sintaxe básica do comando `bg` é a seguinte:
 
 ```bash
-bg [job_spec]
+bg [opções] [número do trabalho]
 ```
 
-- `job_spec`: Este parâmetro é opcional e pode ser usado para especificar um trabalho específico que você deseja enviar para o segundo plano. Se não for especificado, o `bg` enviará o último trabalho suspenso para o segundo plano.
+## Common Options
+- `job_spec`: Especifica o trabalho que você deseja colocar em segundo plano. Você pode usar o número do trabalho (precedido por um `%`) ou o nome do processo.
+- `-n`: Não exibe mensagens de status.
 
-### Comandos Comuns
-- Para listar os trabalhos suspensos e em segundo plano, você pode usar o comando `jobs`.
-- Para suspender um processo em primeiro plano, você pode usar `Ctrl + Z`, que interrompe a execução e coloca o processo em estado suspenso.
+## Common Examples
 
-## Examples
-### Exemplo 1: Retomando um trabalho suspenso
-1. Execute um comando que leva tempo, como `sleep`:
-   ```bash
-   sleep 100
-   ```
-2. Suspenda o processo pressionando `Ctrl + Z`. Você verá uma mensagem indicando que o trabalho foi suspenso.
-3. Para enviar o trabalho suspenso para o segundo plano, digite:
-   ```bash
-   bg
-   ```
-
-### Exemplo 2: Especificando um trabalho
-1. Inicie vários processos, como:
-   ```bash
-   sleep 100 &
-   sleep 200 &
-   ```
-2. Suspenda um dos processos usando `Ctrl + Z`.
-3. Liste os trabalhos com:
-   ```bash
-   jobs
-   ```
-4. Suponha que o trabalho suspenso seja o `[1]`, você pode enviá-lo para o segundo plano com:
+1. **Colocar um trabalho em segundo plano**
+   Se você tiver um trabalho suspenso, como um editor de texto, pode usar o seguinte comando:
    ```bash
    bg %1
    ```
 
+2. **Colocar o último trabalho suspenso em segundo plano**
+   Para colocar o último trabalho suspenso em segundo plano, você pode simplesmente usar:
+   ```bash
+   bg
+   ```
+
+3. **Colocar um trabalho específico em segundo plano**
+   Se você tiver vários trabalhos e quiser colocar um específico em segundo plano, use:
+   ```bash
+   bg %2
+   ```
+
+4. **Colocar um trabalho em segundo plano sem mensagens**
+   Para colocar um trabalho em segundo plano sem exibir mensagens de status, você pode usar:
+   ```bash
+   bg -n %1
+   ```
+
 ## Tips
-- Sempre verifique os trabalhos ativos usando o comando `jobs` antes de usar `bg`, para garantir que você está retomando o trabalho correto.
-- Lembre-se de que, ao enviar um trabalho para o segundo plano, a saída do processo será exibida no terminal, o que pode ser confuso se você estiver executando vários processos ao mesmo tempo. Considere redirecionar a saída para um arquivo se necessário.
-- Use `fg` para trazer um trabalho do segundo plano de volta para o primeiro plano, caso precise interagir com ele novamente.
+- Sempre verifique a lista de trabalhos suspensos com o comando `jobs` antes de usar o `bg`, para saber qual trabalho você deseja retomar.
+- Lembre-se de que os processos em segundo plano ainda podem gerar saída no terminal. Use redirecionamento se você não quiser ver a saída.
+- Combine o `bg` com o comando `disown` se você quiser que o processo continue executando mesmo após fechar o terminal.

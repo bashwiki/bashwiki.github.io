@@ -1,38 +1,47 @@
-# [리눅스] Bash exit 사용법
+# [Linux] Bash exit Kullanımı: Komut dosyasını sonlandırma
 
-## Overview
-`exit` komutu, bir Bash shell oturumunu veya bir shell script'ini sonlandırmak için kullanılır. Bu komut, shell'den çıkarken bir çıkış durumu (exit status) belirlemenizi sağlar. Çıkış durumu, bir programın veya script'in başarılı bir şekilde çalışıp çalışmadığını belirtmek için kullanılır; genellikle 0, başarılı bir çıkışı, 1 veya daha yüksek değerler ise hataları temsil eder.
+## Genel Bakış
+`exit` komutu, bir Bash oturumunu veya komut dosyasını sonlandırmak için kullanılır. Bu komut, çalıştırılan süreçlerin durum kodunu belirlemek için de kullanılabilir. Durum kodu, genellikle bir işlemin başarılı olup olmadığını belirtir.
 
-## Usage
-`exit` komutunun temel sözdizimi şu şekildedir:
-
-```bash
-exit [n]
-```
-
-Burada `n`, çıkış durumunu temsil eden bir tamsayıdır. Eğer `n` belirtilmezse, shell, en son çalıştırılan komutun çıkış durumunu kullanır.
-
-### Ortak Seçenekler
-- `n`: Çıkış durumunu belirtir. 0, başarılı bir çıkışı; 1-255 arası değerler ise hata durumlarını temsil eder.
-
-## Examples
-### Örnek 1: Basit Çıkış
-Aşağıdaki komut, mevcut shell oturumunu 0 çıkış durumu ile sonlandırır:
+## Kullanım
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-exit
+exit [seçenekler] [argümanlar]
 ```
 
-### Örnek 2: Hata Durumu ile Çıkış
-Aşağıdaki komut, mevcut shell oturumunu 1 çıkış durumu ile sonlandırır:
+## Yaygın Seçenekler
+- `n`: Çıkış durum kodunu belirtir. Varsayılan olarak 0 (başarı) kullanılır. Örneğin, `exit 1` komutu, bir hata durumunu belirtir.
+- `-n`: Çıkış durum kodunu belirtmeden çıkış yapar.
 
-```bash
-exit 1
-```
+## Yaygın Örnekler
+1. **Basit çıkış:**
+   ```bash
+   exit
+   ```
+   Bu komut, mevcut oturumu veya komut dosyasını varsayılan durum kodu ile sonlandırır.
 
-Bu durumda, çıkış durumu 1 olarak ayarlanır ve bu, bir hata olduğunu belirtir.
+2. **Belirli bir durum kodu ile çıkış:**
+   ```bash
+   exit 0
+   ```
+   Bu komut, başarılı bir çıkış durumu ile oturumu sonlandırır.
 
-## Tips
-- Script yazarken, `exit` komutunu kullanarak script'inizin başarılı bir şekilde tamamlandığından emin olun. Örneğin, kritik bir hata durumunda `exit 1` kullanarak script'inizi sonlandırabilirsiniz.
-- Çıkış durumlarını kontrol etmek için, script'lerinizi çalıştırdıktan sonra `$?` değişkenini kullanabilirsiniz. Bu değişken, en son çalıştırılan komutun çıkış durumunu tutar.
-- `exit` komutunu kullanmadan önce, script'inizdeki tüm işlemlerin tamamlandığından emin olun; aksi takdirde, beklenmeyen sonuçlar elde edebilirsiniz.
+3. **Hata durumu ile çıkış:**
+   ```bash
+   exit 1
+   ```
+   Bu komut, bir hata durumu ile çıkış yapar.
+
+4. **Komut dosyası içinde çıkış:**
+   ```bash
+   #!/bin/bash
+   echo "Bir hata oluştu!"
+   exit 1
+   ```
+   Bu örnekte, bir hata mesajı gösterilir ve ardından durum kodu 1 ile çıkılır.
+
+## İpuçları
+- Komut dosyalarınızda, işlemlerin başarılı olup olmadığını kontrol etmek için `exit` komutunu kullanarak uygun durum kodları döndürün.
+- `exit` komutunu kullanmadan önce, gerekli temizleme işlemlerini yapmayı unutmayın; bu, açık dosyaları kapatmayı veya kaynakları serbest bırakmayı içerebilir.
+- Çıkış durum kodunu kontrol etmek için, komut dosyanızın sonunda `echo $?` komutunu kullanarak son çıkış durumunu görüntüleyebilirsiniz.

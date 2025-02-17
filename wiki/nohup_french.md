@@ -1,41 +1,46 @@
-# [리눅스] Bash nohup 사용법
+# [Linux] Bash nohup utilisation : Exécuter des commandes sans interruption
 
 ## Overview
-Le commandement `nohup` (no hang up) est utilisé dans les systèmes Unix et Linux pour exécuter des commandes ou des scripts de manière à ce qu'ils continuent à s'exécuter même si la session de terminal est fermée. Cela est particulièrement utile pour les tâches de longue durée ou les processus qui doivent s'exécuter en arrière-plan sans interruption.
+La commande `nohup` (no hang up) permet d'exécuter des commandes en arrière-plan, même si la session terminal est fermée. Cela signifie que les processus lancés avec `nohup` continueront à s'exécuter indépendamment des déconnexions ou des fermetures de terminal.
 
 ## Usage
 La syntaxe de base de la commande `nohup` est la suivante :
 
 ```bash
-nohup commande [arguments] &
+nohup [options] [arguments]
 ```
 
-### Options courantes :
-- `&` : Place la commande en arrière-plan, permettant à l'utilisateur de continuer à utiliser le terminal.
-- `nohup.out` : Par défaut, la sortie standard et la sortie d'erreur de la commande sont redirigées vers un fichier nommé `nohup.out` dans le répertoire courant, sauf si une autre redirection est spécifiée.
+## Common Options
+Voici quelques options courantes pour `nohup` :
 
-## Examples
-### Exemple 1 : Exécution d'un script en arrière-plan
-Supposons que vous ayez un script nommé `long_task.sh` que vous souhaitez exécuter en arrière-plan :
+- `&` : Permet d'exécuter la commande en arrière-plan.
+- `-h` : Affiche l'aide sur l'utilisation de la commande.
+- `-p` : Permet de spécifier un PID (identifiant de processus) pour le processus en cours.
 
-```bash
-nohup ./long_task.sh &
-```
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `nohup` :
 
-Cela exécutera `long_task.sh` et continuera à s'exécuter même si vous fermez le terminal.
+1. Exécuter un script en arrière-plan :
+   ```bash
+   nohup ./mon_script.sh &
+   ```
 
-### Exemple 2 : Redirection de la sortie vers un fichier spécifique
-Si vous souhaitez rediriger la sortie vers un fichier spécifique, vous pouvez le faire comme suit :
+2. Exécuter une commande longue et rediriger la sortie vers un fichier :
+   ```bash
+   nohup long_running_command > output.log &
+   ```
 
-```bash
-nohup ./long_task.sh > output.log 2>&1 &
-```
+3. Exécuter une commande et ignorer les signaux de déconnexion :
+   ```bash
+   nohup my_command &
+   ```
 
-Dans cet exemple, la sortie standard et la sortie d'erreur seront redirigées vers `output.log`.
+4. Exécuter une commande avec des arguments :
+   ```bash
+   nohup my_command arg1 arg2 > output.log 2>&1 &
+   ```
 
 ## Tips
-- **Vérifiez le fichier nohup.out** : Si vous ne spécifiez pas de redirection pour la sortie, vérifiez le fichier `nohup.out` pour voir les messages générés par votre commande.
-- **Utilisez `jobs` et `bg`** : Si vous avez lancé une commande sans `nohup` et que vous souhaitez la mettre en arrière-plan, vous pouvez utiliser `Ctrl+Z` pour suspendre la tâche, puis `bg` pour la reprendre en arrière-plan.
-- **Surveillez les processus** : Utilisez la commande `ps` ou `top` pour surveiller les processus en cours d'exécution et vous assurer que votre commande fonctionne comme prévu.
-
-En utilisant `nohup`, vous pouvez facilement gérer des tâches de longue durée sans vous soucier de la fermeture de votre terminal.
+- Toujours rediriger la sortie vers un fichier pour éviter que les messages ne soient perdus.
+- Utiliser `jobs` pour vérifier les processus en arrière-plan.
+- Pour arrêter un processus, utilisez `kill` avec le PID approprié.

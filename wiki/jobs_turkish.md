@@ -1,48 +1,43 @@
-# [리눅스] Bash jobs 사용법
+# [Linux] Bash jobs Kullanımı: Arka planda çalışan işlemleri listeleme
 
 ## Overview
-`jobs` komutu, mevcut terminal oturumunda çalışan arka plan işlemlerini listelemek için kullanılır. Bu komut, kullanıcıların hangi işlemlerin arka planda çalıştığını görmesine ve bu işlemler üzerinde işlem yapmasına olanak tanır. Genellikle, bir terminal oturumunda birden fazla işlem çalıştırıldığında, bu işlemleri yönetmek için kullanılır.
+`jobs` komutu, terminalde arka planda çalışan işlemleri listelemek için kullanılır. Bu komut, kullanıcıya hangi işlemlerin çalıştığını ve bunların durumlarını gösterir. Özellikle birden fazla işlemle çalışırken, hangi işlemlerin aktif olduğunu takip etmek için faydalıdır.
 
 ## Usage
-`jobs` komutunun temel sözdizimi şu şekildedir:
-
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-jobs [options]
+jobs [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-l`: Her bir işlemin PID'sini (Process ID) gösterir.
-- `-n`: Sadece durum değişikliği olan işleri listeler.
+## Common Options
+- `-l`: İşlemlerin PID (Process ID) numaralarını gösterir.
+- `-n`: Sadece durum değiştiren işlemleri listeler.
 - `-p`: Sadece işlemlerin PID'lerini gösterir.
 
-## Examples
-### Örnek 1: Temel Kullanım
-Terminalde birkaç işlem çalıştırdıktan sonra, arka planda hangi işlemlerin çalıştığını görmek için `jobs` komutunu kullanabilirsiniz:
+## Common Examples
+Aşağıda `jobs` komutunun bazı yaygın kullanım örnekleri verilmiştir:
 
-```bash
-$ sleep 100 &
-[1] 12345
-$ sleep 200 &
-[2] 12346
-$ jobs
-[1]+  Running                 sleep 100 &
-[2]-  Running                 sleep 200 &
-```
+1. Arka planda çalışan tüm işlemleri listelemek:
+   ```bash
+   jobs
+   ```
 
-Bu örnekte, iki `sleep` işlemi arka planda çalışmaktadır.
+2. PID numaralarını da içeren bir liste almak:
+   ```bash
+   jobs -l
+   ```
 
-### Örnek 2: PID ile Listeleme
-Eğer işlemlerin PID'lerini görmek istiyorsanız, `-l` seçeneğini kullanabilirsiniz:
+3. Durum değiştiren işlemleri görüntülemek:
+   ```bash
+   jobs -n
+   ```
 
-```bash
-$ jobs -l
-[1]+  12345 Running                 sleep 100 &
-[2]-  12346 Running                 sleep 200 &
-```
-
-Bu komut, her bir işlemin PID'si ile birlikte durumunu gösterir.
+4. Sadece işlemlerin PID'lerini listelemek:
+   ```bash
+   jobs -p
+   ```
 
 ## Tips
-- Arka planda çalışan işlemleri yönetmek için `fg` ve `bg` komutları ile birlikte `jobs` komutunu kullanabilirsiniz. Örneğin, bir işlemi ön plana almak için `fg %1` komutunu kullanabilirsiniz.
-- İşlemleri takip etmek için `jobs` komutunu düzenli olarak kullanmak, hangi işlemlerin aktif olduğunu anlamanızı kolaylaştırır.
-- Eğer bir işlemi durdurmak isterseniz, `Ctrl + Z` tuş kombinasyonunu kullanarak işlemi durdurabilir ve ardından `bg` komutuyla arka plana alabilirsiniz.
+- `jobs` komutunu kullanarak arka planda çalışan işlemleri takip etmek, terminaldeki iş akışınızı daha verimli hale getirir.
+- Eğer bir işlemi durdurmak veya devam ettirmek istiyorsanız, `bg` ve `fg` komutları ile `jobs` komutunu birleştirerek işlemleri yönetebilirsiniz.
+- İşlemlerinizin durumunu kontrol etmek için `jobs` komutunu düzenli olarak kullanmak, sistem kaynaklarınızı daha iyi yönetmenize yardımcı olur.

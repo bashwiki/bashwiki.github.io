@@ -1,40 +1,44 @@
-# [리눅스] Bash which 사용법
+# [Linux] Bash which komutu: İlgili dosya yollarını bulma
 
 ## Overview
-`which` komutu, bir komutun veya programın sistemde nerede bulunduğunu belirlemek için kullanılır. Özellikle, PATH ortam değişkeninde tanımlı olan dizinlerde arama yaparak belirtilen bir komutun tam yolunu gösterir. Bu, geliştiricilerin ve mühendislerin hangi sürümün veya hangi dosyanın çalıştırıldığını anlamalarına yardımcı olur.
+`which` komutu, belirtilen bir komutun veya programın sistemdeki dosya yolunu bulmak için kullanılır. Bu, bir komutun hangi dosya tarafından yürütüleceğini belirlemek için oldukça faydalıdır.
 
 ## Usage
-Temel sözdizimi şu şekildedir:
+Temel sözdizimi aşağıdaki gibidir:
 
 ```bash
-which [seçenekler] komut_adı
+which [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-a`: Belirtilen komutun tüm yollarını listelemek için kullanılır. Normalde `which`, yalnızca ilk bulunan yolu gösterir.
-- `--help`: Komut hakkında yardım bilgilerini görüntüler.
-- `--version`: `which` komutunun sürüm bilgilerini gösterir.
+## Common Options
+- `-a`: Belirtilen komutun tüm yollarını listelemek için kullanılır.
+- `-s`: Çıktıyı bastırır; sadece çıkış durumu döner.
+- `--help`: Yardım bilgilerini gösterir.
 
-## Examples
-### Örnek 1: Basit Kullanım
-Bir komutun yolunu bulmak için `which` komutunu kullanabilirsiniz. Örneğin, `python` komutunun nerede bulunduğunu öğrenmek için:
+## Common Examples
+Aşağıda `which` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-which python
-```
+1. Belirli bir komutun yolunu bulmak:
+   ```bash
+   which python
+   ```
 
-Bu komut, `python`'un sistemdeki tam yolunu döndürecektir.
+2. Birden fazla komutun yollarını listelemek:
+   ```bash
+   which git node npm
+   ```
 
-### Örnek 2: Tüm Yolları Listeleme
-Bir komutun birden fazla versiyonu varsa, `-a` seçeneği ile tüm yolları listeleyebilirsiniz:
+3. Tüm yolları listelemek için `-a` seçeneği ile kullanmak:
+   ```bash
+   which -a python
+   ```
 
-```bash
-which -a python
-```
-
-Bu komut, sistemdeki tüm `python` yollarını gösterecektir.
+4. Çıktıyı bastırmadan sadece çıkış durumu almak:
+   ```bash
+   which -s python
+   ```
 
 ## Tips
-- `which` komutunu kullanmadan önce, aradığınız komutun gerçekten sistemde yüklü olup olmadığını kontrol edin. Eğer yüklü değilse, `which` komutu herhangi bir çıktı vermez.
-- `which` komutu, yalnızca PATH ortam değişkeninde tanımlı dizinlerde arama yapar. Eğer bir komutun başka bir dizinde olduğunu düşünüyorsanız, o dizine gitmeli veya tam yolu belirtmelisiniz.
-- `which` komutunu sık sık kullanarak, sistemdeki komutların ve programların hangi sürümlerinin yüklü olduğunu takip edebilirsiniz. Bu, özellikle farklı projelerde çalışırken faydalı olabilir.
+- `which` komutunu sıkça kullandığınız komutların hangi dosyalardan geldiğini öğrenmek için kullanın.
+- Eğer bir komutun yüklü olup olmadığını kontrol etmek istiyorsanız, `which` komutu hızlı bir çözüm sunar.
+- `which` komutunun çıktısını başka komutlarla birleştirerek daha karmaşık işlemler gerçekleştirebilirsiniz.

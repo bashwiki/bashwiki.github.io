@@ -1,39 +1,44 @@
-# [리눅스] Bash at 사용법
+# [Linux] Bash tại at: [lên lịch thực thi lệnh]
 
-## Tổng quan
-Lệnh `at` trong Bash được sử dụng để lập lịch thực hiện một lệnh hoặc một tập hợp lệnh tại một thời điểm cụ thể trong tương lai. Lệnh này rất hữu ích cho việc tự động hóa các tác vụ mà bạn muốn thực hiện một lần sau một khoảng thời gian nhất định, chẳng hạn như sao lưu dữ liệu hoặc gửi email nhắc nhở.
+## Overview
+Lệnh `at` trong Bash cho phép người dùng lên lịch thực thi các lệnh hoặc tập lệnh vào một thời điểm cụ thể trong tương lai. Đây là một công cụ hữu ích cho việc tự động hóa các tác vụ mà bạn muốn thực hiện sau này.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `at` như sau:
-
 ```bash
-at [tuổi thọ] [tùy chọn]
+at [options] [time]
 ```
 
-Trong đó:
-- `[tuổi thọ]` là thời gian mà bạn muốn lệnh được thực hiện. Bạn có thể chỉ định thời gian theo nhiều định dạng khác nhau, ví dụ như `now + 1 hour`, `5:00 PM`, hoặc `2023-10-30 14:00`.
-- `[tùy chọn]` có thể bao gồm các tùy chọn như:
-  - `-f file`: Chỉ định một tệp chứa các lệnh cần thực hiện.
-  - `-m`: Gửi email thông báo khi lệnh đã được thực hiện.
-  - `-q`: Không gửi thông báo khi lệnh đã được thực hiện.
+## Common Options
+- `-f FILE`: Đọc lệnh từ tệp FILE thay vì từ stdin.
+- `-m`: Gửi email thông báo khi lệnh đã được thực thi.
+- `-q QUEUE`: Chỉ định hàng đợi để thực thi lệnh.
+- `-v`: Hiển thị thời gian khi lệnh sẽ được thực thi.
 
-## Ví dụ
-Dưới đây là một vài ví dụ về cách sử dụng lệnh `at`:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `at`:
 
-1. Lập lịch để thực hiện lệnh `echo` vào lúc 3 giờ chiều hôm nay:
+1. **Lên lịch thực thi một lệnh vào lúc 3 giờ chiều hôm nay:**
+   ```bash
+   echo "echo 'Hello, World!'" | at 15:00
+   ```
 
-```bash
-echo "Hello, World!" | at 15:00
-```
+2. **Lên lịch thực thi một tập lệnh vào ngày mai lúc 10 giờ sáng:**
+   ```bash
+   at 10:00 tomorrow -f /path/to/script.sh
+   ```
 
-2. Lập lịch để chạy một tệp shell script vào lúc 10 phút nữa:
+3. **Lên lịch gửi một email vào lúc 5 giờ chiều:**
+   ```bash
+   echo "mail -s 'Reminder' user@example.com <<< 'This is a reminder!'" | at 17:00
+   ```
 
-```bash
-at now + 10 minutes -f /path/to/script.sh
-```
+4. **Lên lịch một lệnh để chạy sau 1 giờ:**
+   ```bash
+   echo "shutdown now" | at now + 1 hour
+   ```
 
-## Mẹo
-- Để xem danh sách các tác vụ đã được lập lịch bằng lệnh `at`, bạn có thể sử dụng lệnh `atq`.
-- Nếu bạn muốn hủy một tác vụ đã lập lịch, bạn có thể sử dụng lệnh `atrm` theo sau là ID của tác vụ.
-- Hãy chắc chắn rằng dịch vụ `atd` đang chạy trên hệ thống của bạn để lệnh `at` hoạt động chính xác.
-- Bạn có thể sử dụng lệnh `at` trong các kịch bản tự động hóa để thực hiện các tác vụ định kỳ hoặc theo lịch trình một cách hiệu quả.
+## Tips
+- Đảm bảo rằng dịch vụ `atd` đang chạy trên hệ thống của bạn để lệnh `at` hoạt động.
+- Kiểm tra danh sách các lệnh đã lên lịch bằng cách sử dụng lệnh `atq`.
+- Hủy lệnh đã lên lịch bằng cách sử dụng lệnh `atrm [job number]`, trong đó `[job number]` là số của lệnh trong danh sách `atq`.

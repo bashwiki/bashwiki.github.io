@@ -1,35 +1,50 @@
-# [리눅스] Bash unalias 사용법
+# [Linux] Bash unalias Uso: Remove aliases definidos
 
 ## Overview
-O comando `unalias` é utilizado no Bash para remover aliases previamente definidos. Aliases são atalhos que permitem que os usuários substituam comandos longos ou complexos por versões mais curtas e fáceis de lembrar. O `unalias` é essencial quando você deseja desfazer um alias específico ou limpar todos os aliases definidos na sessão atual do terminal.
+O comando `unalias` é utilizado para remover aliases previamente definidos no shell Bash. Aliases são atalhos que permitem substituir comandos longos ou complexos por versões mais curtas e fáceis de lembrar. Quando você não precisa mais de um alias, pode usar `unalias` para excluí-lo.
 
 ## Usage
 A sintaxe básica do comando `unalias` é a seguinte:
 
 ```bash
-unalias [opções] [nome_do_alias]
+unalias [opções] [argumentos]
 ```
 
-### Opções Comuns
-- `-a`: Remove todos os aliases definidos na sessão atual.
+## Common Options
+- `-a`: Remove todos os aliases definidos no shell atual.
 - `-p`: Exibe todos os aliases atualmente definidos, sem removê-los.
 
-## Examples
-### Exemplo 1: Remover um alias específico
-Suponha que você tenha definido um alias chamado `ll` para listar arquivos em um formato detalhado. Para remover esse alias, você pode usar o seguinte comando:
+## Common Examples
 
-```bash
-unalias ll
-```
+1. **Remover um alias específico:**
+   Se você tiver um alias chamado `ll` que lista arquivos em formato detalhado, e quiser removê-lo, você pode usar:
 
-### Exemplo 2: Remover todos os aliases
-Se você deseja remover todos os aliases de uma vez, utilize a opção `-a`:
+   ```bash
+   unalias ll
+   ```
 
-```bash
-unalias -a
-```
+2. **Remover múltiplos aliases:**
+   Para remover mais de um alias de uma só vez, você pode listar os aliases separados por espaço:
+
+   ```bash
+   unalias ll gs
+   ```
+
+3. **Remover todos os aliases:**
+   Para remover todos os aliases definidos no shell atual, utilize a opção `-a`:
+
+   ```bash
+   unalias -a
+   ```
+
+4. **Listar todos os aliases:**
+   Para visualizar todos os aliases atualmente definidos, você pode usar a opção `-p`:
+
+   ```bash
+   unalias -p
+   ```
 
 ## Tips
-- Sempre verifique os aliases definidos antes de removê-los, utilizando o comando `alias` para listar todos os aliases ativos.
-- Considere adicionar aliases úteis ao seu arquivo `.bashrc` ou `.bash_profile` para facilitar o uso diário, mas lembre-se de que você pode removê-los a qualquer momento com `unalias`.
-- Utilize o comando `unalias` com cautela, especialmente ao usar a opção `-a`, pois isso removerá todos os aliases sem confirmação.
+- Sempre verifique quais aliases estão definidos antes de usar `unalias`, especialmente se você não tem certeza se um alias é importante.
+- Considere usar `unalias` em scripts para garantir que aliases não interfiram na execução de comandos.
+- Lembre-se de que a remoção de um alias é temporária e só se aplica à sessão atual do shell. Se você reiniciar o terminal, os aliases definidos no arquivo de configuração do shell (como `.bashrc`) ainda estarão lá.

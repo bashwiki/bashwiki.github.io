@@ -1,59 +1,42 @@
-# [리눅스] Bash bg 사용법
+# [Linux] Bash bg Utilisation : Mettre un processus en arrière-plan
 
 ## Overview
-La commande `bg` dans Bash est utilisée pour reprendre un processus qui a été suspendu (généralement avec la commande `Ctrl+Z`) et le faire fonctionner en arrière-plan. Cela permet aux utilisateurs de continuer à utiliser le terminal pour d'autres tâches tout en laissant le processus en cours d'exécution.
+La commande `bg` est utilisée dans un terminal Bash pour reprendre un processus suspendu et le faire fonctionner en arrière-plan. Cela permet à l'utilisateur de continuer à utiliser le terminal pour d'autres tâches tout en laissant le processus en cours d'exécution.
 
 ## Usage
 La syntaxe de base de la commande `bg` est la suivante :
 
 ```bash
-bg [job_spec]
+bg [options] [job_spec]
 ```
 
-- `job_spec` : Spécifie le travail à reprendre en arrière-plan. Si aucun argument n'est fourni, `bg` reprend le dernier travail suspendu.
+## Common Options
+- `job_spec` : Spécifie le travail à reprendre en arrière-plan. Cela peut être un numéro de travail (par exemple, `%1`) ou un identifiant de processus (PID).
 
-## Examples
-### Exemple 1 : Reprendre le dernier travail suspendu
-Supposons que vous ayez lancé un processus qui a été suspendu :
+## Common Examples
 
-```bash
-sleep 100
-```
-
-Vous pouvez suspendre ce processus en appuyant sur `Ctrl+Z`. Ensuite, pour le reprendre en arrière-plan, utilisez :
+### Exemple 1 : Reprendre un processus suspendu
+Si vous avez suspendu un processus avec `Ctrl+Z`, vous pouvez le reprendre en arrière-plan avec :
 
 ```bash
 bg
 ```
 
-### Exemple 2 : Reprendre un travail spécifique
-Si vous avez plusieurs travaux suspendus, vous pouvez les lister avec la commande `jobs` :
-
-```bash
-jobs
-```
-
-Cela affichera quelque chose comme :
-
-```
-[1]+  12345 Stopped                 sleep 100
-[2]-  12346 Stopped                 nano
-```
-
-Pour reprendre le travail numéro 1 en arrière-plan, utilisez :
+### Exemple 2 : Reprendre un processus spécifique
+Pour reprendre un processus spécifique (par exemple, le travail numéro 1), utilisez :
 
 ```bash
 bg %1
 ```
 
-## Tips
-- Utilisez la commande `jobs` pour voir tous les travaux en cours et leur état (suspendu ou en arrière-plan).
-- Vous pouvez combiner `bg` avec d'autres commandes comme `fg` pour gérer facilement vos processus.
-- Pensez à rediriger la sortie de vos processus en arrière-plan vers un fichier, surtout si le processus génère beaucoup de sorties, pour éviter de surcharger votre terminal. Par exemple :
+### Exemple 3 : Reprendre un processus avec un PID
+Si vous connaissez le PID du processus, vous pouvez le reprendre en arrière-plan avec :
 
 ```bash
-command > output.txt 2>&1 &
-bg
+bg %<PID>
 ```
 
-En utilisant ces conseils, vous pouvez gérer efficacement vos processus en arrière-plan avec la commande `bg`.
+## Tips
+- Utilisez `jobs` pour lister tous les travaux en cours et leurs états avant d'utiliser `bg`.
+- Vous pouvez combiner `bg` avec `disown` pour détacher un processus de votre terminal, ce qui permet à ce dernier de continuer à s'exécuter même après la fermeture du terminal.
+- Faites attention à la gestion des ressources, car plusieurs processus en arrière-plan peuvent consommer beaucoup de mémoire ou de CPU.

@@ -1,46 +1,41 @@
-# [리눅스] Bash compopt 사용법
+# [Linux] Bash compopt <Sử dụng tương đương>: Tùy chỉnh hành vi hoàn thành
 
 ## Tổng quan
-Lệnh `compopt` trong Bash được sử dụng để điều chỉnh các tùy chọn hoàn thành cho các lệnh và chức năng hoàn thành. Nó cho phép các nhà phát triển tùy chỉnh cách mà các gợi ý hoàn thành được hiển thị và xử lý trong shell, từ đó cải thiện trải nghiệm người dùng khi sử dụng các lệnh trong terminal.
+Lệnh `compopt` trong Bash được sử dụng để tùy chỉnh hành vi của các tùy chọn hoàn thành trong shell. Nó cho phép người dùng xác định cách mà các tùy chọn hoàn thành sẽ hoạt động trong các tình huống cụ thể.
 
-## Cách sử dụng
+## Cú pháp
 Cú pháp cơ bản của lệnh `compopt` như sau:
-
-```bash
-compopt [OPTIONS]
+```
+compopt [options] [arguments]
 ```
 
-### Tùy chọn phổ biến
-- `-o`: Chỉ định một tùy chọn hoàn thành cụ thể.
-- `-D`: Xóa một tùy chọn hoàn thành đã được thiết lập trước đó.
+## Các tùy chọn phổ biến
+- `-o`: Chỉ định một tùy chọn hoàn thành.
+- `-D`: Xóa tất cả các tùy chọn hoàn thành đã được thiết lập trước đó.
+- `-S`: Thiết lập một tùy chọn hoàn thành cho một từ khóa cụ thể.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `compopt`.
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng `compopt`:
 
 ### Ví dụ 1: Thiết lập tùy chọn hoàn thành
-Giả sử bạn đang tạo một hàm hoàn thành cho một lệnh tùy chỉnh và bạn muốn thiết lập một tùy chọn hoàn thành cho nó:
-
 ```bash
-_my_command() {
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    COMPREPLY=( $(compgen -W "option1 option2 option3" -- "$cur") )
-    compopt -o nospace
-}
-complete -F _my_command my_command
+compopt -o nospace
 ```
-Trong ví dụ này, khi người dùng nhập `my_command`, các tùy chọn sẽ được hoàn thành và không có khoảng trắng tự động thêm vào.
+Lệnh này thiết lập tùy chọn hoàn thành không thêm khoảng trắng sau khi hoàn thành.
 
-### Ví dụ 2: Xóa tùy chọn hoàn thành
-Nếu bạn muốn xóa một tùy chọn hoàn thành đã được thiết lập trước đó, bạn có thể sử dụng:
-
+### Ví dụ 2: Xóa tất cả tùy chọn hoàn thành
 ```bash
 compopt -D
 ```
-Điều này sẽ xóa tất cả các tùy chọn hoàn thành đã được thiết lập cho lệnh hiện tại.
+Lệnh này sẽ xóa tất cả các tùy chọn hoàn thành đã được thiết lập trước đó.
+
+### Ví dụ 3: Thiết lập tùy chọn cho một từ khóa
+```bash
+compopt -S mycommand
+```
+Lệnh này thiết lập tùy chọn hoàn thành cho từ khóa `mycommand`.
 
 ## Mẹo
-- Hãy chắc chắn rằng bạn hiểu rõ về các tùy chọn hoàn thành mà bạn đang thiết lập, vì chúng có thể ảnh hưởng đến cách mà người dùng tương tác với lệnh của bạn.
-- Sử dụng `compopt` trong các hàm hoàn thành của bạn để tạo ra trải nghiệm hoàn thành mượt mà và trực quan hơn cho người dùng.
-- Kiểm tra kỹ lưỡng các tùy chọn hoàn thành của bạn để đảm bảo rằng chúng hoạt động như mong đợi trước khi phát hành.
-
-Với lệnh `compopt`, bạn có thể tùy chỉnh trải nghiệm hoàn thành trong Bash một cách linh hoạt và hiệu quả.
+- Hãy chắc chắn rằng bạn đã hiểu rõ về các tùy chọn hoàn thành trước khi sử dụng `compopt` để tránh gây nhầm lẫn trong quá trình hoàn thành.
+- Thử nghiệm với các tùy chọn khác nhau để tìm ra cách tốt nhất cho nhu cầu của bạn.
+- Sử dụng `compopt` trong các hàm hoàn thành tùy chỉnh để cải thiện trải nghiệm người dùng khi nhập lệnh.

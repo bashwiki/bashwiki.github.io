@@ -1,53 +1,52 @@
-# [리눅스] Bash selinuxenabled 사용법
+# [Linux] Bash selinuxenabled Uso: Check SELinux status
 
 ## Overview
-The `selinuxenabled` command is a utility in Linux that checks whether SELinux (Security-Enhanced Linux) is enabled on the system. SELinux is a security architecture for Linux that provides a mechanism for supporting access control security policies. The primary purpose of `selinuxenabled` is to return an exit status indicating the status of SELinux, which can be useful in scripts and system administration tasks.
+The `selinuxenabled` command is a simple utility that checks whether SELinux (Security-Enhanced Linux) is enabled on the system. It returns an exit status of 0 if SELinux is enabled and 1 if it is not. This command is useful for scripts and system administration tasks where you need to verify the SELinux status.
 
 ## Usage
 The basic syntax of the `selinuxenabled` command is as follows:
 
 ```bash
-selinuxenabled
+selinuxenabled [options]
 ```
 
-This command does not take any options or arguments. It simply checks the SELinux status and returns an exit code:
+## Common Options
+The `selinuxenabled` command does not have any options. It is a straightforward command that simply checks the SELinux status.
 
-- **Exit Code 0**: SELinux is enabled.
-- **Exit Code 1**: SELinux is not enabled.
+## Common Examples
 
-## Examples
-
-### Example 1: Check if SELinux is enabled
-You can use the `selinuxenabled` command in a terminal to check if SELinux is active:
+### Check if SELinux is enabled
+To check if SELinux is enabled on your system, you can run:
 
 ```bash
 selinuxenabled
 ```
 
-If SELinux is enabled, you will see no output, and the command will return an exit status of 0. You can check the exit status by running:
+If SELinux is enabled, the command will exit with a status of 0. You can check the exit status using:
 
 ```bash
 echo $?
 ```
 
-If the output is `0`, SELinux is enabled. If it is `1`, SELinux is not enabled.
-
-### Example 2: Using in a script
-You can incorporate `selinuxenabled` in a shell script to conditionally execute commands based on the SELinux status:
+### Using in a script
+You can use `selinuxenabled` in a shell script to perform actions based on the SELinux status. For example:
 
 ```bash
-#!/bin/bash
-
 if selinuxenabled; then
     echo "SELinux is enabled."
-    # Additional commands for when SELinux is enabled
 else
     echo "SELinux is not enabled."
-    # Additional commands for when SELinux is not enabled
 fi
 ```
 
+### Conditional execution
+You can also use `selinuxenabled` in a one-liner for conditional execution:
+
+```bash
+selinuxenabled && echo "SELinux is enabled." || echo "SELinux is not enabled."
+```
+
 ## Tips
-- Use `selinuxenabled` in scripts to ensure that your commands are executed only when SELinux is enabled, which can help in maintaining security compliance.
-- Combine `selinuxenabled` with other commands to create more complex logic in your scripts, such as logging or alerting when SELinux is not enabled.
-- Always check the exit status immediately after running `selinuxenabled` to ensure you are capturing the correct state of SELinux.
+- Use `selinuxenabled` in scripts to ensure that your script behaves correctly depending on the SELinux status.
+- Remember that the exit status can be checked using `echo $?` immediately after running the command.
+- For more detailed SELinux status information, consider using the `sestatus` command, which provides additional context and configuration details.

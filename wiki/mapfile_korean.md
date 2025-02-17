@@ -1,44 +1,48 @@
-# [리눅스] Bash mapfile 사용법
+# [리눅스] Bash mapfile 사용법: 파일 내용을 배열로 읽기
 
 ## Overview
-`mapfile` 명령은 Bash에서 파일의 내용을 배열에 읽어오는 데 사용됩니다. 이 명령은 파일의 각 줄을 배열의 요소로 변환하여, 이후 스크립트에서 쉽게 접근하고 조작할 수 있도록 합니다. 주로 대량의 데이터를 처리할 때 유용하며, 파일의 내용을 메모리에 저장하여 빠르게 접근할 수 있게 합니다.
+`mapfile` 명령어는 파일의 내용을 읽어 배열에 저장하는 데 사용됩니다. 이 명령어는 파일의 각 줄을 배열의 요소로 변환하여 쉽게 처리할 수 있게 해줍니다.
 
 ## Usage
 기본 구문은 다음과 같습니다:
 
 ```bash
-mapfile [옵션] [배열이름]
+mapfile [options] [arguments]
 ```
 
-### 일반적인 옵션
-- `-n N`: 파일에서 읽어올 줄 수를 N으로 제한합니다.
-- `-s N`: 파일의 처음 N줄을 건너뜁니다.
+## Common Options
+- `-n N`: N개의 줄만 읽습니다.
+- `-s N`: N개의 줄을 건너뛰고 읽기 시작합니다.
 - `-t`: 각 줄의 끝에 있는 개행 문자를 제거합니다.
-- `-O N`: 배열의 시작 인덱스를 N으로 설정합니다.
 
-## Examples
+## Common Examples
+다음은 `mapfile` 명령어의 몇 가지 실용적인 예입니다.
 
-### 예제 1: 파일의 내용을 배열에 저장하기
-다음은 `example.txt` 파일의 내용을 배열 `lines`에 저장하는 간단한 예제입니다.
-
+### 예제 1: 파일 내용을 배열에 저장하기
 ```bash
-mapfile lines < example.txt
-echo "${lines[@]}"
+mapfile lines < filename.txt
 ```
-
-이 명령은 `example.txt`의 각 줄을 `lines` 배열의 요소로 저장하고, 배열의 내용을 출력합니다.
+이 명령어는 `filename.txt` 파일의 내용을 읽어 `lines` 배열에 저장합니다.
 
 ### 예제 2: 특정 줄 수만 읽기
-파일에서 처음 3줄만 읽어오는 예제입니다.
-
 ```bash
-mapfile -n 3 lines < example.txt
-echo "${lines[@]}"
+mapfile -n 5 lines < filename.txt
 ```
+이 명령어는 `filename.txt` 파일에서 처음 5줄만 읽어 `lines` 배열에 저장합니다.
 
-이 명령은 `example.txt`의 첫 3줄만 배열 `lines`에 저장하고, 해당 내용을 출력합니다.
+### 예제 3: 줄 건너뛰기
+```bash
+mapfile -s 2 lines < filename.txt
+```
+이 명령어는 `filename.txt` 파일의 처음 2줄을 건너뛰고 나머지 줄을 `lines` 배열에 저장합니다.
+
+### 예제 4: 개행 문자 제거하기
+```bash
+mapfile -t lines < filename.txt
+```
+이 명령어는 `filename.txt` 파일의 내용을 읽어 각 줄의 끝에 있는 개행 문자를 제거한 후 `lines` 배열에 저장합니다.
 
 ## Tips
-- `mapfile`을 사용할 때, 파일의 크기가 클 경우 메모리 사용량에 주의해야 합니다. 필요한 줄 수만 읽도록 `-n` 옵션을 활용하세요.
-- 배열의 내용을 반복적으로 사용해야 할 경우, `-t` 옵션을 사용하여 개행 문자를 제거하면 더 깔끔한 출력을 얻을 수 있습니다.
-- `mapfile`은 Bash 4.0 이상에서 지원되므로, 사용 중인 Bash 버전을 확인하는 것이 좋습니다.
+- `mapfile`을 사용할 때, 파일의 크기가 클 경우 메모리 사용량에 유의하세요.
+- 배열의 내용을 확인하려면 `printf '%s\n' "${lines[@]}"` 명령어를 사용하여 출력할 수 있습니다.
+- `mapfile`을 사용하여 스크립트에서 파일 내용을 쉽게 처리하고 조작할 수 있습니다.

@@ -1,45 +1,56 @@
-# [리눅스] Bash return 사용법
+# [Linux] Bash return <Sử dụng tương đương>: Trả về mã thoát của một lệnh
 
-## Tổng quan
-Lệnh `return` trong Bash được sử dụng để kết thúc một hàm và trả về một giá trị mã lỗi cho shell. Mã lỗi này có thể được sử dụng để xác định xem hàm đã thực hiện thành công hay không. Mặc định, một hàm trả về mã lỗi 0 nếu không có lỗi xảy ra, và các mã lỗi khác có thể được chỉ định bằng cách sử dụng lệnh `return`.
+## Overview
+Lệnh `return` trong Bash được sử dụng để trả về mã thoát từ một hàm. Mã thoát này thường được sử dụng để xác định xem hàm đã thực thi thành công hay không, với giá trị 0 thường biểu thị thành công và các giá trị khác biểu thị lỗi.
 
-## Cách sử dụng
+## Usage
 Cú pháp cơ bản của lệnh `return` như sau:
-
-```bash
-return [n]
+```
+return [options] [n]
 ```
 
-Trong đó `n` là một số nguyên từ 0 đến 255, đại diện cho mã lỗi mà bạn muốn trả về. Nếu không chỉ định `n`, lệnh `return` sẽ trả về mã lỗi của lệnh cuối cùng được thực thi trong hàm.
+## Common Options
+- `n`: Mã thoát mà bạn muốn trả về. Nếu không chỉ định, mã thoát cuối cùng của lệnh sẽ được sử dụng.
 
-## Ví dụ
-Dưới đây là một số ví dụ minh họa cách sử dụng lệnh `return` trong Bash:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `return`:
 
-### Ví dụ 1: Trả về mã lỗi thành công
+### Ví dụ 1: Trả về mã thoát mặc định
 ```bash
 my_function() {
-    echo "Hàm đang thực thi..."
+    echo "Đang thực hiện một số công việc..."
     return 0
 }
-
 my_function
-echo "Mã lỗi trả về: $?"
+echo "Mã thoát: $?"  # In ra mã thoát của hàm
 ```
-Trong ví dụ này, hàm `my_function` sẽ in ra một thông báo và trả về mã lỗi 0, cho biết rằng hàm đã thực hiện thành công.
 
-### Ví dụ 2: Trả về mã lỗi không thành công
+### Ví dụ 2: Trả về mã thoát tùy chỉnh
 ```bash
 my_function() {
-    echo "Đã xảy ra lỗi!"
+    echo "Có lỗi xảy ra!"
     return 1
 }
-
 my_function
-echo "Mã lỗi trả về: $?"
+echo "Mã thoát: $?"  # In ra mã thoát của hàm
 ```
-Ở ví dụ này, hàm `my_function` sẽ in ra một thông báo lỗi và trả về mã lỗi 1, cho biết rằng đã có lỗi xảy ra.
 
-## Mẹo
-- Sử dụng lệnh `return` trong các hàm để kiểm soát luồng thực thi của script. Điều này giúp bạn dễ dàng xử lý các tình huống lỗi và thực hiện các hành động thích hợp.
-- Luôn kiểm tra mã lỗi trả về bằng cách sử dụng biến `$?` ngay sau khi gọi hàm để đảm bảo rằng bạn biết được trạng thái thực thi của hàm.
-- Đặt mã lỗi rõ ràng và có ý nghĩa để dễ dàng xác định nguyên nhân lỗi khi cần thiết.
+### Ví dụ 3: Sử dụng trong một hàm kiểm tra
+```bash
+check_file() {
+    if [[ -f $1 ]]; then
+        echo "Tập tin tồn tại."
+        return 0
+    else
+        echo "Tập tin không tồn tại."
+        return 1
+    fi
+}
+check_file "test.txt"
+echo "Mã thoát: $?"  # In ra mã thoát của hàm
+```
+
+## Tips
+- Sử dụng mã thoát 0 để chỉ ra rằng hàm đã thực thi thành công và các giá trị khác để chỉ ra lỗi.
+- Kiểm tra mã thoát ngay sau khi gọi hàm để đảm bảo bạn nhận được kết quả chính xác.
+- Kết hợp lệnh `return` với các lệnh điều kiện để tạo ra các hàm mạnh mẽ và có thể xử lý lỗi tốt hơn.

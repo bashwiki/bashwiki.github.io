@@ -1,72 +1,59 @@
-# [리눅스] Bash jq 사용법
+# [Linux] Bash jq Uso: Procesar y filtrar datos JSON
 
 ## Overview
-`jq` es una herramienta de línea de comandos para procesar y manipular datos en formato JSON. Su propósito principal es permitir a los desarrolladores y a los ingenieros extraer, transformar y filtrar datos JSON de manera eficiente y sencilla. `jq` es especialmente útil en scripts de Bash y en la manipulación de datos en aplicaciones web y APIs.
+El comando `jq` es una herramienta de línea de comandos para procesar y manipular datos en formato JSON. Permite filtrar, transformar y extraer información de archivos JSON de manera sencilla y eficiente.
 
 ## Usage
-La sintaxis básica de `jq` es la siguiente:
+La sintaxis básica del comando `jq` es la siguiente:
 
 ```bash
-jq [opciones] 'expresión' archivo.json
+jq [opciones] [argumentos]
 ```
 
-### Opciones Comunes
-- `-c`: Produce salida compacta (una línea por objeto).
-- `-r`: Genera salida sin comillas, útil para obtener texto plano.
-- `-f archivo.jq`: Carga un archivo de filtros `jq` en lugar de pasar la expresión directamente en la línea de comandos.
-- `--arg nombre valor`: Define una variable que puede ser utilizada dentro de la expresión `jq`.
+## Common Options
+- `-c`: Salida compacta, sin espacios en blanco adicionales.
+- `-r`: Salida sin comillas, útil para obtener resultados en texto plano.
+- `-f <archivo>`: Cargar filtros desde un archivo.
+- `--arg <nombre> <valor>`: Pasar un argumento como variable.
 
-## Examples
-### Ejemplo 1: Extraer un campo específico
-Supongamos que tenemos un archivo `data.json` con el siguiente contenido:
+## Common Examples
 
-```json
-{
-  "nombre": "Juan",
-  "edad": 30,
-  "ciudad": "Madrid"
-}
-```
-
-Para extraer el campo `nombre`, usaríamos el siguiente comando:
+### Filtrar un campo específico
+Para extraer un campo específico de un archivo JSON, puedes usar el siguiente comando:
 
 ```bash
-jq '.nombre' data.json
+jq '.nombre' archivo.json
 ```
 
-Esto devolverá:
-
-```
-"Juan"
-```
-
-### Ejemplo 2: Filtrar una lista de objetos
-Si tenemos un archivo `usuarios.json` con el siguiente contenido:
-
-```json
-[
-  { "nombre": "Juan", "edad": 30 },
-  { "nombre": "Ana", "edad": 25 },
-  { "nombre": "Luis", "edad": 35 }
-]
-```
-
-Podemos filtrar los usuarios mayores de 30 años con el siguiente comando:
+### Filtrar múltiples campos
+Si deseas extraer varios campos, puedes hacerlo así:
 
 ```bash
-jq '.[] | select(.edad > 30)' usuarios.json
+jq '{nombre: .nombre, edad: .edad}' archivo.json
 ```
 
-Esto devolverá:
+### Usar un argumento
+Para pasar un argumento a `jq`, puedes utilizar la opción `--arg`:
 
-```json
-{
-  "nombre": "Luis",
-  "edad": 35
-}
+```bash
+jq --arg nombre "Juan" '.[] | select(.nombre == $nombre)' archivo.json
+```
+
+### Salida en formato plano
+Para obtener la salida en formato plano, sin comillas:
+
+```bash
+jq -r '.nombre' archivo.json
+```
+
+### Transformar datos
+Puedes transformar la estructura de un JSON con `jq`:
+
+```bash
+jq '{nuevoNombre: .nombre, nuevaEdad: .edad}' archivo.json
 ```
 
 ## Tips
-- Utiliza la opción `-r` si necesitas obtener texto plano en lugar de JSON, especialmente cuando trabajas con scripts que requieren salida limpia.
-- Familiarízate con la sintaxis de `jq`, ya que permite realizar operaciones complejas de filtrado y transformación de datos.
-- Puedes combinar múltiples filtros en una sola expresión para realizar tareas más complejas, lo que hace que `jq` sea una herramienta poderosa para la manipulación de datos JSON.
+- Siempre verifica la estructura de tu JSON antes de aplicar filtros, esto te ayudará a evitar errores.
+- Usa la opción `-c` para obtener una salida más compacta, especialmente útil al trabajar con grandes volúmenes de datos.
+- Combina `jq` con otros comandos de Unix para crear potentes tuberías de procesamiento de datos.

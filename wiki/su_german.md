@@ -1,40 +1,46 @@
-# [리눅스] Bash su 사용법
+# [Linux] Bash su Verwendung: Benutzerwechsel im Terminal
 
 ## Übersicht
-Der Befehl `su` (substitute user) wird in der Bash verwendet, um den Benutzerkontext zu wechseln. Primär wird er eingesetzt, um sich als ein anderer Benutzer, häufig als root, anzumelden. Dies ist besonders nützlich für Systemadministratoren, die administrative Aufgaben ausführen müssen, ohne sich abmelden und erneut anmelden zu müssen.
+Der `su`-Befehl (substitute user) wird verwendet, um den aktuellen Benutzer im Terminal zu wechseln. Standardmäßig wechselt er zu einem anderen Benutzer, oft zum Superuser (root), was Administratorrechte gewährt.
 
 ## Verwendung
-Die grundlegende Syntax des `su`-Befehls lautet:
+Die grundlegende Syntax des Befehls lautet:
 
-```bash
-su [OPTION] [BENUTZERNAME]
+```
+su [Optionen] [Benutzername]
 ```
 
-### Häufige Optionen:
-- `-` oder `--login`: Wechselt in die Umgebung des angegebenen Benutzers, als ob dieser sich gerade angemeldet hätte.
+## Häufige Optionen
+- `-l` oder `--login`: Startet eine neue Login-Sitzung für den angegebenen Benutzer.
 - `-c`: Führt einen Befehl als der angegebene Benutzer aus.
 - `-s`: Gibt die Shell an, die verwendet werden soll.
 
-## Beispiele
-### Beispiel 1: Wechsel zu root
-Um sich als root-Benutzer anzumelden, verwenden Sie einfach:
+## Häufige Beispiele
+Um zu einem anderen Benutzer zu wechseln, verwenden Sie:
 
 ```bash
-su -
+su benutzername
 ```
 
-Nach der Eingabe dieses Befehls werden Sie aufgefordert, das Passwort des root-Benutzers einzugeben. Nach erfolgreicher Eingabe haben Sie Zugriff auf alle administrativen Funktionen.
-
-### Beispiel 2: Ausführen eines Befehls als ein anderer Benutzer
-Um einen spezifischen Befehl als ein anderer Benutzer auszuführen, verwenden Sie die `-c`-Option:
+Um zu root zu wechseln und eine Login-Sitzung zu starten:
 
 ```bash
-su -c 'ls /root' benutzername
+su -l
 ```
 
-In diesem Beispiel wird der Befehl `ls /root` als der angegebene Benutzer ausgeführt, und Sie müssen das Passwort dieses Benutzers eingeben.
+Um einen spezifischen Befehl als ein anderer Benutzer auszuführen:
+
+```bash
+su -c 'Befehl' benutzername
+```
+
+Um die Shell für den Benutzer zu ändern:
+
+```bash
+su -s /bin/bash benutzername
+```
 
 ## Tipps
-- Verwenden Sie `su -`, um sicherzustellen, dass Sie die vollständige Umgebung des Zielbenutzers erhalten, was oft für die Ausführung von Befehlen erforderlich ist.
-- Seien Sie vorsichtig beim Arbeiten als root, da Sie unbeabsichtigt kritische Systemdateien ändern oder löschen können.
-- Wenn Sie häufig zwischen Benutzern wechseln müssen, könnte es sinnvoll sein, `sudo` zu verwenden, da es eine sicherere und flexiblere Möglichkeit bietet, Berechtigungen zu verwalten.
+- Verwenden Sie `su -l`, um sicherzustellen, dass die Umgebungsvariablen des neuen Benutzers geladen werden.
+- Seien Sie vorsichtig beim Arbeiten als root, um unbeabsichtigte Änderungen am System zu vermeiden.
+- Nutzen Sie `sudo`, wenn Sie nur gelegentlich Administratorrechte benötigen, um die Sicherheit zu erhöhen.

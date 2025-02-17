@@ -1,36 +1,47 @@
-# [리눅스] Bash killall 사용법
+# [Linux] Bash killall Uso: Terminar procesos por nombre
+
+El comando `killall` se utiliza para terminar procesos en ejecución basados en su nombre.
 
 ## Overview
-El comando `killall` se utiliza en sistemas Unix y Linux para terminar procesos en ejecución. A diferencia del comando `kill`, que requiere el ID del proceso (PID), `killall` permite finalizar todos los procesos que coinciden con un nombre específico. Esto es útil para gestionar aplicaciones que pueden estar ejecutándose en múltiples instancias.
+El comando `killall` permite enviar señales a todos los procesos que coinciden con un nombre específico. Es útil para gestionar y finalizar aplicaciones que no responden o que se están ejecutando en segundo plano.
 
 ## Usage
-La sintaxis básica del comando `killall` es la siguiente:
+La sintaxis básica del comando es la siguiente:
 
 ```bash
-killall [opciones] nombre_del_proceso
+killall [opciones] [nombre_del_proceso]
 ```
 
-### Opciones Comunes
-- `-u usuario`: Termina solo los procesos que pertenecen al usuario especificado.
-- `-9`: Envía una señal SIGKILL para forzar la terminación del proceso, ignorando cualquier limpieza que el proceso pueda necesitar realizar.
-- `-v`: Muestra información detallada sobre los procesos que se están terminando.
+## Common Options
+- `-u, --user`: Especifica el usuario cuyos procesos se desean terminar.
+- `-i, --interactive`: Pide confirmación antes de terminar cada proceso.
+- `-q, --quiet`: No muestra mensajes de error si no se encuentran procesos.
+- `-s, --signal`: Especifica la señal a enviar (por defecto es SIGTERM).
 
-## Examples
-### Ejemplo 1: Terminar un proceso por nombre
-Para finalizar todos los procesos de un programa llamado `firefox`, puedes usar el siguiente comando:
+## Common Examples
+Aquí hay algunos ejemplos prácticos del uso de `killall`:
 
-```bash
-killall firefox
-```
+1. Terminar todos los procesos de Firefox:
+   ```bash
+   killall firefox
+   ```
 
-### Ejemplo 2: Forzar la terminación de un proceso
-Si `firefox` no responde y deseas forzar su cierre, puedes utilizar:
+2. Terminar todos los procesos de un usuario específico:
+   ```bash
+   killall -u nombre_usuario
+   ```
 
-```bash
-killall -9 firefox
-```
+3. Terminar un proceso y pedir confirmación antes de cada uno:
+   ```bash
+   killall -i nombre_del_proceso
+   ```
+
+4. Enviar una señal diferente (por ejemplo, SIGKILL) a un proceso:
+   ```bash
+   killall -s SIGKILL nombre_del_proceso
+   ```
 
 ## Tips
-- **Precaución**: Utiliza `killall` con cuidado, ya que puede terminar múltiples instancias de un proceso, lo que podría afectar el trabajo de otros usuarios o servicios.
-- **Verificación**: Antes de usar `killall`, considera usar el comando `pgrep` para verificar qué procesos se verán afectados. Por ejemplo, `pgrep firefox` mostrará todos los PIDs de los procesos `firefox` en ejecución.
-- **Uso de usuario**: Si trabajas en un entorno compartido, es recomendable usar la opción `-u` para evitar terminar procesos de otros usuarios accidentalmente.
+- Asegúrate de tener los permisos necesarios para terminar procesos de otros usuarios.
+- Usa la opción `-q` si deseas evitar mensajes de error innecesarios.
+- Ten cuidado al usar `killall`, ya que puede terminar múltiples instancias de un proceso si no se especifica correctamente el nombre.

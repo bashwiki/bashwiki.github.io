@@ -1,37 +1,45 @@
-# [리눅스] Bash umount 사용법
+# [Linux] Bash umount: Ngắt kết nối hệ thống tập tin
 
-## Tổng quan
-Lệnh `umount` trong Bash được sử dụng để gỡ bỏ (unmount) một hệ thống tệp (filesystem) đã được gắn kết (mounted) trên một điểm gắn kết (mount point). Mục đích chính của lệnh này là giải phóng tài nguyên hệ thống và đảm bảo rằng không có dữ liệu nào bị mất khi ngắt kết nối thiết bị lưu trữ hoặc hệ thống tệp.
+## Overview
+Lệnh `umount` được sử dụng để ngắt kết nối một hệ thống tập tin đã được gắn kết (mount) trên hệ thống Linux. Khi bạn không còn cần truy cập vào một thiết bị lưu trữ hoặc hệ thống tập tin nào đó, bạn có thể sử dụng lệnh này để giải phóng tài nguyên và đảm bảo rằng không có dữ liệu nào bị mất.
 
-## Cú pháp
+## Usage
 Cú pháp cơ bản của lệnh `umount` như sau:
 
 ```bash
-umount [tùy chọn] <điểm_gắn_kết|thiết_bị>
+umount [options] [arguments]
 ```
 
-### Tùy chọn phổ biến
-- `-a`: Gỡ bỏ tất cả các hệ thống tệp được gắn kết trong tệp `/etc/mtab`.
-- `-f`: Gỡ bỏ hệ thống tệp ngay cả khi nó đang bận (force unmount).
-- `-l`: Gỡ bỏ hệ thống tệp một cách lười biếng (lazy unmount), nghĩa là nó sẽ được gỡ bỏ khi không còn sử dụng nữa.
-- `-r`: Gỡ bỏ hệ thống tệp và cố gắng khôi phục nếu có lỗi xảy ra.
+## Common Options
+- `-a`: Ngắt kết nối tất cả các hệ thống tập tin được gắn kết trong `/etc/mtab`.
+- `-f`: Ngắt kết nối một hệ thống tập tin ngay cả khi nó đang được sử dụng.
+- `-l`: Ngắt kết nối một hệ thống tập tin một cách "lazy", tức là sẽ ngắt kết nối khi không còn sử dụng nữa.
+- `-r`: Ngắt kết nối và cố gắng sửa chữa nếu có lỗi.
 
-## Ví dụ
-### Ví dụ 1: Gỡ bỏ một hệ thống tệp cụ thể
-Giả sử bạn đã gắn kết một thiết bị USB vào `/mnt/usb`, bạn có thể gỡ bỏ nó bằng cách sử dụng lệnh sau:
+## Common Examples
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `umount`:
 
-```bash
-umount /mnt/usb
-```
+1. Ngắt kết nối một thiết bị cụ thể:
+   ```bash
+   umount /dev/sdb1
+   ```
 
-### Ví dụ 2: Gỡ bỏ tất cả các hệ thống tệp
-Nếu bạn muốn gỡ bỏ tất cả các hệ thống tệp được gắn kết, bạn có thể sử dụng tùy chọn `-a`:
+2. Ngắt kết nối một hệ thống tập tin đã được gắn kết tại một thư mục:
+   ```bash
+   umount /mnt/usb
+   ```
 
-```bash
-umount -a
-```
+3. Ngắt kết nối tất cả các hệ thống tập tin:
+   ```bash
+   umount -a
+   ```
 
-## Mẹo
-- Trước khi gỡ bỏ một hệ thống tệp, hãy đảm bảo rằng không có tiến trình nào đang sử dụng nó. Bạn có thể sử dụng lệnh `lsof` để kiểm tra các tệp đang mở.
-- Sử dụng tùy chọn `-l` nếu bạn không thể gỡ bỏ hệ thống tệp ngay lập tức do nó đang bận, điều này sẽ giúp tránh mất dữ liệu.
-- Luôn kiểm tra trạng thái của hệ thống tệp sau khi gỡ bỏ để đảm bảo rằng không có lỗi xảy ra.
+4. Ngắt kết nối một hệ thống tập tin một cách "lazy":
+   ```bash
+   umount -l /mnt/usb
+   ```
+
+## Tips
+- Trước khi ngắt kết nối, hãy đảm bảo rằng không có tiến trình nào đang sử dụng hệ thống tập tin đó để tránh mất dữ liệu.
+- Sử dụng lệnh `lsof` để kiểm tra xem có tiến trình nào đang sử dụng hệ thống tập tin trước khi thực hiện lệnh `umount`.
+- Nếu bạn gặp khó khăn trong việc ngắt kết nối, hãy thử sử dụng tùy chọn `-f` để buộc ngắt kết nối, nhưng hãy cẩn thận với dữ liệu có thể bị mất.

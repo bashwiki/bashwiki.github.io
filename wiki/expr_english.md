@@ -1,57 +1,89 @@
-# [리눅스] Bash expr 사용법
+# [Linux] Bash expr Usage: Evaluate expressions and perform calculations
 
 ## Overview
-The `expr` command in Bash is a utility that evaluates expressions and performs arithmetic operations. It is primarily used for integer arithmetic, string manipulation, and logical operations. `expr` can be particularly useful in shell scripts where you need to perform calculations or evaluate conditions.
+The `expr` command in Bash is used to evaluate expressions and perform arithmetic calculations. It can handle integer arithmetic, string operations, and logical comparisons, making it a versatile tool for scripting and command-line operations.
 
 ## Usage
 The basic syntax of the `expr` command is as follows:
 
 ```bash
-expr expression
+expr [options] [arguments]
 ```
 
-### Common Options
-- **Arithmetic Operations**: You can perform basic arithmetic operations such as addition (`+`), subtraction (`-`), multiplication (`*`), and division (`/`).
-- **String Operations**: `expr` can also be used to evaluate string lengths and extract substrings.
-- **Logical Operations**: It supports logical comparisons like equality (`=`), inequality (`!=`), and relational operators (`<`, `>`, `<=`, `>=`).
+## Common Options
+- `+` : Addition operator.
+- `-` : Subtraction operator.
+- `*` : Multiplication operator (must be escaped as `\*` or enclosed in quotes).
+- `/` : Division operator.
+- `%` : Modulus operator.
+- `=` : String comparison operator.
+- `!=` : String inequality operator.
+- `>` : Greater than comparison.
+- `<` : Less than comparison.
+- `\` : Escape character for special characters.
 
-Note that when using `expr`, you need to be cautious with spaces and special characters, especially for multiplication, which requires escaping (`\*`).
+## Common Examples
 
-## Examples
-
-### Example 1: Basic Arithmetic
-To perform a simple addition of two numbers:
+### Basic Arithmetic
+To perform basic arithmetic operations:
 
 ```bash
-result=$(expr 5 + 3)
-echo "The result of 5 + 3 is: $result"
+expr 5 + 3
 ```
-
-This command will output:
-
-```
-The result of 5 + 3 is: 8
-```
-
-### Example 2: String Length
-To find the length of a string:
+Output: `8`
 
 ```bash
-string="Hello, World!"
-length=$(expr length "$string")
-echo "The length of the string is: $length"
+expr 10 - 4
 ```
+Output: `6`
 
-This command will output:
+### Multiplication
+To multiply two numbers, remember to escape the asterisk:
 
+```bash
+expr 4 \* 7
 ```
-The length of the string is: 13
+Output: `28`
+
+### Division
+To divide two numbers:
+
+```bash
+expr 20 / 4
 ```
+Output: `5`
+
+### Modulus
+To find the remainder of a division:
+
+```bash
+expr 10 % 3
+```
+Output: `1`
+
+### String Comparison
+To compare two strings:
+
+```bash
+expr "hello" = "hello"
+```
+Output: `1` (true)
+
+```bash
+expr "hello" != "world"
+```
+Output: `1` (true)
+
+### Logical Comparison
+To check if one number is greater than another:
+
+```bash
+expr 10 \> 5
+```
+Output: `1` (true)
 
 ## Tips
-- Always use quotes around strings to prevent word splitting and globbing issues.
-- For multiplication, remember to escape the asterisk (`*`) as `\*` to avoid it being interpreted as a wildcard.
-- If you are performing multiple operations, consider using parentheses to group expressions, but remember to escape them as well: `expr \( 5 + 3 \) \* 2`.
-- While `expr` is useful, consider using `$(( ))` for arithmetic operations in newer scripts, as it is more straightforward and supports floating-point arithmetic.
-
-By following these guidelines and examples, you can effectively utilize the `expr` command in your Bash scripts for various calculations and evaluations.
+- Always remember to escape the multiplication operator `*` or use quotes to avoid syntax errors.
+- Use parentheses to group expressions for clarity, especially in complex calculations.
+- For string operations, ensure that the strings are enclosed in quotes to prevent word splitting.
+- Consider using `$(( ))` for arithmetic operations in Bash, as it is often more straightforward and supports more complex expressions.

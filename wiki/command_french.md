@@ -1,39 +1,50 @@
-# [리눅스] Bash command 사용법
+# [Linux] Bash command usage : [afficher le contenu d'un fichier]
 
 ## Overview
-La commande `command` est utilisée dans les scripts Bash pour exécuter une commande sans que les fonctions ou les alias définis par l'utilisateur n'interfèrent. Son principal objectif est de permettre aux utilisateurs d'exécuter une commande spécifique, même si une fonction ou un alias du même nom existe dans l'environnement. Cela est particulièrement utile pour garantir que le comportement attendu d'une commande est respecté.
+La commande `cat` est utilisée pour afficher le contenu d'un fichier texte dans le terminal. Elle peut également être utilisée pour concaténer plusieurs fichiers et les afficher ou les rediriger vers un autre fichier.
 
 ## Usage
-La syntaxe de base de la commande `command` est la suivante :
+La syntaxe de base de la commande `cat` est la suivante :
 
 ```bash
-command [options] [arguments]
+cat [options] [fichiers]
 ```
 
-### Options courantes
-- `-v` : Affiche la version de la commande.
-- `-p` : Utilise le chemin par défaut pour rechercher la commande, ignorant les alias et les fonctions.
+## Common Options
+- `-n` : Numérote toutes les lignes de la sortie.
+- `-b` : Numérote seulement les lignes non vides.
+- `-E` : Affiche un symbole `$` à la fin de chaque ligne.
+- `-s` : Supprime les lignes vides répétées.
 
-## Examples
-Voici quelques exemples pratiques de l'utilisation de la commande `command`.
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de la commande `cat` :
 
-### Exemple 1 : Exécuter une commande sans alias
-Supposons que vous ayez défini un alias pour la commande `ls`. Pour exécuter la commande `ls` sans que l'alias n'interfère, vous pouvez utiliser :
+1. Afficher le contenu d'un fichier :
+   ```bash
+   cat fichier.txt
+   ```
 
-```bash
-command ls
-```
+2. Afficher plusieurs fichiers à la suite :
+   ```bash
+   cat fichier1.txt fichier2.txt
+   ```
 
-### Exemple 2 : Utiliser le chemin par défaut
-Si vous souhaitez exécuter la commande `echo` en utilisant le chemin par défaut, vous pouvez faire :
+3. Numéroter les lignes d'un fichier :
+   ```bash
+   cat -n fichier.txt
+   ```
 
-```bash
-command -p echo "Hello, World!"
-```
+4. Rediriger le contenu d'un fichier vers un autre fichier :
+   ```bash
+   cat fichier1.txt > fichier2.txt
+   ```
 
-Cela garantit que vous utilisez la version de `echo` qui se trouve dans le chemin par défaut, sans tenir compte d'éventuels alias.
+5. Supprimer les lignes vides répétées :
+   ```bash
+   cat -s fichier.txt
+   ```
 
 ## Tips
-- Utilisez `command` lorsque vous êtes confronté à des conflits entre des commandes, des alias ou des fonctions pour vous assurer que vous exécutez la version correcte de la commande.
-- Il est souvent utile de combiner `command` avec d'autres commandes pour éviter les comportements inattendus dans des scripts complexes.
-- Familiarisez-vous avec les alias et les fonctions que vous avez définis pour mieux comprendre quand utiliser `command`.
+- Utilisez `cat` avec prudence pour les fichiers très volumineux, car cela peut surcharger le terminal. Dans ce cas, envisagez d'utiliser `less` ou `more`.
+- Pour combiner plusieurs fichiers en un seul, vous pouvez utiliser `cat` avec la redirection `>` pour créer un nouveau fichier.
+- N'oubliez pas que `cat` peut également être utilisé pour créer un nouveau fichier en entrant du texte directement dans le terminal, en utilisant `cat > nouveau_fichier.txt`.

@@ -1,40 +1,51 @@
-# [리눅스] Bash iostat 사용법
+# [Linux] Bash iostat Cách sử dụng: Theo dõi hiệu suất I/O
 
 ## Tổng quan
-Lệnh `iostat` là một công cụ trong hệ điều hành Unix/Linux được sử dụng để theo dõi và báo cáo hoạt động của các thiết bị lưu trữ và CPU. Nó giúp người dùng phân tích hiệu suất hệ thống bằng cách cung cấp thông tin về thời gian sử dụng CPU và mức độ hoạt động của các thiết bị lưu trữ, từ đó hỗ trợ việc tối ưu hóa và khắc phục sự cố.
+Lệnh `iostat` được sử dụng để theo dõi và báo cáo hiệu suất của hệ thống đầu vào/đầu ra (I/O) của máy tính. Nó cung cấp thông tin về hoạt động của các thiết bị lưu trữ và phân vùng, giúp người dùng hiểu rõ hơn về hiệu suất của hệ thống.
 
-## Cú pháp
+## Cách sử dụng
 Cú pháp cơ bản của lệnh `iostat` như sau:
-
 ```bash
-iostat [tùy chọn] [thời gian] [số lần]
+iostat [options] [arguments]
 ```
 
-### Các tùy chọn phổ biến:
+## Tùy chọn phổ biến
 - `-c`: Hiển thị thông tin về CPU.
-- `-d`: Hiển thị thông tin về thiết bị lưu trữ.
-- `-x`: Hiển thị thông tin mở rộng về thiết bị lưu trữ.
-- `-h`: Hiển thị kết quả theo định dạng dễ đọc (kilo, mega).
-- `-p [tên thiết bị]`: Hiển thị thông tin cho một thiết bị cụ thể.
+- `-d`: Hiển thị thông tin về thiết bị I/O.
+- `-x`: Hiển thị thông tin chi tiết về thiết bị I/O, bao gồm cả các chỉ số mở rộng.
+- `-h`: Hiển thị kích thước đơn vị theo định dạng dễ đọc (ví dụ: KB, MB).
+- `interval`: Thời gian giữa các lần báo cáo (tính bằng giây).
+- `count`: Số lần báo cáo sẽ được thực hiện.
 
-## Ví dụ
-### Ví dụ 1: Hiển thị thông tin CPU và thiết bị lưu trữ
-Để xem thông tin về CPU và thiết bị lưu trữ, bạn có thể sử dụng lệnh sau:
+## Ví dụ phổ biến
+Dưới đây là một số ví dụ thực tế về cách sử dụng lệnh `iostat`:
 
-```bash
-iostat -c -d 2 5
-```
-Lệnh này sẽ báo cáo thông tin về CPU và thiết bị lưu trữ mỗi 2 giây, tổng cộng 5 lần.
+1. Hiển thị thông tin cơ bản về CPU và I/O:
+   ```bash
+   iostat
+   ```
 
-### Ví dụ 2: Hiển thị thông tin mở rộng về thiết bị lưu trữ
-Để xem thông tin mở rộng cho tất cả các thiết bị lưu trữ, bạn có thể chạy:
+2. Hiển thị thông tin về CPU và thiết bị I/O mỗi 5 giây:
+   ```bash
+   iostat -c -d 5
+   ```
 
-```bash
-iostat -x 1 3
-```
-Lệnh này sẽ cung cấp thông tin mở rộng về các thiết bị lưu trữ mỗi giây, tổng cộng 3 lần.
+3. Hiển thị thông tin chi tiết về thiết bị I/O:
+   ```bash
+   iostat -x
+   ```
+
+4. Hiển thị thông tin I/O với kích thước dễ đọc:
+   ```bash
+   iostat -h
+   ```
+
+5. Theo dõi hiệu suất I/O mỗi 10 giây và thực hiện 3 lần:
+   ```bash
+   iostat 10 3
+   ```
 
 ## Mẹo
-- Sử dụng tùy chọn `-h` để có được kết quả dễ đọc hơn, đặc biệt khi làm việc với các số liệu lớn.
-- Kết hợp `iostat` với các công cụ khác như `vmstat` hoặc `mpstat` để có cái nhìn tổng thể hơn về hiệu suất hệ thống.
-- Theo dõi thường xuyên hiệu suất hệ thống của bạn để phát hiện sớm các vấn đề tiềm ẩn và tối ưu hóa tài nguyên.
+- Sử dụng tùy chọn `-x` để có cái nhìn sâu hơn về hiệu suất của từng thiết bị, giúp bạn phát hiện các vấn đề tiềm ẩn.
+- Kết hợp `iostat` với các lệnh khác như `grep` để lọc thông tin cần thiết.
+- Theo dõi thường xuyên hiệu suất I/O để phát hiện sớm các vấn đề và tối ưu hóa hiệu suất hệ thống.

@@ -1,40 +1,49 @@
-# [리눅스] Bash 7z 사용법
+# [Linux] Bash 7z Cách sử dụng: Nén và giải nén tệp
 
 ## Tổng quan
-Lệnh `7z` là một công cụ nén và giải nén file mạnh mẽ, thuộc về phần mềm 7-Zip. Nó hỗ trợ nhiều định dạng nén khác nhau và cho phép người dùng nén, giải nén, và quản lý các file nén một cách hiệu quả. Lệnh này rất hữu ích cho các kỹ sư và nhà phát triển khi cần tiết kiệm không gian lưu trữ hoặc chia sẻ nhiều file trong một gói.
+Lệnh `7z` là một công cụ mạnh mẽ để nén và giải nén các tệp tin. Nó hỗ trợ nhiều định dạng nén khác nhau và thường được sử dụng để tiết kiệm không gian lưu trữ hoặc để chia sẻ tệp tin dễ dàng hơn.
 
 ## Cách sử dụng
 Cú pháp cơ bản của lệnh `7z` như sau:
 
 ```
-7z [tùy chọn] [hành động] [file đầu vào] [file đầu ra]
+7z [options] [arguments]
 ```
 
-### Một số tùy chọn phổ biến:
-- `a`: Thêm file vào archive (nén file).
-- `x`: Giải nén file từ archive.
-- `l`: Liệt kê nội dung của archive.
-- `d`: Xóa file từ archive.
-- `t`: Kiểm tra tính toàn vẹn của archive.
+## Các tùy chọn phổ biến
+- `a`: Thêm tệp vào một tệp nén mới.
+- `x`: Giải nén tệp.
+- `l`: Liệt kê nội dung của tệp nén.
+- `d`: Xóa tệp trong tệp nén.
+- `t`: Kiểm tra tính toàn vẹn của tệp nén.
 
-## Ví dụ
-### Ví dụ 1: Nén file
-Để nén một file có tên `example.txt` thành file nén `example.7z`, bạn có thể sử dụng lệnh sau:
+## Ví dụ phổ biến
+- Nén một thư mục thành tệp `.7z`:
+    ```bash
+    7z a archive.7z /path/to/directory
+    ```
 
-```bash
-7z a example.7z example.txt
-```
+- Giải nén tệp `.7z`:
+    ```bash
+    7z x archive.7z
+    ```
 
-### Ví dụ 2: Giải nén file
-Để giải nén file `example.7z` vào thư mục hiện tại, bạn có thể sử dụng lệnh sau:
+- Liệt kê nội dung của tệp nén:
+    ```bash
+    7z l archive.7z
+    ```
 
-```bash
-7z x example.7z
-```
+- Xóa một tệp trong tệp nén:
+    ```bash
+    7z d archive.7z file_to_delete.txt
+    ```
+
+- Kiểm tra tính toàn vẹn của tệp nén:
+    ```bash
+    7z t archive.7z
+    ```
 
 ## Mẹo
-- Khi nén nhiều file, bạn có thể sử dụng ký tự đại diện (`*`) để chọn nhiều file cùng loại. Ví dụ: `7z a archive.7z *.txt` sẽ nén tất cả các file `.txt` trong thư mục hiện tại.
-- Để tăng tốc độ nén, bạn có thể sử dụng tùy chọn `-mx=9` để nén ở mức cao nhất, nhưng điều này có thể làm tăng thời gian nén.
-- Hãy kiểm tra tính toàn vẹn của archive bằng cách sử dụng tùy chọn `t` để đảm bảo rằng file nén không bị hỏng.
-
-Lệnh `7z` là một công cụ rất hữu ích cho việc quản lý file nén, và với các tùy chọn linh hoạt, nó có thể đáp ứng nhiều nhu cầu khác nhau của người dùng.
+- Luôn kiểm tra tính toàn vẹn của tệp nén sau khi giải nén để đảm bảo không có lỗi xảy ra.
+- Sử dụng tùy chọn `-p` để bảo vệ tệp nén bằng mật khẩu.
+- Thực hiện nén với mức độ nén cao hơn bằng cách thêm tùy chọn `-mx=9` để tiết kiệm không gian lưu trữ.

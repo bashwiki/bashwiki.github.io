@@ -1,44 +1,53 @@
-# [리눅스] Bash lsblk 사용법
+# [Linux] Bash lsblk Utilisation : Afficher les périphériques de bloc
 
 ## Overview
-La commande `lsblk` (list block devices) est utilisée pour afficher des informations sur les périphériques de bloc disponibles sur un système Linux. Elle permet aux utilisateurs de visualiser la hiérarchie des périphériques de stockage, y compris les disques durs, les partitions et les volumes logiques. C'est un outil essentiel pour les ingénieurs et les développeurs qui souhaitent gérer et surveiller les périphériques de stockage.
+La commande `lsblk` est utilisée pour afficher des informations sur les périphériques de bloc disponibles sur un système Linux. Elle fournit une vue hiérarchique des disques, partitions et autres périphériques de stockage, ce qui est utile pour la gestion des disques.
 
 ## Usage
 La syntaxe de base de la commande `lsblk` est la suivante :
 
 ```bash
-lsblk [options]
+lsblk [options] [arguments]
 ```
 
-### Options courantes :
-- `-a`, `--all` : Affiche tous les périphériques, y compris ceux qui ne sont pas montés.
-- `-f`, `--fs` : Affiche des informations sur le système de fichiers, y compris le type de système de fichiers et l'étiquette.
-- `-l`, `--list` : Affiche les périphériques sous forme de liste plutôt que sous forme d'arborescence.
-- `-o`, `--output` : Permet de spécifier les colonnes à afficher. Par exemple, `lsblk -o NAME,SIZE,TYPE,MOUNTPOINT`.
-- `-p`, `--paths` : Affiche les chemins complets des périphériques.
+## Common Options
+Voici quelques options courantes pour la commande `lsblk` :
 
-## Examples
-### Exemple 1 : Afficher la liste des périphériques de bloc
-Pour afficher tous les périphériques de bloc disponibles sur votre système, utilisez la commande suivante :
+- `-a` : Affiche tous les périphériques, y compris ceux qui ne sont pas montés.
+- `-f` : Affiche les informations sur le système de fichiers.
+- `-l` : Affiche la sortie sous forme de liste, plutôt que de l'arborescence par défaut.
+- `-o` : Permet de spécifier les colonnes à afficher.
+- `-p` : Affiche les chemins complets des périphériques.
 
-```bash
-lsblk
-```
+## Common Examples
+Voici quelques exemples pratiques de l'utilisation de `lsblk` :
 
-Cela affichera une liste des disques et partitions avec leurs tailles et points de montage.
+1. **Afficher tous les périphériques de bloc :**
+   ```bash
+   lsblk
+   ```
 
-### Exemple 2 : Afficher les informations sur le système de fichiers
-Pour obtenir des informations détaillées sur les systèmes de fichiers des périphériques de bloc, vous pouvez utiliser l'option `-f` :
+2. **Afficher tous les périphériques, y compris ceux non montés :**
+   ```bash
+   lsblk -a
+   ```
 
-```bash
-lsblk -f
-```
+3. **Afficher les informations sur le système de fichiers :**
+   ```bash
+   lsblk -f
+   ```
 
-Cela affichera des informations supplémentaires, telles que le type de système de fichiers et l'étiquette.
+4. **Afficher la sortie sous forme de liste :**
+   ```bash
+   lsblk -l
+   ```
+
+5. **Afficher des colonnes spécifiques (par exemple, NAME, SIZE, TYPE) :**
+   ```bash
+   lsblk -o NAME,SIZE,TYPE
+   ```
 
 ## Tips
-- Utilisez l'option `-o` pour personnaliser les colonnes affichées selon vos besoins spécifiques. Cela peut rendre la sortie plus lisible et pertinente.
-- Combinez `lsblk` avec d'autres commandes comme `grep` pour filtrer les résultats. Par exemple, pour trouver un périphérique spécifique, vous pouvez exécuter `lsblk | grep sda`.
-- Pensez à utiliser `lsblk -a` pour voir tous les périphériques, même ceux qui ne sont pas montés, ce qui peut être utile lors de la gestion de disques externes ou de partitions non utilisées.
-
-En utilisant `lsblk`, vous pouvez facilement obtenir une vue d'ensemble de votre configuration de stockage et prendre des décisions éclairées concernant la gestion de vos périphériques de bloc.
+- Utilisez `lsblk` avec l'option `-f` pour obtenir des informations détaillées sur le système de fichiers, ce qui peut être utile pour le dépannage.
+- Combinez `lsblk` avec d'autres commandes comme `grep` pour filtrer les résultats selon vos besoins.
+- Pour une vue plus détaillée, envisagez d'utiliser `lsblk` avec l'option `-p` pour obtenir les chemins complets des périphériques.

@@ -1,37 +1,52 @@
-# [리눅스] Bash df 사용법
+# [Linux] Bash df Kullanımı: Disk alanı bilgisi gösterir
 
-## Genel Bakış
-`df` komutu, Linux ve Unix benzeri işletim sistemlerinde disk alanı kullanımını görüntülemek için kullanılır. Bu komut, dosya sistemlerinin ne kadar alan kullandığını ve ne kadar boş alan kaldığını gösterir. Sistem yöneticileri ve geliştiriciler için, sistemin depolama durumu hakkında hızlı bir genel bakış sağlamak açısından oldukça faydalıdır.
+## Overview
+`df` komutu, sistemdeki dosya sistemlerinin disk alanı kullanımını gösterir. Bu komut, her bir dosya sisteminin toplam, kullanılan ve boş alan miktarını görüntüleyerek kullanıcıların disk alanı yönetimini kolaylaştırır.
 
-## Kullanım
-`df` komutunun temel sözdizimi şu şekildedir:
-
+## Usage
+Temel sözdizimi aşağıdaki gibidir:
 ```bash
-df [seçenekler] [dosya_sistemi]
+df [options] [arguments]
 ```
 
-### Yaygın Seçenekler
-- `-h`: İnsan tarafından okunabilir formatta çıktı verir (örneğin, KB, MB, GB).
-- `-T`: Dosya sisteminin türünü gösterir.
-- `-a`: Tüm dosya sistemlerini, boş olanlar dahil, gösterir.
-- `-i`: İnode kullanımını gösterir, bu da dosya sistemindeki dosya sayısını temsil eder.
+## Common Options
+- `-h`: İnsan tarafından okunabilir formatta (örneğin, KB, MB, GB) çıktı verir.
+- `-T`: Dosya sisteminin türünü de gösterir.
+- `-a`: Tüm dosya sistemlerini, boş olanlar dahil, listeler.
+- `-i`: İnod sayısını gösterir; dosya sisteminin inode kullanımını görüntüler.
 
-## Örnekler
-### Örnek 1: Temel Kullanım
-Aşağıdaki komut, mevcut dosya sistemlerinin disk alanı kullanımını gösterir:
+## Common Examples
+Aşağıda `df` komutunun bazı yaygın kullanım örnekleri bulunmaktadır:
 
-```bash
-df
-```
+1. **Temel Disk Kullanım Bilgisi**
+   ```bash
+   df
+   ```
 
-### Örnek 2: İnsan Okunabilir Format
-Aşağıdaki komut, disk alanı kullanımını insan tarafından okunabilir formatta gösterir:
+2. **İnsan Okunabilir Format**
+   ```bash
+   df -h
+   ```
 
-```bash
-df -h
-```
+3. **Dosya Sistemi Türü ile Birlikte Gösterim**
+   ```bash
+   df -T
+   ```
 
-## İpuçları
-- `df` komutunu düzenli olarak çalıştırarak sisteminizin disk alanı kullanımını izlemek, gereksiz dosyaların silinmesi veya depolama alanının genişletilmesi gerektiğinde proaktif olmanıza yardımcı olabilir.
-- `df -T` seçeneği ile dosya sisteminin türünü de görebilir, bu sayede hangi dosya sisteminin hangi alanı kullandığını daha iyi anlayabilirsiniz.
-- Disk alanı sorunlarıyla karşılaşmamak için, kritik sistem dosyalarının bulunduğu dosya sistemlerinin kullanımını düzenli olarak kontrol edin.
+4. **Tüm Dosya Sistemlerini Listeleme**
+   ```bash
+   df -a
+   ```
+
+5. **İnod Kullanımını Gösterme**
+   ```bash
+   df -i
+   ```
+
+## Tips
+- Disk alanı yönetimi için `df` komutunu düzenli olarak kullanarak sisteminizin durumunu kontrol edin.
+- `df -h` seçeneği ile çıktıyı daha anlaşılır hale getirerek, disk alanı kullanımını hızlıca değerlendirin.
+- Eğer belirli bir dosya sisteminin durumunu kontrol etmek istiyorsanız, dosya sisteminin yolunu argüman olarak verebilirsiniz. Örneğin:
+  ```bash
+  df -h /home
+  ```
